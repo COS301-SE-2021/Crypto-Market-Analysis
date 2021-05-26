@@ -1,70 +1,42 @@
-# Getting Started with Create React App
+# Crypto Market Analysis
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Table of Contents
+- [Project Vision and Objectives](#project-vision-and-objectives)  
+- [Documentation](#documentation)
+- [Demo Videos](#demo-videos)  
+- [Project Management](#project-management)
+- [Collaborators](#collaborators)
+## Project Vision and Objectives
+Crypto Market Analysis is a scraper application which will alert individuals about the market changes for 
+the cryptocurrency of their choice, and will aim to predict future changes based on information it 
+gathers from popular social media sites e.g., Facebook, Twitter, Reddit etc. The current cryptocurrency 
+market is volatile and constantly changing, thus timely and accurate information is priceless and can be 
+the deciding factor between losing or gaining thousands of Rands.
 
-## Available Scripts
+The core functionality of Crypto Market Analysis involves connecting to the various social media sites, 
+and constantly getting information about the state of the cryptocurrency market. This will be done by 
+constantly retrieving information when tags relating to the cryptocurrency appears e.g., #bitcoin and by 
+identifying when the cryptocurrency has been mentioned in a normal sentence without the use of the 
+tag e.g., Bitcoin to the moon. This will allow the application to understand what the state of the market 
+is and inform the user if it is about to change.
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Documentation
+- [User Manual]()
+- [SRS Document]()
+- [Coding Standard]()
+- [Technical Installation Guide]()
+## Demo Videos
+- [Demo 1]()
+- [Demo 2]()
+- [Demo 3]()
+- [Demo 4]()
+## Project Management
+- [Github Project Board]()
+- [Discord]()
+- [ClickUp]()
+## Collaborators
+| Team Member | Profile |
+| ----------- | ------- |
+| <img src="https://media-exp1.licdn.com/dms/image/C4D03AQFjJBK2bJ7ouQ/profile-displayphoto-shrink_800_800/0/1618577870324?e=1627516800&v=beta&t=6nrD6N08oe_w2qdP2qhv4nwP2SrRziSet50cA5WzStI" style="width:10em"> | [Github](https://github.com/Zee864/Zee864) [Linkedin](https://www.linkedin.com/in/zeeshaan-alekar-bb5107210/) |
+| <img src="https://media-exp1.licdn.com/dms/image/C4D03AQHmAT8DMMsJxQ/profile-displayphoto-shrink_200_200/0/1556401991717?e=1627516800&v=beta&t=gRM6pH7lWpWjNN6_C_8rKcyhjWcilkeHZoxWoutMXe4" style="width:10em"> | [Github](https://github.com/MelussiMkhonta) [Linkedin](https://www.linkedin.com/in/dinho-mkhonta-997b85185/) | 
+| <img src="https://media-exp1.licdn.com/dms/image/C4D03AQFCuFCADPonVQ/profile-displayphoto-shrink_200_200/0/1618497881777?e=1627516800&v=beta&t=JVs0l4KOj23XiDOKPpVqPAm3dm3LKXvFtL7mfpJoa9M" style="width:10em"> | [Github](https://github.com/u18037951) [Linkedin](https://www.linkedin.com/in/lerato-moselane-b7aa9220b/) | 

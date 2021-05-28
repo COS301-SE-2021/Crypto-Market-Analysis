@@ -3,10 +3,11 @@ const app = express();
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-
+const dotenv = require('dotenv');
+dotenv.config();
 const userRoutes = require('./routes/user');
 
-mongoose.connect()
+mongoose.connect("mongodb+srv://codex:"+process.env.MongoPassword+"@codex.z7mgz.mongodb.net/Codex?retryWrites=true&w=majority")
 mongoose.Promise = global.Promise;
 
 app.use(morgan("dev"));
@@ -45,4 +46,3 @@ app.use((error, req, res, next) => {
 });
 
 module.exports = app;
-//"mongodb+srv://codex:codex@codex.z7mgz.mongodb.net/Codex?retryWrites=true&w=majority"

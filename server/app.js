@@ -25,7 +25,7 @@ app.use((req, res, next) => {
         return res.status(200).json({});
     }
     next();
-});
+})
 
 // Routes which should handle requests
 app.use("/user", userRoutes);

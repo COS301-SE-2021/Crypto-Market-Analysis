@@ -10,6 +10,7 @@ const nodemailer = require('nodemailer');
 const mongoose = require("mongoose");
 const User = require("../models/user")
 const Token = require("../models/verification")
+
 router.post(
     "/signup",(request,response,next) =>
     {
@@ -20,7 +21,8 @@ router.post(
                     return response.status(400).json({
                         message: "User already registered"
                     });
-                } else{
+                }
+                else{
 
                     bcrypt.hash(request.body.password, 10, (err, hash) => {
                         if(err)
@@ -111,6 +113,5 @@ router.delete("/:Email", (req, res, next) => {
             });
         });
 });
-
 
 module.exports = router;

@@ -11,15 +11,22 @@ const jwt = require('jsonwebtoken');
 
 const secret_token = 'kabdaskjndbjhbkjaishouvhadjkljaosiuiygm';
 
-mongoose.connect('mongodb://localhost:27017/login-app-db',{
-
+mongoose.connect("mongodb+srv://codex:codex@codex.z7mgz.mongodb.net/Codex?retryWrites=true&w=majority",{
 
 });
+
 const app = express();
 
 app.use('/', express.static(path.join(_dirname, 'static')));
 app.use(bodyParser.json());
 
+/**
+ * use post method to  perform http request
+ *@param /api/updatePassword API route
+ * @param {async} function for response and requests
+ * @param request request sent to server
+ * @param response response received from server
+ */
 app.post('/api/updatePassword', async (request, response) => {
 
     const {token, newPassword: plainTextPassword} = request.body;
@@ -53,8 +60,14 @@ app.post('/api/updatePassword', async (request, response) => {
 
 });
 
-
-app.post('/api/pages/login', async (request, response) => {
+/**
+ * use post method to  perform http request
+ *@param /api/updatePassword API route
+ * @param {async} function for response and requests
+ * @param request request sent to server
+ * @param response response received from server
+ */
+app.post('/api/login', async (request, response) => {
     const {userName, password: plainTextPassword } = request.body;
     const user = await User.find({userName}).lean();
 
@@ -67,7 +80,7 @@ app.post('/api/pages/login', async (request, response) => {
     if(await bcrypt.compare(plainTextPassword, user.password)){
         //password and username match an existing user
 
-        const token = jwt.sign({id: user.ID, username: user.username}, secret_token);
+        const token = jwt.sign({id: user.ID, username: user.userName}, secret_token);
         return response.json({status: 'ok', data: token})
     }
     response.json({status: 'error', error: 'Invalid username/password entered'})
@@ -77,3 +90,5 @@ app.listen(9999, ()=> {
 
     console.log('Server ports go up to 9999')
 });
+
+

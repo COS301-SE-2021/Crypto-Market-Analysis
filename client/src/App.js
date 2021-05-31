@@ -3,6 +3,7 @@ import {Route, Link} from "react-router-dom";
 import login from "./components/login/login";
 import register from "./components/login/register";
 import splash from "./components/login/splash";
+import Home from "./components/Home/Home";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Route exact path="/" component={splash}></Route>
       <Route exact path="/register" component={register}></Route>
       <Route exact path="/login" component={login}></Route>
+        <Route exact path="/home" component={Home}></Route>
         {/*<video autoPlay loop className="video-background" muted plays-inline>*/}
         {/*    <source src="/Splash/Splash.mp4" type="video/mp4"/>*/}
         {/*</video>*/}

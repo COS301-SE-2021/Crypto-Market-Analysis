@@ -51,8 +51,8 @@ router.post(
                                         if(err){
                                             return response.status(500).send({msg: err.message});
                                         }
-                                        var transporter = nodemailer.createTransport({ service: 'gmail', auth: { user: process.env.SENDGRID_USERNAME, pass: process.env.SENDGRID_PASSWORD } });
-                                        var mailOptions = { from: process.env.SENDGRID_USERNAME, to: request.body.email, subject: 'Account Verification Token', text: 'Hello,\n\n' + 'Please verify your account by Entering this code when you log in: ' + token.token + '.\n' };
+                                        var transporter = nodemailer.createTransport({ service: 'gmail', auth: { user: process.env.EMAIL_USERNAME, pass: process.env.EMAIL_PASSWORD } });
+                                        var mailOptions = { from: process.env.EMAIL_USERNAME, to: request.body.email, subject: 'Account Verification Token', text: 'Hello,\n\n' + 'Please verify your account by Entering this code when you log in: ' + token.token + '.\n' };
                                         transporter.sendMail(mailOptions, function (err) {
                                             if (err) { return response.status(500).send({ msg: err.message }); }
                                             response.status(200).send('A verification email has been sent to ' + request.body.email+ '.');

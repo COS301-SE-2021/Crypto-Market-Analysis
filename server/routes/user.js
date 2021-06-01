@@ -80,6 +80,13 @@ router.post(
             });
     }
 
+    /*userFunctions.add_user(request.body.email, request.body.username, request.body.password).then(error => {
+        if (error === null)
+            response.status(200).json({ message: "User registered" });
+        else
+            response.status(500).json({message: error});
+    })*/
+
 );
 router.post("/verify",(request, response, next)=>
 {
@@ -101,7 +108,7 @@ router.post("/verify",(request, response, next)=>
 
 router.delete("/:Email", (req, res, next) => {
     let email = req.params.Email;
-    userFunctions(email).then(error => {
+    userFunctions.deleteUser(email).then(error => {
         if (error === null) {
             res.status(200).json({
                 message: "User deleted"
@@ -112,7 +119,7 @@ router.delete("/:Email", (req, res, next) => {
                 error: error
             });
         }
-    })
+    });
 });
 
 module.exports = router;

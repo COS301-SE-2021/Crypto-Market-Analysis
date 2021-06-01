@@ -68,15 +68,15 @@ describe('POST /user', () => {
             })
             .catch(err => done(err))
     });
-    //Used to delete an email from the database
-    it('Deletes email from the database', done => {
-        request(app)
-            .delete('/user/u18129031@tuks.co.za')
-            .expect(200)
-            .then((response) => {
-                console.log(response.body.error)
-                done();
-            })
-            .catch(err => done(err))
+    describe('POST DELETE /:Email', () => {
+        it('Returns 200, email deleted from database', done => {
+            request(app)
+                .delete(`/user/mojohnnylerato@gmail.com`)
+                .expect(200)
+                .then((response) => {
+                    done();
+                })
+                .catch(err => done(err))
+        });
     });
 });

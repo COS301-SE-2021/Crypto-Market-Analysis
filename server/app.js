@@ -7,7 +7,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 const userRoutes = require('./routes/user');
 
-mongoose.connect("mongodb+srv://codex:"+process.env.MongoPassword+"@codex.z7mgz.mongodb.net/Codex?retryWrites=true&w=majority")
+mongoose.connect("mongodb+srv://codex:"+process.env.MongoPassword+"@codex.z7mgz.mongodb.net/Codex?retryWrites=true&w=majority", { useNewUrlParser: true })
 mongoose.Promise = global.Promise;
 
 app.use(morgan("dev"));

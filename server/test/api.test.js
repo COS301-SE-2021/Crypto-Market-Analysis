@@ -61,7 +61,7 @@ describe('POST /user', () => {
     it('adds an entry into the database', done => {
         request(app)
             .post('/user/signup')
-            .send({email: 'example@example.com', password: 'password', username: 'John'})
+            .send({email: 'u18129031@tuks.co.za', password: 'password', username: 'John'})
             .then((response) => {
                 console.log(response.body)
                 done();
@@ -71,10 +71,10 @@ describe('POST /user', () => {
     //Used to delete an email from the database
     it('Deletes email from the database', done => {
         request(app)
-            .delete('/user/example@example.com')
+            .delete('/user/u18129031@tuks.co.za')
             .expect(200)
             .then((response) => {
-                console.log(response)
+                console.log(response.body.error)
                 done();
             })
             .catch(err => done(err))

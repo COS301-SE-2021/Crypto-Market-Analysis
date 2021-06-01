@@ -6,7 +6,6 @@ const mongoose = require("mongoose");
 const dotenv = require('dotenv');
 dotenv.config();
 const userRoutes = require('./routes/user');
-
 mongoose.connect("mongodb+srv://codex:"+process.env.MongoPassword+"@codex.z7mgz.mongodb.net/Codex?retryWrites=true&w=majority")
 mongoose.Promise = global.Promise;
 
@@ -29,6 +28,7 @@ app.use((req, res, next) => {
 
 // Routes which should handle requests
 app.use("/user", userRoutes);
+
 
 app.use((req, res, next) => {
     const error = new Error("Not found");

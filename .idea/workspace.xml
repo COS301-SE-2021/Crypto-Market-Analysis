@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="Added partial api endpoint tests">
+    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/routes/user_functions.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/test/user.test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/userTest.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/test/api.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/test/api.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/test/functional/api/user.test.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +32,9 @@
     </file-type-list>
   </component>
   <component name="ProjectId" id="1tIjJV7iklCIumCQfOULzZ4YZzZ" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -42,7 +53,7 @@
     <property name="nodejs.mocha.mocha_node_package_dir" value="$PROJECT_DIR$/server/node_modules/mocha" />
     <property name="nodejs_package_manager_path" value="yarn" />
   </component>
-  <component name="RunManager" selected="Jest.POST /user.Deletes email from the database">
+  <component name="RunManager" selected="Mocha.test">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -53,33 +64,6 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
-    </configuration>
-    <configuration name="DELETE /:Email" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$/server" />
-      <envs />
-      <scope-kind value="SUITE" />
-      <test-file value="$PROJECT_DIR$/server/test/api.test.js" />
-      <test-names>
-        <test-name value="DELETE /:Email" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="DELETE /:Email.responds with not authorised code 403" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$/server" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/server/test/api.test.js" />
-      <test-names>
-        <test-name value="DELETE /:Email" />
-        <test-name value="responds with not authorised code 403" />
-      </test-names>
-      <method v="2" />
     </configuration>
     <configuration name="POST /user.Deletes email from the database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
@@ -95,7 +79,7 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="POST /user/signup.responds with json 408 timeout" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+    <configuration name="POST /user.adds an entry into the database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
       <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
@@ -104,12 +88,28 @@
       <scope-kind value="TEST" />
       <test-file value="$PROJECT_DIR$/server/test/api.test.js" />
       <test-names>
-        <test-name value="POST /user/signup" />
-        <test-name value="responds with json 408 timeout" />
+        <test-name value="POST /user" />
+        <test-name value="adds an entry into the database" />
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="server\test\api.test.js" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+    <configuration name="deleteUser" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/server" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/server/test/user.test.js" />
+      <test-names>
+        <test-name value="deleteUser" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="user.test.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/server/test/user.test.js" working-dir="$PROJECT_DIR$/server/test">
+      <method v="2" />
+    </configuration>
+    <configuration name="server\test\user.test.js" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <mocha-package>$PROJECT_DIR$/server/node_modules/mocha</mocha-package>
@@ -118,7 +118,7 @@
       <ui>bdd</ui>
       <extra-mocha-options />
       <test-kind>TEST_FILE</test-kind>
-      <test-file>$PROJECT_DIR$/server/test/api.test.js</test-file>
+      <test-file>$PROJECT_DIR$/server/test/user.test.js</test-file>
       <method v="2" />
     </configuration>
     <configuration name="test" type="mocha-javascript-test-runner">
@@ -136,19 +136,19 @@
     </configuration>
     <list>
       <item itemvalue="Mocha.test" />
-      <item itemvalue="Jest.POST /user/signup.responds with json 408 timeout" />
-      <item itemvalue="Mocha.server\test\api.test.js" />
-      <item itemvalue="Jest.DELETE /:Email" />
-      <item itemvalue="Jest.DELETE /:Email.responds with not authorised code 403" />
       <item itemvalue="Jest.POST /user.Deletes email from the database" />
+      <item itemvalue="Jest.POST /user.adds an entry into the database" />
+      <item itemvalue="Node.js.user.test.js" />
+      <item itemvalue="Jest.deleteUser" />
+      <item itemvalue="Mocha.server\test\user.test.js" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Jest.deleteUser" />
+        <item itemvalue="Jest.POST /user.adds an entry into the database" />
+        <item itemvalue="Mocha.server\test\user.test.js" />
+        <item itemvalue="Node.js.user.test.js" />
         <item itemvalue="Jest.POST /user.Deletes email from the database" />
-        <item itemvalue="Jest.DELETE /:Email.responds with not authorised code 403" />
-        <item itemvalue="Jest.DELETE /:Email" />
-        <item itemvalue="Mocha.server\test\api.test.js" />
-        <item itemvalue="Jest.POST /user/signup.responds with json 408 timeout" />
       </list>
     </recent_temporary>
   </component>
@@ -168,7 +168,7 @@
       <option name="presentableId" value="Default" />
       <updated>1622463494048</updated>
       <workItem from="1622463506175" duration="1053000" />
-      <workItem from="1622476121356" duration="13116000" />
+      <workItem from="1622476121356" duration="30920000" />
     </task>
     <task id="LOCAL-00002" summary="Added partial api endpoint tests">
       <created>1622485455332</created>
@@ -177,7 +177,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622485455332</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Added tests for signup endpoint in user">
+      <created>1622490157893</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1622490157893</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -198,7 +205,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added concurrent server and client links" />
     <MESSAGE value="Added partial api endpoint tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added partial api endpoint tests" />
+    <MESSAGE value="Added tests for signup endpoint in user" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added tests for signup endpoint in user" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Crypto_Market_Analysis$test.dat" NAME="test Coverage Results" MODIFIED="1622485551319" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="MochaJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

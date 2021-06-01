@@ -9,6 +9,7 @@ const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const mongoose = require("mongoose");
 const User = require("../models/user")
+const userFunctions = require("./user_functions")
 const Token = require("../models/verification")
 
 router.post(
@@ -40,28 +41,28 @@ router.post(
                             });
 
                             user
-                            .save(function (err)
-                                {
-                                    if(err){
-                                        return response.status(500).send({msg: err.message});
-                                    }
-                                    var token = new Token({ _id: user._id, token: crypto.randomBytes(10).toString('hex') });
-                                    token.save(function (err)
+                                .save(function (err)
                                     {
                                         if(err){
                                             return response.status(500).send({msg: err.message});
                                         }
-                                        var transporter = nodemailer.createTransport({ service: 'gmail', auth: { user: process.env.SENDGRID_USERNAME, pass: process.env.SENDGRID_PASSWORD } });
-                                        var mailOptions = { from: process.env.SENDGRID_USERNAME, to: request.body.email, subject: 'Account Verification Token', text: 'Hello,\n\n' + 'Please verify your account by Entering this code when you log in: ' + token.token + '.\n' };
-                                        transporter.sendMail(mailOptions, function (err) {
-                                            if (err) { return response.status(500).send({ msg: err.message }); }
-                                            response.status(200).send('A verification email has been sent to ' + request.body.email+ '.');
+                                        var token = new Token({ _id: user._id, token: crypto.randomBytes(10).toString('hex') });
+                                        token.save(function (err)
+                                        {
+                                            if(err){
+                                                return response.status(500).send({msg: err.message});
+                                            }
+                                            var transporter = nodemailer.createTransport({ service: 'gmail', auth: { user: process.env.EMAIL_USERNAME, pass: process.env.EMAIL_PASSWORD } });
+                                            var mailOptions = { from: process.env.EMAIL_USERNAME, to: request.body.email, subject: 'Account Verification Token', text: 'Hello,\n\n' + 'Please verify your account by Entering this code when you log in: ' + token.token + '.\n' };
+                                            transporter.sendMail(mailOptions, function (err) {
+                                                if (err) { return response.status(500).send({ msg: err.message }); }
+                                                response.status(200).send('A verification email has been sent to ' + request.body.email+ '.');
+                                            });
+
                                         });
+                                    }
 
-                                    });
-                                }
-
-                               )/*.then(result => {
+                                )/*.then(result => {
                                 console.log(result);
                                 response.status(200).json({
                                     message: "User Registered"
@@ -99,19 +100,19 @@ router.post("/verify",(request, response, next)=>
 });
 
 router.delete("/:Email", (req, res, next) => {
-    User.remove({ email: req.params.Email })
-        .exec()
-        .then(result => {
+    let email = req.params.Email;
+    userFunctions(email).then(error => {
+        if (error === null) {
             res.status(200).json({
                 message: "User deleted"
             });
-        })
-        .catch(err => {
-            console.log(err);
+        }
+        else{
             res.status(500).json({
-                error: err
+                error: error
             });
-        });
+        }
+    })
 });
 
 module.exports = router;

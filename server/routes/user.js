@@ -11,7 +11,13 @@ const mongoose = require("mongoose");
 const User = require("../models/user")
 const userFunctions = require("./user_functions")
 const Token = require("../models/verification")
-
+router.post("/viewCrypto",(req,res,next)=>{
+   userFunctions.getFavoriteCrypto(req.body.email)
+       .then(error => {
+           if(error.get(200) !== undefined)
+               return res.status(200).json({message: error.get(200)})
+       })
+});
 router.post(
     "/signup",(request,response,next) =>
     {

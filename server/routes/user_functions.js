@@ -14,5 +14,12 @@ const deleteUser = async (email) => {
 
     return error;
 };
+const registerUser = async (email , username, password) => {
+     await User.findOne({email:email})
+         .then(
+
+         )
+
+};
 
 module.exports = deleteUser;

@@ -36,3 +36,4 @@ describe('deleteUser', () => {
         expect(error).to.equal(null)
     });
 });
+

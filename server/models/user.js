@@ -12,6 +12,7 @@ const UserSchema = mongoose.Schema({
     roles: [{type : String}],
     Verified : {type: Boolean , default :false},
     PasswordReset : String,
+    FavouriteCrypto : [{type : String}],
     Expires: Date
 
 });

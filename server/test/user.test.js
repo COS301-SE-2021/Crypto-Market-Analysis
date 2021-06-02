@@ -40,15 +40,18 @@ describe('deleteUser', () => {
     });
 });
 
-/*
 describe('add_user', () => {
     it('adds a user to the database', async () => {
-        let error = await userFunctions.add_user('u18129031@tuks.co.za', 'Zeeshaan', 'password');
-        console.log(`This is the value of the error: ${error}`);
+        await userFunctions.add_user('u18129031@tuks.co.za', 'Zeeshaan', 'password').then((error) => {
+            error.forEach((value, key) => {
+               console.log(`This is the value: ${value} and this is the key ${key}`)
+            });
+        });
     });
-});*/
 
-describe('add user', () => {
+});
+
+/*describe('add user', () => {
     it('adds an entry into the database', done => {
         request(app)
             .post('/user/signup')
@@ -59,4 +62,4 @@ describe('add user', () => {
             })
             .catch(err => done(err))
     });
-});
+});*/

@@ -15,7 +15,16 @@ const Token = require("../models/verification")
 router.post(
     "/signup",(request,response,next) =>
     {
-        User.find({ email: request.body.email })
+        userFunctions.add_user(request.body.email, request.body.username, request.body.password).then((error) => {
+            if(error.get(200) !== undefined)
+                return response.status(200).json({message: error.get(200)});
+            else {
+                const iter_keys = error.keys();
+                const iter_values = error.values();
+                return response.status(iter_keys.next().value).json({message: iter_values.next().value});
+            }
+        })
+        /*User.find({ email: request.body.email })
             .exec()
             .then(user => {
                 if (user.length >= 1) {
@@ -63,7 +72,7 @@ router.post(
                                         });
                                     }
 
-                                )/*.then(result => {
+                                )/!*.then(result => {
                                 console.log(result);
                                 response.status(200).json({
                                     message: "User Registered"
@@ -74,11 +83,11 @@ router.post(
                                 response.status(401).json({
                                     error: err
                                 });
-                            });*/
+                            });*!/
                         }
                     });
                 }
-            });
+            });*/
     }
 
 

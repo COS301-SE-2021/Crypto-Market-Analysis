@@ -7,8 +7,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 const crypto = require('crypto');
 
-
-/* Tries to delete a user from the database
+/* Delete a user from the database
 * @param {string} email The email of the user in the database
 * @return {null || string} Returns null if no error occurred while deleting the user from the database or else it returns the error
 * */
@@ -37,7 +36,7 @@ const deleteUser = async (email) => {
                 return error = "User already registered";
             }
             else{
-                bcrypt.hash(password, 10, async (err, hash) => {
+                bcrypt.hash(password, 10, (err, hash) => {
                     console.warn("Inside bcrypt")
                     if(err)
                     {
@@ -55,7 +54,7 @@ const deleteUser = async (email) => {
                             password: hash
                         });
 
-                        await user
+                        user
                             .save(function (err)
                                 {
                                     console.log("Enters save statement")
@@ -97,10 +96,10 @@ const deleteUser = async (email) => {
                                 });
                             });*!/
                     }
-                    return error;
                 });
             }
         });
+    return error;
 }*/
 
 module.exports = deleteUser;

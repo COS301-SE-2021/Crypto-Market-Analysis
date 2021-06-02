@@ -28,6 +28,7 @@ router.post(
                     bcrypt.hash(request.body.password, 10, (err, hash) => {
                         if(err)
                         {
+                            console.log(`Error1: ${err}`)
                             return response.status(500).json({
                                 error: err
                             });
@@ -80,12 +81,13 @@ router.post(
             });
     }
 
-    /*userFunctions.add_user(request.body.email, request.body.username, request.body.password).then(error => {
-        if (error === null)
-            response.status(200).json({ message: "User registered" });
-        else
-            response.status(500).json({message: error});
-    })*/
+
+/*userFunctions.add_user(request.body.email, request.body.username, request.body.password).then(error => {
+    if (error === null)
+        response.status(200).json({ message: "User registered" });
+    else
+        response.status(500).json({message: error});
+});*/
 
 );
 router.post("/verify",(request, response, next)=>
@@ -108,7 +110,7 @@ router.post("/verify",(request, response, next)=>
 
 router.delete("/:Email", (req, res, next) => {
     let email = req.params.Email;
-    userFunctions.deleteUser(email).then(error => {
+    userFunctions(email).then(error => {
         if (error === null) {
             res.status(200).json({
                 message: "User deleted"

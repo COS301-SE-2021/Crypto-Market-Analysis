@@ -1,15 +1,19 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
-/*
-* Creates  a user Schema to be used by the API
-* */
-const UserSchema = new mongoose.Schema(
-    {
-        userName: {type: String, required: true, unique: true},
-        password: {type: String, required: true}
+const UserSchema = mongoose.Schema({
+    username: { type: String, required: true
     },
-    {collection: 'users'}
-);
+    email: { type: String, required: true , unique: true,match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+    },
+    password: { type: String, required: true
+    },
+    createdAt: { type: Date, default: Date.now()
+    },
+    roles: [{type : String}],
+    Verified : {type: Boolean , default :false},
+    PasswordReset : String,
+    Expires: Date
 
-const model = mongoose.model('UserSchema', UserSchema);
-module.exports = model;
+});
+
+module.exports = mongoose.model("User", UserSchema);

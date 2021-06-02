@@ -1,6 +1,3 @@
-/*setting up express.js which will be user by the server
-to capture the user info/request made by the front-end code*/
-
 const http = require('http');
 const app = require('./app');
 const dotenv = require('dotenv');
@@ -10,5 +7,3 @@ console.log(`Listening on port ${port}`)
 const server = http.createServer(app);
 
 server.listen(port);
-
-

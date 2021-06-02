@@ -6,10 +6,18 @@ const mongoose = require("mongoose");
 const dotenv = require('dotenv');
 dotenv.config();
 const userRoutes = require('./routes/user');
+let MONGODB_URI = "mongodb+srv://codex:"+process.env.MongoPassword+"@codex.z7mgz.mongodb.net/Codex?retryWrites=true&w=majority";
+try {
+    mongoose.connect(MONGODB_URI, {
+        useNewUrlParser: true,
+        useCreateIndex: true,
+        useUnifiedTopology: true
 
-mongoose.connect("mongodb+srv://codex:"+process.env.MongoPassword+"@codex.z7mgz.mongodb.net/Codex?retryWrites=true&w=majority")
-mongoose.Promise = global.Promise;
-
+    }).then(() => {});
+}
+catch(error) {
+    console.error(`Failed to connect to Database: ${error}`);
+}
 app.use(morgan("dev"));
 app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({ extended: false }));

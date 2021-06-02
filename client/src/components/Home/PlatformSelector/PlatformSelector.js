@@ -19,25 +19,7 @@ class PlatformSelector extends React.Component{
             faveList:[]
         };
     }
-    select(code){
-        let newFavelist = this.state.faveList;
 
-        this.setState({
-            cryptList: [...this.state.cryptList.map((crypt,currIndex)=>{
-                if(code==crypt.Code){
-                    crypt.selected = !crypt.selected;
-
-                    //if selected add to favourite list else remove it
-                    if(crypt.selected){newFavelist.push(crypt)}
-                    else{newFavelist = newFavelist.filter((item) => item.Code !== code);}
-                };
-                return {
-                    ...crypt
-                }
-            })]
-        })
-        this.setState({faveList: [...newFavelist.map(crypto =>{ return {...crypto,selected:false} })]})
-    }
 
     render()
     {

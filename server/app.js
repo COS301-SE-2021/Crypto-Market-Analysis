@@ -12,7 +12,6 @@ try {
         useNewUrlParser: true,
         useCreateIndex: true,
         useUnifiedTopology: true
-
     }).then(() => {});
 }
 catch(error) {
@@ -37,7 +36,6 @@ app.use((req, res, next) => {
 
 // Routes which should handle requests
 app.use("/user", userRoutes);
-
 
 app.use((req, res, next) => {
     const error = new Error("Not found");

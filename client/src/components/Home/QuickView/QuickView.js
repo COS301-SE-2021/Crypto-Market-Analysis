@@ -9,8 +9,8 @@ const cryptos = [{Name:"Bitcoin",Code:"btc", Price:"R513 510,14"},
     {Name:"Etherium",Code:"eth", Price:"R37 193,58 "},
     {Name:"Ripple",Code:"xrp", Price:"R14,59"},
     {Name:"Tether",Code:"usdt",Price:"R14,34"}
-
 ];
+
 class QuickView extends React.Component{
     constructor(props) {
         super(props);

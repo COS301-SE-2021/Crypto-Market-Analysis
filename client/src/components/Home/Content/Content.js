@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.css";
 import { Icon } from "coinmarketcap-cryptocurrency-icons";
+import GraphReport from "../GraphReport/GraphReport";
 
 import "./Content.css";
 function Content()
@@ -44,13 +45,7 @@ function Content()
                 </div>
                 <div className="col-12" style={{height: "400px"}}>
                     <div className="card" style={{height: "370px",margin:"20px auto auto",}}>
-                        {/*<nav className="navbar  bg-light justify-content-between">*/}
-                        {/*    <ul className="navbar-nav">*/}
-                        {/*        <li className="nav-item">*/}
-                        {/*            <a href="#" className="nav-link">Some details of the coin</a>*/}
-                        {/*        </li>*/}
-                        {/*    </ul>*/}
-                        {/*</nav>*/}
+                        <GraphReport/>
                     </div>
                 </div>
             </div>

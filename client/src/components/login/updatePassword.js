@@ -7,9 +7,9 @@ const updatePassword = () => {
             <div className="page-content">
                 <div className="form-v5-content">
                     <form className="form-detail" onSubmit={event => update(event)}>
-                        <h2>Auth Token</h2>
+                        <h2>Update Password</h2>
                         <div className="form-row">
-                            <label htmlFor="your-email">Email</label>
+                            <label htmlFor="your-email">New Password</label>
                             <input type="text" name="your-email" id="your-email" className="input-text"
                                    placeholder="Your Email" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}"/>
                             <i className="fas fa-envelope"></i>

@@ -1,0 +1,140 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"9d1c4936-8cde-4a5d-9ad8-6dbcf0988440\" name=\"Default Changelist\" comment=\"\">\n      <change beforePath=\"$PROJECT_DIR$/.gitignore\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gitignore\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/.gitignore\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/modules.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/modules.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/README.md\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/README.md\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/crypto_market_analysis.iml\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/package.json\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/public/favicon.ico\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/public/index.html\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/public/logo192.png\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/public/logo512.png\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/public/manifest.json\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/public/robots.txt\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/App.css\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/App.js\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/App.test.js\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/index.css\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/index.js\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/logo.svg\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/reportWebVitals.js\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/setupTests.js\" beforeDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"ComposerSettings\">\n    <execution />\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"ProjectId\" id=\"1t5VXk0qEZAsMpoy4EMqq2I6dzs\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\n    <property name=\"aspect.path.notification.shown\" value=\"true\" />\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$\" />\n    <property name=\"nodejs_package_manager_path\" value=\"yarn\" />\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"9d1c4936-8cde-4a5d-9ad8-6dbcf0988440\" name=\"Default Changelist\" comment=\"\" />\n      <created>1622058990692</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1622058990692</updated>\n      <workItem from=\"1622059014593\" duration=\"357000\" />\n      <workItem from=\"1622102532928\" duration=\"443000\" />\n    </task>\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 02c127f286c7af7366c7511ed2a07b10d42ffd0e)
++++ b/.idea/workspace.xml	(date 1622132404338)
+@@ -2,27 +2,8 @@
+ <project version="4">
+   <component name="ChangeListManager">
+     <list default="true" id="9d1c4936-8cde-4a5d-9ad8-6dbcf0988440" name="Default Changelist" comment="">
+-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/crypto_market_analysis.iml" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/public/favicon.ico" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/public/logo192.png" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/public/logo512.png" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/public/manifest.json" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/public/robots.txt" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/App.test.js" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/logo.svg" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/reportWebVitals.js" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/setupTests.js" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -58,10 +39,22 @@
+       <updated>1622058990692</updated>
+       <workItem from="1622059014593" duration="357000" />
+       <workItem from="1622102532928" duration="443000" />
++      <workItem from="1622130808714" duration="1577000" />
+     </task>
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+     <option name="version" value="3" />
+   </component>
++  <component name="Vcs.Log.Tabs.Properties">
++    <option name="TAB_STATES">
++      <map>
++        <entry key="MAIN">
++          <value>
++            <State />
++          </value>
++        </entry>
++      </map>
++    </option>
++  </component>
+ </project>
+\ No newline at end of file
+Index: client/package-lock.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/client/package-lock.json b/client/package-lock.json
+--- a/client/package-lock.json	(revision 02c127f286c7af7366c7511ed2a07b10d42ffd0e)
++++ b/client/package-lock.json	(date 1622131564361)
+@@ -3314,6 +3314,15 @@
+       "integrity": "sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==",
+       "optional": true
+     },
++    "bindings": {
++      "version": "1.5.0",
++      "resolved": "https://registry.npmjs.org/bindings/-/bindings-1.5.0.tgz",
++      "integrity": "sha512-p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ==",
++      "optional": true,
++      "requires": {
++        "file-uri-to-path": "1.0.0"
++      }
++    },
+     "bluebird": {
+       "version": "3.7.2",
+       "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.7.2.tgz",
+@@ -6174,6 +6183,12 @@
+         }
+       }
+     },
++    "file-uri-to-path": {
++      "version": "1.0.0",
++      "resolved": "https://registry.npmjs.org/file-uri-to-path/-/file-uri-to-path-1.0.0.tgz",
++      "integrity": "sha512-0Zt+s3L7Vf1biwWZ29aARiVYLx7iMGnEUl9x33fbB/j3jR81u/O2LbqK+Bm1CDSNDKVtJ/YjwY7TUd5SkeLQLw==",
++      "optional": true
++    },
+     "filesize": {
+       "version": "6.1.0",
+       "resolved": "https://registry.npmjs.org/filesize/-/filesize-6.1.0.tgz",
+@@ -9298,6 +9313,12 @@
+       "resolved": "https://registry.npmjs.org/multicast-dns-service-types/-/multicast-dns-service-types-1.1.0.tgz",
+       "integrity": "sha1-iZ8R2WhuXgXLkbNdXw5jt3PPyQE="
+     },
++    "nan": {
++      "version": "2.14.2",
++      "resolved": "https://registry.npmjs.org/nan/-/nan-2.14.2.tgz",
++      "integrity": "sha512-M2ufzIiINKCuDfBSAUr1vWQ+vuVcA9kqx8JJUsbQi6yf1uGRyb7HfpdfUr5qLXf3B/t8dPvcjhKMmlfnP47EzQ==",
++      "optional": true
++    },
+     "nanoid": {
+       "version": "3.1.23",
+       "resolved": "https://registry.npmjs.org/nanoid/-/nanoid-3.1.23.tgz",
+@@ -14357,7 +14378,11 @@
+           "version": "1.2.13",
+           "resolved": "https://registry.npmjs.org/fsevents/-/fsevents-1.2.13.tgz",
+           "integrity": "sha512-oWb1Z6mkHIskLzEJ/XWX0srkpkTQ7vaopMQkyaEIoq0fmtFVxOthb8cCxeT+p3ynTdkk/RZwbgG4brR5BeWECw==",
+-          "optional": true
++          "optional": true,
++          "requires": {
++            "bindings": "^1.5.0",
++            "nan": "^2.12.1"
++          }
+         },
+         "glob-parent": {
+           "version": "3.1.0",
+@@ -14972,7 +14997,11 @@
+           "version": "1.2.13",
+           "resolved": "https://registry.npmjs.org/fsevents/-/fsevents-1.2.13.tgz",
+           "integrity": "sha512-oWb1Z6mkHIskLzEJ/XWX0srkpkTQ7vaopMQkyaEIoq0fmtFVxOthb8cCxeT+p3ynTdkk/RZwbgG4brR5BeWECw==",
+-          "optional": true
++          "optional": true,
++          "requires": {
++            "bindings": "^1.5.0",
++            "nan": "^2.12.1"
++          }
+         },
+         "glob-parent": {
+           "version": "3.1.0",

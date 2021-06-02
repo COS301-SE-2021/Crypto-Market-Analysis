@@ -9,17 +9,22 @@ const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const mongoose = require("mongoose");
 const User = require("../models/user")
+const userFunctions = require("./user_functions")
 const Token = require("../models/verification")
-/**
- * This function register the user account
- * @param {string} email
- * @param {string} username
- * @param {string} password
- */
+
 router.post(
     "/signup",(request,response,next) =>
     {
-        User.find({ email: request.body.email })
+        userFunctions.add_user(request.body.email, request.body.username, request.body.password).then((error) => {
+            if(error.get(200) !== undefined)
+                return response.status(200).json({message: error.get(200)});
+            else {
+                const iter_keys = error.keys();
+                const iter_values = error.values();
+                return response.status(iter_keys.next().value).json({message: iter_values.next().value});
+            }
+        })
+        /*User.find({ email: request.body.email })
             .exec()
             .then(user => {
                 if (user.length >= 1) {
@@ -32,6 +37,7 @@ router.post(
                     bcrypt.hash(request.body.password, 10, (err, hash) => {
                         if(err)
                         {
+                            console.log(`Error1: ${err}`)
                             return response.status(500).json({
                                 error: err
                             });
@@ -45,28 +51,28 @@ router.post(
                             });
 
                             user
-                            .save(function (err)
-                                {
-                                    if(err){
-                                        return response.status(500).send({msg: err.message});
-                                    }
-                                    var token = new Token({ _id: user._id, token: crypto.randomBytes(10).toString('hex') });
-                                    token.save(function (err)
+                                .save(function (err)
                                     {
                                         if(err){
                                             return response.status(500).send({msg: err.message});
                                         }
-                                        var transporter = nodemailer.createTransport({ service: 'gmail', auth: { user: process.env.EMAIL_USERNAME, pass: process.env.EMAIL_PASSWORD } });
-                                        var mailOptions = { from: process.env.EMAIL_USERNAME, to: request.body.email, subject: 'Account Verification Token', text: 'Hello,\n\n' + 'Please verify your account by Entering this code when you log in: ' + token.token + '.\n' };
-                                        transporter.sendMail(mailOptions, function (err) {
-                                            if (err) { return response.status(500).send({ msg: err.message }); }
-                                            response.status(200).send('A verification email has been sent to ' + request.body.email+ '.');
+                                        var token = new Token({ _id: user._id, token: crypto.randomBytes(10).toString('hex') });
+                                        token.save(function (err)
+                                        {
+                                            if(err){
+                                                return response.status(500).send({msg: err.message});
+                                            }
+                                            var transporter = nodemailer.createTransport({ service: 'gmail', auth: { user: process.env.EMAIL_USERNAME, pass: process.env.EMAIL_PASSWORD } });
+                                            var mailOptions = { from: process.env.EMAIL_USERNAME, to: request.body.email, subject: 'Account Verification Token', text: 'Hello,\n\n' + 'Please verify your account by Entering this code when you log in: ' + token.token + '.\n' };
+                                            transporter.sendMail(mailOptions, function (err) {
+                                                if (err) { return response.status(500).send({ msg: err.message }); }
+                                                response.status(200).send('A verification email has been sent to ' + request.body.email+ '.');
+                                            });
+
                                         });
+                                    }
 
-                                    });
-                                }
-
-                               )/*.then(result => {
+                                )/!*.then(result => {
                                 console.log(result);
                                 response.status(200).json({
                                     message: "User Registered"
@@ -77,20 +83,22 @@ router.post(
                                 response.status(401).json({
                                     error: err
                                 });
-                            });*/
+                            });*!/
                         }
                     });
                 }
-            });
+            });*/
     }
 
+
+/*userFunctions.add_user(request.body.email, request.body.username, request.body.password).then(error => {
+    if (error === null)
+        response.status(200).json({ message: "User registered" });
+    else
+        response.status(500).json({message: error});
+});*/
+
 );
-/**
- * This function verify the user email
- * @param {string} token
- * @param {string} id
- * @param {string} email
- */
 router.post("/verify",(request, response, next)=>
 {
     Token.findOne({ token: request.body.token }, function (err, token) {
@@ -108,44 +116,21 @@ router.post("/verify",(request, response, next)=>
         });
     });
 });
-/**
- * This function adds crypto names to the user account that the user is following
- * @param {string} id
- * @param {string} FavouriteCrypto
- */
-router.post("/followCrypto",(request,response,next)=>{
-    User.findOne({  _id:request.body._id }, function (err, user) {
-
-        if (err) return response.status(400).send({  type: 'already-added', msg: 'Unable to locate user' });//This error will never occur
-            if(user.FavouriteCrypto.includes(request.body.FavouriteCrypto)) return response.status(400).send({ type: 'already-followed', msg: "already following the cryptocurrency" });
-            user.FavouriteCrypto.push(request.body.FavouriteCrypto)
-            user.save(function (err) {
-                if (err) { return response.status(500).send({ msg: "An error occurred contact administrator" }); }//This error will never occur
-                response.status(200).send("Favourite Crypto added");
-            });
-    });
-});
-
-/**
- * This function deletes the user from the database
- * @param {string} email
- */
 
 router.delete("/:Email", (req, res, next) => {
-    User.remove({ email: req.params.Email })
-        .exec()
-        .then(result => {
+    let email = req.params.Email;
+    userFunctions(email).then(error => {
+        if (error === null) {
             res.status(200).json({
                 message: "User deleted"
             });
-        })
-        .catch(err => {
-            console.log(err); //User is not available
+        }
+        else{
             res.status(500).json({
-                error: err
+                error: error
             });
-        });
+        }
+    });
 });
-
 
 module.exports = router;

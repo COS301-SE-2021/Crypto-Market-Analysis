@@ -33,7 +33,6 @@ describe('POST /user', () => {
 });
 
 describe('POST /user', () => {
-    jest.setTimeout(100000000);
     //Not authenticated
     it('responds with not authorised code 403', done => {
         request(app)
@@ -62,38 +61,22 @@ describe('POST /user', () => {
     it('adds an entry into the database', done => {
         request(app)
             .post('/user/signup')
-            .send({email: 'mojohnnylerato@gmail.com', password: 'password', username: 'John'})
+            .send({email: 'u18129031@tuks.co.za', password: 'password', username: 'John'})
             .then((response) => {
                 console.log(response.body)
                 done();
             })
             .catch(err => done(err))
     });
-    //Used to delete an email from the database
-});
-describe('Unit testing the /user route', function() {
-    jest.setTimeout(100000000);
-    it('Return 200 if user is not registered', function() {
-        return request(app)
-            .post('/user/signup')
-            .send({email: 'u18037951@tuks.co.za', password: 'password', username: 'John'})
-            .then(function(response){
-                assert.equal(response.status, 200)
-            })
+    describe('POST DELETE /:Email', () => {
+        it('Returns 200, email deleted from database', done => {
+            request(app)
+                .delete(`/user/mojohnnylerato@gmail.com`)
+                .expect(200)
+                .then((response) => {
+                    done();
+                })
+                .catch(err => done(err))
+        });
     });
-
-});
-describe('Unit testing the /delete route', function() {
-    jest.setTimeout(100000000);
-    it('Deletes email from the database', done => {
-        request(app)
-            .delete('/user/u18037951@tuks.co.za')
-            .expect(200)
-            .then((response) => {
-                console.log(response)
-                done();
-            })
-            .catch(err => done(err))
-    });
-
 });

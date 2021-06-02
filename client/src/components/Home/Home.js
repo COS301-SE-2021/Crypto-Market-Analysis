@@ -1,5 +1,6 @@
 import Menu  from './Menu/Menu';
 import QuickView  from './QuickView/QuickView';
+import PlatformSelector  from './PlatformSelector/PlatformSelector';
 import Content from "./Content/Content";
 import "bootstrap/dist/css/bootstrap.css";
 import './Home.css';
@@ -13,7 +14,7 @@ function Home(){
                 <div className="row">
                     <QuickView/>
                     <Content/>
-
+                    <PlatformSelector/>
                 </div>
             </div>
         </div>

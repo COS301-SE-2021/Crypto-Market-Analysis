@@ -175,7 +175,6 @@ router.post(
 });*/
 
 );
-
 /**
  * This function verify the user email
  * @param {string} token
@@ -199,7 +198,6 @@ router.post("/verify",(request, response, next)=>
         });
     });
 });
-
 /**
  * This function adds crypto names to the user account that the user is following
  * @param {string} id
@@ -217,7 +215,6 @@ router.post("/followCrypto",(request,response,next)=>{
             });
     });
 });
-
 /**
  * This function deletes the user from the database
  * @param {string} email

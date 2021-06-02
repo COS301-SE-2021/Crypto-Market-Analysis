@@ -1,21 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+  <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/client/src/components/Home/Content/Content.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/Home/Content/Content.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/Home/GraphReport/GraphReport.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/Home/Home.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/Home/Home.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/Home/Menu/Menu.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/Home/Menu/Menu.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/Home/QuickView/QuickView.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/Home/QuickView/QuickView.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/client/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,15 +10,12 @@
   <component name="ComposerSettings">
     <execution />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="CSS File" />
-        <option value="JavaScript File" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="feature-node-register" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitSEFilterConfiguration">
@@ -54,71 +36,58 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/client/src/components" />
-    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Crypto-Market-Analysis-user-develop (1)" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/server/node_modules/jest" />
-    <property name="nodejs.mocha.mocha_node_package_dir" value="$PROJECT_DIR$/server/node_modules/mocha" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\kg.m\Documents\github2\Crypto-Market-Analysis\client\src\components" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\kg.m\Documents\github2\Crypto-Market-Analysis\client\src\components\Home" />
-    </key>
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="test" type="mocha-javascript-test-runner">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <mocha-package>$PROJECT_DIR$/server/node_modules/mocha</mocha-package>
-      <working-directory>$PROJECT_DIR$/server</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <ui>bdd</ui>
-      <extra-mocha-options>--exit</extra-mocha-options>
-      <test-kind>DIRECTORY</test-kind>
-      <test-directory>$PROJECT_DIR$/server/test</test-directory>
-      <recursive>false</recursive>
-      <method v="2" />
-    </configuration>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task id="LOCAL-00001" summary="Added concurrent server and client links">
-      <created>1622409206950</created>
+    <task id="LOCAL-00001" summary="updated the routes file problem is the email login details">
+      <created>1622497360245</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1622409206950</updated>
+      <updated>1622497360245</updated>
     </task>
     <task active="true" id="Default" summary="Default task">
-      <changelist id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="" />
-      <created>1622463494048</created>
+      <changelist id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="updated the routes file problem is the email login details" />
+      <created>1622526903080</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1622463494048</updated>
-      <workItem from="1622463506175" duration="1053000" />
-      <workItem from="1622476121356" duration="8483000" />
-      <workItem from="1622487028123" duration="12311000" />
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="users can now add cryptocurrency">
+      <created>1622529371607</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1622529371607</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added tests for signup endpoint in user">
+      <created>1622490157893</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1622490157893</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Added a deleteUser module to abstract delete function from the database. Also added tests for the deleteUser function and delete endpoint.">
+      <created>1622545975335</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1622545975335</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Added Additional Tests">
+      <created>1622558205015</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1622558205015</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -138,9 +107,14 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added concurrent server and client links" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added concurrent server and client links" />
+    <MESSAGE value="Added partial api endpoint tests" />
+    <MESSAGE value="Added tests for signup endpoint in user" />
+    <MESSAGE value="Added a deleteUser module to abstract delete function from the database. Also added tests for the deleteUser function and delete endpoint." />
+    <MESSAGE value="Added Additional Tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Additional Tests" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Crypto_Market_Analysis$test.dat" NAME="test Coverage Results" MODIFIED="1622482427920" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="MochaJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Crypto_Market_Analysis$test.dat" NAME="test Coverage Results" MODIFIED="1622485551319" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="MochaJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Crypto_Market_Analysis$POST__user_adds_an_entry_into_the_database.info" NAME="POST /user.adds an entry into the database Coverage Results" MODIFIED="1622554439693" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="JestJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

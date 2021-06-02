@@ -11,14 +11,18 @@ const crypto = require('crypto');
 * @return array of followed bitcoin
 * */
 const getFavoriteCrypto= async(email)=>{
+    let error = new Map()
     await User.find({email:email})
         .exec()
         .then(async user=>
             {
-
+             if(user)
+                 return error.set(200,user.username);
             }
 
         )
+
+    return error;
 };
 
 
@@ -114,4 +118,4 @@ const send_verification_mail = (email, error) => {
     });
 }
 
-module.exports = {deleteUser, add_user};
+module.exports = {deleteUser, add_user,getFavoriteCrypto};

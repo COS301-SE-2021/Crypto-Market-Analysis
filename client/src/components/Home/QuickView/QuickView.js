@@ -2,6 +2,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./QuickView.css"
 import {Search, Star} from "@material-ui/icons";
 import React from "react";
+import {Icon} from "coinmarketcap-cryptocurrency-icons";
 
 const cryptos = [{Name:"Bitcoin",Code:"btc", Price:"R513 510,14"},
     {Name:"Litecoin",Code:"ltc", Price:"R2 554,79 "},
@@ -42,7 +43,7 @@ class QuickView extends React.Component{
     render()
     {
         const cryptoList = this.state;
-       
+
         return(
             <div id="quick-view" className="col-4 content-container shadow">
                 <div id="search-bar" className="input-group rounded">
@@ -66,7 +67,7 @@ class QuickView extends React.Component{
                                 return (
                                     <tr className="crypto-row" key={crypto.Code}>
                                         <th scope="row">{crypto.selected?<Star color="primary" onClick={()=>{this.select(crypto.Code)}}/>:<Star color="action" onClick={()=>{this.select(crypto.Code)}}/>}</th>
-                                        <td>{crypto.Name}</td>
+                                        <td><Icon className="d-inline-block"  i={crypto.Code} size={25}/> {crypto.Name}</td>
                                         <td>{crypto.Code.toUpperCase()}</td>
                                         <td>{crypto.Price}</td>
                                     </tr>

@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="app.js fix">
-      <change afterPath="$PROJECT_DIR$/client/src/components/login/token.js" afterDir="false" />
+    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="token component">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/login/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/login/login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/login/register.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/login/register.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -234,7 +230,28 @@
       <option name="project" value="LOCAL" />
       <updated>1622651504347</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="adding email/auth token page to route">
+      <created>1622653879025</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1622653879025</updated>
+    </task>
+    <task id="LOCAL-00010" summary="login and register">
+      <created>1622653958019</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1622653958019</updated>
+    </task>
+    <task id="LOCAL-00011" summary="token component">
+      <created>1622653979990</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1622653979990</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -261,7 +278,10 @@
     <MESSAGE value="http request from login to api with form parameters" />
     <MESSAGE value="http request from register to api with form parameters" />
     <MESSAGE value="app.js fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="app.js fix" />
+    <MESSAGE value="adding email/auth token page to route" />
+    <MESSAGE value="login and register" />
+    <MESSAGE value="token component" />
+    <option name="LAST_COMMIT_MESSAGE" value="token component" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

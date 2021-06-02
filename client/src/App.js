@@ -10,17 +10,6 @@ function App() {
       <Route exact path="/" component={splash}></Route>
       <Route exact path="/register" component={register}></Route>
       <Route exact path="/login" component={login}></Route>
-        {/*<video autoPlay loop className="video-background" muted plays-inline>*/}
-        {/*    <source src="/Splash/Splash.mp4" type="video/mp4"/>*/}
-        {/*</video>*/}
-        {/*<div className="welcome-message">*/}
-        {/*    <h1>Welcome to Crypto</h1>*/}
-        {/*    <h2>Crypto is the easiest place to track cryptocurrency.</h2>*/}
-        {/*    <br/>*/}
-        {/*        <br/>*/}
-        {/*            <a href="#" className="btn btn-login">Login</a>*/}
-        {/*            <a href="#" className="btn btn-register">Sign Up</a>*/}
-        {/*</div>*/}
     </section>
   );
 }

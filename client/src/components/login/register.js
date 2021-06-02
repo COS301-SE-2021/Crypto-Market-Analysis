@@ -7,7 +7,7 @@ const register = () => {
         <div className="form-v5">
             <div className="page-content">
                 <div className="form-v5-content">
-                    <form className="form-detail" onSubmit={event => register(event)}>
+                    <form className="form-detail" onSubmit={event => registers(event)}>
                         <h2>Register Account Form</h2>
                         <div className="form-row">
                             <label htmlFor="full-name">Username</label>
@@ -37,13 +37,13 @@ const register = () => {
     );
 };
 //making a http post request to the endpoint containing form parameters
-function register(event) {
+function registers(event) {
     event.preventDefault();
     let request = {
         username: document.getElementById('full-name'),
         email: document.getElementById('your-email'),
-        password: document.getElementById('password'),
-    }
+        password: document.getElementById('password')
+    };
     axios.post('http://localhost:8080/user/signup', request).then(resp=>{console.log("form sent");}).catch(err=>{console.log(err);})
 }
 

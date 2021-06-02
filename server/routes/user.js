@@ -147,10 +147,10 @@ const CoinGecko = require('coingecko-api');
 const CoinGeckoClient = new CoinGecko();
 const getData = async(name) => {
     let data = await CoinGeckoClient.coins.fetch(name, {});
-    console.log(data);
+    //console.log(data);
     return data;
 };
-
+const fs = require('fs');
 /* Tries to delete a user from the database
 * @param {string} _id
 * @return cryptocurrency data
@@ -164,8 +164,14 @@ router.post("/getCryptodata",(request, response, next)=>
         {
             for(let val of user.FavouriteCrypto)
             {
-                const dr= await getData('bitcoin');
-                console.log(dr);
+                let path =user.username+val+'.json';
+                const dr= await getData(val);
+                let fdata= JSON.stringify(dr);
+               fs.writeFile('routes/CryptoCurrencyJsonFiles/'+path, fdata, (err) => {
+                    if (err) throw err;
+                    console.log('Json files created');
+                });
+
             }
 
             response.status(200).send("function successful");

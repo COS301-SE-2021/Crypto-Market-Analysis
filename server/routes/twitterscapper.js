@@ -15,18 +15,13 @@ var getData = async(name) => {
 * */
 router.post("/getCryptodata",(request, response, next)=>
 {
-    User.find({ _id: request.body._id }, function (err, token) {
-        if (!token) return response.status(400).send({ type: 'user is not verified', msg: 'Token expired' });
-
-        User.findOne({ _id: token._id, email: request.body.email }, function (err, user) {
-            if (!user) return response.status(400).send({ msg: 'Invalid token' });
-            if (user.Verified) return response.status(400).send({ type: 'already-verified', msg: 'This user has already been verified.' });
-
+        User.findOne({ _id: token._id}, function (err, user) {
+            if (!user) return response.status(400).send({ msg: 'User not found' });
             user.Verified = true;
             user.save(function (err) {
                 if (err) { return response.status(500).send({ msg: err.message }); }
                 response.status(200).send("Account successfully verified log in.");
             });
         });
-    });
+
 });

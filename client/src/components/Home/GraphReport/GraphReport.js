@@ -1,5 +1,6 @@
 import React from 'react';
 import {Line} from 'react-chartjs-2';
+import "./GraphReport.css";
 
 const state = {
     labels: ['January', 'February', 'March',
@@ -21,17 +22,17 @@ export default class App extends React.Component {
     render() {
         return (
             <div>
-                <Line style={{maxHeight:"350px"}}
+                <Line style={{maxHeight:"300px"}}
                       data={state}
                       options={{
                           title:{
-                              display:true,
+                              display:false,
                               text:'Crypto movement',
                               fontSize:15
                           },
                           legend:{
-                              display:true,
-                              position:'right'
+                              display:true ,
+                              position:'top'
                           }
                       }}
                 />

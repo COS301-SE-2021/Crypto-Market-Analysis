@@ -31,7 +31,7 @@ class QuickView extends React.Component{
                     //if selected add to favourite list else remove it
                     if(crypt.selected){newFavelist.push(crypt)}
                     else{newFavelist = newFavelist.filter((item) => item.Code !== code);}
-                };
+                }
                 return {
                     ...crypt
                 }

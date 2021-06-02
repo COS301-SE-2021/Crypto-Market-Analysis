@@ -175,7 +175,7 @@ router.post("/getCryptodata",(request, response, next)=>
             }
 
             response.status(200).send("function successful");
-        }
+        }response.status(500).send("user not following any cryptoCurrency");
     });
 
 });

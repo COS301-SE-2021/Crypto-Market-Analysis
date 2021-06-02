@@ -1,7 +1,8 @@
 const request = require('supertest');
 const expect = require('chai').expect;
 const app = require("../app");
-
+const user = require("../routes/user")
+const assert = require('assert');
 describe('POST /', () => {
     it('responds with error message in json 404', done => {
         request(app)
@@ -33,6 +34,7 @@ describe('POST /user', () => {
 });
 
 describe('POST /user', () => {
+    jest.setTimeout(100000000);
     //Not authenticated
     it('responds with not authorised code 403', done => {
         request(app)
@@ -61,13 +63,14 @@ describe('POST /user', () => {
     it('adds an entry into the database', done => {
         request(app)
             .post('/user/signup')
-            .send({email: 'u18129031@tuks.co.za', password: 'password', username: 'John'})
+            .send({email: 'mojohnnylerato@gmail.com', password: 'password', username: 'John'})
             .then((response) => {
                 console.log(response.body)
                 done();
             })
             .catch(err => done(err))
     });
+    //Used to delete an email from the database
     describe('POST DELETE /:Email', () => {
         it('Returns 200, email deleted from database', done => {
             request(app)
@@ -79,4 +82,5 @@ describe('POST /user', () => {
                 .catch(err => done(err))
         });
     });
+
 });

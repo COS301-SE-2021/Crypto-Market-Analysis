@@ -12,7 +12,6 @@ try {
         useNewUrlParser: true,
         useCreateIndex: true,
         useUnifiedTopology: true
-
     }).then(() => {});
 }
 catch(error) {

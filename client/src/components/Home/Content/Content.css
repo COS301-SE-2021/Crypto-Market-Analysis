@@ -1,0 +1,21 @@
+#content-view {
+    /*background-color: white;*/
+    color: black;
+}
+#cards-row {
+    /*margin-top:3%*/
+}
+.col-m-6 col-xl-4 {
+    margin: auto auto 0;
+}
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    text-align: left;
+}
+.row {margin: 0 -5px;}
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}

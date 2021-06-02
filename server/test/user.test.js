@@ -21,21 +21,21 @@ const userFunctions = require('../routes/user_functions');
 
 describe('deleteUser', () => {
     it('User is in the database', async () => {
-        let error = await userFunctions("example@example.com");
+        let error = await userFunctions.deleteUser("example@example.com");
         expect(error).to.equal(null)
     });
     it('User is not in the database', async () => {
-        let error = await userFunctions("noUser@example.com");
+        let error = await userFunctions.deleteUser("noUser@example.com");
         expect(error).to.equal(null)
     });
     it('No email parameter', async () => {
-        let error = await userFunctions("");
+        let error = await userFunctions.deleteUser("");
         expect(error).to.equal(null)
     });
     it('Email parameter is null or undefined', async () => {
-        let error = await userFunctions(undefined);
+        let error = await userFunctions.deleteUser(undefined);
         expect(error).to.equal(null)
-        error = await userFunctions(null);
+        error = await userFunctions.deleteUser(null);
         expect(error).to.equal(null)
     });
 });

@@ -1,0 +1,32 @@
+.container
+{
+    margin: 5% auto auto;
+    width:70% !important;
+    padding-left: 0px;
+    padding-right: 0px;
+    /*height: 350px;*/
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+.nav-header
+{
+    margin: 0;
+    width: 100%;
+}
+.container .row
+{
+    height: auto;
+    margin-left:2%;
+    margin-right: 2%;
+    padding-bottom: 2%;
+    /*border: 1px solid black;*/
+}
+.card
+{
+    cursor:pointer;
+    /*border: 1px solid black;*/
+    margin-top: 10%;
+    padding: 0;
+    /*height: 150px;*/
+    /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);*/
+    /*max-height: 120px;*/
+}

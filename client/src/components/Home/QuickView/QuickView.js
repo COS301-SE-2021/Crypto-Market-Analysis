@@ -36,7 +36,7 @@ class QuickView extends React.Component{
                     ...crypt
                 }
             })]
-        });
+        })
         this.setState({faveList: [...newFavelist.map(crypto =>{ return {...crypto,selected:false} })]})
     }
 

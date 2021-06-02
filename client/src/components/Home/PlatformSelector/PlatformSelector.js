@@ -1,8 +1,6 @@
 import "bootstrap/dist/css/bootstrap.css";
-import {Icon} from "coinmarketcap-cryptocurrency-icons";
-import {CheckCircle, CloseRounded, Search, Star} from "@material-ui/icons";
-
-import React, {Component} from "react";
+import {Search, Star} from "@material-ui/icons";
+import React from "react";
 import "./PlatformSelector.css"
 
 const cryptos = [{Name:"Twitter",id:"btc"},
@@ -37,7 +35,7 @@ class PlatformSelector extends React.Component{
                     ...crypt
                 }
             })]
-        });
+        })
         this.setState({faveList: [...newFavelist.map(crypto =>{ return {...crypto,selected:false} })]})
     }
 

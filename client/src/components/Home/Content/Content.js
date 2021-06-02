@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.css";
 import { Icon } from "coinmarketcap-cryptocurrency-icons";
+import GraphReport from "../GraphReport/GraphReport"
 
 import "./Content.css";
 function Content()

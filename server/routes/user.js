@@ -11,12 +11,13 @@ const mongoose = require("mongoose");
 const User = require("../models/user")
 const userFunctions = require("./user_functions")
 const Token = require("../models/verification")
+const {val} = require("cheerio/lib/api/attributes");
 router.post("/viewCrypto",(req,res,next)=>{
    userFunctions.getFavoriteCrypto(req.body.email)
        .then(error => {
            if(error.get(200) !== undefined)
-               return res.status(200).json({message: error.get(200)})
-       })
+    return res.status(200).json({message: error.get(200)})
+})
 });
 router.post(
     "/signup",(request,response,next) =>
@@ -137,6 +138,40 @@ router.delete("/:Email", (req, res, next) => {
             });
         }
     });
+});
+/* Tries to delete a user from the database
+* @param {string} name of bitcoin
+* @return object containing all data
+* */
+const CoinGecko = require('coingecko-api');
+const CoinGeckoClient = new CoinGecko();
+const getData = async(name) => {
+    let data = await CoinGeckoClient.coins.fetch(name, {});
+    console.log(data);
+    return data;
+};
+
+/* Tries to delete a user from the database
+* @param {string} _id
+* @return cryptocurrency data
+* */
+router.post("/getCryptodata",(request, response, next)=>
+{
+    User.findOne({ _id: request.body._id}, async (err, user) =>{
+        if (!user) return response.status(400).send({ msg: 'User not found' });
+        let following =user.FavouriteCrypto;
+        if(following.length>0)
+        {
+            for(let val of user.FavouriteCrypto)
+            {
+                const dr= await getData('bitcoin');
+                console.log(dr);
+            }
+
+            response.status(200).send("function successful");
+        }
+    });
+
 });
 
 module.exports = router;

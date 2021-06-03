@@ -36,6 +36,6 @@ function logins(event) {
         email: document.getElementById('your-email').value,
         password: document.getElementById('password').value
     };
-    axios.post('http://localhost:8080/user/signup', request).then(resp=>{console.log("form sent");}).catch(err=>{console.log(err);})
+    axios.post('http://localhost:8080/user/login', request).then(resp=>{console.log("form sent");}).catch(err=>{console.log(err);})
 }
 export default login;

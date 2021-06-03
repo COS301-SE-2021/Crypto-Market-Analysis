@@ -91,6 +91,49 @@ describe('POST /user/signup', () => {
     });
 });
 
+describe('POST /user/followCrypto', () => {
+    it(`Adds a crypto the the user in the database`, done => {
+        const crypto = "Bitcoin";
+        const email = "example@example.co.za"
+        request(app)
+            .post('/user/followCrypto')
+            .send({"email":email, "crypto_name":crypto})
+            .expect(200)
+            .then(response => {
+                expect(response.body).to.equal("Favourite Crypto added")
+                done();
+            })
+            .catch(err => done(err))
+    });
+    it(`Tries to add an existing crypto to the user in the database`, done => {
+        const crypto = "Bitcoin";
+        const email = "example@example.co.za"
+        request(app)
+            .post('/user/followCrypto')
+            .send({"email":email, "crypto_name":crypto})
+            .expect(400)
+            .then(response => {
+                expect(response.body.type).to.equal("already-followed");
+                expect(response.body.message).to.equal("already following the cryptocurrency");
+                done();
+            })
+            .catch(err => done(err))
+    });
+    it(`Tries to add a crypto for a non-existent user in the database`, done => {
+        const crypto = "Bitcoin";
+        const email = "someother@example.co.za"
+        request(app)
+            .post('/user/followCrypto')
+            .send({"email":email, "crypto_name":crypto})
+            .expect(403)
+            .then(response => {
+                expect(response.body.message).to.equal("Not authorized");
+                done();
+            })
+            .catch(err => done(err))
+    });
+});
+
 describe('DELETE /:Email', () => {
     it('Returns 200, email deleted from database', done => {
         const email = "example@example.co.za";
@@ -99,6 +142,26 @@ describe('DELETE /:Email', () => {
             .expect(200)
             .then((response) => {
                 expect(response.body.message).to.equal("User Deleted");
+                done();
+            })
+            .catch(err => done(err))
+    });
+    it('Tries to delete a non-existent user from the database', done => {
+        const email = "example@example.com";
+        request(app)
+            .delete(`/user/${email}`)
+            .expect(200)
+            .then((response) => {
+                done();
+            })
+            .catch(err => done(err))
+    });
+    it('Tries to delete with no parameters', done => {
+        const email = null;
+        request(app)
+            .delete(`/user/${email}`)
+            .expect(200)
+            .then((response) => {
                 done();
             })
             .catch(err => done(err))

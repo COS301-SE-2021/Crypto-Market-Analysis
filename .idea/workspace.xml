@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/server/test/apiTest.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/user.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/test/api.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/test/api.test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/test/user.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/test/apiTest.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,21 +70,19 @@
       <recent name="C:\Users\Zeeshan\OneDrive - University of Pretoria\Documents\BIT\Year 4\Semester 1\COS 301\Projects\Crypto-Market-Analysis\server\test\functional" />
     </key>
   </component>
-  <component name="RunManager" selected="Jest.api.test.js">
-    <configuration name="DELETE /:Email" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$/server" />
-      <envs />
-      <scope-kind value="SUITE" />
-      <test-file value="$PROJECT_DIR$/server/test/api.test.js" />
-      <test-names>
-        <test-name value="DELETE /:Email" />
-      </test-names>
-      <method v="2" />
+  <component name="RunManager" selected="Jest.POST /user/followCrypto.Tries to add a crypto for a non-existent user in the database">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
-    <configuration name="POST /user/signup.Tries to add an existing user to the database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+    <configuration name="DELETE /:Email.Tries to delete a non-existent user from the database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
       <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
@@ -94,43 +91,64 @@
       <scope-kind value="TEST" />
       <test-file value="$PROJECT_DIR$/server/test/api.test.js" />
       <test-names>
-        <test-name value="POST /user/signup" />
-        <test-name value="Tries to add an existing user to the database" />
+        <test-name value="DELETE /:Email" />
+        <test-name value="Tries to delete a non-existent user from the database" />
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="api.test.js" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+    <configuration name="POST /user/followCrypto" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
       <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
       <working-dir value="$PROJECT_DIR$/server" />
       <envs />
-      <scope-kind value="TEST_FILE" />
+      <scope-kind value="SUITE" />
       <test-file value="$PROJECT_DIR$/server/test/api.test.js" />
+      <test-names>
+        <test-name value="POST /user/followCrypto" />
+      </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="server\test\apiTest.js" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <mocha-package>$PROJECT_DIR$/server/node_modules/mocha</mocha-package>
-      <working-directory>$PROJECT_DIR$/server</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>TEST_FILE</test-kind>
-      <test-file>$PROJECT_DIR$/server/test/apiTest.js</test-file>
+    <configuration name="POST /user/followCrypto.Adds a crypto the the user in the database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/server" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/server/test/api.test.js" />
+      <test-names>
+        <test-name value="POST /user/followCrypto" />
+        <test-name value="Adds a crypto the the user in the database" />
+      </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="server\test\api.test.js" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <mocha-package>$PROJECT_DIR$/server/node_modules/mocha</mocha-package>
-      <working-directory>$PROJECT_DIR$/server</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>TEST_FILE</test-kind>
-      <test-file>$PROJECT_DIR$/server/test/api.test.js</test-file>
+    <configuration name="POST /user/followCrypto.Tries to add a crypto for a non-existent user in the database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/server" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/server/test/api.test.js" />
+      <test-names>
+        <test-name value="POST /user/followCrypto" />
+        <test-name value="Tries to add a crypto for a non-existent user in the database" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="POST /user/followCrypto.Tries to add an existing crypto to the user in the database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/server" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/server/test/api.test.js" />
+      <test-names>
+        <test-name value="POST /user/followCrypto" />
+        <test-name value="Tries to add an existing crypto to the user in the database" />
+      </test-names>
       <method v="2" />
     </configuration>
     <configuration name="test" type="mocha-javascript-test-runner">
@@ -147,20 +165,20 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Jest.POST /user/signup.Tries to add an existing user to the database" />
-      <item itemvalue="Jest.DELETE /:Email" />
-      <item itemvalue="Jest.api.test.js" />
       <item itemvalue="Mocha.test" />
-      <item itemvalue="Mocha.server\test\api.test.js" />
-      <item itemvalue="Mocha.server\test\apiTest.js" />
+      <item itemvalue="Jest.DELETE /:Email.Tries to delete a non-existent user from the database" />
+      <item itemvalue="Jest.POST /user/followCrypto.Adds a crypto the the user in the database" />
+      <item itemvalue="Jest.POST /user/followCrypto" />
+      <item itemvalue="Jest.POST /user/followCrypto.Tries to add an existing crypto to the user in the database" />
+      <item itemvalue="Jest.POST /user/followCrypto.Tries to add a crypto for a non-existent user in the database" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Jest.api.test.js" />
-        <item itemvalue="Mocha.server\test\apiTest.js" />
-        <item itemvalue="Mocha.server\test\api.test.js" />
-        <item itemvalue="Jest.DELETE /:Email" />
-        <item itemvalue="Jest.POST /user/signup.Tries to add an existing user to the database" />
+        <item itemvalue="Jest.POST /user/followCrypto.Tries to add a crypto for a non-existent user in the database" />
+        <item itemvalue="Jest.POST /user/followCrypto.Tries to add an existing crypto to the user in the database" />
+        <item itemvalue="Jest.POST /user/followCrypto" />
+        <item itemvalue="Jest.POST /user/followCrypto.Adds a crypto the the user in the database" />
+        <item itemvalue="Jest.DELETE /:Email.Tries to delete a non-existent user from the database" />
       </list>
     </recent_temporary>
   </component>

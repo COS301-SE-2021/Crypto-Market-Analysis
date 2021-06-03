@@ -2,6 +2,60 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/client/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/client.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/public/Login/trans.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/public/Splash/Splash.mp4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/public/Splash/splash2.mp4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/public/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/public/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/public/logo192.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/public/logo512.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/public/manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/public/robots.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/App.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/Home/Content/Content.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/Home/Content/Content.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/Home/GraphReport/GraphReport.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/Home/GraphReport/GraphReport.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/Home/Home.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/Home/Home.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/Home/Menu/Menu.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/Home/Menu/Menu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/Home/PlatformSelector/PlatformSelector.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/Home/PlatformSelector/PlatformSelector.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/Home/QuickView/QuickView.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/Home/QuickView/QuickView.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/login/css/login.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/login/css/register.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/login/css/splash.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/login/login.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/login/register.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/login/splash.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/login/test/login.test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/login/test/register.test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/login/test/splash.test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/login/test/token.test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/login/test/updatePassword.test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/login/token.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/login/updatePassword.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/logo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/reportWebVitals.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/setupTests.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -34,13 +88,13 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/server/models/user.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/server/package.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/server/models/cryptocurrency.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/server/test/api.test.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/server/models/verification.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/server/routes/user_functions.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/server/routes/user.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/server/models/user.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/server/models/verification.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/server/test/api.test.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/server/models/cryptocurrency.js" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1tIjJV7iklCIumCQfOULzZ4YZzZ" />
   <component name="ProjectLevelVcsManager">
@@ -75,6 +129,39 @@
     </key>
   </component>
   <component name="RunManager" selected="Jest.DELETE /:Email.Returns 200, email deleted from database">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="DjangoTestsConfigurationType">
+      <module name="Codex_Intellj" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="TARGET" value="" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="DELETE /:Email.Returns 200, email deleted from database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
@@ -140,6 +227,79 @@
       <scope-kind value="ALL" />
       <method v="2" />
     </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Codex_Intellj" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Codex_Intellj" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="PyBehaveRunConfigurationType" factoryName="Behave">
+      <module name="Codex_Intellj" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="ADDITIONAL_ARGS" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="Codex_Intellj" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Python.FlaskServer">
+      <module name="Codex_Intellj" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <module name="Codex_Intellj" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <method v="2" />
+    </configuration>
     <configuration name="server\test\api.test.js" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -163,6 +323,40 @@
       <test-kind>DIRECTORY</test-kind>
       <test-directory>$PROJECT_DIR$/server/test</test-directory>
       <recursive>false</recursive>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Doctests">
+      <module name="Codex_Intellj" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <module name="Codex_Intellj" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
     <list>
@@ -330,7 +524,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622744968925</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Merge of user-develop">
+      <created>1622757488698</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1622757488698</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -367,7 +568,8 @@
     <MESSAGE value="Fixed signup endpoint in user.js" />
     <MESSAGE value="Added tests for followCrypto endpoint" />
     <MESSAGE value="Added follow social media site function as well as implemented all tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added follow social media site function as well as implemented all tests" />
+    <MESSAGE value="Merge of user-develop" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge of user-develop" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

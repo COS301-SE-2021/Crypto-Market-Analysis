@@ -1,0 +1,62 @@
+*
+{
+    margin:0;
+    padding:0;
+
+}
+
+.header
+{
+    height: 100vh;
+}
+
+.video-background
+{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    min-width: 0;
+    min-height: 0;
+    width: auto;
+    height: auto;
+    z-index: -1;
+}
+
+.logo
+{
+    margin: 25px;
+    height: 200px;
+    width: 200px;
+}
+
+.welcome-message
+{
+    position: relative;
+    text-align: center;
+    font-family: monospace;
+    color: black;
+    top: 40px;
+}
+
+.welcome-message h1
+{
+    font-size: 80px;
+    font-weight: 100;
+    /* letter-spacing: 1px;
+     margin-top: 20px;*/
+
+}
+
+.btn
+{
+    font-size: 18px;
+    color:black;
+    margin: 5px;
+    padding: 7px 22px;
+    text-decoration: none;
+    border: 1px solid coral !important;
+    border-radius: 25px;
+    background-color: aqua !important;
+    margin-top: 5px;
+
+}

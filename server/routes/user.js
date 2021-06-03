@@ -13,6 +13,15 @@ const mongoose = require("mongoose");
 const User = require("../models/user")
 const userFunctions = require("./user_functions")
 const Token = require("../models/verification")
+const {val} = require("cheerio/lib/api/attributes");
+router.post("/viewCrypto",(req,res,next)=>{
+   userFunctions.getFavoriteCrypto(req.body.email)
+       .then(error => {
+           if(error.get(200) !== undefined)
+    return res.status(200).json({message: error.get(200)})
+})
+});
+
 const Crypto = require("../models/cryptocurrency")
 
 const secret_token = 'kabdaskjndbjhbkjaishouvhadjkljaosiuiygm';
@@ -236,6 +245,46 @@ router.delete("/:Email", (req, res, next) => {
             });
         }
     });
+});
+/* Tries to delete a user from the database
+* @param {string} name of bitcoin
+* @return object containing all data
+* */
+const CoinGecko = require('coingecko-api');
+const CoinGeckoClient = new CoinGecko();
+const getData = async(name) => {
+    let data = await CoinGeckoClient.coins.fetch(name, {});
+    //console.log(data);
+    return data;
+};
+const fs = require('fs');
+/* Tries to delete a user from the database
+* @param {string} _id
+* @return cryptocurrency data
+* */
+router.post("/getCryptodata",(request, response, next)=>
+{
+    User.findOne({ _id: request.body._id}, async (err, user) =>{
+        if (!user) return response.status(400).send({ msg: 'User not found' });
+        let following =user.FavouriteCrypto;
+        if(following.length>0)
+        {
+            for(let val of user.FavouriteCrypto)
+            {
+                let path =user.username+val+'.json';
+                const dr= await getData(val);
+                let fdata= JSON.stringify(dr);
+               fs.writeFile('routes/CryptoCurrencyJsonFiles/'+path, fdata, (err) => {
+                    if (err) throw err;
+                    console.log('Json files created');
+                });
+
+            }
+
+            response.status(200).send("function successful");
+        }response.status(500).send("user not following any cryptoCurrency");
+    });
+
 });
 
 module.exports = router;

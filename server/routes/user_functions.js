@@ -6,6 +6,24 @@ const bcrypt = require("bcryptjs");
 const dotenv = require('dotenv');
 dotenv.config();
 const crypto = require('crypto');
+/* Tries to delete a user from the database
+* @param {string} email The email of the user in the database
+* @return array of followed bitcoin
+* */
+const getFavoriteCrypto= async(email)=>{
+    let error = new Map()
+    await User.find({email:email})
+        .exec()
+        .then(async user=>
+            {
+             if(user)
+                 return error.set(200,user.username);
+            }
+
+        )
+
+    return error;
+};
 
 
 /* Tries to delete a user from the database
@@ -21,6 +39,13 @@ const deleteUser = async (email) => {
         });
 
     return error;
+};
+const registerUser = async (email , username, password) => {
+     await User.findOne({email:email})
+         .then(
+
+         )
+
 };
 
 /*Adds a user to the database
@@ -92,4 +117,5 @@ const send_verification_mail = (email, error) => {
         return error.set(200, `A verification email has been sent to ${email}`);
     });
 }
-module.exports = {deleteUser, add_user};
+
+module.exports = {deleteUser, add_user,getFavoriteCrypto};

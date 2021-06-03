@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/test/apiTest.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/test/api.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/test/api.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/test/user.test.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +55,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="javascript.nodejs.core.library.configured.version" value="14.17.0" />
     <property name="javascript.nodejs.core.library.typings.version" value="14.17.0" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/server/test" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/server/node_modules/mocha" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -68,88 +71,66 @@
       <recent name="C:\Users\Zeeshan\OneDrive - University of Pretoria\Documents\BIT\Year 4\Semester 1\COS 301\Projects\Crypto-Market-Analysis\server\test\functional" />
     </key>
   </component>
-  <component name="RunManager" selected="Jest.add user.adds an entry into the database">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="POST /user.POST DELETE /:Email.Returns 404, email cannot be null" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$/server" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/server/test/api.test.js" />
-      <test-names>
-        <test-name value="POST /user" />
-        <test-name value="POST DELETE /:Email" />
-        <test-name value="Returns 404, email cannot be null" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="POST /user.adds an entry into the database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$/server" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/server/test/api.test.js" />
-      <test-names>
-        <test-name value="POST /user" />
-        <test-name value="adds an entry into the database" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="add user.adds an entry into the database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$/server" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/server/test/user.test.js" />
-      <test-names>
-        <test-name value="add user" />
-        <test-name value="adds an entry into the database" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="add_user.adds a user to the database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$/server" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/server/test/user.test.js" />
-      <test-names>
-        <test-name value="add_user" />
-        <test-name value="adds a user to the database" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="deleteUser" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Jest.api.test.js">
+    <configuration name="DELETE /:Email" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
       <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
       <working-dir value="$PROJECT_DIR$/server" />
       <envs />
       <scope-kind value="SUITE" />
-      <test-file value="$PROJECT_DIR$/server/test/user.test.js" />
+      <test-file value="$PROJECT_DIR$/server/test/api.test.js" />
       <test-names>
-        <test-name value="deleteUser" />
+        <test-name value="DELETE /:Email" />
       </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="POST /user/signup.Tries to add an existing user to the database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/server" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/server/test/api.test.js" />
+      <test-names>
+        <test-name value="POST /user/signup" />
+        <test-name value="Tries to add an existing user to the database" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="api.test.js" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/server" />
+      <envs />
+      <scope-kind value="TEST_FILE" />
+      <test-file value="$PROJECT_DIR$/server/test/api.test.js" />
+      <method v="2" />
+    </configuration>
+    <configuration name="server\test\apiTest.js" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <mocha-package>$PROJECT_DIR$/server/node_modules/mocha</mocha-package>
+      <working-directory>$PROJECT_DIR$/server</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>TEST_FILE</test-kind>
+      <test-file>$PROJECT_DIR$/server/test/apiTest.js</test-file>
+      <method v="2" />
+    </configuration>
+    <configuration name="server\test\api.test.js" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <mocha-package>$PROJECT_DIR$/server/node_modules/mocha</mocha-package>
+      <working-directory>$PROJECT_DIR$/server</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>TEST_FILE</test-kind>
+      <test-file>$PROJECT_DIR$/server/test/api.test.js</test-file>
       <method v="2" />
     </configuration>
     <configuration name="test" type="mocha-javascript-test-runner">
@@ -166,20 +147,20 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Jest.POST /user.POST DELETE /:Email.Returns 404, email cannot be null" />
-      <item itemvalue="Jest.POST /user.adds an entry into the database" />
-      <item itemvalue="Jest.deleteUser" />
-      <item itemvalue="Jest.add_user.adds a user to the database" />
-      <item itemvalue="Jest.add user.adds an entry into the database" />
+      <item itemvalue="Jest.POST /user/signup.Tries to add an existing user to the database" />
+      <item itemvalue="Jest.DELETE /:Email" />
+      <item itemvalue="Jest.api.test.js" />
       <item itemvalue="Mocha.test" />
+      <item itemvalue="Mocha.server\test\api.test.js" />
+      <item itemvalue="Mocha.server\test\apiTest.js" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Jest.add user.adds an entry into the database" />
-        <item itemvalue="Jest.add_user.adds a user to the database" />
-        <item itemvalue="Jest.POST /user.adds an entry into the database" />
-        <item itemvalue="Jest.deleteUser" />
-        <item itemvalue="Jest.POST /user.POST DELETE /:Email.Returns 404, email cannot be null" />
+        <item itemvalue="Jest.api.test.js" />
+        <item itemvalue="Mocha.server\test\apiTest.js" />
+        <item itemvalue="Mocha.server\test\api.test.js" />
+        <item itemvalue="Jest.DELETE /:Email" />
+        <item itemvalue="Jest.POST /user/signup.Tries to add an existing user to the database" />
       </list>
     </recent_temporary>
   </component>
@@ -307,7 +288,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622711674392</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Fixed signup endpoint in user.js">
+      <created>1622716787934</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1622716787934</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -341,7 +329,8 @@
     <MESSAGE value="Changed user endpoints to previous methods and removed user.test.js and user_functions.js file" />
     <MESSAGE value="Made changes to user.js" />
     <MESSAGE value="Changed user.js" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed user.js" />
+    <MESSAGE value="Fixed signup endpoint in user.js" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed signup endpoint in user.js" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

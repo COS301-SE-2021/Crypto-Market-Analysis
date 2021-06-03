@@ -14,6 +14,8 @@ const User = require("../models/user")
 const userFunctions = require("./user_functions")
 const Token = require("../models/verification")
 const {val} = require("cheerio/lib/api/attributes");
+
+
 router.post("/viewCrypto",(req,res,next)=>{
    userFunctions.getFavoriteCrypto(req.body.email)
        .then(error => {

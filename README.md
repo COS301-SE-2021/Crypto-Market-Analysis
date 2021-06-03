@@ -1,5 +1,5 @@
 # Crypto Market Analysis
-[![Build Status](https://travis-ci.com/COS301-SE-2021/Crypto-Market-Analysis.svg?branch=master)](https://travis-ci.com/COS301-SE-2021/Crypto-Market-Analysis)
+[![Build Status](https://travis-ci.com/COS301-SE-2021/Crypto-Market-Analysis.svg?branch=master)](https://travis-ci.com/COS301-SE-2021/Crypto-Market-Analysis) &nbsp; [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2021_Crypto-Market-Analysis&metric=coverage)](https://sonarcloud.io/dashboard?id=COS301-SE-2021_Crypto-Market-Analysis) &nbsp; [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=COS301-SE-2021_Crypto-Market-Analysis&metric=bugs)](https://sonarcloud.io/dashboard?id=COS301-SE-2021_Crypto-Market-Analysis) &nbsp; ![GitHub issues](https://img.shields.io/github/issues/COS301-SE-2021/Crypto-Market-Analysis) &nbsp; ![Uptime Robot ratio (30 days)](https://img.shields.io/uptimerobot/ratio/m788320564-5cdf04f0d1344570bd765b7f) &nbsp; ![Requires.io](https://img.shields.io/requires/github/COS301-SE-2021/Crypto-Market-Analysis)
 ## Table of Contents
 - [Project Vision and Objectives](#project-vision-and-objectives)  
 - [Documentation](#documentation)

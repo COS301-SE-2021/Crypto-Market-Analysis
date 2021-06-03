@@ -35,7 +35,7 @@ const secret_token = 'kabdaskjndbjhbkjaishouvhadjkljaosiuiygm';
  */
 router.post("/login", async (request, response, next) => {
     let {username, password: plainTextPassword } = request.body;
-    let user = await User.find({userName}).lean();
+    let user = await User.find({username}).lean();
 
     if(!user){
         return response.status(400).json({status: 'error', error: 'Invalid username/password entered'});
@@ -99,50 +99,62 @@ router.post("/updatePassword", async (request, response, next) => {
  * @param {string} request.body.password The password of the user who is registering
  * @return {object}                      Contains the status code and message stating whether it was successful or not
  */
-User
-    .find({ email: request.body.email })
-    .exec()
-    .then(user => {
-        if (user.length >= 1)
-            return response.status(400).json({
-                message: "User already registered"
-            });
-        else{
-            bcrypt.hash(request.body.password, 10, (err, hash) => {
-                if(err)
-                    return response.status(500).json({
-                        error: err
+router.post(
+    "/signup",(request,response,next) => {
+        User
+            .find({email: request.body.email})
+            .exec()
+            .then(user => {
+                if (user.length >= 1)
+                    return response.status(400).json({
+                        message: "User already registered"
                     });
-                else
-                {
-                    const user= new User({
-                        username: request.body.username,
-                        email: request.body.email,
-                        password: hash
-                    });
-
-                    user.save(err => {
-                        if(err){
-                            return response.status(500).send({msg: err.message});
-                        }
-                        const token = new Token({ _id: user._id, token: crypto.randomBytes(10).toString('hex') });
-                        token.save(function (err)
-                        {
-                            if(err){
-                                return response.status(500).send({msg: err.message});
-                            }
-                            const transporter = nodemailer.createTransport({ service: 'gmail', auth: { user: process.env.EMAIL_USERNAME, pass: process.env.EMAIL_PASSWORD } });
-                            const mailOptions = { from: process.env.EMAIL_USERNAME, to: request.body.email, subject: 'Account Verification Token', text: 'Hello,\n\n' + 'Please verify your account by Entering this code when you log in: ' + token.token + '.\n' };
-                            transporter.sendMail(mailOptions, function (err) {
-                                if (err) { return response.status(500).send({ msg: err.message }); }
-                                response.status(200).send('A verification email has been sent to ' + request.body.email+ '.');
+                else {
+                    bcrypt.hash(request.body.password, 10, (err, hash) => {
+                        if (err)
+                            return response.status(500).json({
+                                error: err
                             });
-                        })
-                    })
+                        else {
+                            const user = new User({
+                                username: request.body.username,
+                                email: request.body.email,
+                                password: hash
+                            });
+
+                            user.save(err => {
+                                if (err) {
+                                    return response.status(500).send({msg: err.message});
+                                }
+                                const token = new Token({_id: user._id, token: crypto.randomBytes(10).toString('hex')});
+                                token.save(function (err) {
+                                    if (err) {
+                                        return response.status(500).send({msg: err.message});
+                                    }
+                                    const transporter = nodemailer.createTransport({
+                                        service: 'gmail',
+                                        auth: {user: process.env.EMAIL_USERNAME, pass: process.env.EMAIL_PASSWORD}
+                                    });
+                                    const mailOptions = {
+                                        from: process.env.EMAIL_USERNAME,
+                                        to: request.body.email,
+                                        subject: 'Account Verification Token',
+                                        text: 'Hello,\n\n' + 'Please verify your account by Entering this code when you log in: ' + token.token + '.\n'
+                                    };
+                                    transporter.sendMail(mailOptions, function (err) {
+                                        if (err) {
+                                            return response.status(500).send({msg: err.message});
+                                        }
+                                        response.status(200).send('A verification email has been sent to ' + request.body.email + '.');
+                                    });
+                                })
+                            })
+                        }
+                    });
                 }
             });
         }
-    });
+    );
 
 /**
  * This function verify the user email

@@ -40,8 +40,8 @@ const register = () => {
 function registers(event) {
     event.preventDefault();
     let request = {
-        username: document.getElementById('full-name'),
         email: document.getElementById('your-email'),
+        username: document.getElementById('full-name'),
         password: document.getElementById('password')
     };
     axios.post('http://localhost:8080/user/signup', request).then(resp=>{console.log("form sent");}).catch(err=>{console.log(err);})

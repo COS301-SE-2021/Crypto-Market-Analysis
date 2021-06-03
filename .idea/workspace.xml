@@ -1,11 +1,9 @@
-  <?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/user_functions.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/user_functions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/test/user.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/test/user.test.js" afterDir="false" />
+    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="test">
+      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,6 +12,13 @@
   </component>
   <component name="ComposerSettings">
     <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -205,7 +210,70 @@
       <option name="project" value="LOCAL" />
       <updated>1622558205015</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="http request from login to api with form parameters">
+      <created>1622651447020</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1622651447020</updated>
+    </task>
+    <task id="LOCAL-00007" summary="http request from register to api with form parameters">
+      <created>1622651476124</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1622651476124</updated>
+    </task>
+    <task id="LOCAL-00008" summary="app.js fix">
+      <created>1622651504347</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1622651504347</updated>
+    </task>
+    <task id="LOCAL-00009" summary="adding email/auth token page to route">
+      <created>1622653879025</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1622653879025</updated>
+    </task>
+    <task id="LOCAL-00010" summary="login and register">
+      <created>1622653958019</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1622653958019</updated>
+    </task>
+    <task id="LOCAL-00011" summary="token component">
+      <created>1622653979990</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1622653979990</updated>
+    </task>
+    <task id="LOCAL-00012" summary="token component">
+      <created>1622666025535</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1622666025535</updated>
+    </task>
+    <task id="LOCAL-00013" summary="test">
+      <created>1622667783539</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1622667783539</updated>
+    </task>
+    <task id="LOCAL-00014" summary="test">
+      <created>1622670598123</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1622670598123</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -229,10 +297,21 @@
     <MESSAGE value="Added tests for signup endpoint in user" />
     <MESSAGE value="Added a deleteUser module to abstract delete function from the database. Also added tests for the deleteUser function and delete endpoint." />
     <MESSAGE value="Added Additional Tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Additional Tests" />
+    <MESSAGE value="http request from login to api with form parameters" />
+    <MESSAGE value="http request from register to api with form parameters" />
+    <MESSAGE value="app.js fix" />
+    <MESSAGE value="adding email/auth token page to route" />
+    <MESSAGE value="login and register" />
+    <MESSAGE value="token component" />
+    <MESSAGE value="test" />
+    <option name="LAST_COMMIT_MESSAGE" value="test" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Crypto_Market_Analysis$test.dat" NAME="test Coverage Results" MODIFIED="1622485551319" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="MochaJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Crypto_Market_Analysis$test.dat" NAME="test Coverage Results" MODIFIED="1622482427920" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="MochaJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/Crypto_Market_Analysis$POST__user_adds_an_entry_into_the_database.info" NAME="POST /user.adds an entry into the database Coverage Results" MODIFIED="1622554439693" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="JestJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

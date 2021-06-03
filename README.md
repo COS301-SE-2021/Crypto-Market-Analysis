@@ -1,5 +1,5 @@
 # Crypto Market Analysis
-[![codecov](https://codecov.io/gh/COS301-SE-2021/Crypto-Market-Analysis/branch/master/graph/badge.svg?token=B2K42YK26S)](https://codecov.io/gh/COS301-SE-2021/Crypto-Market-Analysis)
+[![Build Status](https://travis-ci.com/COS301-SE-2021/Crypto-Market-Analysis.svg?branch=master)](https://travis-ci.com/COS301-SE-2021/Crypto-Market-Analysis)
 ## Table of Contents
 - [Project Vision and Objectives](#project-vision-and-objectives)  
 - [Documentation](#documentation)

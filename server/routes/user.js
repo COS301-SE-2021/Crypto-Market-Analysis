@@ -189,16 +189,26 @@ router.post("/verify",(request, response, next)=>
  * @param {string} FavouriteCrypto
  */
 router.post("/followCrypto",(request,response,next)=>{
-    User.findOne({  _id:request.body._id }, function (err, user) {
+    User.findOne({  email:request.body.email }, (err, user) => {
         if (err)
-            return response.status(400).send({  type: 'already-added', msg: 'Unable to locate user' });
-        if(user.FavouriteCrypto.includes(request.body.FavouriteCrypto))
-            return response.status(400).send({ type: 'already-followed', msg: "already following the cryptocurrency" });
-        user.FavouriteCrypto.push(request.body.FavouriteCrypto)
-        user.save(function (err) {
-            if (err) { return response.status(500).send({ msg: "An error occurred contact administrator" }); }
-            response.status(200).send("Favourite Crypto added");
-        });
+            return response.status(404).send({  message: 'Unable to find user' });
+        else if(user !== null) {
+            if (user.FavouriteCrypto.includes(request.body.crypto_name))
+                return response.status(400).send({
+                    type: 'already-followed',
+                    message: "already following the cryptocurrency"
+                });
+            user.FavouriteCrypto.push(request.body.crypto_name)
+            user.save(function (err) {
+                if (err) {
+                    return response.status(500).send({message: "An error occurred contact administrator"});
+                }
+                response.status(200).send({message: "Favourite Crypto added"});
+            });
+        }
+        else
+            return response.status(403).send({  message: 'Not authorized' });
+
     });
 });
 

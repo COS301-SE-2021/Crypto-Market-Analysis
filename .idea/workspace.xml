@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="trying different machine">
+    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="changing component structure">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Home/Menu/Menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Home/Menu/Menu.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/login/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/login/login.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/login/register.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/login/register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/login/token.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/login/token.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -187,7 +186,8 @@
       <workItem from="1622705678600" duration="335000" />
       <workItem from="1622706229974" duration="2647000" />
       <workItem from="1622713602154" duration="11939000" />
-      <workItem from="1622728106348" duration="6896000" />
+      <workItem from="1622728106348" duration="7640000" />
+      <workItem from="1622745427596" duration="1765000" />
     </task>
     <task id="LOCAL-00002" summary="Added partial api endpoint tests">
       <created>1622485455332</created>
@@ -336,7 +336,42 @@
       <option name="project" value="LOCAL" />
       <updated>1622733468556</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="changing component structure">
+      <created>1622744734667</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1622744734667</updated>
+    </task>
+    <task id="LOCAL-00024" summary="changing component structure">
+      <created>1622744745823</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1622744745823</updated>
+    </task>
+    <task id="LOCAL-00025" summary="changing component structure">
+      <created>1622744760963</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1622744760963</updated>
+    </task>
+    <task id="LOCAL-00026" summary="changing component structure">
+      <created>1622744774748</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1622744774748</updated>
+    </task>
+    <task id="LOCAL-00027" summary="changing component structure">
+      <created>1622744786736</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1622744786736</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -370,7 +405,8 @@
     <MESSAGE value="updatePassword.js" />
     <MESSAGE value="test" />
     <MESSAGE value="trying different machine" />
-    <option name="LAST_COMMIT_MESSAGE" value="trying different machine" />
+    <MESSAGE value="changing component structure" />
+    <option name="LAST_COMMIT_MESSAGE" value="changing component structure" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

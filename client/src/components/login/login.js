@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import './css/login.css'
 import axios from 'axios';
+import Home from "../Home/Home";
 
 
 class login extends Component{
@@ -23,6 +24,7 @@ class login extends Component{
     }
 
     onSubmit(event){
+        window.location = '/home'
         event.preventDefault();
         const data = {
             email: this.state.email,

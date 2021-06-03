@@ -27,6 +27,7 @@ class register extends Component{
     }
 
     onSubmit(event){
+        window.location = '/login'
         event.preventDefault();
         const registered = {
             email: this.state.email,

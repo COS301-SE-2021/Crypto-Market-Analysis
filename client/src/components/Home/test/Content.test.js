@@ -10,7 +10,4 @@ it("renders without crashing", ()=>{
     const div =document.createElement("div");
     ReactDom.render(<Content></Content>, div)
 })
-it("matches snapshot",()=>{
-    const tree = renderer.create(<Content></Content>).toJSON();
-    expect(tree).toMatchSnapshot();
-})
+

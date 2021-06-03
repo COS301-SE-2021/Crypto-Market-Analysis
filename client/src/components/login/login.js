@@ -49,7 +49,7 @@ class login extends Component{
                         <form className="form-detail" onSubmit={this.onSubmit}>
                             <h2>Login Form</h2>
                             <div className="form-row">
-                                <label htmlFor="your-email">Email</label>
+                                <label htmlFor="your-email" data-testid="label">Email</label>
                                 <input type="text" name="your-email" id="your-email" className="input-text"
                                        placeholder="Your Email" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}"
                                        onChange={this.changeEmail}

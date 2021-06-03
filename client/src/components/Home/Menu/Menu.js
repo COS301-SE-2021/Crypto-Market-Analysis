@@ -4,7 +4,7 @@ import "./Menu.css"
 function Menu() {
     return (
         <nav className="navbar bg-light justify-content-between">
-        <a href="#" className="navbar-brand">AppName</a>
+        <a href="/home" className="navbar-brand">Cryptosis</a>
         <ul className="navbar-nav">
             <li className="nav-item">
                 <AccountCircleRounded/>{/*Add a button for option when account is clicked*/}

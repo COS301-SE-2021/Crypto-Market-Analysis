@@ -2,10 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="changing component structure">
+      <change afterPath="$PROJECT_DIR$/client/src/components/login/test/login.test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/login/test/register.test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/login/test/splash.test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/login/test/token.test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/login/test/updatePassword.test.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.test.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Home/Menu/Menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Home/Menu/Menu.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/login/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/login/login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/login/register.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/login/register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/login/splash.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/login/splash.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +60,7 @@
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/server/node_modules/jest" />
+    <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/client/node_modules/react-scripts" />
     <property name="nodejs.mocha.mocha_node_package_dir" value="$PROJECT_DIR$/server/node_modules/mocha" />
     <property name="nodejs_package_manager_path" value="yarn" />
   </component>
@@ -63,21 +71,17 @@
       <recent name="C:\Users\Zeeshan\OneDrive - University of Pretoria\Documents\BIT\Year 4\Semester 1\COS 301\Projects\Crypto-Market-Analysis\server\test\functional" />
     </key>
   </component>
-  <component name="RunManager" selected="Jest.add user.adds an entry into the database">
-    <configuration name="POST /user.POST DELETE /:Email.Returns 404, email cannot be null" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$/server" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/server/test/api.test.js" />
-      <test-names>
-        <test-name value="POST /user" />
-        <test-name value="POST DELETE /:Email" />
-        <test-name value="Returns 404, email cannot be null" />
-      </test-names>
-      <method v="2" />
+  <component name="RunManager" selected="Jest.renders without crashing">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration name="POST /user.adds an entry into the database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
@@ -121,16 +125,29 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="deleteUser" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+    <configuration name="renders login page correctly" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$/server" />
+      <jest-package value="$PROJECT_DIR$/client/node_modules/react-scripts" />
+      <working-dir value="$PROJECT_DIR$/client" />
       <envs />
-      <scope-kind value="SUITE" />
-      <test-file value="$PROJECT_DIR$/server/test/user.test.js" />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/client/src/components/login/test/login.test.js" />
       <test-names>
-        <test-name value="deleteUser" />
+        <test-name value="renders login page correctly" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="renders without crashing" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/client/node_modules/react-scripts" />
+      <working-dir value="$PROJECT_DIR$/client" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/client/src/components/login/test/login.test.js" />
+      <test-names>
+        <test-name value="renders without crashing" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -148,20 +165,20 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Jest.POST /user.POST DELETE /:Email.Returns 404, email cannot be null" />
       <item itemvalue="Jest.POST /user.adds an entry into the database" />
-      <item itemvalue="Jest.deleteUser" />
       <item itemvalue="Jest.add_user.adds a user to the database" />
       <item itemvalue="Jest.add user.adds an entry into the database" />
       <item itemvalue="Mocha.test" />
+      <item itemvalue="Jest.renders without crashing" />
+      <item itemvalue="Jest.renders login page correctly" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Jest.renders without crashing" />
+        <item itemvalue="Jest.renders login page correctly" />
         <item itemvalue="Jest.add user.adds an entry into the database" />
         <item itemvalue="Jest.add_user.adds a user to the database" />
         <item itemvalue="Jest.POST /user.adds an entry into the database" />
-        <item itemvalue="Jest.deleteUser" />
-        <item itemvalue="Jest.POST /user.POST DELETE /:Email.Returns 404, email cannot be null" />
       </list>
     </recent_temporary>
   </component>
@@ -187,7 +204,7 @@
       <workItem from="1622706229974" duration="2647000" />
       <workItem from="1622713602154" duration="11939000" />
       <workItem from="1622728106348" duration="7640000" />
-      <workItem from="1622745427596" duration="1765000" />
+      <workItem from="1622745427596" duration="6376000" />
     </task>
     <task id="LOCAL-00002" summary="Added partial api endpoint tests">
       <created>1622485455332</created>
@@ -371,7 +388,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622744786736</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="changing component structure">
+      <created>1622747338289</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1622747338290</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

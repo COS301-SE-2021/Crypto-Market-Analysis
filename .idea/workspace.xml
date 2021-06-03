@@ -1,28 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9d1c4936-8cde-4a5d-9ad8-6dbcf0988440" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto_market_analysis.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/logo192.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/logo512.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/robots.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logo.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reportWebVitals.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/setupTests.js" beforeDir="false" />
+    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,36 +12,369 @@
   <component name="ComposerSettings">
     <execution />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="origin/user-develop" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1t5VXk0qEZAsMpoy4EMqq2I6dzs" />
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/server/models/user.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/server/package.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/server/models/cryptocurrency.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/server/test/api.test.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/server/models/verification.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/server/routes/user_functions.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/server/routes/user.js" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectId" id="1tIjJV7iklCIumCQfOULzZ4YZzZ" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mongo" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="javascript.nodejs.core.library.configured.version" value="14.17.0" />
+    <property name="javascript.nodejs.core.library.typings.version" value="14.17.0" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/server/node_modules/jest" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/server/node_modules/jest" />
+    <property name="nodejs.mocha.mocha_node_package_dir" value="$PROJECT_DIR$/server/node_modules/mocha" />
     <property name="nodejs_package_manager_path" value="yarn" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Zeeshan\OneDrive - University of Pretoria\Documents\BIT\Year 4\Semester 1\COS 301\Projects\Crypto-Market-Analysis\server\test" />
+      <recent name="C:\Users\Zeeshan\OneDrive - University of Pretoria\Documents\BIT\Year 4\Semester 1\COS 301\Projects\Crypto-Market-Analysis\server\test\functional\api" />
+      <recent name="C:\Users\Zeeshan\OneDrive - University of Pretoria\Documents\BIT\Year 4\Semester 1\COS 301\Projects\Crypto-Market-Analysis\server\test\functional" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Jest.DELETE /:Email.Returns 200, email deleted from database">
+    <configuration name="DELETE /:Email.Returns 200, email deleted from database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/server" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/server/test/api.test.js" />
+      <test-names>
+        <test-name value="DELETE /:Email" />
+        <test-name value="Returns 200, email deleted from database" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="POST /user/followSocialMedia.Adds a social media site for the registered user in the database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/server" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/server/test/api.test.js" />
+      <test-names>
+        <test-name value="POST /user/followSocialMedia" />
+        <test-name value="Adds a social media site for the registered user in the database" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="POST /user/followSocialMedia.Tries to add a social media site for a non-registered user" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/server" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/server/test/api.test.js" />
+      <test-names>
+        <test-name value="POST /user/followSocialMedia" />
+        <test-name value="Tries to add a social media site for a non-registered user" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="POST /user/followSocialMedia.Tries to add an existing social media site for the registered user in the database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/server" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/server/test/api.test.js" />
+      <test-names>
+        <test-name value="POST /user/followSocialMedia" />
+        <test-name value="Tries to add an existing social media site for the registered user in the database" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="npm test" type="JavaScriptTestRunnerJest">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method v="2" />
+    </configuration>
+    <configuration name="server\test\api.test.js" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <mocha-package>$PROJECT_DIR$/server/node_modules/mocha</mocha-package>
+      <working-directory>$PROJECT_DIR$/server</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>TEST_FILE</test-kind>
+      <test-file>$PROJECT_DIR$/server/test/api.test.js</test-file>
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="mocha-javascript-test-runner">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <mocha-package>$PROJECT_DIR$/server/node_modules/mocha</mocha-package>
+      <working-directory>$PROJECT_DIR$/server</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <ui>bdd</ui>
+      <extra-mocha-options>--exit</extra-mocha-options>
+      <test-kind>DIRECTORY</test-kind>
+      <test-directory>$PROJECT_DIR$/server/test</test-directory>
+      <recursive>false</recursive>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Jest.npm test" />
+      <item itemvalue="Jest.POST /user/followSocialMedia.Adds a social media site for the registered user in the database" />
+      <item itemvalue="Jest.POST /user/followSocialMedia.Tries to add an existing social media site for the registered user in the database" />
+      <item itemvalue="Jest.POST /user/followSocialMedia.Tries to add a social media site for a non-registered user" />
+      <item itemvalue="Jest.DELETE /:Email.Returns 200, email deleted from database" />
+      <item itemvalue="Mocha.test" />
+      <item itemvalue="Mocha.server\test\api.test.js" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Jest.DELETE /:Email.Returns 200, email deleted from database" />
+        <item itemvalue="Mocha.server\test\api.test.js" />
+        <item itemvalue="Jest.POST /user/followSocialMedia.Tries to add a social media site for a non-registered user" />
+        <item itemvalue="Jest.POST /user/followSocialMedia.Tries to add an existing social media site for the registered user in the database" />
+        <item itemvalue="Jest.POST /user/followSocialMedia.Adds a social media site for the registered user in the database" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
+    <task id="LOCAL-00001" summary="Added concurrent server and client links">
+      <created>1622409206950</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1622409206950</updated>
+    </task>
     <task active="true" id="Default" summary="Default task">
-      <changelist id="9d1c4936-8cde-4a5d-9ad8-6dbcf0988440" name="Default Changelist" comment="" />
-      <created>1622058990692</created>
+      <changelist id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="" />
+      <created>1622463494048</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1622058990692</updated>
-      <workItem from="1622059014593" duration="357000" />
-      <workItem from="1622102532928" duration="443000" />
+      <updated>1622463494048</updated>
+      <workItem from="1622463506175" duration="1053000" />
+      <workItem from="1622476121356" duration="50698000" />
+      <workItem from="1622638911302" duration="5274000" />
+      <workItem from="1622744129991" duration="398000" />
     </task>
+    <task id="LOCAL-00002" summary="Added partial api endpoint tests">
+      <created>1622485455332</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1622485455332</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added tests for signup endpoint in user">
+      <created>1622490157893</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1622490157893</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Added a deleteUser module to abstract delete function from the database. Also added tests for the deleteUser function and delete endpoint.">
+      <created>1622545975335</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1622545975335</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Added Additional Tests">
+      <created>1622558205015</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1622558205015</updated>
+    </task>
+    <task id="LOCAL-00006" summary="http request from login to api with form parameters">
+      <created>1622651447020</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1622651447020</updated>
+    </task>
+    <task id="LOCAL-00007" summary="http request from register to api with form parameters">
+      <created>1622651476124</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1622651476124</updated>
+    </task>
+    <task id="LOCAL-00008" summary="app.js fix">
+      <created>1622651504347</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1622651504347</updated>
+    </task>
+    <task id="LOCAL-00009" summary="adding email/auth token page to route">
+      <created>1622653879025</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1622653879025</updated>
+    </task>
+    <task id="LOCAL-00010" summary="login and register">
+      <created>1622653958019</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1622653958019</updated>
+    </task>
+    <task id="LOCAL-00011" summary="token component">
+      <created>1622653979990</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1622653979990</updated>
+    </task>
+    <task id="LOCAL-00012" summary="token component">
+      <created>1622666025535</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1622666025535</updated>
+    </task>
+    <task id="LOCAL-00013" summary="test">
+      <created>1622667783539</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1622667783539</updated>
+    </task>
+    <task id="LOCAL-00014" summary="test">
+      <created>1622670598123</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1622670598123</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Changed user endpoints to previous methods and removed user.test.js and user_functions.js file">
+      <created>1622678149868</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1622678149869</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Changed user.js">
+      <created>1622711674392</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1622711674392</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Fixed signup endpoint in user.js">
+      <created>1622716787934</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1622716787934</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Added tests for followCrypto endpoint">
+      <created>1622731350105</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1622731350105</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Added follow social media site function as well as implemented all tests">
+      <created>1622744968925</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1622744968925</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added concurrent server and client links" />
+    <MESSAGE value="Added partial api endpoint tests" />
+    <MESSAGE value="Added tests for signup endpoint in user" />
+    <MESSAGE value="Added a deleteUser module to abstract delete function from the database. Also added tests for the deleteUser function and delete endpoint." />
+    <MESSAGE value="Added Additional Tests" />
+    <MESSAGE value="http request from login to api with form parameters" />
+    <MESSAGE value="http request from register to api with form parameters" />
+    <MESSAGE value="app.js fix" />
+    <MESSAGE value="adding email/auth token page to route" />
+    <MESSAGE value="login and register" />
+    <MESSAGE value="token component" />
+    <MESSAGE value="test" />
+    <MESSAGE value="Changed user endpoints to previous methods and removed user.test.js and user_functions.js file" />
+    <MESSAGE value="Made changes to user.js" />
+    <MESSAGE value="Changed user.js" />
+    <MESSAGE value="Fixed signup endpoint in user.js" />
+    <MESSAGE value="Added tests for followCrypto endpoint" />
+    <MESSAGE value="Added follow social media site function as well as implemented all tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added follow social media site function as well as implemented all tests" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Crypto_Market_Analysis$test.dat" NAME="test Coverage Results" MODIFIED="1622485551319" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="MochaJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Crypto_Market_Analysis$POST__user_adds_an_entry_into_the_database.info" NAME="POST /user.adds an entry into the database Coverage Results" MODIFIED="1622554439693" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="JestJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

@@ -39,9 +39,10 @@ class register extends Component{
             .then(() => console.log('sent'))
             .catch(err =>{
                 console.error(err);
+                window.location = '/register'
             });
 
-        // window.location = '../Home/Home'
+        window.location = '/login'
     }
 
     render() {

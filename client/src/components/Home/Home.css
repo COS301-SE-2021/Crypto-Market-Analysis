@@ -1,0 +1,15 @@
+.home {
+    text-align: center;
+    /*background-color: #f3f3f3;*/
+    min-height: 100vh;
+
+}
+.container-fluid
+{
+    width:100%;
+    margin-top:2%;
+}
+.row
+{
+    height: 500px;
+}

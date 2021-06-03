@@ -11,9 +11,9 @@ const UserSchema = mongoose.Schema({
     },
     roles: [{type : String}],
     Verified : {type: Boolean , default :false},
-    FavouriteCrypto: [{type: String}],
     PasswordReset : String,
     FavouriteCrypto : [{type : String}],
+    SocialMediaSites : [{type : String}],
     Expires: Date
 
 });

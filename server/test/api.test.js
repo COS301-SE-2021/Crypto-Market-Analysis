@@ -92,22 +92,20 @@ describe('POST /user/signup', () => {
 });
 
 describe('POST /user/followCrypto', () => {
+    let crypto = "Dogecoin";
+    let email = "example@example.co.za"
     it(`Adds a crypto the the user in the database`, done => {
-        const crypto = "Bitcoin";
-        const email = "example@example.co.za"
         request(app)
             .post('/user/followCrypto')
             .send({"email":email, "crypto_name":crypto})
             .expect(200)
             .then(response => {
-                expect(response.body).to.equal("Favourite Crypto added")
+                expect(response.body.message).to.equal("Favourite Crypto added")
                 done();
             })
             .catch(err => done(err))
     });
     it(`Tries to add an existing crypto to the user in the database`, done => {
-        const crypto = "Bitcoin";
-        const email = "example@example.co.za"
         request(app)
             .post('/user/followCrypto')
             .send({"email":email, "crypto_name":crypto})
@@ -120,11 +118,49 @@ describe('POST /user/followCrypto', () => {
             .catch(err => done(err))
     });
     it(`Tries to add a crypto for a non-existent user in the database`, done => {
-        const crypto = "Bitcoin";
-        const email = "someother@example.co.za"
+        email = "someother@example.co.za"
         request(app)
             .post('/user/followCrypto')
             .send({"email":email, "crypto_name":crypto})
+            .expect(403)
+            .then(response => {
+                expect(response.body.message).to.equal("Not authorized");
+                done();
+            })
+            .catch(err => done(err))
+    });
+});
+
+describe('POST /user/followSocialMedia', () => {
+    let social_media_site = "Twitter";
+    let email = "example@example.co.za";
+    it(`Adds a social media site for the registered user in the database`, done => {
+        request(app)
+            .post('/user/followSocialMedia')
+            .send({"email":email, "social_media":social_media_site})
+            .expect(200)
+            .then(response => {
+                expect(response.body.message).to.equal("Successful")
+                done();
+            })
+            .catch(err => done(err))
+    });
+    it(`Tries to add an existing social media site for the registered user in the database`, done => {
+        request(app)
+            .post('/user/followSocialMedia')
+            .send({"email":email, "social_media":social_media_site})
+            .expect(400)
+            .then(response => {
+                expect(response.body.message).to.equal("Already following the social media site");
+                done();
+            })
+            .catch(err => done(err))
+    });
+    it(`Tries to add a social media site for a non-registered user`, done => {
+        email = "someother@example.com"
+        request(app)
+            .post('/user/followSocialMedia')
+            .send({"email":email, "social_media":social_media_site})
             .expect(403)
             .then(response => {
                 expect(response.body.message).to.equal("Not authorized");

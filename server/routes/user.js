@@ -15,17 +15,7 @@ const userFunctions = require("./user_functions")
 const Token = require("../models/verification")
 const {val} = require("cheerio/lib/api/attributes");
 
-
-router.post("/viewCrypto",(req,res,next)=>{
-   userFunctions.getFavoriteCrypto(req.body.email)
-       .then(error => {
-           if(error.get(200) !== undefined)
-    return res.status(200).json({message: error.get(200)})
-})
-});
-
-const Crypto = require("../models/cryptocurrency")
-
+const Crypto = require("../models/cryptocurrency");
 const secret_token = 'kabdaskjndbjhbkjaishouvhadjkljaosiuiygm';
 
 /**
@@ -53,7 +43,7 @@ router.post("/login", async (request, response, next) => {
     }
     response.status(500).json({status: 'error', error: 'Invalid username/password entered'})
 });
-            
+
 /**
  * use post method to  perform http request
  *@param /api/updatePassword API route
@@ -103,7 +93,6 @@ router.post("/updatePassword", async (request, response, next) => {
  */
 router.post(
     "/signup",(request,response,next) => {
-        console.log(`this is the email ${request.body.email}`)
         User
             .find({email: request.body.email})
             .exec()
@@ -156,14 +145,15 @@ router.post(
                     });
                 }
             });
-        }
-    );
+    }
+);
 
 /**
- * This function verify the user email
- * @param {string} token
- * @param {string} id
- * @param {string} email
+ * This function verify the user email by making use of the token sent to the user's email
+ * @param {string} request.body.token The token sent to the user's email address
+ * @param {string} request.body.email The email of the user
+ * @param {string} request.body.id The id of the user
+ * @return                          A response containing the status code
  */
 router.post("/verify",(request, response, next)=>
 {
@@ -185,8 +175,9 @@ router.post("/verify",(request, response, next)=>
 
 /**
  * This function adds crypto names to the user account that the user is following
- * @param {string} id
- * @param {string} FavouriteCrypto
+ * @param {string} request.body.email
+ * @param {string} request.body.crypt_name
+ * @return          A response containing the status code
  */
 router.post("/followCrypto",(request,response,next)=>{
     User.findOne({  email:request.body.email }, (err, user) => {
@@ -212,22 +203,47 @@ router.post("/followCrypto",(request,response,next)=>{
     });
 });
 
+/** This function adds a social media site to scrap from by the user
+ * @param request.body.social_media The social media site to scrap from
+ * @param request.body.email The email address of the registered user
+ * @return          A response containing the status code
+ * */
+router.post("/followSocialMedia",(request,response,next)=>{
+    User.findOne({  email:request.body.email }, (err, user) => {
+        if (err)
+            return response.status(404).send({  message: 'Unable to find user' });
+        else if(user !== null) {
+            if (user.SocialMediaSites.includes(request.body.social_media))
+                return response.status(400).send({
+                    message: "Already following the social media site"
+                });
+            user.SocialMediaSites.push(request.body.social_media)
+            user.save(function (err) {
+                if (err)
+                    return response.status(500).send({message: "An error occurred contact administrator"});
+                response.status(200).send({message: "Successful"});
+            });
+        }
+        else
+            return response.status(403).send({  message: 'Not authorized' });
+
+    });
+});
+
 /**
  * This function deletes the user from the database
- * @param {string} email
+ * @param {string} request.body.Email The email of the user being deleted
+ * @return          A response containing the status code
  */
 router.delete("/:Email", (req, res, next) => {
-    User.deleteOne({email: req.body.email})
+    User.deleteOne({email: req.params.Email})
         .exec()
         .catch(err => {
             return res.status(500).json({"message": err});
         });
     return res.status(200).json({"message":"User Deleted"})
 });
-/* Tries to delete a user from the database
-* @param {string} name of bitcoin
-* @return object containing all data
-* */
+
 const CoinGecko = require('coingecko-api');
 const CoinGeckoClient = new CoinGecko();
 const getData = async(name) => {
@@ -236,10 +252,7 @@ const getData = async(name) => {
     return data;
 };
 const fs = require('fs');
-/* Tries to delete a user from the database
-* @param {string} _id
-* @return cryptocurrency data
-* */
+
 router.post("/getCryptodata",(request, response, next)=>
 {
     User.findOne({ _id: request.body._id}, async (err, user) =>{
@@ -252,7 +265,7 @@ router.post("/getCryptodata",(request, response, next)=>
                 let path =user.username+val+'.json';
                 const dr= await getData(val);
                 let fdata= JSON.stringify(dr);
-               fs.writeFile('routes/CryptoCurrencyJsonFiles/'+path, fdata, (err) => {
+                fs.writeFile('routes/CryptoCurrencyJsonFiles/'+path, fdata, (err) => {
                     if (err) throw err;
                     console.log('Json files created');
                 });
@@ -263,6 +276,15 @@ router.post("/getCryptodata",(request, response, next)=>
         }response.status(500).send("user not following any cryptoCurrency");
     });
 
+});
+
+
+router.post("/viewCrypto",(req,res,next)=>{
+    userFunctions.getFavoriteCrypto(req.body.email)
+        .then(error => {
+            if(error.get(200) !== undefined)
+                return res.status(200).json({message: error.get(200)})
+        })
 });
 
 

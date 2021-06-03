@@ -4,7 +4,7 @@
   "description": "NodeJS backend Project",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "jest",
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix ../client",

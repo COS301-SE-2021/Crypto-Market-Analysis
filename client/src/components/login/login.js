@@ -32,10 +32,14 @@ const login = () => {
 //making a http post request to the endpoint containing form parameters
 function logins(event) {
     event.preventDefault();
-    let request = {
+    axios.post('http://localhost:8080/user/login', {
         email: document.getElementById('your-email').value,
         password: document.getElementById('password').value
-    };
-    axios.post('http://localhost:8080/user/login', request).then(resp=>{console.log("form sent");}).catch(err=>{console.log(err);})
+    })
+        .then((response) => {
+            console.log(response);
+        }, (error) => {
+            console.log(error);
+        });
 }
 export default login;

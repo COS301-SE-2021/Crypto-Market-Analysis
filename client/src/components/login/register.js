@@ -14,6 +14,7 @@ class register extends Component{
         this.changePassword = this.changePassword.bind(this)
         this.changeEmail = this.changeEmail.bind(this)
         this.changeUsername = this.changeUsername.bind(this)
+        this.onSubmit = this.onSubmit.bind(this)
     }
     changeUsername(event){
         this.setState({username:event.target.value})
@@ -33,10 +34,14 @@ class register extends Component{
             password: this.state.password
         }
 
-        axios.post('/user/signup',registered)
-            .then(response => console.log(response.data))
+        axios
+            .post('http://localhost:8080/user/signup/',registered)
+            .then(() => console.log('sent'))
+            .catch(err =>{
+                console.error(err);
+            });
 
-        window.location = '../Home/Home.js'
+        // window.location = '../Home/Home'
     }
 
     render() {

@@ -103,6 +103,7 @@ router.post("/updatePassword", async (request, response, next) => {
  */
 router.post(
     "/signup",(request,response,next) => {
+        console.log(`this is the email ${request.body.email}`)
         User
             .find({email: request.body.email})
             .exec()

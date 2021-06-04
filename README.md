@@ -22,7 +22,7 @@ is and inform the user if it is about to change.
 
 ## Documentation
 - [User Manual]()
-- [SRS Document]()
+- [SRS Document](https://www.overleaf.com/project/60b0a52e05175e4251b53ead)
 - [Coding Standard]()
 - [Technical Installation Guide]()
 ## Demo Videos
@@ -31,9 +31,9 @@ is and inform the user if it is about to change.
 - [Demo 3]()
 - [Demo 4]()
 ## Project Management
-- [Github Project Board]()
+- [Github Project Board](https://github.com/COS301-SE-2021/Crypto-Market-Analysis/projects/1)
 - [Discord]()
-- [ClickUp]()
+- [ClickUp](https://clickup.up.ac.za/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_140238_1&handle=announcements_entry&mode=view#)
 ## Collaborators
 | Team Member | Profile | 
 | ----------- | ------- |

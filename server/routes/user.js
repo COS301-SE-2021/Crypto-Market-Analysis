@@ -103,7 +103,7 @@ router.post(
                         message: "User already registered"
                     });
                 else {
-                    bcrypt.hash(request.body.password, 10, (err, hash) => {
+                    bcrypt.hash(request.body.password, 20, (err, hash) => {
                         if (err){
                             return response.status(500).json({
                                 error: err

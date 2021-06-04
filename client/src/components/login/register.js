@@ -39,7 +39,7 @@ class register extends Component{
         axios
             .post('http://localhost:8080/user/signup/',registered)
             .then(() =>{console.log('sent');
-                window.location = '/home';}
+                window.location = '/token';}
             )
             .catch(err =>{
                 console.error(err);

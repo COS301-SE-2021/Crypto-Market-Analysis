@@ -48,7 +48,7 @@ describe('POST /user', () => {
 });
 
 describe('POST /user/signup', () => {
-    jest.setTimeout(10000)
+    jest.setTimeout(1000000000)
     it('Returns 200. Add a user to the database', done => {
         const email = "example@example.co.za"
         const username = "example"

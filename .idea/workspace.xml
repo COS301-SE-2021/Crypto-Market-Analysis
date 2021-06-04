@@ -3,6 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="working code">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/login/register.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/login/register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/test/api.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/test/api.test.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +35,14 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="recentNewPullRequestHead">
+      <RepoCoordinatesHolder>
+        <option name="owner" value="COS301-SE-2021" />
+        <option name="repository" value="Crypto-Market-Analysis" />
+      </RepoCoordinatesHolder>
+    </option>
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/server/package.json" root0="FORCE_HIGHLIGHTING" />
@@ -315,6 +326,8 @@
       <workItem from="1622476121356" duration="50698000" />
       <workItem from="1622638911302" duration="5274000" />
       <workItem from="1622744129991" duration="398000" />
+      <workItem from="1622783741806" duration="4676000" />
+      <workItem from="1622810065332" duration="313000" />
     </task>
     <task id="LOCAL-00002" summary="Added partial api endpoint tests">
       <created>1622485455332</created>
@@ -484,7 +497,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622783013512</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="working code">
+      <created>1622783783835</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1622783783835</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

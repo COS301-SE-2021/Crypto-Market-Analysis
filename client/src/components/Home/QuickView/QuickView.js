@@ -3,6 +3,8 @@ import "./QuickView.css"
 import {Search, Star} from "@material-ui/icons";
 import React from "react";
 import {Icon} from "coinmarketcap-cryptocurrency-icons";
+import axios from 'axios';
+
 
 const cryptos = [{Name:"Bitcoin",Code:"btc", Price:"R513 510,14"},
     {Name:"Litecoin",Code:"ltc", Price:"R2 554,79 "},
@@ -29,7 +31,19 @@ class QuickView extends React.Component{
                     crypt.selected = !crypt.selected;
 
                     //if selected add to favourite list else remove it
-                    if(crypt.selected){newFavelist.push(crypt)}
+                    if(crypt.selected)
+                    {
+                        newFavelist.push(crypt)
+                        let  cryptoToAdd = {
+                        email: "bhekindhlovu7@gmail.com",
+                        crypto_name: crypt.Name.toLowerCase()
+                        }
+
+                        axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd)
+                            .then(response => console.log(response))
+                            .catch(err => {console.error(err);})
+                    }
+
                     else{newFavelist = newFavelist.filter((item) => item.Code !== code);}
                 }
                 return {

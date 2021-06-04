@@ -163,7 +163,7 @@ router.post("/verify",(request, response, next)=>
     Token.findOne({ token: request.body.token }, function (err, token) {
         if (!token) return response.status(400).send({ type: 'user is not verified', msg: 'Token expired' });
 
-        User.findOne({ _id: token._id, email: request.body.email }, function (err, user) {
+        User.findOne({ email: request.body.email }, function (err, user) {
             if (!user) return response.status(400).send({ msg: 'Invalid token' });
             if (user.Verified) return response.status(400).send({ type: 'already-verified', msg: 'This user has already been verified.' });
 
@@ -184,6 +184,7 @@ router.post("/verify",(request, response, next)=>
  */
 router.post("/followCrypto",(request,response,next)=>{
     User.findOne({  email:request.body.email }, (err, user) => {
+       console.log(request.body);
         if (err)
             return response.status(404).send({  message: 'Unable to find user' });
         else if(user !== null) {

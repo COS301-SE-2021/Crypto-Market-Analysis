@@ -28,14 +28,14 @@ class token extends Component{
         }
 
         axios
-            .post('http://localhost:8080/user/updatePassword/',token)
-            .then(() => console.log('sent'))
+            .post('http://localhost:8080/user/verify/',token)
+            .then(() =>{window.location = '/home';} )
             .catch(err =>{
                 console.error(err);
-                window.location = '/token'
+
             });
 
-        window.location = '/token'
+        // window.location = '/token'
     }
     render() {
         return (<div className="form-v5">

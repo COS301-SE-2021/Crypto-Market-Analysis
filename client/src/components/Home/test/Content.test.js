@@ -1,17 +1,13 @@
 import React from "react";
 import ReactDom from "react-dom";
-import token from "../token";
 import {isTSAnyKeyword} from '@babel/types';
-import {cleanup, getByTestId, render} from '@testing-library/react';
+import {getByTestId, render,cleanup} from '@testing-library/react';
 import "@testing-library/jest-dom/extend-expect"
 import renderer from "react-test-renderer";
-import login from "../login";
+import Content from "../Content/Content";
 afterEach(cleanup);
 it("renders without crashing", ()=>{
     const div =document.createElement("div");
-    ReactDom.render(<token></token>, div)
+    ReactDom.render(<Content></Content>, div)
 })
-it("matches snapshot",()=>{
-    const tree = renderer.create(<token></token>).toJSON();
-    expect(tree).toMatchSnapshot();
-})
+

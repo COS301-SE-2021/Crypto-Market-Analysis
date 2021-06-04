@@ -16,7 +16,7 @@ function Content()
                                 <span>(24h)</span>
                             </h5>
                         </div>
-                        <h4> USD 1254.36 <span className="badge badge-success ml-2"> +06% </span> </h4>
+                        <h4> ZAR 515 128<span className="badge badge-success ml-2"> +1.6% </span> </h4>
                     </div>
                 </div>
 
@@ -28,7 +28,7 @@ function Content()
                                 <span>(24h)</span>
                             </h5>
                         </div>
-                        <h4> USD 1254.36 <span className="badge badge-danger ml-2"> -06% </span> </h4>
+                        <h4> ZAR 37 286<span className="badge badge-danger ml-2"> +2.02% </span> </h4>
                     </div>
                 </div>
 
@@ -40,7 +40,7 @@ function Content()
                                 <span>(24h)</span>
                             </h5>
                         </div>
-                        <h4> USD 1254.36 <span className="badge badge-danger ml-2"> -06% </span> </h4>
+                        <h4> ZAR 2 487<span className="badge badge-danger ml-2"> +4.29% </span> </h4>
                     </div>
                 </div>
                 <div className="col-12" style={{height: "400px"}}>

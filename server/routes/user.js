@@ -184,7 +184,7 @@ router.post("/verify",(request, response, next)=>
  */
 router.post("/followCrypto",(request,response,next)=>{
     User.findOne({  email:request.body.email }, (err, user) => {
-       console.log(request.body);
+
         if (err)
             return response.status(404).send({  message: 'Unable to find user' });
         else if(user !== null) {
@@ -252,7 +252,7 @@ const CoinGecko = require('coingecko-api');
 const CoinGeckoClient = new CoinGecko();
 const getData = async(name) => {
     let data = await CoinGeckoClient.coins.fetch(name, {});
-    //console.log(data);
+
     return data;
 };
 const fs = require('fs');
@@ -271,7 +271,7 @@ router.post("/getCryptodata",(request, response, next)=>
                 let fdata= JSON.stringify(dr);
                 fs.writeFile('routes/CryptoCurrencyJsonFiles/'+path, fdata, (err) => {
                     if (err) throw err;
-                    console.log('Json files created');
+
                 });
 
             }

@@ -27,7 +27,8 @@ class register extends Component{
     }
 
     onSubmit(event){
-        window.location = '/login'
+        // window.location = '/login'
+        window.location = '/home'
         event.preventDefault();
         const registered = {
             email: this.state.email,
@@ -37,13 +38,15 @@ class register extends Component{
 
         axios
             .post('http://localhost:8080/user/signup/',registered)
-            .then(() => console.log('sent'))
+            .then(() =>{console.log('sent');
+                window.location = '/home';}
+            )
             .catch(err =>{
                 console.error(err);
-                window.location = '/register'
+                // window.location = '/home'
             });
 
-        window.location = '/login'
+        // window.location = '/home'
     }
 
     render() {

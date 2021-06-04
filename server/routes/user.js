@@ -97,16 +97,19 @@ router.post(
             .find({email: request.body.email})
             .exec()
             .then(user => {
+
                 if (user.length >= 1)
                     return response.status(400).json({
                         message: "User already registered"
                     });
                 else {
                     bcrypt.hash(request.body.password, 10, (err, hash) => {
-                        if (err)
+                        if (err){
                             return response.status(500).json({
                                 error: err
                             });
+                        }
+
                         else {
                             const user = new User({
                                 username: request.body.username,

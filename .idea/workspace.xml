@@ -34,13 +34,13 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/server/package.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/server/models/user.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/server/models/cryptocurrency.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/server/models/verification.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/server/routes/user_functions.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/server/routes/user.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/server/test/api.test.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/server/models/verification.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/server/package.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/server/routes/user.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/server/models/user.js" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1tIjJV7iklCIumCQfOULzZ4YZzZ" />
   <component name="ProjectLevelVcsManager">
@@ -315,6 +315,8 @@
       <workItem from="1622476121356" duration="50698000" />
       <workItem from="1622638911302" duration="5274000" />
       <workItem from="1622744129991" duration="398000" />
+      <workItem from="1622832326565" duration="28000" />
+      <workItem from="1622832377386" duration="99000" />
     </task>
     <task id="LOCAL-00002" summary="Added partial api endpoint tests">
       <created>1622485455332</created>

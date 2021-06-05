@@ -8,16 +8,11 @@ class register extends Component{
         super();
         this.state = {
             email:'',
-            username:'',
             password:''
         }
         this.changePassword = this.changePassword.bind(this)
         this.changeEmail = this.changeEmail.bind(this)
-        this.changeUsername = this.changeUsername.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
-    }
-    changeUsername(event){
-        this.setState({username:event.target.value})
     }
     changeEmail(event){
         this.setState({email:event.target.value})
@@ -27,27 +22,50 @@ class register extends Component{
     }
 
     onSubmit(event){
-        // window.location = '/login'
-        //window.location = '/home'
         event.preventDefault();
         const registered = {
             email: this.state.email,
-            username: this.state.username,
-            password: this.state.password
+            password: this.state.password,
+            returnSecureToken:'true'
         }
 
         axios
-            .post('http://localhost:8080/user/signup/',registered)
-            .then(() =>{console.log('sent');
-                window.location = '/token';}
-            )
-            .catch(err =>{
+            .post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAdKlvny3n-vFZia29DELhxGZWWRW2mt7s',registered)
+            .then((res) =>{
+                axios
+                    .post('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAdKlvny3n-vFZia29DELhxGZWWRW2mt7s',{requestType: "VERIFY_EMAIL", idToken: res.data.idToken})
+                    .then((vres)=>{
+                        console.log("verification email sent");
+                        window.location("/token");
+                    })
+                    .catch((err) =>{
+                        console.error(err);
+                        //error handling for verification email not sent
+                    })
+            })
+            .catch((err) =>{
                 console.error(err);
-                // window.location = '/home'
-            });
+                //Zeeshan Error Handling
 
-        // window.location = '/home'
+                /*
+                example response object
+                 {
+                      "error": {
+                        "code": 400,
+                        "message": "EMAIL_EXISTS",
+                        "errors": [
+                          {
+                            "message": "EMAIL_EXISTS",
+                            "domain": "global",
+                            "reason": "invalid"
+                          }
+                        ]
+                      }
+                    }
+                 */
+            });
     }
+
 
     render() {
         return (
@@ -56,14 +74,6 @@ class register extends Component{
                     <div className="form-v5-content">
                         <form className="form-detail" onSubmit={this.onSubmit}>
                             <h2>Register Account Form</h2>
-                            <div className="form-row">
-                                <label htmlFor="full-name">Username</label>
-                                <input type="text" name="full-name" id="full-name" className="input-text"
-                                       placeholder="Your Username" onChange={this.changeUsername}
-                                                                    value={this.state.username}
-                                       required/>
-                                <i className="fas fa-user"></i>
-                            </div>
                             <div className="form-row">
                                 <label htmlFor="your-email">Your Email</label>
                                 <input type="text" name="your-email" id="your-email" className="input-text"

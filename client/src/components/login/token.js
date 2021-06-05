@@ -1,6 +1,8 @@
 import React,{Component} from "react";
 import './css/login.css'
 import axios from 'axios';
+import { withRouter } from 'react-router-dom'
+
 
 class token extends Component{
     constructor() {
@@ -22,7 +24,7 @@ class token extends Component{
 
         axios
             .post('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAdKlvny3n-vFZia29DELhxGZWWRW2mt7s',token)
-            .then(() =>{window.location = '/login';} )
+            .then(() =>{console.log("token entered")} )
             .catch(err =>{
                 console.error(err);
                 //handle error for incorrect token
@@ -52,6 +54,8 @@ class token extends Component{
         </div>);
     }
 }
-export default token;
+// export default token;
+export default withRouter(token);
+
 
 

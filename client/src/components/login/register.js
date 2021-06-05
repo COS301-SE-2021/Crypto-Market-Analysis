@@ -2,6 +2,9 @@ import React, {Component} from "react";
 import './css/register.css'
 import login from "./login";
 import axios from "axios";
+import {Redirect} from 'react-router-dom';
+import { withRouter } from 'react-router-dom'
+
 
 class register extends Component{
     constructor() {
@@ -32,11 +35,11 @@ class register extends Component{
         axios
             .post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAdKlvny3n-vFZia29DELhxGZWWRW2mt7s',registered)
             .then((res) =>{
+                console.log("sign up successful");
                 axios
                     .post('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAdKlvny3n-vFZia29DELhxGZWWRW2mt7s',{requestType: "VERIFY_EMAIL", idToken: res.data.idToken})
                     .then((vres)=>{
                         console.log("verification email sent");
-                        window.location("/token");
                     })
                     .catch((err) =>{
                         console.error(err);
@@ -64,6 +67,8 @@ class register extends Component{
                     }
                  */
             });
+        this.props.history.push('/login');
+
     }
 
 
@@ -102,4 +107,6 @@ class register extends Component{
         );
     }
 }
-export default register;
+//export default register;
+export default withRouter(register);
+

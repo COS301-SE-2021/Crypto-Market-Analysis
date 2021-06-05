@@ -1,6 +1,9 @@
 import React,{Component} from "react";
 import './css/login.css'
 import axios from 'axios';
+import { withRouter } from 'react-router-dom'
+import register from "./register";
+
 
 class updatePassword extends Component{
     constructor()
@@ -25,7 +28,10 @@ class updatePassword extends Component{
         }
         axios
             .post('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAdKlvny3n-vFZia29DELhxGZWWRW2mt7s',updatePassword)
-            .then(() =>{window.location = '/home';} )
+            .then(() =>{console.log("password updated");
+                this.props.history.push('/home');
+
+            } )
             .catch(err =>{
                 console.error(err);
                 //error handling check error object
@@ -58,7 +64,8 @@ class updatePassword extends Component{
         );
     }
 }
-export default updatePassword;
+export default withRouter(updatePassword);
+//export default updatePassword;
 
 
 

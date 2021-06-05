@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="updatePassword.js fix">
+    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="update password firebase">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/login/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/login/login.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/login/register.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/login/register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/login/splash.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/login/splash.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/login/token.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/login/token.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/login/updatePassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/login/updatePassword.js" afterDir="false" />
     </list>
@@ -397,7 +396,42 @@
       <option name="project" value="LOCAL" />
       <updated>1622783783835</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="login firebase">
+      <created>1622905054082</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1622905054082</updated>
+    </task>
+    <task id="LOCAL-00028" summary="register firebase">
+      <created>1622905077583</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1622905077583</updated>
+    </task>
+    <task id="LOCAL-00029" summary="splash removed video because of memory concerns">
+      <created>1622905110818</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1622905110818</updated>
+    </task>
+    <task id="LOCAL-00030" summary="firebase email verification token">
+      <created>1622905149570</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1622905149570</updated>
+    </task>
+    <task id="LOCAL-00031" summary="update password firebase">
+      <created>1622905179493</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1622905179493</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -419,7 +453,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added concurrent server and client links" />
     <MESSAGE value="Added partial api endpoint tests" />
     <MESSAGE value="Added tests for signup endpoint in user" />
     <MESSAGE value="Added a deleteUser module to abstract delete function from the database. Also added tests for the deleteUser function and delete endpoint." />
@@ -439,7 +472,13 @@
     <MESSAGE value="Added follow social media site function as well as implemented all tests" />
     <MESSAGE value="test files" />
     <MESSAGE value="working code" />
-    <option name="LAST_COMMIT_MESSAGE" value="working code" />
+    <MESSAGE value="login firebase" />
+    <MESSAGE value="register firebase" />
+    <MESSAGE value="splash removed video because of memory concerns" />
+    <MESSAGE value="firebase email verification token" />
+    <MESSAGE value="update password" />
+    <MESSAGE value="update password firebase" />
+    <option name="LAST_COMMIT_MESSAGE" value="update password firebase" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

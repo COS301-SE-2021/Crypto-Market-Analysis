@@ -2,6 +2,10 @@ import React, {Component} from "react";
 import './css/login.css'
 import axios from 'axios';
 import Home from "../Home/Home";
+import {Redirect} from 'react-router-dom';
+import { withRouter } from 'react-router-dom'
+
+
 
 
 class login extends Component{
@@ -40,7 +44,8 @@ class login extends Component{
                 localStorage.setItem('expiresIn', JSON.stringify(res.data.expiresIn));
                 localStorage.setItem('localId', JSON.stringify(res.data.localId));
                 localStorage.setItem('registered', JSON.stringify(res.data.registered));
-                window.location("/home");
+                console.log("signin successfull");
+                this.props.history.push('/home');
             })
             .catch((err) =>{
                 console.error(err);
@@ -100,6 +105,7 @@ class login extends Component{
         );
     }
 }
-export default login;
+//export default login;
+export default withRouter(login);
 
 

@@ -5,9 +5,9 @@ import {Link} from "react-router-dom";
 function splash(){
     return(
         <section className="header">
-            <video autoPlay loop className="video-background" muted plays-inline>
-                <source src={window.location.origin+'/Splash/splash2.mp4'} type="video/mp4"/>
-            </video>
+            {/*<video autoPlay loop className="video-background" muted plays-inline>*/}
+            {/*    <source src={window.location.origin+'/Splash/splash2.mp4'} type="video/mp4"/>*/}
+            {/*</video>*/}
             <div className="welcome-message">
                 <h1>Welcome to Cryptosis</h1>
                 <h2>Cryptosis is the easiest place to track cryptocurrency.</h2>

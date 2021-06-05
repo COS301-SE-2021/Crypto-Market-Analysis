@@ -9,13 +9,13 @@ class login extends Component{
         super();
         this.state = {
             email:'',
-            password:''
+            password:'',
+            returnSecureToken:'true'
         }
         this.changePassword = this.changePassword.bind(this)
         this.changeEmail = this.changeEmail.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
     }
-
     changeEmail(event){
         this.setState({email:event.target.value})
     }
@@ -24,21 +24,45 @@ class login extends Component{
     }
 
     onSubmit(event){
-        window.location = '/home'
         event.preventDefault();
-        const data = {
+        const registered = {
             email: this.state.email,
-            password: this.state.password
+            password: this.state.password,
+            returnSecureToken: "true"
         }
+
         axios
-            .post('http://localhost:8080/user/login/',data)
-            .then(() => console.log('sent'))
-            .catch(err =>{
+            .post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAdKlvny3n-vFZia29DELhxGZWWRW2mt7s',registered)
+            .then((res) =>{
+                localStorage.setItem('idToken', JSON.stringify(res.data.idToken));
+                localStorage.setItem('email', JSON.stringify(res.data.email));
+                localStorage.setItem('refreshToken', JSON.stringify(res.data.refreshToken));
+                localStorage.setItem('expiresIn', JSON.stringify(res.data.expiresIn));
+                localStorage.setItem('localId', JSON.stringify(res.data.localId));
+                localStorage.setItem('registered', JSON.stringify(res.data.registered));
+                window.location("/home");
+            })
+            .catch((err) =>{
                 console.error(err);
-                window.location = '/login'
+                //Zeeshan error handling
+                /*
+                example response object
+                    {
+                      "error": {
+                        "code": 400,
+                        "message": "EMAIL_NOT_FOUND",
+                        "errors": [
+                          {
+                            "message": "EMAIL_NOT_FOUND",
+                            "domain": "global",
+                            "reason": "invalid"
+                          }
+                        ]
+                      }
+                    }
+                 */
+
             });
-
-
     }
 
     render() {

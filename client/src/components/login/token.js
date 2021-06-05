@@ -6,52 +6,34 @@ class token extends Component{
     constructor() {
         super();
         this.state = {
-            email:'',
             token:''
         }
-        this.changeEmail = this.changeEmail.bind(this)
         this.changeToken = this.changeToken.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
     }
     changeToken(event){
         this.setState({token:event.target.value})
     }
-    changeEmail(event){
-        this.setState({email:event.target.value})
-    }
-
     onSubmit(event){
         event.preventDefault();
         const token = {
-            token: this.state.token,
-            email: this.state.email
+            oobCode: this.state.token,
         }
 
         axios
-            .post('http://localhost:8080/user/verify/',token)
-            .then(() =>{window.location = '/home';} )
+            .post('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAdKlvny3n-vFZia29DELhxGZWWRW2mt7s',token)
+            .then(() =>{window.location = '/login';} )
             .catch(err =>{
                 console.error(err);
-
+                //handle error for incorrect token
             });
-
-        // window.location = '/token'
     }
     render() {
-        return (<div className="form-v5">
+        return (
+            <div className="form-v5">
             <div className="page-content">
                 <div className="form-v5-content">
                     <form className="form-detail" onSubmit={this.onSubmit}>
-                        <h2>Auth Token</h2>
-                        <div className="form-row">
-                            <label htmlFor="your-email">Email</label>
-                            <input type="text" name="your-email" id="your-email" className="input-text"
-                                   placeholder="Your Email" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}"
-                                   onChange={this.changeEmail}
-                                   value={this.state.email}
-                            />
-                            <i className="fas fa-envelope"></i>
-                        </div>
                         <div className="form-row">
                             <label htmlFor="your-token">Token</label>
                             <input type="your-token" name="your-token" id="your-token" className="input-text"

@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment=" code">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/login/updatePassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/login/updatePassword.js" afterDir="false" />
-    </list>
+    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment=" code" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,12 +32,12 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/server/models/cryptocurrency.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/server/routes/user_functions.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/server/package.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/server/test/api.test.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/server/models/verification.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/server/package.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/server/routes/user.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/server/routes/user_functions.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/server/models/cryptocurrency.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/server/models/user.js" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1tIjJV7iklCIumCQfOULzZ4YZzZ" />
@@ -75,122 +72,8 @@
       <recent name="C:\Users\Zeeshan\OneDrive - University of Pretoria\Documents\BIT\Year 4\Semester 1\COS 301\Projects\Crypto-Market-Analysis\server\test\functional" />
     </key>
   </component>
-  <component name="RunManager" selected="Jest.POST /user/signup.Returns 200. Add a user to the database">
-    <configuration default="true" type="DjangoTestsConfigurationType">
-      <module name="Codex_Intellj" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="TARGET" value="" />
-      <option name="SETTINGS_FILE" value="" />
-      <option name="CUSTOM_SETTINGS" value="false" />
-      <option name="USE_OPTIONS" value="false" />
-      <option name="OPTIONS" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="PyBehaveRunConfigurationType" factoryName="Behave">
-      <module name="Codex_Intellj" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="ADDITIONAL_ARGS" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
-      <module name="Codex_Intellj" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="Python.FlaskServer">
-      <module name="Codex_Intellj" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="launchJavascriptDebuger" value="false" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="Tox" factoryName="Tox">
-      <module name="Codex_Intellj" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="tests" factoryName="Doctests">
-      <module name="Codex_Intellj" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="tests" factoryName="Unittests">
-      <module name="Codex_Intellj" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="POST /user/signup.Returns 200. Add a user to the database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+  <component name="RunManager">
+    <configuration name="POST /user.adds an entry into the database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
       <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
@@ -199,60 +82,36 @@
       <scope-kind value="TEST" />
       <test-file value="$PROJECT_DIR$/server/test/api.test.js" />
       <test-names>
-        <test-name value="POST /user/signup" />
-        <test-name value="Returns 200. Add a user to the database" />
+        <test-name value="POST /user" />
+        <test-name value="adds an entry into the database" />
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="matches snapshot (1)" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+    <configuration name="add user.adds an entry into the database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/client/node_modules/react-scripts" />
-      <working-dir value="$PROJECT_DIR$/client" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/server" />
       <envs />
       <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/client/src/components/login/test/register.test.js" />
+      <test-file value="$PROJECT_DIR$/server/test/user.test.js" />
       <test-names>
-        <test-name value="matches snapshot" />
+        <test-name value="add user" />
+        <test-name value="adds an entry into the database" />
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="matches snapshot (2)" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+    <configuration name="add_user.adds a user to the database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/client/node_modules/react-scripts" />
-      <working-dir value="$PROJECT_DIR$/client" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/server" />
       <envs />
       <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/client/src/components/login/test/splash.test.js" />
+      <test-file value="$PROJECT_DIR$/server/test/user.test.js" />
       <test-names>
-        <test-name value="matches snapshot" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="matches snapshot (3)" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/client/node_modules/react-scripts" />
-      <working-dir value="$PROJECT_DIR$/client" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/client/src/components/login/test/updatePassword.test.js" />
-      <test-names>
-        <test-name value="matches snapshot" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="matches snapshot (4)" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/client/node_modules/react-scripts" />
-      <working-dir value="$PROJECT_DIR$/client" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/client/src/components/login/test/token.test.js" />
-      <test-names>
-        <test-name value="matches snapshot" />
+        <test-name value="add_user" />
+        <test-name value="adds a user to the database" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -263,6 +122,32 @@
       <working-dir value="$PROJECT_DIR$" />
       <envs />
       <scope-kind value="ALL" />
+      <method v="2" />
+    </configuration>
+    <configuration name="renders login page correctly" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/client/node_modules/react-scripts" />
+      <working-dir value="$PROJECT_DIR$/client" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/client/src/components/login/test/login.test.js" />
+      <test-names>
+        <test-name value="renders login page correctly" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="renders without crashing" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/client/node_modules/react-scripts" />
+      <working-dir value="$PROJECT_DIR$/client" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/client/src/components/login/test/login.test.js" />
+      <test-names>
+        <test-name value="renders without crashing" />
+      </test-names>
       <method v="2" />
     </configuration>
     <configuration name="test" type="mocha-javascript-test-runner">
@@ -280,20 +165,20 @@
     </configuration>
     <list>
       <item itemvalue="Jest.npm test" />
-      <item itemvalue="Jest.matches snapshot (1)" />
-      <item itemvalue="Jest.matches snapshot (2)" />
-      <item itemvalue="Jest.matches snapshot (3)" />
-      <item itemvalue="Jest.matches snapshot (4)" />
-      <item itemvalue="Jest.POST /user/signup.Returns 200. Add a user to the database" />
       <item itemvalue="Mocha.test" />
+      <item itemvalue="Jest.POST /user.adds an entry into the database" />
+      <item itemvalue="Jest.add_user.adds a user to the database" />
+      <item itemvalue="Jest.add user.adds an entry into the database" />
+      <item itemvalue="Jest.renders without crashing" />
+      <item itemvalue="Jest.renders login page correctly" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Jest.POST /user/signup.Returns 200. Add a user to the database" />
-        <item itemvalue="Jest.matches snapshot (4)" />
-        <item itemvalue="Jest.matches snapshot (3)" />
-        <item itemvalue="Jest.matches snapshot (2)" />
-        <item itemvalue="Jest.matches snapshot (1)" />
+        <item itemvalue="Jest.renders login page correctly" />
+        <item itemvalue="Jest.renders without crashing" />
+        <item itemvalue="Jest.add user.adds an entry into the database" />
+        <item itemvalue="Jest.add_user.adds a user to the database" />
+        <item itemvalue="Jest.POST /user.adds an entry into the database" />
       </list>
     </recent_temporary>
   </component>
@@ -320,6 +205,7 @@
       <workItem from="1622832377386" duration="99000" />
       <workItem from="1622837215205" duration="247000" />
       <workItem from="1622837633248" duration="2382000" />
+      <workItem from="1622888991829" duration="351000" />
     </task>
     <task id="LOCAL-00002" summary="Added partial api endpoint tests">
       <created>1622485455332</created>

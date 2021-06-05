@@ -7,34 +7,28 @@ class updatePassword extends Component{
     {
         super();
         this.state = {
-            token:'',
-            password:''
+            idToken: localStorage.getItem('idToken'),
+            password:'',
+            returnSecureToken: 'true'
         }
-        this.changeToken = this.changeToken.bind(this)
         this.changePassword = this.changePassword.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
-    }
-    changeToken(event){
-        this.setState({token:event.target.value})
     }
     changePassword(event){
         this.setState({password:event.target.value})
     }
-
     onSubmit(event)
     {
         event.preventDefault();
         const updatePassword = {
-            token: this.state.token,
-            email: this.state.password
+            password: this.state.password
         }
-
         axios
-            .post('http://localhost:8080/user/updatePassword/',updatePassword)
+            .post('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAdKlvny3n-vFZia29DELhxGZWWRW2mt7s',updatePassword)
             .then(() =>{window.location = '/home';} )
             .catch(err =>{
                 console.error(err);
-
+                //error handling check error object
             });
     }
     render()
@@ -53,15 +47,6 @@ class updatePassword extends Component{
                                        value={this.state.password}
                                 />
                                 <i className="fas fa-envelope"></i>
-                            </div>
-                            <div className="form-row">
-                                <label htmlFor="your-token">Token</label>
-                                <input type="your-token" name="your-token" id="your-token" className="input-text"
-                                       placeholder="Your Token" required
-                                       onChange={this.changeToken}
-                                       value={this.state.token}
-                                />
-                                <i className="fas fa-lock"></i>
                             </div>
                             <div className="form-row-last">
                                 <input type="submit" name="token" className="register" value="Submit"/>

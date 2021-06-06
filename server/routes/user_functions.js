@@ -10,7 +10,7 @@ const crypto = require('crypto');
 * @param {string} email The email of the user in the database
 * @return array of followed bitcoin
 * */
-const getFavoriteCrypto= async(email)=>{
+const getFavoriteCrypto = async(email)=>{
     let error = new Map()
     await User.find({email:email})
         .exec()
@@ -40,11 +40,31 @@ const deleteUser = async (email) => {
 
     return error;
 };
-const registerUser = async (email , username, password) => {
-     await User.findOne({email:email})
-         .then(
 
-         )
+const login_user = async (username, password) => {
+    let error = new Map();
+    await User.findOne({username:username})
+        .exec()
+        .then(async user => {
+            if(!user) {
+                return error.set(400, "Invalid username/password entered")
+            }
+
+            if(!password)
+            {
+                if (await bcrypt.compare(plainTextPassword, user.password)) {
+                    //password and username match an existing user
+
+                    const token = jwt.sign({id: user.id, username: user.username}, secret_token);
+                    return error.set(200, "ok")
+                }
+            }
+            return error.set(500,"Invalid username/password entered")
+
+
+            }
+
+        )
 
 };
 
@@ -102,7 +122,7 @@ const hashPassword = async (email, username, password, error) => {
         });
     });
     return error;
-}
+};
 
 /*Sends an email with a verification token to the parameter provided
 *@param {string} email The email to which the token must be sent to
@@ -118,4 +138,4 @@ const send_verification_mail = (email, error) => {
     });
 }
 
-module.exports = {deleteUser, add_user,getFavoriteCrypto};
+module.exports = {deleteUser,getFavoriteCrypto,add_user,login_user};

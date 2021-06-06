@@ -4,6 +4,8 @@ const app = require("../app");
 const user = require("../routes/user")
 const assert = require('assert');
 const mongoose = require("mongoose");
+const {add_users} = require('../routes/user_functions');
+
 const MONGODB_URI = "mongodb+srv://codex:"+process.env.MongoPassword+"@codex.z7mgz.mongodb.net/Codex?retryWrites=true&w=majority";
 try {
     mongoose.connect(MONGODB_URI, {
@@ -47,20 +49,36 @@ describe('POST /user', () => {
     });
 });
 
+//describe('add user' , () => {
+    test('adds user', () => {
+        const email = "example@example.co.za";
+        const username = "example";
+        const password = "password";
+
+        expect(add_users(email, username, password)).to.equal("example@example.co.za");
+
+    });
+//});
+
 describe('POST /user/signup', () => {
-    jest.setTimeout(1000000000)
+    jest.setTimeout(500000)
     it('Returns 200. Add a user to the database', done => {
-        const email = "example@example.co.za"
-        const username = "example"
-        const password = "password"
+        //const email = "example@example.co.za"
+        //const username = "example"
+        //const password = "password"
         request(app)
             .post('/user/signup')
-            .send({"email":email, "username":username, "password":password})
-            .expect(200)
-            .then((response) => {
+            .send({email: "email", username : "username", password: "password"})
+            .then((req, response) => {
+                const em = req.body.email;
+                const un = req.body.username;
+                const ps = req.body.password;
+                expect(em).to.contain.property("email");
+                expect(un).to.contain.property("username");
+                expect(ps).to.contain.property("password");
                 done();
             })
-            .catch(err => done(err))
+            .catch((err) => done(err))
     });
     it('Returns 400. Tries to add an existing user to the database', done => {
         const email = "example@example.co.za"
@@ -203,3 +221,4 @@ describe('DELETE /:Email', () => {
             .catch(err => done(err))
     });
 });
+

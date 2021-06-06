@@ -16,6 +16,7 @@ const UserSchema = mongoose.Schema({
     SocialMediaSites : [{type : String}],
     Expires: Date
 
+
 });
 
 module.exports = mongoose.model("User", UserSchema);

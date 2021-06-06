@@ -10,7 +10,6 @@ class updatePassword extends Component{
     {
         super();
         this.state = {
-            idToken: localStorage.getItem('idToken'),
             password:'',
             returnSecureToken: 'true'
         }
@@ -23,11 +22,14 @@ class updatePassword extends Component{
     onSubmit(event)
     {
         event.preventDefault();
-        const updatePassword = {
-            password: this.state.password
+        let test = {
+            idToken: localStorage.getItem('idToken'),
+            password: this.state.password,
+            returnSecureToken: "false"
         }
+
         axios
-            .post('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAdKlvny3n-vFZia29DELhxGZWWRW2mt7s',updatePassword)
+            .post('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAdKlvny3n-vFZia29DELhxGZWWRW2mt7s',test)
             .then(() =>{console.log("password updated");
                 this.props.history.push('/home');
 
@@ -48,7 +50,7 @@ class updatePassword extends Component{
                             <div className="form-row">
                                 <label htmlFor="your-email">New Password</label>
                                 <input type="text" name="your-email" id="your-email" className="input-text"
-                                       placeholder="Your Email" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}"
+                                       placeholder="Your Email" required
                                        onChange={this.changePassword}
                                        value={this.state.password}
                                 />

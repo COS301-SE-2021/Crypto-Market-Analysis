@@ -7,6 +7,7 @@ import token from "./components/login/token"
 import updatePassword from "./components/login/updatePassword";
 import Home from "./components/Home/Home"
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import forgotpassword from "./components/login/forgotpassword";
 function App() {
   return (
     <section className="header">
@@ -16,6 +17,7 @@ function App() {
       <Route exact path="/token" component={token}></Route>
       <Route exact path="/updatePassword" component={updatePassword}></Route>
       <Route exact path="/home" component={Home}></Route>
+      <Route exact path="/forgotPassword" component={forgotpassword}></Route>
     </section>
   );
 }

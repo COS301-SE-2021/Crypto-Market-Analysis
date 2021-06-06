@@ -99,6 +99,7 @@ class login extends Component{
                                 <input type="submit" name="register" className="register" value="Login"/>
                             </div>
                         </form>
+                        <a href="/forgotpassword" className="btn btn-login">Forgot Password</a>
                     </div>
                 </div>
             </div>

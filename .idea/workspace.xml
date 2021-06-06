@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="update password firebase">
+    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="confirm works">
+      <change afterPath="$PROJECT_DIR$/client/src/components/login/forgotpassword.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2021_05_30,_10_50_[Default_Changelist]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2021_05_30__10_50__Default_Changelist_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/login/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/login/login.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/login/register.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/login/register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/login/token.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/login/token.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/login/updatePassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/login/updatePassword.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -220,6 +222,8 @@
       <workItem from="1622744129991" duration="398000" />
       <workItem from="1622783741806" duration="4676000" />
       <workItem from="1622810065332" duration="313000" />
+      <workItem from="1622961283692" duration="664000" />
+      <workItem from="1622982925921" duration="6941000" />
     </task>
     <task id="LOCAL-00002" summary="Added partial api endpoint tests">
       <created>1622485455332</created>
@@ -431,7 +435,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622905179493</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="confirm works">
+      <created>1622907857819</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1622907857819</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -453,7 +464,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added partial api endpoint tests" />
     <MESSAGE value="Added tests for signup endpoint in user" />
     <MESSAGE value="Added a deleteUser module to abstract delete function from the database. Also added tests for the deleteUser function and delete endpoint." />
     <MESSAGE value="Added Additional Tests" />
@@ -478,7 +488,8 @@
     <MESSAGE value="firebase email verification token" />
     <MESSAGE value="update password" />
     <MESSAGE value="update password firebase" />
-    <option name="LAST_COMMIT_MESSAGE" value="update password firebase" />
+    <MESSAGE value="confirm works" />
+    <option name="LAST_COMMIT_MESSAGE" value="confirm works" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

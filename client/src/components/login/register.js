@@ -40,6 +40,7 @@ class register extends Component{
                     .post('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAdKlvny3n-vFZia29DELhxGZWWRW2mt7s',{requestType: "VERIFY_EMAIL", idToken: res.data.idToken})
                     .then((vres)=>{
                         console.log("verification email sent");
+                        this.props.history.push('/login');
                     })
                     .catch((err) =>{
                         console.error(err);
@@ -67,7 +68,7 @@ class register extends Component{
                     }
                  */
             });
-        this.props.history.push('/login');
+
 
     }
 

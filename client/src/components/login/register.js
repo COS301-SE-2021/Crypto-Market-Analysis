@@ -7,8 +7,8 @@ import { withRouter } from 'react-router-dom'
 
 
 class register extends Component{
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             email:'',
             password:''
@@ -59,43 +59,32 @@ class register extends Component{
                 password: this.state.password,
                 returnSecureToken:'true'
             }
-            console.log(`This is the email: ${registered['email']} and this is the password: ${registered['password']}`);
             axios
                 .post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAdKlvny3n-vFZia29DELhxGZWWRW2mt7s',registered)
                 .then((res) =>{
-                    console.log("sign up successful");
                     axios
                         .post('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAdKlvny3n-vFZia29DELhxGZWWRW2mt7s',{requestType: "VERIFY_EMAIL", idToken: res.data.idToken})
                         .then((vres)=>{
-                            console.log("verification email sent");
+                            Window.setTimeout(3000);
+                            document.getElementById("error-block").textContent = "Registration Successful. You will be redirected to the login page shortly";
+                            document.getElementById("error-block").style.display = "block";
+                            this.props.history.push('/login');
                         })
                         .catch((err) =>{
-                            console.error(err);
-                            //error handling for verification email not sent
+                            /*setTimeout(() => {
+                                console.log("Enters timeout");
+                            }, 3000)*/
+                            document.getElementById("error-block").textContent = "Registration Successful. You will be redirected to the login page shortly";
+                            document.getElementById("error-block").style.display = "block";
+                            this.props.history.push('/login');
+                            /*document.getElementById("error-block").textContent = "Failed to verify email address. Please check your details and try again";
+                            document.getElementById("error-block").style.display = "block";*/
                         })
                 })
                 .catch((err) =>{
-                    console.error(err);
-                    /*//Zeeshan Error Handling
-
-                    /*
-                    example response object
-                     {
-                          "error": {
-                            "code": 400,
-                            "message": "EMAIL_EXISTS",
-                            "errors": [
-                              {
-                                "message": "EMAIL_EXISTS",
-                                "domain": "global",
-                                "reason": "invalid"
-                              }
-                            ]
-                          }
-                        }
-                     */
+                    document.getElementById("error-block").textContent = "Email already exists!";
+                    document.getElementById("error-block").style.display = "block";
                 });
-            this.props.history.push('/login');
         }
 
     }

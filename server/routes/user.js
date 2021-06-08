@@ -208,7 +208,76 @@ router.post("/verify",(request, response, next)=>
         });
     });
 });
+const {spawn} = require('child_process');
+router.get('/data', (req, res) => {
 
+    var dataToSend;
+    const python = spawn('python', ['FacebookScrapper.py']);
+    python.stdout.on('data', function (data) {
+        console.log('Pipe data from python script ...');
+        dataToSend = data.toString();
+    });
+    python.on('close', (code) => {
+        console.log(`child process close all stdio with code ${code}`);
+        res.send(dataToSend)
+    });
+
+})
+const natural = require('natural');
+const SpellCorrector = require('spelling-corrector');
+const SW = require('stopword');
+const aposToLexForm = require('apos-to-lex-form');
+const spellCorrector = new SpellCorrector();
+spellCorrector.loadDictionary();
+const convertion = async (post)=>
+{
+    const contractions = aposToLexForm(post);//convert word to contractions
+    const cLcase = contractions.toLowerCase();//convert to lowercases
+    const value = cLcase.replace(/[^a-zA-Z\s]+/g, '');//remove stop word
+    return value //post converted ready to be read
+}
+//spliting post/comment into individual words
+const splits = async (comment)=>{
+    const { WordTokenizer } = natural;
+    const words = new WordTokenizer();
+    const Splited = words.tokenize(comment);
+    return Splited;
+}
+//correcting spelling errors
+const spellingc = async(newWording)=>{
+    newWording.forEach((word, index) => {
+        newWording[index] = spellCorrector.correct(word);
+    })
+    const filteredwords = SW.removeStopwords(newWording); //removeStopwords
+    return filteredwords;
+
+}
+//return analysis value
+const analysewords = async (filteredwords)=>{
+    const { SentimentAnalyzer, PorterStemmer } = natural;
+    const analyzer = new SentimentAnalyzer('English', PorterStemmer, 'afinn');//using afinn dictionary may change
+    const analysis = analyzer.getSentiment(filteredwords);
+    return analysis;
+
+}
+//this function returns -3 for bad, 3 for good,0 for neutral
+//takes post:'comment' request object
+router.post('/analyse', function(req, res, next) {
+    const { post } = req.body;
+   /* const contractions = aposToLexForm(post);
+    const cLcase = contractions.toLowerCase();*/
+    convertion(post).then(comment=>{
+
+        splits(comment).then(newWording=>{
+            spellingc(newWording).then(filteredwords=>{
+                analysewords(filteredwords).then(analysis=>{
+                    res.status(200).json({ analysis });
+                })
+            })
+        })
+    })
+
+});
 /**
  * This function adds crypto names to the user account that the user is following
  * @param {string} request.body.email

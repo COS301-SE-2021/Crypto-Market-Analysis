@@ -93,6 +93,37 @@ router.post("/updatePassword", async (request, response, next) => {
  * @param {string} request.body.password The password of the user who is registering
  * @return {object}                      Contains the status code and message stating whether it was successful or not
  */
+/*
+  req {
+        username;
+        password;
+        email;
+     }
+
+ */
+const hashingPassword = async (pwd,res)=>{
+    bcrypt.hash(pwd, 20, (err, hashedpwd) => {
+          if(err)
+          {
+              return "error hashing password";
+          }
+          return hashedpwd;
+    });
+}
+
+
+const register = async(req, res) => {
+    const newUser= User(
+        {
+            username: req.body.username,
+            email: req.body.email,
+            password: hash
+        }
+
+    );
+
+
+};
 router.post(
     "/signup",(request,response,next) => {
         User

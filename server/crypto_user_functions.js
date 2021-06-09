@@ -16,13 +16,40 @@ const clientId = '9hYB1ExwwjFAPw';
 const clientSecret = 'jvq3MgpkmN0WUXqnjAct2DXTU-h-ow';
 const username = 'JuGGz87';
 const password = 'Ndhlovu4Lyf';
-const r = new snoowrap({
-    userAgent: userAgent,
-    clientId: clientId,
-    clientSecret: clientSecret,
-    username: username,
-    password: password
-});
+
+
+async function scrapeSubreddit() {
+    const r = new snoowrap({
+        userAgent: userAgent,
+        clientId: clientId,
+        clientSecret: clientSecret,
+        username: username,
+        password: password
+    });
+
+//subreddits
+    const subreddit1 = await r.getSubreddit('Cryptomarkets');
+    const subreddit2 = await r.getSubreddit('CryptoCurrencyTrading');
+    const subreddit3 = await r.getSubreddit('Crypto_Currency_News');
+    const subreddit4 = await r.getSubreddit('SatoshiStreetBets');
+    const subreddit5 = await r.getSubreddit('CryptoCurrencies');
+
+
+    const topPosts1 = await subreddit1.getTop({ limit: 100});
+    const topPosts2 = await subreddit2.getTop({ limit: 100});
+    const topPosts3 = await subreddit3.getTop({ limit: 100});
+    const topPosts4 = await subreddit4.getTop({ limit: 100});
+    const topPosts5 = await subreddit5.getTop({ limit: 100});
+
+
+}
+
+
+
+
+
+
+
 
 const getTweets = async () => {
     /*const { data } = await client.get('statuses/user_timeline', { screen_name: 'elonmusk' });

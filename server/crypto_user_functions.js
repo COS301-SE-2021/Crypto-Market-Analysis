@@ -33,6 +33,7 @@ async function scrapeSubreddit() {
     let Crypto_Currency_News = [];
     let SatoshiStreetBets = [];
     let CryptoCurrencies = [];
+    let emo = [];
     const topPosts1 = await subreddit1.getTop({ limit: 100});
     const topPosts2 = await subreddit2.getTop({ limit: 100});
     const topPosts3 = await subreddit3.getTop({ limit: 100});
@@ -85,6 +86,16 @@ async function scrapeSubreddit() {
     });
     const db = admin.firestore();
     const docRef = db.collection('sub_reddit_data').doc('leO350yIvsRsnjhtLizZ');
+
+    await docRef.set({
+        CryptoCurrencies: emo,
+        CryptoCurrencyTrading: emo,
+        Crypto_Currency_News: emo,
+        Cryptomarkets: emo,
+        SatoshiStreetBets: emo,
+    });
+
+
     await docRef.set({
         CryptoCurrencies: CryptoCurrencies,
         CryptoCurrencyTrading: CryptoCurrencyTrading,

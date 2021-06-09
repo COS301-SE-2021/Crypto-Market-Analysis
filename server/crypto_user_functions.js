@@ -2,8 +2,8 @@ const Twitter = require('twitter-v2');
 const snoowrap = require('snoowrap');
 const Sentiment = require('sentiment');
 const vader = require('vader-sentiment');
-const admin = require('firebase-admin');
-const serviceAccount = require('codex-crypto-market-analysis-98cca9c9a2cc.json');
+ const admin = require('firebase-admin');
+const serviceAccount = require('./firebase.json');
 
 //initialize
 const consumer_key = 'GGXUovWNfvGvagGakjfTzDfe1';
@@ -100,7 +100,7 @@ async function scrapeSubreddit() {
         console.log( vader.SentimentIntensityAnalyzer.polarity_scores(s));
     })
 
-    //firebase saving of scrapped data
+    // firebase saving of scrapped data
 
     admin.initializeApp({
         credential: admin.credential.cert(serviceAccount)

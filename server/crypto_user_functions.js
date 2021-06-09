@@ -41,7 +41,27 @@ async function scrapeSubreddit() {
     const topPosts4 = await subreddit4.getTop({ limit: 100});
     const topPosts5 = await subreddit5.getTop({ limit: 100});
 
+    let data = [];
+    let dataset = [];
+    let uniquedataset = [];
+    //Tags should be from coin ghecko but its too slow
+    let tags = [ 'Ethereum','Litecoin','Cardano ','Polkadot', 'Stellar','Chainlink','Tether','Monero','ETH','LTC', 'ADA','DOT','BCH','XLM','BNB','USDT','XMR'];
 
+    topPosts1.forEach((post) => {
+        data.push(post.title);
+    });
+    topPosts2.forEach((post) => {
+        data.push(post.title);
+    });
+    topPosts3.forEach((post) => {
+        data.push(post.title);
+    });
+    topPosts4.forEach((post) => {
+        data.push(post.title);
+    });
+    topPosts5.forEach((post) => {
+        data.push(post.title);
+    });
 }
 
 

@@ -1,4 +1,7 @@
 const Twitter = require('twitter-v2');
+const snoowrap = require('snoowrap');
+const Sentiment = require('sentiment');
+const vader = require('vader-sentiment');
 
 //initialize
 const consumer_key = 'GGXUovWNfvGvagGakjfTzDfe1';
@@ -15,3 +18,6 @@ const getTweets = async () => {
 }
 
 getTweets().then();
+
+
+

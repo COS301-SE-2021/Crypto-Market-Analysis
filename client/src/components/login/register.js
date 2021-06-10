@@ -1,95 +1,66 @@
-import React, {Component} from "react";
-import './css/register.css'
-import login from "./login";
-import axios from "axios";
+import React, { useRef, useState } from "react"
+import { Form, Button, Card, Alert } from "react-bootstrap"
+import { useAuth } from "../../Auth/Auth"
+import { Link, useHistory } from "react-router-dom"
 
-class register extends Component{
-    constructor() {
-        super();
-        this.state = {
-            email:'',
-            username:'',
-            password:''
-        }
-        this.changePassword = this.changePassword.bind(this)
-        this.changeEmail = this.changeEmail.bind(this)
-        this.changeUsername = this.changeUsername.bind(this)
-        this.onSubmit = this.onSubmit.bind(this)
-    }
-    changeUsername(event){
-        this.setState({username:event.target.value})
-    }
-    changeEmail(event){
-        this.setState({email:event.target.value})
-    }
-    changePassword(event){
-        this.setState({password:event.target.value})
-    }
+export default function Signup() {
+    const emailRef = useRef()
+    const passwordRef = useRef()
+    const passwordConfirmRef = useRef()
+    const { signup, currentUser } = useAuth()
+    const [error, setError] = useState("")
+    const [loading, setLoading] = useState(false)
+    const history = useHistory()
 
-    onSubmit(event){
-        // window.location = '/login'
-        //window.location = '/home'
-        event.preventDefault();
-        const registered = {
-            email: this.state.email,
-            username: this.state.username,
-            password: this.state.password
+    async function handleSubmit(e) {
+        e.preventDefault()
+
+        if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+            return setError("Password Not the same!")
         }
 
-        axios
-            .post('http://localhost:8080/user/signup/',registered)
-            .then(() =>{console.log('sent');
-                window.location = '/token';}
-            )
-            .catch(err =>{
-                console.error(err);
-                // window.location = '/home'
-            });
 
-        // window.location = '/home'
+        try {
+            setError("")
+            setLoading(true)
+            await signup(emailRef.current.value, passwordRef.current.value)
+            history.push("/home")
+        } catch {
+            setError("Email address already exists")
+        }
+
+        setLoading(false)
     }
 
-    render() {
-        return (
-            <div className="form-v5">
-                <div className="page-content">
-                    <div className="form-v5-content">
-                        <form className="form-detail" onSubmit={this.onSubmit}>
-                            <h2>Register Account Form</h2>
-                            <div className="form-row">
-                                <label htmlFor="full-name">Username</label>
-                                <input type="text" name="full-name" id="full-name" className="input-text"
-                                       placeholder="Your Username" onChange={this.changeUsername}
-                                                                    value={this.state.username}
-                                       required/>
-                                <i className="fas fa-user"></i>
-                            </div>
-                            <div className="form-row">
-                                <label htmlFor="your-email">Your Email</label>
-                                <input type="text" name="your-email" id="your-email" className="input-text"
-                                       placeholder="Your Email" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}"
-                                       onChange={this.changeEmail}
-                                       value={this.state.email}
-                                />
-                                <i className="fas fa-envelope"></i>
-                            </div>
-                            <div className="form-row">
-                                <label htmlFor="password">Password</label>
-                                <input type="password" name="password" id="password" className="input-text"
-                                       placeholder="Your Password" required
-                                       onChange={this.changePassword}
-                                       value={this.state.password}
-                                />
-                                <i className="fas fa-lock"></i>
-                            </div>
-                            <div className="form-row-last">
-                                <input type="submit" name="register" className="register" value="Register"/>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+    return (
+        <>
+            <Card>
+                <Card.Body>
+                    <h2 className="text-center mb-4">Sign Up</h2>
+
+                    {error && <Alert variant="danger">{error}</Alert>}
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Group id="email">
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control type="email" ref={emailRef} required />
+                        </Form.Group>
+                        <Form.Group id="password">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" ref={passwordRef} required />
+                        </Form.Group>
+                        <Form.Group id="password-confirm">
+                            <Form.Label>Password Confirmation</Form.Label>
+                            <Form.Control type="password" ref={passwordConfirmRef} required />
+                        </Form.Group>
+                        <Button disabled={loading} className="w-100" type="submit">
+                            Register
+                        </Button>
+                    </Form>
+                </Card.Body>
+            </Card>
+            <div className="w-100 text-center mt-2">
+                Already have an Account? <Link to="/login">Log In</Link>
             </div>
-        );
-    }
+        </>
+    )
 }
-export default register;

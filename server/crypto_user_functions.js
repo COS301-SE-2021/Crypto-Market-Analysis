@@ -9,15 +9,15 @@ const clientId = '9hYB1ExwwjFAPw';
 const clientSecret = 'jvq3MgpkmN0WUXqnjAct2DXTU-h-ow';
 const username = 'JuGGz87';
 const password = 'Ndhlovu4Lyf';
-
+const r = new snoowrap({
+    userAgent: userAgent,
+    clientId: clientId,
+    clientSecret: clientSecret,
+    username: username,
+    password: password
+});
 async function scrapeSubreddit() {
-    const r = new snoowrap({
-        userAgent: userAgent,
-        clientId: clientId,
-        clientSecret: clientSecret,
-        username: username,
-        password: password
-    });
+
     const subreddit1 = await r.getSubreddit('Cryptomarkets');
     const subreddit2 = await r.getSubreddit('CryptoCurrencyTrading');
     const subreddit3 = await r.getSubreddit('Crypto_Currency_News');

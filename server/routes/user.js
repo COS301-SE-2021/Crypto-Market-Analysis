@@ -18,6 +18,11 @@ const {val} = require("cheerio/lib/api/attributes");
 const Crypto = require("../models/cryptocurrency");
 const secret_token = 'kabdaskjndbjhbkjaishouvhadjkljaosiuiygm';
 
+const admin = require('firebase-admin');
+const auth = require( '../firebase')
+const db = admin.firestore();
+const db1 = admin.database();
+const ref = db1.ref('server/saving-data/fireblog');
 /**
  * use post method to  perform http request
  *@param /api/updatePassword API route
@@ -182,8 +187,8 @@ router.post("/verify",(request, response, next)=>
  * @param {string} request.body.crypt_name
  * @return          A response containing the status code
  */
-router.post("/followCrypto",(request,response,next)=>{
-    User.findOne({  email:request.body.email }, (err, user) => {
+router.post("/followCrypto",async(request,response)=>{
+    /*User.findOne({  email:request.body.email }, (err, user) => {
 
         if (err)
             return response.status(404).send({  message: 'Unable to find user' });
@@ -204,7 +209,26 @@ router.post("/followCrypto",(request,response,next)=>{
         else
             return response.status(403).send({  message: 'Not authorized' });
 
-    });
+    });*/
+    try{
+        const {coinName} = request.body;
+        const {user} = request.body.username;
+
+        auth.createUserWithEmailAndPassword(coinName,user)
+        const userRef = ref.child('followers');
+        const w = userRef.child('username').set({
+            user: user,
+            coin_Name: coinName
+        });
+        response.json(w);
+
+        //const addCoimToWatchList = await
+    }
+    catch(err){
+        console.log(err);
+        response.status(500).send("Error");
+    }
+
 });
 
 /** This function adds a social media site to scrap from by the user

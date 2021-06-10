@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="function">
-      <change afterPath="$PROJECT_DIR$/server/Reddit.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="Reddit.js">
+      <change beforePath="$PROJECT_DIR$/server/Reddit.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/Reddit.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/crypto_user_functions.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/crypto_user_functions.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -224,7 +224,7 @@
       <workItem from="1622982925921" duration="11985000" />
       <workItem from="1623012720133" duration="112000" />
       <workItem from="1623053058659" duration="4458000" />
-      <workItem from="1623327085296" duration="1593000" />
+      <workItem from="1623327085296" duration="2096000" />
     </task>
     <task id="LOCAL-00002" summary="Added partial api endpoint tests">
       <created>1622485455332</created>
@@ -534,7 +534,21 @@
       <option name="project" value="LOCAL" />
       <updated>1623270679595</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="Reddit.js">
+      <created>1623337477119</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1623337477119</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Reddit.js">
+      <created>1623337581320</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1623337581320</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -556,7 +570,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="test" />
     <MESSAGE value="Changed user endpoints to previous methods and removed user.test.js and user_functions.js file" />
     <MESSAGE value="Made changes to user.js" />
     <MESSAGE value="Changed user.js" />
@@ -581,7 +594,8 @@
     <MESSAGE value="adding top posts" />
     <MESSAGE value="firebase dependency" />
     <MESSAGE value="function" />
-    <option name="LAST_COMMIT_MESSAGE" value="function" />
+    <MESSAGE value="Reddit.js" />
+    <option name="LAST_COMMIT_MESSAGE" value="Reddit.js" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

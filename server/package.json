@@ -34,6 +34,7 @@
     "sentiment": "^5.0.2",
     "snoowrap": "^1.23.0",
     "tweet-scraper": "^1.0.1",
+    "twit": "^2.2.11",
     "twitter-v2": "^1.1.0",
     "vader-sentiment": "^1.1.3"
   },

@@ -1,5 +1,5 @@
 const admin = require('firebase-admin');
-const serviceAccount = require('../firebase.json');
+const serviceAccount = require('./firebase.json');
 const Twit = require('twit')
 
 const consumer_key = 'GGXUovWNfvGvagGakjfTzDfe1';
@@ -14,6 +14,10 @@ const T = new Twit({
     access_token_secret: access_secret_token, })
 
 class Twitter {
+
+    /** Gets the id's of the screen names of the users passed as a parameter.
+     * @param {[String]} users An array of the screen name of twitter users.
+     * */
     async getUsersID(users) {
         let screenNames = "";
         let userIDs = [];
@@ -23,17 +27,26 @@ class Twitter {
             else
                 screenNames += user + ",";
         })
-       T.get('users/lookup', {screen_name:screenNames}, (err, data, response) => {
-            data.forEach((account) => {
-                userIDs.push(account.id);
-            })
-            console.log("in")
-            return userIDs;
-        }).then(() => {return userIDs});
-        /*if(userIDs.length === 0)
-            console.log("empty")
-        console.log(userIDs);
-        return userIDs;*/
+        await T.get('users/lookup', {screen_name:screenNames}, (err, data, response) => {
+            if(err)
+                console.error(`An error occurred while connecting to the Twitter API: ${err}`);
+            else{
+                this.startDatabase();
+                data.forEach(async (user) => {
+                    try{
+                        const db = admin.firestore();
+                        const docRef = db.collection('twitter_data').doc(user.screen_name);
+                        await docRef.set({
+                            id: user.id,
+                        }, {merge:true});
+                    }
+                    catch(e) {
+                        console.error(`An error occurred while connecting to the database: ${e}`);
+                    }
+                });
+
+            }
+        }).then();
     }
 
     async followAccounts(users){
@@ -58,7 +71,6 @@ class Twitter {
      * */
     getUserTimeline(users){
         this.startDatabase();
-        let tweets = [];
         users.forEach(async user => {
             const { data } = await T.get('statuses/user_timeline', {screen_name: user}, async (err, data, response) => {
                 if(err)
@@ -73,7 +85,7 @@ class Twitter {
                         const docRef = db.collection('twitter_data').doc(user);
                         await docRef.set({
                             tweets: tweets,
-                        });
+                        },{merge:true});
                     }
                     catch(e) {
                         console.error(`An error occurred while connecting to the database: ${e}`);
@@ -85,6 +97,8 @@ class Twitter {
     }
 }
 
+/*
 const twitter = new Twitter();
 const users = ["elonmusk","jack"];
 twitter.getUserTimeline(users);
+twitter.getUsersID(users).then();*/

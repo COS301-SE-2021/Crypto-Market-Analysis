@@ -4,13 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="Reddit.js">
+    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/server/database/Database.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/test/twitter.test.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/codex-crypto-market-analysis-98cca9c9a2cc.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/social_media_sites/codex-crypto-market-analysis-98cca9c9a2cc.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/crypto_user_functions.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/social_media_sites/crypto_user_functions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/firebase.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/social_media_sites/firebase.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/social_media_sites/Reddit.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/social_media_sites/Reddit.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/social_media_sites/Twitter.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/social_media_sites/Twitter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/social_media_sites/codex-crypto-market-analysis-98cca9c9a2cc.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/database/codex-crypto-market-analysis-98cca9c9a2cc.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/social_media_sites/crypto_user_functions.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/social_media_sites/crypto_user_functions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/social_media_sites/firebase.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/database/firebase.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,14 +96,25 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Zeeshan\OneDrive - University of Pretoria\Documents\BIT\Year 4\Semester 1\COS 301\Projects\Crypto-Market-Analysis\server\database" />
       <recent name="C:\Users\Zeeshan\OneDrive - University of Pretoria\Documents\BIT\Year 4\Semester 1\COS 301\Projects\Crypto-Market-Analysis\server\social_media_sites" />
       <recent name="$PROJECT_DIR$/server" />
       <recent name="C:\Users\Zeeshan\OneDrive - University of Pretoria\Documents\BIT\Year 4\Semester 1\COS 301\Projects\Crypto-Market-Analysis\server\test" />
       <recent name="C:\Users\Zeeshan\OneDrive - University of Pretoria\Documents\BIT\Year 4\Semester 1\COS 301\Projects\Crypto-Market-Analysis\server\test\functional\api" />
-      <recent name="C:\Users\Zeeshan\OneDrive - University of Pretoria\Documents\BIT\Year 4\Semester 1\COS 301\Projects\Crypto-Market-Analysis\server\test\functional" />
     </key>
   </component>
   <component name="RunManager" selected="Node.js.Twitter.js">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="POST /user/signup.Returns 200. Add a user to the database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
@@ -111,19 +126,6 @@
       <test-names>
         <test-name value="POST /user/signup" />
         <test-name value="Returns 200. Add a user to the database" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="matches snapshot (2)" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/client/node_modules/react-scripts" />
-      <working-dir value="$PROJECT_DIR$/client" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/client/src/components/login/test/splash.test.js" />
-      <test-names>
-        <test-name value="matches snapshot" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -162,6 +164,9 @@
       <scope-kind value="ALL" />
       <method v="2" />
     </configuration>
+    <configuration name="Database.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/server/database/Database.js" working-dir="$PROJECT_DIR$/server">
+      <method v="2" />
+    </configuration>
     <configuration name="Twitter.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/server/social_media_sites/Twitter.js" working-dir="$PROJECT_DIR$/server">
       <method v="2" />
     </configuration>
@@ -180,20 +185,20 @@
     </configuration>
     <list>
       <item itemvalue="Jest.npm test" />
-      <item itemvalue="Jest.matches snapshot (2)" />
       <item itemvalue="Jest.matches snapshot (3)" />
       <item itemvalue="Jest.matches snapshot (4)" />
       <item itemvalue="Jest.POST /user/signup.Returns 200. Add a user to the database" />
       <item itemvalue="Mocha.test" />
       <item itemvalue="Node.js.Twitter.js" />
+      <item itemvalue="Node.js.Database.js" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Node.js.Twitter.js" />
+        <item itemvalue="Node.js.Database.js" />
         <item itemvalue="Jest.POST /user/signup.Returns 200. Add a user to the database" />
         <item itemvalue="Jest.matches snapshot (4)" />
         <item itemvalue="Jest.matches snapshot (3)" />
-        <item itemvalue="Jest.matches snapshot (2)" />
       </list>
     </recent_temporary>
   </component>
@@ -225,6 +230,7 @@
       <workItem from="1623327085296" duration="2096000" />
       <workItem from="1623338450252" duration="952000" />
       <workItem from="1623426896108" duration="3290000" />
+      <workItem from="1623600325547" duration="8934000" />
     </task>
     <task id="LOCAL-00002" summary="Added partial api endpoint tests">
       <created>1622485455332</created>
@@ -548,7 +554,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623337581320</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="Added getUsersId method to Twitter.js file">
+      <created>1623519245674</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1623519245674</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -570,7 +583,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Changed user endpoints to previous methods and removed user.test.js and user_functions.js file" />
     <MESSAGE value="Made changes to user.js" />
     <MESSAGE value="Changed user.js" />
     <MESSAGE value="Fixed signup endpoint in user.js" />
@@ -595,7 +607,8 @@
     <MESSAGE value="firebase dependency" />
     <MESSAGE value="function" />
     <MESSAGE value="Reddit.js" />
-    <option name="LAST_COMMIT_MESSAGE" value="Reddit.js" />
+    <MESSAGE value="Added getUsersId method to Twitter.js file" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added getUsersId method to Twitter.js file" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

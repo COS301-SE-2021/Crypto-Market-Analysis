@@ -1,6 +1,5 @@
-const admin = require('firebase-admin');
-const serviceAccount = require('./firebase.json');
-const Twit = require('twit')
+const Twit = require('twit');
+const Database = require('../database/Database');
 
 const consumer_key = 'GGXUovWNfvGvagGakjfTzDfe1';
 const consumer_secret = 'UMG68Qym8K7vvsdtlEEIn0vRpyNj6Mfbmz6VUKMC3zn7tQNiat';
@@ -14,6 +13,7 @@ const T = new Twit({
     access_token_secret: access_secret_token, })
 
 class Twitter {
+    #firestore_db = new Database().getInstance();
 
     /** Gets the id's of the screen names of the users passed as a parameter.
      * @param {[String]} users An array of the screen name of twitter users.
@@ -31,18 +31,8 @@ class Twitter {
             if(err)
                 console.error(`An error occurred while connecting to the Twitter API: ${err}`);
             else{
-                this.startDatabase();
                 data.forEach(async (user) => {
-                    try{
-                        const db = admin.firestore();
-                        const docRef = db.collection('twitter_data').doc(user.screen_name);
-                        await docRef.set({
-                            id: user.id,
-                        }, {merge:true});
-                    }
-                    catch(e) {
-                        console.error(`An error occurred while connecting to the database: ${e}`);
-                    }
+                    this.#firestore_db.save('twitter_data',user.screen_name,'id',user.id);
                 });
 
             }
@@ -58,21 +48,12 @@ class Twitter {
         })*/
     }
 
-    /** Initializes the firebase database
-    * */
-    startDatabase(){
-        admin.initializeApp({
-            credential: admin.credential.cert(serviceAccount)
-        });
-    }
-
     /** This function accepts a list of users and makes an API call to the Twitter API to get the 10 latest tweets.
      * @param {[String]} users An array of the screen name of twitter users.
      * */
     getUserTimeline(users){
-        this.startDatabase();
         users.forEach(async user => {
-            const { data } = await T.get('statuses/user_timeline', {screen_name: user}, async (err, data, response) => {
+            const { data } = await T.get('statuses/user_timeline', {screen_name: user}, (err, data, response) => {
                 if(err)
                     console.error(`An error occurred while connecting to the Twitter API: ${err}`);
                 else{
@@ -80,25 +61,14 @@ class Twitter {
                     data.forEach(tweet => {
                         tweets.push(tweet.text);
                     });
-                    try{
-                        const db = admin.firestore();
-                        const docRef = db.collection('twitter_data').doc(user);
-                        await docRef.set({
-                            tweets: tweets,
-                        },{merge:true});
-                    }
-                    catch(e) {
-                        console.error(`An error occurred while connecting to the database: ${e}`);
-                    }
+                    this.#firestore_db.save('twitter_data', user, "tweets", tweets);
                 }
-
             });
         });
     }
 }
 
-/*
-const twitter = new Twitter();
-const users = ["elonmusk","jack"];
+/*const twitter = new Twitter();
+const users = ["BillGates"];
 twitter.getUserTimeline(users);
 twitter.getUsersID(users).then();*/

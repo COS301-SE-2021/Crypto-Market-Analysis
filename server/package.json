@@ -40,6 +40,7 @@
   },
   "devDependencies": {
     "chai": "^4.3.4",
+    "firestore-jest-mock": "^0.14.0",
     "mocha": "^8.4.0",
     "nodemon": "^2.0.7",
     "supertest": "^6.1.3"

@@ -20,7 +20,6 @@ const secret_token = 'kabdaskjndbjhbkjaishouvhadjkljaosiuiygm';
 
 const admin = require('firebase-admin');
 const serviceAC = require('./firebase.json')
-//const auth = require( '../firebase')
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAC)
@@ -28,8 +27,7 @@ admin.initializeApp({
 
 const db = admin.firestore();
 const docR = db.collection('Users').doc('Emails');
-//const db1 = admin.database();
-//const ref = db1.ref('server/saving-data/fireblog');
+
 /**
  * use post method to  perform http request
  *@param /api/updatePassword API route
@@ -219,24 +217,7 @@ router.post("/followCrypto", async(request,response)=>{
             console.log("error: ", err);
         });
     }
-    /*try{
-        const {coinName} = request.body;
-        const {user} = request.body.username;
 
-        auth.createUserWithEmailAndPassword(coinName,user)
-        const userRef = ref.child('followers');
-        const w = userRef.child('username').set({
-            user: user,
-            coin_Name: coinName
-        });
-        response.json(w);
-
-        //const addCoimToWatchList = await
-    }
-    catch(err){
-        console.log(err);
-        response.status(500).send("Error");
-    }*/
 });
 
 

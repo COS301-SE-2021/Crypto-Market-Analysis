@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "codex-crypto-market-analysis",
+  "private_key_id": "98cca9c9a2cc70c5c37de6a82196fe002aaf4954",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDH0Vm9us1KIK0e\nivuScmC7xJFtdccn9t49xRGjXZ3Xy0BOngauQw9SEuVct3S9IIqxOVqKnaLNX+dG\nXS3Rp7MnjCVbappqICWECE5rknqnj7q4XiD7NF/8MxPZraMFFglPxoVn1EJoVhj3\nsFRBF8G+/tB7wYxBbaww9endAdXrKlWv50nBbZ4dfhX7xB3Kj6Ui8A+EQ1+At+8X\n995kaY2E+Hn7GpezRWGcaWxWpKUYOs5kQ/Qq3f9Rzm/ZO2yvJw2f1a5ZOCbJUWo+\nVqjmT32fkZ1l3tDY4bY3k0CCNuR1+j6RlTksYlf0r9oXY/2HD3Iqg2SR2OAeyPX6\nUJ1xn8ehAgMBAAECggEAA13RbjFwpkqei0JXFc/NaOrZWP4c8Z1GmV64J7Sa67wq\nwT66b2LfJg6xV6qAmHO52nc6p9WBkDlVxAX4XZnYQLbEzCfW4hBYfKm69oC0hjbh\n8+hXRzXJ8ADe5f7REKbr8VcV8s3TVsvFwAPAwgr+LBnB1fMifSZPOlDxh63XycGe\n07Y7ysvX0VO2SSq/XibclBU/lRbPNjrMYHgkn6oWKNErJB7S9lDVY9qsgu/OWxDe\n9EijZO4HI9T3DhrRfoW1Ojc5Go95ExrTPBfv0+TIM7xz/lIsBlzj4t/nOP03Q76A\nzOxpuU/b4UCdnM07HBAOYwzV+eBue27KeqkIaLXX9QKBgQD6MyPhiW3Q8Vdq5LMk\nyWG0dtk/TuF2ebAUEx/haqSNUp+Rgh229ekMvAw58L09cHdncVVciC6fQO5fMi0B\nBhd/VoWb0sBH8EdkpedyatOgOSVN+vG5zecndr64/o1Cv8jaAxD99Bx5PcPaxpp+\n9iCB7WpQY6OpQ0vOFaNy7hf4bQKBgQDMczViiAy8T+hMCRD28PdU8x9dd7SucNuA\nKdTHVbhKKxtlTfnDdYWrZSGVfUg9aB0T+rxPAOSpd9n1cKiFhpVzYtEDPQjLHFiT\ncELO4jE4jHgI/KRS9QTRO8i3lEEcl1o5KMnAv+A6Sy5WpoEnXi1abPhhrJ+q1ppg\nyiNcKqYzhQKBgQCJjSAG2IU1P9mtfLo4WTaL/mMFeRpfBhuVjcYTKYv53hi36G7p\nrVxIkgGuwPlpE7Gxfw9M5dmr2Ai08WLoky7L5QdjWYQ4iJLXdJY/wxdBmOk3a+UF\nH3wbqB7GmbuTnNiRcuoek9wrk5dfaZx6fFn21E2EkKLjZYoBbMgFYXxwKQKBgFAj\nxMRHof5asCrFzwGM+NYyqpO/rXJHSLMXMpGkNyXTedye0Q1dzrSdYqmvPxba7bL8\nML4jEn6fPS9pJpWYaJKfJGDJlt3O0aWRdo6TuUl6Pj7/kQX3hxjg/09+bHthlHsd\nUuAcFi+jcpmCkNO2pb5xQnc+7CNSFZdlBLFHAnjlAoGAFCr06DcJE5kcHRX3ZE5C\nkrpQ1XpaO0TjCwoFGxenwglBhonnlJLA6VFsHTE+E9P1qpBVDQsD8HsE9zacE8Ni\ntDRUBWgnzi+bHw7TcVWic6iKSYu3IeZDb6G4+4CWZ15xiobOfYJxt+ju6nXhvzqS\n4U96YLEPGJObjYeSkC7Gu2Q=\n-----END PRIVATE KEY-----\n",
+  "client_email": "codex-crypto-market-analysis@appspot.gserviceaccount.com",
+  "client_id": "109072868683375940862",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/codex-crypto-market-analysis%40appspot.gserviceaccount.com"
+}

@@ -19,10 +19,17 @@ const Crypto = require("../models/cryptocurrency");
 const secret_token = 'kabdaskjndbjhbkjaishouvhadjkljaosiuiygm';
 
 const admin = require('firebase-admin');
-const auth = require( '../firebase')
+const serviceAC = require('./firebase.json')
+//const auth = require( '../firebase')
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAC)
+});
+
 const db = admin.firestore();
-const db1 = admin.database();
-const ref = db1.ref('server/saving-data/fireblog');
+const docR = db.collection('Users').doc('Emails');
+//const db1 = admin.database();
+//const ref = db1.ref('server/saving-data/fireblog');
 /**
  * use post method to  perform http request
  *@param /api/updatePassword API route
@@ -187,30 +194,32 @@ router.post("/verify",(request, response, next)=>
  * @param {string} request.body.crypt_name
  * @return          A response containing the status code
  */
-router.post("/followCrypto",async(request,response)=>{
-    /*User.findOne({  email:request.body.email }, (err, user) => {
+router.post("/followCrypto", async(request,response)=>{
 
-        if (err)
-            return response.status(404).send({  message: 'Unable to find user' });
-        else if(user !== null) {
-            if (user.FavouriteCrypto.includes(request.body.crypto_name))
-                return response.status(400).send({
-                    type: 'already-followed',
-                    message: "already following the cryptocurrency"
-                });
-            user.FavouriteCrypto.push(request.body.crypto_name)
-            user.save(function (err) {
-                if (err) {
-                    return response.status(500).send({message: "An error occurred contact administrator"});
-                }
-                response.status(200).send({message: "Favourite Crypto added"});
-            });
-        }
-        else
-            return response.status(403).send({  message: 'Not authorized' });
+    let cryptoName = document.querySelector(".ml-3").innerText;
+    let username = request.body;
+    let user = admin
+        .auth()
+        .getUserByEmail(request.body.email)
+        .then((userRecord) => {
+            console.log("fetched" + userRecord.toJSON() + "successfully");
+        }).catch((err) => {
+            console.log("Error user not found: ", err);
+        });
 
-    });*/
-    try{
+    if(!user)
+        return response.status(400).json({status: 'error', error: 'User does not exist'});
+    else {
+        docR.set({
+            cryptoName: cryptoName,
+            userName: request.body.email
+        }).then(function () {
+            console.log(username + "follows" + cryptoName)
+        }).catch(function (err) {
+            console.log("error: ", err);
+        });
+    }
+    /*try{
         const {coinName} = request.body;
         const {user} = request.body.username;
 
@@ -227,9 +236,9 @@ router.post("/followCrypto",async(request,response)=>{
     catch(err){
         console.log(err);
         response.status(500).send("Error");
-    }
-
+    }*/
 });
+
 
 /** This function adds a social media site to scrap from by the user
  * @param request.body.social_media The social media site to scrap from
@@ -245,7 +254,11 @@ router.post("/followSocialMedia",(request,response,next)=>{
                 return response.status(400).send({
                     message: "Already following the social media site"
                 });
-            user.SocialMediaSites.push(request.body.social_media)
+            //user.SocialMediaSites.push(request.body.social_media)
+            docR.set({
+                cryptoName: request.body.social_media,
+                userName: request.body.email
+            });
             user.save(function (err) {
                 if (err)
                     return response.status(500).send({message: "An error occurred contact administrator"});

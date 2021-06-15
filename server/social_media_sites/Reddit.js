@@ -17,6 +17,7 @@ const r = new snoowrap({
     username: username,
     password: password
 });
+
 class Reddit {
     #firestore_db = new Database().getInstance();
 
@@ -27,7 +28,7 @@ class Reddit {
         topPosts1.forEach((post) => {
             Cryptomarkets.push(post.title);
         });
-        this.#firestore_db.save('reddit_data',"CryptoCurrencies",'posts',empty);
+        this.#firestore_db.save('reddit_data',"Cryptomarkets",'posts',empty);
     }
 
     scrapeSubredditCryptoCurrencyTrading = async () => {
@@ -37,7 +38,7 @@ class Reddit {
         topPosts2.forEach((post) => {
             CryptoCurrencyTrading.push(post.title);
         });
-        this.#firestore_db.save('reddit_data',"CryptoCurrencyTradings",'posts',empty);
+        this.#firestore_db.save('reddit_data',"CryptoCurrencyTrading",'posts',empty);
     }
 
     scrapeSubredditCrypto_Currency_News = async () => {
@@ -47,7 +48,7 @@ class Reddit {
         topPosts3.forEach((post) => {
             Crypto_Currency_News.push(post.title);
         });
-        this.#firestore_db.save('reddit_data',"Crypto_Currency_New",'posts',empty);
+        this.#firestore_db.save('reddit_data',"Crypto_Currency_News",'posts',empty);
     }
 
     scrapeSubredditSatoshiStreetBets = async () => {
@@ -168,8 +169,8 @@ class Reddit {
 }
 let reddits = new Reddit();
 // reddits.scrapeSubreddit();
-reddits.scrapeSubredditCryptoCurrencies();
-reddits.scrapeSubredditSatoshiStreetBets();
-reddits.scrapeSubredditCrypto_Currency_News();
-reddits.scrapeSubredditCryptoCurrencyTrading();
-reddits.scrapeSubredditCryptoCurrencyTrading();
+// reddits.scrapeSubredditCryptoCurrencies();
+// reddits.scrapeSubredditSatoshiStreetBets();
+// reddits.scrapeSubredditCrypto_Currency_News();
+// reddits.scrapeSubredditCryptoCurrencyTrading();
+reddits.scrapeSubredditCryptomarkets();

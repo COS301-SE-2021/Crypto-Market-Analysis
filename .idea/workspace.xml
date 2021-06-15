@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="decoupling functions">
+    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="decoupled functions">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/social_media_sites/Reddit.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/social_media_sites/Reddit.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -205,13 +206,6 @@
       <workItem from="1623600325547" duration="9744000" />
       <workItem from="1623662809651" duration="157000" />
       <workItem from="1623779348551" duration="1539000" />
-    </task>
-    <task id="LOCAL-00002" summary="Added partial api endpoint tests">
-      <created>1622485455332</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1622485455332</updated>
     </task>
     <task id="LOCAL-00003" summary="Added tests for signup endpoint in user">
       <created>1622490157893</created>
@@ -549,7 +543,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623796491382</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="decoupled functions">
+      <created>1623796985364</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1623796985364</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -571,7 +572,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fixed signup endpoint in user.js" />
     <MESSAGE value="Added tests for followCrypto endpoint" />
     <MESSAGE value="Added follow social media site function as well as implemented all tests" />
     <MESSAGE value="test files" />
@@ -596,7 +596,8 @@
     <MESSAGE value="Added getUsersId method to Twitter.js file" />
     <MESSAGE value="Added Singleton Pattern to the database file as well as added mock testing framework for firestore" />
     <MESSAGE value="decoupling functions" />
-    <option name="LAST_COMMIT_MESSAGE" value="decoupling functions" />
+    <MESSAGE value="decoupled functions" />
+    <option name="LAST_COMMIT_MESSAGE" value="decoupled functions" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

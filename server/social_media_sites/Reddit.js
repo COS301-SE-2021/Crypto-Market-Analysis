@@ -29,6 +29,7 @@ class Reddit {
             Cryptomarkets.push(post.title);
         });
         this.#firestore_db.save('reddit_data',"Cryptomarkets",'posts',empty);
+        this.#firestore_db.save('reddit_data',"Cryptomarkets",'posts',Cryptomarkets);
     }
 
     scrapeSubredditCryptoCurrencyTrading = async () => {
@@ -39,6 +40,7 @@ class Reddit {
             CryptoCurrencyTrading.push(post.title);
         });
         this.#firestore_db.save('reddit_data',"CryptoCurrencyTrading",'posts',empty);
+        this.#firestore_db.save('reddit_data',"CryptoCurrencyTrading",'posts',CryptoCurrencyTrading);
     }
 
     scrapeSubredditCrypto_Currency_News = async () => {
@@ -49,6 +51,7 @@ class Reddit {
             Crypto_Currency_News.push(post.title);
         });
         this.#firestore_db.save('reddit_data',"Crypto_Currency_News",'posts',empty);
+        this.#firestore_db.save('reddit_data',"Crypto_Currency_News",'posts',Crypto_Currency_News);
     }
 
     scrapeSubredditSatoshiStreetBets = async () => {
@@ -59,6 +62,7 @@ class Reddit {
             SatoshiStreetBets.push(post.title);
         });
         this.#firestore_db.save('reddit_data',"SatoshiStreetBets",'posts',empty);
+        this.#firestore_db.save('reddit_data',"SatoshiStreetBets",'posts',SatoshiStreetBets);
     }
 
     scrapeSubredditCryptoCurrencies = async () => {
@@ -69,6 +73,7 @@ class Reddit {
             CryptoCurrencies.push(post.title);
         });
         this.#firestore_db.save('reddit_data',"CryptoCurrencies",'posts',empty);
+        this.#firestore_db.save('reddit_data',"CryptoCurrencies",'posts',CryptoCurrencies);
     }
 
     // scrapeSubreddit = async () => {
@@ -168,9 +173,8 @@ class Reddit {
     //}
 }
 let reddits = new Reddit();
-// reddits.scrapeSubreddit();
-// reddits.scrapeSubredditCryptoCurrencies();
-// reddits.scrapeSubredditSatoshiStreetBets();
-// reddits.scrapeSubredditCrypto_Currency_News();
-// reddits.scrapeSubredditCryptoCurrencyTrading();
+reddits.scrapeSubredditCryptoCurrencies();
+reddits.scrapeSubredditSatoshiStreetBets();
+reddits.scrapeSubredditCrypto_Currency_News();
+reddits.scrapeSubredditCryptoCurrencyTrading();
 reddits.scrapeSubredditCryptomarkets();

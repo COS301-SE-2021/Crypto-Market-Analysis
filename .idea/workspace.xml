@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/server/_tests_/twitter.spec.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/test/api.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/_tests_/api.test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/test/twitter.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/_tests_/twitter.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/_tests_/twitter.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/_tests_/twitter.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/social_media_sites/Twitter.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/social_media_sites/Twitter.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +96,7 @@
       <recent name="C:\Users\Zeeshan\OneDrive - University of Pretoria\Documents\BIT\Year 4\Semester 1\COS 301\Projects\Crypto-Market-Analysis\server\test\functional\api" />
     </key>
   </component>
-  <component name="RunManager" selected="Node.js.Twitter.js">
+  <component name="RunManager" selected="Jest.getUserTimeline.testing negative inputs">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -124,29 +122,17 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="matches snapshot (3)" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+    <configuration name="getUserTimeline.testing negative inputs" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/client/node_modules/react-scripts" />
-      <working-dir value="$PROJECT_DIR$/client" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/server" />
       <envs />
       <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/client/src/components/login/test/updatePassword.test.js" />
+      <test-file value="$PROJECT_DIR$/server/_tests_/twitter.spec.js" />
       <test-names>
-        <test-name value="matches snapshot" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="matches snapshot (4)" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/client/node_modules/react-scripts" />
-      <working-dir value="$PROJECT_DIR$/client" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/client/src/components/login/test/token.test.js" />
-      <test-names>
-        <test-name value="matches snapshot" />
+        <test-name value="getUserTimeline" />
+        <test-name value="testing negative inputs" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -157,6 +143,16 @@
       <working-dir value="$PROJECT_DIR$" />
       <envs />
       <scope-kind value="ALL" />
+      <method v="2" />
+    </configuration>
+    <configuration name="twitter.spec.js" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/server" />
+      <envs />
+      <scope-kind value="TEST_FILE" />
+      <test-file value="$PROJECT_DIR$/server/_tests_/twitter.spec.js" />
       <method v="2" />
     </configuration>
     <configuration name="Database.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/server/database/Database.js" working-dir="$PROJECT_DIR$/server">
@@ -180,32 +176,25 @@
     </configuration>
     <list>
       <item itemvalue="Jest.npm test" />
-      <item itemvalue="Jest.matches snapshot (3)" />
-      <item itemvalue="Jest.matches snapshot (4)" />
       <item itemvalue="Jest.POST /user/signup.Returns 200. Add a user to the database" />
       <item itemvalue="Mocha.test" />
       <item itemvalue="Node.js.Twitter.js" />
       <item itemvalue="Node.js.Database.js" />
+      <item itemvalue="Jest.twitter.spec.js" />
+      <item itemvalue="Jest.getUserTimeline.testing negative inputs" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Jest.getUserTimeline.testing negative inputs" />
         <item itemvalue="Node.js.Twitter.js" />
+        <item itemvalue="Jest.twitter.spec.js" />
         <item itemvalue="Node.js.Database.js" />
         <item itemvalue="Jest.POST /user/signup.Returns 200. Add a user to the database" />
-        <item itemvalue="Jest.matches snapshot (4)" />
-        <item itemvalue="Jest.matches snapshot (3)" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task id="LOCAL-00001" summary="Added concurrent server and client links">
-      <created>1622409206950</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1622409206950</updated>
-    </task>
     <task active="true" id="Default" summary="Default task">
       <changelist id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="" />
       <created>1622463494048</created>
@@ -227,7 +216,7 @@
       <workItem from="1623426896108" duration="3290000" />
       <workItem from="1623600325547" duration="9744000" />
       <workItem from="1623662809651" duration="157000" />
-      <workItem from="1623779348551" duration="1539000" />
+      <workItem from="1623779348551" duration="9921000" />
     </task>
     <task id="LOCAL-00002" summary="Added partial api endpoint tests">
       <created>1622485455332</created>
@@ -565,7 +554,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623611205482</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Delete crypto_user_functions file as well as created testing files">
+      <created>1623782679507</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1623782679508</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -587,7 +583,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Changed user.js" />
     <MESSAGE value="Fixed signup endpoint in user.js" />
     <MESSAGE value="Added tests for followCrypto endpoint" />
     <MESSAGE value="Added follow social media site function as well as implemented all tests" />
@@ -612,7 +607,8 @@
     <MESSAGE value="Reddit.js" />
     <MESSAGE value="Added getUsersId method to Twitter.js file" />
     <MESSAGE value="Added Singleton Pattern to the database file as well as added mock testing framework for firestore" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Singleton Pattern to the database file as well as added mock testing framework for firestore" />
+    <MESSAGE value="Delete crypto_user_functions file as well as created testing files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Delete crypto_user_functions file as well as created testing files" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

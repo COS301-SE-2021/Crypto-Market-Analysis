@@ -28,8 +28,10 @@ class Twitter {
                 screenNames += user + ",";
         })
         await T.get('users/lookup', {screen_name:screenNames}, (err, data, response) => {
-            if(err)
+            if(err) {
                 console.error(`An error occurred while connecting to the Twitter API: ${err}`);
+                return -1;
+            }
             else{
                 data.forEach(async (user) => {
                     this.#firestore_db.save('twitter_data',user.screen_name,'id',user.id);
@@ -52,23 +54,49 @@ class Twitter {
      * @param {[String]} users An array of the screen name of twitter users.
      * */
     getUserTimeline(users){
-        users.forEach(async user => {
-            const { data } = await T.get('statuses/user_timeline', {screen_name: user}, (err, data, response) => {
-                if(err)
-                    console.error(`An error occurred while connecting to the Twitter API: ${err}`);
+        let error = 0;
+
+        if (!Array.isArray(users)) {
+            console.error("Variable passed in is not of type String[]");
+            error = -2;
+            return error;
+        }
+        else if(users.length < 1) {
+            error = -1;
+            return error;
+        }
+        else{
+            users.forEach(async user => {
+                if(typeof user !== 'string'){
+                    console.error("Array contains values that are not of type String");
+                    error = -2;
+                }
                 else{
-                    let tweets = [];
-                    data.forEach(tweet => {
-                        tweets.push(tweet.text);
+                    await T.get('statuses/user_timeline', {screen_name: user}, (err, data, response) => {
+                        if(response.caseless.get("status") !== "200 OK"){
+                            console.error(`An error occurred while connecting to the twitter API: ${response.caseless.get("status")}`);
+                            console.error(err);
+                            error = -3;
+                        }
+                        else{
+                            let tweets = [];
+                            data.forEach(tweet => {
+                                tweets.push(tweet.text);
+                            });
+                            this.#firestore_db.save('twitter_data', user, "tweets", tweets);
+                        }
                     });
-                    this.#firestore_db.save('twitter_data', user, "tweets", tweets);
                 }
             });
-        });
+            console.warn("Outside");
+            return error;
+        }
     }
 }
 
-/*const twitter = new Twitter();
-const users = ["BillGates"];
-twitter.getUserTimeline(users);
-twitter.getUsersID(users).then();*/
+module.exports = Twitter;
+
+const twitter = new Twitter();
+const users = ["abcdefghifjklmno"];
+console.log(twitter.getUserTimeline(users));
+//twitter.getUsersID(users).then();

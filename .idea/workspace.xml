@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="decoupled functions">
+    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="scrape database">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/social_media_sites/Reddit.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/social_media_sites/Reddit.js" afterDir="false" />
     </list>
@@ -95,6 +95,19 @@
     </key>
   </component>
   <component name="RunManager" selected="Node.js.Twitter.js">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="POST /user/signup.Returns 200. Add a user to the database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
@@ -206,13 +219,6 @@
       <workItem from="1623600325547" duration="9744000" />
       <workItem from="1623662809651" duration="157000" />
       <workItem from="1623779348551" duration="1539000" />
-    </task>
-    <task id="LOCAL-00003" summary="Added tests for signup endpoint in user">
-      <created>1622490157893</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1622490157893</updated>
     </task>
     <task id="LOCAL-00004" summary="Added a deleteUser module to abstract delete function from the database. Also added tests for the deleteUser function and delete endpoint.">
       <created>1622545975335</created>
@@ -550,7 +556,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623796985364</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="scrape database">
+      <created>1623797755506</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1623797755506</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -572,7 +585,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added tests for followCrypto endpoint" />
     <MESSAGE value="Added follow social media site function as well as implemented all tests" />
     <MESSAGE value="test files" />
     <MESSAGE value="working code" />
@@ -597,7 +609,8 @@
     <MESSAGE value="Added Singleton Pattern to the database file as well as added mock testing framework for firestore" />
     <MESSAGE value="decoupling functions" />
     <MESSAGE value="decoupled functions" />
-    <option name="LAST_COMMIT_MESSAGE" value="decoupled functions" />
+    <MESSAGE value="scrape database" />
+    <option name="LAST_COMMIT_MESSAGE" value="scrape database" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

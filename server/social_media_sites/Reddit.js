@@ -21,60 +21,18 @@ const r = new snoowrap({
 class Reddit {
     #firestore_db = new Database().getInstance();
 
-    scrapeSubredditCryptomarkets = async () => {
-        const subreddit1 = await r.getSubreddit('Cryptomarkets');
-        let Cryptomarkets = [];
+    scrapeSubreddit = async (Subreddit) => {
+        const subreddit1 = await r.getSubreddit(Subreddit);
+        let Data = [];
         const topPosts1 = await subreddit1.getTop({limit: 100});
         topPosts1.forEach((post) => {
-            Cryptomarkets.push(post.title);
+            Data.push(post.title);
         });
-        this.#firestore_db.save('reddit_data',"Cryptomarkets",'posts',empty);
-        this.#firestore_db.save('reddit_data',"Cryptomarkets",'posts',Cryptomarkets);
+        this.#firestore_db.save('reddit_data',Subreddit,'posts',empty);
+        this.#firestore_db.save('reddit_data',Subreddit,'posts',Data);
     }
 
-    scrapeSubredditCryptoCurrencyTrading = async () => {
-        const subreddit2 = await r.getSubreddit('CryptoCurrencyTrading');
-        let CryptoCurrencyTrading = [];
-        const topPosts2 = await subreddit2.getTop({limit: 100});
-        topPosts2.forEach((post) => {
-            CryptoCurrencyTrading.push(post.title);
-        });
-        this.#firestore_db.save('reddit_data',"CryptoCurrencyTrading",'posts',empty);
-        this.#firestore_db.save('reddit_data',"CryptoCurrencyTrading",'posts',CryptoCurrencyTrading);
-    }
-
-    scrapeSubredditCrypto_Currency_News = async () => {
-        const subreddit3 = await r.getSubreddit('Crypto_Currency_News');
-        let Crypto_Currency_News = [];
-        const topPosts3 = await subreddit3.getTop({limit: 100});
-        topPosts3.forEach((post) => {
-            Crypto_Currency_News.push(post.title);
-        });
-        this.#firestore_db.save('reddit_data',"Crypto_Currency_News",'posts',empty);
-        this.#firestore_db.save('reddit_data',"Crypto_Currency_News",'posts',Crypto_Currency_News);
-    }
-
-    scrapeSubredditSatoshiStreetBets = async () => {
-        const subreddit4 = await r.getSubreddit('SatoshiStreetBets');
-        let SatoshiStreetBets = [];
-        const topPosts4 = await subreddit4.getTop({limit: 100});
-        topPosts4.forEach((post) => {
-            SatoshiStreetBets.push(post.title);
-        });
-        this.#firestore_db.save('reddit_data',"SatoshiStreetBets",'posts',empty);
-        this.#firestore_db.save('reddit_data',"SatoshiStreetBets",'posts',SatoshiStreetBets);
-    }
-
-    scrapeSubredditCryptoCurrencies = async () => {
-        const subreddit5 = await r.getSubreddit('CryptoCurrencies');
-        let CryptoCurrencies = [];
-        const topPosts5 = await subreddit5.getTop({limit: 100});
-        topPosts5.forEach((post) => {
-            CryptoCurrencies.push(post.title);
-        });
-        this.#firestore_db.save('reddit_data',"CryptoCurrencies",'posts',empty);
-        this.#firestore_db.save('reddit_data',"CryptoCurrencies",'posts',CryptoCurrencies);
-    }
+    
 
     // scrapeSubreddit = async () => {
     //     const subreddit1 = await r.getSubreddit('Cryptomarkets');
@@ -173,8 +131,14 @@ class Reddit {
     //}
 }
 let reddits = new Reddit();
-reddits.scrapeSubredditCryptoCurrencies();
-reddits.scrapeSubredditSatoshiStreetBets();
-reddits.scrapeSubredditCrypto_Currency_News();
-reddits.scrapeSubredditCryptoCurrencyTrading();
-reddits.scrapeSubredditCryptomarkets();
+reddits.scrapeSubreddit("CryptoCurrencies");
+reddits.scrapeSubreddit("SatoshiStreetBets");
+reddits.scrapeSubreddit("Crypto_Currency_News");
+reddits.scrapeSubreddit("CryptoCurrencyTrading");
+reddits.scrapeSubreddit("Cryptomarkets");
+
+// reddits.scrapeSubredditCryptoCurrencies();
+// reddits.scrapeSubredditSatoshiStreetBets();
+// reddits.scrapeSubredditCrypto_Currency_News();
+// reddits.scrapeSubredditCryptoCurrencyTrading();
+// reddits.scrapeSubredditCryptomarkets();

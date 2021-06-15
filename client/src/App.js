@@ -1,22 +1,34 @@
 import './App.css';
-import {Route, Link} from "react-router-dom";
-import login from "./components/login/login";
-import register from "./components/login/register";
-import splash from "./components/login/splash";
+import {Route, Link} from "react-router-dom"
+import login from "./components/login/login"
+import Register from "./components/login/register"
+import splash from "./components/login/splash"
 import token from "./components/login/token"
-import updatePassword from "./components/login/updatePassword";
+import UpdatePassword from "./components/login/updatePassword"
+import UpdateProfile from "./components/login/updateProfile"
 import Home from "./components/Home/Home"
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import PrivateRoute from "./components/newRoute"
+import {BrowserRouter as router , Switch} from "react-router-dom";
+import { AuthProvider } from "./Auth/Auth"
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 function App() {
   return (
-    <section className="header">
-      <Route exact path="/" component={splash}></Route>
-      <Route exact path="/register" component={register}></Route>
-      <Route exact path="/login" component={login}></Route>
-      <Route exact path="/token" component={token}></Route>
-      <Route exact path="/updatePassword" component={updatePassword}></Route>
-      <Route exact path="/home" component={Home}></Route>
-    </section>
+      <router>
+          <AuthProvider>
+           <Switch>
+                 <section className="header">
+                     <PrivateRoute exact path="/" component={splash}></PrivateRoute>
+                     <Route exact path="/register" component={Register}></Route>
+                     <PrivateRoute exact path="/home" component={Home}></PrivateRoute>
+                     <Route exact path="/login" component={login}></Route>
+                     <Route exact path="/updatePassword" component={UpdatePassword}></Route>
+                     <Route exact path="/updateProfile" component={UpdateProfile}></Route>
+                 </section>
+           </Switch>
+          </AuthProvider>
+
+      </router>
+
   );
 }
 

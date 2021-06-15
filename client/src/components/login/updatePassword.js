@@ -1,87 +1,56 @@
-import React,{Component} from "react";
-import './css/login.css'
-import axios from 'axios';
+import React, { useRef, useState } from "react"
+import { Form, Button, Card, Alert } from "react-bootstrap"
+import { useAuth } from "../../Auth/Auth"
+import { Link, useHistory } from "react-router-dom"
+export default function UpdatePassword() {
+    const emailRef = useRef()
+    const passwordRef = useRef()
+    const { resetPassword, currentUser } = useAuth()
+    const [error, setError] = useState("")
+    const [message, setMessage] = useState("")
+    const [loading, setLoading] = useState(false)
+    const history = useHistory()
 
-class updatePassword extends Component{
-    constructor()
-    {
-        super();
-        this.state = {
-            token:'',
-            password:''
-        }
-        this.changeToken = this.changeToken.bind(this)
-        this.changePassword = this.changePassword.bind(this)
-        this.onSubmit = this.onSubmit.bind(this)
-    }
-    changeToken(event){
-        this.setState({token:event.target.value})
-    }
-    changePassword(event){
-        this.setState({password:event.target.value})
-    }
-
-    onSubmit(event)
-    {
-        event.preventDefault();
-        const updatePassword = {
-            token: this.state.token,
-            email: this.state.password
+    async function handleSubmit(e) {
+        e.preventDefault()
+        try {
+            setError("")
+            setLoading(true)
+            await resetPassword(emailRef.current.value)
+            history.push("/home")
+            setMessage('Reset Message delivered to Email')
+        } catch {
+            setError("Failed to reset password enter valid details!")
         }
 
-        axios
-            .post('http://localhost:8080/user/updatePassword/',updatePassword)
-            .then(() =>{window.location = '/home';} )
-            .catch(err =>{
-                console.error(err);
-
-            });
+        setLoading(false)
     }
-    render()
-    {
-        return (
-            <div className="form-v5">
-                <div className="page-content">
-                    <div className="form-v5-content">
-                        <form className="form-detail" onSubmit={this.onSubmit}>
-                            <h2>Update Password</h2>
-                            <div className="form-row">
-                                <label htmlFor="your-email">New Password</label>
-                                <input type="text" name="your-email" id="your-email" className="input-text"
-                                       placeholder="Your Email" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}"
-                                       onChange={this.changePassword}
-                                       value={this.state.password}
-                                />
-                                <i className="fas fa-envelope"></i>
-                            </div>
-                            <div className="form-row">
-                                <label htmlFor="your-token">Token</label>
-                                <input type="your-token" name="your-token" id="your-token" className="input-text"
-                                       placeholder="Your Token" required
-                                       onChange={this.changeToken}
-                                       value={this.state.token}
-                                />
-                                <i className="fas fa-lock"></i>
-                            </div>
-                            <div className="form-row-last">
-                                <input type="submit" name="token" className="register" value="Submit"/>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+
+    return (
+        <>
+            <Card>
+                <Card.Body>
+                    <h2 className="text-center mb-4">Reset Password</h2>
+
+                                {error && <Alert variant="danger">{error}</Alert>}
+                                <Form onSubmit={handleSubmit}>
+                                    <Form.Group id="email">
+                                        <Form.Label>Email</Form.Label>
+                                        <Form.Control type="email" ref={emailRef} required />
+                                    </Form.Group>
+                                    <Button disabled={loading} className="w-100" type="submit">
+                                        ResetPassword
+                                    </Button>
+                                </Form>
+                </Card.Body>
+            </Card>
+            <div className="w-100 text-center mt-2">
+                <Link to="/login">Login!</Link>
             </div>
-        );
-    }
+            <div className="w-100 text-center mt-2">
+                New user? <Link to="/register">Register new Account!</Link>
+            </div>
+        </>
+    )
 }
-export default updatePassword;
-
-
-
-
-
-
-
-
-
-
 

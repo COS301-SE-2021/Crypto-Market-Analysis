@@ -18,6 +18,16 @@ const {val} = require("cheerio/lib/api/attributes");
 const Crypto = require("../models/cryptocurrency");
 const secret_token = 'kabdaskjndbjhbkjaishouvhadjkljaosiuiygm';
 
+const admin = require('firebase-admin');
+const serviceAC = require('./firebase.json')
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAC)
+});
+
+const db = admin.firestore();
+const docR = db.collection('Users').doc('Emails');
+
 /**
  * use post method to  perform http request
  *@param /api/updatePassword API route
@@ -178,60 +188,69 @@ router.post("/verify",(request, response, next)=>
 
 /**
  * This function adds crypto names to the user account that the user is following
- * @param {string} request.body.email
- * @param {string} request.body.crypt_name
- * @return          A response containing the status code
+ * @param {string} cryptoName   name of cryptocurrency to follow
+ * @param {string} username     username of user logged on and following a cryptocurrency
+ * @return         A document entry containing a cryptocurrency and username
  */
-router.post("/followCrypto",(request,response,next)=>{
-    User.findOne({  email:request.body.email }, (err, user) => {
+router.post("/followCrypto", async(request,response)=>{
 
-        if (err)
-            return response.status(404).send({  message: 'Unable to find user' });
-        else if(user !== null) {
-            if (user.FavouriteCrypto.includes(request.body.crypto_name))
-                return response.status(400).send({
-                    type: 'already-followed',
-                    message: "already following the cryptocurrency"
-                });
-            user.FavouriteCrypto.push(request.body.crypto_name)
-            user.save(function (err) {
-                if (err) {
-                    return response.status(500).send({message: "An error occurred contact administrator"});
-                }
-                response.status(200).send({message: "Favourite Crypto added"});
-            });
-        }
-        else
-            return response.status(403).send({  message: 'Not authorized' });
+    let cryptoName = document.querySelector(".crypto-row").innerText;
+    let email = request.body;
+    let user = admin
+        .auth()
+        .getUserByEmail(request.body.email)
+        .then((userRecord) => {
+            console.log("fetched" + userRecord.toJSON() + "successfully");
+        }).catch((err) => {
+            console.log("Error user not found: ", err);
+        });
 
-    });
+    if(!user)
+        return response.status(400).json({status: 'error', error: 'User does not exist'});
+    else {
+        docR.set({
+            cryptoName: cryptoName,
+            userName: email
+        }).then(function () {
+            console.log(username + "follows" + cryptoName)
+        }).catch(function (err) {
+            console.log("error: ", err);
+        });
+    }
+
 });
 
+
 /** This function adds a social media site to scrap from by the user
- * @param request.body.social_media The social media site to scrap from
- * @param request.body.email The email address of the registered user
- * @return          A response containing the status code
+ * @param socialMediaName The social media site to scrap from
+ * @param email The email address of the registered user
+ * @return          A document entry containing a social media and email
  * */
 router.post("/followSocialMedia",(request,response,next)=>{
-    User.findOne({  email:request.body.email }, (err, user) => {
-        if (err)
-            return response.status(404).send({  message: 'Unable to find user' });
-        else if(user !== null) {
-            if (user.SocialMediaSites.includes(request.body.social_media))
-                return response.status(400).send({
-                    message: "Already following the social media site"
-                });
-            user.SocialMediaSites.push(request.body.social_media)
-            user.save(function (err) {
-                if (err)
-                    return response.status(500).send({message: "An error occurred contact administrator"});
-                response.status(200).send({message: "Successful"});
-            });
-        }
-        else
-            return response.status(403).send({  message: 'Not authorized' });
 
-    });
+    let socialMediaName = document.querySelector(".crypto-row").innerText;
+    let email = request.body.email;
+    let user = admin
+        .auth()
+        .getUserByEmail(request.body.email)
+        .then((userRecord) => {
+            console.log("fetched" + userRecord.toJSON() + "successfully");
+        }).catch((err) => {
+            console.log("Error user not found: ", err);
+        });
+
+    if(!user)
+        return response.status(400).json({status: 'error', error: 'User does not exist'});
+    else {
+        docR.set({
+            socialMediaName: socialMediaName,
+            userName: email
+        }).then(function () {
+            console.log(username + "follows" + socialMediaName)
+        }).catch(function (err) {
+            console.log("error: ", err);
+        });
+    }
 });
 
 /**

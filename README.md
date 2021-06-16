@@ -23,8 +23,8 @@ is and inform the user if it is about to change.
 ## Documentation
 - [User Manual]()
 - [SRS Document](https://www.overleaf.com/read/srdwqvnyjsbw)
-- [Architecture Document]()
-- [Coding Standard]()
+- [Architecture Document](https://www.overleaf.com/read/dzqkrswqcwkf)
+- [Coding Standard](https://www.overleaf.com/read/gnpzqgqghdjj)
 - [Technical Installation Guide]()
 ## Demo Videos
 - [Demo 1]()

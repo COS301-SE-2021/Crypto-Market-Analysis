@@ -20,6 +20,7 @@ const secret_token = 'kabdaskjndbjhbkjaishouvhadjkljaosiuiygm';
 
 const admin = require('firebase-admin');
 const serviceAC = require('./firebase.json')
+const Database = require('../database/Database');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAC)
@@ -194,8 +195,9 @@ router.post("/verify",(request, response, next)=>
  */
 router.post("/followCrypto", async(request,response)=>{
 
-    let cryptoName = document.querySelector(".crypto-row").innerText;
-    let email = request.body;
+    const firestoreDB = new Database().getInstance();
+    const users = {email: request.body.email};
+    users['cryptoName'] = document.querySelector(".crypto-name").innerText;
     let user = admin
         .auth()
         .getUserByEmail(request.body.email)
@@ -208,14 +210,7 @@ router.post("/followCrypto", async(request,response)=>{
     if(!user)
         return response.status(400).json({status: 'error', error: 'User does not exist'});
     else {
-        docR.set({
-            cryptoName: cryptoName,
-            userName: email
-        }).then(function () {
-            console.log(username + "follows" + cryptoName)
-        }).catch(function (err) {
-            console.log("error: ", err);
-        });
+        firestoreDB.save('Crypto', users['cryptoName'], "Email", users['email']);
     }
 
 });
@@ -228,8 +223,11 @@ router.post("/followCrypto", async(request,response)=>{
  * */
 router.post("/followSocialMedia",(request,response,next)=>{
 
-    let socialMediaName = document.querySelector(".crypto-row").innerText;
-    let email = request.body.email;
+    const firestoreDB = new Database().getInstance();
+    const rUser = {username: request.body.username};
+     rUser['socialMediaName'] = document.querySelector(".social-name").innerText;
+    //let socialMediaName = document.querySelector(".social-name").innerText;
+    //let email = request.body.email;
     let user = admin
         .auth()
         .getUserByEmail(request.body.email)
@@ -242,14 +240,7 @@ router.post("/followSocialMedia",(request,response,next)=>{
     if(!user)
         return response.status(400).json({status: 'error', error: 'User does not exist'});
     else {
-        docR.set({
-            socialMediaName: socialMediaName,
-            userName: email
-        }).then(function () {
-            console.log(username + "follows" + socialMediaName)
-        }).catch(function (err) {
-            console.log("error: ", err);
-        });
+        firestoreDB.save('Social Network', rUser['socialMediaName'], "Email", rUser['email']);
     }
 });
 

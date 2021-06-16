@@ -4,12 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="reddit.js">
+    <list default="true" id="6ee77116-f1d2-433e-92f0-4d4f2349c9b3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/reddit.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/reddit.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/database/Database.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/database/Database.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/_tests_/api.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/_tests_/api.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/models/cryptocurrency.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/models/user.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/models/verification.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/redditdata.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/twitterscapper.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/server/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/user_functions.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +36,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="user-develop" />
+        <entry key="$PROJECT_DIR$" value="feature-crypto-scraper" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -54,12 +58,9 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/server/models/cryptocurrency.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/server/routes/user_functions.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/server/models/verification.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/server/package.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/server/_tests_/api.test.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/server/routes/user.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/server/models/user.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/server/package.json" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1tIjJV7iklCIumCQfOULzZ4YZzZ" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -87,7 +88,6 @@
     <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/server/node_modules/jest" />
     <property name="nodejs.mocha.mocha_node_package_dir" value="$PROJECT_DIR$/server/node_modules/mocha" />
     <property name="nodejs_package_manager_path" value="yarn" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -98,7 +98,18 @@
       <recent name="C:\Users\Zeeshan\OneDrive - University of Pretoria\Documents\BIT\Year 4\Semester 1\COS 301\Projects\Crypto-Market-Analysis\server\test\functional\api" />
     </key>
   </component>
-  <component name="RunManager" selected="Node.js.Twitter.js">
+  <component name="RunManager" selected="Jest.getUserTimeline.testing negative inputs">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="POST /user/signup.Returns 200. Add a user to the database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
@@ -113,29 +124,17 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="matches snapshot (3)" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+    <configuration name="getUserTimeline.testing negative inputs" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/client/node_modules/react-scripts" />
-      <working-dir value="$PROJECT_DIR$/client" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/server" />
       <envs />
       <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/client/src/components/login/test/updatePassword.test.js" />
+      <test-file value="$PROJECT_DIR$/server/_tests_/twitter.spec.js" />
       <test-names>
-        <test-name value="matches snapshot" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="matches snapshot (4)" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/client/node_modules/react-scripts" />
-      <working-dir value="$PROJECT_DIR$/client" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/client/src/components/login/test/token.test.js" />
-      <test-names>
-        <test-name value="matches snapshot" />
+        <test-name value="getUserTimeline" />
+        <test-name value="testing negative inputs" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -146,6 +145,16 @@
       <working-dir value="$PROJECT_DIR$" />
       <envs />
       <scope-kind value="ALL" />
+      <method v="2" />
+    </configuration>
+    <configuration name="twitter.spec.js" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/server" />
+      <envs />
+      <scope-kind value="TEST_FILE" />
+      <test-file value="$PROJECT_DIR$/server/_tests_/twitter.spec.js" />
       <method v="2" />
     </configuration>
     <configuration name="Database.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/server/database/Database.js" working-dir="$PROJECT_DIR$/server">
@@ -169,20 +178,20 @@
     </configuration>
     <list>
       <item itemvalue="Jest.npm test" />
-      <item itemvalue="Jest.matches snapshot (3)" />
-      <item itemvalue="Jest.matches snapshot (4)" />
       <item itemvalue="Jest.POST /user/signup.Returns 200. Add a user to the database" />
+      <item itemvalue="Jest.twitter.spec.js" />
+      <item itemvalue="Jest.getUserTimeline.testing negative inputs" />
       <item itemvalue="Mocha.test" />
       <item itemvalue="Node.js.Twitter.js" />
       <item itemvalue="Node.js.Database.js" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Jest.getUserTimeline.testing negative inputs" />
         <item itemvalue="Node.js.Twitter.js" />
+        <item itemvalue="Jest.twitter.spec.js" />
         <item itemvalue="Node.js.Database.js" />
         <item itemvalue="Jest.POST /user/signup.Returns 200. Add a user to the database" />
-        <item itemvalue="Jest.matches snapshot (4)" />
-        <item itemvalue="Jest.matches snapshot (3)" />
       </list>
     </recent_temporary>
   </component>
@@ -209,8 +218,35 @@
       <workItem from="1623426896108" duration="3290000" />
       <workItem from="1623600325547" duration="9744000" />
       <workItem from="1623662809651" duration="157000" />
-      <workItem from="1623779348551" duration="1539000" />
-      <workItem from="1623833326262" duration="6597000" />
+      <workItem from="1623779348551" duration="9921000" />
+    </task>
+    <task id="LOCAL-00002" summary="Added partial api endpoint tests">
+      <created>1622485455332</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1622485455332</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added tests for signup endpoint in user">
+      <created>1622490157893</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1622490157893</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Added a deleteUser module to abstract delete function from the database. Also added tests for the deleteUser function and delete endpoint.">
+      <created>1622545975335</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1622545975335</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Added Additional Tests">
+      <created>1622558205015</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1622558205015</updated>
     </task>
     <task id="LOCAL-00006" summary="http request from login to api with form parameters">
       <created>1622651447020</created>
@@ -520,42 +556,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623611205482</updated>
     </task>
-    <task id="LOCAL-00050" summary="decoupling functions">
-      <created>1623796491381</created>
+    <task id="LOCAL-00050" summary="Delete crypto_user_functions file as well as created testing files">
+      <created>1623782679507</created>
       <option name="number" value="00050" />
       <option name="presentableId" value="LOCAL-00050" />
       <option name="project" value="LOCAL" />
-      <updated>1623796491382</updated>
+      <updated>1623782679508</updated>
     </task>
-    <task id="LOCAL-00051" summary="decoupled functions">
-      <created>1623796985364</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1623796985364</updated>
-    </task>
-    <task id="LOCAL-00052" summary="scrape database">
-      <created>1623797755506</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1623797755506</updated>
-    </task>
-    <task id="LOCAL-00053" summary="reddit.js">
-      <created>1623799542064</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1623799542064</updated>
-    </task>
-    <task id="LOCAL-00054" summary="reddit.js">
-      <created>1623803725298</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1623803725298</updated>
-    </task>
-    <option name="localTasksCounter" value="55" />
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -574,24 +582,12 @@
         </entry>
       </map>
     </option>
-    <option name="RECENT_FILTERS">
-      <map>
-        <entry key="User">
-          <value>
-            <list>
-              <RecentGroup>
-                <option name="FILTER_VALUES">
-                  <option value="*" />
-                </option>
-              </RecentGroup>
-            </list>
-          </value>
-        </entry>
-      </map>
-    </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="Fixed signup endpoint in user.js" />
+    <MESSAGE value="Added tests for followCrypto endpoint" />
+    <MESSAGE value="Added follow social media site function as well as implemented all tests" />
     <MESSAGE value="test files" />
     <MESSAGE value="working code" />
     <MESSAGE value="login firebase" />
@@ -613,11 +609,8 @@
     <MESSAGE value="Reddit.js" />
     <MESSAGE value="Added getUsersId method to Twitter.js file" />
     <MESSAGE value="Added Singleton Pattern to the database file as well as added mock testing framework for firestore" />
-    <MESSAGE value="decoupling functions" />
-    <MESSAGE value="decoupled functions" />
-    <MESSAGE value="scrape database" />
-    <MESSAGE value="reddit.js" />
-    <option name="LAST_COMMIT_MESSAGE" value="reddit.js" />
+    <MESSAGE value="Delete crypto_user_functions file as well as created testing files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Delete crypto_user_functions file as well as created testing files" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
@@ -625,8 +618,8 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Crypto_Market_Analysis$test.dat" NAME="test Coverage Results" MODIFIED="1622482427920" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="MochaJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Crypto_Market_Analysis$Unit_testing_the__user_route.info" NAME="Unit testing the /user route Coverage Results" MODIFIED="1622555334910" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="JestJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/Crypto_Market_Analysis$Unit_testing_the__delete_route.info" NAME="Unit testing the /delete route Coverage Results" MODIFIED="1622537712006" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="JestJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/Crypto_Market_Analysis$POST__user_adds_an_entry_into_the_database.info" NAME="POST /user.adds an entry into the database Coverage Results" MODIFIED="1622554439693" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="JestJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/Crypto_Market_Analysis$Unit_testing_the__user_route.info" NAME="Unit testing the /user route Coverage Results" MODIFIED="1622555334910" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="JestJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

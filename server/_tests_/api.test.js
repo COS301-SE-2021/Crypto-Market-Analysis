@@ -52,7 +52,7 @@ describe('POST /user/signup', () => {
     it('Returns 200. Add a user to the database', done => {
         const email = "example@example.co.za"
         const username = "example"
-        const password = "password"
+        const password = "test"
         request(app)
             .post('/user/signup')
             .send({"email":email, "username":username, "password":password})
@@ -65,7 +65,7 @@ describe('POST /user/signup', () => {
     it('Returns 400. Tries to add an existing user to the database', done => {
         const email = "example@example.co.za"
         const username = "example"
-        const password = "password"
+        const password = "test"
         request(app)
             .post('/user/signup')
             .send({"email":email, "username":username, "password":password})

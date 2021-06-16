@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react"
 import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../../Auth/Auth"
 import { Link, useHistory } from "react-router-dom"
-
+import { db } from '../../firebase'
 export default function Signup() {
     const emailRef = useRef()
     const passwordRef = useRef()
@@ -24,6 +24,11 @@ export default function Signup() {
             setError("")
             setLoading(true)
             await signup(emailRef.current.value, passwordRef.current.value)
+            await db.collection('Users').doc(emailRef.current.value).set({
+                user_id: emailRef.current.value
+            });
+            localStorage.setItem('emailSession',emailRef.current.value);
+
             history.push("/home")
         } catch {
             setError("Email address already exists")

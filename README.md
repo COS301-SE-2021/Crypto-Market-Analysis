@@ -23,6 +23,7 @@ is and inform the user if it is about to change.
 ## Documentation
 - [User Manual]()
 - [SRS Document](https://www.overleaf.com/read/srdwqvnyjsbw)
+- [Architecture Document]()
 - [Coding Standard]()
 - [Technical Installation Guide]()
 ## Demo Videos

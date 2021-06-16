@@ -34,6 +34,16 @@ class Database {
             console.error(`An error occurred while connecting to the database: \n${e}`);
         }
     }
+
+    fetch(collectionPath, documentName, field)
+    {
+        try{
+            return this.#db.collection(collectionPath).doc(documentName).get(field).then();
+        }
+        catch(e) {
+            console.error(`An error occurred while connecting to the database: \n${e}`);
+        }
+    }
 }
 
 class Singleton {

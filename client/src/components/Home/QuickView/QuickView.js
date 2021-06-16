@@ -51,15 +51,16 @@ function QuickView()
                     crypto.selected = !crypto.selected;
 
                     //if selected add to favourite list else remove it
-                    // if(crypto.selected) {
-                    //     let  cryptoToAdd = {
-                    //         email: "bhekindhlovu7@gmail.com",
-                    //         crypto_name: crypt.Name.toLowerCase()
-                    //     }
-                    //     axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd)
-                    //         .then(response => console.log(response))
-                    //         .catch(err => {console.error(err);})
-                    // }
+                    if(crypto.selected) {
+                        let  cryptoToAdd = {
+                            email: "bhekindhlovu7@gmail.com",
+                            crypto_name: crypto.name.toLowerCase(),
+                            selected: crypto.selected
+                        }
+                        axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd)
+                            .then(response => console.log(response))
+                            .catch(err => {console.error(err);})
+                    }
                 }
                 return {
                     ...crypto

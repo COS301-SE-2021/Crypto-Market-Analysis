@@ -44,6 +44,12 @@ class Database {
              console.error(`An error occurred while connecting to the database: \n${e}`);
         }
     }
+
+    async getUser(email){
+        let error = 0;
+        await admin.auth().getUserByEmail(email).then(() => {error = 0;}).catch((err) => {error = err;})
+        return error;
+    }
 }
 
 class Singleton {

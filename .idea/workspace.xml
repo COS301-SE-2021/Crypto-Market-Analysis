@@ -6,7 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="f3bcd833-8cd2-4988-baee-42ef0bc9148a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/firebase.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/twitterscapper.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/server/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/user_functions.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/test/api.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/userTest.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -217,14 +223,7 @@
       <workItem from="1623662809651" duration="157000" />
       <workItem from="1623779348551" duration="1539000" />
       <workItem from="1623833326262" duration="7693000" />
-      <workItem from="1623872624774" duration="9253000" />
-    </task>
-    <task id="LOCAL-00011" summary="token component">
-      <created>1622653979990</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1622653979990</updated>
+      <workItem from="1623872624774" duration="10154000" />
     </task>
     <task id="LOCAL-00012" summary="token component">
       <created>1622666025535</created>
@@ -562,7 +561,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623882702085</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="Implemented followCrypto function">
+      <created>1623884199818</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1623884199818</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -599,7 +605,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="splash removed video because of memory concerns" />
     <MESSAGE value="firebase email verification token" />
     <MESSAGE value="update password" />
     <MESSAGE value="update password firebase" />
@@ -624,7 +629,8 @@
     <MESSAGE value="Deleted Client folder" />
     <MESSAGE value="Added Client folder" />
     <MESSAGE value="Fixed router problems in server side" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed router problems in server side" />
+    <MESSAGE value="Implemented followCrypto function" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented followCrypto function" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

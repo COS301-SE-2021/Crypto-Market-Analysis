@@ -1,22 +1,19 @@
 const express = require("express");
-const dotenv = require('dotenv');
-dotenv.config();
 const router = express.Router();
 const Database = require('../database/Database');
 const firestore_db = new Database().getInstance();
 
-/**
- * This function adds crypto symbols to the user account that is saved in the database
- * @param {request.body.email} email The email of the registered user in the database.
- * @param {request.body.symbol} symbol The cryptocurrency symbol that should be saved to the user account.
- * @return                              A status code stating if the request was successful.
- */
-router.post("/followCrypto", async(request,response)=>{
+/** This function adds a social media site to the users account
+ * @param {object} request A request object with the email and symbol.
+ * @param {object} response A response object which will return the status code.
+ * @return          A status code stating if the request was successful.
+ * */
+router.post("/followCrypto", async (request,response)=>{
 
     const email = request.body.email;
     const symbol = request.body.symbol;
     if(email === null || symbol === null)
-        return response.status(401).json({status: `error`, error: `Malformed request`});
+        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
     else{
         let error = await firestore_db.getUser(request.body.email);
         if(error !== 0)
@@ -28,32 +25,26 @@ router.post("/followCrypto", async(request,response)=>{
     }
 });
 
-
-/** This function adds a social media site to scrap from by the user
- * @param socialMediaName The social media site to scrap from
- * @param email The email address of the registered user
- * @return          A document entry containing a social media and email
+/** This function adds a social media site to the users account
+ * @param {object} request A request object with the email and socialMediaName.
+ * @param {object} response A response object which will return the status code.
+ * @return          A status code stating if the request was successful.
  * */
-router.post("/followSocialMedia",(request,response,next)=>{
+router.post("/followSocialMedia",async (request,response)=>{
 
-    const firestoreDB = new Database().getInstance();
-    const rUser = {username: request.body.username};
-     rUser['socialMediaName'] = document.querySelector(".social-name").innerText;
-    //let socialMediaName = document.querySelector(".social-name").innerText;
-    //let email = request.body.email;
-    let user = admin
-        .auth()
-        .getUserByEmail(request.body.email)
-        .then((userRecord) => {
-            console.log("fetched" + userRecord.toJSON() + "successfully");
-        }).catch((err) => {
-            console.log("Error user not found: ", err);
-        });
+    const email = request.body.email;
+    const socialMediaName = request.body.socialMediaName;
 
-    if(!user)
-        return response.status(400).json({status: 'error', error: 'User does not exist'});
-    else {
-        firestoreDB.save('Social Network', rUser['socialMediaName'], "Email", rUser['email']);
+    if(email === null || socialMediaName === null)
+        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
+    else{
+        let error = await firestore_db.getUser(request.body.email);
+        if(error !== 0)
+            return response.status(401).json({status: `error`, error: error});
+        else {
+            firestore_db.save(`Users`, email, `social_media_sites`, socialMediaName);
+            return response.status(200).json({status: `ok`, message: `The social media site has successfully been added.`});
+        }
     }
 });
 

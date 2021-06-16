@@ -79,7 +79,6 @@ class Twitter {
                     });
                 }
             });
-            console.warn("Outside");
             return error;
         }
     }

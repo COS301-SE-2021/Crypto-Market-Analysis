@@ -50,10 +50,10 @@ describe('POST /user/signup', () => {
     it('Returns 200. Add a user to the database', done => {
         const email = "example@example.co.za"
         const username = "example"
-        const password = "test"
+        const pass = "test"
         request(app)
             .post('/user/signup')
-            .send({"email":email, "username":username, "password":password})
+            .send({"email":email, "username":username, "pass":password})
             .expect(200)
             .then((response) => {
                 done();
@@ -63,10 +63,10 @@ describe('POST /user/signup', () => {
     it('Returns 400. Tries to add an existing user to the database', done => {
         const email = "example@example.co.za"
         const username = "example"
-        const password = "test"
+        const pass = "test"
         request(app)
             .post('/user/signup')
-            .send({"email":email, "username":username, "password":password})
+            .send({"email":email, "username":username, "pass":password})
             .expect(400)
             .then((response) => {
                 expect(response.body.message).to.equal("User already registered");
@@ -77,10 +77,10 @@ describe('POST /user/signup', () => {
     it('Returns 500. Tries to add a user without specifying parameters', done => {
         const email = null
         const username = null
-        const password = null
+        const pass = null
         request(app)
             .post('/user/signup')
-            .send({"email":email, "username":username, "password":password})
+            .send({"email":email, "username":username, "pass":password})
             .expect(500)
             .then((response) => {
                 done();

@@ -4,14 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f3bcd833-8cd2-4988-baee-42ef0bc9148a" name="Default Changelist" comment="Deleted Client folder">
+    <list default="true" id="f3bcd833-8cd2-4988-baee-42ef0bc9148a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/database/Database.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/database/Database.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/models/cryptocurrency.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/models/user.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/models/verification.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/user.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -223,14 +217,7 @@
       <workItem from="1623662809651" duration="157000" />
       <workItem from="1623779348551" duration="1539000" />
       <workItem from="1623833326262" duration="7693000" />
-      <workItem from="1623872624774" duration="7692000" />
-    </task>
-    <task id="LOCAL-00010" summary="login and register">
-      <created>1622653958019</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1622653958019</updated>
+      <workItem from="1623872624774" duration="9253000" />
     </task>
     <task id="LOCAL-00011" summary="token component">
       <created>1622653979990</created>
@@ -568,7 +555,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623849983245</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="Fixed router problems in server side">
+      <created>1623882702070</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1623882702085</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -605,7 +599,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="register firebase" />
     <MESSAGE value="splash removed video because of memory concerns" />
     <MESSAGE value="firebase email verification token" />
     <MESSAGE value="update password" />
@@ -630,7 +623,8 @@
     <MESSAGE value="Changed and deleted various files" />
     <MESSAGE value="Deleted Client folder" />
     <MESSAGE value="Added Client folder" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Client folder" />
+    <MESSAGE value="Fixed router problems in server side" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed router problems in server side" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

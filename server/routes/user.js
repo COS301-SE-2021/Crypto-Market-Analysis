@@ -6,27 +6,26 @@ const Database = require('../database/Database');
 const firestore_db = new Database().getInstance();
 
 /**
- * This function adds crypto names to the user account that the user is following
- * @param {string} cryptoName   name of cryptocurrency to follow
- * @param {string} username     username of user logged on and following a cryptocurrency
- * @return         A document entry containing a cryptocurrency and username
+ * This function adds crypto symbols to the user account that is saved in the database
+ * @param {request.body.email} email The email of the registered user in the database.
+ * @param {request.body.symbol} symbol The cryptocurrency symbol that should be saved to the user account.
+ * @return                              A status code stating if the request was successful.
  */
 router.post("/followCrypto", async(request,response)=>{
 
-    console.log(`This is the email: ${request.body.email} and this is the password: ${request.body.cryptoName}`);
-    const users = {email: request.body.email};
-    //users['cryptoName'] = document.querySelector(".crypto-name").innerText;
-    users['cryptoName'] = request.body.cryptoName;
-    let error = await firestore_db.getUser(request.body.email);
-    if(error !== 0)
-        console.log(`An error occurred: ${error}`);
-
-    /*if(!user)
-        return response.status(400).json({status: 'error', error: 'User does not exist'});
-    else {
-        firestoreDB.save('Crypto', users['cryptoName'], "Email", users['email']);
-    }*/
-
+    const email = request.body.email;
+    const symbol = request.body.symbol;
+    if(email === null || symbol === null)
+        return response.status(401).json({status: `error`, error: `Malformed request`});
+    else{
+        let error = await firestore_db.getUser(request.body.email);
+        if(error !== 0)
+            return response.status(401).json({status: `error`, error: error});
+        else {
+            firestore_db.save(`Users`, email, `crypto`, symbol);
+            return response.status(200).json({status: `ok`, message: `The crypto has successfully been added.`});
+        }
+    }
 });
 
 

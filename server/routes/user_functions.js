@@ -3,6 +3,10 @@ const Token = require("../models/verification")
 const nodemailer = require('nodemailer');
 const bcrypt = require("bcryptjs");
 
+
+
+
+
 const dotenv = require('dotenv');
 dotenv.config();
 const crypto = require('crypto');
@@ -116,6 +120,8 @@ const send_verification_mail = (email, error) => {
         if (err) { return error.set(500, err.message) }
         return error.set(200, `A verification email has been sent to ${email}`);
     });
-}
+};
+
+
 
 module.exports = {deleteUser, add_user,getFavoriteCrypto};

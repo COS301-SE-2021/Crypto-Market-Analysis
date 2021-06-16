@@ -20,6 +20,7 @@ const secret_token = 'kabdaskjndbjhbkjaishouvhadjkljaosiuiygm';
 
 const admin = require('firebase-admin');
 const serviceAC = require('./firebase.json')
+const Database = require('../database/Database');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAC)
@@ -194,8 +195,11 @@ router.post("/verify",(request, response, next)=>
  */
 router.post("/followCrypto", async(request,response)=>{
 
-    let cryptoName = document.querySelector(".crypto-name").innerText;
-    let email = request.body;
+    const firestoreDB = new Database().getInstance();
+    const users = {email: request.body.email};
+    users['cryptoName'] = document.querySelector(".crypto-name").innerText;
+    //let cryptoName = document.querySelector(".crypto-name").innerText;
+    //let email = request.body.email;
     let user = admin
         .auth()
         .getUserByEmail(request.body.email)
@@ -208,14 +212,17 @@ router.post("/followCrypto", async(request,response)=>{
     if(!user)
         return response.status(400).json({status: 'error', error: 'User does not exist'});
     else {
-        docR.set({
+
+        firestoreDB.save('Crypto', users['cryptoName'], "Email", user['email']);
+
+        /*docR.set({
             cryptoName: cryptoName,
             userName: email
         }).then(function () {
             console.log(username + "follows" + cryptoName)
         }).catch(function (err) {
             console.log("error: ", err);
-        });
+        });*/
     }
 
 });

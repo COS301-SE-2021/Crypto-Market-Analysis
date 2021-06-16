@@ -9,12 +9,12 @@ function Home(){
     console.log("Triggered")
     return (
         <div className="home">
-            <Menu/>
+            {/* <Menu/> */}
             <div className="container-fluid">
                 <div className="row">
                     <QuickView/>
-                    <Content/>
-                    <PlatformSelector/>
+                    {/* <Content/> */}
+                    {/* <PlatformSelector/> */}
                 </div>
             </div>
         </div>

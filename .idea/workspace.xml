@@ -6,10 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="reddit.js">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/reddit.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/reddit.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/database/Database.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/database/Database.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/user.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -210,14 +206,7 @@
       <workItem from="1623600325547" duration="9744000" />
       <workItem from="1623662809651" duration="157000" />
       <workItem from="1623779348551" duration="1539000" />
-      <workItem from="1623833326262" duration="6597000" />
-    </task>
-    <task id="LOCAL-00006" summary="http request from login to api with form parameters">
-      <created>1622651447020</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1622651447020</updated>
+      <workItem from="1623833326262" duration="7693000" />
     </task>
     <task id="LOCAL-00007" summary="http request from register to api with form parameters">
       <created>1622651476124</created>
@@ -555,7 +544,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623803725298</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="reddit.js">
+      <created>1623842265680</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1623842265680</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

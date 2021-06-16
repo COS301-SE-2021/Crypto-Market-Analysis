@@ -28,9 +28,9 @@ class Reddit {
     }
 }
 let reddits = new Reddit();
-reddits.scrapeSubreddit("CryptoCurrencies");
-reddits.scrapeSubreddit("SatoshiStreetBets");
-reddits.scrapeSubreddit("Crypto_Currency_News");
-reddits.scrapeSubreddit("CryptoCurrencyTrading");
-reddits.scrapeSubreddit("Cryptomarkets");
+reddits.scrapeSubreddit("CryptoCurrencies").then();
+reddits.scrapeSubreddit("SatoshiStreetBets").then();
+reddits.scrapeSubreddit("Crypto_Currency_News").then();
+reddits.scrapeSubreddit("CryptoCurrencyTrading").then();
+reddits.scrapeSubreddit("Cryptomarkets").then();
 

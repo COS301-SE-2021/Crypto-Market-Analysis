@@ -41,15 +41,6 @@ class Twitter {
         }).then();
     }
 
-    async followAccounts(users){
-        await this.getUsersID(users).then(res => {console.log(res)});
-        console.log("out");
-        /*const stream = T.stream('statuses/filter', {follow: '12'});
-        stream.on('tweet', (tweet) => {
-            console.log(tweet);
-        })*/
-    }
-
     /** This function accepts a list of users and makes an API call to the Twitter API to get the 10 latest tweets.
      * @param {[String]} users An array of the screen name of twitter users.
      * */
@@ -95,8 +86,3 @@ class Twitter {
 }
 
 module.exports = Twitter;
-
-const twitter = new Twitter();
-const users = ["abcdefghifjklmno"];
-console.log(twitter.getUserTimeline(users));
-//twitter.getUsersID(users).then();

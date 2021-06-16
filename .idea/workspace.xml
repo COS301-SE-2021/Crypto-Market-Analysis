@@ -5724,9 +5724,10 @@
     </option>
   </component>
   <component name="RunManager" selected="Jest.POST /user/signup.Returns 200. Add a user to the database">
-    <configuration name="POST /user/signup.Returns 200. Add a user to the database" type="JavaScriptTestRunnerJest" factoryName="Jest" temporary="true" nameIsGenerated="true">
+    <configuration name="POST /user/signup.Returns 200. Add a user to the database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
       <working-dir value="$PROJECT_DIR$/server" />
       <envs />
       <scope-kind value="TEST" />
@@ -5737,7 +5738,7 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="matches snapshot (1)" type="JavaScriptTestRunnerJest" factoryName="Jest" temporary="true" nameIsGenerated="true">
+    <configuration name="matches snapshot (1)" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
       <working-dir value="$PROJECT_DIR$/client" />
@@ -5749,7 +5750,7 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="matches snapshot (2)" type="JavaScriptTestRunnerJest" factoryName="Jest" temporary="true" nameIsGenerated="true">
+    <configuration name="matches snapshot (2)" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
       <working-dir value="$PROJECT_DIR$/client" />
@@ -5761,7 +5762,7 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="matches snapshot (3)" type="JavaScriptTestRunnerJest" factoryName="Jest" temporary="true" nameIsGenerated="true">
+    <configuration name="matches snapshot (3)" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
       <working-dir value="$PROJECT_DIR$/client" />
@@ -5773,7 +5774,7 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="matches snapshot (4)" type="JavaScriptTestRunnerJest" factoryName="Jest" temporary="true" nameIsGenerated="true">
+    <configuration name="matches snapshot (4)" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
       <working-dir value="$PROJECT_DIR$/client" />
@@ -5785,7 +5786,7 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="npm test" type="JavaScriptTestRunnerJest" factoryName="Jest">
+    <configuration name="npm test" type="JavaScriptTestRunnerJest">
       <node-interpreter value="project" />
       <node-options value="" />
       <working-dir value="$PROJECT_DIR$" />
@@ -5793,7 +5794,7 @@
       <scope-kind value="ALL" />
       <method v="2" />
     </configuration>
-    <configuration name="test" type="mocha-javascript-test-runner" factoryName="Mocha">
+    <configuration name="test" type="mocha-javascript-test-runner">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <working-directory>$PROJECT_DIR$/server</working-directory>
@@ -5807,12 +5808,12 @@
     </configuration>
     <list>
       <item itemvalue="Jest.npm test" />
-      <item itemvalue="Mocha.test" />
       <item itemvalue="Jest.matches snapshot (1)" />
       <item itemvalue="Jest.matches snapshot (2)" />
       <item itemvalue="Jest.matches snapshot (3)" />
       <item itemvalue="Jest.matches snapshot (4)" />
       <item itemvalue="Jest.POST /user/signup.Returns 200. Add a user to the database" />
+      <item itemvalue="Mocha.test" />
     </list>
     <recent_temporary>
       <list>

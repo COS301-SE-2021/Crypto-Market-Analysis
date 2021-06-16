@@ -1,7 +1,4 @@
-const bodyParser = require('body-parser');
-const path = require('path');
 const express = require("express");
-const { check, validationResult } = require('express-validator')
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const dotenv = require('dotenv');
@@ -9,13 +6,9 @@ dotenv.config();
 const router = express.Router();
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
-const mongoose = require("mongoose");
 const User = require("../models/user")
-const userFunctions = require("./user_functions")
 const Token = require("../models/verification")
-const {val} = require("cheerio/lib/api/attributes");
 const Database = require('../database/Database');
-const Crypto = require("../models/cryptocurrency");
 const secret_token = 'kabdaskjndbjhbkjaishouvhadjkljaosiuiygm';
 
 /**

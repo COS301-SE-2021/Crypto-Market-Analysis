@@ -194,7 +194,7 @@ router.post("/verify",(request, response, next)=>
  */
 router.post("/followCrypto", async(request,response)=>{
 
-    let cryptoName = document.querySelector(".crypto-row").innerText;
+    let cryptoName = document.querySelector(".crypto-name").innerText;
     let email = request.body;
     let user = admin
         .auth()
@@ -228,7 +228,7 @@ router.post("/followCrypto", async(request,response)=>{
  * */
 router.post("/followSocialMedia",(request,response,next)=>{
 
-    let socialMediaName = document.querySelector(".crypto-row").innerText;
+    let socialMediaName = document.querySelector(".crypto-name").innerText;
     let email = request.body.email;
     let user = admin
         .auth()

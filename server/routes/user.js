@@ -14,7 +14,7 @@ const User = require("../models/user")
 const userFunctions = require("./user_functions")
 const Token = require("../models/verification")
 const {val} = require("cheerio/lib/api/attributes");
-
+const Database = require('../database/Database');
 const Crypto = require("../models/cryptocurrency");
 const secret_token = 'kabdaskjndbjhbkjaishouvhadjkljaosiuiygm';
 
@@ -289,6 +289,14 @@ router.post("/viewCrypto",(req,res,next)=>{
             if(error.get(200) !== undefined)
                 return res.status(200).json({message: error.get(200)})
         })
+});
+
+router.post("/RedditData",(req,res,next)=>{
+  let data = ["sending a post request", "posting test","sending a post request"];
+  let firestore_db = new Database().getInstance();
+    this.firestore_db.save('reddit_data',Subreddit,'posts',empty);
+  return data;
+  console.log("post request")
 });
 
 

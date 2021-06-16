@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="reddit.js">
-      <change afterPath="$PROJECT_DIR$/client/src/components/reddit.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/routes/redditdata.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/reddit.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/reddit.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/database/Database.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/database/Database.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/user.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,6 +87,7 @@
     <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/server/node_modules/jest" />
     <property name="nodejs.mocha.mocha_node_package_dir" value="$PROJECT_DIR$/server/node_modules/mocha" />
     <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -97,19 +99,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Node.js.Twitter.js">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="POST /user/signup.Returns 200. Add a user to the database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
@@ -221,13 +210,7 @@
       <workItem from="1623600325547" duration="9744000" />
       <workItem from="1623662809651" duration="157000" />
       <workItem from="1623779348551" duration="1539000" />
-    </task>
-    <task id="LOCAL-00005" summary="Added Additional Tests">
-      <created>1622558205015</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1622558205015</updated>
+      <workItem from="1623833326262" duration="6597000" />
     </task>
     <task id="LOCAL-00006" summary="http request from login to api with form parameters">
       <created>1622651447020</created>
@@ -565,7 +548,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623799542064</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="reddit.js">
+      <created>1623803725298</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1623803725298</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

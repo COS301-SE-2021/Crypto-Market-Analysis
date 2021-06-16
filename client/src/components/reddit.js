@@ -1,20 +1,25 @@
 import React, {Component} from "react";
 import axios from 'axios';
-class reddit extends Component{
-constructor() {
-    super();
-    axios.post('http://localhost:8080/user//RedditData/',cryptoToAdd)
-        .then(response => console.log(response))
-        .catch(err => {console.error(err);})
-}
-    return ()
-    {
-        <ol>
-            {data.map(post => (
-                <li key={post}>{post}</li>
-            ))}
-        </ol>
+
+export default class reddit extends React.Component {
+    state = {
+        persons: []
     }
 
+    componentDidMount() {
+        axios.post(`http://localhost:8080/user/RedditData/`)
+            .then(res => {
+                const persons = res;
+                this.setState({ persons });
+                console.log(res);
+            })
+    }
 
+    render() {
+        return (
+            <ul>
+                { this.state.persons.map(person => <li>{person.name}</li>)}
+            </ul>
+        )
+    }
 }

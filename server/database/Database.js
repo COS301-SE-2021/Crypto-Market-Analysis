@@ -41,7 +41,7 @@ class Database {
             return this.#db.collection(collectionPath).doc(documentName).get(field).then();
         }
         catch(e) {
-            console.error(`An error occurred while connecting to the database: \n${e}`);
+             console.error(`An error occurred while connecting to the database: \n${e}`);
         }
     }
 }

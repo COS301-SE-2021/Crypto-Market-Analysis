@@ -22,7 +22,7 @@ class Database {
      * @param {String} collectionPath Name of the collection
      * @param {String} documentName Name of the document in the collection
      * @param {String} field The field to update in the document
-     * @param {Any} fieldsData The data of the updated field
+     * @param {any} fieldsData The data of the updated field
      * */
     save(collectionPath, documentName, field, fieldsData){
         let data = {[field]: fieldsData}

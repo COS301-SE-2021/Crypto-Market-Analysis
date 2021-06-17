@@ -59,7 +59,7 @@ function QuickView()
                             'Content-type': 'application/json charset = UTF-8'
                         },
                     }).then((response) => response.json())
-                        .catch((response) => console.log('json'))
+                        .catch((response) => console.log(response))
                     //if selected add to favourite list else remove it
                     // if(crypto.selected) {
                     //     let  cryptoToAdd = {
@@ -113,6 +113,20 @@ function QuickView()
                                        onChange={searchSocialMedia}/>
                             </form>
                         </div>
+
+                    <div>
+
+                        <h1>This is a list of scraped tweets and SubReddits</h1>
+
+                        <form id={"tweets-form"}></form>
+
+                        <ul id={"tweets-list"}></ul>
+
+                        <ul id={"subreddit-list"}></ul>
+                    </div>
+
+
+                        <script src="fetchTweets.js"></script>
 
                         {
                             searchedPlatforms.map((myPlatform) =>{

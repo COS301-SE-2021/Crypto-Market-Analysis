@@ -7,8 +7,6 @@ import SentimentSpeedometer from "../GraphReport/AnalysisGraph"
 
 import CardStats from "../Cards/CardStats" ;
 import CardTweets from "../Cards/CardTweets/CardTweets" ;
-import { width } from "tailwindcss/defaultTheme";
-import { ContactMailTwoTone } from "@material-ui/icons";
 
 const coins = ["btc","eth","ltc","xrp","bnb","ada"]
 const tweets = [{id:"Elon Musk", tweet:"RT @rajpanjabi: As a physician, I’ve seen too many colleagues make the ultimate sacrifice on the frontlines. Over 115,000 health and care w…"},
@@ -47,9 +45,9 @@ export default function HeaderStats() {
   return (
     <>
       {/* Header */}
-      <div className="bg-lightBlue-600 pb-32 pt-8 ">
+      <div className=" pb-32 pt-8 ">
         
-        <div className=" px-4 md:px-10" style={{height:"450px",width:"80%"}} >
+        <div className=" px-4 md:px-10 h-full" style={{width:"80%"}} >
           <div  >
             {/* Card stats */}
            

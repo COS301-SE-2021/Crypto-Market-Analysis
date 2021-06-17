@@ -4,12 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f3bcd833-8cd2-4988-baee-42ef0bc9148a" name="Default Changelist" comment="">
+    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="removed compilation errors">
+      <change afterPath="$PROJECT_DIR$/client/model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/database/Database.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/database/Database.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/social_media_sites/Twitter.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/social_media_sites/Twitter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/client/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Home/GraphReport/AnalysisGraph.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Home/GraphReport/AnalysisGraph.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/client/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,8 +76,8 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JavaScript" />
-    <property name="javascript.nodejs.core.library.configured.version" value="14.17.0" />
-    <property name="javascript.nodejs.core.library.typings.version" value="14.17.0" />
+    <property name="javascript.nodejs.core.library.configured.version" value="16.2.0" />
+    <property name="javascript.nodejs.core.library.typings.version" value="15.12.2" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -84,6 +87,7 @@
     <property name="nodejs.mocha.mocha_node_package_dir" value="$PROJECT_DIR$/server/node_modules/mocha" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\IntelliJ IDEA 2021.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -95,19 +99,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Node.js.Twitter.js">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="POST /user/signup.Returns 200. Add a user to the database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
@@ -198,7 +189,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="f3bcd833-8cd2-4988-baee-42ef0bc9148a" name="Default Changelist" comment="Deleted Client folder" />
+      <changelist id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="Data from database is analysed" />
       <created>1622463494048</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -221,13 +212,8 @@
       <workItem from="1623779348551" duration="1539000" />
       <workItem from="1623833326262" duration="7693000" />
       <workItem from="1623872624774" duration="11106000" />
-    </task>
-    <task id="LOCAL-00013" summary="test">
-      <created>1622667783539</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1622667783539</updated>
+      <workItem from="1623915167493" duration="1946000" />
+      <workItem from="1623919277109" duration="4155000" />
     </task>
     <task id="LOCAL-00014" summary="test">
       <created>1622670598123</created>
@@ -565,7 +551,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623885166207</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="removed compilation errors">
+      <created>1623928856527</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1623928856527</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -602,7 +595,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update password" />
     <MESSAGE value="update password firebase" />
     <MESSAGE value="confirm works" />
     <MESSAGE value="forgotPassword" />
@@ -627,16 +619,17 @@
     <MESSAGE value="Fixed router problems in server side" />
     <MESSAGE value="Implemented followCrypto function" />
     <MESSAGE value="Implemented followSocialMedia and deleted various files" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented followSocialMedia and deleted various files" />
+    <MESSAGE value="removed compilation errors" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed compilation errors" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Crypto_Market_Analysis$test.dat" NAME="test Coverage Results" MODIFIED="1622482427920" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="MochaJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Crypto_Market_Analysis$POST__user_adds_an_entry_into_the_database.info" NAME="POST /user.adds an entry into the database Coverage Results" MODIFIED="1622554439693" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="JestJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/Crypto_Market_Analysis$Unit_testing_the__user_route.info" NAME="Unit testing the /user route Coverage Results" MODIFIED="1622555334910" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="JestJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/Crypto_Market_Analysis$Unit_testing_the__delete_route.info" NAME="Unit testing the /delete route Coverage Results" MODIFIED="1622537712006" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="JestJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/Crypto_Market_Analysis$POST__user_adds_an_entry_into_the_database.info" NAME="POST /user.adds an entry into the database Coverage Results" MODIFIED="1622554439693" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="JestJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Crypto_Market_Analysis$test.dat" NAME="test Coverage Results" MODIFIED="1622482427920" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="MochaJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

@@ -4,15 +4,10 @@ const express = require("express");
 const { check, validationResult } = require('express-validator')
 const router = express.Router();
 const crypto = require('crypto');
-const User = require("../models/user")
-const userFunctions = require("./user_functions")
-const Token = require("../models/verification")
-
-const Crypto = require("../models/cryptocurrency");
 const secret_token = 'kabdaskjndbjhbkjaishouvhadjkljaosiuiygm';
 
 const admin = require('firebase-admin');
-const serviceAC = require('./firebase.json')
+const serviceAC = require('../database/firebase.json')
 const Database = require('../database/Database');
 
 admin.initializeApp({
@@ -128,7 +123,7 @@ router.post('/analyse', async function(req, res, next) {
         //console.log(billgate.data().tweets);
     }
     const analysisArr = [];
-    const x= []
+    const x= [];
     let i=0;
    await billgate.data().tweets.forEach(element =>
 

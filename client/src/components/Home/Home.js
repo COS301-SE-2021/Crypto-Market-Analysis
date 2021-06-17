@@ -6,6 +6,7 @@ import HeaderStats from "./Headers/HeaderStats.js";
 import Content from "./Content/Content";
 import "bootstrap/dist/css/bootstrap.css";
 // import './Home.css';
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import "../../assets/styles/tailwind.css";
 
 function Home(){

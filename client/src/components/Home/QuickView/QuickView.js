@@ -59,7 +59,7 @@ function QuickView()
                             'Content-type': 'application/json charset = UTF-8'
                         },
                     }).then((response) => response.json())
-                        .catch((response) => console.log(json))
+                        .catch((response) => console.log('json'))
                     //if selected add to favourite list else remove it
                     // if(crypto.selected) {
                     //     let  cryptoToAdd = {

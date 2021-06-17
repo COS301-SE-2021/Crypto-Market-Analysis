@@ -22,7 +22,7 @@ class Database {
      * @param {String} collectionPath Name of the collection
      * @param {String} documentName Name of the document in the collection
      * @param {String} field The field to update in the document
-     * @param {Any} fieldsData The data of the updated field
+     * @param {any} fieldsData The data of the updated field
      * */
     save(collectionPath, documentName, field, fieldsData){
         let data = {[field]: fieldsData}
@@ -43,6 +43,12 @@ class Database {
         catch(e) {
              console.error(`An error occurred while connecting to the database: \n${e}`);
         }
+    }
+
+    async getUser(email){
+        let error = 0;
+        await admin.auth().getUserByEmail(email).then(() => {error = 0;}).catch((err) => {error = err;})
+        return error;
     }
 }
 

@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/social_media_sites/Twitter.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/social_media_sites/Twitter.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -210,13 +208,6 @@
       <workItem from="1623872624774" duration="11106000" />
       <workItem from="1623915167493" duration="1946000" />
       <workItem from="1623919277109" duration="6565000" />
-    </task>
-    <task id="LOCAL-00016" summary="Changed user.js">
-      <created>1622711674392</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1622711674392</updated>
     </task>
     <task id="LOCAL-00017" summary="Fixed signup endpoint in user.js">
       <created>1622716787934</created>
@@ -554,7 +545,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623949285489</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="Added filter data function in Twitter.js file">
+      <created>1623961805101</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1623961805101</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -591,7 +589,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="forgotPassword" />
     <MESSAGE value="Added bootstrap error-handling to the register page." />
     <MESSAGE value="vader sentiment" />
     <MESSAGE value="sentiment and snoowrap" />
@@ -616,7 +613,8 @@
     <MESSAGE value="removed compilation errors" />
     <MESSAGE value="added files" />
     <MESSAGE value="Reverted followSocialMedia and followCrypto endpoints to previous state" />
-    <option name="LAST_COMMIT_MESSAGE" value="Reverted followSocialMedia and followCrypto endpoints to previous state" />
+    <MESSAGE value="Added filter data function in Twitter.js file" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added filter data function in Twitter.js file" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

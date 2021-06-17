@@ -83,13 +83,6 @@ class Twitter {
                                 tweets.push(tweet.text);
                             });
                             tweets = await this.filterData(email, tweets);
-                            let database_data = {[`posts`]: tweets};
-                            try{
-                                this.#firestore_db.collection(`Cryptocurrency`).doc(`Twitter`).set(database_data, {merge:true}).then();
-                            }
-                            catch(e) {
-                                console.error(`An error occurred while connecting to the database: \n${e}`);
-                            }
                         }
                     });
                 }
@@ -99,34 +92,46 @@ class Twitter {
     }
 
     async filterData(email, tweets){
-        let filteredData = [];
-        let crypto = [];
+        let cryptoSymbols = [];
+        let cryptoNames = [];
 
         await this.#firestore_db.collection(`Users`).get().then((snapshot) =>{
             for (const doc of snapshot.docs) {
                 if(doc.id === email){
-                    crypto = crypto.concat(doc.data().crypto);
-                    crypto = crypto.concat(doc.data().crypto_name);
+                    cryptoSymbols = doc.data().crypto;
+                    cryptoNames = doc.data().crypto_name;
                     break;
                 }
             }
         });
 
-        let temp = null;
-
-        crypto.forEach((element) => {
-            element = element.toLowerCase();
-            tweets.forEach(tweet => {
+        let tempTweet = null;
+        let tempSymbol = null;
+        let tempName = null;
+        let tempArray = [];
+        let database_data = null;
+        for(const [index, value] of cryptoSymbols.entries()){
+            tempArray = [];
+            tempSymbol = value.toLowerCase();
+            tempName = cryptoNames[index].toLowerCase();
+            tweets.forEach((tweet) => {
+                tempTweet = tweet.toLowerCase();
                 if(tweet.search("RT")){
-                    temp = tweet.toLowerCase();
-                    if(temp.search(element) !== -1) {
-                        filteredData.push(tweet);
+                    if(tempTweet.search(tempSymbol) !== -1 || tempTweet.search(tempName) !== -1) {
+                        tempArray.push(tweet);
                     }
                 }
             })
-        })
-
-        return filteredData;
+            if(tempArray.length > 0){
+                database_data = {[tempName.toUpperCase()]: tempArray};
+                try{
+                    this.#firestore_db.collection(`Cryptocurrency`).doc(`Twitter`).set(database_data, {merge:true}).then();
+                }
+                catch(e) {
+                    console.error(`An error occurred while connecting to the database: \n${e}`);
+                }
+            }
+        }
     }
 }
 

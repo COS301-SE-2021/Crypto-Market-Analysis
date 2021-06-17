@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./Header.css";
 import axios from "axios";
-
+import ReactSpeedometer from "react-d3-speedometer";
+import SentimentSpeedometer from "../GraphReport/AnalysisGraph"
 // components
 
 import CardStats from "../Cards/CardStats" ;
@@ -52,17 +53,17 @@ export default function HeaderStats() {
             {/* Card stats */}
            
             <div className="container card-wrapper" >
-            <div className="crypto-search">
-                <form>
-                    <input type="search" className=" w-full form-control rounded" placeholder="Search..."
-                            />
-                </form>
-            </div>
+            {/*<div className="crypto-search">*/}
+            {/*    <form>*/}
+            {/*        <input type="search" className=" w-full form-control rounded" placeholder="Search..."*/}
+            {/*                />*/}
+            {/*    </form>*/}
+            {/*</div>*/}
               <div className="row">
                 {
                    cryptos.map((coin) =>{
                     return(
-                      <div key={coin.id} className="w-full lg:w-6/12 xl:w-3/12 px-4">
+                      <div key={coin.id} className="w-full lg:w-6/12 xl:w-3/12 px-4 mt-5">
                         <CardStats
                           statSubtitle={coin.name}
                           statTitle={coin.current_price}
@@ -85,12 +86,12 @@ export default function HeaderStats() {
         <div style={{marginTop:"3%"}} >
             
             <div className="container card-wrapper" >
-            <div className="crypto-search">
-                <form>
-                    <input type="search" className=" w-full form-control rounded" placeholder="Search..."
-                            />
-                </form>
-            </div>
+            {/*<div className="crypto-search">*/}
+            {/*    <form>*/}
+            {/*        <input type="search" className=" w-full form-control rounded" placeholder="Search..."*/}
+            {/*                />*/}
+            {/*    </form>*/}
+            {/*</div>*/}
               <div className="row">
                 {
                    tweets.map((tweet) =>{
@@ -101,9 +102,30 @@ export default function HeaderStats() {
                     )
                   })
                 }
+
               </div>
+
             </div>
           </div>
+            <div style={{marginTop:"3%"}} >
+
+                <div className="container card-wrapper" >
+                    {/*<div className="crypto-search">*/}
+                    {/*    <form>*/}
+                    {/*        <input type="search" className=" w-full form-control rounded" placeholder="Search..."*/}
+                    {/*                />*/}
+                    {/*    </form>*/}
+                    {/*</div>*/}
+                    <div className="row">
+                        <SentimentSpeedometer/>
+                        <SentimentSpeedometer/>
+                        <SentimentSpeedometer/>
+                        <SentimentSpeedometer/>
+                        <SentimentSpeedometer/>
+                    </div>
+
+                </div>
+            </div>
         </div>
       </div>
     </>

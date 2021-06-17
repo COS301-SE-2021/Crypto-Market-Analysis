@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="added files">
+    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/database/Database.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/database/Database.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -208,13 +208,6 @@
       <workItem from="1623872624774" duration="11106000" />
       <workItem from="1623915167493" duration="1946000" />
       <workItem from="1623919277109" duration="6565000" />
-    </task>
-    <task id="LOCAL-00015" summary="Changed user endpoints to previous methods and removed user.test.js and user_functions.js file">
-      <created>1622678149868</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1622678149869</updated>
     </task>
     <task id="LOCAL-00016" summary="Changed user.js">
       <created>1622711674392</created>
@@ -552,7 +545,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623930037412</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="Changed user.js to include follow functions">
+      <created>1623925940697</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1623925940718</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -589,7 +589,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="confirm works" />
     <MESSAGE value="forgotPassword" />
     <MESSAGE value="Added bootstrap error-handling to the register page." />
     <MESSAGE value="vader sentiment" />
@@ -614,7 +613,8 @@
     <MESSAGE value="Implemented followSocialMedia and deleted various files" />
     <MESSAGE value="removed compilation errors" />
     <MESSAGE value="added files" />
-    <option name="LAST_COMMIT_MESSAGE" value="added files" />
+    <MESSAGE value="Changed user.js to include follow functions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed user.js to include follow functions" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -37,11 +37,21 @@ class Database {
 
     fetch(collectionPath, documentName, field)
     {
-        try{
-            return this.#db.collection(collectionPath).doc(documentName).get(field).then();
+        if(field === null){
+            try{
+                return this.#db.collection(collectionPath).doc(documentName).get().then();
+            }
+            catch(e) {
+                console.error(`An error occurred while connecting to the database: \n${e}`);
+            }
         }
-        catch(e) {
-             console.error(`An error occurred while connecting to the database: \n${e}`);
+        else{
+            try{
+                return this.#db.collection(collectionPath).doc(documentName).get(field).then();
+            }
+            catch(e) {
+                console.error(`An error occurred while connecting to the database: \n${e}`);
+            }
         }
     }
 

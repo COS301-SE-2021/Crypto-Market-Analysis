@@ -10,17 +10,17 @@ const firestore_db = new Database().getInstance();
  * */
 router.post("/followCrypto", async (request,response)=>{
 
-    const email = request.body.email;
-    const symbol = request.body.symbol;
-    if(email === null || symbol === null)
+    if(request.body.email === null || request.body.symbol === null)
         return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
     else{
+        const email = request.body.email;
+        const symbol = [request.body.symbol];
         let error = await firestore_db.getUser(request.body.email);
         if(error !== 0)
             return response.status(401).json({status: `error`, error: error});
         else {
             firestore_db.save(`Users`, email, `crypto`, symbol);
-            return response.status(200).json({status: `ok`, message: `The crypto has successfully been added.`});
+            return response.status(200).json({status: `Ok`, message: `The crypto has successfully been added.`});
         }
     }
 });
@@ -32,12 +32,11 @@ router.post("/followCrypto", async (request,response)=>{
  * */
 router.post("/followSocialMedia",async (request,response)=>{
 
-    const email = request.body.email;
-    const socialMediaName = request.body.socialMediaName;
-
-    if(email === null || socialMediaName === null)
+    if(request.body.email === null || request.body.socialMediaName === null)
         return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
     else{
+        const email = request.body.email;
+        const socialMediaName = [request.body.socialMediaName];
         let error = await firestore_db.getUser(request.body.email);
         if(error !== 0)
             return response.status(401).json({status: `error`, error: error});

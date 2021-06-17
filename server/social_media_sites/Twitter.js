@@ -20,7 +20,6 @@ class Twitter {
      * */
     async getUsersID(users) {
         let screenNames = "";
-        let userIDs = [];
         users.forEach((user, index) => {
             if(index === users.length - 1)
                 screenNames += user;

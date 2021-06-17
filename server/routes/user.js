@@ -1,78 +1,5 @@
-const bodyParser = require('body-parser');
-const path = require('path');
 const express = require("express");
-const { check, validationResult } = require('express-validator')
 const router = express.Router();
-const crypto = require('crypto');
-const secret_token = 'kabdaskjndbjhbkjaishouvhadjkljaosiuiygm';
-
-const admin = require('firebase-admin');
-const serviceAC = require('../database/firebase.json')
-const Database = require('../database/Database');
-
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAC)
-});
-
-const db = admin.firestore();
-const docR = db.collection('Users').doc('Emails');
-
-
-/**
- * This function verify the user email by making use of the token sent to the user's email
- * @param {string} request.body.token The token sent to the user's email address
- * @param {string} request.body.email The email of the user
- * @param {string} request.body.id The id of the user
- * @return                          A response containing the status code
- */
-router.post("/verify",(request, response, next)=>
-{
-    Token.findOne({ token: request.body.token }, function (err, token) {
-        if (!token) return response.status(400).send({ type: 'user is not verified', msg: 'Token expired' });
-
-        User.findOne({ email: request.body.email }, function (err, user) {
-            if (!user) return response.status(400).send({ msg: 'Invalid token' });
-            if (user.Verified) return response.status(400).send({ type: 'already-verified', msg: 'This user has already been verified.' });
-
-            user.Verified = true;
-            user.save(function (err) {
-                if (err) { return response.status(500).send({ msg: err.message }); }
-                response.status(200).send("Account successfully verified log in.");
-            });
-        });
-    });
-});
-
-
-
-/** This function adds a social media site to scrap from by the user
- * @param socialMediaName The social media site to scrap from
- * @param email The email address of the registered user
- * @return          A document entry containing a social media and email
- * */
-router.post("/followSocialMedia",(request,response,next)=>{
-
-    const firestoreDB = new Database().getInstance();
-    const rUser = {username: request.body.username};
-     rUser['socialMediaName'] = document.querySelector(".social-name").innerText;
-    //let socialMediaName = document.querySelector(".social-name").innerText;
-    //let email = request.body.email;
-    let user = admin
-        .auth()
-        .getUserByEmail(request.body.email)
-        .then((userRecord) => {
-            console.log("fetched" + userRecord.toJSON() + "successfully");
-        }).catch((err) => {
-            console.log("Error user not found: ", err);
-        });
-
-    if(!user)
-        return response.status(400).json({status: 'error', error: 'User does not exist'});
-    else {
-        firestoreDB.save('Social Network', rUser['socialMediaName'], "Email", rUser['email']);
-    }
-});
-
 
 const natural = require('natural');
 const SpellCorrector = require('spelling-corrector');
@@ -109,7 +36,63 @@ const analysewords = async (filteredwords)=>{
     return analysis;
 
 }
-exports.analysewords = analysewords;
+
+const admin = require('firebase-admin');
+const serviceAC = require('../database/firebase.json')
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAC)
+});
+
+const db = admin.firestore();
+
+/** This function adds a social media site to the users account
+ * @param {object} request A request object with the email and symbol.
+ * @param {object} response A response object which will return the status code.
+ * @return          A status code stating if the request was successful.
+ * */
+router.post("/followCrypto", async (request,response)=>{
+
+    if(request.body.email === null || request.body.symbol === null)
+        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
+    else{
+        const email = request.body.email;
+        const symbol = [request.body.symbol];
+        const crypto_name = [request.body.crypto_name];
+        const data = {[`crypto`]: symbol,[`crypto_name`]: crypto_name}
+        try{
+            db.collection(`Users`).doc(email).set(data, {merge:true}).then();
+            return response.status(200).json({status: `Ok`, message: `The crypto has successfully been added.`});
+        }
+        catch(err){
+            return response(401).json({status:`error`, error: err})
+        }
+    }
+});
+
+/** This function adds a social media site to the users account
+ * @param {object} request A request object with the email and social_media_sites.
+ * @param {object} response A response object which will return the status code.
+ * @return          A status code stating if the request was successful.
+ * */
+router.post("/followSocialMedia",async (request,response)=>{
+
+    if(request.body.email === null || request.body.social_media_sites === null)
+        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
+    else{
+        const email = request.body.email;
+        const social_media_sites = [request.body.social_media_sites];
+        const data = {[`social_media_sites`]: social_media_sites}
+
+        try{
+            db.collection(`Users`).doc(email).set(data, {merge:true}).then();
+            return response.status(200).json({status: `Ok`, message: `The social media site has successfully been added.`});
+        }
+        catch(err){
+            return response(401).json({status:`error`, error: err})
+        }
+    }
+});
+
 //this function returns -3 for bad, 3 for good,0 for neutral
 //takes post:'comment' request object
 router.post('/analyse', async function(req, res, next) {
@@ -153,5 +136,5 @@ router.post('/analyse', async function(req, res, next) {
 
 });
 
-
+exports.analysewords = analysewords;
 module.exports = router;

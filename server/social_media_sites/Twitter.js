@@ -1,6 +1,6 @@
 const Twit = require('twit');
-const Database = require('../database/Database');
-
+const admin = require('firebase-admin');
+const serviceAccount = require('../database/firebase.json');
 const consumer_key = 'GGXUovWNfvGvagGakjfTzDfe1';
 const consumer_secret = 'UMG68Qym8K7vvsdtlEEIn0vRpyNj6Mfbmz6VUKMC3zn7tQNiat';
 const access_token = '1401939250858319875-zS8LTvSWz5UspdmaF63hxzpkLv0lbE';
@@ -10,10 +10,19 @@ const T = new Twit({
     consumer_key:         consumer_key,
     consumer_secret:      consumer_secret,
     access_token:         access_token,
-    access_token_secret: access_secret_token, })
+    access_token_secret: access_secret_token, });
 
 class Twitter {
-    #firestore_db = new Database().getInstance();
+    #firestore_db = null;
+
+    constructor(){
+        admin.initializeApp({
+            credential: admin.credential.cert(serviceAccount)
+        });
+        this.#firestore_db = admin.firestore();
+    }
+
+
 
     /** Gets the id's of the screen names of the users passed as a parameter.
      * @param {[String]} users An array of the screen name of twitter users.
@@ -43,7 +52,7 @@ class Twitter {
     /** This function accepts a list of users and makes an API call to the Twitter API to get the 10 latest tweets.
      * @param {[String]} users An array of the screen name of twitter users.
      * */
-    getUserTimeline(users){
+    getUserTimeline(email, users){
         let error = 0;
 
         if (!Array.isArray(users)) {
@@ -62,7 +71,7 @@ class Twitter {
                     error = -2;
                 }
                 else{
-                    await T.get('statuses/user_timeline', {screen_name: user}, (err, data, response) => {
+                    await T.get('statuses/user_timeline', {screen_name: user}, async (err, data, response) => {
                         if(response.caseless.get("status") !== "200 OK"){
                             console.error(`An error occurred while connecting to the twitter API: ${response.caseless.get("status")}`);
                             console.error(err);
@@ -73,7 +82,14 @@ class Twitter {
                             data.forEach(tweet => {
                                 tweets.push(tweet.text);
                             });
-                            this.#firestore_db.save('twitter_data', user, "tweets", tweets);
+                            tweets = await this.filterData(email, tweets);
+                            let database_data = {[`posts`]: tweets};
+                            try{
+                                this.#firestore_db.collection(`Cryptocurrency`).doc(`Twitter`).set(database_data, {merge:true}).then();
+                            }
+                            catch(e) {
+                                console.error(`An error occurred while connecting to the database: \n${e}`);
+                            }
                         }
                     });
                 }
@@ -81,6 +97,41 @@ class Twitter {
             return error;
         }
     }
+
+    async filterData(email, tweets){
+        let filteredData = [];
+        let crypto = [];
+
+        await this.#firestore_db.collection(`Users`).get().then((snapshot) =>{
+            for (const doc of snapshot.docs) {
+                if(doc.id === email){
+                    crypto = crypto.concat(doc.data().crypto);
+                    crypto = crypto.concat(doc.data().crypto_name);
+                    break;
+                }
+            }
+        });
+
+        let temp = null;
+
+        crypto.forEach((element) => {
+            element = element.toLowerCase();
+            tweets.forEach(tweet => {
+                if(tweet.search("RT")){
+                    temp = tweet.toLowerCase();
+                    if(temp.search(element) !== -1) {
+                        filteredData.push(tweet);
+                    }
+                }
+            })
+        })
+
+        return filteredData;
+    }
 }
 
+const twitter = new Twitter();
+const users = ['MichaelSuppo'];
+const email = "mojohnnylerato@gmail.com";
+twitter.getUserTimeline(email, users);
 module.exports = Twitter;

@@ -25,10 +25,10 @@ router.post("/followCrypto", async (request,response)=>{
     }
 });
 
-/** This function adds a social media site to the users account
- * @param {object} request A request object with the email and socialMediaName.
- * @param {object} response A response object which will return the status code.
- * @return          A status code stating if the request was successful.
+/** This function adds a social media site to scrap from by the user
+ * @param socialMediaName The social media site to scrap from
+ * @param email The email address of the registered user
+ * @return          A document entry containing a social media and email
  * */
 router.post("/followSocialMedia",async (request,response)=>{
 
@@ -47,4 +47,18 @@ router.post("/followSocialMedia",async (request,response)=>{
     }
 });
 
+/**
+ * This function adds crypto names to the user account that the user is following
+ * @param {string} request A request object with the email.
+ * @return        A list of cryptocurrencies a user follows
+ */
+ router.post("/getUserCryptos", async(request,response)=>{
+
+    console.log(request. request.body.email)
+
+    const firestoreDB = new Database().getInstance();
+    const users = {email: request.body.email};
+   
+
+});
 module.exports = router;

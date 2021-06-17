@@ -23,23 +23,20 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-validator": "^6.11.1",
-    "firebase": "^8.6.7",
+    "firebase": "^8.6.5",
     "firebase-admin": "^9.9.0",
     "jest": "^27.0.4",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.12",
     "morgan": "^1.10.0",
     "nodemailer": "^6.6.1",
+    "snoowrap": "^1.23.0",
     "tweet-scraper": "^1.0.1"
   },
   "devDependencies": {
-    "apos-to-lex-form": "^1.0.5",
     "chai": "^4.3.4",
     "mocha": "^8.4.0",
-    "natural": "^5.0.3",
     "nodemon": "^2.0.7",
-    "spelling-corrector": "^3.0.0",
-    "stopword": "^1.0.7",
     "supertest": "^6.1.3"
   },
   "directories": {

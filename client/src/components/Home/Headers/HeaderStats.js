@@ -21,8 +21,8 @@ export default function HeaderStats() {
 
   useEffect(async () => {
     let  cryptoReq = {
-        // email: localStorage.getItem("emailSession")
-        email: "bhekindhlovu7@gmail.com",
+        email: localStorage.getItem("emailSession")
+       // email: "bhekindhlovu7@gmail.com",
     }
     axios.post('http://localhost:8080/user/getUserCryptos/',cryptoReq)
         .then(response => console.log(response))

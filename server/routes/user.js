@@ -45,6 +45,31 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
+router.post("/getUserCryptos", async (request,response)=>{
+
+    let cryptoSymbols = null;
+    if(request.body.email === null)
+        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
+    else{
+        const email = request.body.email;
+        try{
+            await db.collection(`Users`).get().then((snapshot) =>{
+                for (const doc of snapshot.docs) {
+                    if(doc.id === email){
+                        cryptoSymbols = doc.data().crypto;
+                        break;
+                    }
+                }
+            });
+            return response.status(200).json({status: `Ok`, message: cryptoSymbols});
+        }
+        catch(err){
+            return response(401).json({status:`error`, error: err})
+        }
+    }
+});
+
+
 /** This function adds a social media site to the users account
  * @param {object} request A request object with the email and symbol.
  * @param {object} response A response object which will return the status code.
@@ -84,7 +109,7 @@ router.post("/followSocialMedia",async (request,response)=>{
         const data = {[`social_media_sites`]: social_media_sites}
 
         try{
-            db.collection(`Users`).doc(email).set(data, {merge:true}).then();
+            db.collection(`Users`).doc(email).update(data, {merge:true}).then();
             return response.status(200).json({status: `Ok`, message: `The social media site has successfully been added.`});
         }
         catch(err){

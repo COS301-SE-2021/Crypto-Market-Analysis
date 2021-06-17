@@ -6,8 +6,7 @@ import axios from "axios";
 
 import CardStats from "../Cards/CardStats" ;
 import CardTweets from "../Cards/CardTweets/CardTweets" ;
-import { width } from "tailwindcss/defaultTheme";
-import { ContactMailTwoTone } from "@material-ui/icons";
+
 
 const coins = ["btc","eth","ltc","xrp","bnb","ada"]
 const tweets = [{id:"Elon Musk", tweet:"RT @rajpanjabi: As a physician, I’ve seen too many colleagues make the ultimate sacrifice on the frontlines. Over 115,000 health and care w…"},

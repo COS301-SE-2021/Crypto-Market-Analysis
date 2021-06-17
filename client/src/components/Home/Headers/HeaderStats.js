@@ -5,10 +5,15 @@ import axios from "axios";
 // components
 
 import CardStats from "../Cards/CardStats" ;
+import CardTweets from "../Cards/CardTweets/CardTweets" ;
 import { width } from "tailwindcss/defaultTheme";
 import { ContactMailTwoTone } from "@material-ui/icons";
 
 const coins = ["btc","eth","ltc","xrp","bnb","ada"]
+const tweets = [{id:"Elon Musk", tweet:"RT @rajpanjabi: As a physician, I’ve seen too many colleagues make the ultimate sacrifice on the frontlines. Over 115,000 health and care w…"},
+                {id:"Bill Gates", tweet:"RT @builtwithbtc: We're Built With Bitcoin 👋A foundation creating equitable opportunity by providing clean water, quality education, sust…"},
+                {id:"Bill Gates", tweet:"Polio tools and infrastructure are also critical to combatting other public health emergencies, like COVID-19. It i… https://t.co/n05Msom8ov"}
+              ]
 
 export default function HeaderStats() {
   let [cryptos, setCryptos] = useState([]);
@@ -46,13 +51,14 @@ export default function HeaderStats() {
         <div className=" px-4 md:px-10" style={{height:"450px",width:"80%"}} >
           <div  >
             {/* Card stats */}
+           
+            <div className="container card-wrapper" >
             <div className="crypto-search">
                 <form>
                     <input type="search" className=" w-full form-control rounded" placeholder="Search..."
                             />
                 </form>
             </div>
-            <div className="container card-wrapper" >
               <div className="row">
                 {
                    cryptos.map((coin) =>{
@@ -75,68 +81,29 @@ export default function HeaderStats() {
               </div>
             </div>
           </div>
-        {/* remove the code below */}
+        {/* Tweets cards */}
 
-          <div style={{marginTop:"8%"}} >
-            {/* Card stats */}
+        <div style={{marginTop:"3%"}} >
+            
+            <div className="container card-wrapper" >
             <div className="crypto-search">
                 <form>
                     <input type="search" className=" w-full form-control rounded" placeholder="Search..."
                             />
                 </form>
             </div>
-            <div className="flex" >
-            
-              <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
-                <CardStats
-                  statSubtitle=""
-                  statTitle=""
-                  statArrow=""
-                  statPercent=""
-                  statPercentColor="text-emerald-500"
-                  statDescripiron=""
-                  statIconName=""
-                  statIconColor="bg-white-500"
-                />
-              </div>
-              <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
-                <CardStats
-                  statSubtitle=""
-                  statTitle=""
-                  statArrow=""
-                  statPercent=""
-                  statPercentColor="text-red-500"
-                  statDescripiron=""
-                  statIconName=""
-                  statIconColor="bg-white-500"
-                />
-              </div>
-              <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
-                <CardStats
-                  statSubtitle=""
-                  statTitle=""
-                  statArrow=""
-                  statPercent=""
-                  statPercentColor="text-orange-500"
-                  statDescripiron=""
-                  statIconName=""
-                  statIconColor="bg-white-500"
-                />
-              </div>
-              <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
-                <CardStats
-                  statSubtitle=""
-                  statTitle=""
-                  statArrow=""
-                  statPercent=""
-                  statPercentColor="text-emerald-500"
-                  statDescripiron=""
-                  statIconName=""
-                  statIconColor="bg-white-500"
-                />
+              <div className="row">
+                {
+                   tweets.map((tweet) =>{
+                    return(
+                      <div key={tweet.id} className="w-full lg:w-6/12 xl:w-4/12 px-4 mt-5">
+                        <CardTweets tweetOwner={tweet.id} tweetContent={tweet.tweet} />
+                    </div>
+                    )
+                  })
+                }
               </div>
             </div>
-            
           </div>
         </div>
       </div>

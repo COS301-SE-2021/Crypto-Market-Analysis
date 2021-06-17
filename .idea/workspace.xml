@@ -4,15 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="removed compilation errors">
-      <change afterPath="$PROJECT_DIR$/client/model.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" />
+    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="added files">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/client/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/.env" beforeDir="false" afterPath="$PROJECT_DIR$/client/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/jsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Home/GraphReport/AnalysisGraph.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Home/GraphReport/AnalysisGraph.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/client/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/postcss.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/assets/styles/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/assets/styles/tailwind.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Home/Cards/CardLineChart.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Home/Cards/CardStats.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Home/Cards/CardTweets/CardTweets.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Home/Cards/CardTweets/CardTweets.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Home/Headers/Header.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Home/Headers/HeaderStats.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Home/Home.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Home/Home.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Home/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Home/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Home/Sidebar/Sidebar.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/layouts/Admin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/tailwind.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/yarn.lock" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -213,14 +228,7 @@
       <workItem from="1623833326262" duration="7693000" />
       <workItem from="1623872624774" duration="11106000" />
       <workItem from="1623915167493" duration="1946000" />
-      <workItem from="1623919277109" duration="4155000" />
-    </task>
-    <task id="LOCAL-00014" summary="test">
-      <created>1622670598123</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1622670598123</updated>
+      <workItem from="1623919277109" duration="6565000" />
     </task>
     <task id="LOCAL-00015" summary="Changed user endpoints to previous methods and removed user.test.js and user_functions.js file">
       <created>1622678149868</created>
@@ -558,7 +566,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623928856527</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="added files">
+      <created>1623930037412</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1623930037412</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -595,7 +610,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="update password firebase" />
     <MESSAGE value="confirm works" />
     <MESSAGE value="forgotPassword" />
     <MESSAGE value="Added bootstrap error-handling to the register page." />
@@ -620,7 +634,8 @@
     <MESSAGE value="Implemented followCrypto function" />
     <MESSAGE value="Implemented followSocialMedia and deleted various files" />
     <MESSAGE value="removed compilation errors" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed compilation errors" />
+    <MESSAGE value="added files" />
+    <option name="LAST_COMMIT_MESSAGE" value="added files" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

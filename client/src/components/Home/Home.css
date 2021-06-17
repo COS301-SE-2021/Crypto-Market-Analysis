@@ -1,6 +1,6 @@
-/* .home {
+.home {
     text-align: center;
-    background-color: #f3f3f3;
+    /*background-color: #f3f3f3;*/
     min-height: 100vh;
 
 }
@@ -12,4 +12,4 @@
 .row
 {
     height: 500px;
-} */
+}

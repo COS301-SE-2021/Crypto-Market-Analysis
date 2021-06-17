@@ -50,6 +50,16 @@ function QuickView()
                 if(name == crypto.symbol){
                     crypto.selected = !crypto.selected;
 
+                    fetch('http://127.0.0.1:8080/user/folloCrypto',{
+                        method:'POST',
+                        body: JSON.stringify({
+                            email: 'alekarzeeshan92@gmail.com',
+                        cryptoName: 'btc',}),
+                        headers: {
+                            'Content-type': 'application/json charset = UTF-8'
+                        },
+                    }).then((response) => response.json())
+                        .catch((response) => console.log(json))
                     //if selected add to favourite list else remove it
                     // if(crypto.selected) {
                     //     let  cryptoToAdd = {

@@ -2,6 +2,7 @@ const request = require('supertest');
 const expect = require('chai').expect;
 const app = require("../app");
 const mongoose = require("mongoose");
+const Database = require("../database/Database")
 const MONGODB_URI = "mongodb+srv://codex:"+process.env.MongoPassword+"@codex.z7mgz.mongodb.net/Codex?retryWrites=true&w=majority";
 try {
     mongoose.connect(MONGODB_URI, {

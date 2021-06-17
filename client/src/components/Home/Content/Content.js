@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.css";
 import { Icon } from "coinmarketcap-cryptocurrency-icons";
 import GraphReport from "../GraphReport/GraphReport";
-
+import SentimentSpeedometer from "../GraphReport/AnalysisGraph"
 import "./Content.css";
 function Content()
 {
@@ -46,6 +46,7 @@ function Content()
                 <div className="col-12" style={{height: "400px"}}>
                     <div className="card" style={{height: "370px",margin:"20px auto auto",}}>
                         <GraphReport/>
+                        <SentimentSpeedometer/>
                     </div>
                 </div>
             </div>

@@ -24,6 +24,7 @@
     "jquery": "^3.6.0",
     "mdb": "^0.1.0",
     "mdbreact": "^5.0.2",
+    "react-d3-speedometer": "^1.0.1",
     "react-dom": "^17.0.2",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
@@ -32,6 +33,8 @@
     "react-test-renderer": "^17.0.2",
     "router-dom": "^2.1.4",
     "social-media-icons-react": "^1.1.2",
+    "typesaurus": "^7.2.0",
+    "typescript": "^4.3.2",
     "web-vitals": "^1.0.1",
     "@fortawesome/fontawesome-free": "5.15.3"
   },

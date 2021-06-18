@@ -30,7 +30,7 @@ export default function Signup() {
         <>
             <Card>
                 <Card.Body>
-                    <h2 className="text-center mb-4">Login User</h2>
+                    <h2 className="text-center mb-4">Login</h2>
 
                     {error && <Alert variant="danger">{error}</Alert>}
                     <Form onSubmit={handleSubmit}>
@@ -49,10 +49,10 @@ export default function Signup() {
                 </Card.Body>
             </Card>
             <div className="w-100 text-center mt-2">
-               <Link to="/updatePassword">Forgot Password!</Link>
+               <Link to="/updatePassword">Forgot Password?</Link>
             </div>
             <div className="w-100 text-center mt-2">
-                New user? <Link to="/register">Register Account!</Link>
+                New to Cryptosis? <Link to="/register">Register an account.</Link>
             </div>
         </>
     )

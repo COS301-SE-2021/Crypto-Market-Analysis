@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Header.css";
 import axios from "axios";
 import ReactSpeedometer from "react-d3-speedometer";
+import db from "../../../firebase"
 import SentimentSpeedometer from "../GraphReport/AnalysisGraph"
 // components
 
@@ -32,9 +33,52 @@ export default function HeaderStats() {
     let [tweets, setTweets] = useState([]);
   useEffect(async () => {
 
+const tweets = [{id:"Elon Musk", tweet:"RT @rajpanjabi: As a physician, I’ve seen too many colleagues make the ultimate sacrifice on the frontlines. Over 115,000 health and care w…"},
+                {id:"Bill Gates", tweet:"RT @builtwithbtc: We're Built With Bitcoin 👋A foundation creating equitable opportunity by providing clean water, quality education, sust…"},
+                {id:"Bill Gates", tweet:"Polio tools and infrastructure are also critical to combatting other public health emergencies, like COVID-19. It i… https://t.co/n05Msom8ov"},
+                {id:"Bill Gates", tweet:"Polio tools and infrastructure are also critical to combatting other public health emergencies, like COVID-19. It i… https://t.co/n05Msom8ov"},
+                {id:"Bill Gates", tweet:"Polio tools and infrastructure are also critical to combatting other public health emergencies, like COVID-19. It i… https://t.co/n05Msom8ov"},
+                {id:"Bill Gates", tweet:"Polio tools and infrastructure are also critical to combatting other public health emergencies, like COVID-19. It i… https://t.co/n05Msom8ov"},
+                {id:"Bill Gates", tweet:"Polio tools and infrastructure are also critical to combatting other public health emergencies, like COVID-19. It i… https://t.co/n05Msom8ov"},
+                {id:"Bill Gates", tweet:"Polio tools and infrastructure are also critical to combatting other public health emergencies, like COVID-19. It i… https://t.co/n05Msom8ov"},
+                {id:"Bill Gates", tweet:"Polio tools and infrastructure are also critical to combatting other public health emergencies, like COVID-19. It i… https://t.co/n05Msom8ov"}
+              ]
+
+axios.post('http://localhost:8080/user/followSocialMedia/')//,cryptoToAdd)
+    .then(response => console.log(response))
+    .catch(err => {console.error(err);})
+
+export default function HeaderStats() {
+  let [cryptos, setCryptos] = useState([]);
+  let [item, setItem] = useState([]);
+   // let item= []
+
+    db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).get().then((data)=>{
+        for(const social of data.data().social_media_sites)
+        {
+            for(const crypt of data.data().crypto_name) {
+                db.firestore().collection(social).doc(crypt).get().then((analysis) => {
+                    const avg= Math.round(analysis.data().Average)
+                    const mini= Math.round((analysis.data().Min))
+                    const maxi = Math.round(analysis.data().Max)
+                    console.log(social)
+                   /* item.push(<SentimentSpeedometer min={mini} max={maxi}
+                                                   average={avg}
+                                                    social={social}/>)*/
+                    const arr=[];
+                    arr.push(<SentimentSpeedometer min={mini} max={maxi} average={avg} social={social} />)
+                    setItem(arr);
+                })
+            }
+        }
+    }).catch((error) => { })
+
+    useEffect(async () => {
     let  cryptoReq = {
         email: localStorage.getItem("emailSession")
+
        // email: "bhekindhlovu7@gmail.com",
+
     }
     axios.post('http://localhost:8080/user/getUserCryptos/',cryptoReq)
         .then()
@@ -201,8 +245,8 @@ let posts = [];
                                 }
                             </ul>
                         </div>
+                        {item}
                     </div>
-
                 </div>
             </div>
         </div>

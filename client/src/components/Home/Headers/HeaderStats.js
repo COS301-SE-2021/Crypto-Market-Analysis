@@ -61,6 +61,23 @@ export default function HeaderStats() {
           })
           .catch(err => {console.error(err);})
 
+let posts = [];
+      axios.post('http://localhost:8080/user/getUserSubreddit/',req)
+          .then(response => {
+              for(var x = 0; x<50; x++)
+              {
+                  console.log(response.data.posts[1].posts[x]);
+                  posts.push(response.data.posts[1].posts[x]);
+
+              }
+
+          })
+          .catch(err => {console.error(err);})
+      console.log(posts)
+
+
+
+
 
         
     axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=50&page=1&sparkline=false')
@@ -156,6 +173,34 @@ export default function HeaderStats() {
                         {/*<SentimentSpeedometer/>*/}
                         {/*<SentimentSpeedometer/>*/}
                         <SentimentSpeedometer/>
+                    </div>
+
+                </div>
+            </div>
+            <div style={{marginTop:"3%"}} >
+
+                <div className="container card-wrapper" >
+                    {/*<div className="crypto-search">*/}
+                    {/*    <form>*/}
+                    {/*        <input type="search" className=" w-full form-control rounded" placeholder="Search..."*/}
+                    {/*                />*/}
+                    {/*    </form>*/}
+                    {/*</div>*/}
+                    <div className="row">
+                        <div className="card">
+                            <div className="card-header">
+                                Bitcoin
+                            </div>
+                            <ul className="list-group list-group-flush">
+                                {
+                                    tweets.map((tweet) =>{
+                                        return(
+                                        <li className="list-group-item">{tweet.tweet}</li>
+                                        )
+                                    })
+                                }
+                            </ul>
+                        </div>
                     </div>
 
                 </div>

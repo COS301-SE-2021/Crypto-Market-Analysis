@@ -69,6 +69,28 @@ router.post("/getUserTweets", async (request,response)=>{
     }
 });
 
+router.post("/getUserSubreddit", async (request,response)=>{
+
+
+    let posts = [];
+    if(request.body.email === null)
+        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
+    else{
+        const email = request.body.email;
+        try{
+            collection = await db.collection(`reddit_data`).get().then((snapshot) =>{
+                for (const doc of snapshot.docs) {
+                    posts.push(doc.data());
+                }
+            });
+            return response.status(200).json({posts});
+        }
+        catch(err){
+            return response(401).json({status:`error`, error: err})
+        }
+    }
+});
+
 router.post("/getUserCryptos", async (request,response)=>{
 
     let cryptoSymbols = null;

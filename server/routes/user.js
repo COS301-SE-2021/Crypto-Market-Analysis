@@ -45,6 +45,23 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
+router.post("/getUserTweets", async (request,response)=>{
+
+    let collection = null;
+    if(request.body.email === null)
+        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
+    else{
+        const email = request.body.email;
+        try{
+            collection = await db.collection(`twitter_data`).get();
+            return response.status(200).json({status: `Ok`, collection: collection});
+        }
+        catch(err){
+            return response(401).json({status:`error`, error: err})
+        }
+    }
+});
+
 router.post("/getUserCryptos", async (request,response)=>{
 
     let cryptoSymbols = null;
@@ -109,8 +126,8 @@ router.post("/followSocialMedia",async (request,response)=>{
         const data = {[`social_media_sites`]: social_media_sites}
 
         try{
-            db.collection(`Users`).doc(email).update(data, {merge:true}).then();
-            return response.status(200).json({status: `Ok`, message: `The social media site has successfully been added.`});
+            db.collection(`Users`).doc(email).update({social_media_sites: admin.firestore.FieldValue.arrayUnion(`${social_media_sites}`)}).then();
+            //return response.status(200).json({status: `Ok`, message: `The social media site has successfully been added.`});
         }
         catch(err){
             return response(401).json({status:`error`, error: err})
@@ -133,14 +150,14 @@ router.post('/analyse', async function(req, res, next) {
     const analysisArr = [];
     const x= [];
     let i=0;
-   await billgate.data().tweets.forEach(element =>
+    await billgate.data().tweets.forEach(element =>
 
         convertion(element).then(comment=>{
-           // console.log(element);
-          splits(comment).then(newWording=>{
+            // console.log(element);
+            splits(comment).then(newWording=>{
                 spellingc(newWording).then(filteredwords=>{
                     analysewords(filteredwords).then(analysis=>{
-                       // res.status(200).json({ analysis });
+                        // res.status(200).json({ analysis });
                         x.push(i);
                         analysisArr.push(analysis*10);
                         i++;

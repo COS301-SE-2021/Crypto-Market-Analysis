@@ -1,13 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-/*
-//const natural = require('natural');
-//const SpellCorrector = require('spelling-corrector');
-//const SW = require('stopword');
-//const aposToLexForm = require('apos-to-lex-form');
-//const spellCorrector = new SpellCorrector();
-//spellCorrector.loadDictionary();
+const natural = require('natural');
+const SpellCorrector = require('spelling-corrector');
+const SW = require('stopword');
+const aposToLexForm = require('apos-to-lex-form');
+const spellCorrector = new SpellCorrector();
+spellCorrector.loadDictionary();
 const convertion= async (post)=>{  const contractions = aposToLexForm(post);//convert word to contractions
     const cLcase = contractions.toLowerCase();//convert to lowercases
     const value = cLcase.replace(/[^a-zA-Z\s]+/g, '');//remove stop word
@@ -37,7 +36,7 @@ const analysewords = async (filteredwords)=>{
     return analysis;
 
 }
-*/
+
 const admin = require('firebase-admin');
 const serviceAC = require('../database/firebase.json')
 admin.initializeApp({
@@ -74,7 +73,7 @@ router.post("/getUserTweets", async (request,response)=>{
 router.post("/getRedditPost", async (request,response)=>{
 
     let collection = null;
-    
+
     let posts = [];
     let reddits = [];
     if(request.body.email === null)
@@ -213,9 +212,5 @@ router.post('/analyse', async function(req, res, next) {
 
 });
 
-router.post("/getTweets", async (request,response)=>{
-
-});
-
-//exports.analysewords = analysewords;
+exports.analysewords = analysewords;
 module.exports = router;

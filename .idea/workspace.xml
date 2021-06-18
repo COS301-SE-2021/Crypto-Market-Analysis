@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Home/GraphReport/AnalysisGraph.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Home/GraphReport/AnalysisGraph.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Home/Headers/HeaderStats.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Home/Headers/HeaderStats.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -5911,7 +5910,7 @@
       <workItem from="1623932483332" duration="68000" />
       <workItem from="1623932573749" duration="1003000" />
       <workItem from="1623954741099" duration="533000" />
-      <workItem from="1623995963381" duration="5358000" />
+      <workItem from="1624001875770" duration="4995000" />
     </task>
     <task id="LOCAL-00002" summary="Added partial api endpoint tests">
       <created>1622485455332</created>
@@ -6144,12 +6143,12 @@
       <option name="project" value="LOCAL" />
       <updated>1623974130064</updated>
     </task>
-    <task id="LOCAL-00035" summary="new changes to funtion">
-      <created>1623976522219</created>
+    <task id="LOCAL-00035" summary="test">
+      <created>1623983706799</created>
       <option name="number" value="00035" />
       <option name="presentableId" value="LOCAL-00035" />
       <option name="project" value="LOCAL" />
-      <updated>1623976522219</updated>
+      <updated>1623983706799</updated>
     </task>
     <option name="localTasksCounter" value="36" />
     <servers />
@@ -6260,6 +6259,7 @@
     <MESSAGE value="edited followcrypto and fixed firebase issue" />
     <MESSAGE value="followSocialMedia implemented" />
     <MESSAGE value="deleted shelf" />
+    <MESSAGE value="Implemented getUserTweets" />
     <MESSAGE value="test" />
     <MESSAGE value="new changes to funtion" />
     <option name="LAST_COMMIT_MESSAGE" value="new changes to funtion" />

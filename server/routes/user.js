@@ -45,6 +45,76 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
+router.post("/getUserTweets", async (request,response)=>{
+
+    let collection = null;
+    let screen_names = [];
+    let tweets = [];
+    if(request.body.email === null)
+        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
+    else{
+        const email = request.body.email;
+        try{
+            collection = await db.collection(`twitter_data`).get().then((snapshot) =>{
+                for (const doc of snapshot.docs) {
+                    screen_names.push(doc.data().screen_name);
+                    tweets.push(doc.data().tweets);
+                }
+            });
+            return response.status(200).json({status: `Ok`, screen_names: screen_names, tweets_array: tweets});
+        }
+        catch(err){
+            return response(401).json({status:`error`, error: err})
+        }
+    }
+});
+
+router.post("/getUserSubreddit", async (request,response)=>{
+
+
+    let posts = [];
+    if(request.body.email === null)
+        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
+    else{
+        const email = request.body.email;
+        try{
+            collection = await db.collection(`reddit_data`).get().then((snapshot) =>{
+                for (const doc of snapshot.docs) {
+                    posts.push(doc.data());
+                }
+            });
+            return response.status(200).json({posts});
+        }
+        catch(err){
+            return response(401).json({status:`error`, error: err})
+        }
+    }
+});
+
+router.post("/getUserCryptos", async (request,response)=>{
+
+    let cryptoSymbols = null;
+    if(request.body.email === null)
+        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
+    else{
+        const email = request.body.email;
+        try{
+            await db.collection(`Users`).get().then((snapshot) =>{
+                for (const doc of snapshot.docs) {
+                    if(doc.id === email){
+                        cryptoSymbols = doc.data().crypto;
+                        break;
+                    }
+                }
+            });
+            return response.status(200).json({status: `Ok`, message: cryptoSymbols});
+        }
+        catch(err){
+            return response(401).json({status:`error`, error: err})
+        }
+    }
+});
+
 /** This function adds a social media site to the users account
  * @param {object} request A request object with the email and symbol.
  * @param {object} response A response object which will return the status code.
@@ -60,7 +130,9 @@ router.post("/followCrypto", async (request,response)=>{
         const crypto_name = [request.body.crypto_name];
         const data = {[`crypto`]: symbol,[`crypto_name`]: crypto_name}
         try{
-            db.collection(`Users`).doc(email).set(data, {merge:true}).then();
+            const docRef = db.collection(`Users`).doc(email);
+            console.log("Before update");
+            docRef.update({crypto: admin.firestore.FieldValue.arrayUnion(symbol)}).then();
             return response.status(200).json({status: `Ok`, message: `The crypto has successfully been added.`});
         }
         catch(err){

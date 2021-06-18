@@ -48,13 +48,20 @@ const db = admin.firestore();
 router.post("/getUserTweets", async (request,response)=>{
 
     let collection = null;
+    let screen_names = [];
+    let tweets = [];
     if(request.body.email === null)
         return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
     else{
         const email = request.body.email;
         try{
-            collection = await db.collection(`twitter_data`).get();
-            return response.status(200).json({status: `Ok`, collection: collection});
+            collection = await db.collection(`twitter_data`).get().then((snapshot) =>{
+                for (const doc of snapshot.docs) {
+                    screen_names.push(doc.data().screen_name);
+                    tweets.push(doc.data().tweets);
+                }
+            });
+            return response.status(200).json({status: `Ok`, screen_names: screen_names, tweets_array: tweets});
         }
         catch(err){
             return response(401).json({status:`error`, error: err})
@@ -102,7 +109,9 @@ router.post("/followCrypto", async (request,response)=>{
         const crypto_name = [request.body.crypto_name];
         const data = {[`crypto`]: symbol,[`crypto_name`]: crypto_name}
         try{
-            db.collection(`Users`).doc(email).set(data, {merge:true}).then();
+            const docRef = db.collection(`Users`).doc(email);
+            console.log("Before update");
+            docRef.update({crypto: admin.firestore.FieldValue.arrayUnion(symbol)}).then();
             return response.status(200).json({status: `Ok`, message: `The crypto has successfully been added.`});
         }
         catch(err){

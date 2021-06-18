@@ -30,6 +30,7 @@
     "mongoose": "^5.12.12",
     "morgan": "^1.10.0",
     "nodemailer": "^6.6.1",
+    "snoowrap": "^1.23.0",
     "tweet-scraper": "^1.0.1"
   },
   "devDependencies": {

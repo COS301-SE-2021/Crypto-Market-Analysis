@@ -22,12 +22,13 @@ class Database {
      * @param {String} collectionPath Name of the collection
      * @param {String} documentName Name of the document in the collection
      * @param {String} field The field to update in the document
-     * @param {Any} fieldsData The data of the updated field
+     * @param {any} fieldsData The data of the updated field
      * */
     save(collectionPath, documentName, field, fieldsData){
         let data = {[field]: fieldsData}
 
         try{
+            console.log(this.#db);
             this.#db.collection(collectionPath).doc(documentName).set(data, {merge:true}).then();
         }
         catch(e) {
@@ -37,12 +38,28 @@ class Database {
 
     fetch(collectionPath, documentName, field)
     {
-        try{
-            return this.#db.collection(collectionPath).doc(documentName).get(field).then();
+        if(field === null){
+            try{
+                return this.#db.collection(collectionPath).doc(documentName).get().then();
+            }
+            catch(e) {
+                console.error(`An error occurred while connecting to the database: \n${e}`);
+            }
         }
-        catch(e) {
-             console.error(`An error occurred while connecting to the database: \n${e}`);
+        else{
+            try{
+                return this.#db.collection(collectionPath).doc(documentName).get(field).then();
+            }
+            catch(e) {
+                console.error(`An error occurred while connecting to the database: \n${e}`);
+            }
         }
+    }
+
+    async getUser(email){
+        let error = 0;
+        await admin.auth().getUserByEmail(email).then(() => {error = 0;}).catch((err) => {error = err;})
+        return error;
     }
 }
 

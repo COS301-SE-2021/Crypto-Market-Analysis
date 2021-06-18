@@ -6,6 +6,9 @@ import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../../../Auth/Auth"
 import { Link, useHistory } from "react-router-dom"
 function Menu() {
+    const [value, setValue] = React.useState(
+        localStorage.getItem('emailSession') || ''
+    );
     async function Logginout(){
         const [error, setError] = useState("")
         const { logout, currentUser } = useAuth()
@@ -13,6 +16,7 @@ function Menu() {
         setError('')
       try{
           await logout()
+          localStorage.clear();
           history.push("/login")
       }
       catch
@@ -23,7 +27,7 @@ function Menu() {
     }
     return (
         <nav className="navbar bg-light justify-content-between">
-        <a href="#" className="navbar-brand">Cryptosis</a>
+        <a href="#" className="navbar-brand">{value}</a>
         <ul className="navbar-nav">
 
             <li className="nav-item">

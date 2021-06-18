@@ -45,6 +45,55 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
+router.post("/getUserTweets", async (request,response)=>{
+
+    let collection = null;
+    let screen_names = [];
+    let tweets = [];
+    if(request.body.email === null)
+        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
+    else{
+        const email = request.body.email;
+        try{
+            collection = await db.collection(`twitter_data`).get().then((snapshot) =>{
+                for (const doc of snapshot.docs) {
+                    screen_names.push(doc.data().screen_name);
+                    tweets.push(doc.data().tweets);
+                }
+            });
+            return response.status(200).json({status: `Ok`, screen_names: screen_names, tweets_array: tweets});
+        }
+        catch(err){
+            return response(401).json({status:`error`, error: err})
+        }
+    }
+});
+
+router.post("/getUserCryptos", async (request,response)=>{
+
+    let cryptoSymbols = null;
+    if(request.body.email === null)
+        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
+    else{
+        const email = request.body.email;
+        try{
+            await db.collection(`Users`).get().then((snapshot) =>{
+                for (const doc of snapshot.docs) {
+                    if(doc.id === email){
+                        cryptoSymbols = doc.data().crypto;
+                        break;
+                    }
+                }
+            });
+            return response.status(200).json({status: `Ok`, message: cryptoSymbols});
+        }
+        catch(err){
+            return response(401).json({status:`error`, error: err})
+        }
+    }
+});
+
+
 /** This function adds a social media site to the users account
  * @param {object} request A request object with the email and symbol.
  * @param {object} response A response object which will return the status code.
@@ -60,7 +109,9 @@ router.post("/followCrypto", async (request,response)=>{
         const crypto_name = [request.body.crypto_name];
         const data = {[`crypto`]: symbol,[`crypto_name`]: crypto_name}
         try{
-            db.collection(`Users`).doc(email).set(data, {merge:true}).then();
+            const docRef = db.collection(`Users`).doc(email);
+            console.log("Before update");
+            docRef.update({crypto: admin.firestore.FieldValue.arrayUnion(symbol)}).then();
             return response.status(200).json({status: `Ok`, message: `The crypto has successfully been added.`});
         }
         catch(err){
@@ -84,8 +135,8 @@ router.post("/followSocialMedia",async (request,response)=>{
         const data = {[`social_media_sites`]: social_media_sites}
 
         try{
-            db.collection(`Users`).doc(email).set(data, {merge:true}).then();
-            return response.status(200).json({status: `Ok`, message: `The social media site has successfully been added.`});
+            db.collection(`Users`).doc(email).update({social_media_sites: admin.firestore.FieldValue.arrayUnion(`${social_media_sites}`)}).then();
+            //return response.status(200).json({status: `Ok`, message: `The social media site has successfully been added.`});
         }
         catch(err){
             return response(401).json({status:`error`, error: err})
@@ -108,14 +159,14 @@ router.post('/analyse', async function(req, res, next) {
     const analysisArr = [];
     const x= [];
     let i=0;
-   await billgate.data().tweets.forEach(element =>
+    await billgate.data().tweets.forEach(element =>
 
         convertion(element).then(comment=>{
-           // console.log(element);
-          splits(comment).then(newWording=>{
+            // console.log(element);
+            splits(comment).then(newWording=>{
                 spellingc(newWording).then(filteredwords=>{
                     analysewords(filteredwords).then(analysis=>{
-                       // res.status(200).json({ analysis });
+                        // res.status(200).json({ analysis });
                         x.push(i);
                         analysisArr.push(analysis*10);
                         i++;
@@ -133,6 +184,10 @@ router.post('/analyse', async function(req, res, next) {
     );
 
 
+
+});
+
+router.post("/getTweets", async (request,response)=>{
 
 });
 

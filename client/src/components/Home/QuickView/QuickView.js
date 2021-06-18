@@ -50,26 +50,27 @@ function QuickView()
                 if(name == crypto.symbol){
                     crypto.selected = !crypto.selected;
 
-                    fetch('http://127.0.0.1:8080/user/folloCrypto',{
-                        method:'POST',
-                        body: JSON.stringify({
-                            email: 'alekarzeeshan92@gmail.com',
-                        cryptoName: 'btc',}),
-                        headers: {
-                            'Content-type': 'application/json charset = UTF-8'
-                        },
-                    }).then((response) => response.json())
-                        .catch((response) => console.log(response))
+                    // fetch('http://127.0.0.1:8080/user/folloCrypto',{
+                    //     method:'POST',
+                    //     body: JSON.stringify({
+                    //         email: 'alekarzeeshan92@gmail.com',
+                    //     cryptoName: 'btc',}),
+                    //     headers: {
+                    //         'Content-type': 'application/json charset = UTF-8'
+                    //     },
+                    // }).then((response) => response.json())
+                    //     .catch((response) => console.log('json'))
                     //if selected add to favourite list else remove it
-                    // if(crypto.selected) {
-                    //     let  cryptoToAdd = {
-                    //         email: "bhekindhlovu7@gmail.com",
-                    //         crypto_name: crypt.Name.toLowerCase()
-                    //     }
-                    //     axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd)
-                    //         .then(response => console.log(response))
-                    //         .catch(err => {console.error(err);})
-                    // }
+                    if(crypto.selected) {
+                        let  cryptoToAdd = {
+                          email: localStorage.getItem("emailSession"),
+                            symbol: crypto.symbol,
+                            crypto_name: crypto.name,
+                        }
+                        axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd)
+                            .then(response => console.log(response))
+                            .catch(err => {console.error(err);})
+                    }
                 }
                 return {
                     ...crypto
@@ -88,6 +89,13 @@ function QuickView()
                     //         email: "bhekindhlovu7@gmail.com",
                     //         crypto_name: crypt.Name.toLowerCase()
                     //     }
+                    let  cryptoToAdd = {
+                        email: localStorage.getItem("emailSession"),
+                        social_media_sites: platform.id
+                    }
+                    axios.post('http://localhost:8080/user/followSocialMedia/',cryptoToAdd)
+                        .then(response => console.log(response))
+                        .catch(err => {console.error(err);})
                     //     axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd)
                     //         .then(response => console.log(response))
                     //         .catch(err => {console.error(err);})

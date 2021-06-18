@@ -4,6 +4,7 @@ import login from "./components/login/login"
 import Register from "./components/login/register"
 import splash from "./components/login/splash"
 import token from "./components/login/token"
+import QuickView from "./components/Home/QuickView/QuickView";
 import UpdatePassword from "./components/login/updatePassword"
 import UpdateProfile from "./components/login/updateProfile"
 import Home from "./components/Home/Home"
@@ -23,6 +24,7 @@ function App() {
                      <Route exact path="/login" component={login}></Route>
                      <Route exact path="/updatePassword" component={UpdatePassword}></Route>
                      <Route exact path="/updateProfile" component={UpdateProfile}></Route>
+                     <Route exact path="/QuickView" component={QuickView}></Route>
                  </section>
            </Switch>
           </AuthProvider>

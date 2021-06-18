@@ -45,31 +45,6 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
-router.post("/getUserCryptos", async (request,response)=>{
-
-    let cryptoSymbols = null;
-    if(request.body.email === null)
-        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
-    else{
-        const email = request.body.email;
-        try{
-            await db.collection(`Users`).get().then((snapshot) =>{
-                for (const doc of snapshot.docs) {
-                    if(doc.id === email){
-                        cryptoSymbols = doc.data().crypto;
-                        break;
-                    }
-                }
-            });
-            return response.status(200).json({status: `Ok`, message: cryptoSymbols});
-        }
-        catch(err){
-            return response(401).json({status:`error`, error: err})
-        }
-    }
-});
-
-
 /** This function adds a social media site to the users account
  * @param {object} request A request object with the email and symbol.
  * @param {object} response A response object which will return the status code.
@@ -109,7 +84,7 @@ router.post("/followSocialMedia",async (request,response)=>{
         const data = {[`social_media_sites`]: social_media_sites}
 
         try{
-            db.collection(`Users`).doc(email).update(data, {merge:true}).then();
+            db.collection(`Users`).doc(email).set(data, {merge:true}).then();
             return response.status(200).json({status: `Ok`, message: `The social media site has successfully been added.`});
         }
         catch(err){
@@ -121,34 +96,42 @@ router.post("/followSocialMedia",async (request,response)=>{
 //this function returns -3 for bad, 3 for good,0 for neutral
 //takes post:'comment' request object
 router.post('/analyse', async function(req, res, next) {
-    const { post } = req.body;
+    const { crypto ,socialmedia} = req.body;
     /* const contractions = aposToLexForm(post);
      const cLcase = contractions.toLowerCase();*/
-    const billgate = await db.collection('twitter_data').doc('BillGates').get();
-    if (!billgate.exists) {
+    const Bigdata = await db.collection(socialmedia).doc(crypto).get();
+    if (!Bigdata.exists) {
         console.log('No document');
     } else {
         //console.log(billgate.data().tweets);
     }
     const analysisArr = [];
-    const x= [];
     let i=0;
-   await billgate.data().tweets.forEach(element =>
+    await Bigdata.data().post.forEach(element =>
 
         convertion(element).then(comment=>{
-           // console.log(element);
-          splits(comment).then(newWording=>{
+            // console.log(element);
+            splits(comment).then(newWording=>{
                 spellingc(newWording).then(filteredwords=>{
                     analysewords(filteredwords).then(analysis=>{
-                       // res.status(200).json({ analysis });
-                        x.push(i);
+                        // res.status(200).json({ analysis });
+                        if(isNaN(analysis))
+                        {
+                            analysis=0;
+                        }
                         analysisArr.push(analysis*10);
                         i++;
-                        if(i==billgate.data().tweets.length)
+                        if(i==Bigdata.data().post.length)
                         {
-                            res.status(200).json({ analysisArr, x });
+                            let mini=Math.min.apply(Math, analysisArr)
+                            let maxi = Math.max.apply(Math, analysisArr)
+                            const age = arr => arr.reduce((acc,v) => acc + v)
+                            let average = age(analysisArr)
+                            db.collection(socialmedia).doc(crypto).set({
+                                Analysis_score: analysisArr ,Min: mini,Max: maxi,Average: average
+                            }, {merge: true})
+                            res.status(200).json({ analysisArr ,mini,maxi,average});
                         }
-
 
                     })
                 })
@@ -158,10 +141,6 @@ router.post('/analyse', async function(req, res, next) {
     );
 
 
-
-});
-
-router.post("/getTweets", async (request,response)=>{
 
 });
 

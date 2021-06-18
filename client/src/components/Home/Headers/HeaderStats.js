@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Header.css";
 import axios from "axios";
 import ReactSpeedometer from "react-d3-speedometer";
+import db from "../../../firebase"
 import SentimentSpeedometer from "../GraphReport/AnalysisGraph"
 // components
 
@@ -20,18 +21,41 @@ const tweets = [{id:"Elon Musk", tweet:"RT @rajpanjabi: As a physician, I’ve s
                 {id:"Bill Gates", tweet:"Polio tools and infrastructure are also critical to combatting other public health emergencies, like COVID-19. It i… https://t.co/n05Msom8ov"}
               ]
 
-axios.post('http://localhost:8080/user/followSocialMedia/',cryptoToAdd)
+axios.post('http://localhost:8080/user/followSocialMedia/')//,cryptoToAdd)
     .then(response => console.log(response))
     .catch(err => {console.error(err);})
 
 export default function HeaderStats() {
   let [cryptos, setCryptos] = useState([]);
-  const [searchCrypto, setSearchCrypto] = useState("");
+  let [item, setItem] = useState([]);
+   // let item= []
 
-  useEffect(async () => {
+    db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).get().then((data)=>{
+        for(const social of data.data().social_media_sites)
+        {
+            for(const crypt of data.data().crypto_name) {
+                db.firestore().collection(social).doc(crypt).get().then((analysis) => {
+                    const avg= Math.round(analysis.data().Average)
+                    const mini= Math.round((analysis.data().Min))
+                    const maxi = Math.round(analysis.data().Max)
+                    console.log(social)
+                   /* item.push(<SentimentSpeedometer min={mini} max={maxi}
+                                                   average={avg}
+                                                    social={social}/>)*/
+                    const arr=[];
+                    arr.push(<SentimentSpeedometer min={mini} max={maxi} average={avg} social={social} />)
+                    setItem(arr);
+                })
+            }
+        }
+    }).catch((error) => { })
+
+    useEffect(async () => {
     let  cryptoReq = {
         email: localStorage.getItem("emailSession")
+
        // email: "bhekindhlovu7@gmail.com",
+
     }
     axios.post('http://localhost:8080/user/getUserCryptos/',cryptoReq)
         .then(response => console.log(response))
@@ -126,11 +150,9 @@ export default function HeaderStats() {
                     {/*    </form>*/}
                     {/*</div>*/}
                     <div className="row">
-                        <SentimentSpeedometer/>
-                        <SentimentSpeedometer/>
-                        <SentimentSpeedometer/>
-                        <SentimentSpeedometer/>
-                        <SentimentSpeedometer/>
+
+                        {item}
+
                     </div>
 
                 </div>

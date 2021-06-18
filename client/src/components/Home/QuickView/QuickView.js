@@ -114,20 +114,6 @@ function QuickView()
                             </form>
                         </div>
 
-                    <div>
-
-                        <h1>This is a list of scraped tweets and SubReddits</h1>
-
-                        <form id={"tweets-form"}></form>
-
-                        <ul id={"tweets-list"}></ul>
-
-                        <ul id={"subreddit-list"}></ul>
-                    </div>
-
-
-                        <script src="fetchTweets.js"></script>
-
                         {
                             searchedPlatforms.map((myPlatform) =>{
                                 return(

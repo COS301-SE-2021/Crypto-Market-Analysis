@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Header.css";
 import axios from "axios";
+const fT = require('./fetchTweets');
 
 // components
 
@@ -27,6 +28,7 @@ export default function HeaderStats() {
     axios.post('http://localhost:8080/user/getUserCryptos/',cryptoReq)
         .then(response => console.log(response))
         .catch(err => {console.error(err);})
+
 
         
     axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=50&page=1&sparkline=false')
@@ -105,6 +107,7 @@ export default function HeaderStats() {
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </>

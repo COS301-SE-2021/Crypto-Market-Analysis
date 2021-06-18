@@ -207,7 +207,7 @@ let posts = [];
                         <div className="card">
                             <div className="card-header">
                                 Bitcoin
-                            </div>
+                             </div>
                             <ul className="list-group list-group-flush">
                                 {
                                     tweets.map((tweet) =>{

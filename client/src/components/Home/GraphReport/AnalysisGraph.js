@@ -22,6 +22,15 @@ export default class SentimentSpeedometer extends React.Component {
     render() {
         return (
             <div>
+
+
+                {/*Average*/}
+                {/*60.630791107184294*/}
+                {/*Max*/}
+                {/*20*/}
+                {/*Min*/}
+                {/*-12.5*/}
+
                 <h1>This is the data: {this.state.average} {this.state.mini}</h1>
                 <ReactSpeedometer
                     maxValue={this.state.maxi}

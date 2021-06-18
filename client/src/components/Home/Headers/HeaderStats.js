@@ -11,8 +11,18 @@ import CardTweets from "../Cards/CardTweets/CardTweets" ;
 const coins = ["btc","eth","ltc","xrp","bnb","ada"]
 const tweets = [{id:"Elon Musk", tweet:"RT @rajpanjabi: As a physician, I’ve seen too many colleagues make the ultimate sacrifice on the frontlines. Over 115,000 health and care w…"},
                 {id:"Bill Gates", tweet:"RT @builtwithbtc: We're Built With Bitcoin 👋A foundation creating equitable opportunity by providing clean water, quality education, sust…"},
+                {id:"Bill Gates", tweet:"Polio tools and infrastructure are also critical to combatting other public health emergencies, like COVID-19. It i… https://t.co/n05Msom8ov"},
+                {id:"Bill Gates", tweet:"Polio tools and infrastructure are also critical to combatting other public health emergencies, like COVID-19. It i… https://t.co/n05Msom8ov"},
+                {id:"Bill Gates", tweet:"Polio tools and infrastructure are also critical to combatting other public health emergencies, like COVID-19. It i… https://t.co/n05Msom8ov"},
+                {id:"Bill Gates", tweet:"Polio tools and infrastructure are also critical to combatting other public health emergencies, like COVID-19. It i… https://t.co/n05Msom8ov"},
+                {id:"Bill Gates", tweet:"Polio tools and infrastructure are also critical to combatting other public health emergencies, like COVID-19. It i… https://t.co/n05Msom8ov"},
+                {id:"Bill Gates", tweet:"Polio tools and infrastructure are also critical to combatting other public health emergencies, like COVID-19. It i… https://t.co/n05Msom8ov"},
                 {id:"Bill Gates", tweet:"Polio tools and infrastructure are also critical to combatting other public health emergencies, like COVID-19. It i… https://t.co/n05Msom8ov"}
               ]
+
+axios.post('http://localhost:8080/user/followSocialMedia/',cryptoToAdd)
+    .then(response => console.log(response))
+    .catch(err => {console.error(err);})
 
 export default function HeaderStats() {
   let [cryptos, setCryptos] = useState([]);

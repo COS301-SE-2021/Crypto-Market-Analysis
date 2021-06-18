@@ -9,7 +9,7 @@ function Card({title, body})
             <div className='card-content'>
 
                  <div className='card-title'>
-                     <h3>{title}</h3>
+                     <h3> {title} </h3>
                 </div>
 
                 <div className='card-body'>

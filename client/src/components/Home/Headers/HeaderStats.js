@@ -184,7 +184,7 @@ export default function HeaderStats() {
                                 <div   className="card-container">
 
                                <Card
-                                   title='Card Title'
+                                   title='Posts'
                                    body={reddit.posts}
                                />
 

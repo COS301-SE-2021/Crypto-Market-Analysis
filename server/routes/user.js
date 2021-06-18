@@ -74,6 +74,7 @@ router.post("/getUserTweets", async (request,response)=>{
 router.post("/getRedditPost", async (request,response)=>{
 
     let collection = null;
+    
     let posts = [];
     let reddits = [];
     if(request.body.email === null)

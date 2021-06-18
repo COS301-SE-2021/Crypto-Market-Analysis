@@ -66,13 +66,15 @@ let posts = [];
           .then(response => {
               for(var x = 0; x<50; x++)
               {
-                  console.log(response.data.posts[1].posts[x]);
+                  //console.log(response.data.posts[1].posts[x]);
                   posts.push(response.data.posts[1].posts[x]);
 
               }
 
           })
           .catch(err => {console.error(err);})
+      setTimeout(()=>{
+      },10000)
       console.log(posts)
 
 

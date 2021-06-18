@@ -8,6 +8,7 @@ import SentimentSpeedometer from "../GraphReport/AnalysisGraph"
 
 import CardStats from "../Cards/CardStats" ;
 import CardTweets from "../Cards/CardTweets/CardTweets" ;
+import QuickView from "../QuickView/QuickView";
 
 
 
@@ -185,8 +186,9 @@ let posts = [];
                     <div className="row">
                         {/*<SentimentSpeedometer/>*/}
                         {/*<SentimentSpeedometer/>*/}
-                        {/*<SentimentSpeedometer/>*/}
-                        {/*<SentimentSpeedometer/>*/}
+                        {/*<QuickView/>*/}
+                        {item}
+                        {/*<SentimentSpeedometer min={-5} max={5} average={2} social={"Reddit"} />*/}
                         {/*<SentimentSpeedometer/>*/}
                     </div>
 
@@ -216,7 +218,7 @@ let posts = [];
                                 }
                             </ul>
                         </div>
-                        {item}
+                        {/*{item}*/}
                     </div>
                 </div>
             </div>

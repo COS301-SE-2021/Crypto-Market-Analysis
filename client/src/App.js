@@ -5,6 +5,7 @@ import Register from "./components/login/register"
 import splash from "./components/login/splash"
 import token from "./components/login/token"
 import QuickView from "./components/Home/QuickView/QuickView";
+import HeadStats from "./components/Home/Headers/HeaderStats";
 import UpdatePassword from "./components/login/updatePassword"
 import UpdateProfile from "./components/login/updateProfile"
 import Home from "./components/Home/Home"

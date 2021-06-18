@@ -22,15 +22,47 @@ export default class SentimentSpeedometer extends React.Component {
     render() {
         return (
             <div>
-                <h1>This is the data: {this.state.average} {this.state.mini}</h1>
+
+
+                {/*Average*/}
+                {/*60.630791107184294*/}
+                {/*Max*/}
+                {/*20*/}
+                {/*Min*/}
+                {/*-12.5*/}
                 <ReactSpeedometer
-                    maxValue={this.state.maxi}
-                    minValue={this.state.mini}
-                    value={this.state.average}
-                    needleColor="red"
-                    startColor="green"
-                    segments={10}
-                    endColor="blue"
+                    value={this.props.average}
+                    currentValueText={this.props.social}
+                    maxValue={this.props.max}
+                    minValue={this.props.min}
+                    customSegmentLabels={[
+                        {
+                            text: "Very Bad",
+                            position: "INSIDE",
+                            color: "#555",
+                        },
+                        {
+                            text: "Bad",
+                            position: "INSIDE",
+                            color: "#555",
+                        },
+                        {
+                            text: "Ok",
+                            position: "INSIDE",
+                            color: "#555",
+                            fontSize: "19px",
+                        },
+                        {
+                            text: "Good",
+                            position: "INSIDE",
+                            color: "#555",
+                        },
+                        {
+                            text: "Very Good",
+                            position: "INSIDE",
+                            color: "#555",
+                        },
+                    ]}
                 />
             </div>
         );

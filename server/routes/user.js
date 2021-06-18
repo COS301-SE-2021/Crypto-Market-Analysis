@@ -178,5 +178,9 @@ router.post('/analyse', async function(req, res, next) {
 
 });
 
+router.post("/getTweets", async (request,response)=>{
+
+});
+
 exports.analysewords = analysewords;
 module.exports = router;

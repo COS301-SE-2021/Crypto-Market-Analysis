@@ -33,8 +33,8 @@ class Reddit {
         topPosts1.forEach((post) => {
             Data.push(post.title);
         });
-        this.#firestore_db.save('Reddit',Subreddit,'subreddits',empty);
-        this.#firestore_db.save('Reddit',Subreddit,'subreddits',Data);
+        this.#firestore_db.save('Reddit',Subreddit,'post',empty);
+        this.#firestore_db.save('Reddit',Subreddit,'post',Data);
     }
 }
 let reddits = new Reddit();

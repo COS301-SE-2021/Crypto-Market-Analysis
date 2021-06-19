@@ -7,11 +7,13 @@ const SW = require('stopword');
 const aposToLexForm = require('apos-to-lex-form');
 const spellCorrector = new SpellCorrector();
 spellCorrector.loadDictionary();
-const convertion= async (post)=>{  const contractions = aposToLexForm(post);//convert word to contractions
+function convertion(post){
+    const contractions = aposToLexForm(post);//convert word to contractions
     const cLcase = contractions.toLowerCase();//convert to lowercases
     const value = cLcase.replace(/[^a-zA-Z\s]+/g, '');//remove stop word
     return value //post converted ready to be read
 }
+
 //spliting post/comment into individual words
 const splits = async (comment)=>{
     const { WordTokenizer } = natural;
@@ -220,5 +222,5 @@ router.post('/analyse', async function(req, res, next) {
 
 });
 
-exports.analysewords = analysewords;
 module.exports = router
+module.exports = convertion

@@ -201,9 +201,9 @@ export default function HeaderStats() {
 
                 </div>
             </div>
-            <div style={{marginTop:"3%"}} >
+            {/*<div style={{marginTop:"3%"}} >*/}
 
-                <div className="container card-wrapper" >
+                {/*<div className="container card-wrapper" >*/}
                     {/*<div className="crypto-search">*/}
                     {/*    <form>*/}
                     {/*        <input type="search" className=" w-full form-control rounded" placeholder="Search..."*/}
@@ -211,9 +211,9 @@ export default function HeaderStats() {
                     {/*    </form>*/}
                     {/*</div>*/}
 
-                            <div className="card-header">
-                                Bitcoin
-                             </div>
+                            {/*<div className="card-header">*/}
+                            {/*    Bitcoin*/}
+                            {/* </div>*/}
                             <div style={{marginTop:"3%"}} >
 
                                 <div className="container card-wrapper" >
@@ -223,31 +223,44 @@ export default function HeaderStats() {
                                     {/*                />*/}
                                     {/*    </form>*/}
                                     {/*</div>*/}
+
+
+
                                     <div className="row">
-                                        {
-                                            reddits.map((reddit) =>{
-
-                                                return(
-                                                    <div   className="card-container">
-
-                                                        <Card
-                                                            title=''
-                                                            body={reddit.posts}
-                                                        />
-
-
-                                                    </div>
-                                                )
-
-                                            })
-                                        }
-
+                                        <div className="card">
+                                            <div className="card-header">
+                                                Reddit Posts
+                                            </div>
+                                            <ul className="list-group list-group-flush">
+                                                {
+                                                    reddits.map((reddit) =>{
+                                                        return(
+                                                            <li className="list-group-item">{reddit.posts}</li>
+                                                        )
+                                                    })
+                                                }
+                                            </ul>
+                                        </div>
+                                        {/*{item}*/}
                                     </div>
 
-                                </div>
-                            </div>
+                                    {/*<div className="row">*/}
+                                    {/*    {*/}
+                                    {/*        reddits.map((reddit) =>{*/}
 
-                </div>
+                                    {/*            return(*/}
+                                    {/*                <li className="list-group-item">{reddit.posts}</li>*/}
+                                    {/*            )*/}
+
+                                    {/*        })*/}
+                                    {/*    }*/}
+
+                                    {/*</div>*/}
+
+                                </div>
+                            {/*</div>*/}
+
+                {/*</div>*/}
             </div>
         </div>
       </div>

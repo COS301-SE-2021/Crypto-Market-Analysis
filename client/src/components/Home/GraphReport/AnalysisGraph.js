@@ -7,32 +7,14 @@ export default class SentimentSpeedometer extends React.Component {
         super(props);
 
         this.state = {
-            mini: "",
-            maxi: "",
-            average: "",
-            errorMessage:""
         }
     }
-    async componentDidMount() {
-        const article = { };
-        const response = await axios.post('http://localhost:8080/user/analyse', article);
-        this.setState({ mini: response.mini,maxi:response.maxi,average:response.average });
-    }
-
     render() {
         return (
             <div>
-
-
-                {/*Average*/}
-                {/*60.630791107184294*/}
-                {/*Max*/}
-                {/*20*/}
-                {/*Min*/}
-                {/*-12.5*/}
                 <ReactSpeedometer
                     value={this.props.average}
-                    currentValueText={this.props.social}
+                    currentValueText={this.props.social+" "+this.props.cyp}
                     maxValue={this.props.max}
                     minValue={this.props.min}
                     customSegmentLabels={[

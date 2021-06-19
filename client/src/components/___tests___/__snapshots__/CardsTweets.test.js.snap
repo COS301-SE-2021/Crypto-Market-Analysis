@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+Array [
+  <link
+    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+    rel="stylesheet"
+  />,
+  <div
+    className=" flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg"
+    data-testid="tweet-card"
+  >
+    <div
+      className="flex-auto p-3"
+    >
+      <div
+        className="flex flex-wrap"
+      >
+        <div
+          className="relative w-full pr-4 max-w-full flex-grow flex-1"
+        >
+          <h5
+            className="text-blueGray-700 uppercase font-bold text-l"
+          >
+            Elon Musk
+          </h5>
+        </div>
+        <div
+          className="relative w-auto pl-4 flex-initial"
+        >
+          <h3
+            className="mb0"
+          >
+            <i
+              className="fa fa-twitter text-info pull-right"
+            />
+          </h3>
+        </div>
+      </div>
+      <div
+        className="relative w-full pr-4 max-w-full flex-grow flex-1"
+      >
+        <h5
+          className="text-blueGray-700  font-bold text-m"
+        >
+          Tweet
+        </h5>
+      </div>
+      <ul
+        className="list-group"
+      >
+        <li
+          className="list-group-item"
+        >
+          <p
+            className="nm"
+          >
+            Bitcoin is cool
+          </p>
+          <small
+            className="text-muted"
+          >
+            1 day ago
+          </small>
+        </li>
+      </ul>
+    </div>
+  </div>,
+]
+`;

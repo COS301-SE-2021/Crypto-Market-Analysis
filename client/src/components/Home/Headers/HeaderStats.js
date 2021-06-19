@@ -5,6 +5,7 @@ import ReactSpeedometer from "react-d3-speedometer";
 import db from "../../../firebase"
 import SentimentSpeedometer from "../GraphReport/AnalysisGraph"
 // components
+import Card from '../Card/Card'
 
 import CardStats from "../Cards/CardStats" ;
 import CardTweets from "../Cards/CardTweets/CardTweets" ;
@@ -23,6 +24,7 @@ export default function HeaderStats() {
     const [searchCrypto, setSearchCrypto] = useState("");
     let [tweets, setTweets] = useState([]);
 
+    let [reddits,setReddits] = useState([]);
     useEffect(async () => {
     let  cryptoReq = {
         email: localStorage.getItem("emailSession")
@@ -76,21 +78,25 @@ export default function HeaderStats() {
           })
           .catch(err => {console.error(err);})
 
-let posts = [];
-      axios.post('http://localhost:8080/user/getUserSubreddit/',req)
+//let posts = [];
+      axios.post('http://localhost:8080/user/getRedditPost/',req)
           .then(response => {
-              for(var x = 0; x<50; x++)
+                let posts_ = []
+              for(let j = 0; j<10; j++)
               {
-                  //console.log(response.data.posts[1].posts[x]);
-                  posts.push(response.data.posts[1].posts[x]);
+                  for(let x = 0; x<10; x++)
+                  {
+                      posts_.push({posts : response.data.posts[j][x] })
+                  }
 
               }
-
+              console.log(posts_)
+              setReddits(posts_);
           })
           .catch(err => {console.error(err);})
       setTimeout(()=>{
       },10000)
-      console.log(posts)
+
 
 
 
@@ -204,23 +210,43 @@ let posts = [];
                     {/*                />*/}
                     {/*    </form>*/}
                     {/*</div>*/}
-                    <div className="row">
-                        <div className="card">
+
                             <div className="card-header">
                                 Bitcoin
                              </div>
-                            <ul className="list-group list-group-flush">
-                                {
-                                    tweets.map((tweet) =>{
-                                        return(
-                                        <li className="list-group-item">{tweet.tweet}</li>
-                                        )
-                                    })
-                                }
-                            </ul>
-                        </div>
-                        {/*{item}*/}
-                    </div>
+                            <div style={{marginTop:"3%"}} >
+
+                                <div className="container card-wrapper" >
+                                    {/*<div className="crypto-search">*/}
+                                    {/*    <form>*/}
+                                    {/*        <input type="search" className=" w-full form-control rounded" placeholder="Search..."*/}
+                                    {/*                />*/}
+                                    {/*    </form>*/}
+                                    {/*</div>*/}
+                                    <div className="row">
+                                        {
+                                            reddits.map((reddit) =>{
+
+                                                return(
+                                                    <div   className="card-container">
+
+                                                        <Card
+                                                            title=''
+                                                            body={reddit.posts}
+                                                        />
+
+
+                                                    </div>
+                                                )
+
+                                            })
+                                        }
+
+                                    </div>
+
+                                </div>
+                            </div>
+
                 </div>
             </div>
         </div>

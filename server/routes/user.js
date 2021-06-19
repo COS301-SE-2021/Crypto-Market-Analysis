@@ -223,4 +223,4 @@ router.post('/analyse', async function(req, res, next) {
 });
 
 module.exports = router
-module.exports = convertion
+//module.exports = {convertion, router}

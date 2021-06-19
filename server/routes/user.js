@@ -1,43 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const analysis = require('./analysisFunction');
 
-const natural = require('natural');
-const SpellCorrector = require('spelling-corrector');
-const SW = require('stopword');
-const aposToLexForm = require('apos-to-lex-form');
-const spellCorrector = new SpellCorrector();
-spellCorrector.loadDictionary();
-function convertion(post){
-    const contractions = aposToLexForm(post);//convert word to contractions
-    const cLcase = contractions.toLowerCase();//convert to lowercases
-    const value = cLcase.replace(/[^a-zA-Z\s]+/g, '');//remove stop word
-    return value //post converted ready to be read
-}
-
-//spliting post/comment into individual words
-const splits = async (comment)=>{
-    const { WordTokenizer } = natural;
-    const words = new WordTokenizer();
-    const Splited = words.tokenize(comment);
-    return Splited;
-}
-//correcting spelling errors
-const spellingc = async(newWording)=>{
-    newWording.forEach((word, index) => {
-        newWording[index] = spellCorrector.correct(word);
-    })
-    const filteredwords = SW.removeStopwords(newWording); //removeStopwords
-    return filteredwords;
-
-}
-//return analysis value
-const analysewords = async (filteredwords)=>{
-    const { SentimentAnalyzer, PorterStemmer } = natural;
-    const analyzer = new SentimentAnalyzer('English', PorterStemmer, 'afinn');//using afinn dictionary may change
-    const analysis = analyzer.getSentiment(filteredwords);
-    return analysis;
-
-}
 
 const admin = require('firebase-admin');
 const serviceAC = require('../database/firebase.json')
@@ -170,9 +134,6 @@ router.post("/followSocialMedia",async (request,response)=>{
         }
     }
 });
-
-//this function returns -3 for bad, 3 for good,0 for neutral
-//takes post:'comment' request object
 router.post('/analyse', async function(req, res, next) {
     const { crypto ,socialmedia} = req.body;
     /* const contractions = aposToLexForm(post);
@@ -181,17 +142,17 @@ router.post('/analyse', async function(req, res, next) {
     if (!Bigdata.exists) {
         console.log('No document');
     } else {
-        //console.log(billgate.data().tweets);
+        console.log('analyse retrieve successful')
     }
     const analysisArr = [];
     let i=0;
     await Bigdata.data().post.forEach(element =>
 
-        convertion(element).then(comment=>{
+        analysis.convertion(element).then(comment=>{
             // console.log(element);
-            splits(comment).then(newWording=>{
-                spellingc(newWording).then(filteredwords=>{
-                    analysewords(filteredwords).then(analysis=>{
+            analysis.splits(comment).then(newWording=>{
+                analysis.spellingc(newWording).then(filteredwords=>{
+                    analysis.analysewords(filteredwords).then(analysis=>{
                         // res.status(200).json({ analysis });
                         if(isNaN(analysis))
                         {
@@ -221,6 +182,4 @@ router.post('/analyse', async function(req, res, next) {
 
 
 });
-
 module.exports = router
-//module.exports = {convertion, router}

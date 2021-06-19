@@ -23,26 +23,6 @@ export default function HeaderStats() {
     const [searchCrypto, setSearchCrypto] = useState("");
     let [tweets, setTweets] = useState([]);
 
-    db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).get().then((data)=>{
-        for(const social of data.data().social_media_sites)
-        {
-            for(const crypt of data.data().crypto_name) {
-                db.firestore().collection(social).doc(crypt).get().then((analysis) => {
-                    const avg= Math.round(analysis.data().Average)
-                    const mini= Math.round((analysis.data().Min))
-                    const maxi = Math.round(analysis.data().Max)
-                    console.log(social)
-                   /* item.push(<SentimentSpeedometer min={mini} max={maxi}
-                                                   average={avg}
-                                                    social={social}/>)*/
-                    const arr=[];
-                    arr.push(<SentimentSpeedometer min={mini} max={maxi} average={avg} social={social} />)
-                    setItem(arr);
-                })
-            }
-        }
-    }).catch((error) => { })
-
     useEffect(async () => {
     let  cryptoReq = {
         email: localStorage.getItem("emailSession")
@@ -50,7 +30,25 @@ export default function HeaderStats() {
        // email: "bhekindhlovu7@gmail.com",
 
     }
-    axios.post('http://localhost:8080/user/getUserCryptos/',cryptoReq)
+        let arr=[];
+        db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).get().then((data)=>{
+
+            for(const social of data.data().social_media_sites)
+            {
+                for(const crypt of data.data().crypto_name) {
+                    db.firestore().collection(social).doc(crypt).get().then((analysis) => {
+                        const avg= Math.round(analysis.data().Average)
+                        const mini= Math.round((analysis.data().Min))
+                        const maxi = Math.round(analysis.data().Max)
+                        arr.push(<SentimentSpeedometer min={mini} max={maxi} average={avg} social={social} cyp={crypt} />)
+                        setItem(arr);
+                    }).catch((error) => { })
+                }
+            }
+
+        }).catch((error) => { })
+
+        axios.post('http://localhost:8080/user/getUserCryptos/',cryptoReq)
         .then()
         .catch(err => {console.error(err);})
 
@@ -59,13 +57,16 @@ export default function HeaderStats() {
       axios.post('http://localhost:8080/user/getUserTweets/',req)
           .then(response => {
              let tweets_ = []
-           //   console.log(response.data);
+              console.log("showing off the tweets");
+              console.log(response.data);
 
                   for(var j = 0; j<response.data.tweets_array.length; j++)
                   {
                       for(var x = 0; x<response.data.tweets_array[j].length; x++)
                       {
+
                           tweets_.push({id: response.data.screen_names[j], tweet: response.data.tweets_array[j][x]})
+
                       }
 
                   }
@@ -187,7 +188,7 @@ let posts = [];
                         {/*<SentimentSpeedometer/>*/}
                         {/*<SentimentSpeedometer/>*/}
                         {/*<QuickView/>*/}
-                        {item}
+                       {item}
                         {/*<SentimentSpeedometer min={-5} max={5} average={2} social={"Reddit"} />*/}
                         {/*<SentimentSpeedometer/>*/}
                     </div>

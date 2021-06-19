@@ -172,19 +172,18 @@ router.post("/followSocialMedia",async (request,response)=>{
 //this function returns -3 for bad, 3 for good,0 for neutral
 //takes post:'comment' request object
 router.post('/analyse', async function(req, res, next) {
-    const { post } = req.body;
+    const { crypto ,socialmedia} = req.body;
     /* const contractions = aposToLexForm(post);
      const cLcase = contractions.toLowerCase();*/
-    const billgate = await db.collection('twitter_data').doc('BillGates').get();
-    if (!billgate.exists) {
+    const Bigdata = await db.collection(socialmedia).doc(crypto).get();
+    if (!Bigdata.exists) {
         console.log('No document');
     } else {
         //console.log(billgate.data().tweets);
     }
     const analysisArr = [];
-    const x= [];
     let i=0;
-    await billgate.data().tweets.forEach(element =>
+    await Bigdata.data().post.forEach(element =>
 
         convertion(element).then(comment=>{
             // console.log(element);
@@ -192,14 +191,23 @@ router.post('/analyse', async function(req, res, next) {
                 spellingc(newWording).then(filteredwords=>{
                     analysewords(filteredwords).then(analysis=>{
                         // res.status(200).json({ analysis });
-                        x.push(i);
+                        if(isNaN(analysis))
+                        {
+                            analysis=0;
+                        }
                         analysisArr.push(analysis*10);
                         i++;
-                        if(i==billgate.data().tweets.length)
+                        if(i==Bigdata.data().post.length)
                         {
-                            res.status(200).json({ analysisArr, x });
+                            let mini=Math.min.apply(Math, analysisArr)
+                            let maxi = Math.max.apply(Math, analysisArr)
+                            const age = arr => arr.reduce((acc,v) => acc + v)
+                            let average = age(analysisArr)
+                            db.collection(socialmedia).doc(crypto).set({
+                                Analysis_score: analysisArr ,Min: mini,Max: maxi,Average: average
+                            }, {merge: true})
+                            res.status(200).json({ analysisArr ,mini,maxi,average});
                         }
-
 
                     })
                 })
@@ -213,4 +221,4 @@ router.post('/analyse', async function(req, res, next) {
 });
 
 exports.analysewords = analysewords;
-module.exports = router;
+module.exports = router

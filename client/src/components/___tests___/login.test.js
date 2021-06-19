@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDom from "react-dom";
-import login from "../login";
+import login from "../login/login";
 import {isTSAnyKeyword} from '@babel/types';
 import {cleanup, getByTestId, render} from '@testing-library/react';
 import "@testing-library/jest-dom/extend-expect";

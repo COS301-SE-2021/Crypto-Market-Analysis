@@ -118,12 +118,12 @@ export default function HeaderStats() {
   return (
     <>
       {/* Header */}
-      <div className=" pb-32 pt-8 ">
+      <div data-testid="header-stats" className=" pb-32 pt-8 ">
         
         <div className=" px-4 md:px-10 h-full" style={{width:"80%"}} >
           <div  >
+          <div className="w-full text-center" ><h2>Cryptocurrencies</h2></div>
             {/* Card stats */}
-           
             <div className="container card-wrapper" >
             {/*<div className="crypto-search">*/}
             {/*    <form>*/}
@@ -156,7 +156,7 @@ export default function HeaderStats() {
         {/* Tweets cards */}
 
         <div style={{marginTop:"3%"}} >
-            
+            <div className="w-full text-center" ><h2>Tweets</h2></div>
             <div className="container card-wrapper" >
             {/*<div className="crypto-search">*/}
             {/*    <form>*/}
@@ -180,7 +180,7 @@ export default function HeaderStats() {
             </div>
           </div>
             <div style={{marginTop:"3%"}} >
-
+            <div className="w-full text-center" ><h2>Sentiment</h2></div>
                 <div className="container card-wrapper" >
                     {/*<div className="crypto-search">*/}
                     {/*    <form>*/}
@@ -200,7 +200,7 @@ export default function HeaderStats() {
                 </div>
             </div>
             <div style={{marginTop:"3%"}} >
-
+            <div className="w-full text-center" ><h2>Reddit</h2></div>
                 <div className="container card-wrapper" >
                     {/*<div className="crypto-search">*/}
                     {/*    <form>*/}

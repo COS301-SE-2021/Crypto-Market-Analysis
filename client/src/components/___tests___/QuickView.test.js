@@ -5,7 +5,7 @@ import {getByTestId, render,cleanup} from '@testing-library/react';
 import "@testing-library/jest-dom/extend-expect"
 import renderer from "react-test-renderer";
 import login from "../login";
-import QuickView from "../QuickView/QuickView";
+import QuickView from "../Home/QuickView/QuickView";
 afterEach(cleanup);
 
 

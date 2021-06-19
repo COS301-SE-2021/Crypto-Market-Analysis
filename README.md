@@ -33,12 +33,12 @@ is and inform the user if it is about to change.
 - [Demo 4]()
 ## Project Management
 - [Github Project Board](https://github.com/COS301-SE-2021/Crypto-Market-Analysis/projects/1)
-- [Discord]()
+- [Discord](https://discord.gg/aPnHcSXA)
 - [ClickUp](https://clickup.up.ac.za/webapps/blackboard/execute/announcement?method=search&context=course_entry&course_id=_140238_1&handle=announcements_entry&mode=view#)
 ## Collaborators
 | Team Member | Profile | 
 | ----------- | ------- |
-| <img src="https://media-exp1.licdn.com/dms/image/C4D03AQFjJBK2bJ7ouQ/profile-displayphoto-shrink_800_800/0/1618577870324?e=1627516800&v=beta&t=6nrD6N08oe_w2qdP2qhv4nwP2SrRziSet50cA5WzStI" style="width:10em"> | [Github](https://github.com/Zee864/Zee864) [Linkedin](https://www.linkedin.com/in/zeeshaan-alekar-bb5107210/) |
-| <img src="https://media-exp1.licdn.com/dms/image/C4D03AQHmAT8DMMsJxQ/profile-displayphoto-shrink_200_200/0/1556401991717?e=1627516800&v=beta&t=gRM6pH7lWpWjNN6_C_8rKcyhjWcilkeHZoxWoutMXe4" style="width:10em"> | [Github](https://github.com/MelussiMkhonta) [Linkedin](https://www.linkedin.com/in/dinho-mkhonta-997b85185/) | 
-| <img src="https://media-exp1.licdn.com/dms/image/C4D03AQFCuFCADPonVQ/profile-displayphoto-shrink_200_200/0/1618497881777?e=1627516800&v=beta&t=JVs0l4KOj23XiDOKPpVqPAm3dm3LKXvFtL7mfpJoa9M" style="width:50em"> | [Github](https://github.com/u18037951) [Linkedin](https://www.linkedin.com/in/lerato-moselane-b7aa9220b/) |
-| <img src="https://i.ibb.co/MZyt31b/Whats-App-Image-2021-06-04-at-01-43-16.jpg" alt="Whats-App-Image-2021-06-04-at-01-43-16" border="0" style="width:10em"> | [Github](https://github.com/BhekiNdhlovu) [Linkedin](https://www.linkedin.com/in/bheki-ndhlovu-46260010b/) |
+| <img src="https://media-exp1.licdn.com/dms/image/C4D03AQFjJBK2bJ7ouQ/profile-displayphoto-shrink_800_800/0/1618577870324?e=1627516800&v=beta&t=6nrD6N08oe_w2qdP2qhv4nwP2SrRziSet50cA5WzStI" width="250" height="250"> | [Github](https://github.com/Zee864/Zee864) [Linkedin](https://www.linkedin.com/in/zeeshaan-alekar-bb5107210/) |
+| <img src="https://media-exp1.licdn.com/dms/image/C4D03AQHmAT8DMMsJxQ/profile-displayphoto-shrink_200_200/0/1556401991717?e=1627516800&v=beta&t=gRM6pH7lWpWjNN6_C_8rKcyhjWcilkeHZoxWoutMXe4" width="250" height="250"> | [Github](https://github.com/MelussiMkhonta) [Linkedin](https://www.linkedin.com/in/dinho-mkhonta-997b85185/) | 
+| <img src="https://media-exp1.licdn.com/dms/image/C4D03AQFCuFCADPonVQ/profile-displayphoto-shrink_200_200/0/1618497881777?e=1627516800&v=beta&t=JVs0l4KOj23XiDOKPpVqPAm3dm3LKXvFtL7mfpJoa9M" width="250" height="250"> | [Github](https://github.com/u18037951) [Linkedin](https://www.linkedin.com/in/lerato-moselane-b7aa9220b/) |
+| <img src="https://i.ibb.co/MZyt31b/Whats-App-Image-2021-06-04-at-01-43-16.jpg" width="250" height="250"> | [Github](https://github.com/BhekiNdhlovu) [Linkedin](https://www.linkedin.com/in/bheki-ndhlovu-46260010b/) |

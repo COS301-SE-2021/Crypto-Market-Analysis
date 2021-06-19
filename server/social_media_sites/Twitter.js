@@ -123,9 +123,9 @@ class Twitter {
                 }
             })
             if(tempArray.length > 0){
-                database_data = {[tempName.toUpperCase()]: tempArray};
+                database_data = {[`post`]: tempArray};
                 try{
-                    this.#firestore_db.collection(`Cryptocurrency`).doc(`Twitter`).set(database_data, {merge:true}).then();
+                    this.#firestore_db.collection(`Twitter`).doc(tempName.toUpperCase()).set(database_data, {merge:true}).then();
                 }
                 catch(e) {
                     console.error(`An error occurred while connecting to the database: \n${e}`);

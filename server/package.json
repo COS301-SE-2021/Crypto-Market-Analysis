@@ -14,6 +14,7 @@
   "author": "Codex",
   "license": "UNLICENSED",
   "dependencies": {
+    "apos-to-lex-form": "^1.0.5",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
@@ -29,9 +30,12 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.12",
     "morgan": "^1.10.0",
+    "natural": "^5.0.3",
     "nodemailer": "^6.6.1",
     "react-table": "^7.7.0",
     "snoowrap": "^1.23.0",
+    "spelling-corrector": "^3.0.0",
+    "stopword": "^1.0.7",
     "tweet-scraper": "^1.0.1"
   },
   "devDependencies": {

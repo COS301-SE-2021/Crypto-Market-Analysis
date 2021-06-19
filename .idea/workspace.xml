@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="test">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Home/Headers/HeaderStats.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Home/Headers/HeaderStats.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -5642,14 +5642,14 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1623554246619" />
-    <property name="javascript.nodejs.core.library.configured.version" value="16.2.0" />
-    <property name="javascript.nodejs.core.library.typings.version" value="15.12.2" />
+    <property name="javascript.nodejs.core.library.configured.version" value="14.17.0" />
+    <property name="javascript.nodejs.core.library.typings.version" value="14.17.0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/server/node_modules/jest" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/server/node_modules/jest" />
+    <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/client/node_modules/react-scripts" />
     <property name="nodejs.mocha.mocha_node_package_dir" value="$PROJECT_DIR$/server/node_modules/mocha" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="settings.editor.selected.configurable" value="settings.github" />
@@ -5777,66 +5777,69 @@
       </FILE-GROUP>
     </UpdatedFiles>
   </component>
-  <component name="RunManager" selected="Jest.POST /user/signup.Returns 200. Add a user to the database">
-    <configuration name="POST /user/signup.Returns 200. Add a user to the database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Jest.renders without crashing">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="POST /" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/server" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/server/_tests_/api.test.js" />
+      <test-names>
+        <test-name value="POST /" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="POST /getUserTweets.Returns 401, Empty Request Object" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
       <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
       <working-dir value="$PROJECT_DIR$/server" />
       <envs />
       <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/server/test/api.test.js" />
+      <test-file value="$PROJECT_DIR$/server/_tests_/user.test.js" />
       <test-names>
-        <test-name value="POST /user/signup" />
-        <test-name value="Returns 200. Add a user to the database" />
+        <test-name value="POST /getUserTweets" />
+        <test-name value="Returns 401, Empty Request Object" />
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="matches snapshot (1)" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+    <configuration name="getUserTimeline" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
-      <working-dir value="$PROJECT_DIR$/client" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/server" />
       <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/client/src/components/login/test/register.test.js" />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/server/_tests_/twitter.spec.js" />
       <test-names>
-        <test-name value="matches snapshot" />
+        <test-name value="getUserTimeline" />
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="matches snapshot (2)" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+    <configuration name="getUserTimeline.testing boundaries" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
-      <working-dir value="$PROJECT_DIR$/client" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/server" />
       <envs />
       <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/client/src/components/login/test/splash.test.js" />
+      <test-file value="$PROJECT_DIR$/server/_tests_/twitter.spec.js" />
       <test-names>
-        <test-name value="matches snapshot" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="matches snapshot (3)" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <working-dir value="$PROJECT_DIR$/client" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/client/src/components/login/test/updatePassword.test.js" />
-      <test-names>
-        <test-name value="matches snapshot" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="matches snapshot (4)" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <working-dir value="$PROJECT_DIR$/client" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/client/src/components/login/test/token.test.js" />
-      <test-names>
-        <test-name value="matches snapshot" />
+        <test-name value="getUserTimeline" />
+        <test-name value="testing boundaries" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -5846,6 +5849,19 @@
       <working-dir value="$PROJECT_DIR$" />
       <envs />
       <scope-kind value="ALL" />
+      <method v="2" />
+    </configuration>
+    <configuration name="renders without crashing" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/client/node_modules/react-scripts" />
+      <working-dir value="$PROJECT_DIR$/client" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/client/src/components/login/test/login.test.js" />
+      <test-names>
+        <test-name value="renders without crashing" />
+      </test-names>
       <method v="2" />
     </configuration>
     <configuration name="test" type="mocha-javascript-test-runner">
@@ -5862,20 +5878,20 @@
     </configuration>
     <list>
       <item itemvalue="Jest.npm test" />
-      <item itemvalue="Jest.matches snapshot (1)" />
-      <item itemvalue="Jest.matches snapshot (2)" />
-      <item itemvalue="Jest.matches snapshot (3)" />
-      <item itemvalue="Jest.matches snapshot (4)" />
-      <item itemvalue="Jest.POST /user/signup.Returns 200. Add a user to the database" />
       <item itemvalue="Mocha.test" />
+      <item itemvalue="Jest.POST /getUserTweets.Returns 401, Empty Request Object" />
+      <item itemvalue="Jest.getUserTimeline" />
+      <item itemvalue="Jest.getUserTimeline.testing boundaries" />
+      <item itemvalue="Jest.POST /" />
+      <item itemvalue="Jest.renders without crashing" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Jest.POST /user/signup.Returns 200. Add a user to the database" />
-        <item itemvalue="Jest.matches snapshot (4)" />
-        <item itemvalue="Jest.matches snapshot (3)" />
-        <item itemvalue="Jest.matches snapshot (2)" />
-        <item itemvalue="Jest.matches snapshot (1)" />
+        <item itemvalue="Jest.renders without crashing" />
+        <item itemvalue="Jest.POST /" />
+        <item itemvalue="Jest.POST /getUserTweets.Returns 401, Empty Request Object" />
+        <item itemvalue="Jest.getUserTimeline.testing boundaries" />
+        <item itemvalue="Jest.getUserTimeline" />
       </list>
     </recent_temporary>
   </component>
@@ -5909,7 +5925,8 @@
       <workItem from="1623932483332" duration="68000" />
       <workItem from="1623932573749" duration="1003000" />
       <workItem from="1623954741099" duration="533000" />
-      <workItem from="1624001875770" duration="9745000" />
+      <workItem from="1624001875770" duration="11803000" />
+      <workItem from="1624054476658" duration="8458000" />
     </task>
     <task id="LOCAL-00002" summary="Added partial api endpoint tests">
       <created>1622485455332</created>
@@ -6177,7 +6194,21 @@
       <option name="project" value="LOCAL" />
       <updated>1624012226328</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="test">
+      <created>1624035406846</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1624035406846</updated>
+    </task>
+    <task id="LOCAL-00041" summary="test">
+      <created>1624067073398</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1624067073398</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -6290,6 +6321,18 @@
     <MESSAGE value="new changes to funtion" />
     <MESSAGE value="test" />
     <option name="LAST_COMMIT_MESSAGE" value="test" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/client/src/components/Home/Headers/HeaderStats.js</url>
+          <line>35</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

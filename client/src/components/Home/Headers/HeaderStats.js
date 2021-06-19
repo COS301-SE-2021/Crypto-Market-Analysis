@@ -82,9 +82,9 @@ export default function HeaderStats() {
       axios.post('http://localhost:8080/user/getRedditPost/',req)
           .then(response => {
                 let posts_ = []
-              for(let j = 0; j<10; j++)
+              for(let j = 0; j<response.data.posts.length; j++)
               {
-                  for(let x = 0; x<10; x++)
+                  for(let x = 0; x<response.data.posts[j].length; x++)
                   {
                       posts_.push({posts : response.data.posts[j][x] })
                   }

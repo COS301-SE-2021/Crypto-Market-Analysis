@@ -134,6 +134,10 @@ router.post("/followSocialMedia",async (request,response)=>{
         }
     }
 });
+/** This function adds analysis score to the databse
+ * @param {object} request A request object with the socialmedia and crypto.
+ * @param {object} response A response object which will return the analysis results.
+ * */
 router.post('/analyse', async function(req, res, next) {
     const { crypto ,socialmedia} = req.body;
     /* const contractions = aposToLexForm(post);

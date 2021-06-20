@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const analysis = require('./analysisFunction');
 
-
 const admin = require('firebase-admin');
 const serviceAC = require('../database/firebase.json')
 admin.initializeApp({
@@ -10,7 +9,18 @@ admin.initializeApp({
 });
 
 const db = admin.firestore();
+const saveToDB = async (arr, socialmedia , crypto)=> {
+    let mini=Math.min.apply(Math, arr)
+    let maxi = Math.max.apply(Math, arr)
+    const age = arr => arr.reduce((acc,v) => acc + v)
+    let average = age(arr)
+    console.log(arr)
+    await db.collection(socialmedia).doc(crypto).set({
+        Analysis_score: arr ,Min: mini,Max: maxi,Average: average
+    }, {merge: true})
+    return arr;
 
+}
 router.post("/getUserTweets", async (request,response)=>{
 
     let collection = null;
@@ -239,16 +249,19 @@ router.post('/analyse', async function(req, res, next) {
                         }
                         analysisArr.push(analysis*10);
                         i++;
-                        if(i==Bigdata.data().post.length)
+                       if(i==Bigdata.data().post.length)
                         {
-                            let mini=Math.min.apply(Math, analysisArr)
+                           /* let mini=Math.min.apply(Math, analysisArr)
                             let maxi = Math.max.apply(Math, analysisArr)
                             const age = arr => arr.reduce((acc,v) => acc + v)
                             let average = age(analysisArr)
                             db.collection(socialmedia).doc(crypto).set({
                                 Analysis_score: analysisArr ,Min: mini,Max: maxi,Average: average
                             }, {merge: true})
-                            res.status(200).json({ analysisArr ,mini,maxi,average});
+                            res.status(200).json({ analysisArr ,mini,maxi,average});*/
+                            saveToDB(analysisArr,socialmedia,crypto).then(averageArray=>{
+                                res.status(200).json({ averageArray});
+                            })
                         }
 
                     })

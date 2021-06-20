@@ -36,4 +36,5 @@ const analysewords = async (filteredwords)=>{
     return analysis;
 
 }
+
 module.exports = {analysewords, convertion,spellingc,splits}

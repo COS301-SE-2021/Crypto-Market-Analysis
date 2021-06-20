@@ -25,6 +25,7 @@ export default function HeaderStats() {
     let [tweets, setTweets] = useState([]);
 
     let [reddits,setReddits] = useState([]);
+    const arr=[];
     useEffect(async () => {
     let  cryptoReq = {
         email: localStorage.getItem("emailSession")
@@ -32,7 +33,7 @@ export default function HeaderStats() {
        // email: "bhekindhlovu7@gmail.com",
 
     }
-        let arr=[];
+
         db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).get().then((data)=>{
 
             for(const social of data.data().social_media_sites)

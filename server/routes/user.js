@@ -10,16 +10,29 @@ admin.initializeApp({
 });
 
 const db = admin.firestore();
+const saveToDB = async (arr, socialmedia , crypto)=> {
+    let mini=Math.min.apply(Math, arr)
+    let maxi = Math.max.apply(Math, arr)
+    const age = arr => arr.reduce((acc,v) => acc + v)
+    let average = age(arr)
+    console.log(arr)
+    await db.collection(socialmedia).doc(crypto).set({
+        Analysis_score: arr ,Min: mini,Max: maxi,Average: average
+    }, {merge: true})
+    return arr;
 
+}
 router.post("/getUserTweets", async (request,response)=>{
 
+    let collection = null;
     let screen_names = [];
     let tweets = [];
     if(request.body.email === null)
-        return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
+        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
     else{
+        const email = request.body.email;
         try{
-            await db.collection(`twitter_data`).get().then((snapshot) =>{
+            collection = await db.collection(`twitter_data`).get().then((snapshot) =>{
                 for (const doc of snapshot.docs) {
                     screen_names.push(doc.data().screen_name);
                     tweets.push(doc.data().tweets);
@@ -28,7 +41,7 @@ router.post("/getUserTweets", async (request,response)=>{
             return response.status(200).json({status: `Ok`, screen_names: screen_names, tweets_array: tweets});
         }
         catch(err){
-            return response(500).json({status:`Internal Server Error`, error: err})
+            return response(401).json({status:`error`, error: err})
         }
     }
 });
@@ -203,10 +216,11 @@ router.post("/followSocialMedia",async (request,response)=>{
             return response.status(200).json({status: `Ok`, message: `The social media site has been successfully added`});
         }
         catch(err){
-            return response.status(500).json({status:`Internal server error`, error: err});
+            return response(500).json({status:`Internal server error`, error: err})
         }
     }
 });
+
 /** This function adds analysis score to the database
  * @param {object} request A request object with the socialmedia and crypto.
  * @param {object} response A response object which will return the analysis results.

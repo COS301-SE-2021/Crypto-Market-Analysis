@@ -92,21 +92,60 @@ router.post("/getUserCryptos", async (request,response)=>{
  * */
 router.post("/followCrypto", async (request,response)=>{
 
-    if(request.body.email === null || request.body.symbol === null)
-        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
+    if(request.body.email === null || request.body.symbol === null || request.body.crypto_name === null)
+        return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
     else{
         const email = request.body.email;
-        const symbol = [request.body.symbol];
-        const crypto_name = [request.body.crypto_name];
-        const data = {[`crypto`]: symbol,[`crypto_name`]: crypto_name}
+        let crypto = [];
+        let crypto_name = [];
+        let data = {};
+        let found = false;
+        let docRef = null;
         try{
-            const docRef = db.collection(`Users`).doc(email);
-            console.log("Before update");
-            docRef.update({crypto: admin.firestore.FieldValue.arrayUnion(symbol)}).then();
-            return response.status(200).json({status: `Ok`, message: `The crypto has successfully been added.`});
+            docRef = db.collection(`Users`).doc(email)
+        }
+        catch (err) {
+            return response.status( 500).json({status: `Internal Server Error`, error: `The document could not be retrieved: ${err}`});
+        }
+
+        try{
+            await db.collection(`Users`).get().then((snapshot) =>{
+                for (const doc of snapshot.docs) {
+                    if(doc.id === email){
+                        found = true;
+                        if(doc.data().crypto)
+                            crypto = doc.data().crypto;
+                        else
+                            crypto = [];
+                        if(doc.data().crypto_name)
+                            crypto_name = doc.data().crypto_name;
+                        else
+                            crypto_name = [];
+                        break;
+                    }
+                }
+            });
+
+            if(found === false)
+                return response.status(403).json({status: `Not authorized`, error: `The user does not exist`})
+
+            if(crypto.find(element => element === request.body.crypto) === undefined && crypto_name.find(element => element === request.body.crypto_name) === undefined){
+                crypto.push(request.body.symbol);
+                crypto_name.push(request.body.crypto_name);
+            }
+            else
+                return response.status(202).json({status: `Accepted`, message: `The cryptocurrency already exists`});
+            data = {[`crypto`]: crypto,[`crypto_name`]: crypto_name}
+            try{
+                await docRef.set(data, {merge:true});
+            }
+            catch (err){
+                return response.status( 500).json({status: `Internal Server Error`, error: `The crypto could not be added to the database: ${err}`});
+            }
+            return response.status(200).json({status: `Ok`, message: `The crypto been successfully added`});
         }
         catch(err){
-            return response(401).json({status:`error`, error: err})
+            return response(500).json({status:`Internal server error`, error: err})
         }
     }
 });
@@ -122,12 +161,26 @@ router.post("/followSocialMedia",async (request,response)=>{
         return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
     else{
         const email = request.body.email;
-        const social_media_sites = [request.body.social_media_sites];
-        const data = {[`social_media_sites`]: social_media_sites}
+        let social_media_sites = [];
+        const docRef = db.collection(`Users`).doc(email);
+        let data = {};
 
         try{
-            db.collection(`Users`).doc(email).update({social_media_sites: admin.firestore.FieldValue.arrayUnion(`${social_media_sites}`)}).then();
-            //return response.status(200).json({status: `Ok`, message: `The social media site has successfully been added.`});
+            await db.collection(`Users`).get().then((snapshot) =>{
+                for (const doc of snapshot.docs) {
+                    if(doc.id === email){
+                        social_media_sites = doc.data().social_media_sites;
+                        break;
+                    }
+                }
+            });
+            if(social_media_sites.find(element => element === request.body.social_media_sites) === undefined)
+                social_media_sites.push(request.body.social_media_sites);
+            else
+                return response.status(202).json({status: `Accepted`, message: `The social media site already exists`});
+            data = {[`social_media_sites`]: social_media_sites}
+            await docRef.set(data, {merge:true});
+            return response.status(200).json({status: `Ok`, message: `The social media site has successfully been added.`});
         }
         catch(err){
             return response(401).json({status:`error`, error: err})

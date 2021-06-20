@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="added unit testing">
+    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/server/_tests_/api.spec.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/_tests_/api.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/user.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/social_media_sites/Twitter.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/social_media_sites/Twitter.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -199,7 +202,7 @@
       <recent name="C:\Users\Zeeshan\OneDrive - University of Pretoria\Documents\BIT\Year 4\Semester 1\COS 301\Projects\Crypto-Market-Analysis\server\test\functional" />
     </key>
   </component>
-  <component name="RunManager" selected="Node.js.Twitter.js">
+  <component name="RunManager" selected="Jest.POST /user/followCrypto">
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -213,55 +216,71 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="POST /user/signup.Returns 200. Add a user to the database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+    <configuration name="POST /user" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/server" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/server/_tests_/api.spec.js" />
+      <test-names>
+        <test-name value="POST /user" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="POST /user/followCrypto" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/server" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/server/_tests_/api.spec.js" />
+      <test-names>
+        <test-name value="POST /user/followCrypto" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="POST /user/followCrypto.Tries to add a crypto for a non-existent user in the database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
       <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
       <working-dir value="$PROJECT_DIR$/server" />
       <envs />
       <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/server/test/api.test.js" />
+      <test-file value="$PROJECT_DIR$/server/_tests_/api.spec.js" />
       <test-names>
-        <test-name value="POST /user/signup" />
-        <test-name value="Returns 200. Add a user to the database" />
+        <test-name value="POST /user/followCrypto" />
+        <test-name value="Tries to add a crypto for a non-existent user in the database" />
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="filtering the post.it should remove stop words" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+    <configuration name="POST /user/followCrypto.Tries to add an existing crypto to the user in the database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
       <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
       <working-dir value="$PROJECT_DIR$/server" />
       <envs />
       <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/server/_tests_/user.spec.js" />
+      <test-file value="$PROJECT_DIR$/server/_tests_/api.spec.js" />
       <test-names>
-        <test-name value="filtering the post" />
-        <test-name value="it should remove stop words" />
+        <test-name value="POST /user/followCrypto" />
+        <test-name value="Tries to add an existing crypto to the user in the database" />
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="matches snapshot (3)" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+    <configuration name="POST /user/followCrypto.Tries to send a request without any parameters" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
-      <working-dir value="$PROJECT_DIR$/client" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/server" />
       <envs />
       <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/client/src/components/login/test/updatePassword.test.js" />
+      <test-file value="$PROJECT_DIR$/server/_tests_/api.spec.js" />
       <test-names>
-        <test-name value="matches snapshot" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="matches snapshot (4)" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <working-dir value="$PROJECT_DIR$/client" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/client/src/components/login/test/token.test.js" />
-      <test-names>
-        <test-name value="matches snapshot" />
+        <test-name value="POST /user/followCrypto" />
+        <test-name value="Tries to send a request without any parameters" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -271,9 +290,6 @@
       <working-dir value="$PROJECT_DIR$" />
       <envs />
       <scope-kind value="ALL" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Twitter.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/server/social_media_sites/Twitter.js" working-dir="$PROJECT_DIR$/server/social_media_sites">
       <method v="2" />
     </configuration>
     <configuration name="test" type="mocha-javascript-test-runner">
@@ -290,20 +306,20 @@
     </configuration>
     <list>
       <item itemvalue="Jest.npm test" />
-      <item itemvalue="Jest.matches snapshot (3)" />
-      <item itemvalue="Jest.matches snapshot (4)" />
-      <item itemvalue="Jest.POST /user/signup.Returns 200. Add a user to the database" />
-      <item itemvalue="Jest.filtering the post.it should remove stop words" />
       <item itemvalue="Mocha.test" />
-      <item itemvalue="Node.js.Twitter.js" />
+      <item itemvalue="Jest.POST /user/followCrypto" />
+      <item itemvalue="Jest.POST /user/followCrypto.Tries to add an existing crypto to the user in the database" />
+      <item itemvalue="Jest.POST /user/followCrypto.Tries to add a crypto for a non-existent user in the database" />
+      <item itemvalue="Jest.POST /user/followCrypto.Tries to send a request without any parameters" />
+      <item itemvalue="Jest.POST /user" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Node.js.Twitter.js" />
-        <item itemvalue="Jest.filtering the post.it should remove stop words" />
-        <item itemvalue="Jest.POST /user/signup.Returns 200. Add a user to the database" />
-        <item itemvalue="Jest.matches snapshot (4)" />
-        <item itemvalue="Jest.matches snapshot (3)" />
+        <item itemvalue="Jest.POST /user/followCrypto" />
+        <item itemvalue="Jest.POST /user" />
+        <item itemvalue="Jest.POST /user/followCrypto.Tries to send a request without any parameters" />
+        <item itemvalue="Jest.POST /user/followCrypto.Tries to add a crypto for a non-existent user in the database" />
+        <item itemvalue="Jest.POST /user/followCrypto.Tries to add an existing crypto to the user in the database" />
       </list>
     </recent_temporary>
   </component>
@@ -570,7 +586,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623974130064</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Changed twitter method to reflect current database">
+      <created>1624127948740</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1624127948740</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -656,7 +679,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added concurrent server and client links" />
     <MESSAGE value="Added partial api endpoint tests" />
     <MESSAGE value="Added tests for signup endpoint in user" />
     <MESSAGE value="Added a deleteUser module to abstract delete function from the database. Also added tests for the deleteUser function and delete endpoint." />
@@ -681,7 +703,8 @@
     <MESSAGE value="test" />
     <MESSAGE value="Implemented getUserTweets" />
     <MESSAGE value="added unit testing" />
-    <option name="LAST_COMMIT_MESSAGE" value="added unit testing" />
+    <MESSAGE value="Changed twitter method to reflect current database" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed twitter method to reflect current database" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

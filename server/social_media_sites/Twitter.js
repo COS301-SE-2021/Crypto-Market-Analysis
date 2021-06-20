@@ -125,7 +125,7 @@ class Twitter {
             if(tempArray.length > 0){
                 database_data = {[`post`]: tempArray};
                 try{
-                    this.#firestore_db.collection(`Twitter`).doc(tempName.toUpperCase()).set(database_data, {merge:true}).then();
+                    this.#firestore_db.collection(`Twitter`).doc(cryptoNames[index]).set(database_data, {merge:true}).then();
                 }
                 catch(e) {
                     console.error(`An error occurred while connecting to the database: \n${e}`);
@@ -137,6 +137,6 @@ class Twitter {
 
 const twitter = new Twitter();
 const users = ['MichaelSuppo'];
-const email = "mojohnnylerato@gmail.com";
+const email = "bhekindhlovu7@gmail.com";
 twitter.getUserTimeline(email, users);
 module.exports = Twitter;

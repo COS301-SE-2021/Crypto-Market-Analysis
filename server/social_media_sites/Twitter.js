@@ -71,7 +71,7 @@ class Twitter {
                     error = -2;
                 }
                 else{
-                    await T.get('statuses/user_timeline', {screen_name: user}, async (err, data, response) => {
+                    await T.get('statuses/user_timeline', {screen_name: user, count:200, include_rts: 1}, async (err, data, response) => {
                         if(response.caseless.get("status") !== "200 OK"){
                             console.error(`An error occurred while connecting to the twitter API: ${response.caseless.get("status")}`);
                             console.error(err);
@@ -135,8 +135,4 @@ class Twitter {
     }
 }
 
-const twitter = new Twitter();
-const users = ['MichaelSuppo'];
-const email = "bhekindhlovu7@gmail.com";
-twitter.getUserTimeline(email, users);
 module.exports = Twitter;

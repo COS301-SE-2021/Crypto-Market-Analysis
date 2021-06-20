@@ -4,8 +4,6 @@ describe("Testing the conversion function", () => {
          const expected = 'this is the test'
         conv.convertion('this is the test').then(data=>{
             expect(data).toEqual(expected);
-        }).catch(error=>{
-            console.log('error during testing')
         })
 
     });
@@ -35,8 +33,6 @@ describe("Testing the split function", () => {
         const expected = "";
         conv.splits("i want to split these words").then(data=> {
             expect(data).not.toEqual(expected);
-        }).catch(err=>{
-            console.log(err);
         })
 
     });
@@ -45,27 +41,15 @@ describe("Testing the split function", () => {
         const expected = [ 'i', 'want', 'to', 'split', 'these', 'words' ];
         conv.splits("i want to split these words").then(data=> {
             expect(data).toEqual(expected);
-        }).catch(err=>{
-            console.log(err);
         })
 
-    });
-    test("Testing null value", () => {
-        const expected = [ 'i', 'want', 'to', 'split', 'these', 'words' ];
-         conv.splits(null).then(data=> {
-            expect(data).not.toEqual(["null"]);
-        }).catch(err=>{
-
-        })
     });
 })
 describe("Testing the spellingc function", () => {
     test("incorrect data", () => {
         const expected = [""];
-        conv.spellingc(['90d282dd2d']).then(data=> {
+        conv.spellingc(['just words']).then(data=> {
             expect(data).not.toEqual(expected);
-        }).catch(err=>{
-            console.log(err);
         })
 
     });
@@ -74,18 +58,8 @@ describe("Testing the spellingc function", () => {
         const expected = ['happiness'];
         conv.spellingc(['hapeness']).then(data=> {
             expect(data).toEqual(expected);
-        }).catch(err=>{
-            console.log(err);
         })
 
-    });
-    test("Testing null value", () => {
-        const expected = [ 'i', 'waht', 'to', 'split', 'these', 'words' ];
-        conv.spellingc(null).then(data=> {
-            expect(data).not.toEqual(null);
-        }).catch(err=>{
-
-        })
     });
 })
 describe("Testing the analysewords function", () => {
@@ -93,8 +67,6 @@ describe("Testing the analysewords function", () => {
         const expected = [""];
         conv.analysewords(['90d282dd2d']).then(data=> {
             expect(data).not.toEqual(expected);
-        }).catch(err=>{
-            console.log(err);
         })
 
     });
@@ -103,18 +75,22 @@ describe("Testing the analysewords function", () => {
         const expected = ['happiness'];
         conv.analysewords(['hapeness']).then(data=> {
             expect(data).toEqual(0);
-        }).catch(err=>{
-            console.log(err);
         })
 
     });
-    test("Testing null value", () => {
-        const expected = [ 'i', 'waht', 'to', 'split', 'these', 'words' ];
-        conv.analysewords(null).then(data=> {
-            expect(data).not.toEqual(null);
-        }).catch(err=>{
-
-        })
+})
+describe("Testing Exceptions", () => {
+    test("Testing conversion null value", () => {
+        expect(conv.convertion(null)).rejects.toThrow('null value');
+    });
+    test("Testing splits null value", () => {
+        expect(conv.splits(null)).rejects.toThrow('null value');
+    });
+    test("Testing spellingc null value", () => {
+        expect(conv.spellingc(null)).rejects.toThrow('null value');
+    });
+    test("Testing analysewords null value", () => {
+        expect(conv.analysewords(null)).rejects.toThrow('null value');
     });
 
 })

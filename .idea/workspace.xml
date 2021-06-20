@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/server/_tests_/api.spec.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/_tests_/api.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/_tests_/api.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/_tests_/api.spec.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/social_media_sites/Twitter.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/social_media_sites/Twitter.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -202,7 +200,7 @@
       <recent name="C:\Users\Zeeshan\OneDrive - University of Pretoria\Documents\BIT\Year 4\Semester 1\COS 301\Projects\Crypto-Market-Analysis\server\test\functional" />
     </key>
   </component>
-  <component name="RunManager" selected="Jest.POST /user/followCrypto">
+  <component name="RunManager" selected="Jest.POST /user/followSocialMedia">
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -242,34 +240,6 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="POST /user/followCrypto.Tries to add a crypto for a non-existent user in the database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$/server" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/server/_tests_/api.spec.js" />
-      <test-names>
-        <test-name value="POST /user/followCrypto" />
-        <test-name value="Tries to add a crypto for a non-existent user in the database" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="POST /user/followCrypto.Tries to add an existing crypto to the user in the database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$/server" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/server/_tests_/api.spec.js" />
-      <test-names>
-        <test-name value="POST /user/followCrypto" />
-        <test-name value="Tries to add an existing crypto to the user in the database" />
-      </test-names>
-      <method v="2" />
-    </configuration>
     <configuration name="POST /user/followCrypto.Tries to send a request without any parameters" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
@@ -281,6 +251,33 @@
       <test-names>
         <test-name value="POST /user/followCrypto" />
         <test-name value="Tries to send a request without any parameters" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="POST /user/followSocialMedia" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/server" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/server/_tests_/api.spec.js" />
+      <test-names>
+        <test-name value="POST /user/followSocialMedia" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="POST /user/followSocialMedia.Tries to add an existing social media site to the user in the database" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/server" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/server/_tests_/api.spec.js" />
+      <test-names>
+        <test-name value="POST /user/followSocialMedia" />
+        <test-name value="Tries to add an existing social media site to the user in the database" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -308,18 +305,18 @@
       <item itemvalue="Jest.npm test" />
       <item itemvalue="Mocha.test" />
       <item itemvalue="Jest.POST /user/followCrypto" />
-      <item itemvalue="Jest.POST /user/followCrypto.Tries to add an existing crypto to the user in the database" />
-      <item itemvalue="Jest.POST /user/followCrypto.Tries to add a crypto for a non-existent user in the database" />
       <item itemvalue="Jest.POST /user/followCrypto.Tries to send a request without any parameters" />
       <item itemvalue="Jest.POST /user" />
+      <item itemvalue="Jest.POST /user/followSocialMedia" />
+      <item itemvalue="Jest.POST /user/followSocialMedia.Tries to add an existing social media site to the user in the database" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Jest.POST /user/followSocialMedia" />
+        <item itemvalue="Jest.POST /user/followSocialMedia.Tries to add an existing social media site to the user in the database" />
         <item itemvalue="Jest.POST /user/followCrypto" />
         <item itemvalue="Jest.POST /user" />
         <item itemvalue="Jest.POST /user/followCrypto.Tries to send a request without any parameters" />
-        <item itemvalue="Jest.POST /user/followCrypto.Tries to add a crypto for a non-existent user in the database" />
-        <item itemvalue="Jest.POST /user/followCrypto.Tries to add an existing crypto to the user in the database" />
       </list>
     </recent_temporary>
   </component>
@@ -593,7 +590,14 @@
       <option name="project" value="LOCAL" />
       <updated>1624127948740</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Fixed followCrypto and added tests">
+      <created>1624192049558</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1624192049558</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -679,7 +683,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added partial api endpoint tests" />
     <MESSAGE value="Added tests for signup endpoint in user" />
     <MESSAGE value="Added a deleteUser module to abstract delete function from the database. Also added tests for the deleteUser function and delete endpoint." />
     <MESSAGE value="Added Additional Tests" />
@@ -704,7 +707,8 @@
     <MESSAGE value="Implemented getUserTweets" />
     <MESSAGE value="added unit testing" />
     <MESSAGE value="Changed twitter method to reflect current database" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed twitter method to reflect current database" />
+    <MESSAGE value="Fixed followCrypto and added tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed followCrypto and added tests" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

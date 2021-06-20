@@ -92,38 +92,56 @@ describe('POST /user/followCrypto', () => {
 });
 
 describe('POST /user/followSocialMedia', () => {
-    let social_media_site = "Twitter";
-    let email = "example@example.co.za";
-    it(`Adds a social media site for the registered user in the database`, done => {
+    let email = "codexteam4@gmail.com";
+    let social_media_sites = "twitter";
+    jest.setTimeout(20000);
+    test(`Adds a social media site for the user in the database`, done => {
         request(app)
             .post('/user/followSocialMedia')
-            .send({"email":email, "social_media":social_media_site})
+            .send({"email":email, "social_media_sites": social_media_sites})
             .expect(200)
             .then(response => {
-                expect(response.body.message).to.equal("Successful")
+                expect(response.body.status).to.equal("Ok");
+                expect(response.body.message).to.equal("The social media site has been successfully added")
                 done();
             })
             .catch(err => done(err))
     });
-    it(`Tries to add an existing social media site for the registered user in the database`, done => {
+    test(`Tries to add an existing social media site to the user in the database`, done => {
         request(app)
             .post('/user/followSocialMedia')
-            .send({"email":email, "social_media":social_media_site})
-            .expect(400)
+            .send({"email":email, "social_media_sites":social_media_sites})
+            .expect(202)
             .then(response => {
-                expect(response.body.message).to.equal("Already following the social media site");
+                expect(response.body.status).to.equal("Accepted");
+                expect(response.body.message).to.equal("The site already exists");
                 done();
             })
             .catch(err => done(err))
     });
-    it(`Tries to add a social media site for a non-registered user`, done => {
-        email = "someother@example.com"
+    test(`Tries to add a crypto for a non-existent user in the database`, done => {
+        email = "someother@example.co.za"
         request(app)
             .post('/user/followSocialMedia')
-            .send({"email":email, "social_media":social_media_site})
+            .send({"email":email, "social_media_site":social_media_sites})
             .expect(403)
             .then(response => {
-                expect(response.body.message).to.equal("Not authorized");
+                expect(response.body.status).to.equal(`Not authorized`);
+                expect(response.body.error).to.equal(`The user does not exist`);
+                done();
+            })
+            .catch(err => done(err))
+    });
+    test(`Tries to send a request without any parameters`, done => {
+        email = null;
+        social_media_sites = null;
+        request(app)
+            .post('/user/followSocialMedia')
+            .send({"email":email, "social_media_site":social_media_sites})
+            .expect(401)
+            .then(response => {
+                expect(response.body.status).to.equal(`Bad Request`);
+                expect(response.body.error).to.equal(`Malformed request. Please check your parameters`);
                 done();
             })
             .catch(err => done(err))

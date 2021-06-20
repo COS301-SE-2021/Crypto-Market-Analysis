@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const analysis = require('./analysisFunction');
 
-
 const admin = require('firebase-admin');
 const serviceAC = require('../database/firebase.json')
 admin.initializeApp({
@@ -215,8 +214,6 @@ router.post("/followSocialMedia",async (request,response)=>{
  * */
 router.post('/analyse', async function(req, res, next) {
     const { crypto ,socialmedia} = req.body;
-    /* const contractions = aposToLexForm(post);
-     const cLcase = contractions.toLowerCase();*/
     const Bigdata = await db.collection(socialmedia).doc(crypto).get();
     if (!Bigdata.exists) {
         console.log('No document');
@@ -226,20 +223,17 @@ router.post('/analyse', async function(req, res, next) {
     const analysisArr = [];
     let i=0;
     await Bigdata.data().post.forEach(element =>
-
         analysis.convertion(element).then(comment=>{
-            // console.log(element);
             analysis.splits(comment).then(newWording=>{
                 analysis.spellingc(newWording).then(filteredwords=>{
                     analysis.analysewords(filteredwords).then(analysis=>{
-                        // res.status(200).json({ analysis });
                         if(isNaN(analysis))
                         {
                             analysis=0;
                         }
                         analysisArr.push(analysis*10);
                         i++;
-                        if(i==Bigdata.data().post.length)
+                        if(i === Bigdata.data().post.length)
                         {
                             let mini=Math.min.apply(Math, analysisArr)
                             let maxi = Math.max.apply(Math, analysisArr)
@@ -255,10 +249,6 @@ router.post('/analyse', async function(req, res, next) {
                 })
             })
         })
-
     );
-
-
-
 });
 module.exports = router

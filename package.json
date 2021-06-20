@@ -1,0 +1,7 @@
+{
+  "name": "Crypto-Market-Analysis",
+  "version": "1.0.0",
+  "dependencies": {
+    "twit": "^2.2.11"
+  }
+}

@@ -1,99 +1,173 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "./QuickView.css"
-import {Search, Star} from "@material-ui/icons";
-import React from "react";
-import {Icon} from "coinmarketcap-cryptocurrency-icons";
-import axios from 'axios';
+import { Star, } from "@material-ui/icons";
+import { SocialIcon } from 'react-social-icons';
+import React, { useState, useEffect } from 'react';
+import axios from "axios";
+import Sidebar from '../Sidebar/Sidebar';
 
-
-const cryptos = [{Name:"Bitcoin",Code:"btc", Price:"R513 510,14"},
-    {Name:"Litecoin",Code:"ltc", Price:"R2 554,79 "},
-    {Name:"Etherium",Code:"eth", Price:"R37 193,58 "},
-    {Name:"Ripple",Code:"xrp", Price:"R14,59"},
-    {Name:"Tether",Code:"usdt",Price:"R14,34"}
+const platformsList = [{name:"Twitter",id:"twitter"},
+    {name:"Reddit",id:"reddit"},
+    {name:"Medium",id:"medium"},
+    {name:"Discord",id:"discord"}
 ];
+function QuickView()
+{
+    
+    let [cryptos, setCryptos] = useState([]);
+    const [searchCrypto, setSearchCrypto] = useState("");
 
-class QuickView extends React.Component{
-    constructor(props) {
-        super(props);
-        this.select = this.select.bind(this);
-        this.state = {
-            cryptList: [...cryptos.map(crypto =>{ return {...crypto,selected:false} })],
-            faveList:[]
-        };
-    }
-    select(code){
-        let newFavelist = this.state.faveList;
+    let [platforms, setPlatforms] = useState([]);
+    const [searchPlatform, setSearchPlatform] = useState("");
 
-        this.setState({
-            cryptList: [...this.state.cryptList.map((crypt,currIndex)=>{
-                if(code==crypt.Code){
-                    crypt.selected = !crypt.selected;
+    useEffect(async () => {
+        axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=50&page=1&sparkline=false')
+            .then(response => {
+                //set lists
+                setCryptos(response.data)
+                setPlatforms(platformsList)
+               
 
+            })
+            .catch(err => {console.error(err);})
+    },[]);
+
+
+    //sets search to whats typed in the search input field
+    const searchCoin = (event) => {setSearchCrypto(event.target.value)}
+    const searchSocialMedia = (event) => {setSearchPlatform(event.target.value)}
+
+    //filter list based on the search input
+    const searchedCryptos = cryptos.filter((crypto)=>{
+        return crypto.name.toLowerCase().includes(searchCrypto.toLowerCase())
+    })
+    const searchedPlatforms = platforms.filter((platform)=>{
+        return platform.name.toLowerCase().includes(searchPlatform.toLowerCase())
+    })
+
+    const select = (name,type) => {
+        if(type == "cryptos"){
+            cryptos =  [...cryptos.map((crypto)=>{
+                if(name == crypto.symbol){
+                    crypto.selected = !crypto.selected;
+
+                    // fetch('http://127.0.0.1:8080/user/folloCrypto',{
+                    //     method:'POST',
+                    //     body: JSON.stringify({
+                    //         email: 'alekarzeeshan92@gmail.com',
+                    //     cryptoName: 'btc',}),
+                    //     headers: {
+                    //         'Content-type': 'application/json charset = UTF-8'
+                    //     },
+                    // }).then((response) => response.json())
+                    //     .catch((response) => console.log('json'))
                     //if selected add to favourite list else remove it
-                    if(crypt.selected)
-                    {
-                        newFavelist.push(crypt)
+                    if(crypto.selected) {
                         let  cryptoToAdd = {
-                        email: "bhekindhlovu7@gmail.com",
-                        crypto_name: crypt.Name.toLowerCase()
+                          email: localStorage.getItem("emailSession"),
+                            symbol: crypto.symbol,
+                            crypto_name: crypto.name,
                         }
-
                         axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd)
                             .then(response => console.log(response))
                             .catch(err => {console.error(err);})
                     }
-
-                    else{newFavelist = newFavelist.filter((item) => item.Code !== code);}
                 }
                 return {
-                    ...crypt
+                    ...crypto
                 }
             })]
-        })
-        this.setState({faveList: [...newFavelist.map(crypto =>{ return {...crypto,selected:false} })]})
+            setCryptos(cryptos)
+        }
+        else if(type == "platforms"){
+            platforms =  [...platforms.map((platform)=>{
+                if(name == platform.id){
+                    platform.selected = !platform.selected;
+
+                    //if selected add to favourite list else remove it
+                    // if(crypto.selected) {
+                    //     let  cryptoToAdd = {
+                    //         email: "bhekindhlovu7@gmail.com",
+                    //         crypto_name: crypt.Name.toLowerCase()
+                    //     }
+                    let  cryptoToAdd = {
+                        email: localStorage.getItem("emailSession"),
+                        social_media_sites: platform.name
+                    }
+                    axios.post('http://localhost:8080/user/followSocialMedia/',cryptoToAdd)
+                        .then(response => console.log(response))
+                        .catch(err => {console.error(err);})
+                    //     axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd)
+                    //         .then(response => console.log(response))
+                    //         .catch(err => {console.error(err);})
+                    // }
+                }
+                return {
+                    ...platform
+                }
+            })]
+            setPlatforms(platforms)
+        }
+       
+
     }
 
-    render()
-    {
-        const cryptoList = this.state;
+    return(
+        <>
+        <Sidebar/>
+        <div className="container-fluid">
+            <div className="row mt-10">
+                <div className="col-4 offset-3 platform-container overflow-auto ">
+                        <div className="crypto-search">
+                            <form>
+                                <input type="search" className="form-control rounded" placeholder="Search..."
+                                       onChange={searchSocialMedia}/>
+                            </form>
+                        </div>
 
-        return(
-            <div id="quick-view" className="col-4 content-container shadow">
-                <div id="search-bar" className="input-group rounded">
-                    <input type="search" className="form-control rounded" placeholder="Search..." aria-label="Search"
-                           aria-describedby="search-addon"/>
-                    <span id="search-icon"> <Search/> </span>{/* Insert Button for search */}
-                </div>
-                <div id="table-bar">
-                    <table className="table">
-                        <thead className="thead-light">
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Symbol</th>
-                            <th scope="col">Price</th>
-                        </tr>
-                        </thead>
-                        <tbody>
                         {
-                            cryptoList.cryptList.map((crypto, index) => {
-                                return (
-                                    <tr className="crypto-row" key={crypto.Code}>
-                                        <th scope="row">{crypto.selected?<Star color="primary" onClick={()=>{this.select(crypto.Code)}}/>:<Star color="action" onClick={()=>{this.select(crypto.Code)}}/>}</th>
-                                        <td><Icon className="d-inline-block"  i={crypto.Code} size={25}/> {crypto.Name}</td>
-                                        <td>{crypto.Code.toUpperCase()}</td>
-                                        <td>{crypto.Price}</td>
-                                    </tr>
-                                );
-                            })
-                        }
-                        </tbody>
-                    </table>
+                            searchedPlatforms.map((myPlatform) =>{
+                                return(
+                                <div key={myPlatform.id} className="cryptos-view">
+                                    <div className="crypt-row">
+                                        <div className="crypto">
+                                            {myPlatform.selected?<Star className="select-star" color="primary" onClick={()=>{select(myPlatform.id,"platforms")}}/>:<Star className="select-star" color="action" onClick={()=>{select(myPlatform.id, "platforms")}}/>}
+                                             {/*<Star className="select-star" color="action"/>*/}
+                                            <SocialIcon network={myPlatform.id} style={{height:"40px",width:"40px"}}/>
+                                            <h1 className="crypto-name">{myPlatform.name}</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+                <div className="col-4 crypto-container overflow-auto block">
+                    <div className="crypto-search">
+                        <form>
+                            <input type="search" className="form-control rounded" placeholder="Search..."
+                                   onChange={searchCoin}/>
+                        </form>
+                    </div>
+                    {
+                        searchedCryptos.map((myCrypto) =>{
+                            return(
+                                <div key={myCrypto.id} className="cryptos-view">
+                                    <div className="crypt-row">
+                                        <div className="crypto">
+                                            {myCrypto.selected?<Star className="select-star" color="primary" onClick={()=>{select(myCrypto.symbol,"cryptos")}}/>:<Star className="select-star" color="action" onClick={()=>{select(myCrypto.symbol, "cryptos")}}/>}
+                                            <img src={myCrypto.image} style={{height:"40px",width:"40px"}} alt="cryptocurrency icon image"/>
+                                            <h1 className="crypto-name">{myCrypto.name}</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                        })
+                    }
                 </div>
             </div>
-        );
-    }
-
+        </div>
+        </>
+    );
 }
 export default QuickView;

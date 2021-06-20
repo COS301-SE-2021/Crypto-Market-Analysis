@@ -1,81 +1,59 @@
-import React, {Component} from "react";
-import './css/login.css'
-import axios from 'axios';
-import Home from "../Home/Home";
+import React, { useRef, useState } from "react"
+import { Form, Button, Card, Alert } from "react-bootstrap"
+import { useAuth } from "../../Auth/Auth"
+import { Link, useHistory } from "react-router-dom"
 
+export default function Signup() {
+    const emailRef = useRef()
+    const passwordRef = useRef()
+    const { login, currentUser } = useAuth()
+    const [error, setError] = useState("")
+    const [loading, setLoading] = useState(false)
+    const history = useHistory()
 
-class login extends Component{
-    constructor() {
-        super();
-        this.state = {
-            email:'',
-            password:''
+    async function handleSubmit(e) {
+        e.preventDefault()
+        try {
+            setError("")
+            setLoading(true)
+            await login(emailRef.current.value, passwordRef.current.value)
+            localStorage.setItem('emailSession',emailRef.current.value);
+            history.push("/home")
+        } catch {
+            setError("Failed to login!")
         }
-        this.changePassword = this.changePassword.bind(this)
-        this.changeEmail = this.changeEmail.bind(this)
-        this.onSubmit = this.onSubmit.bind(this)
+
+        setLoading(false)
     }
 
-    changeEmail(event){
-        this.setState({email:event.target.value})
-    }
-    changePassword(event){
-        this.setState({password:event.target.value})
-    }
+    return (
+        <>
+            <Card>
+                <Card.Body>
+                    <h2 className="text-center mb-4">Login</h2>
 
-    onSubmit(event){
-        window.location = '/home'
-        event.preventDefault();
-        const data = {
-            email: this.state.email,
-            password: this.state.password
-        }
-        axios
-            .post('http://localhost:8080/user/login/',data)
-            .then(() => console.log('sent'))
-            .catch(err =>{
-                console.error(err);
-                window.location = '/login'
-            });
-
-
-    }
-
-    render() {
-        return (
-            <div className="form-v5">
-                <div className="page-content">
-                    <div className="form-v5-content">
-                        <form className="form-detail" onSubmit={this.onSubmit}>
-                            <h2>Login Form</h2>
-                            <div className="form-row">
-                                <label htmlFor="your-email" data-testid="label">Email</label>
-                                <input type="text" name="your-email" id="your-email" className="input-text"
-                                       placeholder="Your Email" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}"
-                                       onChange={this.changeEmail}
-                                       value={this.state.email}
-                                />
-                                <i className="fas fa-envelope"></i>
-                            </div>
-                            <div className="form-row">
-                                <label htmlFor="password">Password</label>
-                                <input type="password" name="password" id="password" className="input-text"
-                                       placeholder="Your Password" required
-                                       onChange={this.changePassword}
-                                       value={this.state.password}
-                                />
-                                <i className="fas fa-lock"></i>
-                            </div>
-                            <div className="form-row-last">
-                                <input type="submit" name="register" className="register" value="Login"/>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                    {error && <Alert variant="danger">{error}</Alert>}
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Group id="email">
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control type="email" ref={emailRef} required />
+                        </Form.Group>
+                        <Form.Group id="password">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" ref={passwordRef} required />
+                        </Form.Group>
+                        <Button disabled={loading} className="w-100" type="submit">
+                            Sign In
+                        </Button>
+                    </Form>
+                </Card.Body>
+            </Card>
+            <div className="w-100 text-center mt-2">
+               <Link to="/updatePassword">Forgot Password?</Link>
             </div>
-        );
-    }
+            <div className="w-100 text-center mt-2">
+                New to Cryptosis? <Link to="/register">Register an account.</Link>
+            </div>
+        </>
+    )
 }
-export default login;
-
-

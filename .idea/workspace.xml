@@ -266,12 +266,16 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="npm test" type="JavaScriptTestRunnerJest">
+    <configuration name="renders without crashing" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
       <working-dir value="$PROJECT_DIR$" />
       <envs />
-      <scope-kind value="ALL" />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/client/src/components/login/test/login.test.js" />
+      <test-names>
+        <test-name value="renders without crashing" />
+      </test-names>
       <method v="2" />
     </configuration>
     <configuration name="Twitter.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/server/social_media_sites/Twitter.js" working-dir="$PROJECT_DIR$/server/social_media_sites">

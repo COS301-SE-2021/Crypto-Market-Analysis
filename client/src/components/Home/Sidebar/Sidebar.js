@@ -94,7 +94,7 @@ export default function Sidebar() {
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="/admin/dashboard"
+                  to="/home"
                 >
                   <i
                     className={
@@ -153,14 +153,14 @@ export default function Sidebar() {
               </li>
 
               <li className="items-center">
-                {/* <Link
+                <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
                     (window.location.href.indexOf("/admin/maps") !== -1
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="/admin/maps"
+                  to="/Crypto"
                 >
                   <i
                     className={
@@ -170,8 +170,8 @@ export default function Sidebar() {
                         : "text-blueGray-300")
                     }
                   ></i>{" "}
-                  Logout
-                </Link> */}
+                  View All Cryptocurrencies
+                </Link>
               </li>
             </ul>
 

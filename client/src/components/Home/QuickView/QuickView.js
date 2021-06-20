@@ -92,7 +92,7 @@ function QuickView()
                     //     }
                     let  cryptoToAdd = {
                         email: localStorage.getItem("emailSession"),
-                        social_media_sites: platform.id
+                        social_media_sites: platform.name
                     }
                     axios.post('http://localhost:8080/user/followSocialMedia/',cryptoToAdd)
                         .then(response => console.log(response))

@@ -228,8 +228,8 @@
     <configuration name="CardsTweets.test.js" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/client/node_modules/react-scripts" />
-      <working-dir value="$PROJECT_DIR$/client" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/server" />
       <envs />
       <scope-kind value="TEST_FILE" />
       <test-file value="$PROJECT_DIR$/client/src/components/___tests___/CardsTweets.test.js" />
@@ -504,12 +504,12 @@
       <option name="project" value="LOCAL" />
       <updated>1622783013512</updated>
     </task>
-    <task id="LOCAL-00026" summary="working code">
-      <created>1622783783835</created>
+    <task id="LOCAL-00026" summary=" code">
+      <created>1622837330793</created>
       <option name="number" value="00026" />
       <option name="presentableId" value="LOCAL-00026" />
       <option name="project" value="LOCAL" />
-      <updated>1622783783835</updated>
+      <updated>1622837330793</updated>
     </task>
     <task id="LOCAL-00027" summary="edited followcrypto and fixed firebase issue">
       <created>1623553961024</created>

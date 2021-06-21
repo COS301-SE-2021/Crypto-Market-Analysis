@@ -1,24 +1,68 @@
 const request = require('supertest');
 const expect = require('chai').expect;
 const app = require("../app");
-const user = require("../routes/user")
-const assert = require('assert');
-const mongoose = require("mongoose");
-const MONGODB_URI = "mongodb+srv://codex:"+process.env.MongoPassword+"@codex.z7mgz.mongodb.net/Codex?retryWrites=true&w=majority";
-try {
-    mongoose.connect(MONGODB_URI, {
-        useNewUrlParser: true,
-        useCreateIndex: true,
-        useUnifiedTopology: true
 
-    }).then(() => {});
-}
-catch(error) {
-    console.error(`Failed to connect to Database: ${error}`);
-}
+describe('POST /user/getUserTweets', () => {
+    let email = "codexteam4@gmail.com";
+    jest.setTimeout(100000);
+    test(`Positive input. Returns 200`, done => {
+        request(app)
+            .post('/user/getUserTweets')
+            .send({"email":email})
+            .expect(200)
+            .then(response => {
+                expect(response.body.status).to.equal("Ok");
+                expect(response.body.screen_names).to.be.a('array');
+                expect(response.body.tweets_array).to.be.a('array');
+                done();
+            })
+            .catch(err => done(err))
+    });
+    test(`Tries to give null values. Return 401`, done => {
+        email = null;
+        request(app)
+            .post('/user/followCrypto')
+            .send({"email":email})
+            .expect(401)
+            .then(response => {
+                expect(response.body.status).to.equal(`Bad Request`);
+                expect(response.body.error).to.equal(`Malformed request. Please check your parameters`);
+                done();
+            })
+            .catch(err => done(err))
+    });
+});
+
+describe('POST /user/analyse', () => {
+    let crypto_name = "Bitcoin";
+    let social_media_name = "Twitter";
+    test('Positive input. returns status code 200', done => {
+        request(app)
+            .post('/user/analyse')
+            .send({"crypto": crypto_name, "socialMedia": social_media_name})
+            .expect(200)
+            .expect('Content-Type', /json/)
+            .end((res) => {
+                return done();
+            });
+    });
+    test('Tries to send an empty request. Returns status code 401', done => {
+        crypto_name = null;
+        social_media_name = null;
+        request(app)
+            .post('/user/analyse')
+            .send({"crypto": crypto_name, "socialMedia": social_media_name})
+            .expect(401)
+            .expect('Content-Type', /json/)
+            .end((response) => {
+                done();
+            });
+    });
+});
+
 
 describe('POST /', () => {
-    it('responds with error message in json 404', done => {
+    test('responds with error message in json 404', done => {
         request(app)
             .post('/')
             .send({})
@@ -33,7 +77,7 @@ describe('POST /', () => {
 });
 
 describe('POST /user', () => {
-    it('responds with error message in json 404', done => {
+    test('responds with error message in json 404', done => {
         request(app)
             .post('/user')
             .send({})
@@ -47,84 +91,59 @@ describe('POST /user', () => {
     });
 });
 
-describe('POST /user/signup', () => {
-    jest.setTimeout(10000)
-    it('Returns 200. Add a user to the database', done => {
-        const email = "example@example.co.za"
-        const username = "example"
-        const password = "password"
-        request(app)
-            .post('/user/signup')
-            .send({"email":email, "username":username, "password":password})
-            .expect(200)
-            .then((response) => {
-                done();
-            })
-            .catch(err => done(err))
-    });
-    it('Returns 400. Tries to add an existing user to the database', done => {
-        const email = "example@example.co.za"
-        const username = "example"
-        const password = "password"
-        request(app)
-            .post('/user/signup')
-            .send({"email":email, "username":username, "password":password})
-            .expect(400)
-            .then((response) => {
-                expect(response.body.message).to.equal("User already registered");
-                done();
-            })
-            .catch(err => done(err))
-    });
-    it('Returns 500. Tries to add a user without specifying parameters', done => {
-        const email = null
-        const username = null
-        const password = null
-        request(app)
-            .post('/user/signup')
-            .send({"email":email, "username":username, "password":password})
-            .expect(500)
-            .then((response) => {
-                done();
-            })
-            .catch(err => done(err))
-    });
-});
-
 describe('POST /user/followCrypto', () => {
-    let crypto = "Dogecoin";
-    let email = "example@example.co.za"
-    it(`Adds a crypto the the user in the database`, done => {
+    let crypto = "Litecoin";
+    let symbol = "ltc";
+    let email = "codexteam4@gmail.com";
+    jest.setTimeout(100000);
+    test(`Adds a crypto for the user in the database`, done => {
         request(app)
             .post('/user/followCrypto')
-            .send({"email":email, "crypto_name":crypto})
+            .send({"email":email, "crypto_name":crypto, "symbol":symbol})
             .expect(200)
             .then(response => {
-                expect(response.body.message).to.equal("Favourite Crypto added")
+                expect(response.body.status).to.equal("Ok");
+                expect(response.body.message).to.equal("The crypto been successfully added")
                 done();
             })
             .catch(err => done(err))
     });
-    it(`Tries to add an existing crypto to the user in the database`, done => {
+    test(`Tries to add an existing crypto to the user in the database`, done => {
         request(app)
             .post('/user/followCrypto')
-            .send({"email":email, "crypto_name":crypto})
-            .expect(400)
+            .send({"email":email, "symbol": symbol, "crypto_name":crypto})
+            .expect(202)
             .then(response => {
-                expect(response.body.type).to.equal("already-followed");
-                expect(response.body.message).to.equal("already following the cryptocurrency");
+                expect(response.body.status).to.equal("Accepted");
+                expect(response.body.message).to.equal("The cryptocurrency already exists");
                 done();
             })
             .catch(err => done(err))
     });
-    it(`Tries to add a crypto for a non-existent user in the database`, done => {
+    test(`Tries to add a crypto for a non-existent user in the database`, done => {
         email = "someother@example.co.za"
         request(app)
             .post('/user/followCrypto')
-            .send({"email":email, "crypto_name":crypto})
+            .send({"email":email, "symbol": symbol, "crypto_name":crypto})
             .expect(403)
             .then(response => {
-                expect(response.body.message).to.equal("Not authorized");
+                expect(response.body.status).to.equal(`Not authorized`);
+                expect(response.body.error).to.equal(`The user does not exist`);
+                done();
+            })
+            .catch(err => done(err))
+    });
+    test(`Tries to send a request without any parameters`, done => {
+        email = null;
+        crypto = null;
+        symbol = null;
+        request(app)
+            .post('/user/followCrypto')
+            .send({"email":email, "symbol": symbol, "crypto_name":crypto})
+            .expect(401)
+            .then(response => {
+                expect(response.body.status).to.equal(`Bad Request`);
+                expect(response.body.error).to.equal(`Malformed request. Please check your parameters`);
                 done();
             })
             .catch(err => done(err))
@@ -132,72 +151,56 @@ describe('POST /user/followCrypto', () => {
 });
 
 describe('POST /user/followSocialMedia', () => {
-    let social_media_site = "Twitter";
-    let email = "example@example.co.za";
-    it(`Adds a social media site for the registered user in the database`, done => {
+    let email = "codexteam4@gmail.com";
+    let social_media_sites = "twitter";
+    jest.setTimeout(100000);
+    test(`Adds a social media site for the user in the database`, done => {
         request(app)
             .post('/user/followSocialMedia')
-            .send({"email":email, "social_media":social_media_site})
+            .send({"email":email, "social_media_sites": social_media_sites})
             .expect(200)
             .then(response => {
-                expect(response.body.message).to.equal("Successful")
+                expect(response.body.status).to.equal("Ok");
+                expect(response.body.message).to.equal("The social media site has been successfully added")
                 done();
             })
             .catch(err => done(err))
     });
-    it(`Tries to add an existing social media site for the registered user in the database`, done => {
+    test(`Tries to add an existing social media site to the user in the database`, done => {
         request(app)
             .post('/user/followSocialMedia')
-            .send({"email":email, "social_media":social_media_site})
-            .expect(400)
+            .send({"email":email, "social_media_sites":social_media_sites})
+            .expect(202)
             .then(response => {
-                expect(response.body.message).to.equal("Already following the social media site");
+                expect(response.body.status).to.equal("Accepted");
+                expect(response.body.message).to.equal("The site already exists");
                 done();
             })
             .catch(err => done(err))
     });
-    it(`Tries to add a social media site for a non-registered user`, done => {
-        email = "someother@example.com"
+    test(`Tries to add a crypto for a non-existent user in the database`, done => {
+        email = "someother@example.co.za"
         request(app)
             .post('/user/followSocialMedia')
-            .send({"email":email, "social_media":social_media_site})
+            .send({"email":email, "social_media_site":social_media_sites})
             .expect(403)
             .then(response => {
-                expect(response.body.message).to.equal("Not authorized");
+                expect(response.body.status).to.equal(`Not authorized`);
+                expect(response.body.error).to.equal(`The user does not exist`);
                 done();
             })
             .catch(err => done(err))
     });
-});
-
-describe('DELETE /:Email', () => {
-    it('Returns 200, email deleted from database', done => {
-        const email = "example@example.co.za";
+    test(`Tries to send a request without any parameters`, done => {
+        email = null;
+        social_media_sites = null;
         request(app)
-            .delete(`/user/${email}`)
-            .expect(200)
-            .then((response) => {
-                expect(response.body.message).to.equal("User Deleted");
-                done();
-            })
-            .catch(err => done(err))
-    });
-    it('Tries to delete a non-existent user from the database', done => {
-        const email = "example@example.com";
-        request(app)
-            .delete(`/user/${email}`)
-            .expect(200)
-            .then((response) => {
-                done();
-            })
-            .catch(err => done(err))
-    });
-    it('Tries to delete with no parameters', done => {
-        const email = null;
-        request(app)
-            .delete(`/user/${email}`)
-            .expect(200)
-            .then((response) => {
+            .post('/user/followSocialMedia')
+            .send({"email":email, "social_media_site":social_media_sites})
+            .expect(401)
+            .then(response => {
+                expect(response.body.status).to.equal(`Bad Request`);
+                expect(response.body.error).to.equal(`Malformed request. Please check your parameters`);
                 done();
             })
             .catch(err => done(err))

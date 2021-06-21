@@ -1,41 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const analysis = require('./analysisFunction');
 
-const natural = require('natural');
-const SpellCorrector = require('spelling-corrector');
-const SW = require('stopword');
-const aposToLexForm = require('apos-to-lex-form');
-const spellCorrector = new SpellCorrector();
-spellCorrector.loadDictionary();
-const convertion= async (post)=>{  const contractions = aposToLexForm(post);//convert word to contractions
-    const cLcase = contractions.toLowerCase();//convert to lowercases
-    const value = cLcase.replace(/[^a-zA-Z\s]+/g, '');//remove stop word
-    return value //post converted ready to be read
-}
-//spliting post/comment into individual words
-const splits = async (comment)=>{
-    const { WordTokenizer } = natural;
-    const words = new WordTokenizer();
-    const Splited = words.tokenize(comment);
-    return Splited;
-}
-//correcting spelling errors
-const spellingc = async(newWording)=>{
-    newWording.forEach((word, index) => {
-        newWording[index] = spellCorrector.correct(word);
-    })
-    const filteredwords = SW.removeStopwords(newWording); //removeStopwords
-    return filteredwords;
-
-}
-//return analysis value
-const analysewords = async (filteredwords)=>{
-    const { SentimentAnalyzer, PorterStemmer } = natural;
-    const analyzer = new SentimentAnalyzer('English', PorterStemmer, 'afinn');//using afinn dictionary may change
-    const analysis = analyzer.getSentiment(filteredwords);
-    return analysis;
-
-}
 
 const admin = require('firebase-admin');
 const serviceAC = require('../database/firebase.json')
@@ -44,7 +10,18 @@ admin.initializeApp({
 });
 
 const db = admin.firestore();
+const saveToDB = async (arr, socialmedia , crypto)=> {
+    let mini=Math.min.apply(Math, arr)
+    let maxi = Math.max.apply(Math, arr)
+    const age = arr => arr.reduce((acc,v) => acc + v)
+    let average = age(arr)
+    console.log(arr)
+    await db.collection(socialmedia).doc(crypto).set({
+        Analysis_score: arr ,Min: mini,Max: maxi,Average: average
+    }, {merge: true})
+    return arr;
 
+}
 router.post("/getUserTweets", async (request,response)=>{
 
     let collection = null;
@@ -69,27 +46,30 @@ router.post("/getUserTweets", async (request,response)=>{
     }
 });
 
-router.post("/getUserSubreddit", async (request,response)=>{
 
+router.post("/getRedditPost", async (request,response)=>{
+
+    let collection = null;
 
     let posts = [];
+    let reddits = [];
     if(request.body.email === null)
         return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
     else{
-        const email = request.body.email;
         try{
             collection = await db.collection(`reddit_data`).get().then((snapshot) =>{
                 for (const doc of snapshot.docs) {
-                    posts.push(doc.data());
+                    posts.push(doc.data().posts);
                 }
             });
-            return response.status(200).json({posts});
+            return response.status(200).json({status: `Ok`, posts: posts});
         }
         catch(err){
             return response(401).json({status:`error`, error: err})
         }
     }
 });
+
 
 router.post("/getUserCryptos", async (request,response)=>{
 
@@ -115,6 +95,7 @@ router.post("/getUserCryptos", async (request,response)=>{
     }
 });
 
+
 /** This function adds a social media site to the users account
  * @param {object} request A request object with the email and symbol.
  * @param {object} response A response object which will return the status code.
@@ -122,21 +103,60 @@ router.post("/getUserCryptos", async (request,response)=>{
  * */
 router.post("/followCrypto", async (request,response)=>{
 
-    if(request.body.email === null || request.body.symbol === null)
-        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
+    if(request.body.email === null || request.body.symbol === null || request.body.crypto_name === null)
+        return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
     else{
         const email = request.body.email;
-        const symbol = [request.body.symbol];
-        const crypto_name = [request.body.crypto_name];
-        const data = {[`crypto`]: symbol,[`crypto_name`]: crypto_name}
+        let crypto = [];
+        let crypto_name = [];
+        let data = {};
+        let found = false;
+        let docRef = null;
         try{
-            const docRef = db.collection(`Users`).doc(email);
-            console.log("Before update");
-            docRef.update({crypto: admin.firestore.FieldValue.arrayUnion(symbol)}).then();
-            return response.status(200).json({status: `Ok`, message: `The crypto has successfully been added.`});
+            docRef = db.collection(`Users`).doc(email)
+        }
+        catch (err) {
+            return response.status( 500).json({status: `Internal Server Error`, error: `The document could not be retrieved: ${err}`});
+        }
+
+        try{
+            await db.collection(`Users`).get().then((snapshot) =>{
+                for (const doc of snapshot.docs) {
+                    if(doc.id === email){
+                        found = true;
+                        if(doc.data().crypto)
+                            crypto = doc.data().crypto;
+                        else
+                            crypto = [];
+                        if(doc.data().crypto_name)
+                            crypto_name = doc.data().crypto_name;
+                        else
+                            crypto_name = [];
+                        break;
+                    }
+                }
+            });
+
+            if(found === false)
+                return response.status(403).json({status: `Not authorized`, error: `The user does not exist`})
+
+            if(crypto.find(element => element === request.body.crypto) === undefined && crypto_name.find(element => element === request.body.crypto_name) === undefined){
+                crypto.push(request.body.symbol);
+                crypto_name.push(request.body.crypto_name);
+            }
+            else
+                return response.status(202).json({status: `Accepted`, message: `The cryptocurrency already exists`});
+            data = {[`crypto`]: crypto,[`crypto_name`]: crypto_name}
+            try{
+                await docRef.set(data, {merge:true});
+            }
+            catch (err){
+                return response.status( 500).json({status: `Internal Server Error`, error: `The crypto could not be added to the database: ${err}`});
+            }
+            return response.status(200).json({status: `Ok`, message: `The crypto been successfully added`});
         }
         catch(err){
-            return response(401).json({status:`error`, error: err})
+            return response.status(500).json({status:`Internal server error`, error: err})
         }
     }
 });
@@ -149,72 +169,110 @@ router.post("/followCrypto", async (request,response)=>{
 router.post("/followSocialMedia",async (request,response)=>{
 
     if(request.body.email === null || request.body.social_media_sites === null)
-        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
+        return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
     else{
         const email = request.body.email;
-        const social_media_sites = [request.body.social_media_sites];
-        const data = {[`social_media_sites`]: social_media_sites}
+        let social_media_sites = [];
+        let data = {};
+        let found = false;
+        let docRef = null;
+        try{
+            docRef = db.collection(`Users`).doc(email)
+        }
+        catch (err) {
+            return response.status( 500).json({status: `Internal Server Error`, error: `The document could not be retrieved: ${err}`});
+        }
 
         try{
-            db.collection(`Users`).doc(email).set(data, {merge:true}).then();
-            return response.status(200).json({status: `Ok`, message: `The social media site has successfully been added.`});
+            await db.collection(`Users`).get().then((snapshot) =>{
+                for (const doc of snapshot.docs) {
+                    if(doc.id === email){
+                        found = true;
+                        if(doc.data().social_media_sites)
+                            social_media_sites = doc.data().social_media_sites;
+                        else
+                            social_media_sites = [];
+                        break;
+                    }
+                }
+            });
+
+            if(found === false)
+                return response.status(403).json({status: `Not authorized`, error: `The user does not exist`})
+
+            if(social_media_sites.find(element => element === request.body.social_media_sites) === undefined)
+                social_media_sites.push(request.body.social_media_sites);
+            else{
+                return response.status(202).json({status: `Accepted`, message: `The site already exists`});
+            }
+            data = {[`social_media_sites`]: social_media_sites}
+            try{
+                await docRef.set(data, {merge:true});
+            }
+            catch (err){
+                console.log(`enters test 2`);
+                return response.status( 500).json({status: `Internal Server Error`, error: `The site could not be added to the database: ${err}`});
+            }
+            return response.status(200).json({status: `Ok`, message: `The social media site has been successfully added`});
         }
         catch(err){
-            return response(401).json({status:`error`, error: err})
+            return response(500).json({status:`Internal server error`, error: err})
         }
     }
 });
 
-//this function returns -3 for bad, 3 for good,0 for neutral
-//takes post:'comment' request object
+/** This function adds analysis score to the database
+ * @param {object} request A request object with the socialmedia and crypto.
+ * @param {object} response A response object which will return the analysis results.
+ * */
 router.post('/analyse', async function(req, res, next) {
+
+    if(req.body.crypto === null || req.body.socialmedia === null)
+        return res.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
+
     const { crypto ,socialmedia} = req.body;
-    /* const contractions = aposToLexForm(post);
-     const cLcase = contractions.toLowerCase();*/
-    const Bigdata = await db.collection(socialmedia).doc(crypto).get();
-    if (!Bigdata.exists) {
-        console.log('No document');
-    } else {
-        //console.log(billgate.data().tweets);
+    let Bigdata = null
+
+    try{
+        Bigdata = await db.collection(socialmedia).doc(crypto).get();
     }
+    catch (err){
+        return res.status(500).json({status:`Internal server error`, error: err});
+    }
+
     const analysisArr = [];
     let i=0;
-    await Bigdata.data().post.forEach(element =>
+    try {
+        await Bigdata.data().post.forEach(element =>
+            analysis.convertion(element).then(comment => {
+                analysis.splits(comment).then(newWording => {
+                    analysis.spellingc(newWording).then(filteredwords => {
+                        analysis.analysewords(filteredwords).then(analysis => {
+                            if (isNaN(analysis)) {
+                                analysis = 0;
+                            }
+                            analysisArr.push(analysis * 10);
+                            i++;
+                            if (i === Bigdata.data().post.length) {
+                                let mini = Math.min.apply(Math, analysisArr)
+                                let maxi = Math.max.apply(Math, analysisArr)
+                                const age = arr => arr.reduce((acc, v) => acc + v)
+                                let average = age(analysisArr)
+                                db.collection(socialmedia).doc(crypto).set({
+                                    Analysis_score: analysisArr, Min: mini, Max: maxi, Average: average
+                                }, {merge: true})
+                                return res.status(200).json({analysisArr, mini, maxi, average});
+                            }
 
-        convertion(element).then(comment=>{
-            // console.log(element);
-            splits(comment).then(newWording=>{
-                spellingc(newWording).then(filteredwords=>{
-                    analysewords(filteredwords).then(analysis=>{
-                        // res.status(200).json({ analysis });
-                        if(isNaN(analysis))
-                        {
-                            analysis=0;
-                        }
-                        analysisArr.push(analysis*10);
-                        i++;
-                        if(i==Bigdata.data().post.length)
-                        {
-                            let mini=Math.min.apply(Math, analysisArr)
-                            let maxi = Math.max.apply(Math, analysisArr)
-                            const age = arr => arr.reduce((acc,v) => acc + v)
-                            let average = age(analysisArr)
-                            db.collection(socialmedia).doc(crypto).set({
-                                Analysis_score: analysisArr ,Min: mini,Max: maxi,Average: average
-                            }, {merge: true})
-                            res.status(200).json({ analysisArr ,mini,maxi,average});
-                        }
-
+                        })
                     })
                 })
             })
-        })
-
-    );
-
-
-
+        );
+    }
+    catch(err){
+        return res.status(500).json({status:`Internal server error`, error: err});
+    }
 });
 
-exports.analysewords = analysewords;
-module.exports = router;
+module.exports = router

@@ -4,6 +4,7 @@ import { Star, } from "@material-ui/icons";
 import { SocialIcon } from 'react-social-icons';
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
+import Sidebar from '../Sidebar/Sidebar';
 
 const platformsList = [{name:"Twitter",id:"twitter"},
     {name:"Reddit",id:"reddit"},
@@ -91,7 +92,7 @@ function QuickView()
                     //     }
                     let  cryptoToAdd = {
                         email: localStorage.getItem("emailSession"),
-                        social_media_sites: platform.id
+                        social_media_sites: platform.name
                     }
                     axios.post('http://localhost:8080/user/followSocialMedia/',cryptoToAdd)
                         .then(response => console.log(response))
@@ -112,9 +113,11 @@ function QuickView()
     }
 
     return(
+        <>
+        <Sidebar/>
         <div className="container-fluid">
-            <div className="row">
-                <div className="col-4 platform-container overflow-auto">
+            <div className="row mt-10">
+                <div className="col-4 offset-3 platform-container overflow-auto ">
                         <div className="crypto-search">
                             <form>
                                 <input type="search" className="form-control rounded" placeholder="Search..."
@@ -164,6 +167,7 @@ function QuickView()
                 </div>
             </div>
         </div>
+        </>
     );
 }
 export default QuickView;

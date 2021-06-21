@@ -5,73 +5,26 @@ import ReactSpeedometer from "react-d3-speedometer";
 import db from "../../../firebase"
 import SentimentSpeedometer from "../GraphReport/AnalysisGraph"
 // components
+import Card from '../Card/Card'
 
 import CardStats from "../Cards/CardStats" ;
 import CardTweets from "../Cards/CardTweets/CardTweets" ;
+import QuickView from "../QuickView/QuickView";
 
 
 
 const coins = ["btc","eth","ltc","xrp","bnb","ada"]
-// let tweets = [{id:"Elon Musk", tweet:"RT @rajpanjabi: As a physician, I’ve seen too many colleagues make the ultimate sacrifice on the frontlines. Over 115,000 health and care w…"},
-//                 {id:"Bill Gates", tweet:"RT @builtwithbtc: We're Built With Bitcoin 👋A foundation creating equitable opportunity by providing clean water, quality education, sust…"},
-//                 {id:"Bill Gates", tweet:"Polio tools and infrastructure are also critical to combatting other public health emergencies, like COVID-19. It i… https://t.co/n05Msom8ov"},
-//                 {id:"Bill Gates", tweet:"Polio tools and infrastructure are also critical to combatting other public health emergencies, like COVID-19. It i… https://t.co/n05Msom8ov"},
-//                 {id:"Bill Gates", tweet:"Polio tools and infrastructure are also critical to combatting other public health emergencies, like COVID-19. It i… https://t.co/n05Msom8ov"},
-//                 {id:"Bill Gates", tweet:"Polio tools and infrastructure are also critical to combatting other public health emergencies, like COVID-19. It i… https://t.co/n05Msom8ov"},
-//                 {id:"Bill Gates", tweet:"Polio tools and infrastructure are also critical to combatting other public health emergencies, like COVID-19. It i… https://t.co/n05Msom8ov"},
-//                 {id:"Bill Gates", tweet:"Polio tools and infrastructure are also critical to combatting other public health emergencies, like COVID-19. It i… https://t.co/n05Msom8ov"},
-//                 {id:"Bill Gates", tweet:"Polio tools and infrastructure are also critical to combatting other public health emergencies, like COVID-19. It i… https://t.co/n05Msom8ov"}
-//               ]
-
-// axios.post('http://localhost:8080/user/followSocialMedia/',cryptoToAdd)
-//     .then(response => console.log(response))
-//     .catch(err => {console.error(err);})
 
 export default function HeaderStats() {
   let [cryptos, setCryptos] = useState([]);
-  const [searchCrypto, setSearchCrypto] = useState("");
-    let [tweets, setTweets] = useState([]);
-  useEffect(async () => {
-
-const tweets = [{id:"Elon Musk", tweet:"RT @rajpanjabi: As a physician, I’ve seen too many colleagues make the ultimate sacrifice on the frontlines. Over 115,000 health and care w…"},
-                {id:"Bill Gates", tweet:"RT @builtwithbtc: We're Built With Bitcoin 👋A foundation creating equitable opportunity by providing clean water, quality education, sust…"},
-                {id:"Bill Gates", tweet:"Polio tools and infrastructure are also critical to combatting other public health emergencies, like COVID-19. It i… https://t.co/n05Msom8ov"},
-                {id:"Bill Gates", tweet:"Polio tools and infrastructure are also critical to combatting other public health emergencies, like COVID-19. It i… https://t.co/n05Msom8ov"},
-                {id:"Bill Gates", tweet:"Polio tools and infrastructure are also critical to combatting other public health emergencies, like COVID-19. It i… https://t.co/n05Msom8ov"},
-                {id:"Bill Gates", tweet:"Polio tools and infrastructure are also critical to combatting other public health emergencies, like COVID-19. It i… https://t.co/n05Msom8ov"},
-                {id:"Bill Gates", tweet:"Polio tools and infrastructure are also critical to combatting other public health emergencies, like COVID-19. It i… https://t.co/n05Msom8ov"},
-                {id:"Bill Gates", tweet:"Polio tools and infrastructure are also critical to combatting other public health emergencies, like COVID-19. It i… https://t.co/n05Msom8ov"},
-                {id:"Bill Gates", tweet:"Polio tools and infrastructure are also critical to combatting other public health emergencies, like COVID-19. It i… https://t.co/n05Msom8ov"}
-              ]
-
-axios.post('http://localhost:8080/user/followSocialMedia/')//,cryptoToAdd)
-    .then(response => console.log(response))
-    .catch(err => {console.error(err);})
-
-export default function HeaderStats() {
-  let [cryptos, setCryptos] = useState([]);
-  let [item, setItem] = useState([]);
+  const [item, setItem] = useState([]);
    // let item= []
 
-    db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).get().then((data)=>{
-        for(const social of data.data().social_media_sites)
-        {
-            for(const crypt of data.data().crypto_name) {
-                db.firestore().collection(social).doc(crypt).get().then((analysis) => {
-                    const avg= Math.round(analysis.data().Average)
-                    const mini= Math.round((analysis.data().Min))
-                    const maxi = Math.round(analysis.data().Max)
-                    console.log(social)
-                   /* item.push(<SentimentSpeedometer min={mini} max={maxi}
-                                                   average={avg}
-                                                    social={social}/>)*/
-                    const arr=[];
-                    arr.push(<SentimentSpeedometer min={mini} max={maxi} average={avg} social={social} />)
-                    setItem(arr);
-                })
-            }
-        }
-    }).catch((error) => { })
+  //  let [cryptos, setCryptos] = useState([]);
+    const [searchCrypto, setSearchCrypto] = useState("");
+    let [tweets, setTweets] = useState([]);
+
+    let [reddits,setReddits] = useState([]);
 
     useEffect(async () => {
     let  cryptoReq = {
@@ -80,7 +33,32 @@ export default function HeaderStats() {
        // email: "bhekindhlovu7@gmail.com",
 
     }
-    axios.post('http://localhost:8080/user/getUserCryptos/',cryptoReq)
+
+        await db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).get().then((data)=>{
+            let arr=[];
+            let i=0;
+            for(const social of data.data().social_media_sites)
+            {
+                for(const crypt of data.data().crypto_name) {
+                    db.firestore().collection(social).doc(crypt).get().then((analysis) => {
+                        const avg= Math.round(analysis.data().Average)
+                        const mini= Math.round((analysis.data().Min))
+                        const maxi = Math.round(analysis.data().Max)
+                        arr.push(<SentimentSpeedometer min={mini} max={maxi} average={avg} social={social} cyp={crypt} />)
+                        console.log(data.data().crypto_name.length);
+                        if(i===data.data().crypto_name.length)
+                        {
+                            setItem(arr);
+                        }
+                      i=i+1;
+
+                    }).catch((error) => { })
+                }
+            }
+           // arr.push({item});
+        }).catch((error) => { })
+
+        axios.post('http://localhost:8080/user/getUserCryptos/',cryptoReq)
         .then()
         .catch(err => {console.error(err);})
 
@@ -89,13 +67,16 @@ export default function HeaderStats() {
       axios.post('http://localhost:8080/user/getUserTweets/',req)
           .then(response => {
              let tweets_ = []
-           //   console.log(response.data);
+              console.log("showing off the tweets");
+              console.log(response.data);
 
                   for(var j = 0; j<response.data.tweets_array.length; j++)
                   {
                       for(var x = 0; x<response.data.tweets_array[j].length; x++)
                       {
+
                           tweets_.push({id: response.data.screen_names[j], tweet: response.data.tweets_array[j][x]})
+
                       }
 
                   }
@@ -105,19 +86,25 @@ export default function HeaderStats() {
           })
           .catch(err => {console.error(err);})
 
-let posts = [];
-      axios.post('http://localhost:8080/user/getUserSubreddit/',req)
+//let posts = [];
+      axios.post('http://localhost:8080/user/getRedditPost/',req)
           .then(response => {
-              for(var x = 0; x<50; x++)
+                let posts_ = []
+              for(let j = 0; j<response.data.posts.length; j++)
               {
-                  console.log(response.data.posts[1].posts[x]);
-                  posts.push(response.data.posts[1].posts[x]);
+                  for(let x = 0; x<response.data.posts[j].length; x++)
+                  {
+                      posts_.push({posts : response.data.posts[j][x] })
+                  }
 
               }
-
+              console.log(posts_)
+              setReddits(posts_);
           })
           .catch(err => {console.error(err);})
-      console.log(posts)
+      setTimeout(()=>{
+      },10000)
+
 
 
 
@@ -214,40 +201,74 @@ let posts = [];
                     <div className="row">
                         {/*<SentimentSpeedometer/>*/}
                         {/*<SentimentSpeedometer/>*/}
+                        {/*<QuickView/>*/}
+                       {item}
+                        {/*<SentimentSpeedometer min={-5} max={5} average={2} social={"Reddit"} />*/}
                         {/*<SentimentSpeedometer/>*/}
-                        {/*<SentimentSpeedometer/>*/}
-                        <SentimentSpeedometer/>
                     </div>
 
                 </div>
             </div>
-            <div style={{marginTop:"3%"}} >
+            {/*<div style={{marginTop:"3%"}} >*/}
 
-                <div className="container card-wrapper" >
+                {/*<div className="container card-wrapper" >*/}
                     {/*<div className="crypto-search">*/}
                     {/*    <form>*/}
                     {/*        <input type="search" className=" w-full form-control rounded" placeholder="Search..."*/}
                     {/*                />*/}
                     {/*    </form>*/}
                     {/*</div>*/}
-                    <div className="row">
-                        <div className="card">
-                            <div className="card-header">
-                                Bitcoin
-                            </div>
-                            <ul className="list-group list-group-flush">
-                                {
-                                    tweets.map((tweet) =>{
-                                        return(
-                                        <li className="list-group-item">{tweet.tweet}</li>
-                                        )
-                                    })
-                                }
-                            </ul>
-                        </div>
-                        {item}
-                    </div>
-                </div>
+
+                            {/*<div className="card-header">*/}
+                            {/*    Bitcoin*/}
+                            {/* </div>*/}
+                            <div style={{marginTop:"3%"}} >
+
+                                <div className="container card-wrapper" >
+                                    {/*<div className="crypto-search">*/}
+                                    {/*    <form>*/}
+                                    {/*        <input type="search" className=" w-full form-control rounded" placeholder="Search..."*/}
+                                    {/*                />*/}
+                                    {/*    </form>*/}
+                                    {/*</div>*/}
+
+
+
+                                    <div className="row">
+                                        <div className="card">
+                                            <div className="card-header">
+                                                Reddit Posts
+                                            </div>
+                                            <ul className="list-group list-group-flush">
+                                                {
+                                                    reddits.map((reddit) =>{
+                                                        return(
+                                                            <li className="list-group-item">{reddit.posts}</li>
+                                                        )
+                                                    })
+                                                }
+                                            </ul>
+                                        </div>
+                                        {/*{item}*/}
+                                    </div>
+
+                                    {/*<div className="row">*/}
+                                    {/*    {*/}
+                                    {/*        reddits.map((reddit) =>{*/}
+
+                                    {/*            return(*/}
+                                    {/*                <li className="list-group-item">{reddit.posts}</li>*/}
+                                    {/*            )*/}
+
+                                    {/*        })*/}
+                                    {/*    }*/}
+
+                                    {/*</div>*/}
+
+                                </div>
+                            {/*</div>*/}
+
+                {/*</div>*/}
             </div>
         </div>
       </div>

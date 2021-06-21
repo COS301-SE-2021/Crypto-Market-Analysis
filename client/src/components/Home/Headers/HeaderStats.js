@@ -45,7 +45,8 @@ export default function HeaderStats() {
                         const mini= Math.round((analysis.data().Min))
                         const maxi = Math.round(analysis.data().Max)
                         arr.push(<SentimentSpeedometer min={mini} max={maxi} average={avg} social={social} cyp={crypt} />)
-                        if(i===2)
+                        console.log(data.data().crypto_name.length);
+                        if(i===data.data().crypto_name.length)
                         {
                             setItem(arr);
                         }

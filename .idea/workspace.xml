@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="59ec6733-32e2-49bd-a7e7-7a3ebc6a1a3d" name="Default Changelist" comment="Fixed followSocialMedia and added tests">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="59ec6733-32e2-49bd-a7e7-7a3ebc6a1a3d" name="Default Changelist" comment="components not rendering fixed">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Home/Headers/HeaderStats.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Home/Headers/HeaderStats.js" afterDir="false" />
     </list>
@@ -601,7 +600,14 @@
       <option name="project" value="LOCAL" />
       <updated>1624193979739</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="components not rendering fixed">
+      <created>1624262597819</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1624262597819</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -687,7 +693,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added a deleteUser module to abstract delete function from the database. Also added tests for the deleteUser function and delete endpoint." />
     <MESSAGE value="Added Additional Tests" />
     <MESSAGE value="http request from login to api with form parameters" />
     <MESSAGE value="http request from register to api with form parameters" />
@@ -712,7 +717,8 @@
     <MESSAGE value="Changed twitter method to reflect current database" />
     <MESSAGE value="Fixed followCrypto and added tests" />
     <MESSAGE value="Fixed followSocialMedia and added tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed followSocialMedia and added tests" />
+    <MESSAGE value="components not rendering fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="components not rendering fixed" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -17,7 +17,7 @@ const coins = ["btc","eth","ltc","xrp","bnb","ada"]
 
 export default function HeaderStats() {
   let [cryptos, setCryptos] = useState([]);
-  let [item, setItem] = useState([]);
+  const [item, setItem] = useState([]);
    // let item= []
 
   //  let [cryptos, setCryptos] = useState([]);
@@ -25,7 +25,7 @@ export default function HeaderStats() {
     let [tweets, setTweets] = useState([]);
 
     let [reddits,setReddits] = useState([]);
-    const arr=[];
+
     useEffect(async () => {
     let  cryptoReq = {
         email: localStorage.getItem("emailSession")
@@ -34,8 +34,9 @@ export default function HeaderStats() {
 
     }
 
-        db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).get().then((data)=>{
-
+        await db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).get().then((data)=>{
+            let arr=[];
+            let i=0;
             for(const social of data.data().social_media_sites)
             {
                 for(const crypt of data.data().crypto_name) {
@@ -44,11 +45,16 @@ export default function HeaderStats() {
                         const mini= Math.round((analysis.data().Min))
                         const maxi = Math.round(analysis.data().Max)
                         arr.push(<SentimentSpeedometer min={mini} max={maxi} average={avg} social={social} cyp={crypt} />)
-                        setItem(arr);
+                        if(i===2)
+                        {
+                            setItem(arr);
+                        }
+                      i=i+1;
+
                     }).catch((error) => { })
                 }
             }
-
+           // arr.push({item});
         }).catch((error) => { })
 
         axios.post('http://localhost:8080/user/getUserCryptos/',cryptoReq)

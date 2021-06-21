@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const analysis = require('./analysisFunction');
 
+
 const admin = require('firebase-admin');
 const serviceAC = require('../database/firebase.json')
 admin.initializeApp({
@@ -155,7 +156,7 @@ router.post("/followCrypto", async (request,response)=>{
             return response.status(200).json({status: `Ok`, message: `The crypto been successfully added`});
         }
         catch(err){
-            return response(500).json({status:`Internal server error`, error: err})
+            return response.status(500).json({status:`Internal server error`, error: err})
         }
     }
 });
@@ -219,59 +220,59 @@ router.post("/followSocialMedia",async (request,response)=>{
         }
     }
 });
-/** This function adds analysis score to the databse
+
+/** This function adds analysis score to the database
  * @param {object} request A request object with the socialmedia and crypto.
  * @param {object} response A response object which will return the analysis results.
  * */
 router.post('/analyse', async function(req, res, next) {
+
+    if(req.body.crypto === null || req.body.socialmedia === null)
+        return res.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
+
     const { crypto ,socialmedia} = req.body;
-    /* const contractions = aposToLexForm(post);
-     const cLcase = contractions.toLowerCase();*/
-    const Bigdata = await db.collection(socialmedia).doc(crypto).get();
-    if (!Bigdata.exists) {
-        console.log('No document');
-    } else {
-        console.log('analyse retrieve successful')
+    let Bigdata = null
+
+    try{
+        Bigdata = await db.collection(socialmedia).doc(crypto).get();
     }
+    catch (err){
+        return res.status(500).json({status:`Internal server error`, error: err});
+    }
+
     const analysisArr = [];
     let i=0;
-    await Bigdata.data().post.forEach(element =>
+    try {
+        await Bigdata.data().post.forEach(element =>
+            analysis.convertion(element).then(comment => {
+                analysis.splits(comment).then(newWording => {
+                    analysis.spellingc(newWording).then(filteredwords => {
+                        analysis.analysewords(filteredwords).then(analysis => {
+                            if (isNaN(analysis)) {
+                                analysis = 0;
+                            }
+                            analysisArr.push(analysis * 10);
+                            i++;
+                            if (i === Bigdata.data().post.length) {
+                                let mini = Math.min.apply(Math, analysisArr)
+                                let maxi = Math.max.apply(Math, analysisArr)
+                                const age = arr => arr.reduce((acc, v) => acc + v)
+                                let average = age(analysisArr)
+                                db.collection(socialmedia).doc(crypto).set({
+                                    Analysis_score: analysisArr, Min: mini, Max: maxi, Average: average
+                                }, {merge: true})
+                                return res.status(200).json({analysisArr, mini, maxi, average});
+                            }
 
-        analysis.convertion(element).then(comment=>{
-            // console.log(element);
-            analysis.splits(comment).then(newWording=>{
-                analysis.spellingc(newWording).then(filteredwords=>{
-                    analysis.analysewords(filteredwords).then(analysis=>{
-                        // res.status(200).json({ analysis });
-                        if(isNaN(analysis))
-                        {
-                            analysis=0;
-                        }
-                        analysisArr.push(analysis*10);
-                        i++;
-                       if(i==Bigdata.data().post.length)
-                        {
-                           /* let mini=Math.min.apply(Math, analysisArr)
-                            let maxi = Math.max.apply(Math, analysisArr)
-                            const age = arr => arr.reduce((acc,v) => acc + v)
-                            let average = age(analysisArr)
-                            db.collection(socialmedia).doc(crypto).set({
-                                Analysis_score: analysisArr ,Min: mini,Max: maxi,Average: average
-                            }, {merge: true})
-                            res.status(200).json({ analysisArr ,mini,maxi,average});*/
-                            saveToDB(analysisArr,socialmedia,crypto).then(averageArray=>{
-                                res.status(200).json({ averageArray});
-                            })
-                        }
-
+                        })
                     })
                 })
             })
-        })
-
-    );
-
-
-
+        );
+    }
+    catch(err){
+        return res.status(500).json({status:`Internal server error`, error: err});
+    }
 });
+
 module.exports = router

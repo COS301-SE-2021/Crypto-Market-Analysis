@@ -9,7 +9,7 @@ describe('Database', () => {
         jest.clearAllMocks();
     });
 
-    const db = (simulateQueryFilters = false) =>
+    const db = (simulateDB = false) =>
         new FakeFirestore(
             {
                 characters: [
@@ -24,7 +24,7 @@ describe('Database', () => {
                     },
                 ],
             },
-            { simulateQueryFilters },
+            { simulateDB },
         );
     test('querying the database test positive case', async () => {
         expect.assertions(4);
@@ -71,8 +71,41 @@ describe('Database', () => {
             });
         expect(mockCollection).not.toHaveBeenCalledWith('Twitter');
         expect(mockDoc).not.toHaveBeenCalledWith('Bitcoin');
+
+    });
+    test('Testing retrieve after saving positive case', async () => {
+        const mock = db();
+        await mock
+            .collection('Reddit')
+            .doc('Ethereum')
+            .set({
+                post: 'this is the data from twitter',
+            });
+        const doc = await mock.doc('Reddit/Ethereum').get();
+        expect(doc.id).toBe('Ethereum');
+    });
+    test('Testing retrieve after saving negative case', async () => {
+        const mock = db();
+        await mock
+            .collection('Reddit')
+            .doc('Ethereum')
+            .set({
+                post: 'this is the data from twitter',
+            });
         const doc = await mock.doc('Reddit/Ethereum').get();
         expect(doc.id).not.toBe('Bitcoin');
     });
 
 })
+describe('Testing Twitter functions', () => {
+    test('Testing getUsersID exception',  () => {
+        expect(twitter.getUsersID(null)).rejects.toThrow('null value');
+    });
+    test('Testing filterData exception',  () => {
+        expect(twitter.filterData(null)).rejects.toThrow('null value');
+    });
+    test('Testing getUserTimeline exception',  () => {
+        expect(twitter.getUserTimeline(null)).rejects.toThrow('null value');
+    });
+})
+

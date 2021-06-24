@@ -55,26 +55,15 @@ router.post("/getUserCryptos", async (request, response) => {
  * */
 router.post("/fetchUserSocialMedia", async (request, response) => {
 
-    let socialMediaName = null;
     if(request.body.email === null) {
         return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
     }
     else{
-        const email = request.body.email;
-        try{
-            await db.collection(`Users`).get().then((snapshot) =>{
-                for (const doc of snapshot.docs) {
-                    if(doc.id === email){
-                        socialMediaName = doc.data().social_media_sites;
-                        break;
-                    }
-                }
-            });
-            return response.status(200).json({status: `Ok`, message: socialMediaName});
-        }
-        catch(err){
+        userFunctions.fetchUserSocialMedia(request.body.email).then(data=>{
+            return response.status(200).json(data);
+        }).catch(err=>{
             return response(401).json({status:`error`, error: err})
-        }
+        })
     }
 });
 

@@ -1,15 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const analysis = require('./analysisFunction');
+const userFunctions =require('./userFunctions')
+const database = require("./FirestoreDB")
+const db = database.db;
 
-
-const admin = require('firebase-admin');
-const serviceAC = require('../database/firebase.json')
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAC)
-});
-
-const db = admin.firestore();
 const saveToDB = async (arr, socialmedia , crypto)=> {
     let mini=Math.min.apply(Math, arr)
     let maxi = Math.max.apply(Math, arr)
@@ -23,27 +18,15 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
 
 }
 router.post("/getUserTweets", async (request,response)=>{
-
-    let collection = null;
-    let screen_names = [];
-    let tweets = [];
-    if(request.body.email === null)
-        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
-    else{
-        const email = request.body.email;
-        try{
-            collection = await db.collection(`twitter_data`).get().then((snapshot) =>{
-                for (const doc of snapshot.docs) {
-                    screen_names.push(doc.data().screen_name);
-                    tweets.push(doc.data().tweets);
-                }
-            });
-            return response.status(200).json({status: `Ok`, screen_names: screen_names, tweets_array: tweets});
-        }
-        catch(err){
-            return response(401).json({status:`error`, error: err})
-        }
+    if(request.body.email == null)
+    {
+        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters,{You must request with an email}`});
     }
+    userFunctions.getUserTweets(request.body.email).then(tweets=>{
+        return response.status(200).json(tweets);
+    }).catch(err=>{
+        return response(401).json({status:`error`, error: err})
+    })
 });
 
 

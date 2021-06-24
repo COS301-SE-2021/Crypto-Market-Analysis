@@ -56,6 +56,24 @@ const getUserCrypto = async (email_address)=>{
         return Promise.reject(new Error('Error with the database'));
     }
 }
+const fetchUserSocialMedia =async(email_address)=>{
+    let socialMediaName = null;
+    const email = email_address;
+    try{
+        await db.collection(`Users`).get().then((snapshot) =>{
+            for (const doc of snapshot.docs) {
+                if(doc.id === email){
+                    socialMediaName = doc.data().social_media_sites;
+                    break;
+                }
+            }
+        });
+        return {status: `Ok`, message: socialMediaName};
+    }
+    catch(err){
+        return Promise.reject(new Error('Error with the database'));
+    }
+}
 const saveToDB = async (arr, socialmedia , crypto)=> {
     let mini=Math.min.apply(Math, arr)
     let maxi = Math.max.apply(Math, arr)
@@ -66,4 +84,4 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
     }, {merge: true})
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
-module.exports = {getUserTweets, saveToDB,getRedditPost,getUserCrypto}
+module.exports = {getUserTweets, saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia}

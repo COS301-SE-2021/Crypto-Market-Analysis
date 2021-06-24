@@ -23,6 +23,39 @@ const getUserTweets = async (emailadrs)=>{
             return Promise.reject(new Error('get User Tweets Error'));
         }
 }
+const getRedditPost = async (email_address)=>{
+    let collection = null;
+    let posts = [];
+    try{
+        collection = await db.collection(`reddit_data`).get().then((snapshot) =>{
+            for (const doc of snapshot.docs) {
+                posts.push(doc.data().posts);
+            }
+        });
+        return {status: `Ok`, posts: posts};
+    }
+    catch(err){
+        return Promise.reject(new Error('Error with the database'));
+    }
+}
+const getUserCrypto = async (email_address)=>{
+    const email = email_address;
+    let cryptoSymbols = null;
+    try{
+        await db.collection(`Users`).get().then((snapshot) =>{
+            for (const doc of snapshot.docs) {
+                if(doc.id === email){
+                    cryptoSymbols = doc.data().crypto_name;
+                    break;
+                }
+            }
+        });
+        return {status: `Ok`, messageN: cryptoSymbols};
+    }
+    catch(err){
+        return Promise.reject(new Error('Error with the database'));
+    }
+}
 const saveToDB = async (arr, socialmedia , crypto)=> {
     let mini=Math.min.apply(Math, arr)
     let maxi = Math.max.apply(Math, arr)
@@ -33,4 +66,4 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
     }, {merge: true})
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
-module.exports = {getUserTweets, saveToDB}
+module.exports = {getUserTweets, saveToDB,getRedditPost,getUserCrypto}

@@ -20,25 +20,14 @@ router.post("/getUserTweets", async (request,response)=>{
 
 
 router.post("/getRedditPost", async (request,response)=>{
-
-    let collection = null;
-
-    let posts = [];
-    let reddits = [];
     if(request.body.email === null)
         return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
     else{
-        try{
-            collection = await db.collection(`reddit_data`).get().then((snapshot) =>{
-                for (const doc of snapshot.docs) {
-                    posts.push(doc.data().posts);
-                }
-            });
-            return response.status(200).json({status: `Ok`, posts: posts});
-        }
-        catch(err){
+        userFunctions.getRedditPost(request.body.email).then(data=>{
+            response.status(200).json(data);
+        }).catch(err=>{
             return response(401).json({status:`error`, error: err})
-        }
+        })
     }
 });
 
@@ -48,26 +37,14 @@ router.post("/getRedditPost", async (request,response)=>{
  * @return          A status code stating if the request was successful.
  * */
 router.post("/getUserCryptos", async (request, response) => {
-
-    let cryptoSymbols = null;
     if(request.body.email === null)
         return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
-    else{
-        const email = request.body.email;
-        try{
-            await db.collection(`Users`).get().then((snapshot) =>{
-                for (const doc of snapshot.docs) {
-                    if(doc.id === email){
-                        cryptoSymbols = doc.data().crypto_name;
-                        break;
-                    }
-                }
-            });
-            return response.status(200).json({status: `Ok`, messageN: cryptoSymbols});
-        }
-        catch(err){
+    else {
+         userFunctions.getUserCrypto(request.body.email).then(data=>{
+            return response.status(200).json(data);
+        }).catch(err=>{
             return response(401).json({status:`error`, error: err})
-        }
+        })
     }
 });
 

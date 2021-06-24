@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="59ec6733-32e2-49bd-a7e7-7a3ebc6a1a3d" name="Default Changelist" comment="updated files">
+    <list default="true" id="59ec6733-32e2-49bd-a7e7-7a3ebc6a1a3d" name="Default Changelist" comment="updated saving to database">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/user.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/routes/userFunctions.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/userFunctions.js" afterDir="false" />
@@ -673,7 +673,14 @@
       <option name="project" value="LOCAL" />
       <updated>1624574492585</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="updated saving to database">
+      <created>1624575375250</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1624575375250</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -759,7 +766,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="login and register" />
     <MESSAGE value="token component" />
     <MESSAGE value="Changed user endpoints to previous methods and removed user.test.js and user_functions.js file" />
     <MESSAGE value="Made changes to user.js" />
@@ -784,7 +790,8 @@
     <MESSAGE value="updated user functions" />
     <MESSAGE value="added new test" />
     <MESSAGE value="updated files" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated files" />
+    <MESSAGE value="updated saving to database" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated saving to database" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -70,8 +70,12 @@ router.post("/getRedditPost", async (request,response)=>{
     }
 });
 
-
-router.post("/getUserCryptos", async (request,response)=>{
+/** This function gets the cryptos a user is following
+ * @param {object} request A request object with the email and symbol.
+ * @param {object} response A response object which will return the status code.
+ * @return          A status code stating if the request was successful.
+ * */
+router.post("/getUserCryptos", async (request, response) => {
 
     let cryptoSymbols = null;
     if(request.body.email === null)
@@ -82,12 +86,12 @@ router.post("/getUserCryptos", async (request,response)=>{
             await db.collection(`Users`).get().then((snapshot) =>{
                 for (const doc of snapshot.docs) {
                     if(doc.id === email){
-                        cryptoSymbols = doc.data().crypto;
+                        cryptoSymbols = doc.data().crypto_name;
                         break;
                     }
                 }
             });
-            return response.status(200).json({status: `Ok`, message: cryptoSymbols});
+            return response.status(200).json({status: `Ok`, messageN: cryptoSymbols});
         }
         catch(err){
             return response(401).json({status:`error`, error: err})
@@ -95,6 +99,35 @@ router.post("/getUserCryptos", async (request,response)=>{
     }
 });
 
+/** This function gets the social media a user is following
+ * @param {object} request A request object with the email and symbol.
+ * @param {object} response A response object which will return the status code.
+ * @return          A status code stating if the request was successful.
+ * */
+router.post("/fetchUserSocialMedia", async (request, response) => {
+
+    let socialMediaName = null;
+    if(request.body.email === null) {
+        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
+    }
+    else{
+        const email = request.body.email;
+        try{
+            await db.collection(`Users`).get().then((snapshot) =>{
+                for (const doc of snapshot.docs) {
+                    if(doc.id === email){
+                        socialMediaName = doc.data().social_media_sites;
+                        break;
+                    }
+                }
+            });
+            return response.status(200).json({status: `Ok`, message: socialMediaName});
+        }
+        catch(err){
+            return response(401).json({status:`error`, error: err})
+        }
+    }
+});
 
 /** This function adds a social media site to the users account
  * @param {object} request A request object with the email and symbol.

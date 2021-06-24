@@ -20,7 +20,17 @@ const getUserTweets = async (emailadrs)=>{
             //return response.status(200).json({status: `Ok`, screen_names: screen_names, tweets_array: tweets});
        }
         catch(err){
-
+            return Promise.reject(new Error('get User Tweets Error'));
         }
 }
-module.exports = {getUserTweets}
+const saveToDB = async (arr, socialmedia , crypto)=> {
+    let mini=Math.min.apply(Math, arr)
+    let maxi = Math.max.apply(Math, arr)
+    const age = arr => arr.reduce((acc,v) => acc + v)
+    let average = age(arr)
+    await db.collection(socialmedia).doc(crypto).set({
+        Analysis_score: arr ,Min: mini,Max: maxi,Average: average
+    }, {merge: true})
+    return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
+}
+module.exports = {getUserTweets, saveToDB}

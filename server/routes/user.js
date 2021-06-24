@@ -5,18 +5,7 @@ const userFunctions =require('./userFunctions')
 const database = require("./FirestoreDB")
 const db = database.db;
 
-const saveToDB = async (arr, socialmedia , crypto)=> {
-    let mini=Math.min.apply(Math, arr)
-    let maxi = Math.max.apply(Math, arr)
-    const age = arr => arr.reduce((acc,v) => acc + v)
-    let average = age(arr)
-    console.log(arr)
-    await db.collection(socialmedia).doc(crypto).set({
-        Analysis_score: arr ,Min: mini,Max: maxi,Average: average
-    }, {merge: true})
-    return arr;
 
-}
 router.post("/getUserTweets", async (request,response)=>{
     if(request.body.email == null)
     {
@@ -270,16 +259,10 @@ router.post('/analyse', async function(req, res, next) {
                             analysisArr.push(analysis * 10);
                             i++;
                             if (i === Bigdata.data().post.length) {
-                                let mini = Math.min.apply(Math, analysisArr)
-                                let maxi = Math.max.apply(Math, analysisArr)
-                                const age = arr => arr.reduce((acc, v) => acc + v)
-                                let average = age(analysisArr)
-                                db.collection(socialmedia).doc(crypto).set({
-                                    Analysis_score: analysisArr, Min: mini, Max: maxi, Average: average
-                                }, {merge: true})
-                                return res.status(200).json({analysisArr, mini, maxi, average});
+                                userFunctions.saveToDB(analysisArr,socialmedia,crypto).then(data=>{
+                                    return res.status(200).json(data);
+                                })
                             }
-
                         })
                     })
                 })

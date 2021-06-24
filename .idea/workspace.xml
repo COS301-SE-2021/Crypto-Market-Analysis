@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="59ec6733-32e2-49bd-a7e7-7a3ebc6a1a3d" name="Default Changelist" comment="components not rendering fixed">
-      <change afterPath="$PROJECT_DIR$/server/routes/FirestoreDB.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/routes/userFunctions.js" afterDir="false" />
+    <list default="true" id="59ec6733-32e2-49bd-a7e7-7a3ebc6a1a3d" name="Default Changelist" comment="updated files">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/client/yarn.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/_tests_/twitter.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/_tests_/twitter.spec.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/userFunctions.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/userFunctions.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -637,7 +631,49 @@
       <option name="project" value="LOCAL" />
       <updated>1624262597819</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="separated dababase">
+      <created>1624574364054</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1624574364054</updated>
+    </task>
+    <task id="LOCAL-00040" summary="getUserTweets function">
+      <created>1624574382101</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1624574382101</updated>
+    </task>
+    <task id="LOCAL-00041" summary="updated user functions">
+      <created>1624574407137</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1624574407137</updated>
+    </task>
+    <task id="LOCAL-00042" summary="added new test">
+      <created>1624574436862</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1624574436862</updated>
+    </task>
+    <task id="LOCAL-00043" summary="updated files">
+      <created>1624574460843</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1624574460843</updated>
+    </task>
+    <task id="LOCAL-00044" summary="updated files">
+      <created>1624574492585</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1624574492585</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -723,11 +759,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added Additional Tests" />
-    <MESSAGE value="http request from login to api with form parameters" />
-    <MESSAGE value="http request from register to api with form parameters" />
-    <MESSAGE value="app.js fix" />
-    <MESSAGE value="adding email/auth token page to route" />
     <MESSAGE value="login and register" />
     <MESSAGE value="token component" />
     <MESSAGE value="Changed user endpoints to previous methods and removed user.test.js and user_functions.js file" />
@@ -748,7 +779,12 @@
     <MESSAGE value="Fixed followCrypto and added tests" />
     <MESSAGE value="Fixed followSocialMedia and added tests" />
     <MESSAGE value="components not rendering fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="components not rendering fixed" />
+    <MESSAGE value="separated dababase" />
+    <MESSAGE value="getUserTweets function" />
+    <MESSAGE value="updated user functions" />
+    <MESSAGE value="added new test" />
+    <MESSAGE value="updated files" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated files" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

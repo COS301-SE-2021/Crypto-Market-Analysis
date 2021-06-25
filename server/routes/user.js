@@ -22,7 +22,7 @@ router.post("/getRedditPost", async (request,response)=>{
     if(!request.body.email)
         return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
     else{
-        userFunctions.getRedditPost(request.body.email).then(data=>{
+        userFunctions.getRedditPost().then(data=>{
             response.status(200).json(data);
         }).catch(err=>{
             return response(401).json({status:`error`, error: err})

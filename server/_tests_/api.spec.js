@@ -2,6 +2,36 @@ const request = require('supertest');
 const expect = require('chai').expect;
 const app = require("../app");
 
+describe('POST /', () => {
+    test('responds with error message in json 404', done => {
+        request(app)
+            .post('/')
+            .send({})
+            .expect(404)
+            .expect('Content-Type', /json/)
+            .end((err,res) => {
+                if(err) return done(err);
+                expect(res.body.error.message).to.equal("Not found")
+                return done();
+            });
+    });
+});
+
+describe('POST /user', () => {
+    test('responds with error message in json 404', done => {
+        request(app)
+            .post('/user')
+            .send({})
+            .expect('Content-Type', /json/)
+            .expect(404)
+            .end((err,res) => {
+                if(err) return done(err);
+                expect(res.body.error.message).to.equal("Not found")
+                return done();
+            });
+    });
+});
+
 describe('POST /user/getUserTweets', () => {
     let email = "codexteam4@gmail.com";
     jest.setTimeout(100000);
@@ -80,37 +110,6 @@ describe('POST /user/analyse', () => {
             .expect('Content-Type', /json/)
             .end((response) => {
                 done();
-            });
-    });
-});
-
-
-describe('POST /', () => {
-    test('responds with error message in json 404', done => {
-        request(app)
-            .post('/')
-            .send({})
-            .expect(404)
-            .expect('Content-Type', /json/)
-            .end((err,res) => {
-                if(err) return done(err);
-                expect(res.body.error.message).to.equal("Not found")
-                return done();
-            });
-    });
-});
-
-describe('POST /user', () => {
-    test('responds with error message in json 404', done => {
-        request(app)
-            .post('/user')
-            .send({})
-            .expect('Content-Type', /json/)
-            .expect(404)
-            .end((err,res) => {
-                if(err) return done(err);
-                expect(res.body.error.message).to.equal("Not found")
-                return done();
             });
     });
 });

@@ -17,14 +17,17 @@ const getUserTweets = async ()=>{
         return {status: `Ok`, screen_names: screen_names, tweets_array: tweets}
     }
     catch(err){
-        return Promise.reject(new Error('Failed to get Tweets from the database.'));
+        return Promise.reject(new Error(err));
     }
 }
-const getRedditPost = async (email_address)=>{
-    let collection = null;
+
+/** Gets all the reddit posts from the database.
+ * @return  {object} Containing an array of posts if it was successful or a rejected Promise.
+* */
+const getRedditPost = async ()=>{
     let posts = [];
     try{
-        collection = await db.collection(`reddit_data`).get().then((snapshot) =>{
+        await db.collection(`reddit_data`).get().then((snapshot) =>{
             for (const doc of snapshot.docs) {
                 posts.push(doc.data().posts);
             }
@@ -32,9 +35,10 @@ const getRedditPost = async (email_address)=>{
         return {status: `Ok`, posts: posts};
     }
     catch(err){
-        return Promise.reject(new Error('Error with the database'));
+        return Promise.reject(new Error(err));
     }
 }
+
 const getUserCrypto = async (email_address)=>{
     const email = email_address;
     let cryptoSymbols = [];

@@ -89,7 +89,6 @@ function QuickView()
                     //     let  cryptoToAdd = {
                     //         email: "bhekindhlovu7@gmail.com",
                     //         crypto_name: crypt.Name.toLowerCase()
-                    //     }
                     let  cryptoToAdd = {
                         email: localStorage.getItem("emailSession"),
                         social_media_sites: platform.name

@@ -40,12 +40,12 @@ const getRedditPost = async (email_address)=>{
 }
 const getUserCrypto = async (email_address)=>{
     const email = email_address;
-    let cryptoSymbols = null;
+    let cryptoSymbols = [];
     try{
         await db.collection(`Users`).get().then((snapshot) =>{
             for (const doc of snapshot.docs) {
                 if(doc.id === email){
-                    cryptoSymbols = doc.data().crypto_name;
+                    cryptoSymbols.push(doc.data().crypto_name);
                     break;
                 }
             }
@@ -57,18 +57,18 @@ const getUserCrypto = async (email_address)=>{
     }
 }
 const fetchUserSocialMedia =async(email_address)=>{
-    let socialMediaName = null;
+    let socialMediaName = [];
     const email = email_address;
     try{
         await db.collection(`Users`).get().then((snapshot) =>{
             for (const doc of snapshot.docs) {
                 if(doc.id === email){
-                    socialMediaName = doc.data().social_media_sites;
+                    socialMediaName.push(doc.data().social_media_sites);
                     break;
                 }
             }
         });
-        return {status: `Ok`, message: socialMediaName};
+        return {status: `Ok`, SocialMediaName: socialMediaName};
     }
     catch(err){
         return Promise.reject(new Error('Error with the database'));
@@ -128,6 +128,56 @@ const followCrypto = async (email_address,symbol,crypt_name )=>{
         return Promise.reject(new Error('Error with the database'));
     }
 }
+const followSocialMedia = async (email_address,social_media )=> {
+    const email = email_address;
+    let social_media_sites = [];
+    let data = {};
+    let found = false;
+    let docRef = null;
+    try{
+        docRef = db.collection(`Users`).doc(email)
+    }
+    catch (err) {
+        return {status: `Internal Server Error`, error: `The document could not be retrieved: ${err}`};
+    }
+
+    try{
+        await db.collection(`Users`).get().then((snapshot) =>{
+            for (const doc of snapshot.docs) {
+                if(doc.id === email){
+                    found = true;
+                    if(doc.data().social_media_sites)
+                        social_media_sites = doc.data().social_media_sites;
+                    else
+                        social_media_sites = [];
+                    break;
+                }
+            }
+        });
+
+        if(found === false)
+            return {status: `Not authorized`, error: `The user does not exist`};
+
+        if(!social_media_sites.includes(social_media))
+            social_media_sites.push(social_media);
+        else{
+            return {status: `Accepted`, message: `The site already exists`};
+        }
+        data = {[`social_media_sites`]: social_media_sites}
+        try{
+            await docRef.set(data, {merge:true});
+        }
+        catch (err){
+            console.log(`enters test 2`);
+            return {status: `Internal Server Error`, error: `The site could not be added to the database: ${err}`};
+        }
+        return {status: `Ok`, message: `The social media site has been successfully added`};
+    }
+    catch(err){
+        return {status:`Internal server error`, error: err};
+    }
+}
+
 const saveToDB = async (arr, socialmedia , crypto)=> {
     let mini=Math.min.apply(Math, arr)
     let maxi = Math.max.apply(Math, arr)
@@ -138,4 +188,4 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
     }, {merge: true})
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
-module.exports = {getUserTweets, saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto}
+module.exports = {getUserTweets, saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto,followSocialMedia}

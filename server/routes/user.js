@@ -95,54 +95,12 @@ router.post("/followSocialMedia",async (request,response)=>{
     if(!request.body.email || !request.body.social_media_sites)
         return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
     else{
-        const email = request.body.email;
-        let social_media_sites = [];
-        let data = {};
-        let found = false;
-        let docRef = null;
-        try{
-            docRef = db.collection(`Users`).doc(email)
+          await userFunctions.followSocialMedia(request.body.email,request.body.social_media_sites).then(data=>{
+              response.status(200).json(data);
+          }).catch(err=>{
+              response.status(500).json({status:`Internal server error`, error: err});
+          })
         }
-        catch (err) {
-            return response.status( 500).json({status: `Internal Server Error`, error: `The document could not be retrieved: ${err}`});
-        }
-
-        try{
-            await db.collection(`Users`).get().then((snapshot) =>{
-                for (const doc of snapshot.docs) {
-                    if(doc.id === email){
-                        found = true;
-                        if(doc.data().social_media_sites)
-                            social_media_sites = doc.data().social_media_sites;
-                        else
-                            social_media_sites = [];
-                        break;
-                    }
-                }
-            });
-
-            if(found === false)
-                return response.status(403).json({status: `Not authorized`, error: `The user does not exist`})
-
-            if(social_media_sites.find(element => element === request.body.social_media_sites) === undefined)
-                social_media_sites.push(request.body.social_media_sites);
-            else{
-                return response.status(202).json({status: `Accepted`, message: `The site already exists`});
-            }
-            data = {[`social_media_sites`]: social_media_sites}
-            try{
-                await docRef.set(data, {merge:true});
-            }
-            catch (err){
-                console.log(`enters test 2`);
-                return response.status( 500).json({status: `Internal Server Error`, error: `The site could not be added to the database: ${err}`});
-            }
-            return response.status(200).json({status: `Ok`, message: `The social media site has been successfully added`});
-        }
-        catch(err){
-            return response(500).json({status:`Internal server error`, error: err})
-        }
-    }
 });
 
 /** This function adds analysis score to the database

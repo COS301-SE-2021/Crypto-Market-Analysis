@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const analysis = require('./analysisFunction');
 
-
 const admin = require('firebase-admin');
 const serviceAC = require('../database/firebase.json')
 admin.initializeApp({

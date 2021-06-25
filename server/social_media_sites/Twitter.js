@@ -54,6 +54,7 @@ class Twitter {
 
     /** This function accepts a list of users and makes an API call to the Twitter API to get the 10 latest tweets.
      * @param {[String]} users An array of the screen name of twitter users.
+     * @param {String} email The email of the curret user in the session.
      * */
     getUserTimeline(email, users){
         let error = 0;

@@ -74,6 +74,7 @@ router.post("/getRedditPost", async (request,response)=>{
 router.post("/getUserCryptos", async (request,response)=>{
 
     let cryptoSymbols = null;
+    let socialSites = null;
     if(request.body.email === null)
         return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
     else{
@@ -140,12 +141,17 @@ router.post("/followCrypto", async (request,response)=>{
             if(found === false)
                 return response.status(403).json({status: `Not authorized`, error: `The user does not exist`})
 
-            if(crypto.find(element => element === request.body.crypto) === undefined && crypto_name.find(element => element === request.body.crypto_name) === undefined){
+            if(crypto.find(element => element === request.body.symbol) === undefined && crypto_name.find(element => element === request.body.crypto_name) === undefined){
                 crypto.push(request.body.symbol);
                 crypto_name.push(request.body.crypto_name);
             }
-            else
-                return response.status(202).json({status: `Accepted`, message: `The cryptocurrency already exists`});
+            else if(crypto.find(element => element === request.body.symbol) !== undefined && crypto_name.find(element => element === request.body.crypto_name) !== undefined){
+               
+                crypto = crypto.filter(coin=>{ if(coin !== request.body.symbol)return coin})
+                crypto_name = crypto_name.filter(coin=>{ if(coin !== request.body.crypto_name)return coin})
+                
+            }
+                
             data = {[`crypto`]: crypto,[`crypto_name`]: crypto_name}
             try{
                 await docRef.set(data, {merge:true});
@@ -160,6 +166,7 @@ router.post("/followCrypto", async (request,response)=>{
         }
     }
 });
+
 
 /** This function adds a social media site to the users account
  * @param {object} request A request object with the email and social_media_sites.

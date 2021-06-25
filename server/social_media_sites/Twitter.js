@@ -28,6 +28,9 @@ class Twitter {
      * @param {[String]} users An array of the screen name of twitter users.
      * */
     async getUsersID(users) {
+        if(users==null){
+            return Promise.reject(new Error('error null value entered'));
+        }
         let screenNames = "";
         users.forEach((user, index) => {
             if(index === users.length - 1)
@@ -55,7 +58,9 @@ class Twitter {
      * */
     getUserTimeline(email, users){
         let error = 0;
-
+        if(email==null || users==null){
+            return Promise.reject(new Error('error null value entered'));
+        }
         if (!Array.isArray(users)) {
             console.error("Variable passed in is not of type String[]");
             error = -2;
@@ -95,7 +100,9 @@ class Twitter {
     async filterData(email, tweets){
         let cryptoSymbols = [];
         let cryptoNames = [];
-
+        if(email==null || tweets==null){
+            return Promise.reject(new Error('error null value entered'));
+        }
         await this.#firestore_db.collection(`Users`).get().then((snapshot) =>{
             for (const doc of snapshot.docs) {
                 if(doc.id === email){

@@ -2,6 +2,65 @@ const request = require('supertest');
 const expect = require('chai').expect;
 const app = require("../app");
 
+describe('POST /user/getUserTweets', () => {
+    let email = "codexteam4@gmail.com";
+    jest.setTimeout(100000);
+    test(`Positive input. Returns 200`, done => {
+        request(app)
+            .post('/user/getUserTweets')
+            .send({"email":email})
+            .expect(200)
+            .then(response => {
+                expect(response.body.status).to.equal("Ok");
+                expect(response.body.screen_names).to.be.a('array');
+                expect(response.body.tweets_array).to.be.a('array');
+                done();
+            })
+            .catch(err => done(err))
+    });
+    test(`Tries to give null values. Return 401`, done => {
+        email = null;
+        request(app)
+            .post('/user/followCrypto')
+            .send({"email":email})
+            .expect(401)
+            .then(response => {
+                expect(response.body.status).to.equal(`Bad Request`);
+                expect(response.body.error).to.equal(`Malformed request. Please check your parameters`);
+                done();
+            })
+            .catch(err => done(err))
+    });
+});
+
+describe('POST /user/analyse', () => {
+    let crypto_name = "Bitcoin";
+    let social_media_name = "Twitter";
+    test('Positive input. returns status code 200', done => {
+        request(app)
+            .post('/user/analyse')
+            .send({"crypto": crypto_name, "socialMedia": social_media_name})
+            .expect(200)
+            .expect('Content-Type', /json/)
+            .end((res) => {
+                return done();
+            });
+    });
+    test('Tries to send an empty request. Returns status code 401', done => {
+        crypto_name = null;
+        social_media_name = null;
+        request(app)
+            .post('/user/analyse')
+            .send({"crypto": crypto_name, "socialMedia": social_media_name})
+            .expect(401)
+            .expect('Content-Type', /json/)
+            .end((response) => {
+                done();
+            });
+    });
+});
+
+
 describe('POST /', () => {
     test('responds with error message in json 404', done => {
         request(app)
@@ -36,7 +95,7 @@ describe('POST /user/followCrypto', () => {
     let crypto = "Litecoin";
     let symbol = "ltc";
     let email = "codexteam4@gmail.com";
-    jest.setTimeout(20000);
+    jest.setTimeout(100000);
     test(`Adds a crypto for the user in the database`, done => {
         request(app)
             .post('/user/followCrypto')
@@ -94,7 +153,7 @@ describe('POST /user/followCrypto', () => {
 describe('POST /user/followSocialMedia', () => {
     let email = "codexteam4@gmail.com";
     let social_media_sites = "twitter";
-    jest.setTimeout(20000);
+    jest.setTimeout(100000);
     test(`Adds a social media site for the user in the database`, done => {
         request(app)
             .post('/user/followSocialMedia')
@@ -146,12 +205,4 @@ describe('POST /user/followSocialMedia', () => {
             })
             .catch(err => done(err))
     });
-});
-
-describe('POST /user/getUserTweets', () => {
-
-});
-
-describe('POST /user/getRedditPost', () => {
-
 });

@@ -1,0 +1,14 @@
+matrix:
+  include:
+    - language: node_js
+        os: linux
+        node_js: 14
+        cache: npm
+        install: npm install
+        test: npm test
+        notifications:
+          email:
+            recipients:
+              - u18129031@tuks.co.za
+            on_success: never # default: change
+            on_failure: always # default: always

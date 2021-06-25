@@ -1,15 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const analysis = require('./analysisFunction');
+const user_functions = require('./user_functions');
 
-
-const admin = require('firebase-admin');
+/*const admin = require('firebase-admin');
 const serviceAC = require('../database/firebase.json')
 admin.initializeApp({
     credential: admin.credential.cert(serviceAC)
 });
 
-const db = admin.firestore();
+const db = admin.firestore();*/
 const saveToDB = async (arr, socialmedia , crypto)=> {
     let mini=Math.min.apply(Math, arr)
     let maxi = Math.max.apply(Math, arr)
@@ -24,7 +24,17 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
 }
 router.post("/getUserTweets", async (request,response)=>{
 
-    let collection = null;
+    const email = request.body.email;
+    if(email === null)
+        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
+    else{
+        const res = await user_functions.getUserTweets(email);
+        if(res.status_code === 200)
+            return response.status(200).json({status: `Ok`, screen_names: res.screen_names, tweets_array: res.tweets_array});
+        else
+            return response.status(res.status_code).json({status: res.status, error: res.message});
+    }
+    /*let collection = null;
     let screen_names = [];
     let tweets = [];
     if(request.body.email === null)
@@ -43,7 +53,7 @@ router.post("/getUserTweets", async (request,response)=>{
         catch(err){
             return response(401).json({status:`error`, error: err})
         }
-    }
+    }*/
 });
 
 

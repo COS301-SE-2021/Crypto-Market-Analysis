@@ -34,9 +34,11 @@ class Database {
         }
     }
 
-    fetch(collectionPath, documentName, field)
+    async fetch(collectionPath, documentName, field)
     {
-        if(field === null){
+        if(documentName === null)
+            return await this.#db.collection(collectionPath).get();
+        else if(field === null){
             try{
                 return this.#db.collection(collectionPath).doc(documentName).get().then();
             }

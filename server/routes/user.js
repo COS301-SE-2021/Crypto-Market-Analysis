@@ -9,7 +9,7 @@ const db = database.db;
 router.post("/getUserTweets", async (request,response)=>{
     const email = request.body.email;
     if(!email || !(typeof email === 'string' || email instanceof String))
-        return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters,{You must request with an email}`});
+        return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
     userFunctions.getUserTweets().then( tweets => {
         return response.status(200).json(tweets);
     }).catch( err => {
@@ -19,15 +19,14 @@ router.post("/getUserTweets", async (request,response)=>{
 
 
 router.post("/getRedditPost", async (request,response)=>{
-    if(!request.body.email)
-        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
-    else{
-        userFunctions.getRedditPost().then(data=>{
-            response.status(200).json(data);
-        }).catch(err=>{
-            return response(401).json({status:`error`, error: err})
-        })
-    }
+    const email = request.body.email;
+    if(!email || !(typeof email === 'string' || email instanceof String))
+        return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
+    userFunctions.getRedditPost().then( tweets => {
+        return response.status(200).json(tweets);
+    }).catch( err => {
+        return response(500).json({status:`Internal Server Error`, error: err})
+    })
 });
 
 /** This function gets the cryptos a user is following

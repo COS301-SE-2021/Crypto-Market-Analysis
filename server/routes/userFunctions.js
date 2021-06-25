@@ -40,12 +40,12 @@ const getRedditPost = async (email_address)=>{
 }
 const getUserCrypto = async (email_address)=>{
     const email = email_address;
-    let cryptoSymbols = null;
+    let cryptoSymbols = [];
     try{
         await db.collection(`Users`).get().then((snapshot) =>{
             for (const doc of snapshot.docs) {
                 if(doc.id === email){
-                    cryptoSymbols = doc.data().crypto_name;
+                    cryptoSymbols.push(doc.data().crypto_name);
                     break;
                 }
             }
@@ -57,18 +57,18 @@ const getUserCrypto = async (email_address)=>{
     }
 }
 const fetchUserSocialMedia =async(email_address)=>{
-    let socialMediaName = null;
+    let socialMediaName = [];
     const email = email_address;
     try{
         await db.collection(`Users`).get().then((snapshot) =>{
             for (const doc of snapshot.docs) {
                 if(doc.id === email){
-                    socialMediaName = doc.data().social_media_sites;
+                    socialMediaName.push(doc.data().social_media_sites);
                     break;
                 }
             }
         });
-        return {status: `Ok`, message: socialMediaName};
+        return {status: `Ok`, SocialMediaName: socialMediaName};
     }
     catch(err){
         return Promise.reject(new Error('Error with the database'));

@@ -28,6 +28,7 @@ export default function HeaderStats() {
 
     let[socs,setSoc] =useState([]);
 
+    let[crypts, setCrypt] = useState([]);
     useEffect(async () => {
     let  cryptoReq = {
         email: localStorage.getItem("emailSession")
@@ -74,9 +75,27 @@ export default function HeaderStats() {
 
             }
             console.log(soc);
-            setSoc(soc);
+            setCrypt(soc);
         })
         .catch(err => {console.error(err);})
+
+        axios.post('http://localhost:8080/user/fetchUserSocialMedia/',cryptoReq)
+            .then(response => {
+                let socialName = []
+                for(let j = 0; j < response.data.SocialMediaName.length; j++)
+                {
+                    for(let x = 0; x < response.data.SocialMediaName[j].length; x++)
+                    {
+
+                        socialName.push({socMediaName : response.data.SocialMediaName[j][x]})
+
+                    }
+
+                }
+                console.log(socialName);
+                setSoc(socialName);
+            })
+            .catch(err => {console.error(err);})
 
 
       let req = {email: localStorage.getItem("emailSession")}
@@ -164,8 +183,8 @@ export default function HeaderStats() {
                 {
                    cryptos.map((coin) => {
                        //{
-                         //  socs.map((Socss) =>
-                           //{
+                         //socs.map((Socss) =>
+                          // {
                            if ("Bitcoin" === coin.name || "Ethereum" === coin.name) {
                                return (
 
@@ -185,7 +204,7 @@ export default function HeaderStats() {
 
                                )
                            }
-                          // })
+                         // })
                        //}
                   })
                 }
@@ -303,17 +322,14 @@ export default function HeaderStats() {
                                     <div className="row">
                                         <div className="card">
                                             <div className="card-header">
-                                                Social media
+                                                These are the Cryptos you are following:
                                             </div>
-
                                                 {
                                                     socs.map((Soc) =>{
                                                         return(
-                                                            <div key={Soc.id} className="w-full lg:w-6/12 xl:w-4/12 px-4 mt-5">
-
+                                                            <div>
                                                               {Soc.socName}
-
-                                                          </div>
+                                                            </div>
                                                         )
                                                     })
                                                 }

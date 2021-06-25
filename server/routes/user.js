@@ -7,20 +7,20 @@ const db = database.db;
 
 
 router.post("/getUserTweets", async (request,response)=>{
-    if(request.body.email == null)
-    {
-        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters,{You must request with an email}`});
-    }
-    userFunctions.getUserTweets(request.body.email).then(tweets=>{
+    const email = request.body.email;
+    if(!email || !(typeof email === 'string' || email instanceof String))
+        return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters,{You must request with an email}`});
+    console.log("Passes this email point");
+    userFunctions.getUserTweets(email).then( tweets => {
         return response.status(200).json(tweets);
-    }).catch(err=>{
-        return response(401).json({status:`error`, error: err})
+    }).catch( err => {
+        return response(401).json({status:`Bad Request`, error: err})
     })
 });
 
 
 router.post("/getRedditPost", async (request,response)=>{
-    if(request.body.email === null)
+    if(!request.body.email)
         return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
     else{
         userFunctions.getRedditPost(request.body.email).then(data=>{
@@ -37,7 +37,7 @@ router.post("/getRedditPost", async (request,response)=>{
  * @return          A status code stating if the request was successful.
  * */
 router.post("/getUserCryptos", async (request, response) => {
-    if(request.body.email === null)
+    if(!request.body.email)
         return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
     else {
          userFunctions.getUserCrypto(request.body.email).then(data=>{
@@ -55,7 +55,7 @@ router.post("/getUserCryptos", async (request, response) => {
  * */
 router.post("/fetchUserSocialMedia", async (request, response) => {
 
-    if(request.body.email === null) {
+    if(!request.body.email) {
         return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
     }
     else{
@@ -74,7 +74,7 @@ router.post("/fetchUserSocialMedia", async (request, response) => {
  * */
 router.post("/followCrypto", async (request,response)=>{
 
-    if(request.body.email === null || request.body.symbol === null || request.body.crypto_name === null)
+    if(!request.body.email || !request.body.symbol || !request.body.crypto_name)
         return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
     else{
         await userFunctions.followCrypto(request.body.email,request.body.symbol,request.body.crypto_name).then(data=>{
@@ -92,7 +92,7 @@ router.post("/followCrypto", async (request,response)=>{
  * */
 router.post("/followSocialMedia",async (request,response)=>{
 
-    if(request.body.email === null || request.body.social_media_sites === null)
+    if(!request.body.email || !request.body.social_media_sites)
         return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
     else{
         const email = request.body.email;
@@ -151,7 +151,7 @@ router.post("/followSocialMedia",async (request,response)=>{
  * */
 router.post('/analyse', async function(req, res, next) {
 
-    if(req.body.crypto === null || req.body.socialmedia === null)
+    if(!req.body.crypto || !req.body.socialmedia)
         return res.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
 
     const { crypto ,socialmedia} = req.body;

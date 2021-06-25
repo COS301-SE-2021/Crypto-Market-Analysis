@@ -31,6 +31,43 @@ describe('POST /user/getUserTweets', () => {
             })
             .catch(err => done(err))
     });
+    test(`Tries to give empty string. Returns 401`, done => {
+        email = "";
+        request(app)
+            .post('/user/followCrypto')
+            .send({"email":email})
+            .expect(401)
+            .then(response => {
+                expect(response.body.status).to.equal(`Bad Request`);
+                done();
+            })
+            .catch(err => done(err))
+    });
+    test(`Tries to give a different data type. Returns 401`, done => {
+        email = 13;
+        request(app)
+            .post('/user/followCrypto')
+            .send({"email":email})
+            .expect(401)
+            .then(response => {
+                expect(response.body.status).to.equal(`Bad Request`);
+                done();
+            })
+            .catch(err => done(err))
+    });
+    test(`Gives a non-existent email. Return 401`, done => {
+        email = "example@example.co.za";
+        request(app)
+            .post('/user/followCrypto')
+            .send({"email":email})
+            .expect(401)
+            .then(response => {
+                expect(response.body.status).to.equal(`Bad Request`);
+                console.log(response.body.error);
+                done();
+            })
+            .catch(err => done(err))
+    });
 });
 
 describe('POST /user/analyse', () => {

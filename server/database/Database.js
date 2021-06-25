@@ -9,7 +9,6 @@ const initialize = () => {
 }
 
 class Database {
-
     #db;
 
     /** Starts the database */
@@ -28,7 +27,6 @@ class Database {
         let data = {[field]: fieldsData}
 
         try{
-            console.log(this.#db);
             this.#db.collection(collectionPath).doc(documentName).set(data, {merge:true}).then();
         }
         catch(e) {

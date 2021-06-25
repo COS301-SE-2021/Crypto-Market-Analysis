@@ -168,7 +168,6 @@ router.post("/followCrypto", async (request,response)=>{
     }
 });
 
-
 /** This function adds a social media site to the users account
  * @param {object} request A request object with the email and social_media_sites.
  * @param {object} response A response object which will return the status code.
@@ -210,8 +209,8 @@ router.post("/followSocialMedia",async (request,response)=>{
 
             if(social_media_sites.find(element => element === request.body.social_media_sites) === undefined)
                 social_media_sites.push(request.body.social_media_sites);
-            else{
-                return response.status(202).json({status: `Accepted`, message: `The site already exists`});
+            else if(social_media_sites.find(element => element === request.body.social_media_sites) !== undefined){
+                social_media_sites = social_media_sites.filter(site=>{ if(site !== request.body.social_media_sites)return site})
             }
             data = {[`social_media_sites`]: social_media_sites}
             try{

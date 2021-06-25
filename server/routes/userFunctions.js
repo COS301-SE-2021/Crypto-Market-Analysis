@@ -74,6 +74,60 @@ const fetchUserSocialMedia =async(email_address)=>{
         return Promise.reject(new Error('Error with the database'));
     }
 }
+const followCrypto = async (email_address,symbol,crypt_name )=>{
+
+    const email = email_address;
+    let crypto = [];
+    let crypto_name = [];
+    let data = {};
+    let found = false;
+    let docRef = null;
+    try{
+        docRef = await db.collection(`Users`).doc(email)
+    }
+    catch (err) {
+        return {status: `Internal Server Error`, error: `The document could not be retrieved: ${err}`};
+    }
+
+    try{
+        await db.collection(`Users`).get().then((snapshot) =>{
+            for (const doc of snapshot.docs) {
+                if(doc.id === email){
+                    found = true;
+                    if(doc.data().crypto)
+                        crypto = doc.data().crypto;
+                    else
+                        crypto = [];
+                    if(doc.data().crypto_name)
+                        crypto_name = doc.data().crypto_name;
+                    else
+                        crypto_name = [];
+                    break;
+                }
+            }
+        });
+        if(found === false){ return {status: `Not authorized`, error: `The user does not exist`};}
+
+        if(!crypto_name.includes(crypt_name)){
+            crypto.push(symbol);
+            crypto_name.push(crypt_name);
+        }
+        else {
+            return {status: `Accepted`, message: `The cryptocurrency already exists`};
+        }
+        data = {[`crypto`]: crypto,[`crypto_name`]: crypto_name}
+        try{
+            await docRef.set(data, {merge:true});
+        }
+        catch (err){
+            return 'The crypto could not be added to the database';
+        }
+        return {status: `Ok`, message: `The crypto been successfully added`};
+    }
+    catch(err){
+        return Promise.reject(new Error('Error with the database'));
+    }
+}
 const saveToDB = async (arr, socialmedia , crypto)=> {
     let mini=Math.min.apply(Math, arr)
     let maxi = Math.max.apply(Math, arr)
@@ -84,4 +138,4 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
     }, {merge: true})
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
-module.exports = {getUserTweets, saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia}
+module.exports = {getUserTweets, saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto}

@@ -84,11 +84,12 @@ router.post("/getUserCryptos", async (request,response)=>{
                 for (const doc of snapshot.docs) {
                     if(doc.id === email){
                         cryptoSymbols = doc.data().crypto;
+                        socialSites = doc.data().social_media_sites;
                         break;
                     }
                 }
             });
-            return response.status(200).json({status: `Ok`, message: cryptoSymbols});
+            return response.status(200).json({status: `Ok`, message: cryptoSymbols, social: socialSites});
         }
         catch(err){
             return response(401).json({status:`error`, error: err})

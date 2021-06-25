@@ -10,11 +10,10 @@ router.post("/getUserTweets", async (request,response)=>{
     const email = request.body.email;
     if(!email || !(typeof email === 'string' || email instanceof String))
         return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters,{You must request with an email}`});
-    console.log("Passes this email point");
-    userFunctions.getUserTweets(email).then( tweets => {
+    userFunctions.getUserTweets().then( tweets => {
         return response.status(200).json(tweets);
     }).catch( err => {
-        return response(401).json({status:`Bad Request`, error: err})
+        return response(500).json({status:`Internal Server Error`, error: err})
     })
 });
 

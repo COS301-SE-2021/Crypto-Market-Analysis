@@ -26,6 +26,8 @@
     "express-validator": "^6.11.1",
     "firebase": "^8.6.5",
     "firebase-admin": "^9.9.0",
+    "firestore-jest-mock": "^0.14.0",
+    "instagram-scraping": "^1.0.13",
     "jest": "^27.0.4",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.12",

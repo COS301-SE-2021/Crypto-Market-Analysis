@@ -17,7 +17,7 @@ const coins = ["btc","eth","ltc","xrp","bnb","ada"]
 
 export default function HeaderStats() {
   let [cryptos, setCryptos] = useState([]);
-  let [item, setItem] = useState([]);
+  const [item, setItem] = useState([]);
    // let item= []
 
   //  let [cryptos, setCryptos] = useState([]);
@@ -25,7 +25,10 @@ export default function HeaderStats() {
     let [tweets, setTweets] = useState([]);
 
     let [reddits,setReddits] = useState([]);
-    const arr=[];
+
+    let[socs,setSoc] =useState([]);
+
+    let[crypts, setCrypt] = useState([]);
     useEffect(async () => {
     let  cryptoReq = {
         email: localStorage.getItem("emailSession")
@@ -34,8 +37,9 @@ export default function HeaderStats() {
 
     }
 
-        db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).get().then((data)=>{
-
+        await db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).get().then((data)=>{
+            let arr=[];
+            let i=0;
             for(const social of data.data().social_media_sites)
             {
                 for(const crypt of data.data().crypto_name) {
@@ -44,16 +48,54 @@ export default function HeaderStats() {
                         const mini= Math.round((analysis.data().Min))
                         const maxi = Math.round(analysis.data().Max)
                         arr.push(<SentimentSpeedometer min={mini} max={maxi} average={avg} social={social} cyp={crypt} />)
-                        setItem(arr);
+                        console.log(data.data().crypto_name.length);
+                        if(i===data.data().crypto_name.length)
+                        {
+                            setItem(arr);
+                        }
+                      i=i+1;
+
                     }).catch((error) => { })
                 }
             }
-
+           // arr.push({item});
         }).catch((error) => { })
 
         axios.post('http://localhost:8080/user/getUserCryptos/',cryptoReq)
-        .then()
+        .then(response => {
+            let soc = []
+            for(let j = 0; j < response.data.messageN.length; j++)
+            {
+                for(let x = 0; x < response.data.messageN[j].length; x++)
+                {
+
+                    soc.push({socName : response.data.messageN[j][x]})
+
+                }
+
+            }
+            console.log(soc);
+            setCrypt(soc);
+        })
         .catch(err => {console.error(err);})
+
+        axios.post('http://localhost:8080/user/fetchUserSocialMedia/',cryptoReq)
+            .then(response => {
+                let socialName = []
+                for(let j = 0; j < response.data.SocialMediaName.length; j++)
+                {
+                    for(let x = 0; x < response.data.SocialMediaName[j].length; x++)
+                    {
+
+                        socialName.push({socMediaName : response.data.SocialMediaName[j][x]})
+
+                    }
+
+                }
+                console.log(socialName);
+                setSoc(socialName);
+            })
+            .catch(err => {console.error(err);})
 
 
       let req = {email: localStorage.getItem("emailSession")}
@@ -63,9 +105,9 @@ export default function HeaderStats() {
               console.log("showing off the tweets");
               console.log(response.data);
 
-                  for(var j = 0; j<response.data.tweets_array.length; j++)
+                  for(let j = 0; j<response.data.tweets_array.length; j++)
                   {
-                      for(var x = 0; x<response.data.tweets_array[j].length; x++)
+                      for(let x = 0; x<response.data.tweets_array[j].length; x++)
                       {
 
                           tweets_.push({id: response.data.screen_names[j], tweet: response.data.tweets_array[j][x]})
@@ -82,7 +124,7 @@ export default function HeaderStats() {
 //let posts = [];
       axios.post('http://localhost:8080/user/getRedditPost/',req)
           .then(response => {
-                let posts_ = []
+                let posts_ = [];
               for(let j = 0; j<response.data.posts.length; j++)
               {
                   for(let x = 0; x<response.data.posts[j].length; x++)
@@ -110,7 +152,9 @@ export default function HeaderStats() {
             let tempList = []
             await response.data.map((coin)=>{
               coins.forEach(element => {
-                if(element === coin.symbol){tempList.push(coin)}
+                if(element === coin.symbol){
+                    tempList.push(coin)
+                }
               });
             })
             setCryptos(tempList)
@@ -135,24 +179,36 @@ export default function HeaderStats() {
             {/*    </form>*/}
             {/*</div>*/}
               <div className="row">
+
                 {
-                   cryptos.map((coin) =>{
-                    return(
-                      <div key={coin.id} className="w-full lg:w-6/12 xl:w-3/12 px-4 mt-5">
-                        <CardStats
-                          statSubtitle={coin.name}
-                          statTitle={coin.current_price}
-                          statArrow={coin.price_change_percentage_24h > 0 ? "up" : "down"}
-                          statPercent={coin.price_change_percentage_24h.toFixed(2)}
-                          statPercentColor={coin.price_change_percentage_24h > 0 ? "text-emerald-500" : "text-red-500"}
-                          statDescripiron="In 24 hours"
-                          statIconName={coin.symbol}
-                          statIconColor="bg-white-500"
-                        />
-                    </div>
-                    )
+                   cryptos.map((coin) => {
+                       //{
+                         //socs.map((Socss) =>
+                          // {
+                           if ("Bitcoin" === coin.name || "Ethereum" === coin.name) {
+                               return (
+
+                                   <div key={coin.id} className="w-full lg:w-6/12 xl:w-3/12 px-4 mt-5">
+
+                                       <CardStats
+                                           statSubtitle={coin.name}
+                                           statTitle={coin.current_price}
+                                           statArrow={coin.price_change_percentage_24h > 0 ? "up" : "down"}
+                                           statPercent={coin.price_change_percentage_24h.toFixed(2)}
+                                           statPercentColor={coin.price_change_percentage_24h > 0 ? "text-emerald-500" : "text-red-500"}
+                                           statDescripiron="In 24 hours"
+                                           statIconName={coin.symbol}
+                                           statIconColor="bg-white-500"
+                                       />
+                                   </div>
+
+                               )
+                           }
+                         // })
+                       //}
                   })
                 }
+
               </div>
             </div>
           </div>
@@ -245,6 +301,8 @@ export default function HeaderStats() {
                                         {/*{item}*/}
                                     </div>
 
+
+
                                     {/*<div className="row">*/}
                                     {/*    {*/}
                                     {/*        reddits.map((reddit) =>{*/}
@@ -259,7 +317,27 @@ export default function HeaderStats() {
                                     {/*</div>*/}
 
                                 </div>
-                            {/*</div>*/}
+
+                                <div className="container card-wrapper" >
+                                    <div className="row">
+                                        <div className="card">
+                                            <div className="card-header">
+                                                These are the Cryptos you are following:
+                                            </div>
+                                                {
+                                                    socs.map((Soc) =>{
+                                                        return(
+                                                            <div>
+                                                              {Soc.socName}
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
+
+                                        </div>
+                                        {/*{item}*/}
+                                    </div>
+                            </div>
 
                 {/*</div>*/}
             </div>

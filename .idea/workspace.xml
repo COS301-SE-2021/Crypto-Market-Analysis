@@ -298,12 +298,12 @@
     </configuration>
     <list>
       <item itemvalue="Jest.npm test" />
-      <item itemvalue="Mocha.test" />
       <item itemvalue="Jest.POST /user/analyse.Positive input. returns status code 200" />
       <item itemvalue="Jest.POST /user/analyse.Tries to send an empty request. Returns status code 401" />
       <item itemvalue="Jest.api.spec.js" />
       <item itemvalue="Jest.POST /user/getUserTweets" />
       <item itemvalue="Jest.POST /user/getUserTweets.Positive input. Returns 200" />
+      <item itemvalue="Mocha.test" />
     </list>
     <recent_temporary>
       <list>

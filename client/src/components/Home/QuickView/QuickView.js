@@ -11,6 +11,7 @@ const platformsList = [{name:"Twitter",id:"twitter"},
     {name:"Medium",id:"medium"},
     {name:"Discord",id:"discord"}
 ];
+
 function QuickView()
 {
     
@@ -21,15 +22,51 @@ function QuickView()
     const [searchPlatform, setSearchPlatform] = useState("");
 
     useEffect(async () => {
-        axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=50&page=1&sparkline=false')
-            .then(response => {
-                //set lists
-                setCryptos(response.data)
-                setPlatforms(platformsList)
-               
+        const selectedCryptos = []
+        const selectedPlatforms = []
+        let  userCryptos = {
+            email: localStorage.getItem("emailSession"),
+          }
+          axios.post('http://localhost:8080/user/getUserCryptos/',userCryptos)
+              .then(async(response) =>{
+                  console.log(response.data)
+                    await response.data.message.map((coin)=>{
+                        selectedCryptos.push(coin)
+                    })
+                    await response.data.social.map((site)=>{
+                        selectedPlatforms.push(site)
+                        console.log(selectedPlatforms)
+                    })
+                    axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=10&page=1&sparkline=false')
+                    .then(async (response) => {
+                        //set lists
+                   
+                        await response.data.map((coin)=>{
+                            
+                            selectedCryptos.forEach(element => {
+                                if(element === coin.symbol){
+                                    coin.selected = true;
+                                }
+                            })
+                        })
+                        setCryptos(response.data)
+                    
+                        platformsList.map((_platform)=>{
+                            selectedPlatforms.forEach(element => {
+                                if(element === _platform.name){
+                                    _platform.selected = true;
+                                }
+                            })
+                        })
+                        setPlatforms(platformsList)
+                    
+                    })
+                    .catch(err => {console.error(err);})
+                            console.log(selectedCryptos)
+                 })
+              .catch(err => {console.error(err);})
 
-            })
-            .catch(err => {console.error(err);})
+        
     },[]);
 
 
@@ -46,21 +83,12 @@ function QuickView()
     })
 
     const select = (name,type) => {
+        console.log(cryptos)
         if(type == "cryptos"){
             cryptos =  [...cryptos.map((crypto)=>{
                 if(name == crypto.symbol){
                     crypto.selected = !crypto.selected;
 
-                    // fetch('http://127.0.0.1:8080/user/folloCrypto',{
-                    //     method:'POST',
-                    //     body: JSON.stringify({
-                    //         email: 'alekarzeeshan92@gmail.com',
-                    //     cryptoName: 'btc',}),
-                    //     headers: {
-                    //         'Content-type': 'application/json charset = UTF-8'
-                    //     },
-                    // }).then((response) => response.json())
-                    //     .catch((response) => console.log('json'))
                     //if selected add to favourite list else remove it
                     if(crypto.selected) {
                         let  cryptoToAdd = {
@@ -71,6 +99,16 @@ function QuickView()
                         axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd)
                             .then(response => console.log(response))
                             .catch(err => {console.error(err);})
+                    }
+                    else{
+                        let  cryptoToRemove = {
+                            email: localStorage.getItem("emailSession"),
+                              symbol: crypto.symbol,
+                              crypto_name: crypto.name,
+                          }
+                          axios.post('http://localhost:8080/user/followCrypto/',cryptoToRemove)
+                              .then(response => console.log(response))
+                              .catch(err => {console.error(err);})
                     }
                 }
                 return {
@@ -85,10 +123,6 @@ function QuickView()
                     platform.selected = !platform.selected;
 
                     //if selected add to favourite list else remove it
-                    // if(crypto.selected) {
-                    //     let  cryptoToAdd = {
-                    //         email: "bhekindhlovu7@gmail.com",
-                    //         crypto_name: crypt.Name.toLowerCase()
                     let  cryptoToAdd = {
                         email: localStorage.getItem("emailSession"),
                         social_media_sites: platform.name
@@ -125,6 +159,7 @@ function QuickView()
                         </div>
 
                         {
+                            
                             searchedPlatforms.map((myPlatform) =>{
                                 return(
                                 <div key={myPlatform.id} className="cryptos-view">

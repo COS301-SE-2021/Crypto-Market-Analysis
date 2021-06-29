@@ -4,6 +4,10 @@ import axios from "axios";
 import ReactSpeedometer from "react-d3-speedometer";
 import db from "../../../firebase"
 import SentimentSpeedometer from "../GraphReport/AnalysisGraph"
+//import Item from "/.Item"
+import {Carousel} from 'react-bootstrap';
+import "bootstrap/dist/css/bootstrap.css";
+
 // components
 import Card from '../Card/Card'
 
@@ -11,7 +15,12 @@ import CardStats from "../Cards/CardStats" ;
 import CardTweets from "../Cards/CardTweets/CardTweets" ;
 import QuickView from "../QuickView/QuickView";
 
-
+const breakPoints = [
+{width:1, itemsToShow: 1},
+{width:550, itemsToShow: 2},
+{width:768, itemsToShow: 3},
+{width:1200, itemsToShow: 4},
+];
 
 const coins = ["btc","eth","ltc","xrp","bnb","ada"]
 
@@ -61,21 +70,23 @@ export default function HeaderStats() {
            // arr.push({item});
         }).catch((error) => { })
 
+        let soc = [];
         axios.post('http://localhost:8080/user/getUserCryptos/',cryptoReq)
         .then(response => {
-            let soc = []
+
             for(let j = 0; j < response.data.messageN.length; j++)
             {
                 for(let x = 0; x < response.data.messageN[j].length; x++)
                 {
 
                     soc.push({socName : response.data.messageN[j][x]})
+                    console.log(soc[x]);
 
                 }
 
             }
-            console.log(soc);
             setCrypt(soc);
+
         })
         .catch(err => {console.error(err);})
 
@@ -170,7 +181,7 @@ export default function HeaderStats() {
         <div className=" px-4 md:px-10 h-full" style={{width:"80%"}} >
           <div  >
             {/* Card stats */}
-           
+
             <div className="container card-wrapper" >
             {/*<div className="crypto-search">*/}
             {/*    <form>*/}
@@ -182,10 +193,10 @@ export default function HeaderStats() {
 
                 {
                    cryptos.map((coin) => {
-                       //{
-                         //socs.map((Socss) =>
-                          // {
-                           if ("Bitcoin" === coin.name || "Ethereum" === coin.name) {
+                       {
+                         crypts.map((Socss) =>
+                           {
+                           if ( Socss.socName === coin.name) {
                                return (
 
                                    <div key={coin.id} className="w-full lg:w-6/12 xl:w-3/12 px-4 mt-5">
@@ -200,12 +211,12 @@ export default function HeaderStats() {
                                            statIconName={coin.symbol}
                                            statIconColor="bg-white-500"
                                        />
-                                   </div>
 
+                                   </div>
                                )
                            }
-                         // })
-                       //}
+                          })
+                       }
                   })
                 }
 
@@ -223,18 +234,22 @@ export default function HeaderStats() {
             {/*                />*/}
             {/*    </form>*/}
             {/*</div>*/}
+
               <div className="row">
                 {
                    tweets.map((tweet) =>{
                     return(
+
                       <div key={tweet.id} className="w-full lg:w-6/12 xl:w-4/12 px-4 mt-5">
                         <CardTweets tweetOwner={tweet.id} tweetContent={tweet.tweet} />
                     </div>
+
                     )
                   })
                 }
 
               </div>
+
 
             </div>
           </div>
@@ -317,23 +332,25 @@ export default function HeaderStats() {
                                     {/*</div>*/}
 
                                 </div>
+                            </div>
 
+                             <div style={{marginTop:"3%"}} >
                                 <div className="container card-wrapper" >
                                     <div className="row">
                                         <div className="card">
                                             <div className="card-header">
                                                 These are the Cryptos you are following:
                                             </div>
-                                                {
-                                                    socs.map((Soc) =>{
-                                                        return(
-                                                            <div>
-                                                              {Soc.socName}
-                                                            </div>
-                                                        )
-                                                    })
-                                                }
 
+                                                <ul className="list-group list-group-flush">
+                                                    {
+                                                        crypts.map((Soc) => {
+                                                            return (
+                                                                <div>{Soc.socName}</div>
+                                                            )
+                                                        })
+                                                    }
+                                                </ul>
                                         </div>
                                         {/*{item}*/}
                                     </div>

@@ -128,7 +128,8 @@ router.post('/analyse', async function(req, res, next) {
                 analysis.splits(comment).then(newWording => {
                     analysis.spellingc(newWording).then(filteredwords => {
                         analysis.analysewords(filteredwords).then(analysis => {
-                            if (isNaN(analysis)) {
+                            if (isNaN(analysis) || analysis==null) {
+
                                 analysis = 0;
                             }
                             analysisArr.push(analysis * 10);

@@ -34,6 +34,7 @@
     "morgan": "^1.10.0",
     "node-cron": "^3.0.0",
     "nodemailer": "^6.6.1",
+    "oembed": "^0.1.2",
     "react-elastic-carousel": "^0.11.5",
     "react-table": "^7.7.0",
     "snoowrap": "^1.23.0",

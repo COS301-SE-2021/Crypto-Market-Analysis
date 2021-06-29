@@ -5,7 +5,6 @@ const userFunctions =require('./userFunctions')
 const database = require("./FirestoreDB")
 const db = database.db;
 
-
 router.post("/getUserTweets", async (request,response)=>{
     const email = request.body.email;
     if(!email || !(typeof email === 'string' || email instanceof String))

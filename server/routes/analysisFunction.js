@@ -5,7 +5,7 @@ const aposToLexForm = require('apos-to-lex-form');
 const spellCorrector = new SpellCorrector();
 spellCorrector.loadDictionary();
 
-const convertion = async (post)=>{
+const convertion = async (post)=> {
     if(post==null)
     {
         return Promise.reject(new Error('null value'));

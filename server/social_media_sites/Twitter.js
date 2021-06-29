@@ -1,5 +1,5 @@
 const Twit = require('twit');
-const oembed = require('oembed');
+const fetch = require('node-fetch');
 const admin = require('firebase-admin');
 const serviceAccount = require('../database/firebase.json');
 const consumer_key = 'GGXUovWNfvGvagGakjfTzDfe1';
@@ -15,7 +15,7 @@ const T = new Twit({
 
 class Twitter {
     #firestore_db = null;
-    #oembed_url = "https://publish.twitter.com/*"
+    #oembed_url = "https://publish.twitter.com/oembed"
 
     constructor(){
         admin.initializeApp({
@@ -24,22 +24,17 @@ class Twitter {
         this.#firestore_db = admin.firestore();
     }
 
-
-    async getEmbeddedTweet(screen_name, tweet_id){
-        const url = `https://twitter.com/${screen_name}/status/${tweet_id}`;
-        oembed.fetch(this.#oembed_url,{url:url},(error, result) => {
-            if(error)
-                console.error(error);
-            else
-                console.log(result);
-        })
-        /*console.log(`This is the url ${url}`)
-        await T.get("/statuses/oembed",{url:url}, (err, data, response) => {
-            if(err)
-                console.error(`An error occurred while connecting to the Twitter API: ${err}`);
-            /!*console.log(JSON.stringify(data));
-            console.log(`This is the resposne: ${JSON.stringify(response)}`);*!/
-        })*/
+    /** This function gets the tweet id as a parameter and returns an html formatted response to display the tweet.
+     * @param {String} tweet_id The id of the tweet.
+     * @param {String} screen_name Optional screen name of the user.
+     * @return {blockquote} Returns an html blockquote tag to display the tweet.
+     * */
+    async getEmbeddedTweet(tweet_id, screen_name = "Codex98318352"){
+        const url = `${this.#oembed_url}?url=https://twitter.com/${screen_name}/status/${tweet_id}`;
+        console.log(url);
+        const response = await fetch(url);
+        const data = await response.json();
+        return data.html
     }
     /** Gets the id's of the screen names of the users passed as a parameter.
      * @param {[String]} users An array of the screen name of twitter users.
@@ -160,6 +155,4 @@ class Twitter {
     }
 }
 
-const twitter = new Twitter();
-twitter.getEmbeddedTweet("elonmusk", "1409608806875615242").then();
 module.exports = Twitter;

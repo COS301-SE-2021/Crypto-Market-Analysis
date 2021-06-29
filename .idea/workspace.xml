@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="job">
+    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
@@ -657,7 +657,14 @@
       <option name="project" value="LOCAL" />
       <updated>1624918131933</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="Partial implementation of the oembed API">
+      <created>1624973780277</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1624973780277</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -743,7 +750,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="http request from login to api with form parameters" />
     <MESSAGE value="http request from register to api with form parameters" />
     <MESSAGE value="app.js fix" />
     <MESSAGE value="adding email/auth token page to route" />
@@ -768,7 +774,8 @@
     <MESSAGE value="Fixed followSocialMedia and added tests" />
     <MESSAGE value="comp" />
     <MESSAGE value="job" />
-    <option name="LAST_COMMIT_MESSAGE" value="job" />
+    <MESSAGE value="Partial implementation of the oembed API" />
+    <option name="LAST_COMMIT_MESSAGE" value="Partial implementation of the oembed API" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

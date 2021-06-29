@@ -105,6 +105,12 @@ describe('Testing Twitter functions', () => {
         expect(twitter.filterData(null)).rejects.toThrow('null value');
     });
     test('Testing getUserTimeline exception',  () => {
+      /*  twitter.getUserTimeline('mojohnnylerato@gmail.com',['elonmusk']).then(data=>{
+           console.log(data);
+        })*/
+        twitter.getUsersID(['elonmusk']).then(data=>{
+            console.log(data);
+        })
         expect(twitter.getUserTimeline(null)).rejects.toThrow('null value');
     });
 })

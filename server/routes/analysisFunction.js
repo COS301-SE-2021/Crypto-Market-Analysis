@@ -3,13 +3,31 @@ const SpellCorrector = require('spelling-corrector');
 const SW = require('stopword');
 const aposToLexForm = require('apos-to-lex-form');
 const spellCorrector = new SpellCorrector();
+const a = require('extract-emoji');
+const emojiUnicode = require("emoji-unicode")
 spellCorrector.loadDictionary();
-
+const extract_emoji = async (post)=>{
+    const arr = a.extractEmoji(post);
+    return arr;
+}
 const convertion = async (post)=>{
     if(post==null)
     {
         return Promise.reject(new Error('null value'));
     }
+    let data= extract_emoji(post);
+    data.then(s=>{
+        for(const i of s)
+        {
+            console.log(emojiUnicode(i));
+            let unicodeText= emojiUnicode(i)
+            let unicodeChar = JSON.parse(`["\\u${unicodeText}"]`)[0];
+            console.log(unicodeChar)
+            let unicodeToStr = unicodeText.codePointAt(0).toString(16)
+            console.log(unicodeToStr)
+            post = post.replace(i, "");
+        }
+    });
     const contractions = aposToLexForm(post);//convert word to contractions
     const cLcase = contractions.toLowerCase();//convert to lowercases
     const value = cLcase.replace(/[^a-zA-Z\s]+/g, '');//remove stop word
@@ -55,4 +73,4 @@ const analysewords = async (filteredwords)=>{
 
 }
 
-module.exports = {analysewords, convertion,spellingc,splits}
+module.exports = {analysewords, convertion,spellingc,splits,extract_emoji }

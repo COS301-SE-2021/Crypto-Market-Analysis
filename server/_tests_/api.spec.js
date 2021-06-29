@@ -2,6 +2,36 @@ const request = require('supertest');
 const expect = require('chai').expect;
 const app = require("../app");
 
+describe('POST /', () => {
+    test('responds with error message in json 404', done => {
+        request(app)
+            .post('/')
+            .send({})
+            .expect(404)
+            .expect('Content-Type', /json/)
+            .end((err,res) => {
+                if(err) return done(err);
+                expect(res.body.error.message).to.equal("Not found")
+                return done();
+            });
+    });
+});
+
+describe('POST /user', () => {
+    test('responds with error message in json 404', done => {
+        request(app)
+            .post('/user')
+            .send({})
+            .expect('Content-Type', /json/)
+            .expect(404)
+            .end((err,res) => {
+                if(err) return done(err);
+                expect(res.body.error.message).to.equal("Not found")
+                return done();
+            });
+    });
+});
+
 describe('POST /user/getUserTweets', () => {
     let email = "codexteam4@gmail.com";
     jest.setTimeout(100000);
@@ -21,12 +51,90 @@ describe('POST /user/getUserTweets', () => {
     test(`Tries to give null values. Return 401`, done => {
         email = null;
         request(app)
-            .post('/user/followCrypto')
+            .post('/user/getUserTweets')
             .send({"email":email})
             .expect(401)
             .then(response => {
                 expect(response.body.status).to.equal(`Bad Request`);
                 expect(response.body.error).to.equal(`Malformed request. Please check your parameters`);
+                done();
+            })
+            .catch(err => done(err))
+    });
+    test(`Tries to give empty string. Returns 401`, done => {
+        email = "";
+        request(app)
+            .post('/user/getUserTweets')
+            .send({"email":email})
+            .expect(401)
+            .then(response => {
+                expect(response.body.status).to.equal(`Bad Request`);
+                done();
+            })
+            .catch(err => done(err))
+    });
+    test(`Tries to give a different data type. Returns 401`, done => {
+        email = 13;
+        request(app)
+            .post('/user/getUserTweets')
+            .send({"email":email})
+            .expect(401)
+            .then(response => {
+                expect(response.body.status).to.equal(`Bad Request`);
+                done();
+            })
+            .catch(err => done(err))
+    });
+});
+
+describe('POST /user/getRedditPost', () => {
+    let email = "codexteam4@gmail.com";
+    jest.setTimeout(100000);
+    test(`Positive input. Returns 200`, done => {
+        request(app)
+            .post('/user/getRedditPost')
+            .send({"email":email})
+            .expect(200)
+            .then(response => {
+                expect(response.body.status).to.equal("Ok");
+                expect(response.body.posts).to.be.a('array');
+                done();
+            })
+            .catch(err => done(err))
+    });
+    test(`Tries to give null values. Return 401`, done => {
+        email = null;
+        request(app)
+            .post('/user/getRedditPost')
+            .send({"email":email})
+            .expect(401)
+            .then(response => {
+                expect(response.body.status).to.equal(`Bad Request`);
+                expect(response.body.error).to.equal(`Malformed request. Please check your parameters`);
+                done();
+            })
+            .catch(err => done(err))
+    });
+    test(`Tries to give empty string. Returns 401`, done => {
+        email = "";
+        request(app)
+            .post('/user/getRedditPost')
+            .send({"email":email})
+            .expect(401)
+            .then(response => {
+                expect(response.body.status).to.equal(`Bad Request`);
+                done();
+            })
+            .catch(err => done(err))
+    });
+    test(`Tries to give a different data type. Returns 401`, done => {
+        email = 13;
+        request(app)
+            .post('/user/getRedditPost')
+            .send({"email":email})
+            .expect(401)
+            .then(response => {
+                expect(response.body.status).to.equal(`Bad Request`);
                 done();
             })
             .catch(err => done(err))
@@ -56,37 +164,6 @@ describe('POST /user/analyse', () => {
             .expect('Content-Type', /json/)
             .end((response) => {
                 done();
-            });
-    });
-});
-
-
-describe('POST /', () => {
-    test('responds with error message in json 404', done => {
-        request(app)
-            .post('/')
-            .send({})
-            .expect(404)
-            .expect('Content-Type', /json/)
-            .end((err,res) => {
-                if(err) return done(err);
-                expect(res.body.error.message).to.equal("Not found")
-                return done();
-            });
-    });
-});
-
-describe('POST /user', () => {
-    test('responds with error message in json 404', done => {
-        request(app)
-            .post('/user')
-            .send({})
-            .expect('Content-Type', /json/)
-            .expect(404)
-            .end((err,res) => {
-                if(err) return done(err);
-                expect(res.body.error.message).to.equal("Not found")
-                return done();
             });
     });
 });

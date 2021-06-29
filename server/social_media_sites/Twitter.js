@@ -31,7 +31,6 @@ class Twitter {
      * */
     async getEmbeddedTweet(tweet_id, screen_name = "Codex98318352"){
         const url = `${this.#oembed_url}?url=https://twitter.com/${screen_name}/status/${tweet_id}`;
-        console.log(url);
         const response = await fetch(url);
         const data = await response.json();
         return data.html
@@ -97,10 +96,12 @@ class Twitter {
                         }
                         else{
                             let tweets = [];
+                            let tweets_id = [];
                             data.forEach(tweet => {
+                                tweets_id.push(tweet.id);
                                 tweets.push(tweet.text);
                             });
-                            tweets = await this.filterData(email, tweets);
+                            tweets = await this.filterData(email, tweets, tweets_id);
                         }
                     });
                 }
@@ -109,7 +110,7 @@ class Twitter {
         }
     }
 
-    async filterData(email, tweets){
+    async filterData(email, tweets, tweets_id){
         let cryptoSymbols = [];
         let cryptoNames = [];
         if(email==null || tweets==null){
@@ -129,21 +130,23 @@ class Twitter {
         let tempSymbol = null;
         let tempName = null;
         let tempArray = [];
+        let temp_tweets_id = [];
         let database_data = null;
         for(const [index, value] of cryptoSymbols.entries()){
             tempArray = [];
             tempSymbol = value.toLowerCase();
             tempName = cryptoNames[index].toLowerCase();
-            tweets.forEach((tweet) => {
+            tweets.forEach((tweet, postion) => {
                 tempTweet = tweet.toLowerCase();
                 if(tweet.search("RT")){
                     if(tempTweet.search(tempSymbol) !== -1 || tempTweet.search(tempName) !== -1) {
                         tempArray.push(tweet);
+                        temp_tweets_id.push(tweets_id[postion]);
                     }
                 }
             })
             if(tempArray.length > 0){
-                database_data = {[`post`]: tempArray};
+                database_data = {[`post`]: tempArray,['id']: temp_tweets_id};
                 try{
                     this.#firestore_db.collection(`Twitter`).doc(cryptoNames[index]).set(database_data, {merge:true}).then();
                 }

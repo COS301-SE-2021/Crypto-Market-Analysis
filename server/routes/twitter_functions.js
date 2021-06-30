@@ -1,12 +1,13 @@
-const database = require("./FirestoreDB");
-const Twitter = require("../social_media_sites/Twitter");
-const twitter = new Twitter();
-const db = database.db;
+const Database = require('../database/Database');
+const firestore_db = new Database().getInstance();
+//const Twitter = require("../social_media_sites/Twitter");
+//const twitter = new Twitter();
 
 const getAllTweets = async () => {
     let tweet_id = null;
     let blockquotes = [];
-    await db.collection(`Twitter`).get().then((snapshot) =>{
+    console.log(await firestore_db.fetch(`Twitter`));
+    /*await db.collection(`Twitter`).get().then((snapshot) =>{
         snapshot.docs.forEach((doc) => {
             tweet_id = (doc.data().id);
             tweet_id.forEach((id) => {
@@ -15,7 +16,7 @@ const getAllTweets = async () => {
         });
     });
     console.log(blockquotes);
-    return blockquotes;
+    return blockquotes;*/
 }
 
 getAllTweets().then();

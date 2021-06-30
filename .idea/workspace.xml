@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/server/routes/twitter.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/routes/twitter_functions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/user.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/social_media_sites/Twitter.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/social_media_sites/Twitter.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -198,14 +202,16 @@
       <recent name="C:\Users\Zeeshan\OneDrive - University of Pretoria\Documents\BIT\Year 4\Semester 1\COS 301\Projects\Crypto-Market-Analysis\server\test\functional" />
     </key>
   </component>
-  <component name="RunManager" selected="Jest.api.spec.js">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+  <component name="RunManager" selected="Node.js.twitter_functions.js">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -218,16 +224,6 @@
       <envs />
       <scope-kind value="TEST_FILE" />
       <test-file value="$PROJECT_DIR$/client/src/components/___tests___/CardsTweets.test.js" />
-      <method v="2" />
-    </configuration>
-    <configuration name="POST /user/analyse.Positive input. returns status code 200" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/client/node_modules/react-scripts" />
-      <working-dir value="$PROJECT_DIR$/client" />
-      <envs />
-      <scope-kind value="TEST_FILE" />
-      <test-file value="$PROJECT_DIR$/client/src/components/___tests___/CardsStats.test.js" />
       <method v="2" />
     </configuration>
     <configuration name="api.spec.js" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
@@ -269,6 +265,9 @@
       <test-file value="$PROJECT_DIR$/server/_tests_/twitter.spec.js" />
       <method v="2" />
     </configuration>
+    <configuration name="twitter_functions.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/server/routes/twitter_functions.js" working-dir="$PROJECT_DIR$/server/routes">
+      <method v="2" />
+    </configuration>
     <configuration name="test" type="mocha-javascript-test-runner">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -284,15 +283,16 @@
     </configuration>
     <list>
       <item itemvalue="Jest.npm test" />
-      <item itemvalue="Jest.POST /user/analyse.Positive input. returns status code 200" />
       <item itemvalue="Jest.api.spec.js" />
       <item itemvalue="Jest.twitter.spec.js" />
       <item itemvalue="Jest.CardsTweets.test.js" />
       <item itemvalue="Jest.register.test.js" />
       <item itemvalue="Mocha.test" />
+      <item itemvalue="Node.js.twitter_functions.js" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Node.js.twitter_functions.js" />
         <item itemvalue="Jest.api.spec.js" />
         <item itemvalue="Jest.register.test.js" />
         <item itemvalue="Jest.CardsTweets.test.js" />
@@ -305,13 +305,6 @@
     <configuration />
   </component>
   <component name="TaskManager">
-    <task id="LOCAL-00001" summary="Added concurrent server and client links">
-      <created>1622409206950</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1622409206950</updated>
-    </task>
     <task active="true" id="Default" summary="Default task">
       <changelist id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="" />
       <created>1622463494048</created>
@@ -332,6 +325,7 @@
       <workItem from="1623954741099" duration="533000" />
       <workItem from="1624011139590" duration="6878000" />
       <workItem from="1624887564298" duration="6280000" />
+      <workItem from="1625048088939" duration="1096000" />
     </task>
     <task id="LOCAL-00002" summary="Added partial api endpoint tests">
       <created>1622485455332</created>
@@ -669,7 +663,14 @@
       <option name="project" value="LOCAL" />
       <updated>1624976439485</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Modified Twitter Methods">
+      <created>1624984758868</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1624984758869</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -755,7 +756,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="app.js fix" />
     <MESSAGE value="adding email/auth token page to route" />
     <MESSAGE value="login and register" />
     <MESSAGE value="token component" />
@@ -780,7 +780,8 @@
     <MESSAGE value="job" />
     <MESSAGE value="Partial implementation of the oembed API" />
     <MESSAGE value="Implemented getEmbeddedTweet" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented getEmbeddedTweet" />
+    <MESSAGE value="Modified Twitter Methods" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modified Twitter Methods" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -134,6 +134,7 @@ class Twitter {
         let database_data = null;
         for(const [index, value] of cryptoSymbols.entries()){
             tempArray = [];
+            temp_tweets_id = [];
             tempSymbol = value.toLowerCase();
             tempName = cryptoNames[index].toLowerCase();
             tweets.forEach((tweet, postion) => {
@@ -157,5 +158,8 @@ class Twitter {
         }
     }
 }
+
+const twitter = new Twitter();
+twitter.getUserTimeline("mojohnnylerato@gmail.com", ["elonmusk"]);
 
 module.exports = Twitter;

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const analysis = require('./analysisFunction');
 const userFunctions =require('./userFunctions')
-const database = require("./FirestoreDB")
+const database = require("./FirestoreDB");
 const db = database.db;
 
 router.post("/getUserTweets", async (request,response)=>{

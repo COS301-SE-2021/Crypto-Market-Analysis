@@ -15,7 +15,6 @@ const extract_emoji = async (post)=>{
 const analyseTextandEmoji = async (post)=>{
     try{
          const obj= await sentiment(post);
-         console.log(obj.score)
         return obj.score;
        }
     catch (err){
@@ -29,10 +28,22 @@ const convertion = async (post)=>{
     }
     let data= extract_emoji(post);
     data.then(s=>{
+
         for(const i of s)
         {
-            console.log(sentiment(i))
+            console.log("Before")
+            console.log(post)
+            const emoji_object= name.emoji;
+            for (let k in emoji_object) {
+                 if(emoji_object[k]==i)
+                 {
+                     post =post.replace(i,k);
+                 }
+            }
+            console.log("After")
+            console.log(post)
         }
+
     });
     const contractions = aposToLexForm(post);//convert word to contractions
     const cLcase = contractions.toLowerCase();//convert to lowercases

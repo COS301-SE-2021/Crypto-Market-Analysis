@@ -5,10 +5,22 @@ const aposToLexForm = require('apos-to-lex-form');
 const spellCorrector = new SpellCorrector();
 const a = require('extract-emoji');
 const emojiUnicode = require("emoji-unicode")
+const name = require("emoji-name-map");
+var sentiment = require('node-sentiment');
 spellCorrector.loadDictionary();
 const extract_emoji = async (post)=>{
     const arr = a.extractEmoji(post);
     return arr;
+}
+const analyseTextandEmoji = async (post)=>{
+    try{
+         const obj= await sentiment(post);
+         console.log(obj.score)
+        return obj.score;
+       }
+    catch (err){
+        return 0;
+    }
 }
 const convertion = async (post)=>{
     if(post==null)
@@ -19,13 +31,7 @@ const convertion = async (post)=>{
     data.then(s=>{
         for(const i of s)
         {
-            console.log(emojiUnicode(i));
-            let unicodeText= emojiUnicode(i)
-            let unicodeChar = JSON.parse(`["\\u${unicodeText}"]`)[0];
-            console.log(unicodeChar)
-            let unicodeToStr = unicodeText.codePointAt(0).toString(16)
-            console.log(unicodeToStr)
-            post = post.replace(i, "");
+            console.log(sentiment(i))
         }
     });
     const contractions = aposToLexForm(post);//convert word to contractions
@@ -73,4 +79,4 @@ const analysewords = async (filteredwords)=>{
 
 }
 
-module.exports = {analysewords, convertion,spellingc,splits,extract_emoji }
+module.exports = {analysewords, convertion,spellingc,splits,extract_emoji ,analyseTextandEmoji}

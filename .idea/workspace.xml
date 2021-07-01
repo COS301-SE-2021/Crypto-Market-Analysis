@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="components not rendering fixed">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/server.js" afterDir="false" />
+    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="4chan filter">
+      <change beforePath="$PROJECT_DIR$/server/social_media_sites/chan.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/social_media_sites/chan.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +25,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feature-dev-collaborate" />
+        <entry key="$PROJECT_DIR$" value="4chan" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -199,6 +198,19 @@
     </key>
   </component>
   <component name="RunManager" selected="Jest.api.spec.js">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="CardsTweets.test.js" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
@@ -292,13 +304,6 @@
     <configuration />
   </component>
   <component name="TaskManager">
-    <task id="LOCAL-00001" summary="Added concurrent server and client links">
-      <created>1622409206950</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1622409206950</updated>
-    </task>
     <task active="true" id="Default" summary="Default task">
       <changelist id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="" />
       <created>1622463494048</created>
@@ -319,62 +324,6 @@
       <workItem from="1623954741099" duration="533000" />
       <workItem from="1624011139590" duration="6878000" />
       <workItem from="1624887564298" duration="6280000" />
-    </task>
-    <task id="LOCAL-00002" summary="Added partial api endpoint tests">
-      <created>1622485455332</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1622485455332</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Added tests for signup endpoint in user">
-      <created>1622490157893</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1622490157893</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Added a deleteUser module to abstract delete function from the database. Also added tests for the deleteUser function and delete endpoint.">
-      <created>1622545975335</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1622545975335</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Added Additional Tests">
-      <created>1622558205015</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1622558205015</updated>
-    </task>
-    <task id="LOCAL-00006" summary="http request from login to api with form parameters">
-      <created>1622651447020</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1622651447020</updated>
-    </task>
-    <task id="LOCAL-00007" summary="http request from register to api with form parameters">
-      <created>1622651476124</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1622651476124</updated>
-    </task>
-    <task id="LOCAL-00008" summary="app.js fix">
-      <created>1622651504347</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1622651504347</updated>
-    </task>
-    <task id="LOCAL-00009" summary="adding email/auth token page to route">
-      <created>1622653879025</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1622653879025</updated>
     </task>
     <task id="LOCAL-00010" summary="login and register">
       <created>1622653958019</created>
@@ -642,7 +591,84 @@
       <option name="project" value="LOCAL" />
       <updated>1624918131933</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="job">
+      <created>1625127109324</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1625127109324</updated>
+    </task>
+    <task id="LOCAL-00049" summary="4chan">
+      <created>1625139189773</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1625139189773</updated>
+    </task>
+    <task id="LOCAL-00050" summary="4chan">
+      <created>1625142618690</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1625142618691</updated>
+    </task>
+    <task id="LOCAL-00051" summary="4chan">
+      <created>1625142657276</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1625142657276</updated>
+    </task>
+    <task id="LOCAL-00052" summary="4chan">
+      <created>1625142687045</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1625142687045</updated>
+    </task>
+    <task id="LOCAL-00053" summary="4chan">
+      <created>1625142721725</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1625142721725</updated>
+    </task>
+    <task id="LOCAL-00054" summary="4chan">
+      <created>1625142745122</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1625142745122</updated>
+    </task>
+    <task id="LOCAL-00055" summary="4chan">
+      <created>1625142907763</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1625142907763</updated>
+    </task>
+    <task id="LOCAL-00056" summary="4chan">
+      <created>1625143495343</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1625143495343</updated>
+    </task>
+    <task id="LOCAL-00057" summary="4chan filter">
+      <created>1625150063719</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1625150063719</updated>
+    </task>
+    <task id="LOCAL-00058" summary="4chan filter">
+      <created>1625150883583</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1625150883583</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -728,8 +754,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="http request from login to api with form parameters" />
-    <MESSAGE value="http request from register to api with form parameters" />
     <MESSAGE value="app.js fix" />
     <MESSAGE value="adding email/auth token page to route" />
     <MESSAGE value="login and register" />
@@ -753,7 +777,9 @@
     <MESSAGE value="Fixed followSocialMedia and added tests" />
     <MESSAGE value="comp" />
     <MESSAGE value="job" />
-    <option name="LAST_COMMIT_MESSAGE" value="job" />
+    <MESSAGE value="4chan" />
+    <MESSAGE value="4chan filter" />
+    <option name="LAST_COMMIT_MESSAGE" value="4chan filter" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

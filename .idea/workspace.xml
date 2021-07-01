@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="4chan">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="4chan filter">
       <change beforePath="$PROJECT_DIR$/server/social_media_sites/4chan.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/social_media_sites/4chan.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -325,13 +324,6 @@
       <workItem from="1623954741099" duration="533000" />
       <workItem from="1624011139590" duration="6878000" />
       <workItem from="1624887564298" duration="6280000" />
-    </task>
-    <task id="LOCAL-00008" summary="app.js fix">
-      <created>1622651504347</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1622651504347</updated>
     </task>
     <task id="LOCAL-00009" summary="adding email/auth token page to route">
       <created>1622653879025</created>
@@ -669,7 +661,14 @@
       <option name="project" value="LOCAL" />
       <updated>1625143495343</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="4chan filter">
+      <created>1625150063719</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1625150063719</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -755,7 +754,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="http request from register to api with form parameters" />
     <MESSAGE value="app.js fix" />
     <MESSAGE value="adding email/auth token page to route" />
     <MESSAGE value="login and register" />
@@ -780,7 +778,8 @@
     <MESSAGE value="comp" />
     <MESSAGE value="job" />
     <MESSAGE value="4chan" />
-    <option name="LAST_COMMIT_MESSAGE" value="4chan" />
+    <MESSAGE value="4chan filter" />
+    <option name="LAST_COMMIT_MESSAGE" value="4chan filter" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

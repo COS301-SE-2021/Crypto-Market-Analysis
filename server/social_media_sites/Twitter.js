@@ -151,7 +151,7 @@ class Twitter {
             return true;
         });
 
-        if(cryptoSymbols !== null && cryptoNames !== null && cryptoSymbols.length === cryptoSymbols.length){
+        if(cryptoSymbols !== null && cryptoNames !== null && cryptoNames.length === cryptoSymbols.length){
             for(const [index, value] of cryptoSymbols.entries()){
                 tempArray = [];
                 temp_tweets_id = [];

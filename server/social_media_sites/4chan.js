@@ -41,3 +41,10 @@ const crawlCatalogue = async() => {
                     return data;
 
                 });
+                return formatted;
+            });
+        return threads;
+    } catch(err) {
+        console.log(err);
+    }
+}

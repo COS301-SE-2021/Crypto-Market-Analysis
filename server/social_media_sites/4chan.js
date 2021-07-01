@@ -51,10 +51,20 @@ const crawlCatalogue = async() => {
 
 crawlCatalogue().then(response => {
     const flat= response.map(element => element.op);
-    flat.forEach(item => console.log(item));
-
+    cryptos = ['bitcoin','ethereum','tether','binance','cardano','dogecoin','xrp','polkadot','litecoin','vechain','monero','btc','eth','usdt','bnb','ada','doge','ripple','chainlink','link','vet','xmr','shib'];
+    let fin = [];
+    flat.forEach(element => {
+        element.replace(/\b((?:[a-z][\w-]+:(?:\/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/g,'');
+        element.replace(/^(?:[a-z]*?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/gi,'');
+        cryptos.forEach(coin => {
+            if(element.toLowerCase().includes(coin))
+            {
+                fin.push(element);
+            }
+        })
+    });
+    uniqueArray = fin.filter(function(item, pos) {
+        return fin.indexOf(item) == pos;
+    })
+    console.log(uniqueArray);
 }).catch(e => console.log(e));
-
-
-
-

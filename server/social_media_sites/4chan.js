@@ -51,5 +51,10 @@ const crawlCatalogue = async() => {
 
 crawlCatalogue().then(response => {
     const flat= response.map(element => element.op);
-    console.log(flat);
+    flat.forEach(item => console.log(item));
+
 }).catch(e => console.log(e));
+
+
+
+

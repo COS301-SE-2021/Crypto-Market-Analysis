@@ -10,7 +10,7 @@ const url = (board) => {
 }
 
 class chan {
-    #firestore_db = new Database().getInstance();
+    firestore_db = new Database().getInstance();
 
     crawlCatalogue = async() => {
         console.log("Starting crawl process for /" + board + "/");
@@ -76,6 +76,6 @@ chans.crawlCatalogue().then(response => {
         return fin.indexOf(item) == pos;
     })
     console.log(uniqueArray);
-    this.#firestore_db.save('4chan_data','biz','posts',empty);
-    this.#firestore_db.save('4chan_data','biz','posts',uniqueArray);
+    chans.firestore_db.save('4chan_data','biz','posts',empty);
+    chans.firestore_db.save('4chan_data','biz','posts',uniqueArray);
 }).catch(e => console.log(e));

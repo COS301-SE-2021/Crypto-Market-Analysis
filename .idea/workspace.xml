@@ -3,6 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/twitter.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/twitter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/twitter_functions.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/user.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/social_media_sites/Twitter.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/social_media_sites/Twitter.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -303,14 +306,7 @@
       <workItem from="1624887564298" duration="6280000" />
       <workItem from="1625048088939" duration="8555000" />
       <workItem from="1625137849644" duration="3310000" />
-      <workItem from="1625145919213" duration="5198000" />
-    </task>
-    <task id="LOCAL-00004" summary="Added a deleteUser module to abstract delete function from the database. Also added tests for the deleteUser function and delete endpoint.">
-      <created>1622545975335</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1622545975335</updated>
+      <workItem from="1625145919213" duration="7149000" />
     </task>
     <task id="LOCAL-00005" summary="Added Additional Tests">
       <created>1622558205015</created>
@@ -648,7 +644,14 @@
       <option name="project" value="LOCAL" />
       <updated>1625071042253</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="Fixed getAllTweets function">
+      <created>1625156827552</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1625156827552</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -734,7 +737,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="token component" />
     <MESSAGE value="Changed user endpoints to previous methods and removed user.test.js and user_functions.js file" />
     <MESSAGE value="Made changes to user.js" />
     <MESSAGE value="Changed user.js" />
@@ -759,7 +761,8 @@
     <MESSAGE value="Modified Twitter Methods" />
     <MESSAGE value="Added getAllTweets function" />
     <MESSAGE value="Changed twitter functions to adapt new Database method" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed twitter functions to adapt new Database method" />
+    <MESSAGE value="Fixed getAllTweets function" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed getAllTweets function" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

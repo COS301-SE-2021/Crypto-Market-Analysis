@@ -21,75 +21,21 @@ class Twitter {
     }
 
     async getAllTweets(){
-        let tweet_id = null;
+        let tweets_id = null;
         let blockquotes = [];
         const snapshot = await this.#firestore_db.fetch(`Twitter`);
         const docs = await snapshot.docs;
-        /*for(let i = 0; i < docs.length; i++){
-            tweet_id = docs[i].data().id;
-            if(tweet_id !== undefined){
-                for(let z = 0; z < tweet_id.length; z++){
-                    blockquotes.push(await this.getEmbeddedTweet(tweet_id[z]));
+        for(let i = 0; i < docs.length; i++){
+            tweets_id = docs[i].data().id;
+            if(tweets_id !== undefined){
+                for(let z = 0; z < tweets_id.length; z++){
+                    blockquotes.push(await this.getEmbeddedTweet(tweets_id[z]));
                 }
             }
-        }*/
-        console.log(docs);
-        /*for(let doc in docs){
-            console.log(doc);
-            tweet_id = doc.data().id;
-            if(tweet_id !== undefined){
-                for(let tweet in tweet_id){
-                    blockquotes.push(await this.getEmbeddedTweet(tweet));
-                }
-            }
-        }*/
-
-
-       /* docs.map((doc) => {
-            tweet_id = doc.data().id;
-            if(tweet_id !== undefined){
-                tweet_id.map(async (tweet) => {
-                    blockquotes.push(await this.getEmbeddedTweet(tweet));
-                });
-            }
-        })*/
-        /*let i =0;
-        docs.forEach(doc => {
-            tweet_id = doc.data().id;
-            if(tweet_id !== undefined){
-                tweet_id.forEach((tweet) => {
-                    this.getEmbeddedTweet(tweet).then((res) => {
-                        blockquotes.push(res);
-                        if(i === docs.length){
-                            console.log(res);
-                            return blockquotes;
-                        }
-                    });
-                });
-            }
-            i++;
-        })*/
+        }
         return blockquotes;
-        //let i =0;
-        /*return await snapshot.docs.forEach((doc) => {
-            tweet_id = (doc.data().id);
-            if(tweet_id !== undefined) {
-                tweet_id.forEach(async (id) => {
-                    await this.getEmbeddedTweet(id).then((res) => {
-                        blockquotes.push(res);
-                    });
-                });
-                if(i === snapshot.docs.length-1){
-                    //console.log(`Inside index`);
-                    return Promise.resolve(blockquotes);
-                }
-            }
-            i++;
-        });*/
-        //console.log(`Outside`);
-        //console.log(blockquotes);
-        // return blockquotes;
     }
+
     /** This function gets the tweet id as a parameter and returns an html formatted response to display the tweet.
      * @param {String} tweet_id The id of the tweet.
      * @param {String} screen_name Optional screen name of the user.
@@ -103,9 +49,10 @@ class Twitter {
             return data.html;
         }
         catch (error){
-            console.log(`An error occurred while getting the embedded tweets: ${error}`);
+            await Promise.reject(`An error occurred while getting the embedded tweets: ${error}`);
         }
     }
+
     /** Gets the id's of the screen names of the users passed as a parameter.
      * @param {[String]} users An array of the screen name of twitter users.
      * */
@@ -223,7 +170,6 @@ class Twitter {
                     try{
                         this.#firestore_db.save(`Twitter`, cryptoNames[index], `post`, tempArray);
                         this.#firestore_db.save(`Twitter`, cryptoNames[index], `id`, temp_tweets_id);
-                        //this.#firestore_db.collection(`Twitter`).doc(cryptoNames[index]).set(database_data, {merge:true}).then();
                     }
                     catch(e) {
                         console.error(`An error occurred while connecting to the database: \n${e}`);
@@ -236,15 +182,5 @@ class Twitter {
         return Promise.reject(new Error(`User is not following any cryptos`));
     }
 }
-
-const twitter = new Twitter();
-const users = [`MichaelSuppo`, `elonmusk`];
-twitter.getUserTimeline(`alekarzeeshan92@gmail.com`, users);
-twitter.getAllTweets().then(res => {
-    console.log(`response ${res}`);
-});
-/*twitter.getEmbeddedTweet("1409957796808958000", "MichaelSuppo").then((res) => {
-    console.log(res);
-})*/
 
 module.exports = Twitter;

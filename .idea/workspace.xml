@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/database/Database.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/database/Database.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/twitter_functions.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/twitter_functions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/social_media_sites/Twitter.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/social_media_sites/Twitter.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -55,8 +53,8 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/server/routes/user.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/server/package.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/server/routes/user.js" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -201,19 +199,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Node.js.Twitter.js">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="CardsTweets.test.js" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
@@ -316,14 +301,9 @@
       <workItem from="1623954741099" duration="533000" />
       <workItem from="1624011139590" duration="6878000" />
       <workItem from="1624887564298" duration="6280000" />
-      <workItem from="1625048088939" duration="8492000" />
-    </task>
-    <task id="LOCAL-00003" summary="Added tests for signup endpoint in user">
-      <created>1622490157893</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1622490157893</updated>
+      <workItem from="1625048088939" duration="8555000" />
+      <workItem from="1625137849644" duration="3310000" />
+      <workItem from="1625145919213" duration="5198000" />
     </task>
     <task id="LOCAL-00004" summary="Added a deleteUser module to abstract delete function from the database. Also added tests for the deleteUser function and delete endpoint.">
       <created>1622545975335</created>
@@ -661,7 +641,14 @@
       <option name="project" value="LOCAL" />
       <updated>1625049455307</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="Changed twitter functions to adapt new Database method">
+      <created>1625071042252</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1625071042253</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -747,7 +734,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="login and register" />
     <MESSAGE value="token component" />
     <MESSAGE value="Changed user endpoints to previous methods and removed user.test.js and user_functions.js file" />
     <MESSAGE value="Made changes to user.js" />
@@ -772,7 +758,8 @@
     <MESSAGE value="Implemented getEmbeddedTweet" />
     <MESSAGE value="Modified Twitter Methods" />
     <MESSAGE value="Added getAllTweets function" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added getAllTweets function" />
+    <MESSAGE value="Changed twitter functions to adapt new Database method" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed twitter functions to adapt new Database method" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -1,8 +1,6 @@
 const Twit = require('twit');
 const fetch = require('node-fetch');
-//const admin = require('firebase-admin');
 const Database = require(`../database/Database`);
-//const serviceAccount = require('../database/firebase.json');
 const consumer_key = 'GGXUovWNfvGvagGakjfTzDfe1';
 const consumer_secret = 'UMG68Qym8K7vvsdtlEEIn0vRpyNj6Mfbmz6VUKMC3zn7tQNiat';
 const access_token = '1401939250858319875-zS8LTvSWz5UspdmaF63hxzpkLv0lbE';
@@ -19,10 +17,6 @@ class Twitter {
     #oembed_url = "https://publish.twitter.com/oembed"
 
     constructor(){
-        /*admin.initializeApp({
-            credential: admin.credential.cert(serviceAccount)
-        });*/
-        //this.#firestore_db = admin.firestore();
         this.#firestore_db = new Database().getInstance();
     }
 
@@ -30,14 +24,71 @@ class Twitter {
         let tweet_id = null;
         let blockquotes = [];
         const snapshot = await this.#firestore_db.fetch(`Twitter`);
-        snapshot.docs.forEach((doc) => {
-            tweet_id = (doc.data().id);
-            tweet_id.forEach(async (id) => {
-                blockquotes.push(await this.getEmbeddedTweet(id));
-            });
-        });
-        console.log(blockquotes);
+        const docs = await snapshot.docs;
+        /*for(let i = 0; i < docs.length; i++){
+            tweet_id = docs[i].data().id;
+            if(tweet_id !== undefined){
+                for(let z = 0; z < tweet_id.length; z++){
+                    blockquotes.push(await this.getEmbeddedTweet(tweet_id[z]));
+                }
+            }
+        }*/
+        console.log(docs);
+        /*for(let doc in docs){
+            console.log(doc);
+            tweet_id = doc.data().id;
+            if(tweet_id !== undefined){
+                for(let tweet in tweet_id){
+                    blockquotes.push(await this.getEmbeddedTweet(tweet));
+                }
+            }
+        }*/
+
+
+       /* docs.map((doc) => {
+            tweet_id = doc.data().id;
+            if(tweet_id !== undefined){
+                tweet_id.map(async (tweet) => {
+                    blockquotes.push(await this.getEmbeddedTweet(tweet));
+                });
+            }
+        })*/
+        /*let i =0;
+        docs.forEach(doc => {
+            tweet_id = doc.data().id;
+            if(tweet_id !== undefined){
+                tweet_id.forEach((tweet) => {
+                    this.getEmbeddedTweet(tweet).then((res) => {
+                        blockquotes.push(res);
+                        if(i === docs.length){
+                            console.log(res);
+                            return blockquotes;
+                        }
+                    });
+                });
+            }
+            i++;
+        })*/
         return blockquotes;
+        //let i =0;
+        /*return await snapshot.docs.forEach((doc) => {
+            tweet_id = (doc.data().id);
+            if(tweet_id !== undefined) {
+                tweet_id.forEach(async (id) => {
+                    await this.getEmbeddedTweet(id).then((res) => {
+                        blockquotes.push(res);
+                    });
+                });
+                if(i === snapshot.docs.length-1){
+                    //console.log(`Inside index`);
+                    return Promise.resolve(blockquotes);
+                }
+            }
+            i++;
+        });*/
+        //console.log(`Outside`);
+        //console.log(blockquotes);
+        // return blockquotes;
     }
     /** This function gets the tweet id as a parameter and returns an html formatted response to display the tweet.
      * @param {String} tweet_id The id of the tweet.
@@ -118,7 +169,8 @@ class Twitter {
                             let tweets = [];
                             let tweets_id = [];
                             data.forEach(tweet => {
-                                tweets_id.push(tweet.id);
+                                //console.log(tweet.id_str);
+                                tweets_id.push(tweet.id_str);
                                 tweets.push(tweet.text);
                             });
                             tweets = await this.filterData(email, tweets, tweets_id);
@@ -186,10 +238,12 @@ class Twitter {
 }
 
 const twitter = new Twitter();
-/*const users = [`MichaelSuppo`, `elonmusk`];
-twitter.getUserTimeline(`alekarzeeshan92@gmail.com`, users);*/
-twitter.getAllTweets().then();
-/*twitter.getEmbeddedTweet("1408380216653844480").then((res) => {
+const users = [`MichaelSuppo`, `elonmusk`];
+twitter.getUserTimeline(`alekarzeeshan92@gmail.com`, users);
+twitter.getAllTweets().then(res => {
+    console.log(`response ${res}`);
+});
+/*twitter.getEmbeddedTweet("1409957796808958000", "MichaelSuppo").then((res) => {
     console.log(res);
 })*/
 

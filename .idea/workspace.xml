@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="comp">
-      <change beforePath="$PROJECT_DIR$/client/src/components/Home/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Home/Home.js" afterDir="false" />
+    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="4chan filter">
+      <change beforePath="$PROJECT_DIR$/server/social_media_sites/chan.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/social_media_sites/chan.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +25,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="user-develop" />
+        <entry key="$PROJECT_DIR$" value="4chan" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -185,7 +185,7 @@
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/server/node_modules/jest" />
+    <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/client/node_modules/react-scripts" />
     <property name="nodejs.mocha.mocha_node_package_dir" value="$PROJECT_DIR$/server/node_modules/mocha" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="settings.editor.selected.configurable" value="settings.github" />
@@ -198,70 +198,37 @@
     </key>
   </component>
   <component name="RunManager" selected="Jest.api.spec.js">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="CardsTweets.test.js" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/server" />
+      <envs />
+      <scope-kind value="TEST_FILE" />
+      <test-file value="$PROJECT_DIR$/client/src/components/___tests___/CardsTweets.test.js" />
+      <method v="2" />
+    </configuration>
     <configuration name="POST /user/analyse.Positive input. returns status code 200" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$/server" />
+      <jest-package value="$PROJECT_DIR$/client/node_modules/react-scripts" />
+      <working-dir value="$PROJECT_DIR$/client" />
       <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/server/_tests_/api.spec.js" />
-      <test-names>
-        <test-name value="POST /user/analyse" />
-        <test-name value="Positive input. returns status code 200" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="POST /user/analyse.Tries to send an empty request. Returns status code 401" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$/server" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/server/_tests_/api.spec.js" />
-      <test-names>
-        <test-name value="POST /user/analyse" />
-        <test-name value="Tries to send an empty request. Returns status code 401" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="POST /user/getUserTweets" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$/server" />
-      <envs />
-      <scope-kind value="SUITE" />
-      <test-file value="$PROJECT_DIR$/server/_tests_/api.spec.js" />
-      <test-names>
-        <test-name value="POST /user/getUserTweets" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="POST /user/getUserTweets.Positive input. Returns 200" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$/server" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/server/_tests_/api.spec.js" />
-      <test-names>
-        <test-name value="POST /user/getUserTweets" />
-        <test-name value="Positive input. Returns 200" />
-      </test-names>
+      <scope-kind value="TEST_FILE" />
+      <test-file value="$PROJECT_DIR$/client/src/components/___tests___/CardsStats.test.js" />
       <method v="2" />
     </configuration>
     <configuration name="api.spec.js" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
@@ -282,6 +249,26 @@
       <scope-kind value="ALL" />
       <method v="2" />
     </configuration>
+    <configuration name="register.test.js" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/client/node_modules/react-scripts" />
+      <working-dir value="$PROJECT_DIR$/client" />
+      <envs />
+      <scope-kind value="TEST_FILE" />
+      <test-file value="$PROJECT_DIR$/client/src/components/___tests___/register.test.js" />
+      <method v="2" />
+    </configuration>
+    <configuration name="twitter.spec.js" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/server" />
+      <envs />
+      <scope-kind value="TEST_FILE" />
+      <test-file value="$PROJECT_DIR$/server/_tests_/twitter.spec.js" />
+      <method v="2" />
+    </configuration>
     <configuration name="test" type="mocha-javascript-test-runner">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -297,34 +284,26 @@
     <list>
       <item itemvalue="Jest.npm test" />
       <item itemvalue="Jest.POST /user/analyse.Positive input. returns status code 200" />
-      <item itemvalue="Jest.POST /user/analyse.Tries to send an empty request. Returns status code 401" />
       <item itemvalue="Jest.api.spec.js" />
-      <item itemvalue="Jest.POST /user/getUserTweets" />
-      <item itemvalue="Jest.POST /user/getUserTweets.Positive input. Returns 200" />
+      <item itemvalue="Jest.twitter.spec.js" />
+      <item itemvalue="Jest.CardsTweets.test.js" />
+      <item itemvalue="Jest.register.test.js" />
       <item itemvalue="Mocha.test" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Jest.register.test.js" />
+        <item itemvalue="Jest.CardsTweets.test.js" />
         <item itemvalue="Jest.api.spec.js" />
-        <item itemvalue="Jest.POST /user/getUserTweets.Positive input. Returns 200" />
-        <item itemvalue="Jest.POST /user/getUserTweets" />
-        <item itemvalue="Jest.POST /user/analyse.Tries to send an empty request. Returns status code 401" />
-        <item itemvalue="Jest.POST /user/analyse.Positive input. returns status code 200" />
+        <item itemvalue="Jest.twitter.spec.js" />
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="false" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
-    <task id="LOCAL-00001" summary="Added concurrent server and client links">
-      <created>1622409206950</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1622409206950</updated>
-    </task>
     <task active="true" id="Default" summary="Default task">
       <changelist id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="" />
       <created>1622463494048</created>
@@ -344,62 +323,7 @@
       <workItem from="1623932573749" duration="1003000" />
       <workItem from="1623954741099" duration="533000" />
       <workItem from="1624011139590" duration="6878000" />
-    </task>
-    <task id="LOCAL-00002" summary="Added partial api endpoint tests">
-      <created>1622485455332</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1622485455332</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Added tests for signup endpoint in user">
-      <created>1622490157893</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1622490157893</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Added a deleteUser module to abstract delete function from the database. Also added tests for the deleteUser function and delete endpoint.">
-      <created>1622545975335</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1622545975335</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Added Additional Tests">
-      <created>1622558205015</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1622558205015</updated>
-    </task>
-    <task id="LOCAL-00006" summary="http request from login to api with form parameters">
-      <created>1622651447020</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1622651447020</updated>
-    </task>
-    <task id="LOCAL-00007" summary="http request from register to api with form parameters">
-      <created>1622651476124</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1622651476124</updated>
-    </task>
-    <task id="LOCAL-00008" summary="app.js fix">
-      <created>1622651504347</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1622651504347</updated>
-    </task>
-    <task id="LOCAL-00009" summary="adding email/auth token page to route">
-      <created>1622653879025</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1622653879025</updated>
+      <workItem from="1624887564298" duration="6280000" />
     </task>
     <task id="LOCAL-00010" summary="login and register">
       <created>1622653958019</created>
@@ -513,12 +437,12 @@
       <option name="project" value="LOCAL" />
       <updated>1622783013512</updated>
     </task>
-    <task id="LOCAL-00026" summary="working code">
-      <created>1622783783835</created>
+    <task id="LOCAL-00026" summary=" code">
+      <created>1622837330793</created>
       <option name="number" value="00026" />
       <option name="presentableId" value="LOCAL-00026" />
       <option name="project" value="LOCAL" />
-      <updated>1622783783835</updated>
+      <updated>1622837330793</updated>
     </task>
     <task id="LOCAL-00027" summary="edited followcrypto and fixed firebase issue">
       <created>1623553961024</created>
@@ -618,7 +542,133 @@
       <option name="project" value="LOCAL" />
       <updated>1624829258446</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="comp">
+      <created>1624829330095</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1624829330095</updated>
+    </task>
+    <task id="LOCAL-00042" summary="comp">
+      <created>1624829353385</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1624829353385</updated>
+    </task>
+    <task id="LOCAL-00043" summary="comp">
+      <created>1624829382995</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1624829382995</updated>
+    </task>
+    <task id="LOCAL-00044" summary="comp">
+      <created>1624829394482</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1624829394482</updated>
+    </task>
+    <task id="LOCAL-00045" summary="comp">
+      <created>1624829420559</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1624829420559</updated>
+    </task>
+    <task id="LOCAL-00046" summary="comp">
+      <created>1624829446060</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1624829446060</updated>
+    </task>
+    <task id="LOCAL-00047" summary="job">
+      <created>1624918131932</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1624918131933</updated>
+    </task>
+    <task id="LOCAL-00048" summary="job">
+      <created>1625127109324</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1625127109324</updated>
+    </task>
+    <task id="LOCAL-00049" summary="4chan">
+      <created>1625139189773</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1625139189773</updated>
+    </task>
+    <task id="LOCAL-00050" summary="4chan">
+      <created>1625142618690</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1625142618691</updated>
+    </task>
+    <task id="LOCAL-00051" summary="4chan">
+      <created>1625142657276</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1625142657276</updated>
+    </task>
+    <task id="LOCAL-00052" summary="4chan">
+      <created>1625142687045</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1625142687045</updated>
+    </task>
+    <task id="LOCAL-00053" summary="4chan">
+      <created>1625142721725</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1625142721725</updated>
+    </task>
+    <task id="LOCAL-00054" summary="4chan">
+      <created>1625142745122</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1625142745122</updated>
+    </task>
+    <task id="LOCAL-00055" summary="4chan">
+      <created>1625142907763</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1625142907763</updated>
+    </task>
+    <task id="LOCAL-00056" summary="4chan">
+      <created>1625143495343</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1625143495343</updated>
+    </task>
+    <task id="LOCAL-00057" summary="4chan filter">
+      <created>1625150063719</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1625150063719</updated>
+    </task>
+    <task id="LOCAL-00058" summary="4chan filter">
+      <created>1625150883583</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1625150883583</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -686,7 +736,7 @@
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
   </component>
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.env" />
@@ -704,9 +754,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added Additional Tests" />
-    <MESSAGE value="http request from login to api with form parameters" />
-    <MESSAGE value="http request from register to api with form parameters" />
     <MESSAGE value="app.js fix" />
     <MESSAGE value="adding email/auth token page to route" />
     <MESSAGE value="login and register" />
@@ -729,7 +776,10 @@
     <MESSAGE value="Fixed followCrypto and added tests" />
     <MESSAGE value="Fixed followSocialMedia and added tests" />
     <MESSAGE value="comp" />
-    <option name="LAST_COMMIT_MESSAGE" value="comp" />
+    <MESSAGE value="job" />
+    <MESSAGE value="4chan" />
+    <MESSAGE value="4chan filter" />
+    <option name="LAST_COMMIT_MESSAGE" value="4chan filter" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -19,7 +19,6 @@ export default function Signup() {
             return setError("Password Not the same!")
         }
 
-
         try {
             setError("")
             setLoading(true)

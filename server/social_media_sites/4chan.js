@@ -48,3 +48,8 @@ const crawlCatalogue = async() => {
         console.log(err);
     }
 }
+
+crawlCatalogue().then(response => {
+    const flat= response.map(element => element.op);
+    console.log(flat);
+}).catch(e => console.log(e));

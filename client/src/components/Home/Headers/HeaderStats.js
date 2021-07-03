@@ -62,40 +62,21 @@ export default function HeaderStats() {
         }).catch((error) => { })
 
         axios.post('http://localhost:8080/user/getUserCryptos/',cryptoReq)
-        .then(response => {
+        .then(async(response) => {
             let soc = []
-            for(let j = 0; j < response.data.messageN.length; j++)
-            {
-                for(let x = 0; x < response.data.messageN[j].length; x++)
-                {
-
-                    soc.push({socName : response.data.messageN[j][x]})
-
-                }
-
-            }
-            console.log(soc);
+            let socialName = []
+            console.log(response.data)
+            await response.data.message.map((coin)=>{
+                soc.push(coin)
+            })
+            await response.data.social.map((social)=>{
+                socialName.push(social)
+            })
             setCrypt(soc);
+            setSoc(socialName);
         })
         .catch(err => {console.error(err);})
 
-        axios.post('http://localhost:8080/user/fetchUserSocialMedia/',cryptoReq)
-            .then(response => {
-                let socialName = []
-                for(let j = 0; j < response.data.SocialMediaName.length; j++)
-                {
-                    for(let x = 0; x < response.data.SocialMediaName[j].length; x++)
-                    {
-
-                        socialName.push({socMediaName : response.data.SocialMediaName[j][x]})
-
-                    }
-
-                }
-                console.log(socialName);
-                setSoc(socialName);
-            })
-            .catch(err => {console.error(err);})
 
 
       let req = {email: localStorage.getItem("emailSession")}

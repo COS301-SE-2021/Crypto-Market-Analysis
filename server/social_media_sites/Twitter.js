@@ -1,6 +1,6 @@
 const Twit = require('twit');
-const admin = require('firebase-admin');
-const serviceAccount = require('../database/firebase.json');
+const fetch = require('node-fetch');
+const Database = require(`../database/Database`);
 const consumer_key = 'GGXUovWNfvGvagGakjfTzDfe1';
 const consumer_secret = 'UMG68Qym8K7vvsdtlEEIn0vRpyNj6Mfbmz6VUKMC3zn7tQNiat';
 const access_token = '1401939250858319875-zS8LTvSWz5UspdmaF63hxzpkLv0lbE';
@@ -14,15 +14,44 @@ const T = new Twit({
 
 class Twitter {
     #firestore_db = null;
+    #oembed_url = "https://publish.twitter.com/oembed"
 
     constructor(){
-        admin.initializeApp({
-            credential: admin.credential.cert(serviceAccount)
-        });
-        this.#firestore_db = admin.firestore();
+        this.#firestore_db = new Database().getInstance();
     }
 
+    async getAllTweets(){
+        let tweets_id = null;
+        let blockquotes = [];
+        const snapshot = await this.#firestore_db.fetch(`Twitter`);
+        const docs = await snapshot.docs;
+        for(let i = 0; i < docs.length; i++){
+            tweets_id = docs[i].data().id;
+            if(tweets_id !== undefined){
+                for(let z = 0; z < tweets_id.length; z++){
+                    blockquotes.push(await this.getEmbeddedTweet(tweets_id[z]));
+                }
+            }
+        }
+        return blockquotes;
+    }
 
+    /** This function gets the tweet id as a parameter and returns an html formatted response to display the tweet.
+     * @param {String} tweet_id The id of the tweet.
+     * @param {String} screen_name Optional screen name of the user.
+     * @return {blockquote} Returns an html blockquote tag to display the tweet.
+     * */
+    async getEmbeddedTweet(tweet_id, screen_name = "Codex98318352"){
+        const url = `${this.#oembed_url}?url=https://twitter.com/${screen_name}/status/${tweet_id}`;
+        try{
+            const response = await fetch(url);
+            const data = await response.json();
+            return data.html;
+        }
+        catch (error){
+            await Promise.reject(`An error occurred while getting the embedded tweets: ${error}`);
+        }
+    }
 
     /** Gets the id's of the screen names of the users passed as a parameter.
      * @param {[String]} users An array of the screen name of twitter users.
@@ -85,10 +114,13 @@ class Twitter {
                         }
                         else{
                             let tweets = [];
+                            let tweets_id = [];
                             data.forEach(tweet => {
+                                //console.log(tweet.id_str);
+                                tweets_id.push(tweet.id_str);
                                 tweets.push(tweet.text);
                             });
-                            tweets = await this.filterData(email, tweets);
+                            tweets = await this.filterData(email, tweets, tweets_id);
                         }
                     });
                 }
@@ -97,49 +129,57 @@ class Twitter {
         }
     }
 
-    async filterData(email, tweets){
+    async filterData(email, tweets , tweets_id){
+        if(email == null || tweets == null || tweets_id == null)
+            return Promise.reject(new Error('Null value entered for one of the parameters'));
+
         let cryptoSymbols = [];
         let cryptoNames = [];
-        if(email==null || tweets==null){
-            return Promise.reject(new Error('error null value entered'));
-        }
-        await this.#firestore_db.collection(`Users`).get().then((snapshot) =>{
-            for (const doc of snapshot.docs) {
-                if(doc.id === email){
-                    cryptoSymbols = doc.data().crypto;
-                    cryptoNames = doc.data().crypto_name;
-                    break;
-                }
-            }
-        });
-
         let tempTweet = null;
         let tempSymbol = null;
         let tempName = null;
         let tempArray = [];
-        let database_data = null;
-        for(const [index, value] of cryptoSymbols.entries()){
-            tempArray = [];
-            tempSymbol = value.toLowerCase();
-            tempName = cryptoNames[index].toLowerCase();
-            tweets.forEach((tweet) => {
-                tempTweet = tweet.toLowerCase();
-                if(tweet.search("RT")){
-                    if(tempTweet.search(tempSymbol) !== -1 || tempTweet.search(tempName) !== -1) {
-                        tempArray.push(tweet);
+        let temp_tweets_id = [];
+
+        const snapshot = await this.#firestore_db.fetch(`Users`);
+        snapshot.docs.every(doc => {
+            if(doc.id === email){
+                cryptoSymbols = doc.data().crypto;
+                cryptoNames = doc.data().crypto_name;
+                return false;
+            }
+            return true;
+        });
+
+        if(cryptoSymbols !== null && cryptoNames !== null && cryptoNames.length === cryptoSymbols.length){
+            for(const [index, value] of cryptoSymbols.entries()){
+                tempArray = [];
+                temp_tweets_id = [];
+                tempSymbol = value.toLowerCase();
+                tempName = cryptoNames[index].toLowerCase();
+                tweets.forEach((tweet, position) => {
+                    tempTweet = tweet.toLowerCase();
+                    if(tweet.search("RT")){
+                        if(tempTweet.search(tempSymbol) !== -1 || tempTweet.search(tempName) !== -1) {
+                            tempArray.push(tweet);
+                            temp_tweets_id.push(tweets_id[position]);
+                        }
+                    }
+                });
+                if(tempArray.length > 0){
+                    try{
+                        this.#firestore_db.save(`Twitter`, cryptoNames[index], `post`, tempArray);
+                        this.#firestore_db.save(`Twitter`, cryptoNames[index], `id`, temp_tweets_id);
+                    }
+                    catch(e) {
+                        console.error(`An error occurred while connecting to the database: \n${e}`);
                     }
                 }
-            })
-            if(tempArray.length > 0){
-                database_data = {[`post`]: tempArray};
-                try{
-                    this.#firestore_db.collection(`Twitter`).doc(cryptoNames[index]).set(database_data, {merge:true}).then();
-                }
-                catch(e) {
-                    console.error(`An error occurred while connecting to the database: \n${e}`);
-                }
             }
+            return tweets;
         }
+
+        return Promise.reject(new Error(`User is not following any cryptos`));
     }
 }
 

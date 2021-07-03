@@ -229,12 +229,12 @@ export default function HeaderStats() {
                     {/*    </form>*/}
                     {/*</div>*/}
                     <div className="row">
-                        {/*<SentimentSpeedometer/>*/}
-                        {/*<SentimentSpeedometer/>*/}
+                        <SentimentSpeedometer/>
+                        <SentimentSpeedometer/>
                         {/*<QuickView/>*/}
                        {item}
-                        {/*<SentimentSpeedometer min={-5} max={5} average={2} social={"Reddit"} />*/}
-                        {/*<SentimentSpeedometer/>*/}
+                        {/* <SentimentSpeedometer min={-5} max={5} average={2} social={"Reddit"} /> */}
+                        {/* <SentimentSpeedometer/> */}
                     </div>
 
                 </div>

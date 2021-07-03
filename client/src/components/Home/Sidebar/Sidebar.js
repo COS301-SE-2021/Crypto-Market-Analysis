@@ -164,13 +164,34 @@ export default function Sidebar() {
                 >
                   <i
                     className={
-                      "fas fa-sign-out-alt mr-2 text-sm " +
+                      "fas fa-list mr-2 text-sm " +
                       (window.location.href.indexOf("/admin/maps") !== -1
                         ? "opacity-75"
                         : "text-blueGray-300")
                     }
                   ></i>{" "}
                   View All Cryptocurrencies
+                </Link>
+              </li>
+              <li className="items-center">
+                <Link
+                  className={
+                    "text-xs uppercase py-3 font-bold block " +
+                    (window.location.href.indexOf("/login") !== -1
+                      ? "text-lightBlue-500 hover:text-lightBlue-600"
+                      : "text-blueGray-700 hover:text-blueGray-500")
+                  }
+                  to="/login"
+                >
+                  <i
+                    className={
+                      "fas fa-sign-out-alt mr-2 text-sm " +
+                      (window.location.href.indexOf("/login") !== -1
+                        ? "opacity-75"
+                        : "text-blueGray-300")
+                    }
+                  ></i>{" "}
+                  Logout
                 </Link>
               </li>
             </ul>

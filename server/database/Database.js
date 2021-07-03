@@ -28,7 +28,6 @@ class Database {
         let data = {[field]: fieldsData}
 
         try{
-            console.log(this.#db);
             this.#db.collection(collectionPath).doc(documentName).set(data, {merge:true}).then();
         }
         catch(e) {
@@ -36,9 +35,18 @@ class Database {
         }
     }
 
-    fetch(collectionPath, documentName, field)
+    fetch(collectionPath, documentName = null, field = null)
     {
-        if(field === null){
+        if(documentName === null){
+            try{
+                return this.#db.collection(collectionPath).get().then();
+            }
+            catch(e) {
+                console.error(`An error occurred while connecting to the database: \n${e}`);
+            }
+        }
+        else if(field === null){
+            console.log(`this is the field`);
             try{
                 return this.#db.collection(collectionPath).doc(documentName).get().then();
             }

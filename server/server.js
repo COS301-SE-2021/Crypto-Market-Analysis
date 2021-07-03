@@ -7,8 +7,7 @@ dotenv.config();
 const port = process.env.port || 8080;
 console.log(`Listening on port ${port}`);
 http.createServer(app);
-cron.schedule('*/1 * * * *', () => {
-    console.log('scrapping every minute');
+cron.schedule('*/10 * * * *', () => {
     let reddits = new Reddit();
     reddits.scrapeSubreddit("CryptoCurrencies").then();
     reddits.scrapeSubreddit("SatoshiStreetBets").then();

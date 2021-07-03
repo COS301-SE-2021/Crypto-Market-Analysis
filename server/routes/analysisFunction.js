@@ -3,48 +3,13 @@ const SpellCorrector = require('spelling-corrector');
 const SW = require('stopword');
 const aposToLexForm = require('apos-to-lex-form');
 const spellCorrector = new SpellCorrector();
-const a = require('extract-emoji');
-const emojiUnicode = require("emoji-unicode")
-const name = require("emoji-name-map");
-var sentiment = require('node-sentiment');
 spellCorrector.loadDictionary();
-const extract_emoji = async (post)=>{
-    const arr = a.extractEmoji(post);
-    return arr;
-}
-const analyseTextandEmoji = async (post)=>{
-    try{
-         const obj= await sentiment(post);
-        return obj.score;
-       }
-    catch (err){
-        return 0;
-    }
-}
-const convertion = async (post)=>{
+
+const convertion = async (post)=> {
     if(post==null)
     {
         return Promise.reject(new Error('null value'));
     }
-    let data= extract_emoji(post);
-    data.then(s=>{
-
-        for(const i of s)
-        {
-            console.log("Before")
-            console.log(post)
-            const emoji_object= name.emoji;
-            for (let k in emoji_object) {
-                 if(emoji_object[k]==i)
-                 {
-                     post =post.replace(i,k);
-                 }
-            }
-            console.log("After")
-            console.log(post)
-        }
-
-    });
     const contractions = aposToLexForm(post);//convert word to contractions
     const cLcase = contractions.toLowerCase();//convert to lowercases
     const value = cLcase.replace(/[^a-zA-Z\s]+/g, '');//remove stop word
@@ -90,4 +55,4 @@ const analysewords = async (filteredwords)=>{
 
 }
 
-module.exports = {analysewords, convertion,spellingc,splits,extract_emoji ,analyseTextandEmoji}
+module.exports = {analysewords, convertion,spellingc,splits}

@@ -234,8 +234,7 @@ router.post('/analyse', async function(req, res, next) {
                 analysis.splits(comment).then(newWording => {
                     analysis.spellingc(newWording).then(filteredwords => {
                         analysis.analysewords(filteredwords).then(analysis => {
-                            if (isNaN(analysis) || analysis==null) {
-
+                            if (isNaN(analysis)) {
                                 analysis = 0;
                             }
                             analysisArr.push(analysis * 10);
@@ -248,42 +247,6 @@ router.post('/analyse', async function(req, res, next) {
                         })
                     })
                 })
-            })
-        );
-    }
-    catch(err){
-        return res.status(500).json({status:`Internal server error`, error: err});
-    }
-});
-router.post('/analyseEmoji', async function(req, res, next) {
-
-    if(!req.body.crypto || !req.body.socialmedia)
-        return res.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
-
-    const { crypto ,socialmedia} = req.body;
-    let Bigdata = null
-
-    try{
-        Bigdata = await db.collection(socialmedia).doc(crypto).get();
-    }
-    catch (err){
-        return res.status(500).json({status:`Internal server error`, error: err});
-    }
-
-    const analysisArr = [];
-    let i=0;
-    try {
-        await Bigdata.data().post.forEach(element =>analysis.analyseTextandEmoji(element).then(score=>{
-                analysisArr.push(score);
-                i++;
-                 console.log(analysisArr)
-                if (i === Bigdata.data().post.length) {
-                    console.log(i)
-                    console.log(analysisArr);
-                userFunctions.saveToDB(analysisArr,socialmedia,crypto).then(data=>{
-                    return res.status(200).json(data);
-                })
-               }
             })
         );
     }

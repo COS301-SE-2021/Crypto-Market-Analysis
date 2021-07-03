@@ -11,7 +11,7 @@ export default function CardTweets({
       < >
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
        
-        <div data-testid="tweet-card" className=" flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+        <div data-testid="tweet-card" className=" flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-md">
           <div className="flex-auto p-3">
             <div className="flex flex-wrap">
               <div className="relative w-full pr-4 max-w-full flex-grow flex-1">

@@ -3,7 +3,7 @@ import QuickView  from './QuickView/QuickView';
 import PlatformSelector  from './PlatformSelector/PlatformSelector';
 import Sidebar from "./Sidebar/Sidebar.js";
 import HeaderStats from "./Headers/HeaderStats.js";
-import Content from "./Content/Content";
+import DetailedInfo from "../../Pages/DetailedInfo"
 import "bootstrap/dist/css/bootstrap.css";
 // import './Home.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -14,10 +14,11 @@ function Home(){
     return (
         <>
         <Sidebar />
-        <div className="w-full md:ml-64 bg-blueGray-100">
+        <div className="md:ml-64 bg-blueGray-100 pt-4">
         {/* <AdminNavbar /> */}
         {/* Header */}
         <HeaderStats />
+        {/* <DetailedInfo /> */}
         <div className="px-4 md:px-10 mx-auto w-full -m-24">
             {/* <Switch>
             <Route path="/admin/dashboard" exact component={Dashboard} />

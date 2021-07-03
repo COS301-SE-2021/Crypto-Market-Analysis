@@ -33,30 +33,29 @@ router.post("/getRedditPost", async (request,response)=>{
  * @param {object} response A response object which will return the status code.
  * @return          A status code stating if the request was successful.
  * */
-router.post("/getUserCryptos", async (request, response) => {
-    if(!request.body.email)
-        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
-    else {
-         userFunctions.getUserCrypto(request.body.email).then(data=>{
-            return response.status(200).json(data);
-        }).catch(err=>{
-            return response(401).json({status:`error`, error: err})
-        })
-    }
-});
+// router.post("/getUserCryptos", async (request, response) => {
+//     if(!request.body.email)
+//         return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
+//     else {
+//          userFunctions.getUserCrypto(request.body.email).then(data=>{
+//             return response.status(200).json(data);
+//         }).catch(err=>{
+//             return response(401).json({status:`error`, error: err})
+//         })
+//     }
+// });
 
 /** This function gets the social media a user is following
  * @param {object} request A request object with the email and symbol.
  * @param {object} response A response object which will return the status code.
  * @return          A status code stating if the request was successful.
  * */
-router.post("/fetchUserSocialMedia", async (request, response) => {
 
 router.post("/getUserCryptos", async (request,response)=>{
 
     let cryptoSymbols = null;
     let socialSites = null;
-    if(request.body.email === null)
+    if(request.body.email === null){
         return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
     }
     else{
@@ -75,7 +74,7 @@ router.post("/getUserCryptos", async (request,response)=>{
         }
         catch(err){
             return response(401).json({status:`error`, error: err})
-        })
+        }
     }
 });
 
@@ -145,7 +144,7 @@ router.post("/followCrypto", async (request,response)=>{
         }
         catch(err){
             return response.status(500).json({status:`Internal server error`, error: err})
-        })
+        }
     }
 });
 
@@ -156,8 +155,9 @@ router.post("/followCrypto", async (request,response)=>{
  * */
 router.post("/followSocialMedia",async (request,response)=>{
 
-    if(!request.body.email || !request.body.social_media_sites)
+    if(!request.body.email || !request.body.social_media_sites){
         return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
+    }
     else{
           await userFunctions.followSocialMedia(request.body.email,request.body.social_media_sites).then(data=>{
               response.status(200).json(data);
@@ -165,9 +165,9 @@ router.post("/followSocialMedia",async (request,response)=>{
               response.status(500).json({status:`Internal server error`, error: err});
           })
         }
-        catch (err) {
-            return response.status( 500).json({status: `Internal Server Error`, error: `The document could not be retrieved: ${err}`});
-        }
+        // catch (err) {
+        //     return response.status( 500).json({status: `Internal Server Error`, error: `The document could not be retrieved: ${err}`});
+        // }
 
         try{
             await db.collection(`Users`).get().then((snapshot) =>{
@@ -204,7 +204,7 @@ router.post("/followSocialMedia",async (request,response)=>{
         catch(err){
             return response(500).json({status:`Internal server error`, error: err})
         }
-    }
+    
 });
 
 /** This function adds analysis score to the database

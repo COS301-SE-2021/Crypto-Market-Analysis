@@ -30,13 +30,22 @@ function QuickView()
           axios.post('http://localhost:8080/user/getUserCryptos/',userCryptos)
               .then(async(response) =>{
                   console.log(response.data)
-                    await response.data.message.map((coin)=>{
-                        selectedCryptos.push(coin)
-                    })
-                    await response.data.social.map((site)=>{
-                        selectedPlatforms.push(site)
-                        console.log(selectedPlatforms)
-                    })
+                  if(response.data.message === null || response.data.social === null)
+                  {
+                      selectedCryptos = ["btc","eth","usdt"]
+                      selectedPlatforms = ["Twitter"]
+                  }
+                  else
+                  {
+                      await response.data.message.map((coin)=>{
+                          console.log(coin)
+                          selectedCryptos.push(coin)
+                      })
+                      await response.data.social.map((site)=>{
+                          selectedPlatforms.push(site)
+                          console.log(selectedPlatforms)
+                      })
+                  }
                     axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=10&page=1&sparkline=false')
                     .then(async (response) => {
                         //set lists

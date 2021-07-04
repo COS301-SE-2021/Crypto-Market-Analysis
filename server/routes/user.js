@@ -3,9 +3,9 @@ const router = express.Router();
 const analysis = require('./analysisFunction');
 const userFunctions =require('./userFunctions')
 const database = require("./FirestoreDB")
-const db = database.db;
+const db = database;
 
-router.post("/getUserTweets", async (request,response)=>{
+/*router.post("/getUserTweets", async (request,response)=>{
     const email = request.body.email;
     if(!email || !(typeof email === 'string' || email instanceof String))
         return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
@@ -14,7 +14,7 @@ router.post("/getUserTweets", async (request,response)=>{
     }).catch( err => {
         return response(500).json({status:`Internal Server Error`, error: err})
     })
-});
+});*/
 
 
 router.post("/getRedditPost", async (request,response)=>{

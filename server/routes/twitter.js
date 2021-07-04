@@ -10,7 +10,7 @@ router.post('/getAllTweets', async (request, response, next) => {
         return response.status(200).json({data: blockquotes});
     }
     catch(error){
-        return response.status(500).json({status: 500, error: `Something went wrong while trying to retrieve the embedded tweets`});
+        return response.status(500).json({status: 500, error: `Something went wrong while trying to retrieve the embedded tweets: ${error}`});
     }
 });
 

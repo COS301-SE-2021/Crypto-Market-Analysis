@@ -17,7 +17,8 @@ class Twitter {
     #oembed_url = "https://publish.twitter.com/oembed"
 
     constructor(){
-        this.#firestore_db = new Database().getInstance();
+        if(this.#firestore_db === null)
+            this.#firestore_db = new Database().getInstance();
     }
 
     async getAllTweets(){

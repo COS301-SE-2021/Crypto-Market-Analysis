@@ -37,7 +37,8 @@
     "react-table": "^7.7.0",
     "snoowrap": "^1.23.0",
     "ts-jest": "^27.0.3",
-    "tweet-scraper": "^1.0.1"
+    "tweet-scraper": "^1.0.1",
+    "twit": "^2.2.11"
   },
   "devDependencies": {
     "apos-to-lex-form": "^1.0.5",

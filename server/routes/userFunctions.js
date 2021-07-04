@@ -4,7 +4,7 @@ const db = database.db;
 /** This function gets all the tweets stored in the database.
  * @return  {object} Containing an array of screen names and tweets array if it was successful or a rejected Promise.
  * */
-const getUserTweets = async ()=>{
+/*const getUserTweets = async ()=>{
     let screen_names = [];
     let tweets = [];
     try{
@@ -19,7 +19,7 @@ const getUserTweets = async ()=>{
     catch(err){
         return Promise.reject(new Error(err));
     }
-}
+}*/
 
 /** Gets all the reddit posts from the database.
  * @return  {object} Containing an array of posts if it was successful or a rejected Promise.
@@ -189,4 +189,4 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
     }, {merge: true})
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
-module.exports = {getUserTweets, saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto,followSocialMedia}
+module.exports = {saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto,followSocialMedia}

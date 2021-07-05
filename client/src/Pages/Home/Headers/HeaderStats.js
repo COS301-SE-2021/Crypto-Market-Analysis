@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from "react";
-import "./Header.css";
 import axios from "axios";
-import ReactSpeedometer from "react-d3-speedometer";
 import db from "../../../firebase"
-import SentimentSpeedometer from "../GraphReport/AnalysisGraph"
-// components
-import Card from '../Card/Card'
 
-import CardStats from "../Cards/CardStats" ;
-import CardTweets from "../Cards/CardTweets/CardTweets" ;
-import QuickView from "../QuickView/QuickView";
+import CardStats from "../../../components/Cards/CardStats" ;
+import CardTweets from "../../../components/Cards/CardTweets/CardTweets" ;
+import SentimentSpeedometer from "../../../components/GraphReport/AnalysisGraph"
+import "./Header.css";
 
 
 

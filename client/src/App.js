@@ -1,14 +1,14 @@
 import './App.css';
 import {Route, Link} from "react-router-dom"
-import login from "./components/login/login"
-import Register from "./components/login/register"
-import splash from "./components/login/splash"
-import token from "./components/login/token"
-import QuickView from "./components/Home/QuickView/QuickView";
-import Crypto from "./components/Crypto/Crypto";
-import UpdatePassword from "./components/login/updatePassword"
-import UpdateProfile from "./components/login/updateProfile"
-import Home from "./components/Home/Home"
+import login from "./Pages/Login/login"
+import Register from "./Pages/Register/register"
+import splash from "./Pages/Splash/splash"
+import token from "./Pages/Login/token"
+import Settings from "./Pages/Settings/Settings";
+import AllCrypto from "./Pages/AllCrypto/AllCrypto";
+import UpdatePassword from "./Pages/UpdatePassword/updatePassword"
+import UpdateProfile from "./Pages/UpdateProfile/updateProfile"
+import Home from "./Pages/Home/Home"
 import PrivateRoute from "./components/newRoute"
 import {BrowserRouter as router , Switch} from "react-router-dom";
 import { AuthProvider } from "./Auth/Auth"
@@ -25,8 +25,8 @@ function App() {
                      <Route exact path="/login" component={login}></Route>
                      <Route exact path="/updatePassword" component={UpdatePassword}></Route>
                      <Route exact path="/updateProfile" component={UpdateProfile}></Route>
-                     <Route exact path="/QuickView" component={QuickView}></Route>
-                     <Route exact path="/Crypto" component={Crypto}></Route>
+                     <Route exact path="/Settings" component={Settings}></Route>
+                     <Route exact path="/AllCrypto" component={AllCrypto}></Route>
                  </section>
            </Switch>
           </AuthProvider>

@@ -1,10 +1,11 @@
 import "bootstrap/dist/css/bootstrap.css";
-import "./QuickView.css"
 import { Star, } from "@material-ui/icons";
 import { SocialIcon } from 'react-social-icons';
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
-import Sidebar from '../Sidebar/Sidebar';
+
+import Sidebar from '../../components/Sidebar/Sidebar'
+import "./Settings.css"
 
 const platformsList = [{name:"Twitter",id:"twitter"},
     {name:"Reddit",id:"reddit"},

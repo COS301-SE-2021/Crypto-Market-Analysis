@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios'
 import ReactSpeedometer from "react-d3-speedometer"
-import {db} from "../../../firebase"
+// import {db} from "../../../firebase"
 export default class SentimentSpeedometer extends React.Component {
     constructor(props) {
         super(props);

@@ -5,7 +5,7 @@ export default function Overview({coin}){
 
     return(
         <>
-        <div className="container mt-16 mb-12">
+        {/* <div className="container mt-16 mb-12">
             <div className="row">
                 <div className="col-4">
                     <img src={coin.image.large}/>
@@ -81,7 +81,7 @@ export default function Overview({coin}){
         </div>
         <div className="container">
         <div className=" text-sm p-2 px-0" ><span className="uppercase font-bold">Last updated at : </span> {coin.market_data.last_updated}</div>
-        </div>
+        </div> */}
         </>
     )
 }

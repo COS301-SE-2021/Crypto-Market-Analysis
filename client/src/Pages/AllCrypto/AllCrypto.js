@@ -1,11 +1,12 @@
 import "bootstrap/dist/css/bootstrap.css";
-import "../Home/QuickView/QuickView.css"
-import "./Crypto.css"
-import Sidebar from "../Home/Sidebar/Sidebar";
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 
-function Cryptos()
+import Sidebar from '../../components/Sidebar/Sidebar'
+import "../Settings/Settings.css"
+import "./AllCrypto.css"
+
+export default function AllCryptos()
 {
     
     let [cryptos, setCryptos] = useState([]);
@@ -81,4 +82,3 @@ function Cryptos()
         </>
     );
 }
-export default Cryptos;

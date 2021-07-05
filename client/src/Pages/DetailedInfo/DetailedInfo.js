@@ -4,8 +4,8 @@ import axios from "axios"
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
 
-import Overview from '../components/Overview/Overview'
-import Tweets from '../components/Tweets/Tweets'
+import Overview from '../../components/Overview/Overview'
+import Tweets from '../../components/Tweets/Tweets'
 
 export default function DetailedInfo() {
 

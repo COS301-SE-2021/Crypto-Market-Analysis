@@ -1,12 +1,12 @@
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import "bootstrap/dist/css/bootstrap.css";
-import CardStats from "../components/Home/Cards/CardStats" ;
-import CardTweets from "../components/Home/Cards/CardTweets/CardTweets" ;
-import SentimentSpeedometer from "../components/Home/GraphReport/AnalysisGraph"
+import 'bootstrap/dist/css/bootstrap.css';
+import Overview from '../components/Overview/Overview'
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Markup } from 'react-render-markup';
+import { Markup } from 'react-render-markup'
+import Tabs from 'react-bootstrap/Tabs'
+import Tab from 'react-bootstrap/Tab'
 
 export default function DetailedInfo() {
 
@@ -19,7 +19,7 @@ export default function DetailedInfo() {
             setCoin(response.data)
         })
         .catch(err => {console.error(err);})
-    },[])
+    })
 const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -40,8 +40,18 @@ const responsive = {
 let v = "Miners today are mining Bitcoin using ASIC chip dedicated to only mining Bitcoin, and the hash rate has shot up to peta hashes.\r\n\r\nBeing the first successful online cryptography currency, Bitcoin has inspired other alternative currencies such as <a href=\"https://www.coingecko.com/en/coins/litecoin\">Litecoin</a>, <a href=\"https://www.coingecko.com/en/coins/peercoin\">Peercoin</a>, <a href=\"https://www.coingecko.com/en/coins/primecoin\">Primecoin</a>, and so on.\r\n\r\nThe cryptocurrency then took off with the innovation of the turing-complete smart contract by <a href=\"https://www.coingecko.com/en/coins/ethereum\">Ethereum</a> which led to the development of other amazing projects such as <a href=\"https://www.coingecko.com/en/coins/eos\">EOS</a>, <a href=\"https://www.coingecko.com/en/coins/tron\">Tron</a>, and even crypto-collectibles such as <a href=\"https://www.coingecko.com/buzz/ethereum-still-king-dapps-cryptokitties-need-1-billion-on-eos\">CryptoKitties</a>."
   return(
       <>
-      {console.log(coin)}
-        <div className="container">
+        <Tabs defaultActiveKey="home" transition={false}>
+            <Tab eventKey="Overview" title="Overview">
+                <Overview coin={coin}/>
+            </Tab>
+            <Tab eventKey="Tweets" title="Tweets">
+                ye2
+            </Tab>
+            <Tab eventKey="Reddit" title="Reddit" disabled>
+                ye3
+            </Tab>
+        </Tabs>
+        {/* <div className="container">
             <hr />
             <ul className="nav nav-pills nav-fill">
                 <li className="nav-item">
@@ -58,85 +68,8 @@ let v = "Miners today are mining Bitcoin using ASIC chip dedicated to only minin
                 </li>
             </ul>
             <hr />
-        </div>
-        <div className="container mt-16 mb-12">
-            <div className="row">
-                <div className="col-4">
-                    <img src={coin.image.large}/>
-                </div>
-                <div className="col-8">
-                    <p className="text-sm">  <Markup markup={coin.description.en} /></p>
-                </div>
-            </div>
-        </div>
-
-        <div className="container mb-3" style={{margin:"auto"}}>
-            <div className="row">
-                <div className="col-12">
-                    <div className="d-inline"><span className="badge badge-primary rounded-circle p-4"><i class="fas fa-hashtag fa-3x"></i><h1 className="d-inline ml-2">{coin.market_cap_rank}</h1></span></div>
-                    <div className="d-inline float-right mt-4 uppercase font-bold p-2 px-0" ><a style={{color:"black",textDecoration:"none"}} href={coin.links.homepage}> <i class="fas fa-link"></i> Visit {coin.name} </a></div>
-                </div>
-            </div>
-        </div>
-        <div className="container" style={{margin:"auto"}}>
-             <div className="row" style={{textAlign:"center"}}>
-
-                <div className="col-4">
-                <div className="uppercase font-bold p-2 px-0" style={{color:"#58667e"}}>Current price</div> 
-                    <h2 className="font-bold">R {coin.market_data.current_price.zar.toLocaleString()}</h2>
-                    <hr/>
-                </div>
-                <div className="col-4">
-                    <div className="uppercase font-bold p-2 px-0" style={{color:"#58667e"}}>Market cap</div> 
-                    <h2 className="font-bold">R {coin.market_data.market_cap.zar.toLocaleString()}</h2>
-                    <hr/>
-                </div>
-                <div className="col-4">
-                    <div className="uppercase font-bold p-2 px-0" style={{color:"#58667e"}}>Total volume</div> 
-                    <h2 className="font-bold">R {coin.market_data.total_volume.zar.toLocaleString()}</h2>
-                    <hr/>
-                </div>
-            </div>
-            
-        </div>
-       
-  
-        <div className="container mt-16">
-            <div className="row"> 
-                <div className="col-8">
-                </div>
-                <div className="col-4">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td>Price change in 1 hour</td>
-                                <td >{coin.market_data.price_change_percentage_1h_in_currency.zar > 0 ? <span className="badge badge-success ml-2">{coin.market_data.price_change_percentage_1h_in_currency.zar}</span> : <span className="badge badge-danger ml-2">{coin.market_data.price_change_percentage_1h_in_currency.zar}</span>} </td>
-                            </tr>
-                            <tr>
-                                <td>Price change in 24 hours</td>
-                                <td>{coin.market_data.price_change_percentage_24h_in_currency.zar > 0 ? <span className="badge badge-success ml-2">{coin.market_data.price_change_percentage_24h_in_currency.zar}</span> : <span className="badge badge-danger ml-2">{coin.market_data.price_change_percentage_24h_in_currency.zar}</span>}</td>
-                            </tr>
-                            <tr>
-                                <td>Price change in 7 days</td>
-                                <td>{coin.market_data.price_change_percentage_7d_in_currency.zar > 0 ? <span className="badge badge-success ml-2">{coin.market_data.price_change_percentage_7d_in_currency.zar}</span> : <span className="badge badge-danger ml-2">{coin.market_data.price_change_percentage_7d_in_currency.zar}</span>}</td>
-                            </tr>
-                            <tr>
-                                <td>Price change in 14 days</td>
-                                <td>{coin.market_data.price_change_percentage_14d_in_currency.zar > 0 ? <span className="badge badge-success ml-2">{coin.market_data.price_change_percentage_14d_in_currency.zar}</span> : <span className="badge badge-danger ml-2">{coin.market_data.price_change_percentage_14d_in_currency.zar}</span>}</td>
-                            </tr>
-                            <tr>
-                                <td>Price change in 30 days</td>
-                                <td>{coin.market_data.price_change_percentage_30d_in_currency.zar > 0 ? <span className="badge badge-success ml-2">{coin.market_data.price_change_percentage_30d_in_currency.zar}</span> : <span className="badge badge-danger ml-2">{coin.market_data.price_change_percentage_30d_in_currency.zar}</span>}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div className="container">
-        <div className=" text-sm p-2 px-0" ><span className="uppercase font-bold">Last updated at : </span> {coin.market_data.last_updated}</div>
-        </div>
-    <div id="tweets" className="container mt-16">
+        </div> */}
+    {/* <div id="tweets" className="container mt-16">
             
             <div style={{borderTop:"1px solid grey",borderBottom:"1px solid grey"}}><h4 className="display-4">Tweets</h4></div>
             
@@ -162,7 +95,7 @@ let v = "Miners today are mining Bitcoin using ASIC chip dedicated to only minin
           <div style={{margin:"10px",height:"190px"}}><CardTweets/></div>
           <div style={{margin:"10px",height:"190px"}}><CardTweets/></div>
     </Carousel>
-    </div>
+    </div> */}
     </>
   )
   

@@ -13,7 +13,7 @@ function Home(){
     return (
         <>
         <Sidebar />
-        <div className="md:ml-64 bg-blueGray-100 pt-4">
+        <div className="md:ml-64  pt-4">
         {/* <AdminNavbar /> */}
         {/* Header */}
         {/* <HeaderStats /> */}

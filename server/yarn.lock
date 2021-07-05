@@ -2302,6 +2302,15 @@
   "resolved" "https://registry.npmjs.org/emittery/-/emittery-0.8.1.tgz"
   "version" "0.8.1"
 
+"emoji-name-map@^1.2.9":
+  "integrity" "sha512-MSM8y6koSqh/2uEMI2VoKA+Ac0qL5RkgFGP/pzL6n5FOrOJ7FOZFxgs7+uNpqA+AT+WmdbMPXkd3HnFXXdz4AA=="
+  "resolved" "https://registry.npmjs.org/emoji-name-map/-/emoji-name-map-1.2.9.tgz"
+  "version" "1.2.9"
+  dependencies:
+    "emojilib" "^2.0.2"
+    "iterate-object" "^1.3.1"
+    "map-o" "^2.0.1"
+
 "emoji-regex@^7.0.1":
   "integrity" "sha512-CwBLREIQ7LvYFB0WyRvwhq5N5qPhc6PMjD6bYggFlI5YyDgl+0vxq5VHbMOFqLg7hfWzmu8T5Z1QofhmTIhItA=="
   "resolved" "https://registry.npmjs.org/emoji-regex/-/emoji-regex-7.0.3.tgz"
@@ -2316,6 +2325,11 @@
   "integrity" "sha512-jjswgV5nR3KDqtC9ugzEOYQaBLLQP5hqaH2tiTBaq9maYpMnmvl9T+ogY3u2bN6O5NAP0Ddh9D+Meo7sfW/1uw=="
   "resolved" "https://registry.npmjs.org/emoji-unicode/-/emoji-unicode-2.0.1.tgz"
   "version" "2.0.1"
+
+"emojilib@^2.0.2":
+  "integrity" "sha512-5U0rVMU5Y2n2+ykNLQqMoqklN9ICBT/KsvC1Gz6vqHbz2AXXGkG+Pm5rMWk/8Vjrr/mY9985Hi8DYzn1F09Nyw=="
+  "resolved" "https://registry.npmjs.org/emojilib/-/emojilib-2.4.0.tgz"
+  "version" "2.4.0"
 
 "encodeurl@~1.0.2":
   "integrity" "sha1-rT/0yG7C0CkyL1oCw6mmBslbP1k="
@@ -3348,6 +3362,11 @@
     "html-escaper" "^2.0.0"
     "istanbul-lib-report" "^3.0.0"
 
+"iterate-object@^1.3.0", "iterate-object@^1.3.1":
+  "integrity" "sha512-4dG1D1x/7g8PwHS9aK6QV5V94+ZvyP4+d19qDv43EzImmrndysIl4prmJ1hWWIGCqrZHyaHBm6BSEWHOLnpoNw=="
+  "resolved" "https://registry.npmjs.org/iterate-object/-/iterate-object-1.3.4.tgz"
+  "version" "1.3.4"
+
 "jade@0.26.3":
   "integrity" "sha1-jxDXl32NefL2/4YqgbBRPMslaGw="
   "resolved" "https://registry.npmjs.org/jade/-/jade-0.26.3.tgz"
@@ -3974,6 +3993,11 @@
   "resolved" "https://registry.npmjs.org/kleur/-/kleur-3.0.3.tgz"
   "version" "3.0.3"
 
+"languagedetect@^1.1.1":
+  "integrity" "sha512-51kYBPdkA43WX6UwutmjV0ekmInJcqnS17Lk3SLTDzWwXHdgCeuDJjpkKY0FZvEmAR0p5nnjdmDttkR2p26ucQ=="
+  "resolved" "https://registry.npmjs.org/languagedetect/-/languagedetect-1.3.0.tgz"
+  "version" "1.3.0"
+
 "latest-version@^5.0.0":
   "integrity" "sha512-weT+r0kTkRQdCdYCNtkMwWXQTMEswKrFBkm4ckQOMVhhqhIMI1UT2hMj+1iigIhgSZm5gTmrRXBNoGUgaTY1xA=="
   "resolved" "https://registry.npmjs.org/latest-version/-/latest-version-5.1.0.tgz"
@@ -4156,6 +4180,13 @@
   "version" "1.0.11"
   dependencies:
     "tmpl" "1.0.x"
+
+"map-o@^2.0.1":
+  "integrity" "sha512-BxazE81fVByHWasyXhqKeo2m7bFKYu+ZbEfiuexMOnklXW+tzDvnlTi/JaklEeuuwqcqJzPaf9q+TWptSGXeLg=="
+  "resolved" "https://registry.npmjs.org/map-o/-/map-o-2.0.10.tgz"
+  "version" "2.0.10"
+  dependencies:
+    "iterate-object" "^1.3.0"
 
 "marky@^1.2.0":
   "integrity" "sha512-k1dB2HNeaNyORco8ulVEhctyEGkKHb2YWAhDsxeFlW2nROIirsctBYzKwwS3Vza+sKTS1zO4Z+n9/+9WbGLIxQ=="
@@ -4472,6 +4503,13 @@
   "integrity" "sha512-LLUo+PpH3dU6XizX3iVoubUNheF/owjXCZZ5yACDxNnPtgFuludV1ZL3ayK1kVep42Rmm0+R9/Y60NQbZ2bifw=="
   "resolved" "https://registry.npmjs.org/node-releases/-/node-releases-1.1.72.tgz"
   "version" "1.1.72"
+
+"node-sentiment@^0.0.8":
+  "integrity" "sha512-YoKV4DPtuVXKkmxHrTTHRrLhGy0DlwKgIdhBMY7xXm3LwL3rrZQMvwGFvtrG8bSWB4QTfc/FtQ9zGsNXoM57Cg=="
+  "resolved" "https://registry.npmjs.org/node-sentiment/-/node-sentiment-0.0.8.tgz"
+  "version" "0.0.8"
+  dependencies:
+    "languagedetect" "^1.1.1"
 
 "nodemailer@^6.6.1":
   "integrity" "sha512-1xzFN3gqv+/qJ6YRyxBxfTYstLNt0FCtZaFRvf4Sg9wxNGWbwFmGXVpfSi6ThGK6aRxAo+KjHtYSW8NvCsNSAg=="

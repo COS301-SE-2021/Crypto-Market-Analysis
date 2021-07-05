@@ -135,6 +135,7 @@ router.post('/analyse', async function(req, res, next) {
                             analysisArr.push(analysis * 10);
                             i++;
                             if (i === Bigdata.data().post.length) {
+                                console.log(analysisArr);
                                 userFunctions.saveToDB(analysisArr,socialmedia,crypto).then(data=>{
                                     return res.status(200).json(data);
                                 })

@@ -21,8 +21,30 @@ class Twitter {
             this.#firestore_db = new Database().getInstance();
     }
 
-    getCryptoTweets(crypto_name){
-        
+    /** This functions receives a cryptocurrency name, gets the tweets relevant to the cryptocurrency and responds with it in an array.
+     * @param crypto_name {String} The name of the cryptocurrency
+     * @return {[String]} Html blockquotes containing the tweets.
+     * */
+    async getCryptoTweets(crypto_name){
+        let tweets = [];
+        const snapshot = await this.#firestore_db.fetch(`Twitter`);
+        const docs = await snapshot.docs;
+        for(const doc in docs){
+            if(docs.hasOwnProperty(doc)){
+                if(docs[doc].id.toLowerCase() === crypto_name) {
+                    const tweets_id = docs[doc].data().id;
+                    for(const id in tweets_id) {
+                        if(tweets_id.hasOwnProperty(id))
+                            tweets.push(await this.getEmbeddedTweet(tweets_id[id]));
+                        else
+                            await Promise.reject(`tweets_id has no property id`);
+                    }
+                }
+            }
+            else
+                await Promise.reject(`Docs has no property doc`);
+        }
+        return tweets;
     }
 
     /**This function gets all the tweets from the people the user is following on twitter

@@ -15,10 +15,14 @@ router.post('/getAllTweets', async (request, response, next) => {
     }
 });
 
-router.post('/getCryptoTweets', (request, response) => {
-    const crypto_name = request.crypto_name;
+router.post('/getCryptoTweets', async (request, response) => {
+    const crypto_name = request.body.crypto_name;
+
+    if(!crypto_name)
+        return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
+
     try {
-        const tweets = await twitter.getCryptoTweets();
+        const tweets = await twitter.getCryptoTweets(crypto_name);
         return response.status(200).json({data: tweets})
     }
     catch(error){

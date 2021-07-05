@@ -27,24 +27,32 @@ class Twitter {
      * */
     async getCryptoTweets(crypto_name){
         let tweets = [];
-        const snapshot = await this.#firestore_db.fetch(`Twitter`);
-        const docs = await snapshot.docs;
-        for(const doc in docs){
-            if(docs.hasOwnProperty(doc)){
-                if(docs[doc].id.toLowerCase() === crypto_name) {
-                    const tweets_id = docs[doc].data().id;
-                    for(const id in tweets_id) {
-                        if(tweets_id.hasOwnProperty(id))
-                            tweets.push(await this.getEmbeddedTweet(tweets_id[id]));
-                        else
-                            await Promise.reject(`tweets_id has no property id`);
+        try {
+            const snapshot = await this.#firestore_db.fetch(`Twitter`);
+            const docs = await snapshot.docs;
+            for (const doc in docs) {
+                if (docs.hasOwnProperty(doc)) {
+                    if (docs[doc].id.toLowerCase() === crypto_name) {
+                        const tweets_id = docs[doc].data().id;
+                        for (const id in tweets_id) {
+                            if (tweets_id.hasOwnProperty(id))
+                                tweets.push(await this.getEmbeddedTweet(tweets_id[id]));
+                            else
+                                await Promise.reject(`tweets_id has no property id`);
+                        }
                     }
-                }
+                } else
+                    await Promise.reject(`Docs has no property doc`);
             }
-            else
-                await Promise.reject(`Docs has no property doc`);
+
+            if(tweets.length < 1)
+                await Promise.reject(`The user is not following the selected cryptocurrency`)
+
+            return tweets;
         }
-        return tweets;
+        catch (error){
+            await Promise.reject(error);
+        }
     }
 
     /**This function gets all the tweets from the people the user is following on twitter

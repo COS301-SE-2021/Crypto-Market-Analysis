@@ -4,8 +4,8 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const dotenv = require('dotenv');
 dotenv.config();
-//const userRoutes = require('./routes/user');
-const twitterRoute = require('./routes/twitter');
+const userRoutes = require('./routes/user');
+//const twitterRoute = require('./routes/twitter');
 
 app.use(morgan("dev"));
 app.use('/uploads', express.static('uploads'));
@@ -25,8 +25,8 @@ app.use((req, res, next) => {
 })
 
 // Routes which should handle requests
-//app.use("/user", userRoutes);
-app.use("/twitter", twitterRoute);
+app.use("/user", userRoutes);
+//app.use("/twitter", twitterRoute);
 
 app.use((req, res, next) => {
     const error = new Error("Not found");

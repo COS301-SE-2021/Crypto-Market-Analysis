@@ -30,7 +30,6 @@ function App() {
                  </section>
            </Switch>
           </AuthProvider>
-
       </router>
 
   );

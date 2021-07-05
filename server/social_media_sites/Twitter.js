@@ -21,6 +21,13 @@ class Twitter {
             this.#firestore_db = new Database().getInstance();
     }
 
+    getCryptoTweets(crypto_name){
+        
+    }
+
+    /**This function gets all the tweets from the people the user is following on twitter
+     * @return {String} A string array containing html blockquotes for each tweet that can be directly embeded on a website.
+     * */
     async getAllTweets(){
         let tweets_id = null;
         let blockquotes = [];

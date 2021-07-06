@@ -9,7 +9,9 @@ import AllCrypto from "./Pages/AllCrypto/AllCrypto";
 import UpdatePassword from "./Pages/UpdatePassword/updatePassword"
 import UpdateProfile from "./Pages/UpdateProfile/updateProfile"
 import Home from "./Pages/Home/Home"
+import Profile from "./Pages/Profile/Profile"
 import PrivateRoute from "./components/newRoute"
+import HeaderStats from "./Pages/Home/Headers/HeaderStats"
 import {BrowserRouter as router , Switch} from "react-router-dom";
 import { AuthProvider } from "./Auth/Auth"
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
@@ -27,6 +29,8 @@ function App() {
                      <Route exact path="/updateProfile" component={UpdateProfile}></Route>
                      <Route exact path="/Settings" component={Settings}></Route>
                      <Route exact path="/AllCrypto" component={AllCrypto}></Route>
+                     <Route exact path="/Profile" component={Profile}></Route>
+                     <Route exact path="/HeaderStats" component={HeaderStats}></Route>
                  </section>
            </Switch>
           </AuthProvider>

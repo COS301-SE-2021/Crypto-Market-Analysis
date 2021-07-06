@@ -1,6 +1,21 @@
 const database = require("./FirestoreDB")
 const db = database.db;
 
+const get4chanPost = async ()=>{
+    let fourChanPosts = [];
+    try{
+        await db.collection(`4chan_data`).get().then((snapshot) =>{
+            for (const doc of snapshot.docs) {
+                fourChanPosts.push(doc.data().posts);
+            }
+        });
+        return {status: `Ok`, posts_array: fourChanPosts};
+    }
+    catch(err){
+        return Promise.reject(new Error(err));
+    }
+}
+
 /** This function gets all the tweets stored in the database.
  * @return  {object} Containing an array of screen names and tweets array if it was successful or a rejected Promise.
  * */
@@ -189,4 +204,4 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
     }, {merge: true})
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
-module.exports = {saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto,followSocialMedia}
+module.exports = {saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto,followSocialMedia, get4chanPost}

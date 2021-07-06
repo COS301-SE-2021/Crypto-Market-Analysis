@@ -6,7 +6,8 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 .card-wrapper{
-    height:270px;
+    display: flex;
+    height:600px;
     overflow-y: auto;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     padding-top:10px;

@@ -6,6 +6,8 @@ import Tab from 'react-bootstrap/Tab'
 
 import Overview from '../../components/Overview/Overview'
 import Tweets from '../../components/Tweets/Tweets'
+import Reddits from '../../components/Reddits/Reddits'
+import FourChan from '../../components/4chan/fourChan'
 
 export default function DetailedInfo() {
 
@@ -15,10 +17,10 @@ export default function DetailedInfo() {
     useEffect(async () => {
         console.log("USEFFECT")
         axios.get('https://api.coingecko.com/api/v3/coins/bitcoin')
-        .then(async(response) => {
-            setCoin(response.data)
-        })
-        .catch(err => {console.error(err);})
+            .then(async(response) => {
+                setCoin(response.data)
+            })
+            .catch(err => {console.error(err);})
 
         // axios.post('http://localhost:8080/twitter/getAllTweets',{})
         // .then(response =>{
@@ -26,8 +28,8 @@ export default function DetailedInfo() {
         // })
     })
 
-  return(
-      <>
+    return(
+        <>
         <Tabs defaultActiveKey="Tweets" transition={false}>
             <Tab eventKey="Overview" title="Overview">
                 <Overview coin={coin}/>
@@ -35,11 +37,14 @@ export default function DetailedInfo() {
             <Tab eventKey="Tweets" title="Tweets">
                 <Tweets />
             </Tab>
-            <Tab eventKey="Reddit" title="Reddit" disabled>
-                ye3
+            <Tab eventKey="Reddit" title="Reddit">
+                <Reddits />
+            </Tab>
+            <Tab eventKey="4chan" title="4chan">
+                <FourChan />
             </Tab>
         </Tabs>
-        {/* <div className="container">
+    {/* <div className="container">
             <hr />
             <ul className="nav nav-pills nav-fill">
                 <li className="nav-item">
@@ -57,8 +62,8 @@ export default function DetailedInfo() {
             </ul>
             <hr />
         </div> */}
-    </>
-  )
-  
+</>
+)
+
 
 }

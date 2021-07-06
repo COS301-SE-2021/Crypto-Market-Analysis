@@ -6,6 +6,9 @@ const spellCorrector = new SpellCorrector();
 const a = require('extract-emoji');
 const emojiUnicode = require("emoji-unicode")
 const name = require("emoji-name-map");
+const Database = require('../database/Database');
+const firestore_db = new Database().getInstance();
+
 var sentiment = require('node-sentiment');
 spellCorrector.loadDictionary();
 const extract_emoji = async (post)=>{
@@ -64,6 +67,11 @@ const splits = async (comment)=>{
     const Splited = words.tokenize(comment);
     return Splited;
 }
+const getData = async (socialmedia , crypto)=>{
+    const bigdata = await firestore_db.fetch(socialmedia,crypto);
+    const docs = await bigdata.data().post;
+    return docs;
+}
 //correcting spelling errors
 const spellingc = async(newWording)=>{
     if(newWording==null)
@@ -90,4 +98,4 @@ const analysewords = async (filteredwords)=>{
 
 }
 
-module.exports = {analysewords, convertion,spellingc,splits,extract_emoji ,analyseTextandEmoji}
+module.exports = {analysewords, convertion,spellingc,splits,extract_emoji ,analyseTextandEmoji,getData}

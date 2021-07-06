@@ -1,12 +1,13 @@
 const admin = require('firebase-admin');
 const serviceAccount = require('./firebase.json');
-
+const database = require("../routes/FirestoreDB")
+const db = database.db;
 /** Initializes the database*/
-const initialize = () => {
+/*const initialize = () => {
     admin.initializeApp({
         credential: admin.credential.cert(serviceAccount)
     });
-}
+}*/
 
 class Database {
 
@@ -14,8 +15,8 @@ class Database {
 
     /** Starts the database */
     constructor() {
-        initialize();
-        this.#db = admin.firestore();
+        //initialize();
+        this.#db = db;
     }
 
     /** Sets the fields in the collection name provided.
@@ -28,14 +29,21 @@ class Database {
         let data = {[field]: fieldsData}
 
         try{
-            console.log(this.#db);
             this.#db.collection(collectionPath).doc(documentName).set(data, {merge:true}).then();
         }
         catch(e) {
             console.error(`An error occurred while connecting to the database: \n${e}`);
         }
     }
-
+    saveData(collectionPath,documentName,object)
+    {
+        try{
+            this.#db.collection(collectionPath).doc(documentName).set(object, {merge:true});
+        }
+        catch(e) {
+            console.error(`An error occurred while connecting to the database: \n${e}`);
+        }
+    }
     fetch(collectionPath, documentName, field)
     {
         if(field === null){

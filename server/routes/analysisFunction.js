@@ -68,5 +68,5 @@ const analysewords = async (filteredwords)=>{
 
 }
 
-module.exports = {analysewords, convertion,spellingc,splits,extract_emoji ,analyseTextandEmoji,getData}
+module.exports = {analysewords, convertion,spellingc,splits,getData}
 

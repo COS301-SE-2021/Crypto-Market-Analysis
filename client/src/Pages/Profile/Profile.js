@@ -21,12 +21,9 @@ export default function Profile()
 {
     let  cryptoReq = {
         email: localStorage.getItem("emailSession")
-
-        // email: "bhekindhlovu7@gmail.com",
-
     }
 
-    //let Button = styled.button `background-color: black; color: white;`;
+    
 
     return(
         <>

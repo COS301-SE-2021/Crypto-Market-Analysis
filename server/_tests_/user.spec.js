@@ -1,9 +1,12 @@
 const conv = require('../routes/analysisFunction');
+
+
 describe("Testing the conversion function", () => {
     test("it should remove stop words", () => {
          const expected = 'this is the test'
         conv.convertion('this is the test').then(data=>{
             expect(data).toEqual(expected);
+
         })
 
     });

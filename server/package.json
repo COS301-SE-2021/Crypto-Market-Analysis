@@ -14,6 +14,7 @@
   "author": "Codex",
   "license": "UNLICENSED",
   "dependencies": {
+    "avl": "^1.5.1",
     "axios": "^0.21.1",
     "babel-jest": "^27.0.2",
     "bcryptjs": "^2.4.3",

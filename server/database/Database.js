@@ -35,7 +35,7 @@ class Database {
         }
     }
 
-    fetch(collectionPath, documentName = null, field = null)
+   async fetch(collectionPath, documentName = null, field = null)
     {
         if(documentName === null){
             try{
@@ -56,10 +56,19 @@ class Database {
         }
         else{
             try{
-                return this.#db.collection(collectionPath).doc(documentName).get(field).then();
+                const doc = await this.#db.collection(collectionPath).doc(documentName).get(field);
+                const entries = await Object.entries(doc.data());
+                for(const entry of entries){
+                    if(entry[0] === field)
+                        return entry[1]
+                }
+
+                return null;
+               // return this.#db.collection(collectionPath).doc(documentName).get(field).then();
             }
             catch(e) {
                 console.error(`An error occurred while connecting to the database: \n${e}`);
+                return null
             }
         }
     }

@@ -1,6 +1,6 @@
 const admin = require('firebase-admin');
 const serviceAccount = require('./firebase.json');
-const database = require("../routes/FirestoreDB")
+const database = require("../FirestoreDB")
 const db = database.db;
 /** Initializes the database*/
 /*const initialize = () => {

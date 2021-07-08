@@ -6,3 +6,6 @@
 /client/node_modules/
 /.idea/
 /client/workspace.xml
+/AnalysisService/node_modules
+/AnalysisService/package-lock.json
+/AnalysisService/coverage

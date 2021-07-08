@@ -39,7 +39,6 @@ const getRedditPost = async ()=>{
         return Promise.reject(new Error(err));
     }
 }
-
 const getUserCrypto = async (email_address)=>{
     const email = email_address;
     let cryptoSymbols = [];
@@ -76,6 +75,7 @@ const fetchUserSocialMedia =async(email_address)=>{
         return Promise.reject(new Error('Error with the database'));
     }
 }
+
 const followCrypto = async (email_address,symbol,crypt_name )=>{
 
     const email = email_address;
@@ -180,12 +180,4 @@ const followSocialMedia = async (email_address,social_media )=> {
     }
 }
 
-const saveToDB = async (arr, socialmedia , crypto)=> {
-    let mini=Math.min.apply(Math, arr)
-    let maxi = Math.max.apply(Math, arr)
-    const age = arr => arr.reduce((acc,v) => acc + v)
-    let average = age(arr)
-    firestore_db.saveData(socialmedia,crypto,{Analysis_score: arr ,Min: mini,Max: maxi,Average: average})
-    return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
-}
-module.exports = {getUserTweets, saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto,followSocialMedia}
+module.exports = {getUserTweets,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto,followSocialMedia}

@@ -23,7 +23,7 @@ class TwitterAVL {
     constructor(){
         this.#firestore_db = new Database().getInstance();
         this.#tree = new AvlTree();
-        this.#following = new Twitter_Following(`alekarzeeshan92@gmail.com`);
+        this.#following = new Twitter_Following(`alekarzeeshan92@gmail.com`).getInstance();
     }
 
     async getTweets() {
@@ -34,7 +34,7 @@ class TwitterAVL {
                 T.get('statuses/user_timeline', {
                     screen_name: name,
                     count: 5,
-                    include_rts: 1
+                    exclude_replies: true
                 }, async (error, data) => {
                     if(error)
                         return Promise.reject(error);
@@ -42,8 +42,9 @@ class TwitterAVL {
                         for (const tweet of data){
                             const {text, id_str} = tweet;
                             this.#tree.insert(id_str, text);
-                            this.filterData(this.#following.getEmail());
                         }
+                        console.log(`After for`)
+                        await this.filterData(this.#following.getEmail());
                     }
                 }).catch(error => {
                     return Promise.reject(error)
@@ -52,8 +53,31 @@ class TwitterAVL {
         }
     }
 
-    filterData(email) {
+    async filterData(email) {
 
+        const crypto_symbols = await this.#firestore_db.fetch(`Users`, email, `crypto`);
+        const crypto_names = await this.#firestore_db.fetch(`Users`, email, `crypto_name`);
+        const keys = this.#tree.keys();
+        const values = this.#tree.values();
+        let regex_string = "";
+
+        for (const symbol of crypto_symbols)
+            regex_string += `\\s${symbol}\\s|`
+
+        for(const [index,name] of crypto_names.entries()) {
+            if(index === crypto_names.length - 1)
+                regex_string += name;
+            else
+                regex_string += `${name}|`;
+        }
+
+        const regex = new RegExp(regex_string, "gi");
+
+        for (const [index,value] of values.entries()) {
+            if(regex.exec(value) === null)
+                this.#tree.remove(keys[index]);
+        }
+        
     }
 }
 

@@ -35,7 +35,7 @@ class TwitterAVL {
             for (const name of screen_names) {
                 T.get('statuses/user_timeline', {
                     screen_name: name,
-                    count: 200,
+                    count: 5,
                     exclude_replies: true
                 }, async (error, data, response) => {
                     if(error)

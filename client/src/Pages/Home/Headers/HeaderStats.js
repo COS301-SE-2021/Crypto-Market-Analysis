@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react"
+import axios from "axios"
+import Carousel from 'react-grid-carousel'
 import db from "../../../firebase"
 
-import CardStats from "../../../components/Cards/CardStats" ;
+import CardStats from "../../../components/Cards/CardStats"
+import SentimentSpeedometer from "../../../components/GraphReport/AnalysisGraph"
 import "./Header.css";
 
 
 
-const coins = ["btc","eth","ltc","xrp","bnb","ada"]
+const coins = ["btc","eth","ltc","xrp","bnb","ada","doge","usdc","dot","sol","link","matic","etc"]
 
 export default function HeaderStats() {
   let [cryptos, setCryptos] = useState([]);
@@ -87,13 +89,15 @@ export default function HeaderStats() {
     <>
     
 
-            <div className="container">
+            <div className="container" style={{width:'90%',margin:'auto'}}>
               <div className="row">
+                <div className="col-12">
+                <Carousel cols={3} rows={2} gap={8} loop >
                 {
                    cryptos.map((coin) => { 
                       return (
-
-                          <div key={coin.id} className="w-full lg:w-6/12 xl:w-3/12 px-4 mt-5">
+                        <Carousel.Item>
+                          <div key={coin.id} className="w-full lg:w-12/12 xl:w-12/12 px-4 mt-5">
 
                               <CardStats
                                   statSubtitle={coin.name}
@@ -105,11 +109,13 @@ export default function HeaderStats() {
                                   statIconName={coin.symbol}
                                   statIconColor="bg-white-500"
                               />
-                          </div>
-
+                          </div> 
+                        </Carousel.Item>
                       )
                   })
                 }
+                </Carousel>
+                </div>
               </div>
             </div>
     </>

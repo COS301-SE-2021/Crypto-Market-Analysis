@@ -3,8 +3,6 @@ import axios from "axios";
 import db from "../../../firebase"
 
 import CardStats from "../../../components/Cards/CardStats" ;
-import CardTweets from "../../../components/Cards/CardTweets/CardTweets" ;
-import SentimentSpeedometer from "../../../components/GraphReport/AnalysisGraph"
 import "./Header.css";
 
 
@@ -14,24 +12,10 @@ const coins = ["btc","eth","ltc","xrp","bnb","ada"]
 export default function HeaderStats() {
   let [cryptos, setCryptos] = useState([]);
   const [item, setItem] = useState([]);
-   // let item= []
-
-  //  let [cryptos, setCryptos] = useState([]);
+  
     const [searchCrypto, setSearchCrypto] = useState("");
-    let [tweets, setTweets] = useState([]);
-
-    let [reddits,setReddits] = useState([]);
-
-    let[socs,setSoc] =useState([]);
-
-    let[crypts, setCrypt] = useState([]);
+    let[userCryptos, setUserCrypto] = useState([]);
     useEffect(async () => {
-    let  cryptoReq = {
-        email: localStorage.getItem("emailSession")
-
-       // email: "bhekindhlovu7@gmail.com",
-
-    }
 
         await db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).get().then((data)=>{
             let arr=[];
@@ -54,272 +38,80 @@ export default function HeaderStats() {
                     }).catch((error) => { })
                 }
             }
-           // arr.push({item});
         }).catch((error) => { })
 
-        axios.post('http://localhost:8080/user/getUserCryptos/',cryptoReq)
+
+        let  reqeustObj = {
+          email: localStorage.getItem("emailSession")
+        
+        }
+
+        /*
+        The post request get cryptocurrencies and social media platforms the user follows
+        */
+        axios.post('http://localhost:8080/user/getUserCryptos/', reqeustObj)
         .then(async(response) => {
-            let soc = []
-            let socialName = []
+            let coins = []
             console.log(response.data)
             await response.data.message.map((coin)=>{
-                soc.push(coin)
+              coins.push(coin)
             })
-            await response.data.social.map((social)=>{
-                socialName.push(social)
-            })
-            setCrypt(soc);
-            setSoc(socialName);
+            setUserCrypto(coins);
+            
         })
         .catch(err => {console.error(err);})
 
-
-
-      let req = {email: localStorage.getItem("emailSession")}
-      axios.post('http://localhost:8080/user/getUserTweets/',req)
-          .then(response => {
-             let tweets_ = []
-              console.log("showing off the tweets");
-              console.log(response.data);
-
-                  for(let j = 0; j<response.data.tweets_array.length; j++)
-                  {
-                      for(let x = 0; x<response.data.tweets_array[j].length; x++)
-                      {
-
-                          tweets_.push({id: response.data.screen_names[j], tweet: response.data.tweets_array[j][x]})
-
-                      }
-
-                  }
-                  console.log(tweets_);
-              setTweets(tweets_);
-
-          })
-          .catch(err => {console.error(err);})
-
-//let posts = [];
-      axios.post('http://localhost:8080/user/getRedditPost/',req)
-          .then(response => {
-                let posts_ = [];
-              for(let j = 0; j<response.data.posts.length; j++)
-              {
-                  for(let x = 0; x<response.data.posts[j].length; x++)
-                  {
-                      posts_.push({posts : response.data.posts[j][x] })
-                  }
-
-              }
-              console.log(posts_)
-              setReddits(posts_);
-          })
-          .catch(err => {console.error(err);})
-      setTimeout(()=>{
-      },10000)
-
-
-
-
-
-
-        
-    axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=50&page=1&sparkline=false')
+        /*
+        The post request get cryptocurrencies from coingecko API
+        */
+        axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=50&page=1&sparkline=false')
         .then(async(response) => {
             //set lists
-            let tempList = []
+            let userCryptoList = []
+            let allCryptoList = []
+
             await response.data.map((coin)=>{
               coins.forEach(element => {
                 if(element === coin.symbol){
-                    tempList.push(coin)
+                  userCryptoList.push(coin)
                 }
+                allCryptoList.push(coin)
               });
             })
-            setCryptos(tempList)
-           // console.log(tempList)
+            setCryptos(userCryptoList)
         })
         .catch(err => {console.error(err);})
-},[]);
+
+      },[]);
   return (
     <>
-      {/* Header */}
-      <div className=" pb-32 pt-8 ">
-        
-        <div className=" px-4 md:px-10 h-full" style={{width:"80%"}} >
-          <div  >
-            {/* Card stats */}
-           
-            <div className="container card-wrapper" >
-            {/*<div className="crypto-search">*/}
-            {/*    <form>*/}
-            {/*        <input type="search" className=" w-full form-control rounded" placeholder="Search..."*/}
-            {/*                />*/}
-            {/*    </form>*/}
-            {/*</div>*/}
-              <div className="row">
+    
 
-                {
-                   cryptos.map((coin) => {
-                       //{
-                         //socs.map((Socss) =>
-                          // {
-                           if ("Bitcoin" === coin.name || "Ethereum" === coin.name) {
-                               return (
-
-                                   <div key={coin.id} className="w-full lg:w-6/12 xl:w-3/12 px-4 mt-5">
-
-                                       <CardStats
-                                           statSubtitle={coin.name}
-                                           statTitle={coin.current_price}
-                                           statArrow={coin.price_change_percentage_24h > 0 ? "up" : "down"}
-                                           statPercent={coin.price_change_percentage_24h.toFixed(2)}
-                                           statPercentColor={coin.price_change_percentage_24h > 0 ? "text-emerald-500" : "text-red-500"}
-                                           statDescripiron="In 24 hours"
-                                           statIconName={coin.symbol}
-                                           statIconColor="bg-white-500"
-                                       />
-                                   </div>
-
-                               )
-                           }
-                         // })
-                       //}
-                  })
-                }
-
-              </div>
-            </div>
-          </div>
-        {/* Tweets cards */}
-
-        <div style={{marginTop:"3%"}} >
-            
-            <div className="container card-wrapper" >
-            {/*<div className="crypto-search">*/}
-            {/*    <form>*/}
-            {/*        <input type="search" className=" w-full form-control rounded" placeholder="Search..."*/}
-            {/*                />*/}
-            {/*    </form>*/}
-            {/*</div>*/}
+            <div className="container">
               <div className="row">
                 {
-                   tweets.map((tweet) =>{
-                    return(
-                      <div key={tweet.id} className="w-full lg:w-6/12 xl:w-4/12 px-4 mt-5">
-                        <CardTweets tweetOwner={tweet.id} tweetContent={tweet.tweet} />
-                    </div>
-                    )
+                   cryptos.map((coin) => { 
+                      return (
+
+                          <div key={coin.id} className="w-full lg:w-6/12 xl:w-3/12 px-4 mt-5">
+
+                              <CardStats
+                                  statSubtitle={coin.name}
+                                  statTitle={coin.current_price}
+                                  statArrow={coin.price_change_percentage_24h > 0 ? "up" : "down"}
+                                  statPercent={coin.price_change_percentage_24h.toFixed(2)}
+                                  statPercentColor={coin.price_change_percentage_24h > 0 ? "text-emerald-500" : "text-red-500"}
+                                  statDescripiron="In 24 hours"
+                                  statIconName={coin.symbol}
+                                  statIconColor="bg-white-500"
+                              />
+                          </div>
+
+                      )
                   })
                 }
-
               </div>
-
             </div>
-          </div>
-            <div style={{marginTop:"3%"}} >
-
-                <div className="container card-wrapper" >
-                    {/*<div className="crypto-search">*/}
-                    {/*    <form>*/}
-                    {/*        <input type="search" className=" w-full form-control rounded" placeholder="Search..."*/}
-                    {/*                />*/}
-                    {/*    </form>*/}
-                    {/*</div>*/}
-                    <div className="row">
-                        <SentimentSpeedometer/>
-                        <SentimentSpeedometer/>
-                        {/*<QuickView/>*/}
-                       {item}
-                        {/* <SentimentSpeedometer min={-5} max={5} average={2} social={"Reddit"} /> */}
-                        {/* <SentimentSpeedometer/> */}
-                    </div>
-
-                </div>
-            </div>
-            {/*<div style={{marginTop:"3%"}} >*/}
-
-                {/*<div className="container card-wrapper" >*/}
-                    {/*<div className="crypto-search">*/}
-                    {/*    <form>*/}
-                    {/*        <input type="search" className=" w-full form-control rounded" placeholder="Search..."*/}
-                    {/*                />*/}
-                    {/*    </form>*/}
-                    {/*</div>*/}
-
-                            {/*<div className="card-header">*/}
-                            {/*    Bitcoin*/}
-                            {/* </div>*/}
-                            <div style={{marginTop:"3%"}} >
-
-                                <div className="container card-wrapper" >
-                                    {/*<div className="crypto-search">*/}
-                                    {/*    <form>*/}
-                                    {/*        <input type="search" className=" w-full form-control rounded" placeholder="Search..."*/}
-                                    {/*                />*/}
-                                    {/*    </form>*/}
-                                    {/*</div>*/}
-
-
-
-                                    <div className="row">
-                                        <div className="card">
-                                            <div className="card-header">
-                                                Reddit Posts
-                                            </div>
-                                            <ul className="list-group list-group-flush">
-                                                {
-                                                    reddits.map((reddit) =>{
-                                                        return(
-                                                            <li className="list-group-item">{reddit.posts}</li>
-                                                        )
-                                                    })
-                                                }
-                                            </ul>
-                                        </div>
-                                        {/*{item}*/}
-                                    </div>
-
-
-
-                                    {/*<div className="row">*/}
-                                    {/*    {*/}
-                                    {/*        reddits.map((reddit) =>{*/}
-
-                                    {/*            return(*/}
-                                    {/*                <li className="list-group-item">{reddit.posts}</li>*/}
-                                    {/*            )*/}
-
-                                    {/*        })*/}
-                                    {/*    }*/}
-
-                                    {/*</div>*/}
-
-                                </div>
-
-                                <div className="container card-wrapper" >
-                                    <div className="row">
-                                        <div className="card">
-                                            <div className="card-header">
-                                                These are the Cryptos you are following:
-                                            </div>
-                                                {
-                                                    socs.map((Soc) =>{
-                                                        return(
-                                                            <div>
-                                                              {Soc.socName}
-                                                            </div>
-                                                        )
-                                                    })
-                                                }
-
-                                        </div>
-                                        {/*{item}*/}
-                                    </div>
-                            </div>
-
-                {/*</div>*/}
-            </div>
-        </div>
-      </div>
     </>
   );
 }

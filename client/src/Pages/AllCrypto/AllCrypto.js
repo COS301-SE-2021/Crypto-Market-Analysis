@@ -6,9 +6,9 @@ import Sidebar from '../../components/Sidebar/Sidebar'
 import "../Settings/Settings.css"
 import "./AllCrypto.css"
 
-export default function AllCryptos()
+export default function AllCryptos({})
 {
-    
+    // cryptos = cryptos
     let [cryptos, setCryptos] = useState([]);
     const [searchCrypto, setSearchCrypto] = useState("");
 
@@ -36,10 +36,10 @@ export default function AllCryptos()
     
     return(
         <>       
-        <Sidebar />
-         <div className="container" >
+        {/* <Sidebar /> */}
+         <div className="container">
             <div className="row"> 
-                <div className="col-10 offset-2 overflow-auto block crypto-wrapper" style={{height:"600px"}}>
+                <div className=" overflow-auto block crypto-wrapper" style={{height:"600px",margin:"auto"}}>
                     <div className="crypto-search">
                         <form>
                             <input type="search" className="form-control rounded" placeholder="Search..."

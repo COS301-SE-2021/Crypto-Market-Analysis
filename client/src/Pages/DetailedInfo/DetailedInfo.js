@@ -12,7 +12,7 @@ import FourChan from '../../components/4chan/fourChan'
 export default function DetailedInfo() {
 
     let [coin, setCoin] = useState([]);
-    let [tweets, setTweets] = useState([]);
+    // let [tweets, setTweets] = useState([]);
 
     useEffect(async () => {
         console.log("USEFFECT")

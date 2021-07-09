@@ -3,7 +3,7 @@ import React from 'react'
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
 import { Link } from "react-router-dom";
-import { IconName } from "@react-icons/all-files/fa/FaUserEdits"
+import { IconName } from "@react-icons/all-files/fa/FaUserEdit"
 import styled from 'styled-components';
 
 const Button = styled.button`

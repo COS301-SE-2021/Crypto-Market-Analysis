@@ -51,27 +51,32 @@ export default function AllCryptos({})
                             
                             return(
                                 <div className='coin-container'>
-                                <div className='coin-row'>
-                                  <div className='coin'>
-                                    <img src={myCrypto.image} alt='crypto' />
-                                    <h1>{myCrypto.name}</h1>
-                                    <p className='coin-symbol'>{myCrypto.symbol}</p>
-                                  </div>
-                                  <div className='coin-data'>
-                                    <p className='coin-price'>R{myCrypto.current_price}</p>
-                                    <p className='coin-volume'>R{myCrypto.total_volume.toLocaleString()}</p>
-                          
-                                    {myCrypto.price_change_percentage_24h < 0 ? (
-                                      <p className='coin-percent red'>{myCrypto.price_change_percentage_24h.toFixed(2)}%</p>
-                                    ) : (
-                                      <p className='coin-percent green'>{myCrypto.price_change_percentage_24h.toFixed(2)}%</p>
-                                    )}
-                          
-                                    <p className='coin-marketcap'>
-                                      Mkt Cap: R{myCrypto.market_cap.toLocaleString()}
-                                    </p>
-                                  </div>
-                                </div>
+                                    <a id="link" href= {"https://www.coingecko.com/en/coins/"+ myCrypto.name.toLowerCase()}>
+
+                                        <div className='coin-row'>
+                                            <div className='coin'>
+                                                <img src={myCrypto.image} alt='crypto' />
+                                                <h1>{myCrypto.name}</h1>
+                                                <p className='coin-symbol'>{myCrypto.symbol}</p>
+                                            </div>
+                                            <div className='coin-data'>
+                                                <p className='coin-price'>R{myCrypto.current_price}</p>
+                                                <p className='coin-volume'>R{myCrypto.total_volume.toLocaleString()}</p>
+
+                                                {myCrypto.price_change_percentage_24h < 0 ? (
+                                                    <p className='coin-percent red'>{myCrypto.price_change_percentage_24h.toFixed(2)}%</p>
+                                                ) : (
+                                                    <p className='coin-percent green'>{myCrypto.price_change_percentage_24h.toFixed(2)}%</p>
+                                                )}
+
+                                                <p className='coin-marketcap'>
+                                                    Mkt Cap: R{myCrypto.market_cap.toLocaleString()}
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </a>
+
                               </div>
                             )
                         })

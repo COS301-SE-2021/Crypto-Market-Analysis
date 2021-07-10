@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 import Carousel from 'react-grid-carousel'
 import db from "../../../firebase"
+import { Link } from "react-router-dom";
 
 import CardStats from "../../../components/Cards/CardStats"
 import SentimentSpeedometer from "../../../components/GraphReport/AnalysisGraph"
@@ -12,9 +13,17 @@ import "./Header.css";
 const coins = ["btc","eth","ltc","xrp","bnb","ada","doge","usdc","dot","sol","link","matic","etc"]
 
 export default function HeaderStats() {
+
+
+
   let [cryptos, setCryptos] = useState([]);
   const [item, setItem] = useState([]);
-  
+    let h;
+    {
+        cryptos.map((coin) => {
+
+        })
+    }
     const [searchCrypto, setSearchCrypto] = useState("");
     let[userCryptos, setUserCrypto] = useState([]);
     useEffect(async () => {
@@ -94,21 +103,26 @@ export default function HeaderStats() {
                 <div className="col-12">
                 <Carousel cols={3} rows={2} gap={8} loop >
                 {
-                   cryptos.map((coin) => { 
+                   cryptos.map((coin) => {
+
+
                       return (
                         <Carousel.Item>
                           <div key={coin.id} className="w-full lg:w-12/12 xl:w-12/12 px-4 mt-5">
 
-                              <CardStats
-                                  statSubtitle={coin.name}
-                                  statTitle={coin.current_price}
-                                  statArrow={coin.price_change_percentage_24h > 0 ? "up" : "down"}
-                                  statPercent={coin.price_change_percentage_24h.toFixed(2)}
-                                  statPercentColor={coin.price_change_percentage_24h > 0 ? "text-emerald-500" : "text-red-500"}
-                                  statDescripiron="In 24 hours"
-                                  statIconName={coin.symbol}
-                                  statIconColor="bg-white-500"
-                              />
+                              <a id="link" href= {"https://www.coingecko.com/en/coins/"+ coin.name.toLowerCase()}>
+                                  <CardStats
+                                      statSubtitle={coin.name}
+                                      statTitle={coin.current_price}
+                                      statArrow={coin.price_change_percentage_24h > 0 ? "up" : "down"}
+                                      statPercent={coin.price_change_percentage_24h.toFixed(2)}
+                                      statPercentColor={coin.price_change_percentage_24h > 0 ? "text-emerald-500" : "text-red-500"}
+                                      statDescripiron="In 24 hours"
+                                      statIconName={coin.symbol}
+                                      statIconColor="bg-white-500"
+                                  />
+                              </a>
+
                           </div> 
                         </Carousel.Item>
                       )

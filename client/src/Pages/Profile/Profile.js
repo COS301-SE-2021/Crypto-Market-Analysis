@@ -54,6 +54,25 @@ export default function Profile({})
                 setSoc(soc);
             })
             .catch(err => {console.error(err);})
+
+        axios.post('http://localhost:8080/user/fetchUserSocialMedia/',cryptoReq)
+            .then(response => {
+                let socialName = []
+                for(let j = 0; j < response.data.SocialMediaName.length; j++)
+                {
+                    for(let x = 0; x < response.data.SocialMediaName[j].length; x++)
+                    {
+
+                        socialName.push({socMediaName : response.data.SocialMediaName[j][x]})
+
+                    }
+
+                }
+                console.log(socialName);
+                setCrypt(socialName);
+            })
+            .catch(err => {console.error(err);})
+
     },[]);
     return(
 
@@ -92,8 +111,8 @@ export default function Profile({})
 
 
                         <div style={{display:"flex",justifyContent:"space-between", width: "108%"}}>
-                            <h6>Follows 2 cryptos</h6>
-                            <h6>Follows 3 social media sites</h6>
+                            <h6>Follows {socs.length} cryptos</h6>
+                            <h6>Follows {crypts.length} social media sites</h6>
                         </div>
 
                         <div style={{display:"flex",justifyContent:"space-between", width: "108%",  position: "relative", bottom: "-30px", right: "-100px"}}>
@@ -135,23 +154,31 @@ export default function Profile({})
             <Tabs defaultActiveKey="Cryptos" transition={false}>
                 <Tab eventKey="Cryptos" title="Cryptos Followed" >
 
-                    <div className="card-header">
-                        These are the Cryptos you are following:
+                    <ul className="list-group list-group-flush">
                         {
                             socs.map((Soc) =>{
                                 return(
                                     <div>
-                                        {Soc.socName}
+                                        <li className="list-group-item">{Soc.socName}</li>
                                     </div>
                                 )
                             })
                         }
-                    </div>
-
+                        </ul>
 
                 </Tab>
-                <Tab eventKey="Tweets" title="Platforms Followed" disabled>
-
+                <Tab eventKey="Tweets" title="Platforms Followed" >
+                    <ul className="list-group list-group-flush">
+                        {
+                            crypts.map((Soc) =>{
+                                return(
+                                    <div>
+                                        <li className="list-group-item">{Soc.socMediaName}</li>
+                                    </div>
+                                )
+                            })
+                        }
+                    </ul>
                 </Tab>
             </Tabs>
 

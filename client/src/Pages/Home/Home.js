@@ -28,8 +28,8 @@ function Home(){
                                         </div> : <></>
                     } */}
                     <div className="row pt-3" style={{backgroundColor:"#23292f",color:"white"}}>
-                        <div className="uppercase text-xl font-bold p-2 px-0" style={{color:"white",margin:"auto"}}> All Cryptocurrencies<hr style={{borderColor:"white"}}/></div>
-                        <div className="container">
+                        <div className="uppercase text-xl font-bold p-2 px-0" style={{display:"flex",color:"white",margin:"auto"}}> All Cryptocurrencies<hr style={{borderColor:"white"}}/></div>
+                        <div className="container" style={{display:"flex",color:"white",margin:"auto"}}>
                         <AllCryptos />
                         </div>
                     </div>

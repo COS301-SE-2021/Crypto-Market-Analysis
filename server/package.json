@@ -36,6 +36,7 @@
     "node-cron": "^3.0.0",
     "node-fetch": "^2.6.1",
     "nodemailer": "^6.6.1",
+    "npm-merge-driver": "^2.3.6",
     "react-table": "^7.7.0",
     "snoowrap": "^1.23.0",
     "ts-jest": "^27.0.3",

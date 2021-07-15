@@ -16,8 +16,8 @@ export default function HeaderStats() {
 
 
 
-    let [cryptos, setCryptos] = useState([]);
-    const [item, setItem] = useState([]);
+  let [cryptos, setCryptos] = useState([]);
+  const [item, setItem] = useState([]);
     let h;
     {
         cryptos.map((coin) => {
@@ -44,7 +44,7 @@ export default function HeaderStats() {
                         {
                             setItem(arr);
                         }
-                        i=i+1;
+                      i=i+1;
 
                     }).catch((error) => { })
                 }
@@ -53,85 +53,85 @@ export default function HeaderStats() {
 
 
         let  reqeustObj = {
-            email: localStorage.getItem("emailSession")
-
+          email: localStorage.getItem("emailSession")
+        
         }
 
         /*
         The post request get cryptocurrencies and social media platforms the user follows
         */
         axios.post('http://localhost:8080/user/getUserCryptos/', reqeustObj)
-            .then(async(response) => {
-                let coins = []
-                console.log(response.data)
-                await response.data.message.map((coin)=>{
-                    coins.push(coin)
-                })
-                setUserCrypto(coins);
-
+        .then(async(response) => {
+            let coins = []
+            console.log(response.data)
+            await response.data.message.map((coin)=>{
+              coins.push(coin)
             })
-            .catch(err => {console.error(err);})
+            setUserCrypto(coins);
+            
+        })
+        .catch(err => {console.error(err);})
 
         /*
         The post request get cryptocurrencies from coingecko API
         */
         axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=50&page=1&sparkline=false')
-            .then(async(response) => {
-                //set lists
-                let userCryptoList = []
-                let allCryptoList = []
+        .then(async(response) => {
+            //set lists
+            let userCryptoList = []
+            let allCryptoList = []
 
-                await response.data.map((coin)=>{
-                    coins.forEach(element => {
-                        if(element === coin.symbol){
-                            userCryptoList.push(coin)
-                        }
-                        allCryptoList.push(coin)
-                    });
-                })
-                setCryptos(userCryptoList)
+            await response.data.map((coin)=>{
+              coins.forEach(element => {
+                if(element === coin.symbol){
+                  userCryptoList.push(coin)
+                }
+                allCryptoList.push(coin)
+              });
             })
-            .catch(err => {console.error(err);})
+            setCryptos(userCryptoList)
+        })
+        .catch(err => {console.error(err);})
 
-    },[]);
-    return (
-        <>
-
+      },[]);
+  return (
+    <>
+    
 
             <div className="container" style={{width:'90%',margin:'auto'}}>
-                <div className="row">
-                    <div className="col-12">
-                        <Carousel cols={3} rows={2} gap={8} loop >
-                            {
-                                cryptos.map((coin) => {
+              <div className="row">
+                <div className="col-12">
+                <Carousel cols={3} rows={2} gap={8} loop >
+                {
+                   cryptos.map((coin) => {
 
 
-                                    return (
-                                        <Carousel.Item>
-                                            <div key={coin.id} className="w-full lg:w-12/12 xl:w-12/12 px-4 mt-5">
+                      return (
+                        <Carousel.Item>
+                          <div key={coin.id} className="w-full lg:w-12/12 xl:w-12/12 px-4 mt-5">
 
-                                                <a id="link" href= {"https://www.coingecko.com/en/coins/"+ coin.name.toLowerCase()}>
-                                                    <CardStats
-                                                        statSubtitle={coin.name}
-                                                        statTitle={coin.current_price}
-                                                        statArrow={coin.price_change_percentage_24h > 0 ? "up" : "down"}
-                                                        statPercent={coin.price_change_percentage_24h.toFixed(2)}
-                                                        statPercentColor={coin.price_change_percentage_24h > 0 ? "text-emerald-500" : "text-red-500"}
-                                                        statDescripiron="In 24 hours"
-                                                        statIconName={coin.symbol}
-                                                        statIconColor="bg-white-500"
-                                                    />
-                                                </a>
+                              <a id="link" href= {"https://www.coingecko.com/en/coins/"+ coin.name.toLowerCase()}>
+                                  <CardStats
+                                      statSubtitle={coin.name}
+                                      statTitle={coin.current_price}
+                                      statArrow={coin.price_change_percentage_24h > 0 ? "up" : "down"}
+                                      statPercent={coin.price_change_percentage_24h.toFixed(2)}
+                                      statPercentColor={coin.price_change_percentage_24h > 0 ? "text-emerald-500" : "text-red-500"}
+                                      statDescripiron="In 24 hours"
+                                      statIconName={coin.symbol}
+                                      statIconColor="bg-white-500"
+                                  />
+                              </a>
 
-                                            </div>
-                                        </Carousel.Item>
-                                    )
-                                })
-                            }
-                        </Carousel>
-                    </div>
+                          </div> 
+                        </Carousel.Item>
+                      )
+                  })
+                }
+                </Carousel>
                 </div>
+              </div>
             </div>
-        </>
-    );
+    </>
+  );
 }

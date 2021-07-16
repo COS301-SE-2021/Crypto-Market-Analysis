@@ -40,11 +40,9 @@ const getUserTweets = async ()=>{
 const getRedditPost = async ()=>{
     let posts = [];
     try{
-        await db.collection(`reddit_data`).get().then((snapshot) =>{
-            for (const doc of snapshot.docs) {
-                posts.push(doc.data().posts);
-            }
-        });
+        const docs = await firestore_db.fetch(`reddit_data`).then(snapshot => {return snapshot.docs});
+        for(const doc of docs)
+            posts.push(doc.data().posts);
         return {status: `Ok`, posts: posts};
     }
     catch(err){
@@ -201,5 +199,5 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
 
-getUserTweets();
+getRedditPost();
 module.exports = {saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto,followSocialMedia, get4chanPost}

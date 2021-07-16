@@ -2,8 +2,6 @@ const express = require("express");
 const router = express.Router();
 const analysis = require('./analysisFunction');
 const userFunctions =require('./userFunctions')
-const database = require("./FirestoreDB")
-const db = database;
 
 router.post("/get4chanPost", async (request,response)=>{
     const email = request.body.email;
@@ -15,7 +13,8 @@ router.post("/get4chanPost", async (request,response)=>{
         return response(401).json({status:`error`, error: err})
     })
 });
-/*router.post("/getUserTweets", async (request,response)=>{
+
+router.post("/getUserTweets", async (request,response)=>{
     const email = request.body.email;
     if(!email || !(typeof email === 'string' || email instanceof String))
         return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
@@ -24,7 +23,7 @@ router.post("/get4chanPost", async (request,response)=>{
     }).catch( err => {
         return response(500).json({status:`Internal Server Error`, error: err})
     })
-});*/
+});
 
 
 router.post("/getRedditPost", async (request,response)=>{
@@ -56,28 +55,6 @@ router.post("/getUserCryptos", async (request, response) => {
      }
  });
 
-/** This function gets the social media a user is following
- * @param {object} request A request object with the email and symbol.
- * @param {object} response A response object which will return the status code.
- * @return          A status code stating if the request was successful.
- * */
-
-/*router.post("/getUserCryptos", async (request,response)=>{
-
-    let cryptoSymbols = null;
-    let socialSites = null;
-    if(request.body.email === null){
-        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
-    }
-    else{
-        userFunctions.fetchUserSocialMedia(request.body.email).then(data=>{
-            return response.status(200).json(data);
-        }).catch(err=>{
-            return response(401).json({status:`error`, error: err})
-        }
-    }
-});*/
-
 /** This function adds a social media site to the users account
  * @param {object} request A request object with the email and symbol.
  * @param {object} response A response object which will return the status code.
@@ -92,7 +69,7 @@ router.post("/followCrypto", async (request,response)=>{
             return response.status(200).json(data);
         }).catch(err=>{
             return response.status(500).json({status:`Internal server error`, error: err})
-        }
+        });
     }
 });
 

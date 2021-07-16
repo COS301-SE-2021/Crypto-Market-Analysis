@@ -2,7 +2,7 @@ const Twitter = require('../social_media_sites/Twitter');
 const twitter = new Twitter();
 const { FakeFirestore } = require('firestore-jest-mock');
 const { mockCollection, mockDoc } = require('firestore-jest-mock/mocks/firestore');
-
+const Database = require('../database/Database');
 describe('Database', () => {
     beforeEach(() => {
         jest.resetModules();
@@ -111,7 +111,7 @@ describe('Testing Twitter functions', () => {
         twitter.getUsersID(['elonmusk']).then(data=>{
             console.log(data);
         })
-        expect(twitter.getUserTimeline(null)).rejects.toThrow('null value');
+
     });
 })
 

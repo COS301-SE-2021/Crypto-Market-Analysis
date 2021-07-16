@@ -15,7 +15,6 @@ const get4chanPost = async ()=>{
         return Promise.reject(new Error(err));
     }
 }
-
 /** This function gets all the tweets stored in the database.
  * @return  {object} Containing an array of screen names and tweets array if it was successful or a rejected Promise.
  * */
@@ -199,9 +198,7 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
     let maxi = Math.max.apply(Math, arr)
     const age = arr => arr.reduce((acc,v) => acc + v)
     let average = age(arr)
-    await db.collection(socialmedia).doc(crypto).set({
-        Analysis_score: arr ,Min: mini,Max: maxi,Average: average
-    }, {merge: true})
+    firestore_db.saveData(socialmedia,crypto,{Analysis_score: arr ,Min: mini,Max: maxi,Average: average})
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
 module.exports = {saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto,followSocialMedia, get4chanPost}

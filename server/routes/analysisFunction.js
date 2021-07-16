@@ -3,6 +3,14 @@ const SpellCorrector = require('spelling-corrector');
 const SW = require('stopword');
 const aposToLexForm = require('apos-to-lex-form');
 const spellCorrector = new SpellCorrector();
+const a = require('extract-emoji');
+const emojiUnicode = require("emoji-unicode")
+const name = require("emoji-name-map");
+const Database = require('../database/Database');
+const firestore_db = new Database().getInstance();
+
+var sentiment = require('node-sentiment');
+
 spellCorrector.loadDictionary();
 
 const convertion = async (post)=> {
@@ -28,6 +36,11 @@ const splits = async (comment)=>{
     const words = new WordTokenizer();
     const Splited = words.tokenize(comment);
     return Splited;
+}
+const getData = async (socialmedia , crypto)=>{
+    const bigdata = await firestore_db.fetch(socialmedia,crypto);
+    const docs = await bigdata.data().post;
+    return docs;
 }
 //correcting spelling errors
 const spellingc = async(newWording)=>{
@@ -55,4 +68,5 @@ const analysewords = async (filteredwords)=>{
 
 }
 
-module.exports = {analysewords, convertion,spellingc,splits}
+module.exports = {analysewords, convertion,spellingc,splits,getData}
+

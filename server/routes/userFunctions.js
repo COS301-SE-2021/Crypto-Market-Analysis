@@ -3,7 +3,7 @@ const firestore_db = new Database().getInstance();
 
 const get4chanPost = async ()=>{
     let fourChanPosts = [];
-    
+
     try{
         const docs = await firestore_db.fetch(`4chan_data`).then((snapshot) => {return snapshot.docs;});
         for(const doc of docs)
@@ -22,12 +22,11 @@ const getUserTweets = async ()=>{
     let screen_names = [];
     let tweets = [];
     try{
-        await db.collection(`twitter_data`).get().then((snapshot) =>{
-            for (const doc of snapshot.docs) {
-                screen_names.push(doc.data().screen_name);
-                tweets.push(doc.data().tweets);
-            }
-        });
+        const docs = await firestore_db.fetch(`twitter_data`).then(snapshot => {return snapshot.docs});
+        for(const doc of docs){
+            screen_names.push(doc.data().screen_name);
+            tweets.push(doc.data().tweets);
+        }
         return {status: `Ok`, screen_names: screen_names, tweets_array: tweets}
     }
     catch(err){
@@ -202,5 +201,5 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
 
-get4chanPost();
+getUserTweets();
 module.exports = {saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto,followSocialMedia, get4chanPost}

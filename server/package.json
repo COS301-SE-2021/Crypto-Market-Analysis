@@ -14,6 +14,7 @@
   "author": "Codex",
   "license": "UNLICENSED",
   "dependencies": {
+    "avl": "^1.5.1",
     "axios": "^0.21.1",
     "babel-jest": "^27.0.2",
     "bcryptjs": "^2.4.3",
@@ -38,14 +39,16 @@
     "morgan": "^1.10.0",
     "nightmare": "^3.0.2",
     "node-cron": "^3.0.0",
-    "node-sentiment": "^0.0.8",
+    "node-fetch": "^2.6.1",
     "nodemailer": "^6.6.1",
     "npm-merge-driver": "^2.3.6",
+    "node-sentiment": "^0.0.8",
     "react-elastic-carousel": "^0.11.5",
     "react-table": "^7.7.0",
     "snoowrap": "^1.23.0",
     "ts-jest": "^27.0.3",
-    "tweet-scraper": "^1.0.1"
+    "tweet-scraper": "^1.0.1",
+    "twit": "^2.2.11"
   },
   "devDependencies": {
     "apos-to-lex-form": "^1.0.5",

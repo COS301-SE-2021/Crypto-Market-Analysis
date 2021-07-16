@@ -30,8 +30,14 @@
     "npm-merge-driver": "^2.3.6",
     "react-d3-speedometer": "^1.0.1",
     "react-dom": "^17.0.2",
+    "react-grid-carousel": "^1.0.1",
+    "react-icons": "^4.2.0",
+    "react-load-script": "0.0.6",
+    "react-multi-carousel": "^2.6.3",
+    "react-render-markup": "^3.4.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
+    "react-script-tag": "^1.1.2",
     "react-scripts": "4.0.3",
     "react-social-icons": "^5.4.1",
     "react-test-renderer": "^17.0.2",
@@ -67,6 +73,7 @@
     ]
   },
   "devDependencies": {
+    "@react-icons/all-files": "^4.1.0",
     "@testing-library/react": "^11.2.7",
     "autoprefixer": "^10.2.6",
     "jest": "^27.0.4",
@@ -74,6 +81,7 @@
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.1",
     "react-test-render": "^1.1.2",
+    "styled-components": "^5.3.0",
     "tailwindcss": "^2.1.4"
   }
 }

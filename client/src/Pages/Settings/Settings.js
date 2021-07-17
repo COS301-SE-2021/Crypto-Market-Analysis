@@ -58,11 +58,12 @@ function QuickView()
                         
                         await response.data.map((coin)=>{
                             
-                            selectedCryptos.map(element => {
+                            selectedCryptos.forEach(element => {
                                 if(element === coin.name){
                                     coin.selected = true;
                                 }
                             })
+                            return coin
                         })
                         setCryptos(response.data)
                     
@@ -127,7 +128,7 @@ function QuickView()
         console.log(cryptos)
         if(type == "cryptos"){
             cryptos =  [...cryptos.map((crypto)=>{
-                if(name == crypto.symbol){
+                if(name === crypto.symbol){
                     crypto.selected = !crypto.selected;
 
                     /*
@@ -160,9 +161,9 @@ function QuickView()
             })]
             setCryptos(cryptos)
         }
-        else if(type == "platforms"){
+        else if(type === "platforms"){
             platforms =  [...platforms.map((platform)=>{
-                if(name == platform.id){
+                if(name === platform.id){
                     platform.selected = !platform.selected;
 
                     /*

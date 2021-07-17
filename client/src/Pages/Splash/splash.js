@@ -15,6 +15,7 @@ function splash(){
                 <br/>
                 <a href="/login" className="btn btn-login">Login</a>
                 <a href="/register" className="btn btn-register">Sign Up</a>
+                <a href="/home" className="btn btn-register">Home Page</a>
             </div>
         </section>
     );

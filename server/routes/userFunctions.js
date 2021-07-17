@@ -178,9 +178,18 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
     let maxi = Math.max.apply(Math, arr)
     const age = arr => arr.reduce((acc,v) => acc + v)
     let average = age(arr)
-    firestore_db.saveData(socialmedia,crypto,{Analysis_score: arr ,Min: mini,Max: maxi,Average: average})
+    try{
+        await firestore_db.save(socialmedia, crypto, `Analysis_score`, arr);
+        await firestore_db.save(socialmedia, crypto, `Min`, mini);
+        await firestore_db.save(socialmedia, crypto, `Max`, maxi);
+        await firestore_db.save(socialmedia, crypto, `Average`, average);
+
+    }
+    catch(err){
+        return {status:`Internal Server Error`, error: err}
+    }
+
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
 
-followSocialMedia(`alekarzeeshan92@gmail.com`,`4chan`).then(res => {console.log(res)});
 module.exports = {saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto,followSocialMedia, get4chanPost}

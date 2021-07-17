@@ -47,9 +47,8 @@ class Database {
           
         }
         else if(field === null){
-            console.log(`this is the field`);
             try{
-                return this.#db.collection(collectionPath).doc(documentName).get().then();
+                return this.#db.collection(collectionPath).doc().get().then();
             }
             catch(e) {
                 console.error(`An error occurred while connecting to the database: \n${e}`);

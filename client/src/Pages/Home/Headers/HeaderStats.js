@@ -10,13 +10,14 @@ import "./Header.css";
 
 
 
-const coins = ["btc","eth","ltc","xrp","bnb","ada","doge","usdc","dot","sol","link","matic","etc"]
+const coins = ["btc","eth","usdt","bnb","ada","xrp","usdc","doge","dot","busd"]
 
 export default function HeaderStats() {
 
 
 
   let [cryptos, setCryptos] = useState([]);
+  let[userCryptos, setUserCrypto] = useState([]);
   const [item, setItem] = useState([]);
     let h;
     {
@@ -25,7 +26,7 @@ export default function HeaderStats() {
         })
     }
     const [searchCrypto, setSearchCrypto] = useState("");
-    let[userCryptos, setUserCrypto] = useState([]);
+   
     useEffect(async () => {
 
         await db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).get().then((data)=>{
@@ -82,6 +83,7 @@ export default function HeaderStats() {
             let allCryptoList = []
 
             await response.data.map((coin)=>{
+              //replace coins with userCryptos
               coins.forEach(element => {
                 if(element === coin.symbol){
                   userCryptoList.push(coin)

@@ -37,7 +37,17 @@ class Database {
 
     async fetch(collectionPath, documentName = null, field = null)
     {
-        if(field === null && collectionPath !==undefined){
+        if(documentName === null)
+        {
+            try{
+                return this.#db.collection(collectionPath).get().then();
+            }
+            catch(e) {
+                console.error(`An error occurred while connecting to the database: \n${e}`);
+            }
+
+        }
+        else if(field === null && collectionPath !==undefined){
           try{
                 return this.#db.collection(collectionPath).doc(documentName).get().then();
             }
@@ -53,16 +63,6 @@ class Database {
             catch(e) {
                 console.error(`An error occurred while connecting to the database: \n${e}`);
             }
-        }
-        else if(documentName===undefined)
-        {
-            try{
-                return this.#db.collection(collectionPath).get().then();
-            }
-            catch(e) {
-                console.error(`An error occurred while connecting to the database: \n${e}`);
-            }
-
         }
         else{
             try{

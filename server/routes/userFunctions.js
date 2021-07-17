@@ -119,13 +119,13 @@ const followCrypto = async (email_address,symbol,crypt_name )=>{
         }
 
         try{
-            firestore_db.save(`Users`, email, `crypto`, crypto);
-            firestore_db.save(`Users`, email, `crypto_name`, crypto_name);
+            await firestore_db.save(`Users`, email, `crypto`, crypto);
+            await firestore_db.save(`Users`, email, `crypto_name`, crypto_name);
         }
         catch (err){
             return {status: `Internal Server Error`, error:err};
         }
-        
+
         return {status: `Ok`, message: `The crypto been successfully added`};
     }
     catch(err){
@@ -135,29 +135,20 @@ const followCrypto = async (email_address,symbol,crypt_name )=>{
 const followSocialMedia = async (email_address,social_media )=> {
     const email = email_address;
     let social_media_sites = [];
-    let data = {};
     let found = false;
-    let docRef = null;
-    try{
-        docRef = db.collection(`Users`).doc(email)
-    }
-    catch (err) {
-        return {status: `Internal Server Error`, error: `The document could not be retrieved: ${err}`};
-    }
 
     try{
-        await db.collection(`Users`).get().then((snapshot) =>{
-            for (const doc of snapshot.docs) {
-                if(doc.id === email){
-                    found = true;
-                    if(doc.data().social_media_sites)
-                        social_media_sites = doc.data().social_media_sites;
-                    else
-                        social_media_sites = [];
-                    break;
-                }
+        const docs = await firestore_db.fetch(`Users`).then(snapshot => {return snapshot.docs});
+        for(const doc of docs){
+            if(doc.id === email){
+                found = true;
+                if(doc.data().social_media_sites)
+                    social_media_sites = doc.data().social_media_sites;
+                else
+                    social_media_sites = [];
+                break;
             }
-        });
+        }
 
         if(found === false)
             return {status: `Not authorized`, error: `The user does not exist`};
@@ -167,14 +158,14 @@ const followSocialMedia = async (email_address,social_media )=> {
         else{
             return {status: `Accepted`, message: `The site already exists`};
         }
-        data = {[`social_media_sites`]: social_media_sites}
+
         try{
-            await docRef.set(data, {merge:true});
+            await firestore_db.save(`Users`, email, `social_media_sites`, social_media_sites);
         }
         catch (err){
-            console.log(`enters test 2`);
-            return {status: `Internal Server Error`, error: `The site could not be added to the database: ${err}`};
+            return {status: `Internal Server Error`, error: err};
         }
+
         return {status: `Ok`, message: `The social media site has been successfully added`};
     }
     catch(err){
@@ -191,5 +182,5 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
 
-followCrypto(`alekarzeeshan92@gmail.com`, `doge`, `Dogecoin`).then(res => {console.log(res)});
+followSocialMedia(`alekarzeeshan92@gmail.com`,`4chan`).then(res => {console.log(res)});
 module.exports = {saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto,followSocialMedia, get4chanPost}

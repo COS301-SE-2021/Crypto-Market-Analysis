@@ -71,18 +71,17 @@ const fetchUserSocialMedia =async(email_address)=>{
     let socialMediaName = [];
     const email = email_address;
     try{
-        await db.collection(`Users`).get().then((snapshot) =>{
-            for (const doc of snapshot.docs) {
-                if(doc.id === email){
-                    socialMediaName.push(doc.data().social_media_sites);
-                    break;
-                }
+        const docs = await firestore_db.fetch(`Users`).then(snapshot => {return snapshot.docs});
+        for(const doc of docs){
+            if(doc.id === email){
+                socialMediaName.push(doc.data().social_media_sites);
+                break;
             }
-        });
+        }
         return {status: `Ok`, SocialMediaName: socialMediaName};
     }
     catch(err){
-        return Promise.reject(new Error('Error with the database'));
+        return Promise.reject(new Error(err));
     }
 }
 const followCrypto = async (email_address,symbol,crypt_name )=>{
@@ -198,5 +197,5 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
 
-getUserCrypto(`alekarzeeshan92@gmail.com`);
+fetchUserSocialMedia(`alekarzeeshan92@gmail.com`);
 module.exports = {saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto,followSocialMedia, get4chanPost}

@@ -120,8 +120,7 @@ export default function HeaderStats() {
                                       statPercent={coin.price_change_percentage_24h.toFixed(2)}
                                       statPercentColor={coin.price_change_percentage_24h > 0 ? "text-emerald-500" : "text-red-500"}
                                       statDescripiron="In 24 hours"
-                                      statIconName={coin.symbol}
-                                      statIconColor="bg-white-500"
+                                      statCoinImage={coin.image}
                                   />
                               </a>
 

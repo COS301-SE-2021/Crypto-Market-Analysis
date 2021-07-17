@@ -49,7 +49,6 @@ const getRedditPost = async ()=>{
         return Promise.reject(new Error(err));
     }
 }
-
 const getUserCrypto = async (email_address)=>{
     const email = email_address;
     let cryptoSymbols = [];
@@ -84,6 +83,7 @@ const fetchUserSocialMedia =async(email_address)=>{
         return Promise.reject(new Error(err));
     }
 }
+
 const followCrypto = async (email_address,symbol,crypt_name )=>{
 
     const email = email_address;
@@ -172,6 +172,7 @@ const followSocialMedia = async (email_address,social_media )=> {
         return {status:`Internal server error`, error: err};
     }
 }
+
 
 const saveToDB = async (arr, socialmedia , crypto)=> {
     let mini=Math.min.apply(Math, arr)

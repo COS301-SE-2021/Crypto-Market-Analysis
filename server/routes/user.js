@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const analysis = require('./analysisFunction');
 const userFunctions =require('./userFunctions')
 
 router.post("/get4chanPost", async (request,response)=>{
@@ -107,57 +106,6 @@ router.post("/fetchUserSocialMedia", async (request, response) => {
         }).catch(err=>{
             return response(401).json({status:`error`, error: err})
         })
-    }
-});
-
-/** This function adds analysis score to the database
- * @param {object} request A request object with the socialmedia and crypto.
- * @param {object} response A response object which will return the analysis results.
- * */
-router.post('/analyse', async function(req, res) {
-
-    if(req.body.crypto === null || req.body.socialmedia === null)
-        return res.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
-
-    const { crypto ,socialmedia} = req.body;
-    let Bigdata = null
-
-    try{
-        await analysis.getData(socialmedia,crypto).then(crypto_Data=>{
-            Bigdata= crypto_Data;
-            console.log(Bigdata)
-        })
-    }
-    catch (err){
-        return res.status(500).json({status:`Internal server error`, error: err});
-    }
-
-    const analysisArr = [];
-    let i=0;
-    try {
-        await Bigdata.forEach(element =>
-            analysis.convertion(element).then(comment => {
-                analysis.splits(comment).then(newWording => {
-                    analysis.spellingc(newWording).then(filteredwords => {
-                        analysis.analysewords(filteredwords).then(analysis => {
-                            if (isNaN(analysis)) {
-                                analysis = 0;
-                            }
-                            analysisArr.push(analysis * 10);
-                            i++;
-                            if (i === Bigdata.length) {
-                                userFunctions.saveToDB(analysisArr,socialmedia,crypto).then(data=>{
-                                    return res.status(200).json(data);
-                                })
-                            }
-                        })
-                    })
-                })
-            })
-        );
-    }
-    catch(err){
-        return res.status(500).json({status:`Internal server error`, error: err});
     }
 });
 

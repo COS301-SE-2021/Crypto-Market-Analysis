@@ -1,12 +1,13 @@
 const admin = require('firebase-admin');
 const serviceAccount = require('./firebase.json');
-
+const database = require("../FirestoreDB")
+const db = database.db;
 /** Initializes the database*/
-const initialize = () => {
+/*const initialize = () => {
     admin.initializeApp({
         credential: admin.credential.cert(serviceAccount)
     });
-}
+}*/
 
 class Database {
 
@@ -14,8 +15,8 @@ class Database {
 
     /** Starts the database */
     constructor() {
-        initialize();
-        this.#db = admin.firestore();
+        //initialize();
+        this.#db = db;
     }
 
     /** Sets the fields in the collection name provided.
@@ -34,20 +35,18 @@ class Database {
             console.error(`An error occurred while connecting to the database: \n${e}`);
         }
     }
-
-    async fetch(collectionPath, documentName = null, field = null)
+    saveData(collectionPath,documentName,object)
+    {
+        try{
+            this.#db.collection(collectionPath).doc(documentName).set(object, {merge:true});
+        }
+        catch(e) {
+            console.error(`An error occurred while connecting to the database: \n${e}`);
+        }
+    }
+    fetch(collectionPath, documentName, field)
     {
         if(field === null && collectionPath !==undefined){
-          try{
-                return this.#db.collection(collectionPath).doc(documentName).get().then();
-            }
-            catch(e) {
-                console.error(`An error occurred while connecting to the database: \n${e}`);
-            }
-          
-        }
-        else if(field === null){
-            console.log(`this is the field`);
             try{
                 return this.#db.collection(collectionPath).doc(documentName).get().then();
             }
@@ -58,27 +57,20 @@ class Database {
         else if(documentName===undefined)
         {
             try{
+                console.log(this.#db.collection(collectionPath).get())
                 return this.#db.collection(collectionPath).get().then();
-            }
+               }
             catch(e) {
-                console.error(`An error occurred while connecting to the database: \n${e}`);
-            }
+            console.error(`An error occurred while connecting to the database: \n${e}`);
+                }
 
         }
         else{
             try{
-                const doc = await this.#db.collection(collectionPath).doc(documentName).get(field);
-                const entries = await Object.entries(doc.data());
-                for(const entry of entries){
-                    if(entry[0] === field)
-                        return entry[1]
-                }
-
-                return null;
+                return this.#db.collection(collectionPath).doc(documentName).get(field).then();
             }
             catch(e) {
                 console.error(`An error occurred while connecting to the database: \n${e}`);
-                return null
             }
         }
     }

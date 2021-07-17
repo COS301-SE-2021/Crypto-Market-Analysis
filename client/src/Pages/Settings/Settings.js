@@ -23,68 +23,99 @@ function QuickView()
     const [searchPlatform, setSearchPlatform] = useState("");
 
     useEffect(async () => {
-        const selectedCryptos = []
-        const selectedPlatforms = []
-        let  userCryptos = {
+        let selectedCryptos = []
+        let selectedPlatforms = []
+        let  userReq = {
             email: localStorage.getItem("emailSession"),
-          }
-          axios.post('http://localhost:8080/user/getUserCryptos/',userCryptos)
+        }
+
+        /*
+        Request to get cryptocurrencies followed by the user
+        */
+          axios.post('http://localhost:8080/user/getUserCryptos/',userReq)
               .then(async(response) =>{
-                  console.log(response.data)
-                  if(response.data.message === null || response.data.social === null)
+                /*
+                    Set default cryptos if data is not set else
+                    push cryptos to a list                  
+                  */
+                  if(response.data.messageN === null)
                   {
-                      selectedCryptos = ["btc","eth","usdt"]
-                      selectedPlatforms = ["Twitter"]
+                      selectedCryptos = ["Bitcoin","Ethereum","Theta"]
                   }
                   else
                   {
-                      await response.data.message.map((coin)=>{
-                          console.log(coin)
+                      await response.data.messageN[0].map((coin)=>{
                           selectedCryptos.push(coin)
                       })
-                      await response.data.social.map((site)=>{
-                          selectedPlatforms.push(site)
-                          console.log(selectedPlatforms)
-                      })
                   }
+
+                  /*
+                    Get a list of coins from Coingecko. For each crypto, check if it matches crypto a user 
+                    follows and mark it as selected                  
+                  */
                     axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=10&page=1&sparkline=false')
                     .then(async (response) => {
-                        //set lists
-                   
+                        
                         await response.data.map((coin)=>{
                             
-                            selectedCryptos.forEach(element => {
-                                if(element === coin.symbol){
+                            selectedCryptos.map(element => {
+                                if(element === coin.name){
                                     coin.selected = true;
                                 }
                             })
                         })
                         setCryptos(response.data)
                     
-                        platformsList.map((_platform)=>{
-                            selectedPlatforms.forEach(element => {
-                                if(element === _platform.name){
-                                    _platform.selected = true;
-                                }
-                            })
-                        })
-                        setPlatforms(platformsList)
-                    
                     })
                     .catch(err => {console.error(err);})
-                            console.log(selectedCryptos)
+                            
                  })
               .catch(err => {console.error(err);})
 
-        
+            
+        /*
+        Request to get social media platforms followed by the user
+        */
+            axios.post('http://localhost:8080/user/fetchUserSocialMedia/',userReq)
+              .then(async(response) =>{
+                 /*
+                    Set default platform if data is not set else
+                    push platform to a list                  
+                  */
+                if(response.data.SocialMediaName === null)
+                {
+                    selectedPlatforms = ["Twitter"]
+                }
+                else
+                {
+                    await response.data.SocialMediaName[0].map((site)=>{
+                        selectedPlatforms.push(site)
+                        console.log(selectedPlatforms)
+                    })
+
+                    platformsList.map((_platform)=>{
+                    selectedPlatforms.forEach(element => {
+                        if(element === _platform.name){
+                            _platform.selected = true;
+                        }
+                    })
+                })
+                setPlatforms(platformsList)
+                }
+            })
+            .catch(err => {console.error(err)})       
     },[]);
 
 
-    //sets search to whats typed in the search input field
+    /*
+    sets search to whats typed in the search input field
+    */
     const searchCoin = (event) => {setSearchCrypto(event.target.value)}
     const searchSocialMedia = (event) => {setSearchPlatform(event.target.value)}
 
-    //filter list based on the search input
+    /*
+    filter list based on the search input
+    */
     const searchedCryptos = cryptos.filter((crypto)=>{
         return crypto.name.toLowerCase().includes(searchCrypto.toLowerCase())
     })
@@ -99,7 +130,9 @@ function QuickView()
                 if(name == crypto.symbol){
                     crypto.selected = !crypto.selected;
 
-                    //if selected add to favourite list else remove it
+                    /*
+                        if selected add to favourite list else remove it
+                    */
                     if(crypto.selected) {
                         let  cryptoToAdd = {
                           email: localStorage.getItem("emailSession"),
@@ -132,7 +165,9 @@ function QuickView()
                 if(name == platform.id){
                     platform.selected = !platform.selected;
 
-                    //if selected add to favourite list else remove it
+                    /*
+                        if selected add to favourite list else remove it
+                    */
                     let  cryptoToAdd = {
                         email: localStorage.getItem("emailSession"),
                         social_media_sites: platform.name
@@ -140,10 +175,6 @@ function QuickView()
                     axios.post('http://localhost:8080/user/followSocialMedia/',cryptoToAdd)
                         .then(response => console.log(response))
                         .catch(err => {console.error(err);})
-                    //     axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd)
-                    //         .then(response => console.log(response))
-                    //         .catch(err => {console.error(err);})
-                    // }
                 }
                 return {
                     ...platform
@@ -176,7 +207,6 @@ function QuickView()
                                     <div className="crypt-row">
                                         <div className="crypto">
                                             {myPlatform.selected?<Star className="select-star" color="primary" onClick={()=>{select(myPlatform.id,"platforms")}}/>:<Star className="select-star" color="action" onClick={()=>{select(myPlatform.id, "platforms")}}/>}
-                                             {/*<Star className="select-star" color="action"/>*/}
                                             <SocialIcon network={myPlatform.id} style={{height:"40px",width:"40px"}}/>
                                             <h1 className="crypto-name">{myPlatform.name}</h1>
                                         </div>

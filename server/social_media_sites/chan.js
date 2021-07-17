@@ -4,6 +4,8 @@ const fs = require('fs');
 const board = "biz";
 const empty = [];
 const Database = require('../database/Database');
+const Vulgar = require('bad-words');
+filter = new Vulgar();
 
 const url = (board) => {
     return  'http://boards.4chan.org/' + board + '/catalog';
@@ -68,7 +70,10 @@ chans.crawlCatalogue().then(response => {
         cryptos.forEach(coin => {
             if(element.toLowerCase().includes(coin))
             {
-                fin.push(element);
+                if(element.length > 4 && element.length < 40)
+                {
+                    fin.push(filter.clean(element));
+                }
             }
         })
     });

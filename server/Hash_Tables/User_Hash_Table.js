@@ -115,6 +115,28 @@ class User_Hash_Table {
         return this.#users;
     }
 
+    async getScreenName(key){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        if(key){
+            let value = this.#users[key];
+            if(value){
+                value = value.screen_name;
+                if(value)
+                    return value;
+                else
+                    return null
+            }
+            else
+                return null;
+        }
+        else
+            return null;
+    }
+
 }
 class Singleton {
 

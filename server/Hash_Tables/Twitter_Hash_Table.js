@@ -31,22 +31,56 @@ class Twitter {
                 const docs = snapshot.docs;
                 for(const doc of docs)
                     this.#twitter_users[doc.id] = {id: doc.data().id, post: doc.data().post};
-
-                user_object.getEmails().then(emails => {
-                    if(emails){
-                        for(const email of emails){
-
-                        }
-                    }
-                });
-
-
             }).catch((error) => {
                 console.error(error);
             });
     }
 
+    async getTimeline(email, users){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
 
+        let tweets = [];
+        let tweets_id = [];
+
+        if(!email || !users)
+            return Promise.reject(new Error('error null value entered'));
+        else{
+            for(const user in users){
+                if(users.hasOwnProperty(user)){
+                    await T.get('statuses/user_timeline', {screen_name: user, count:200, include_rts: 1}, async (error, data, response) => {
+                        if(error || response.caseless.get("status") !== "200 OK")
+                            return Promise.reject(new Error(error));
+                        else{
+                            for(const tweet of data){
+                                tweets_id.push(tweet.id_str);
+                                tweets.push(tweet.text);
+                            }
+                            this.filterData(email, tweets, tweets_id).then();
+                        }
+                    });
+                    }
+            }
+        }
+    }
+
+    async filterData(){
+
+    }
+
+    async getValue(key){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        if(key)
+            const value = this.#twitter_users[key]
+        else
+            return null
+    }
 }
 
 const twitter = new Twitter();

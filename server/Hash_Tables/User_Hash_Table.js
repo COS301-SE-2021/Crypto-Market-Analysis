@@ -1,7 +1,7 @@
 const Database = require('../database/Database');
 const firestore_db = new Database().getInstance();
 
-class User {
+class User_Hash_Table {
     #users;
     #init;
     #initialized = false;
@@ -50,7 +50,6 @@ class User {
         let value = await this.fetchUser(key);
         if(!value[crypto])
             value[crypto] = crypto_name;
-        console.log(this.#users);
     }
 
     async fetchUser(key){
@@ -64,12 +63,38 @@ class User {
         }
     }
 
+    async getCrypto(key){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        if(key){
+            const value = this.#users[key];
+            if(value)
+                return Object.keys(value);
+            else
+                return null
+        }
+        else
+            return null;
+    }
+
+    async getUsers(){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        return this.#users;
+    }
+
 }
 class Singleton {
 
     constructor() {
         if (!Singleton.instance) {
-            Singleton.instance = new User();
+            Singleton.instance = new User_Hash_Table();
         }
     }
 
@@ -77,3 +102,5 @@ class Singleton {
         return Singleton.instance;
     }
 }
+
+module.exports = Singleton;

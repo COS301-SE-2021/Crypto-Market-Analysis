@@ -1,6 +1,8 @@
 const Twit = require('twit');
 const fetch = require('node-fetch');
 const Database = require(`../database/Database`);
+const User_Hash_Table = require(`./User_Hash_Table`);
+const user_object = new User_Hash_Table().getInstance();
 const consumer_key = 'GGXUovWNfvGvagGakjfTzDfe1';
 const consumer_secret = 'UMG68Qym8K7vvsdtlEEIn0vRpyNj6Mfbmz6VUKMC3zn7tQNiat';
 const access_token = '1401939250858319875-zS8LTvSWz5UspdmaF63hxzpkLv0lbE';
@@ -28,12 +30,23 @@ class Twitter {
             .then(snapshot => {
                 const docs = snapshot.docs;
                 for(const doc of docs)
-                    this.#twitter_users[doc.id] = {id: doc.data().id, post: doc.data().post}
-                console.log(this.#twitter_users);
+                    this.#twitter_users[doc.id] = {id: doc.data().id, post: doc.data().post};
+
+                user_object.getEmails().then(emails => {
+                    if(emails){
+                        for(const email of emails){
+
+                        }
+                    }
+                });
+
+
             }).catch((error) => {
                 console.error(error);
             });
     }
+
+
 }
 
 const twitter = new Twitter();

@@ -15,15 +15,17 @@ class User_Hash_Table {
                     let cryptocurrencies;
                     let crypto;
                     let crypto_name;
+                    let screen_name;
                     for (const doc of docs){
                         cryptocurrencies = {};
                         crypto = doc.data().crypto;
                         crypto_name = doc.data().crypto_name;
+                        screen_name = doc.data().screen_name;
                         if(crypto){
                             for(const [index, value] of crypto.entries())
                                 cryptocurrencies[value] = crypto_name[index];
                         }
-                        this.#users[doc.id] = cryptocurrencies;
+                        this.#users[doc.id] = {cryptocurrencies, screen_name};
                     }
                 }
         }).catch((error) => {
@@ -48,8 +50,15 @@ class User_Hash_Table {
         }
 
         let value = await this.fetchUser(key);
-        if(!value[crypto])
-            value[crypto] = crypto_name;
+        if(value){
+            value = value.cryptocurrencies;
+            if(value){
+                if(!value[crypto])
+                    value[crypto] = crypto_name;
+            }
+            else
+                value[crypto] = crypto_name
+        }
     }
 
     async fetchUser(key){
@@ -58,9 +67,9 @@ class User_Hash_Table {
             this.#initialized = true;
         }
 
-        if(key) {
+        if(key)
             return this.#users[key];
-        }
+
     }
 
     async getCrypto(key){
@@ -76,6 +85,18 @@ class User_Hash_Table {
             else
                 return null
         }
+        else
+            return null;
+    }
+
+    async getEmails(){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        if(this.#users)
+            return Object.keys(this.#users);
         else
             return null;
     }

@@ -79,11 +79,16 @@ class User_Hash_Table {
         }
 
         if(key){
-            const value = this.#users[key];
-            if(value)
-                return Object.keys(value);
+            let value = this.#users[key];
+            if(value){
+                value = value.cryptocurrencies;
+                if(value)
+                    return Object.keys(value);
+                else
+                    return null
+            }
             else
-                return null
+                return null;
         }
         else
             return null;

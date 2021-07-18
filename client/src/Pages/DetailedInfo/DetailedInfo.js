@@ -14,9 +14,9 @@ export default function DetailedInfo() {
     let [coin, setCoin] = useState([]);
     // let [tweets, setTweets] = useState([]);
 
-    useEffect(async () => {
+    useEffect(() => {
         console.log("USEFFECT")
-        axios.get('https://api.coingecko.com/api/v3/coins/bitcoin')
+        axios.post('https://api.coingecko.com/api/v3/coins/bitcoin')
             .then(async(response) => {
                 setCoin(response.data)
             })
@@ -26,7 +26,7 @@ export default function DetailedInfo() {
         // .then(response =>{
         //     console.log(response)
         // })
-    })
+    },[]);
 
     return(
         <>

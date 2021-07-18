@@ -1,4 +1,4 @@
-const natural = require('natural');
+/*const natural = require('natural');
 const SpellCorrector = require('spelling-corrector');
 const SW = require('stopword');
 const aposToLexForm = require('apos-to-lex-form');
@@ -9,7 +9,7 @@ const name = require("emoji-name-map");
 const Database = require('../database/Database');
 const firestore_db = new Database().getInstance();
 
-var sentiment = require('node-sentiment');
+let sentiment = require('node-sentiment');
 
 spellCorrector.loadDictionary();
 
@@ -69,4 +69,4 @@ const analysewords = async (filteredwords)=>{
 }
 
 module.exports = {analysewords, convertion,spellingc,splits,getData}
-
+*/

@@ -92,7 +92,7 @@ router.post("/followCrypto", async (request,response)=>{
             return response.status(200).json(data);
         }).catch(err=>{
             return response.status(500).json({status:`Internal server error`, error: err})
-        }
+        });
     }
 });
 

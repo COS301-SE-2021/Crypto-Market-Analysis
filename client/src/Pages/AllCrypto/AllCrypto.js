@@ -56,7 +56,7 @@ export default function AllCryptos({})
                                         <div className='coin-row'>
 
                                                 <div className='coin'>
-                                                    <a id="link" href= {"https://www.coingecko.com/en/coins/"+ myCrypto.name.toLowerCase()}>
+                                                    <a id="link" href= {"/DetailedInfo"}>
                                                     <img src={myCrypto.image} alt='crypto' />
                                                     <h1>{myCrypto.name}</h1>
                                                     </a>

@@ -3,10 +3,10 @@ import axios from "axios";
 
 
 
-export default function FourChan({}){
+export default function FourChan(){
 
     let [fourChans,setfourChans] = useState([]);
-    useEffect(async () => {
+    useEffect( () => {
         let  cryptoReq = {
             email: localStorage.getItem("emailSession")
 

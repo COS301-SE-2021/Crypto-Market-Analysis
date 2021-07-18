@@ -3,10 +3,10 @@ import axios from "axios";
 
 
 
-export default function Reddits({}){
+export default function Reddits(){
 
     let [reddits,setReddits] = useState([]);
-    useEffect(async () => {
+    useEffect( () => {
     let  cryptoReq = {
         email: localStorage.getItem("emailSession")
 

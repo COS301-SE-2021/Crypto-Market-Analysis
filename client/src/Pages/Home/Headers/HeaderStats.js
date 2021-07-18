@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
 import Carousel from 'react-grid-carousel'
-import db from "../../../firebase"
-import { Link } from "react-router-dom";
 
 import CardStats from "../../../components/Cards/CardStats"
 import SentimentSpeedometer from "../../../components/GraphReport/AnalysisGraph"
@@ -10,92 +8,72 @@ import "./Header.css";
 
 
 
-const coins = ["btc","eth","usdt","bnb","ada","xrp","usdc","doge","dot","busd"]
+const coins = ["Bitcoin","Ethereum","Theta","Binance Coin","Cardano","XRP","USD Coin","Dogecoin","Polkadot","Binance USD"]
 
 export default function HeaderStats() {
-
-
-
   let [cryptos, setCryptos] = useState([]);
-  let[userCryptos, setUserCrypto] = useState([]);
-  const [item, setItem] = useState([]);
-    let h;
-    {
-        cryptos.map((coin) => {
+  
+  useEffect(async () => {
+    let selectedCryptos = []
+    let  reqeustObj = { email: localStorage.getItem("emailSession") }
 
+    if(reqeustObj != null){ /* If user logged in, get crypto coins followed by that user */
+
+      /*
+      The post request get cryptocurrencies and social media platforms the user follows
+      */
+      axios.post('http://localhost:8080/user/getUserCryptos/', reqeustObj)
+      .then(async(response) => {
+      
+        await response.data.messageN[0].map((coin)=>{
+          selectedCryptos.push(coin)
         })
-    }
-    const [searchCrypto, setSearchCrypto] = useState("");
-   
-    useEffect(async () => {
-
-        await db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).get().then((data)=>{
-            let arr=[];
-            let i=0;
-            for(const social of data.data().social_media_sites)
-            {
-                for(const crypt of data.data().crypto_name) {
-                    db.firestore().collection(social).doc(crypt).get().then((analysis) => {
-                        const avg= Math.round(analysis.data().Average)
-                        const mini= Math.round((analysis.data().Min))
-                        const maxi = Math.round(analysis.data().Max)
-                        arr.push(<SentimentSpeedometer min={mini} max={maxi} average={avg} social={social} cyp={crypt} />)
-                        console.log(data.data().crypto_name.length);
-                        if(i===data.data().crypto_name.length)
-                        {
-                            setItem(arr);
-                        }
-                      i=i+1;
-
-                    }).catch((error) => { })
-                }
-            }
-        }).catch((error) => { })
-
-
-        let  reqeustObj = {
-          email: localStorage.getItem("emailSession")
-        
-        }
-
+          
         /*
-        The post request get cryptocurrencies and social media platforms the user follows
-        */
-        axios.post('http://localhost:8080/user/getUserCryptos/', reqeustObj)
-        .then(async(response) => {
-            let coins = []
-            console.log(response.data)
-            await response.data.message.map((coin)=>{
-              coins.push(coin)
-            })
-            setUserCrypto(coins);
-            
-        })
-        .catch(err => {console.error(err);})
-
-        /*
-        The post request get cryptocurrencies from coingecko API
+          The post request get cryptocurrencies from coingecko API
         */
         axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=50&page=1&sparkline=false')
         .then(async(response) => {
-            //set lists
+            
             let userCryptoList = []
-            let allCryptoList = []
 
             await response.data.map((coin)=>{
-              //replace coins with userCryptos
-              coins.forEach(element => {
-                if(element === coin.symbol){
+
+              selectedCryptos.forEach(element => {
+                if(element === coin.name){
                   userCryptoList.push(coin)
                 }
-                allCryptoList.push(coin)
               });
             })
             setCryptos(userCryptoList)
         })
         .catch(err => {console.error(err);})
+          
+      })
+      .catch(err => {console.error(err);})
+    }
+    else{ /* else if user is not logged in, use default(Top 10) crypto coins */
+      /*
+        The post request get cryptocurrencies from coingecko API
+      */
+        axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=50&page=1&sparkline=false')
+        .then(async(response) => {
+            
+            let userCryptoList = []
 
-      },[]);
+            await response.data.map((coin)=>{
+
+              coins.forEach(element => {
+                if(element === coin.name){
+                  userCryptoList.push(coin)
+                }
+              });
+            })
+            setCryptos(userCryptoList)
+        })
+        .catch(err => {console.error(err);})
+    }
+  },[]);
   return (
     <>
     

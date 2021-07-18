@@ -1,24 +1,55 @@
 /*eslint-disable*/
 import React from "react";
 import { Link } from "react-router-dom";
+import {Avatar} from "@material-ui/core";
+import EditIcon from "@material-ui/icons/Edit";
 
 // import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
 // import UserDropdown from "components/Dropdowns/UserDropdown.js";
 
 export default function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
+
+  let  cryptoReq = {
+    email: localStorage.getItem("emailSession")
+  }
   return (
     <>
+
       <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"
       >
-        <div className="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
+        <div className="md:flex-col md:items-stretch md:min-h-full md:flex-wrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
           {/* Toggler */}
+
+          <div>
+            <div style={{
+              position:"static",
+              display:"flex",
+              justifyContent:"space-between",
+              margin:"10px 0px",
+              borderBottom: "1px solid grey"
+            }}>
+                <div>
+                  <Avatar style={{width: "20px", height: "20px", borderRadius: "80px" }} className="aV" src='https://static.vecteezy.com/system/resources/previews/002/318/271/non_2x/user-profile-icon-free-vector.jpg'
+                  />
+                </div>
+
+                <div style={{display:"flex",justifyContent:"space-around", width: "-50%", position:"static"}}>
+                    <p className={"w"}>{cryptoReq.email}</p>
+                </div>
+
+            </div>
+          </div>
+
+
+
+
           <button
             className="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
             type="button"
             onClick={() => setCollapseShow("bg-white m-2 py-3 px-6")}
           >
-            <i className="fas fa-bars"></i>
+            <i className="fas fa-bars"/>
           </button>
           {/* Brand */}
           <Link
@@ -61,7 +92,7 @@ export default function Sidebar() {
                     className="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
                     onClick={() => setCollapseShow("hidden")}
                   >
-                    <i className="fas fa-times"></i>
+                    <i className="fas fa-times"/>
                   </button>
                 </div>
               </div>
@@ -103,7 +134,7 @@ export default function Sidebar() {
                         ? "opacity-75"
                         : "text-blueGray-300")
                     }
-                  ></i>{" "}
+                  />{" "}
                   Dashboard
                 </Link>
               </li>
@@ -125,7 +156,7 @@ export default function Sidebar() {
                         ? "opacity-75"
                         : "text-blueGray-300")
                     }
-                  ></i>{" "}
+                  />{" "}
                   Settings
                 </Link>
               </li>
@@ -147,7 +178,7 @@ export default function Sidebar() {
                         ? "opacity-75"
                         : "text-blueGray-300")
                     }
-                  ></i>{" "}
+                  />{" "}
                   Profile
                 </Link>
               </li>
@@ -169,7 +200,7 @@ export default function Sidebar() {
                         ? "opacity-75"
                         : "text-blueGray-300")
                     }
-                  ></i>{" "}
+                  />{" "}
                   View All Cryptocurrencies
                 </Link>
               </li>
@@ -191,7 +222,7 @@ export default function Sidebar() {
                         ? "opacity-75"
                         : "text-blueGray-300")
                     }
-                  ></i>{" "}
+                  />{" "}
                   Logout
                 </Link>
               </li>

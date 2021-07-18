@@ -102,7 +102,6 @@ const Profile = props =>
                         <Avatar style={{width: "160px", height: "160px", borderRadius: "80px" }} className="aV" src='https://static.vecteezy.com/system/resources/previews/002/318/271/non_2x/user-profile-icon-free-vector.jpg'
                         />
 
-
                         {/*} <img style={{width: "160px", height: "160px", borderRadius: "80px" }} className="aV" src={profileImg} id={"input"}/>
 
                     <div className={"label"}>
@@ -153,8 +152,6 @@ const Profile = props =>
                                 </Button>
                             </Link>
                         </div>
-
-
 
 
                     </div>

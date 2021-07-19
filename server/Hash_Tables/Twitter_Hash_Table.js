@@ -42,33 +42,46 @@ class Twitter {
             this.#initialized = true;
         }
 
-        let tweets = [];
-        let tweets_id = [];
+        let tweets = {};
 
         if(!email || !users)
-            return Promise.reject(new Error('error null value entered'));
+            return Promise.reject(`Null value entered`);
         else{
-            for(const user in users){
-                if(users.hasOwnProperty(user)){
-                    await T.get('statuses/user_timeline', {screen_name: user, count:200, include_rts: 1}, async (error, data, response) => {
-                        if(error || response.caseless.get("status") !== "200 OK")
-                            return Promise.reject(new Error(error));
-                        else{
-                            for(const tweet of data){
-                                tweets_id.push(tweet.id_str);
-                                tweets.push(tweet.text);
-                            }
-                            this.filterData(email, tweets, tweets_id).then();
-                        }
-                    });
-                }
+            for(const user of users){
+                await T.get('statuses/user_timeline', {screen_name: user, count:200, include_rts: 1}, async (error, data) => {
+                    if(error)
+                        return Promise.reject(error);
+                    else{
+                        for(const tweet of data)
+                            tweets[tweet.id] = tweet.text;
+                        this.filterData(email, tweets).then();
+                    }
+                });
             }
         }
     }
 
-    async filterData(email, tweets, tweets_id){
-        const doc_crypto = user_object.getCrypto();
-        const doc_crypto_name = user_object.getCryptoName();
+    async filterData(email, tweets){
+        if(email && tweets){
+            const crypto = await user_object.getCrypto(email);
+            const crypto_name = await user_object.getCryptoName(email);
+
+            if(crypto && crypto_name){
+                let regex_string = "";
+                for(const [index,value] of crypto.entries()){
+                    if(index === crypto.length -1)
+                        regex_string += `\\s${crypto_name[index]}\\s|` + `\\s${value}\\s`;
+                    else
+                        regex_string += `\\s${crypto_name[index]}\\s|` + `\\s${value}\\s|`;
+                }
+
+                const regex = new RegExp(regex_string, "gi");
+                for(const tweet of Object.entries(tweets)){
+                    if(regex.exec(tweet[1]) === null)
+                        delete tweets[tweet[0]];
+                }
+            }
+        }
     }
 
     async getValue(key){
@@ -78,11 +91,19 @@ class Twitter {
         }
 
         if(key)
-            const value = this.#twitter_users[key]
+            return this.#twitter_users[key];
         else
             return null
     }
 }
 
+/*T.get('statuses/user_timeline', {screen_name: `BillGates`, count:200, include_rts: 1}, (err, data, response) => {
+    if(err)
+        console.error(err);
+    else
+        console.log(data);
+});*/
 const twitter = new Twitter();
+twitter.getTimeline(`bhekindhlovu7@gmail.com`, [`elonmusk`]).then();
+//twitter.filterData(`bhekindhlovu7@gmail.com`, [`elon_musk`], [`elon_musk`]).then();
 module.exports = Twitter;

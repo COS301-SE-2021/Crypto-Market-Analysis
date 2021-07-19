@@ -28,42 +28,27 @@ export default function HeaderStats() {
         await response.data.messageN[0].map((coin)=>{
           selectedCryptos.push(coin)
         })
-          
-        /*
-          The post request get cryptocurrencies from coingecko API
-        */
-        axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=50&page=1&sparkline=false')
-        .then(async(response) => {
-            
-            let userCryptoList = []
-
-            await response.data.map((coin)=>{
-
-              selectedCryptos.forEach(element => {
-                if(element === coin.name){
-                  userCryptoList.push(coin)
-                }
-              });
-            })
-            setCryptos(userCryptoList)
-        })
-        .catch(err => {console.error(err);})
-          
+        getCoins(selectedCryptos)
       })
       .catch(err => {console.error(err);})
     }
     else{ /* else if user is not logged in, use default(Top 10) crypto coins */
-      /*
-        The post request get cryptocurrencies from coingecko API
-      */
-        axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=50&page=1&sparkline=false')
+      getCoins(coins)
+    }
+  },[])
+
+  /*
+    The post request get cryptocurrencies from coingecko API
+  */
+  function getCoins(coinsList){
+    axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=50&page=1&sparkline=false')
         .then(async(response) => {
             
             let userCryptoList = []
 
             await response.data.map((coin)=>{
 
-              coins.forEach(element => {
+              coinsList.forEach(element => {
                 if(element === coin.name){
                   userCryptoList.push(coin)
                 }
@@ -72,8 +57,7 @@ export default function HeaderStats() {
             setCryptos(userCryptoList)
         })
         .catch(err => {console.error(err);})
-    }
-  },[]);
+  }
   return (
     <>
     

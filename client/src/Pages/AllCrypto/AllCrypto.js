@@ -45,17 +45,17 @@ export default function AllCryptos()
               follows and mark it as selected                  
             */
               axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=10&page=1&sparkline=false')
-              .then(async (response) => {
+              .then(async (response_data) => {
                   
-                  await response.data.map((coin)=>{
+                  await response_data.data.map((coin)=>{
                       
-                      selectedCryptos.map(element => {
+                      selectedCryptos.forEach(element => {
                           if(element === coin.name){
                               coin.selected = true;
                           }
                       })
                   })
-                  setCryptos(response.data)
+                  setCryptos(response_data.data)
               
               })
               .catch(err => {console.error(err);})

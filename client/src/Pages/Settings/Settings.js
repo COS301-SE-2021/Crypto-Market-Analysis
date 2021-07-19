@@ -23,11 +23,9 @@ function QuickView()
     const [searchPlatform, setSearchPlatform] = useState("");
 
     useEffect(async () => {
-        let selectedCryptos = []
-        let selectedPlatforms = []
-        let  userReq = {
-            email: localStorage.getItem("emailSession"),
-        }
+        let selectedCryptos = ["Bitcoin","Ethereum","Theta","Binance Coin"]
+        let selectedPlatforms = ["Twitter"]
+        let  userReq = { email: localStorage.getItem("emailSession") }
 
         /*
         Request to get cryptocurrencies followed by the user
@@ -38,12 +36,9 @@ function QuickView()
                     Set default cryptos if data is not set else
                     push cryptos to a list                  
                   */
-                  if(response.data.messageN === null)
+                  if(response.data.messageN != null)
                   {
-                      selectedCryptos = ["Bitcoin","Ethereum","Theta"]
-                  }
-                  else
-                  {
+                      selectedCryptos = []
                       await response.data.messageN[0].map((coin)=>{
                           selectedCryptos.push(coin)
                       })
@@ -54,9 +49,9 @@ function QuickView()
                     follows and mark it as selected                  
                   */
                     axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=10&page=1&sparkline=false')
-                    .then(async (response) => {
+                    .then(async (response_data) => {
                         
-                        await response.data.map((coin)=>{
+                        await response_data.data.map((coin)=>{
                             
                             selectedCryptos.forEach(element => {
                                 if(element === coin.name){
@@ -65,7 +60,7 @@ function QuickView()
                             })
                             return coin
                         })
-                        setCryptos(response.data)
+                        setCryptos(response_data.data)
                     
                     })
                     .catch(err => {console.error(err);})
@@ -83,17 +78,15 @@ function QuickView()
                     Set default platform if data is not set else
                     push platform to a list                  
                   */
-                if(response.data.SocialMediaName === null)
-                {
-                    selectedPlatforms = ["Twitter"]
-                }
-                else
-                {
-                    await response.data.SocialMediaName[0].map((site)=>{
-                        selectedPlatforms.push(site)
-                        console.log(selectedPlatforms)
-                    })
-
+                    if(response.data.SocialMediaName != null)
+                    {
+                        selectedPlatforms = []
+                        await response.data.SocialMediaName[0].map((site)=>{
+                            selectedPlatforms.push(site)
+                            console.log(selectedPlatforms)
+                        })
+                    }
+            
                     platformsList.map((_platform)=>{
                     selectedPlatforms.forEach(element => {
                         if(element === _platform.name){
@@ -102,7 +95,7 @@ function QuickView()
                     })
                 })
                 setPlatforms(platformsList)
-                }
+                
             })
             .catch(err => {console.error(err)})       
     },[]);

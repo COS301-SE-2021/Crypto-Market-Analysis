@@ -94,6 +94,28 @@ class User_Hash_Table {
             return null;
     }
 
+    async getCryptoName(key){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        if(key){
+            let value = this.#users[key];
+            if(value){
+                value = value.cryptocurrencies;
+                if(value)
+                    return Object.values(value);
+                else
+                    return null
+            }
+            else
+                return null;
+        }
+        else
+            return null;
+    }
+
     async getEmails(){
         if(!this.#initialized){
             await this.#init;

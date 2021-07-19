@@ -61,13 +61,14 @@ class Twitter {
                             this.filterData(email, tweets, tweets_id).then();
                         }
                     });
-                    }
+                }
             }
         }
     }
 
-    async filterData(){
-
+    async filterData(email, tweets, tweets_id){
+        const doc_crypto = user_object.getCrypto();
+        const doc_crypto_name = user_object.getCryptoName();
     }
 
     async getValue(key){

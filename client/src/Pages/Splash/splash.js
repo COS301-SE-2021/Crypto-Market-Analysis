@@ -12,7 +12,7 @@ function splash(){
                 <h1>Welcome to Cryptosis</h1>
                 <h2>Cryptosis is the easiest place to track cryptocurrency.</h2>
                 <br/>
-                <br/>
+                 <br/>
                 <a href="/login" className="btn btn-login">Login</a>
                 <a href="/register" className="btn btn-register">Sign Up</a>
                 <a href="/home" className="btn btn-register">Dashboard</a>

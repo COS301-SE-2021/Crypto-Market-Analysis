@@ -38,5 +38,13 @@ class Reddit {
     }
 }
 
+let reddits = new Reddit();
+reddits.scrapeSubreddit("CryptoCurrencies").then();
+reddits.scrapeSubreddit("SatoshiStreetBets").then();
+reddits.scrapeSubreddit("Crypto_Currency_News").then();
+reddits.scrapeSubreddit("CryptoCurrencyTrading").then();
+reddits.scrapeSubreddit("Cryptomarkets").then();
+reddits.scrapeSubreddit2("Bitcoin").then();
+reddits.scrapeSubreddit2("Ethereum").then();
 
 module.exports = Reddit;

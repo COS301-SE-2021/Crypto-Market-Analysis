@@ -1,6 +1,8 @@
 import React from "react";
 import './splash.css';
 import {Link} from "react-router-dom";
+import { Typewriter } from 'react-typewriting-effect'
+import 'react-typewriting-effect/dist/index.css'
 
 function splash(){
     return(
@@ -9,7 +11,8 @@ function splash(){
                 <source src={window.location.origin+'/Splash/splash2.mp4'} type="video/mp4"/>
             </video>
             <div className="welcome-message">
-                <h1>Welcome to Cryptosis</h1>
+
+                <Typewriter className="head" string='Welcome to Cryptosis' delay={80} />
                 <h2>Cryptosis is the easiest place to track cryptocurrency.</h2>
                 <br/>
                  <br/>

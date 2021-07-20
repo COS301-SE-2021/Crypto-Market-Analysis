@@ -70,10 +70,10 @@ export default function Reddits({}){
 
                                 <ul className="list-group list-group-flush">
                                     {
-                                        searchedReddit.map((myCrypto) =>{
+                                        searchedReddit.map((post) =>{
 
                                             return(
-                                                <li className="list-group-item">{myCrypto.posts}</li>
+                                                <li className="list-group-item">{post.posts}</li>
                                             )
                                         })
                                     }

@@ -61,6 +61,24 @@ class User_Hash_Table {
         }
     }
 
+    async insertScreenName(key, crypto, crypto_name){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        let value = await this.fetchUser(key);
+        if(value){
+            value = value.cryptocurrencies;
+            if(value){
+                if(!value[crypto])
+                    value[crypto] = crypto_name;
+            }
+            else
+                value[crypto] = crypto_name
+        }
+    }
+
     async fetchUser(key){
         if(!this.#initialized){
             await this.#init;
@@ -157,6 +175,19 @@ class User_Hash_Table {
         }
         else
             return null;
+    }
+
+    async searchScreenName(screen_name){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        const values = Object.values(this.#users);
+        for(const value of values)
+            if(value.screen_name && (value.screen_name).indexOf(screen_name) > -1)
+                return 0;
+        return Promise.reject(`screen_name does not exist`);
     }
 
 }

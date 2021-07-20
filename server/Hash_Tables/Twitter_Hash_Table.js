@@ -36,6 +36,27 @@ class Twitter {
             });
     }
 
+    async userLookup(screen_name){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        if(screen_name){
+            
+        }
+        else
+            throw `No parameters passed in`;
+        /*await T.get('users/show', {screen_name: screen_name}, async (error, data) => {
+            if(error) {
+                return await Promise.reject(error);
+            }
+            else {
+                return await Promise.resolve(data);
+            }
+        });*/
+    }
+
     async getTimeline(email, users){
         if(!this.#initialized){
             await this.#init;
@@ -65,21 +86,32 @@ class Twitter {
         if(email && tweets){
             const crypto = await user_object.getCrypto(email);
             const crypto_name = await user_object.getCryptoName(email);
+            let regex;
 
             if(crypto && crypto_name){
                 let regex_string = "";
                 for(const [index,value] of crypto.entries()){
-                    if(index === crypto.length -1)
+                    if(index === crypto.length -1) {
                         regex_string += `\\s${crypto_name[index]}\\s|` + `\\s${value}\\s`;
-                    else
-                        regex_string += `\\s${crypto_name[index]}\\s|` + `\\s${value}\\s|`;
+                        regex = new RegExp(regex_string, "gi");
+                    }
+                    else {
+                        regex_string = `\\s${crypto_name[index]}\\s|` + `\\s${value}\\s`;
+                        regex = new RegExp(regex_string, "gi");
+                        console.log(regex);
+                        for(const tweet of Object.entries(tweets)){
+                            if(regex.exec(tweet[1]) === null)
+                                delete tweets[tweet[0]];
+                        }
+                        //console.log(tweets, crypto_name[index]);
+                    }
                 }
 
-                const regex = new RegExp(regex_string, "gi");
+                /*const regex = new RegExp(regex_string, "gi");
                 for(const tweet of Object.entries(tweets)){
                     if(regex.exec(tweet[1]) === null)
                         delete tweets[tweet[0]];
-                }
+                }*/
             }
         }
     }
@@ -104,6 +136,9 @@ class Twitter {
         console.log(data);
 });*/
 const twitter = new Twitter();
-twitter.getTimeline(`bhekindhlovu7@gmail.com`, [`elonmusk`]).then();
+twitter.userLookup(`djdnkwndkjw`).then((res) => {
+    console.log(res);
+})
+//twitter.getTimeline(`bhekindhlovu7@gmail.com`, [`elonmusk`]).then();
 //twitter.filterData(`bhekindhlovu7@gmail.com`, [`elon_musk`], [`elon_musk`]).then();
 module.exports = Twitter;

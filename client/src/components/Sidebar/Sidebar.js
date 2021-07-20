@@ -2,7 +2,6 @@
 import React, { useState,useRef}  from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
-import ModalComp from "../../components/Modal/Modal"
 
 // import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
 // import UserDropdown from "components/Dropdowns/UserDropdown.js";
@@ -144,7 +143,7 @@ export default function Sidebar() {
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
                   to="/home"
-                  onClick={changeLocation("/home")}
+                  onClick={changeLocation}
                 >
                   <i
                     className={
@@ -167,7 +166,7 @@ export default function Sidebar() {
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
                   to="/Settings"
-                  onClick={changeLocation("/Settings")}
+                  onClick={changeLocation}
                 >
                   <i
                     className={
@@ -190,7 +189,7 @@ export default function Sidebar() {
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
                   to="/profile"
-                  onClick={changeLocation("/profile")}
+                  onClick={changeLocation}
                 >
                   <i
                     className={
@@ -213,7 +212,7 @@ export default function Sidebar() {
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
                   to="/"
-                  
+
                 >
                   <i
                     className={

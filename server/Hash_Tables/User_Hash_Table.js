@@ -186,8 +186,8 @@ class User_Hash_Table {
         const values = Object.values(this.#users);
         for(const value of values)
             if(value.screen_name && (value.screen_name).indexOf(screen_name) > -1)
-                return 0;
-        return Promise.reject(`screen_name does not exist`);
+                return true;
+        return false;
     }
 
 }

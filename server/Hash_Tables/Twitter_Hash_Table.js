@@ -43,18 +43,18 @@ class Twitter {
         }
 
         if(screen_name){
-            
+            if(await user_object.searchScreenName(screen_name))
+                return true;
+            else{
+                let exists = false;
+                const error = await T.get('users/show', {screen_name: screen_name}).catch(error => {return error});
+                if(error.data)
+                    exists = true;
+                return exists;
+            }
         }
         else
             throw `No parameters passed in`;
-        /*await T.get('users/show', {screen_name: screen_name}, async (error, data) => {
-            if(error) {
-                return await Promise.reject(error);
-            }
-            else {
-                return await Promise.resolve(data);
-            }
-        });*/
     }
 
     async getTimeline(email, users){
@@ -129,16 +129,4 @@ class Twitter {
     }
 }
 
-/*T.get('statuses/user_timeline', {screen_name: `BillGates`, count:200, include_rts: 1}, (err, data, response) => {
-    if(err)
-        console.error(err);
-    else
-        console.log(data);
-});*/
-const twitter = new Twitter();
-twitter.userLookup(`djdnkwndkjw`).then((res) => {
-    console.log(res);
-})
-//twitter.getTimeline(`bhekindhlovu7@gmail.com`, [`elonmusk`]).then();
-//twitter.filterData(`bhekindhlovu7@gmail.com`, [`elon_musk`], [`elon_musk`]).then();
 module.exports = Twitter;

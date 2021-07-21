@@ -1,11 +1,12 @@
 import "bootstrap/dist/css/bootstrap.css";
 import { Markup } from 'react-render-markup'
+import React from 'react'
 
 export default function Overview({coin}){
 
     return(
         <>
-        {/* <div className="container mt-16 mb-12">
+         {coin.id ? <><div className="container mt-16 mb-12">
             <div className="row">
                 <div className="col-4">
                     <img src={coin.image.large}/>
@@ -16,7 +17,7 @@ export default function Overview({coin}){
             </div>
         </div>
 
-        <div className="container mb-3" style={{margin:"auto"}}>
+         <div className="container mb-3" style={{margin:"auto"}}>
             <div className="row">
                 <div className="col-12">
                     <div className="d-inline"><span className="badge badge-primary rounded-circle p-4"><i class="fas fa-hashtag fa-3x"></i><h1 className="d-inline ml-2">{coin.market_cap_rank}</h1></span></div>
@@ -81,7 +82,7 @@ export default function Overview({coin}){
         </div>
         <div className="container">
         <div className=" text-sm p-2 px-0" ><span className="uppercase font-bold">Last updated at : </span> {coin.market_data.last_updated}</div>
-        </div> */}
+        </div></>:<></>}
         </>
     )
 }

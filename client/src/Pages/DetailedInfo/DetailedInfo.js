@@ -11,7 +11,7 @@ import FourChan from '../../components/4chan/fourChan'
 
 export default function DetailedInfo() {
 
-    let [coin, setCoin] = useState([]);
+    let [coin, setCoin] = useState({});
     // let [tweets, setTweets] = useState([]);
 
     useEffect(async () => {
@@ -26,13 +26,13 @@ export default function DetailedInfo() {
         // .then(response =>{
         //     console.log(response)
         // })
-    })
+    },[])
 
     return(
         <>
         <Tabs defaultActiveKey="Tweets" transition={false}>
             <Tab eventKey="Overview" title="Overview">
-                <Overview coin={coin}/>
+                {coin && <Overview coin={coin}/>}
             </Tab>
             <Tab eventKey="Tweets" title="Tweets">
                 <Tweets />

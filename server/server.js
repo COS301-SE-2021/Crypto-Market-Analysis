@@ -8,8 +8,7 @@ const port = process.env.port || 8080;
 console.log(`Listening on port ${port}`);
 http.createServer(app);
 cron.schedule('*/10 * * * *', () => {
-    console.log('scrapping every minute');
-     let reddits = new Reddit();
+    let reddits = new Reddit();
     reddits.scrapeSubreddit("CryptoCurrencies").then();
     reddits.scrapeSubreddit("SatoshiStreetBets").then();
     reddits.scrapeSubreddit("Crypto_Currency_News").then();

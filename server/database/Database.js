@@ -24,25 +24,25 @@ class Database {
      * @param {String} field The field to update in the document
      * @param {any} fieldsData The data of the updated field
      * */
-    save(collectionPath, documentName, field, fieldsData){
+    save(collectionPath, documentName, field, fieldsData, merge = false){
         let data = {[field]: fieldsData}
 
-        try{
-            this.fetch(collectionPath, documentName, field).then(oldField => {
-                if(Array.isArray(oldField)){
+        if(merge){
+            try{
+                this.fetch(collectionPath, documentName, field).then(oldField => {
                     oldField.push(fieldsData);
                     data = {[field]: oldField};
                     this.#db.collection(collectionPath).doc(documentName).set(data, {merge:true}).then();
-                }
-                else
-                    this.#db.collection(collectionPath).doc(documentName).set(data, {merge:true}).then();
-            }).catch(error => {
-                return Promise.reject(error);
-            })
+                }).catch(error => {
+                    return Promise.reject(error);
+                })
+            }
+            catch(e) {
+                console.error(`An error occurred while connecting to the database: \n${e}`);
+            }
         }
-        catch(e) {
-            console.error(`An error occurred while connecting to the database: \n${e}`);
-        }
+        else
+            this.#db.collection(collectionPath).doc(documentName).set(data, {merge:true}).then();
     }
 
     async fetch(collectionPath, documentName = null, field = null)
@@ -88,6 +88,41 @@ class Database {
             catch(e) {
                 console.error(`An error occurred while connecting to the database: \n${e}`);
                 return null
+            }
+        }
+    }
+
+    async delete(collectionPath, documentPath, field, fieldData){
+        //Delete a specific value from a field. Only works when the field is an array or object
+        if(collectionPath && documentPath && field && fieldData){
+            //Get the field from the database
+            const oldField = await this.fetch(collectionPath, documentPath, field);
+            //Check if the field is an array
+            if(Array.isArray(oldField)){
+                //Check if the value exists in the array
+                const index = oldField.indexOf(fieldData);
+                if(index !== -1){
+                    try{
+                        //Delete the value from the array
+                        oldField.splice(index, 1);
+                        if(oldField){
+                            try{
+                                //Save the new array in the field
+                                this.save(collectionPath, documentPath, field, oldField);
+                            }
+                            catch (error){
+                                return Promise.reject(error)
+                            }
+                        }
+                        return true;
+                    }
+                    catch (error){
+                        return Promise.reject(error);
+                    }
+                }
+                else
+                    return Promise.reject(`Value does not exist within the field`);
+
             }
         }
     }

@@ -77,7 +77,7 @@ class User_Hash_Table {
                 if(screen_name_array.indexOf(screen_name) === -1) {
                     try{
                         screen_name_array.push(screen_name);
-                        firestore_db.save(`Users`, key, `screen_name`, screen_name);
+                        firestore_db.save(`Users`, key, `screen_name`, screen_name, true);
                         return Promise.resolve(true);
                     }
                     catch (error){
@@ -217,12 +217,5 @@ class Singleton {
     }
 }
 
-const singleton = new Singleton().getInstance();
-singleton.insertScreenName(`alekarzeeshan92@gmail.com`,`MichaelSuppo`).then(res => {
-    console.log(res);
-});
-singleton.getUsers().then(res => {
-    console.log(res);
-});
 
 module.exports = Singleton;

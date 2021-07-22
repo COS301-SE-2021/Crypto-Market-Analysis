@@ -24,13 +24,20 @@ class Twitter_Hash_Table {
     constructor(){
         if(this.#firestore_db === null)
             this.#firestore_db = new Database().getInstance();
-
+        
         this.#twitter_users = {};
-        this.#init = this.#firestore_db.fetch(`Twitter`)
+        this.#init = this.#firestore_db.fetch(`Twitter_data`)
             .then(snapshot => {
                 const docs = snapshot.docs;
-                for(const doc of docs)
-                    this.#twitter_users[doc.id] = {id: doc.data().id, post: doc.data().post};
+                for(const doc of docs){
+                    const keys = Object.keys(doc.data());
+                    const values = Object.values(doc.data());
+                    let doc_value = {};
+                    for(const [index, value] of values.entries())
+                        doc_value[keys[index]] = value;
+
+                    this.#twitter_users[doc.id] = doc_value;
+                }
             }).catch((error) => {
                 console.error(error);
             });
@@ -138,5 +145,7 @@ class Singleton {
         return Singleton.instance;
     }
 }
+
+const singleton = new Singleton().getInstance();
 
 module.exports = Singleton;

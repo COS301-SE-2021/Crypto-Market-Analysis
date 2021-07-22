@@ -28,7 +28,17 @@ class Database {
         let data = {[field]: fieldsData}
 
         try{
-            this.#db.collection(collectionPath).doc(documentName).set(data, {merge:true}).then();
+            this.fetch(collectionPath, documentName, field).then(oldField => {
+                if(Array.isArray(oldField)){
+                    oldField.push(fieldsData);
+                    data = {[field]: oldField};
+                    this.#db.collection(collectionPath).doc(documentName).set(data, {merge:true}).then();
+                }
+                else
+                    this.#db.collection(collectionPath).doc(documentName).set(data, {merge:true}).then();
+            }).catch(error => {
+                return Promise.reject(error);
+            })
         }
         catch(e) {
             console.error(`An error occurred while connecting to the database: \n${e}`);

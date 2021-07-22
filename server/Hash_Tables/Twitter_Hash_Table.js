@@ -14,7 +14,7 @@ const T = new Twit({
     access_token:         access_token,
     access_token_secret: access_secret_token, });
 
-class Twitter {
+class Twitter_Hash_Table {
     #firestore_db = null;
     #oembed_url = "https://publish.twitter.com/oembed";
     #twitter_users;
@@ -46,11 +46,8 @@ class Twitter {
             if(await user_object.searchScreenName(screen_name))
                 return true;
             else{
-                let exists = false;
                 const error = await T.get('users/show', {screen_name: screen_name}).catch(error => {return error});
-                if(error.data)
-                    exists = true;
-                return exists;
+                return !!error.data;
             }
         }
         else
@@ -129,4 +126,17 @@ class Twitter {
     }
 }
 
-module.exports = Twitter;
+class Singleton {
+
+    constructor() {
+        if (!Singleton.instance) {
+            Singleton.instance = new Twitter_Hash_Table();
+        }
+    }
+
+    getInstance() {
+        return Singleton.instance;
+    }
+}
+
+module.exports = Singleton;

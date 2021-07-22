@@ -1,6 +1,7 @@
 const Database = require('../database/Database');
 const firestore_db = new Database().getInstance();
 
+
 class User_Hash_Table {
     #users;
     #init;
@@ -61,22 +62,34 @@ class User_Hash_Table {
         }
     }
 
-    async insertScreenName(key, crypto, crypto_name){
+    async insertScreenName(key, screen_name){
         if(!this.#initialized){
             await this.#init;
             this.#initialized = true;
         }
 
-        let value = await this.fetchUser(key);
-        if(value){
-            value = value.cryptocurrencies;
-            if(value){
-                if(!value[crypto])
-                    value[crypto] = crypto_name;
+        if(key && screen_name){
+            const Twitter = require(`./Twitter_Hash_Table`);
+            const twitter = new Twitter().getInstance();
+            const exists = twitter.userLookup(screen_name);
+            if(exists){
+                const screen_name_array = this.#users[key].screen_name;
+                if(screen_name_array.indexOf(screen_name) === -1) {
+                    try{
+                        screen_name_array.push(screen_name);
+                        firestore_db.save(`Users`, key, `screen_name`, screen_name);
+                        return Promise.resolve(true);
+                    }
+                    catch (error){
+                        return await Promise.reject(error);
+                    }
+                }
             }
             else
-                value[crypto] = crypto_name
+                return Promise.reject(`Screen name does not exist`);
         }
+        else
+            return Promise.reject(`Parameters are undefined`);
     }
 
     async fetchUser(key){
@@ -203,5 +216,13 @@ class Singleton {
         return Singleton.instance;
     }
 }
+
+const singleton = new Singleton().getInstance();
+singleton.insertScreenName(`alekarzeeshan92@gmail.com`,`MichaelSuppo`).then(res => {
+    console.log(res);
+});
+singleton.getUsers().then(res => {
+    console.log(res);
+});
 
 module.exports = Singleton;

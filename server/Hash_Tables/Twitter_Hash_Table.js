@@ -78,18 +78,20 @@ class Twitter_Hash_Table {
                     if(last_query){
                         const difference = Math.floor((Math.floor(queryTime/1000) - last_query._seconds)/60);
                         if(difference >= 10)
-                            await this.callTimelineAPI(user, email, new Date());
+                            this.callTimelineAPI(user, email, new Date()).then();
                         else{
                             const crypto_currencies = await user_object.getCryptoName(email);
                             if(crypto_currencies){
                                 for(const crypto of Object.entries(crypto_currencies)) {
-                                    await this.filterData(email, await this.#twitter_users[user][crypto], user);
+                                    if(this.#twitter_users[user][crypto])
+                                        this.filterData(email, await this.#twitter_users[user][crypto], user).then();
                                 }
                             }
                         }
                     }
-                    else
-                        await this.callTimelineAPI(user, email, new Date());
+                    else{
+                        this.callTimelineAPI(user, email, new Date()).then();
+                    }
                 }
             }
             else
@@ -98,9 +100,8 @@ class Twitter_Hash_Table {
     }
 
     async callTimelineAPI(user, email, queryTime){
-        //console.log(user);
         let tweets = {};
-        await T.get('statuses/user_timeline', {screen_name: user, count:200, include_rts: 1}, async (error, data) => {
+        return await T.get('statuses/user_timeline', {screen_name: user, count:200, include_rts: 1}, async (error, data) => {
             if(error)
                 return Promise.reject(error);
             else{
@@ -110,11 +111,6 @@ class Twitter_Hash_Table {
                 try{
                     await this.filterData(email, tweets, user);
                     await this.insertQueryTime(user, queryTime);
-                    /*if(this.#twitter_users[user])
-                        this.#twitter_users[user].last_query = queryTime;
-                    else
-                        this.#twitter_users[user] = {last_query: queryTime};
-                    this.#firestore_db.save(`Twitter_data`, user, `last_query`, queryTime);*/
                 }
                 catch (error){
                     return Promise.reject(error);
@@ -124,7 +120,6 @@ class Twitter_Hash_Table {
     }
 
     async filterData(email, tweets, user){
-        console.log(user);
         if(email && tweets && user){
             const crypto = await user_object.getCrypto(email);
             const crypto_name = await user_object.getCryptoName(email);
@@ -154,32 +149,6 @@ class Twitter_Hash_Table {
                     }
                 }
             }
-
-            /*if(crypto && crypto_name){
-                let regex_string = "";
-                for(const [index,value] of crypto.entries()){
-                    if(index === crypto.length -1) {
-                        regex_string += `\\s${crypto_name[index]}\\s|` + `\\s${value}\\s`;
-                        regex = new RegExp(regex_string, "gi");
-                    }
-                    else {
-                        regex_string = `\\s${crypto_name[index]}\\s|` + `\\s${value}\\s`;
-                        regex = new RegExp(regex_string, "gi");
-                        console.log(regex);
-                        for(const tweet of Object.entries(tweets)){
-                            if(regex.exec(tweet[1]) === null)
-                                delete tweets[tweet[0]];
-                        }
-                        //console.log(tweets, crypto_name[index]);
-                    }
-                }*/
-
-                /*const regex = new RegExp(regex_string, "gi");
-                for(const tweet of Object.entries(tweets)){
-                    if(regex.exec(tweet[1]) === null)
-                        delete tweets[tweet[0]];
-                }*/
-            //}
         }
         else
             return Promise.reject(`Parameters are not defined`);

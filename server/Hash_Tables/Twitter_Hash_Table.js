@@ -24,7 +24,7 @@ class Twitter_Hash_Table {
     constructor(){
         if(this.#firestore_db === null)
             this.#firestore_db = new Database().getInstance();
-        
+
         this.#twitter_users = {};
         this.#init = this.#firestore_db.fetch(`Twitter_data`)
             .then(snapshot => {
@@ -61,38 +61,101 @@ class Twitter_Hash_Table {
             throw `No parameters passed in`;
     }
 
-    async getTimeline(email, users){
+    async getTimeline(email){
         if(!this.#initialized){
             await this.#init;
             this.#initialized = true;
         }
 
-        let tweets = {};
-
-        if(!email || !users)
-            return Promise.reject(`Null value entered`);
+        if(!email)
+            return Promise.reject(`Parameter is not defined`);
         else{
-            for(const user of users){
-                await T.get('statuses/user_timeline', {screen_name: user, count:200, include_rts: 1}, async (error, data) => {
-                    if(error)
-                        return Promise.reject(error);
-                    else{
-                        for(const tweet of data)
-                            tweets[tweet.id] = tweet.text;
-                        this.filterData(email, tweets).then();
+            const users = await user_object.getScreenName(email);
+            if(users){
+                for(const user of users){
+                    let queryTime = new Date().getTime();
+                    let last_query = await this.getQueryTime(user);
+                    if(last_query){
+                        const difference = Math.floor((Math.floor(queryTime/1000) - last_query._seconds)/60);
+                        if(difference >= 10)
+                            await this.callTimelineAPI(user, email, new Date());
+                        else{
+                            const crypto_currencies = await user_object.getCryptoName(email);
+                            if(crypto_currencies){
+                                for(const crypto of Object.entries(crypto_currencies)) {
+                                    await this.filterData(email, await this.#twitter_users[user][crypto], user);
+                                }
+                            }
+                        }
                     }
-                });
+                    else
+                        await this.callTimelineAPI(user, email, new Date());
+                }
             }
+            else
+                return Promise.reject(`User is not following anyone on twitter`);
         }
     }
 
-    async filterData(email, tweets){
-        if(email && tweets){
+    async callTimelineAPI(user, email, queryTime){
+        //console.log(user);
+        let tweets = {};
+        await T.get('statuses/user_timeline', {screen_name: user, count:200, include_rts: 1}, async (error, data) => {
+            if(error)
+                return Promise.reject(error);
+            else{
+                for(const tweet of data)
+                    tweets[tweet.id] = tweet.text;
+
+                try{
+                    await this.filterData(email, tweets, user);
+                    await this.insertQueryTime(user, queryTime);
+                    /*if(this.#twitter_users[user])
+                        this.#twitter_users[user].last_query = queryTime;
+                    else
+                        this.#twitter_users[user] = {last_query: queryTime};
+                    this.#firestore_db.save(`Twitter_data`, user, `last_query`, queryTime);*/
+                }
+                catch (error){
+                    return Promise.reject(error);
+                }
+            }
+        });
+    }
+
+    async filterData(email, tweets, user){
+        console.log(user);
+        if(email && tweets && user){
             const crypto = await user_object.getCrypto(email);
             const crypto_name = await user_object.getCryptoName(email);
-            let regex;
 
-            if(crypto && crypto_name){
+            if(crypto && crypto_name) {
+                for(const [index, value] of crypto.entries()){
+                    let temp_array = {...tweets};
+                    const regex_string = `\\s${crypto_name[index]}\\s|` + `\\s${value}\\s`;
+                    const regex = new RegExp(regex_string, "gi");
+                    for(const tweet of Object.entries(temp_array)){
+                        if(regex.exec(tweet[1]) === null)
+                            delete temp_array[tweet[0]];
+                    }
+
+                    try{
+                        if(temp_array){
+                            this.#firestore_db.save(`Twitter`, crypto_name[index], `id`, Object.keys(temp_array));
+                            this.#firestore_db.save(`Twitter`, crypto_name[index], `post`, Object.values(temp_array));
+                            this.#firestore_db.save(`Twitter_data`, user, crypto_name[index], temp_array);
+                            if(this.#twitter_users[user])
+                                this.#twitter_users[user][crypto_name[index]] = temp_array;
+                        }
+
+                    }
+                    catch (error){
+                        return Promise.reject(error);
+                    }
+                }
+            }
+
+            /*if(crypto && crypto_name){
                 let regex_string = "";
                 for(const [index,value] of crypto.entries()){
                     if(index === crypto.length -1) {
@@ -109,15 +172,17 @@ class Twitter_Hash_Table {
                         }
                         //console.log(tweets, crypto_name[index]);
                     }
-                }
+                }*/
 
                 /*const regex = new RegExp(regex_string, "gi");
                 for(const tweet of Object.entries(tweets)){
                     if(regex.exec(tweet[1]) === null)
                         delete tweets[tweet[0]];
                 }*/
-            }
+            //}
         }
+        else
+            return Promise.reject(`Parameters are not defined`);
     }
 
     async getValue(key){
@@ -130,6 +195,49 @@ class Twitter_Hash_Table {
             return this.#twitter_users[key];
         else
             return null
+    }
+
+    async insertQueryTime(screen_name, queryTime){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        if(screen_name && queryTime){
+            try{
+                if(this.#twitter_users[screen_name])
+                    this.#twitter_users[screen_name].last_query = queryTime;
+                else
+                    this.#twitter_users[screen_name] = {last_query: queryTime};
+                this.#firestore_db.save(`Twitter_data`, screen_name, `last_query`, queryTime);
+            }
+            catch (error){
+                return Promise.reject(error);
+            }
+        }
+        else
+            return Promise.reject(`Parameters are undefined`);
+    }
+
+    async getQueryTime(screen_name){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        if(screen_name){
+            try{
+                if(this.#twitter_users[screen_name])
+                    return this.#twitter_users[screen_name].last_query;
+                else
+                    return undefined;
+            }
+            catch (error){
+                return Promise.reject(error);
+            }
+        }
+        else
+            return Promise.reject(`Parameter is undefined`);
     }
 }
 
@@ -147,5 +255,5 @@ class Singleton {
 }
 
 const singleton = new Singleton().getInstance();
-
+singleton.getTimeline(`alekarzeeshan92@gmail.com`);
 module.exports = Singleton;

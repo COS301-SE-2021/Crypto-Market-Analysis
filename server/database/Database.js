@@ -23,6 +23,7 @@ class Database {
      * @param {String} documentName Name of the document in the collection
      * @param {String} field The field to update in the document
      * @param {any} fieldsData The data of the updated field
+     * @param merge
      * */
     save(collectionPath, documentName, field, fieldsData, merge = false){
         let data = {[field]: fieldsData}

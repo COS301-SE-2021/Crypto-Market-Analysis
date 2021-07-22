@@ -92,6 +92,7 @@ class User_Hash_Table {
             return Promise.reject(`Parameters are undefined`);
     }
 
+
     async fetchUser(key){
         if(!this.#initialized){
             await this.#init;

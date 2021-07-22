@@ -55,6 +55,15 @@ const spellingc = async(newWording)=>{
     return filteredwords;
 
 }
+const saveOld = async(SocialMedia , cryptocurrency)=>{
+    await firestore_db.getUsers(SocialMedia).onSnapshot((documents) => {
+        documents.forEach((doc) => {
+            if (typeof doc.id !== "undefined" && doc.id === cryptocurrency) {
+                firestore_db.saveData(SocialMedia,cryptocurrency,{Old_Average: doc.data().Average})
+            }
+        })
+    });
+}
 const saveToDB = async (arr, socialmedia , crypto)=> {
     let mini=Math.min.apply(Math, arr)
     let maxi = Math.max.apply(Math, arr)
@@ -82,7 +91,9 @@ const sentimentAnalysis = async (cryptos,socialmedias)=>{
     const crypto =cryptos;
     const socialmedia = socialmedias;
     let Bigdata = null
-
+    saveOld(socialmedia,crypto).then(data=>{
+        console.log('old average saved')
+    })
     try{
         await getData(socialmedia,crypto).then(crypto_Data=>{
             Bigdata= crypto_Data;

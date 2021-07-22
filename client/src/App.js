@@ -21,7 +21,7 @@ function App() {
           <AuthProvider>
            <Switch>
                  <section className="header">
-                     <Route exact path="/" component={splash}></Route>
+                     <Route exact path="/" component={Home}></Route>
                      <Route exact path="/register" component={Register}></Route>
                      <PrivateRoute exact path="/home" component={Home}></PrivateRoute>
                      <Route exact path="/login" component={login}></Route>

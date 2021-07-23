@@ -208,6 +208,26 @@ class Twitter_Hash_Table {
         else
             return Promise.reject(`Parameter is undefined`);
     }
+
+    async getEmbeddedTweets(email){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        const screen_names = await user_object.getScreenName(email);
+        const crypto_currencies = await user_object.getCryptoName(email);
+        const id_array = [];
+
+        for(const crypto of crypto_currencies){
+            for(const name of screen_names){
+                if(Object.keys(this.#twitter_users[name][crypto]).length !== 0)
+                    id_array.push(Object.keys(this.#twitter_users[name][crypto]));
+            }
+        }
+
+        return id_array;
+    }
 }
 
 class Singleton {
@@ -224,5 +244,9 @@ class Singleton {
 }
 
 const singleton = new Singleton().getInstance();
-singleton.getTimeline(`alekarzeeshan92@gmail.com`);
+console.time(`getTimeline`);
+singleton.getEmbeddedTweets(`alekarzeeshan92@gmail.com`).then((res) => {
+    console.log(res);
+    console.timeEnd(`getTimeline`);
+});
 module.exports = Singleton;

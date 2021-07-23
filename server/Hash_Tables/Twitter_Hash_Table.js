@@ -37,6 +37,7 @@ class Twitter_Hash_Table {
                         doc_value[keys[index]] = value;
 
                     this.#twitter_users[doc.id] = doc_value;
+                    this.#twitter_users[`embedded_tweets`] = {};
                 }
             }).catch((error) => {
                 console.error(error);
@@ -235,21 +236,22 @@ class Twitter_Hash_Table {
             if(id_array){
                 //Get the html blockquote for each id in id_array and store it in the twitter_users object
                 for(const id of id_array){
-                    //if(this.#twitter_users[name])
-                    const html_tweet = await this.callEmbedAPI(id);
-                    embedded_tweets.push(html_tweet);
+                    //Check if the id exists in the object or call the api to get the embedded_tweet
+                    if(this.#twitter_users[`embedded_tweets`][id])
+                        embedded_tweets.push(this.#twitter_users[`embedded_tweets`][id]);
+                    else{
+                        const html_tweet = await this.callEmbedAPI(id);
+                        embedded_tweets.push(html_tweet);
+                        this.#twitter_users[`embedded_tweets`][id] = html_tweet;
+                    }
                 }
                 return embedded_tweets;
             }
             else
                 return Promise.reject(`No tweets to embed`);
-
         }
         else
-            return Promise.reject(`The user is not following crypocurrencies or people on twitter`);
-
-
-        
+            return Promise.reject(`The user is not following cryptocurrencies or people on twitter`);
     }
 
     /** This function gets the tweet id as a parameter and returns an html formatted response to display the tweet.
@@ -283,11 +285,4 @@ class Singleton {
     }
 }
 
-const singleton = new Singleton().getInstance();
-//console.time(`getTimeline`);
-//singleton.getTimeline(`alekarzeeshan92@gmail.com`).then(() => {});
-singleton.getEmbeddedTweets(`alekarzeeshan92@gmail.com`).then((res) => {
-    //console.log(res);
-    //console.timeEnd(`getTimeline`);
-});
 module.exports = Singleton;

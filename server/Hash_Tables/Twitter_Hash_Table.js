@@ -81,7 +81,7 @@ class Twitter_Hash_Table {
                             this.callTimelineAPI(user, email, new Date()).then();
                         else{
                             const crypto_currencies = await user_object.getCryptoName(email);
-                            if(crypto_currencies){
+                            if(crypto_currencies.length !== 0){
                                 for(const crypto of Object.entries(crypto_currencies)) {
                                     if(this.#twitter_users[user][crypto])
                                         this.filterData(email, await this.#twitter_users[user][crypto], user).then();
@@ -106,7 +106,7 @@ class Twitter_Hash_Table {
                 return Promise.reject(error);
             else{
                 for(const tweet of data)
-                    tweets[tweet.id] = tweet.text;
+                    tweets[tweet.id_str] = tweet.text;
 
                 try{
                     await this.filterData(email, tweets, user);
@@ -135,14 +135,13 @@ class Twitter_Hash_Table {
                     }
 
                     try{
-                        if(temp_array){
+                        if(Object.keys(temp_array).length !== 0){
                             this.#firestore_db.save(`Twitter`, crypto_name[index], `id`, Object.keys(temp_array));
                             this.#firestore_db.save(`Twitter`, crypto_name[index], `post`, Object.values(temp_array));
                             this.#firestore_db.save(`Twitter_data`, user, crypto_name[index], temp_array);
                             if(this.#twitter_users[user])
                                 this.#twitter_users[user][crypto_name[index]] = temp_array;
                         }
-
                     }
                     catch (error){
                         return Promise.reject(error);
@@ -215,18 +214,59 @@ class Twitter_Hash_Table {
             this.#initialized = true;
         }
 
+        //Get the names of the people the user is following on twitter
         const screen_names = await user_object.getScreenName(email);
-        const crypto_currencies = await user_object.getCryptoName(email);
+        //Get the names of the cryptocurrencies the user is following
+        const cryptocurrencies = await user_object.getCryptoName(email);
+        //Stores the id's of the tweets from the people the user is following about the cryptocurrencies the user is interested in
         const id_array = [];
+        //Stores the html blockquote for each tweet in the id_array
+        const embedded_tweets = [];
 
-        for(const crypto of crypto_currencies){
-            for(const name of screen_names){
-                if(Object.keys(this.#twitter_users[name][crypto]).length !== 0)
-                    id_array.push(Object.keys(this.#twitter_users[name][crypto]));
+        //Get the id of each tweet
+        if(cryptocurrencies && screen_names){
+            for(const crypto of cryptocurrencies){
+                for(const name of screen_names){
+                    if(this.#twitter_users[name][crypto] && Object.keys(this.#twitter_users[name][crypto]).length !== 0)
+                        Array.prototype.push.apply(id_array, Object.keys(this.#twitter_users[name][crypto]));
+                }
             }
-        }
 
-        return id_array;
+            if(id_array){
+                //Get the html blockquote for each id in id_array and store it in the twitter_users object
+                for(const id of id_array){
+                    //if(this.#twitter_users[name])
+                    const html_tweet = await this.callEmbedAPI(id);
+                    embedded_tweets.push(html_tweet);
+                }
+                return embedded_tweets;
+            }
+            else
+                return Promise.reject(`No tweets to embed`);
+
+        }
+        else
+            return Promise.reject(`The user is not following crypocurrencies or people on twitter`);
+
+
+        
+    }
+
+    /** This function gets the tweet id as a parameter and returns an html formatted response to display the tweet.
+     * @param {String} tweet_id The id of the tweet.
+     * @param {String} screen_name Optional screen name of the user.
+     * @return {blockquote} Returns an html blockquote tag to display the tweet.
+     * */
+    async callEmbedAPI(tweet_id, screen_name = "Codex98318352"){
+        const url = `${this.#oembed_url}?url=https://twitter.com/${screen_name}/status/${tweet_id}`;
+        try{
+            const response = await fetch(url);
+            const data = await response.json();
+            return data.html;
+        }
+        catch (error){
+            await Promise.reject(`An error occurred while getting the embedded tweets: ${error}`);
+        }
     }
 }
 
@@ -244,9 +284,10 @@ class Singleton {
 }
 
 const singleton = new Singleton().getInstance();
-console.time(`getTimeline`);
+//console.time(`getTimeline`);
+//singleton.getTimeline(`alekarzeeshan92@gmail.com`).then(() => {});
 singleton.getEmbeddedTweets(`alekarzeeshan92@gmail.com`).then((res) => {
-    console.log(res);
-    console.timeEnd(`getTimeline`);
+    //console.log(res);
+    //console.timeEnd(`getTimeline`);
 });
 module.exports = Singleton;

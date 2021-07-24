@@ -1,4 +1,6 @@
 const Database = require('../database/Database');
+const User_Hash_Table = require(`../Hash_Tables/User_Hash_Table`);
+const user_object = new User_Hash_Table().getInstance();
 const firestore_db = new Database().getInstance();
 
 const get4chanPost = async ()=>{
@@ -50,23 +52,14 @@ const getRedditPost = async ()=>{
     }
 }
 const getUserCrypto = async (email_address)=>{
-    const email = email_address;
-    let cryptoSymbols = [];
-    try{
-        const docs = await firestore_db.fetch(`Users`).then(snapshot => {return snapshot.docs});
-        for(const doc of docs){
-            if(doc.id === email){
-                cryptoSymbols.push(doc.data().crypto_name);
-                break;
-            }
-        }
-        return {status: `Ok`, messageN: cryptoSymbols};
-    }
-    catch(err){
-        return Promise.reject(new Error(err));
-    }
+    const crypto = await user_object.getCrypto(email_address);
+    if(crypto)
+        return crypto;
+    else
+        return Promise.reject(new Error(`Email not valid`));
 }
-const fetchUserSocialMedia =async(email_address)=>{
+
+const fetchUserSocialMedia = async(email_address)=>{
     let socialMediaName = [];
     const email = email_address;
     try{
@@ -121,6 +114,7 @@ const followCrypto = async (email_address,symbol,crypt_name )=>{
         try{
             await firestore_db.save(`Users`, email, `crypto`, crypto);
             await firestore_db.save(`Users`, email, `crypto_name`, crypto_name);
+            await user_object.insertCrypto(email, crypto, crypto_name);
         }
         catch (err){
             return {status: `Internal Server Error`, error:err};

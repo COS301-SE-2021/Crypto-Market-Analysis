@@ -1,7 +1,7 @@
 const Twit = require('twit');
 const fetch = require('node-fetch');
-const Database = require(`../database/Database`);
-const User_Hash_Table = require(`./User_Hash_Table`);
+const Database = require(`server/database/Database`);
+const User_Hash_Table = require(`server/Hash_Tables/User_Hash_Table`);
 const user_object = new User_Hash_Table().getInstance();
 const consumer_key = 'GGXUovWNfvGvagGakjfTzDfe1';
 const consumer_secret = 'UMG68Qym8K7vvsdtlEEIn0vRpyNj6Mfbmz6VUKMC3zn7tQNiat';

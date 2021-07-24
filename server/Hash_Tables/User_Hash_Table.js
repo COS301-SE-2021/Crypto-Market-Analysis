@@ -69,7 +69,7 @@ class User_Hash_Table {
         }
 
         if(key && screen_name){
-            const Twitter = require(`server/Hash_Tables/Twitter`);
+            const Twitter = require(`server/social_media_sites/Twitter`);
             const twitter = new Twitter().getInstance();
             const exists = twitter.userLookup(screen_name);
             if(exists){

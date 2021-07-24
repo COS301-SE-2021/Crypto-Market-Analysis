@@ -1,5 +1,0 @@
-const AvlTree = require('avl');
-
-class TwitterAVL {
-
-}

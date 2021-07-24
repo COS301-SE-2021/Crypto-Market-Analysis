@@ -209,6 +209,34 @@ class Twitter_Hash_Table {
             return Promise.reject(`Parameter is undefined`);
     }
 
+    async getCryptoTweets(email, crypto_name){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        if(crypto_name && email){
+            //Get the names of the people the user is following on twitter
+            const screen_names = await user_object.getScreenName(email);
+            //Stores the id's of the tweets from the people the user is following about the cryptocurrencies the user is interested in
+            const id_array = [];
+
+            if(screen_names){
+                //For each screen name check if they have the selected cryptocurrency and add it to the id array
+                for(const name of screen_names){
+                    if(this.#twitter_users[name][crypto_name])
+                        Array.prototype.push.apply(id_array, Object.keys(this.#twitter_users[name][crypto_name]));
+                }
+
+                return await this.getHtmlBlockquotes(id_array);
+            }
+            else
+                return Promise.reject(`The user is not following people on twitter`);
+        }
+        else
+            return Promise.reject(`Parameters are not defined`);
+    }
+
     async getEmbeddedTweets(email){
         if(!this.#initialized){
             await this.#init;
@@ -221,8 +249,6 @@ class Twitter_Hash_Table {
         const cryptocurrencies = await user_object.getCryptoName(email);
         //Stores the id's of the tweets from the people the user is following about the cryptocurrencies the user is interested in
         const id_array = [];
-        //Stores the html blockquote for each tweet in the id_array
-        const embedded_tweets = [];
 
         //Get the id of each tweet
         if(cryptocurrencies && screen_names){
@@ -233,25 +259,32 @@ class Twitter_Hash_Table {
                 }
             }
 
-            if(id_array){
-                //Get the html blockquote for each id in id_array and store it in the twitter_users object
-                for(const id of id_array){
-                    //Check if the id exists in the object or call the api to get the embedded_tweet
-                    if(this.#twitter_users[`embedded_tweets`][id])
-                        embedded_tweets.push(this.#twitter_users[`embedded_tweets`][id]);
-                    else{
-                        const html_tweet = await this.callEmbedAPI(id);
-                        embedded_tweets.push(html_tweet);
-                        this.#twitter_users[`embedded_tweets`][id] = html_tweet;
-                    }
-                }
-                return embedded_tweets;
-            }
-            else
-                return Promise.reject(`No tweets to embed`);
+            return await this.getHtmlBlockquotes(id_array);
         }
         else
             return Promise.reject(`The user is not following cryptocurrencies or people on twitter`);
+    }
+
+    async getHtmlBlockquotes(id_array){
+        //Stores the html blockquote for each tweet in the id_array
+        let embedded_tweets = [];
+
+        if(id_array){
+            //Get the html blockquote for each id in id_array and store it in the twitter_users object
+            for(const id of id_array){
+                //Check if the id exists in the object or call the api to get the embedded_tweet
+                if(this.#twitter_users[`embedded_tweets`][id])
+                    embedded_tweets.push(this.#twitter_users[`embedded_tweets`][id]);
+                else{
+                    const html_tweet = await this.callEmbedAPI(id);
+                    embedded_tweets.push(html_tweet);
+                    this.#twitter_users[`embedded_tweets`][id] = html_tweet;
+                }
+            }
+            return embedded_tweets;
+        }
+        else
+            return Promise.reject(`No tweets to embed`);
     }
 
     /** This function gets the tweet id as a parameter and returns an html formatted response to display the tweet.
@@ -284,5 +317,6 @@ class Singleton {
         return Singleton.instance;
     }
 }
+
 
 module.exports = Singleton;

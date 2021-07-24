@@ -14,7 +14,7 @@ const T = new Twit({
     access_token:         access_token,
     access_token_secret: access_secret_token, });
 
-class Twitter_Hash_Table {
+class Twitter {
     #firestore_db = null;
     #oembed_url = "https://publish.twitter.com/oembed";
     #twitter_users;
@@ -309,7 +309,7 @@ class Singleton {
 
     constructor() {
         if (!Singleton.instance) {
-            Singleton.instance = new Twitter_Hash_Table();
+            Singleton.instance = new Twitter();
         }
     }
 

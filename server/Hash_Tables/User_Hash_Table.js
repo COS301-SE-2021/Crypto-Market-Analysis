@@ -139,13 +139,31 @@ class User_Hash_Table {
                 if(value)
                     return Object.values(value);
                 else
-                    return null
+                    return Promise.reject(`The email is not following any cryptocurrencies`);
             }
             else
-                return null;
+                return Promise.reject(`Invalid email entered`);
         }
         else
-            return null;
+            return Promise.reject(`No parameters are defined`);
+    }
+
+    async searchCryptoName(key, crypto_name){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        if(key && crypto_name){
+            if(this.#users[key]) {
+                const values = Object.values(this.#users[key][`cryptocurrencies`]);
+                return !!values.find(element => element === crypto_name);
+            }
+            else
+                return Promise.reject(`Invalid email entered`);
+        }
+        else
+            return Promise.reject(`Parameters are not defined`);
     }
 
     async getEmails(){
@@ -217,6 +235,5 @@ class Singleton {
         return Singleton.instance;
     }
 }
-
 
 module.exports = Singleton;

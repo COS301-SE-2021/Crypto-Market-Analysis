@@ -238,6 +238,7 @@ class User_Hash_Table {
     }
 
 }
+
 class Singleton {
 
     constructor() {

@@ -215,26 +215,37 @@ class Twitter {
             this.#initialized = true;
         }
 
+        //Check if the parameters are set
         if(crypto_name && email){
-            //Get the names of the people the user is following on twitter
-            const screen_names = await user_object.getScreenName(email);
-            //Stores the id's of the tweets from the people the user is following about the cryptocurrencies the user is interested in
-            const id_array = [];
+            //Check if the email is valid
+            if(await user_object.searchUser(email)){
+                //Check if the crypto_name is valid
+                if(await user_object.searchCryptoName(email, crypto_name)){
+                    //Get the names of the people the user is following on twitter
+                    const screen_names = await user_object.getScreenName(email);
+                    //Stores the id's of the tweets from the people the user is following about the cryptocurrencies the user is interested in
+                    const id_array = [];
 
-            if(screen_names){
-                //For each screen name check if they have the selected cryptocurrency and add it to the id array
-                for(const name of screen_names){
-                    if(this.#twitter_users[name][crypto_name])
-                        Array.prototype.push.apply(id_array, Object.keys(this.#twitter_users[name][crypto_name]));
+                    if(screen_names){
+                        //For each screen name check if they have the selected cryptocurrency and add it to the id array
+                        for(const name of screen_names){
+                            if(this.#twitter_users[name][crypto_name])
+                                Array.prototype.push.apply(id_array, Object.keys(this.#twitter_users[name][crypto_name]));
+                        }
+
+                        if(id_array.length !== 0)
+                            return await this.getHtmlBlockquotes(id_array);
+                        else
+                            return Promise.reject(`No tweets to display`);
+                    }
+                    else
+                        return Promise.reject(`The user is not following people on twitter`);
                 }
-
-                if(id_array.length !== 0)
-                    return await this.getHtmlBlockquotes(id_array);
                 else
-                    return Promise.reject(`No tweets to display`);
+                    return Promise.reject(`Email is not following the selected cryptocurrency`);
             }
             else
-                return Promise.reject(`The user is not following people on twitter`);
+                return Promise.reject(`Email is invalid`);
         }
         else
             return Promise.reject(`Parameters are not defined`);
@@ -320,6 +331,5 @@ class Singleton {
         return Singleton.instance;
     }
 }
-
 
 module.exports = Singleton;

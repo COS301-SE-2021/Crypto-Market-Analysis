@@ -34,14 +34,29 @@ class User_Hash_Table {
         });
     }
 
-    async insertUser(key) {
+    async insertUser(key){
         if(!this.#initialized){
             await this.#init;
             this.#initialized = true;
         }
 
-        if (key)
+        if(key)
             this.#users[key] = {};
+        else
+            return Promise.reject(`Parameter is not defined`);
+    }
+
+    async searchUser(key){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        if(key)
+            return !!this.#users[key];
+        else
+            return Promise.reject(`Parameter is not defined`);
+
     }
 
     async insertCrypto(key, crypto, crypto_name){

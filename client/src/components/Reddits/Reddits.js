@@ -15,7 +15,7 @@ export default function Reddits({}){
 
     }
 
-    axios.post('http://localhost:8080/user/getRedditPost/',cryptoReq)
+    axios.post('http://localhost:8080/reddit/getRedditPost/',cryptoReq)
         .then(response => {
             let posts_ = [];
             for(let j = 0; j<response.data.posts.length; j++)

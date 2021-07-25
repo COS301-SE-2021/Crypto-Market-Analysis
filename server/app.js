@@ -6,6 +6,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 const userRoutes = require('./routes/user');
 const twitterRoute = require('./routes/twitter');
+const redditRoute = require('./routes/reddit');
 
 app.use(morgan("dev"));
 app.use('/uploads', express.static('uploads'));
@@ -27,6 +28,7 @@ app.use((req, res, next) => {
 // Routes which should handle requests
 app.use("/user", userRoutes);
 app.use("/twitter", twitterRoute);
+app.use("/reddit", redditRoute);
 
 app.use((req, res, next) => {
     const error = new Error("Not found");

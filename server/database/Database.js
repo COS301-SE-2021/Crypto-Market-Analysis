@@ -31,6 +31,8 @@ class Database {
         if(merge){
             try{
                 this.fetch(collectionPath, documentName, field).then(oldField => {
+                    if(!oldField)
+                        oldField = [];
                     oldField.push(fieldsData);
                     data = {[field]: oldField};
                     this.#db.collection(collectionPath).doc(documentName).set(data, {merge:true}).then();

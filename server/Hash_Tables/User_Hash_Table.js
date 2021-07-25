@@ -13,10 +13,10 @@ class User_Hash_Table {
             .then(database_users => {
                 if(database_users){
                     const docs = database_users.docs;
-                    let cryptocurrencies;
+                    let cryptocurrencies = {};
                     let crypto;
                     let crypto_name;
-                    let screen_name;
+                    let screen_name = [];
                     for (const doc of docs){
                         cryptocurrencies = {};
                         crypto = doc.data().crypto;
@@ -88,13 +88,18 @@ class User_Hash_Table {
             //Check if the email exists
             if(await this.searchUser(key)){
                 //Get the twitter class instance
-                const Twitter = require(`server/social_media_sites/Twitter`);
+                const Twitter = require(`../social_media_sites/Twitter`);
                 const twitter = new Twitter().getInstance();
                 //Check if the screen name exists
                 const exists = twitter.userLookup(screen_name);
                 if(exists){
                     //Get the screen names array containing the list of screen names all the users are following
-                    const screen_name_array = this.#users[key].screen_name;
+                    let screen_name_array = this.#users[key].screen_name;
+                    //If the screen name array doesn't exist create it
+                    if(!screen_name_array) {
+                        this.#users[key][`screen_name`] = [];
+                        screen_name_array = this.#users[key].screen_name;
+                    }
                     //Check if the screen name already exists in the array. If it doesn't add it
                     if(screen_name_array.indexOf(screen_name) === -1) {
                         try{

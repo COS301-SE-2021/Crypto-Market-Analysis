@@ -80,6 +80,26 @@ export default function Reddits({}){
                                 </ul>
                             </div>
                         </div>
+
+
+                        {/*{*/}
+                        {/*    searchedReddit.map((post) =>{*/}
+                        {/*        return(*/}
+                        {/*            <div className="card" style="width: 18rem;">*/}
+                        {/*                <div className="card-body">*/}
+                        {/*                    <p className="card-text">{post.posts}</p>*/}
+                        {/*                </div>*/}
+                        {/*            </div>*/}
+                        {/*        )*/}
+                        {/*    })*/}
+                        {/*}*/}
+
+
+
+
+
+
+
                     </div>
                 </div>
 

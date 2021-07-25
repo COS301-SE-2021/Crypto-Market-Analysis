@@ -18,16 +18,19 @@ export default function Tweets({coin_name}){
       axios.post('http://localhost:8080/twitter/getCryptoTweets',tweetsReq)
       .then(response =>{
         setTweets(response.data.data)
+        setErrorResponse(null)
       },res=>{
+        console.log(res.response.data)
         setErrorResponse(res.response.data.error)
       })
     },[])
-    
+
     return(
         <>
+        {console.log(errorResponse)}
         {errorResponse ? <>
           <div className="container mt-16 " >
-            <div class="alert alert-warning alert-dismissible fade show m-auto text-center" style={{width:"70%"}}>
+            <div className="alert alert-warning alert-dismissible fade show m-auto text-center" style={{width:"70%"}}>
               {errorResponse.includes("The user is not following people on twitter")? <span>Oops, looks like you don't follow anyone on Twitter :(</span>
               :errorResponse.includes("No tweets to display")? <span>Oops, looks like we don't have any tweets to display :(</span>
               :<span>Oops, looks like you don't follow the selected coin :(, choose a coin you follow to see what people are saying about it on twitter</span>}

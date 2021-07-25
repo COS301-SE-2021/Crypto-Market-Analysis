@@ -32,7 +32,7 @@ function App() {
                      <Route exact path="/AllCrypto" component={AllCrypto}></Route>
                      <Route exact path="/Profile" component={Profile}></Route>
                      <Route exact path="/HeaderStats" component={HeaderStats}></Route>
-                     <Route exact path="/DetailedInfo" component={DetailedInfo}></Route>
+                     <Route exact path="/home/DetailedInfo" component={DetailedInfo}></Route>
                  </section>
            </Switch>
           </AuthProvider>

@@ -18,12 +18,12 @@ export default function Sidebar() {
   const  user = localStorage.getItem("emailSession")
     
     useEffect(()=>{
+      
       if(user != null){
         setLinkDisable(false)
       }
       else{
         setLinkDisable(true)
-        
       }
     },[])
   
@@ -62,7 +62,6 @@ export default function Sidebar() {
   return (
   
     <>
-     {console.log(linkDisable)}
       <Modal show={show}>
         <Modal.Body style={{textAlign:"center"}}>
           <>Oops, you're not logged in</>

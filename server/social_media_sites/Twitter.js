@@ -228,7 +228,10 @@ class Twitter {
                         Array.prototype.push.apply(id_array, Object.keys(this.#twitter_users[name][crypto_name]));
                 }
 
-                return await this.getHtmlBlockquotes(id_array);
+                if(id_array.length !== 0)
+                    return await this.getHtmlBlockquotes(id_array);
+                else
+                    return Promise.reject(`No tweets to display`);
             }
             else
                 return Promise.reject(`The user is not following people on twitter`);

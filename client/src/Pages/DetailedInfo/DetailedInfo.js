@@ -15,7 +15,7 @@ export default function DetailedInfo({coin_name}) {
     return(
         <>
         <Sidebar />
-            <div className="md:ml-64">
+            <div className="md:ml-64" style={{backgroundColor:"#cbd5e1"}}>
                 <div className="container" >
                     <Tabs defaultActiveKey="Overview" transition={false}>
                         <Tab eventKey="Overview" title="Overview">

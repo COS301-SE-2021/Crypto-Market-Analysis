@@ -1,16 +1,11 @@
 import React, {useEffect, useState} from 'react'
-//import {Button} from 'react-bootstrap'
-//import Tabs from 'react-bootstrap/Tabs'
-//import Tab from 'react-bootstrap/Tab'
 import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-//import { IconName } from "@react-icons/all-files/fa/FaUserEdits"
 import styled from 'styled-components';
 import {Avatar, Tabs, AppBar, Tab} from "@material-ui/core"
 import EditIcon from "@material-ui/icons/Edit"
 import axios from "axios";
 import Sidebar from "../../components/Sidebar/Sidebar";
-
 
 const Button = styled.button`
 display: block;
@@ -102,15 +97,6 @@ const Profile = props =>
                         <Avatar style={{width: "160px", height: "160px", borderRadius: "80px" }} className="aV" src='https://static.vecteezy.com/system/resources/previews/002/318/271/non_2x/user-profile-icon-free-vector.jpg'
                         />
 
-                        {/*} <img style={{width: "160px", height: "160px", borderRadius: "80px" }} className="aV" src={profileImg} id={"input"}/>
-
-                    <div className={"label"}>
-                        <label htmlFor={"input"} className={"image-upload"}>
-                            Upload Image
-                        </label>
-                    </div>
-                    <input type={"file"} name={"image-upload"} id={"input"} accept={"image/*"} onChange={imageHandler}/>*/}
-
                     </div>
 
                     <div>
@@ -144,7 +130,7 @@ const Profile = props =>
                                             ? "opacity-75"
                                             : "text-blueGray-300")
                                     }
-                                ></i>{" "}
+                                />{" "}
 
                                 <Button>
                                     <EditIcon />

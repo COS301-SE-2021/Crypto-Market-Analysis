@@ -54,8 +54,8 @@ class Twitter {
             if(await user_object.searchScreenName(screen_name))
                 return true;
             else{
-                const error = await T.get('users/show', {screen_name: screen_name}).catch(error => {return error});
-                return !!error.data;
+                const response = await T.get('users/show', {screen_name: screen_name}).catch(error => {return error});
+                return !!response.data;
             }
         }
         else

@@ -83,25 +83,36 @@ class User_Hash_Table {
             this.#initialized = true;
         }
 
+        //Check if the parameters are defined
         if(key && screen_name){
-            const Twitter = require(`server/social_media_sites/Twitter`);
-            const twitter = new Twitter().getInstance();
-            const exists = twitter.userLookup(screen_name);
-            if(exists){
-                const screen_name_array = this.#users[key].screen_name;
-                if(screen_name_array.indexOf(screen_name) === -1) {
-                    try{
-                        screen_name_array.push(screen_name);
-                        firestore_db.save(`Users`, key, `screen_name`, screen_name, true);
-                        return Promise.resolve(true);
-                    }
-                    catch (error){
-                        return await Promise.reject(error);
+            //Check if the email exists
+            if(await this.searchUser(key)){
+                //Get the twitter class instance
+                const Twitter = require(`server/social_media_sites/Twitter`);
+                const twitter = new Twitter().getInstance();
+                //Check if the screen name exists
+                const exists = twitter.userLookup(screen_name);
+                if(exists){
+                    //Get the screen names array containing the list of screen names all the users are following
+                    const screen_name_array = this.#users[key].screen_name;
+                    //Check if the screen name already exists in the array. If it doesn't add it
+                    if(screen_name_array.indexOf(screen_name) === -1) {
+                        try{
+                            //Add the screen name to the array of screen names and add it to the database
+                            screen_name_array.push(screen_name);
+                            firestore_db.save(`Users`, key, `screen_name`, screen_name, true);
+                            return Promise.resolve(true);
+                        }
+                        catch (error){
+                            return await Promise.reject(error);
+                        }
                     }
                 }
+                else
+                    return Promise.reject(`Screen name does not exist`);
             }
             else
-                return Promise.reject(`Screen name does not exist`);
+                return Promise.reject(`Invalid email entered`);
         }
         else
             return Promise.reject(`Parameters are undefined`);

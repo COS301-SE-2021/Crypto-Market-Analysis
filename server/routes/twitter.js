@@ -7,6 +7,7 @@ router.post('/getCryptoTweets', async (request, response) => {
     const crypto_name = request.body.crypto_name;
     const email = request.body.email;
 
+    //Check if the request has the parameters
     if(!crypto_name || !email)
         return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
 
@@ -17,6 +18,10 @@ router.post('/getCryptoTweets', async (request, response) => {
     catch(error){
         return response.status(500).json({status: 500, error: `Something went wrong while trying to retrieve the tweets: ${error}`});
     }
+});
+
+router.post('/follow', async (request, response) => {
+
 });
 
 module.exports = router

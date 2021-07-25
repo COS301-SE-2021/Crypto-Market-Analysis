@@ -3,7 +3,6 @@ import axios from "axios"
 import Carousel from 'react-grid-carousel'
 
 import CardStats from "../../../components/Cards/CardStats"
-import SentimentSpeedometer from "../../../components/GraphReport/AnalysisGraph"
 import "./Header.css";
 
 

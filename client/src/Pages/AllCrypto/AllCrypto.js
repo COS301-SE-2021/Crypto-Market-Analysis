@@ -1,12 +1,12 @@
 import "bootstrap/dist/css/bootstrap.css";
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
+import { Star, } from "@material-ui/icons";
 
-import Sidebar from '../../components/Sidebar/Sidebar'
 import "../Settings/Settings.css"
 import "./AllCrypto.css"
 
-export default function AllCryptos({})
+export default function AllCryptos()
 {
     // cryptos = cryptos
     let [cryptos, setCryptos] = useState([]);
@@ -15,15 +15,96 @@ export default function AllCryptos({})
    
 
     useEffect(async () => {
-        axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=50&page=1&sparkline=false')
-            .then(response => {
-                //set lists
-                setCryptos(response.data)
-                
-            })
-            .catch(err => {console.error(err);})
+        let selectedCryptos = []
+       
+        let  userReq = {
+            email: localStorage.getItem("emailSession"),
+        }
+        /*
+        Request to get cryptocurrencies followed by the user
+        */
+        axios.post('http://localhost:8080/user/getUserCryptos/',userReq)
+        .then(async(response) =>{
+          /*
+              Set default cryptos if data is not set else
+              push cryptos to a list                  
+            */
+            if(response.data.messageN === null)
+            {
+                selectedCryptos = ["Bitcoin","Ethereum","Theta"]
+            }
+            else
+            {
+                await response.data.messageN[0].map((coin)=>{
+                    selectedCryptos.push(coin)
+                })
+            }
+
+            /*
+              Get a list of coins from Coingecko. For each crypto, check if it matches crypto a user 
+              follows and mark it as selected                  
+            */
+              axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=10&page=1&sparkline=false')
+              .then(async (response_data) => {
+                  
+                  await response_data.data.map((coin)=>{
+                      
+                      selectedCryptos.forEach(element => {
+                          if(element === coin.name){
+                              coin.selected = true;
+                          }
+                      })
+                  })
+                  setCryptos(response_data.data)
+              
+              })
+              .catch(err => {console.error(err);})
+                      
+           })
+        .catch(err => {console.error(err);})
+
+      
     },[]);
 
+
+    const select = (name,type) => {
+        console.log(cryptos)
+        if(type == "cryptos"){
+            cryptos =  [...cryptos.map((crypto)=>{
+                if(name == crypto.symbol){
+                    crypto.selected = !crypto.selected;
+
+                    /*
+                        if selected add to favourite list else remove it
+                    */
+                    if(crypto.selected) {
+                        let  cryptoToAdd = {
+                          email: localStorage.getItem("emailSession"),
+                            symbol: crypto.symbol,
+                            crypto_name: crypto.name,
+                        }
+                        axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd)
+                            .then(response => console.log(response))
+                            .catch(err => {console.error(err);})
+                    }
+                    else{
+                        let  cryptoToRemove = {
+                            email: localStorage.getItem("emailSession"),
+                              symbol: crypto.symbol,
+                              crypto_name: crypto.name,
+                          }
+                          axios.post('http://localhost:8080/user/followCrypto/',cryptoToRemove)
+                              .then(response => console.log(response))
+                              .catch(err => {console.error(err);})
+                    }
+                }
+                return {
+                    ...crypto
+                }
+            })]
+            setCryptos(cryptos)
+        }
+    }
 
     //sets search to whats typed in the search input field
     const searchCoin = (event) => {setSearchCrypto(event.target.value)}
@@ -56,6 +137,7 @@ export default function AllCryptos({})
                                         <div className='coin-row'>
 
                                                 <div className='coin'>
+                                                    {myCrypto.selected?<Star className="select-star" color="primary" onClick={()=>{select(myCrypto.symbol,"cryptos")}}/>:<Star className="select-star" color="action" onClick={()=>{select(myCrypto.symbol, "cryptos")}}/>}
                                                     <a id="link" href= {"https://www.coingecko.com/en/coins/"+ myCrypto.name.toLowerCase()}>
                                                     <img src={myCrypto.image} alt='crypto' />
                                                     <h1>{myCrypto.name}</h1>

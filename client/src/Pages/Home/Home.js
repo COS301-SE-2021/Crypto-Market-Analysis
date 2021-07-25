@@ -1,5 +1,5 @@
-import "bootstrap/dist/css/bootstrap.css";
 
+import "bootstrap/dist/css/bootstrap.css";
 import Sidebar from "../../components/Sidebar/Sidebar.js";
 import HeaderStats from "./Headers/HeaderStats.js";
 import DetailedInfo from "../DetailedInfo/DetailedInfo"
@@ -8,6 +8,7 @@ import "../../assets/styles/tailwind.css";
 import AllCryptos from "../AllCrypto/AllCrypto.js";
 
 function Home(){
+
     let user = localStorage.getItem("emailSession")
     return (
         <>

@@ -35,8 +35,7 @@ export default function Reddits({}){
 
     },[]);
 
-    //sets search to whats typed in the search input field
-    const searchPost = (event) => {setSearchReddit(event.target.value)}
+
 
     //filter list based on the search input
     //second try delete .posts in searchReddit.posts
@@ -45,7 +44,8 @@ export default function Reddits({}){
         return reddit.posts.toLowerCase().includes(searchReddit.toLowerCase())
     })
 
-
+//sets search to whats typed in the search input field
+    const searchPost = (event) => {setSearchReddit(event.target.value)}
 
 
 

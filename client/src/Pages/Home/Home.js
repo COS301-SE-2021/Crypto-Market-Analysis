@@ -1,6 +1,6 @@
 
 import "bootstrap/dist/css/bootstrap.css";
-import Sidebar from "../../components/Sidebar/Sidebar.js";
+import Sidebar from "../../components/Sidebar/SidebarView.js";
 import HeaderStats from "./Headers/HeaderStats.js";
 import DetailedInfo from "../DetailedInfo/DetailedInfo"
 import "@fortawesome/fontawesome-free/css/all.min.css";

@@ -7,7 +7,7 @@ import Overview from '../../components/Overview/Overview'
 import Tweets from '../../components/Tweets/Tweets'
 import Reddits from '../../components/Reddits/Reddits'
 import FourChan from '../../components/4chan/fourChan'
-import Sidebar from "../../components/Sidebar/Sidebar.js";
+import Sidebar from "../../components/Sidebar/SidebarView.js";
 
 export default function DetailedInfo({coin_name}) {
 

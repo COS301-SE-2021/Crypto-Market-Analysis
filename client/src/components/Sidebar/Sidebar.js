@@ -1,6 +1,7 @@
 /*eslint-disable*/
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState,useRef}  from "react";
+import { Link, useHistory } from "react-router-dom";
+import { Modal, Button } from "react-bootstrap";
 import {Avatar} from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 
@@ -9,13 +10,58 @@ import EditIcon from "@material-ui/icons/Edit";
 
 export default function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
-
   let  cryptoReq = {
     email: localStorage.getItem("emailSession")
   }
+  const [show, setShow] = useState(false);
+  const  user = localStorage.getItem("emailSession")
+    
+  const unblockHandle = useRef();
+  const history = useHistory()
+  
+    const changeLocation = ()=>{
+      
+      unblockHandle.current = history.block(() => {
+        if(user){
+          OnContinue();
+          return true;
+        }
+        else{
+          handleShowModal();
+          return false;
+        }
+        
+      });
+    }
+
+    const handleShowModal =()=>{
+      setShow(true);
+    }
+
+    const onCancel =(e)=>{
+      setShow(false);
+      
+    }
+
+    const OnContinue =()=>{
+
+      if (unblockHandle) {
+        unblockHandle.current()
+      }
+      history.push('/login')
+    }
+
   return (
     <>
-
+      <Modal show={show}>
+        <Modal.Body style={{textAlign:"center"}}>
+          <>Oops, you're not logged in</>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={onCancel} variant="danger">Cancel</Button>
+          <Button onClick={OnContinue} variant="succes">Login</Button>
+        </Modal.Footer>
+      </Modal>
       <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"
       >
         <div className="md:flex-col md:items-stretch md:min-h-full md:flex-wrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
@@ -126,6 +172,7 @@ export default function Sidebar() {
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
                   to="/home"
+                  onClick={changeLocation}
                 >
                   <i
                     className={
@@ -148,6 +195,7 @@ export default function Sidebar() {
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
                   to="/Settings"
+                  onClick={changeLocation}
                 >
                   <i
                     className={
@@ -170,6 +218,7 @@ export default function Sidebar() {
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
                   to="/profile"
+                  onClick={changeLocation}
                 >
                   <i
                     className={
@@ -180,28 +229,6 @@ export default function Sidebar() {
                     }
                   />{" "}
                   Profile
-                </Link>
-              </li>
-
-              <li className="items-center">
-                <Link
-                  className={
-                    "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/maps") !== -1
-                      ? "text-lightBlue-500 hover:text-lightBlue-600"
-                      : "text-blueGray-700 hover:text-blueGray-500")
-                  }
-                  to="/AllCrypto"
-                >
-                  <i
-                    className={
-                      "fas fa-list mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/maps") !== -1
-                        ? "opacity-75"
-                        : "text-blueGray-300")
-                    }
-                  />{" "}
-                  View All Cryptocurrencies
                 </Link>
               </li>
               <li className="items-center">

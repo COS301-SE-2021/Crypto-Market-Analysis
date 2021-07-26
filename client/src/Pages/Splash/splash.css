@@ -1,5 +1,6 @@
 *
 {
+
     margin:0;
     padding:0;
 
@@ -59,4 +60,11 @@
     background-color: aqua !important;
     margin-top: 5px;
 
+}
+
+.head
+{
+    font-size: 80px;
+    font-weight: 100;
+    text-color: white!important;
 }

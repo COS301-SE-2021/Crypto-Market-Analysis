@@ -1,99 +1,62 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
 import Carousel from 'react-grid-carousel'
-import db from "../../../firebase"
-import { Link } from "react-router-dom";
 
 import CardStats from "../../../components/Cards/CardStats"
-import SentimentSpeedometer from "../../../components/GraphReport/AnalysisGraph"
 import "./Header.css";
 
 
 
-const coins = ["btc","eth","ltc","xrp","bnb","ada","doge","usdc","dot","sol","link","matic","etc"]
+const coins = ["Bitcoin","Ethereum","Theta","Binance Coin","Cardano","XRP","USD Coin","Dogecoin","Polkadot","Binance USD"]
 
 export default function HeaderStats() {
-
-
-
   let [cryptos, setCryptos] = useState([]);
-  const [item, setItem] = useState([]);
-    let h;
-    {
-        cryptos.map((coin) => {
+  
+  useEffect(async () => {
+    let selectedCryptos = []
+    let  reqeustObj = { email: localStorage.getItem("emailSession") }
 
+    if(reqeustObj != null){ /* If user logged in, get crypto coins followed by that user */
+
+      /*
+      The post request get cryptocurrencies and social media platforms the user follows
+      */
+      axios.post('http://localhost:8080/user/getUserCryptos/', reqeustObj)
+      .then(async(response) => {
+      
+        await response.data.messageN[0].map((coin)=>{
+          selectedCryptos.push(coin)
         })
+        getCoins(selectedCryptos)
+      })
+      .catch(err => {console.error(err);})
     }
-    const [searchCrypto, setSearchCrypto] = useState("");
-    let[userCryptos, setUserCrypto] = useState([]);
-    useEffect(async () => {
+    else{ /* else if user is not logged in, use default(Top 10) crypto coins */
+      getCoins(coins)
+    }
+  },[])
 
-        await db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).get().then((data)=>{
-            let arr=[];
-            let i=0;
-            for(const social of data.data().social_media_sites)
-            {
-                for(const crypt of data.data().crypto_name) {
-                    db.firestore().collection(social).doc(crypt).get().then((analysis) => {
-                        const avg= Math.round(analysis.data().Average)
-                        const mini= Math.round((analysis.data().Min))
-                        const maxi = Math.round(analysis.data().Max)
-                        arr.push(<SentimentSpeedometer min={mini} max={maxi} average={avg} social={social} cyp={crypt} />)
-                        console.log(data.data().crypto_name.length);
-                        if(i===data.data().crypto_name.length)
-                        {
-                            setItem(arr);
-                        }
-                      i=i+1;
-
-                    }).catch((error) => { })
-                }
-            }
-        }).catch((error) => { })
-
-
-        let  reqeustObj = {
-          email: localStorage.getItem("emailSession")
-        
-        }
-
-        /*
-        The post request get cryptocurrencies and social media platforms the user follows
-        */
-        axios.post('http://localhost:8080/user/getUserCryptos/', reqeustObj)
+  /*
+    The post request get cryptocurrencies from coingecko API
+  */
+  function getCoins(coinsList){
+    axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=50&page=1&sparkline=false')
         .then(async(response) => {
-            let coins = []
-            console.log(response.data)
-            await response.data.message.map((coin)=>{
-              coins.push(coin)
-            })
-            setUserCrypto(coins);
             
-        })
-        .catch(err => {console.error(err);})
-
-        /*
-        The post request get cryptocurrencies from coingecko API
-        */
-        axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=50&page=1&sparkline=false')
-        .then(async(response) => {
-            //set lists
             let userCryptoList = []
-            let allCryptoList = []
 
             await response.data.map((coin)=>{
-              coins.forEach(element => {
-                if(element === coin.symbol){
+
+              coinsList.forEach(element => {
+                if(element === coin.name){
                   userCryptoList.push(coin)
                 }
-                allCryptoList.push(coin)
               });
             })
             setCryptos(userCryptoList)
         })
         .catch(err => {console.error(err);})
-
-      },[]);
+  }
   return (
     <>
     
@@ -118,9 +81,7 @@ export default function HeaderStats() {
                                       statPercent={coin.price_change_percentage_24h.toFixed(2)}
                                       statPercentColor={coin.price_change_percentage_24h > 0 ? "text-emerald-500" : "text-red-500"}
                                       statDescripiron="In 24 hours"
-                                      statIconName={coin.symbol}
-                                      statIconColor="bg-white-500"
-
+                                      statCoinImage={coin.image}
                                   />
                               </a>
 

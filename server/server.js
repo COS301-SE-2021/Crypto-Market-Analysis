@@ -7,15 +7,15 @@ dotenv.config();
 const port = process.env.port || 8080;
 console.log(`Listening on port ${port}`);
 http.createServer(app);
-cron.schedule('*/10 * * * *', () => {
-    let reddits = new Reddit();
-    reddits.scrapeSubreddit("CryptoCurrencies").then();
-    reddits.scrapeSubreddit("SatoshiStreetBets").then();
-    reddits.scrapeSubreddit("Crypto_Currency_News").then();
-    reddits.scrapeSubreddit("CryptoCurrencyTrading").then();
-    reddits.scrapeSubreddit("Cryptomarkets").then();
-    reddits.scrapeSubreddit2("Bitcoin").then();
-    reddits.scrapeSubreddit2("Ethereum").then();
-});
+// cron.schedule('*/10 * * * *', () => {
+//     let reddits = new Reddit();
+//     reddits.scrapeSubreddit("CryptoCurrencies").then();
+//     reddits.scrapeSubreddit("SatoshiStreetBets").then();
+//     reddits.scrapeSubreddit("Crypto_Currency_News").then();
+//     reddits.scrapeSubreddit("CryptoCurrencyTrading").then();
+//     reddits.scrapeSubreddit("Cryptomarkets").then();
+//     reddits.scrapeSubreddit2("Bitcoin").then();
+//     reddits.scrapeSubreddit2("Ethereum").then();
+// });
 app.listen(port);
 

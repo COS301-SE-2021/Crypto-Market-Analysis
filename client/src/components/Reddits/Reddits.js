@@ -7,13 +7,12 @@ export default function Reddits(){
 
     let [reddits,setReddits] = useState([]);
     useEffect( () => {
+    const [searchReddit, setSearchReddit] = useState("");
     let  cryptoReq = {
         email: localStorage.getItem("emailSession")
-
-
     }
 
-    axios.post('http://localhost:8080/user/getRedditPost/',cryptoReq)
+    axios.post('http://localhost:8080/reddit/getRedditPost/',cryptoReq)
         .then(response => {
             let posts_ = [];
             for(let j = 0; j<response.data.posts.length; j++)
@@ -32,17 +31,34 @@ export default function Reddits(){
     },10000)
 
     },[]);
+
+    //sets search to whats typed in the search input field
+    const searchPost = (event) => {setSearchReddit(event.target.value)}
+
+    //filter list based on the search input
+    //second try delete .posts in searchReddit.posts
+
+    const searchedReddit = reddits.filter((reddit)=>{
+        return reddit.posts.toLowerCase().includes(searchReddit.toLowerCase())
+    })
+
+
+
+
+
     return(
         <>
+            <div>
+                <form>
+                    <input type="search" className="form-control rounded" placeholder="Search..."
+                           onChange={searchPost}
+                    />
+                </form>
+            </div>
             <div style={{marginTop:"3%"}} >
 
                     <div className="container card-wrapper" >
-                        {/*<div className="crypto-search">*/}
-                        {/*    <form>*/}
-                        {/*        <input type="search" className=" w-full form-control rounded" placeholder="Search..."*/}
-                        {/*                />*/}
-                        {/*    </form>*/}
-                        {/*</div>*/}
+
 
 
 
@@ -51,32 +67,16 @@ export default function Reddits(){
 
                                 <ul className="list-group list-group-flush">
                                     {
-                                        reddits.map((reddit) =>{
+                                        searchedReddit.map((post) =>{
+
                                             return(
-                                                <li className="list-group-item">{reddit.posts}</li>
+                                                <li className="list-group-item">{post.posts}</li>
                                             )
                                         })
                                     }
                                 </ul>
                             </div>
-                            {/*{item}*/}
                         </div>
-
-
-
-                        {/*<div className="row">*/}
-                        {/*    {*/}
-                        {/*        reddits.map((reddit) =>{*/}
-
-                        {/*            return(*/}
-                        {/*                <li className="list-group-item">{reddit.posts}</li>*/}
-                        {/*            )*/}
-
-                        {/*        })*/}
-                        {/*    }*/}
-
-                        {/*</div>*/}
-
                     </div>
                 </div>
 

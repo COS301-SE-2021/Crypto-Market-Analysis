@@ -17,10 +17,11 @@ export default function Tweets({coin_name}){
     useEffect(async () => {
       axios.post('http://localhost:8080/twitter/getCryptoTweets',tweetsReq)
       .then(response =>{
+        //console.log(response)
         setTweets(response.data.data)
         setErrorResponse(null)
       },res=>{
-        console.log(res.response.data)
+        //console.log(res.response)
         setErrorResponse(res.response.data.error)
       })
     },[])

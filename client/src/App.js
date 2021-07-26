@@ -16,7 +16,6 @@ import HeaderStats from "./Pages/Home/Headers/HeaderStats"
 import DetailedInfo from "./Pages/DetailedInfo/DetailedInfo"
 import {BrowserRouter as router , Switch} from "react-router-dom";
 import { AuthProvider } from "./Auth/Auth"
-import DetailedInfo from "./Pages/DetailedInfo/DetailedInfo";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 function App() {
   return (

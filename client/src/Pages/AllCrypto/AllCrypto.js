@@ -35,7 +35,7 @@ export default function AllCryptos()
             }
             else
             {
-                await response.data.messageN[0].map((coin)=>{
+                await response.data.map((coin)=>{
                     selectedCryptos.push(coin)
                 })
             }
@@ -137,7 +137,7 @@ export default function AllCryptos()
                                         <div className='coin-row'>
 
                                                 <div className='coin'>
-                                                    <a id="link" href= {"/DetailedInfo"}>
+                                                    <a id="link" href= {"/home/DetailedInfo"}>
                                                     {myCrypto.selected?<Star className="select-star" color="primary" onClick={()=>{select(myCrypto.symbol,"cryptos")}}/>:<Star className="select-star" color="action" onClick={()=>{select(myCrypto.symbol, "cryptos")}}/>}
                                                     <img src={myCrypto.image} alt='crypto' />
                                                     <h1>{myCrypto.name}</h1>

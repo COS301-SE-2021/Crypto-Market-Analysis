@@ -1,3 +1,7 @@
 .items-center li{
     text-decoration: none;
 }
+
+.w{
+    word-wrap: break-word;
+}

@@ -1,14 +1,11 @@
 import React, {useEffect, useState} from 'react'
-//import {Button} from 'react-bootstrap'
-import Tabs from 'react-bootstrap/Tabs'
-import Tab from 'react-bootstrap/Tab'
 import { Link } from "react-router-dom";
-//import { IconName } from "@react-icons/all-files/fa/FaUserEdits"
+import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components';
-import {Avatar} from "@material-ui/core"
+import {Avatar, Tabs, AppBar, Tab} from "@material-ui/core"
 import EditIcon from "@material-ui/icons/Edit"
 import axios from "axios";
-
+import Sidebar from "../../components/Sidebar/Sidebar";
 
 const Button = styled.button`
 display: block;
@@ -21,10 +18,17 @@ outline: 5px;
 width: 150%;
 `
 
-export default function Profile({})
+const Profile = props =>
 {
 
     let[socs,setSoc] =useState([]);
+
+    const [selectedTab, setSelectedTab] = React.useState(0);
+
+    const handleChange = (event, newValue) =>
+    {
+        setSelectedTab(newValue);
+    }
 
     let[crypts, setCrypt] = useState([]);
     let  cryptoReq = {
@@ -77,9 +81,10 @@ export default function Profile({})
     return(
 
         <>
-            <div>
+            <Sidebar />
+            <div className="md:ml-64">
+                <div className="container" >
 
-            </div>
             <div>
                 <div style={{
                     display:"flex",
@@ -91,16 +96,6 @@ export default function Profile({})
 
                         <Avatar style={{width: "160px", height: "160px", borderRadius: "80px" }} className="aV" src='https://static.vecteezy.com/system/resources/previews/002/318/271/non_2x/user-profile-icon-free-vector.jpg'
                         />
-
-
-                        {/*} <img style={{width: "160px", height: "160px", borderRadius: "80px" }} className="aV" src={profileImg} id={"input"}/>
-
-                    <div className={"label"}>
-                        <label htmlFor={"input"} className={"image-upload"}>
-                            Upload Image
-                        </label>
-                    </div>
-                    <input type={"file"} name={"image-upload"} id={"input"} accept={"image/*"} onChange={imageHandler}/>*/}
 
                     </div>
 
@@ -135,7 +130,7 @@ export default function Profile({})
                                             ? "opacity-75"
                                             : "text-blueGray-300")
                                     }
-                                ></i>{" "}
+                                />{" "}
 
                                 <Button>
                                     <EditIcon />
@@ -145,43 +140,59 @@ export default function Profile({})
                         </div>
 
 
-
-
                     </div>
                 </div>
             </div>
 
-            <Tabs defaultActiveKey="Cryptos" transition={false}>
-                <Tab eventKey="Cryptos" title="Cryptos Followed" >
+                <AppBar position={"static"}>
+                    <Tabs value={selectedTab} onChange={handleChange}>
+                        <Tab label="Cryptos Followed" >
 
-                    <ul className="list-group list-group-flush">
-                        {
-                            socs.map((Soc) =>{
-                                return(
-                                    <div>
-                                        <li className="list-group-item">{Soc.socName}</li>
-                                    </div>
-                                )
-                            })
-                        }
+                        </Tab>
+
+                        <Tab label={"Platforms Followed"}>
+
+                        </Tab>
+                    </Tabs>
+                </AppBar>
+
+                    {
+                            selectedTab === 0 &&
+                            <ul className="list-group list-group-flush">
+                                {
+                                    socs.map((Soc) =>{
+                                        return(
+                                            <div>
+                                                <li className="list-group-item">{Soc.socName}</li>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </ul>
+
+                    }
+
+                    {
+                        selectedTab === 1 &&
+                        <ul className="list-group list-group-flush">
+                            <ul className="list-group list-group-flush">
+                            {
+                                crypts.map((Soc) =>{
+                                    return(
+                                        <div>
+                                            <li className="list-group-item">{Soc.socMediaName}</li>
+                                        </div>
+                                    )
+                                })
+                            }
+                            </ul>
                         </ul>
+                    }
 
-                </Tab>
-                <Tab eventKey="Tweets" title="Platforms Followed" >
-                    <ul className="list-group list-group-flush">
-                        {
-                            crypts.map((Soc) =>{
-                                return(
-                                    <div>
-                                        <li className="list-group-item">{Soc.socMediaName}</li>
-                                    </div>
-                                )
-                            })
-                        }
-                    </ul>
-                </Tab>
-            </Tabs>
+                </div>
+            </div>
 
         </>
     );
 }
+export default Profile;

@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.css";
 import { Markup } from 'react-render-markup'
+import DetailedInfo from '../../Pages/DetailedInfo/DetailedInfo'
 import React,{ useState, useEffect } from 'react'
 import axios from "axios"
 
@@ -14,12 +15,13 @@ export default function Overview({coin_name}){
         .catch(err => {console.error(err);})
     })
 
+
     return(
         <>
          {coin.id ? <><div className="container mt-16 mb-12">
             <div className="row">
                 <div className="col-4">
-                    <img src={coin.image.large}/>
+                    <img alt={"image"} src={coin.image.large}/>
                 </div>
                 <div className="col-8">
                     <p className="text-sm">  <Markup markup={coin.description.en} /></p>

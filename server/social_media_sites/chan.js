@@ -4,6 +4,8 @@ const fs = require('fs');
 const board = "biz";
 const empty = [];
 const Database = require('../database/Database');
+const Vulgar = require('bad-words');
+filter = new Vulgar();
 
 const url = (board) => {
     return  'http://boards.4chan.org/' + board + '/catalog';

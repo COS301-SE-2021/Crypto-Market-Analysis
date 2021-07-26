@@ -73,7 +73,7 @@ export default function HeaderStats() {
                         <Carousel.Item>
                           <div key={coin.id} className="w-full lg:w-12/12 xl:w-12/12 px-4 mt-5">
 
-                              <a id="link" href= {"https://www.coingecko.com/en/coins/"+ coin.name.toLowerCase()}>
+                              <a id="link" href= {"/DetailedInfo"}>
                                   <CardStats
                                       statSubtitle={coin.name}
                                       statTitle={coin.current_price}

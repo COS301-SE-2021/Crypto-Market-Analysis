@@ -1,7 +1,9 @@
 const Database = require('../database/Database');
 const firestore_db = new Database().getInstance();
+
 const Analyse_Average = async(SocialMedia,cryptocurrency)=>{
    await firestore_db.getUsers(SocialMedia).onSnapshot((documents) => {
+       console.log(documents);
         documents.forEach((doc) => {
             if(typeof doc.id !== "undefined" && doc.id===cryptocurrency )
             {

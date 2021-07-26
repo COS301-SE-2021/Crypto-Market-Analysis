@@ -129,8 +129,9 @@ class User_Hash_Table {
             this.#initialized = true;
         }
 
-        //
+        //Holds the screen names retrieved from the user hash table in memory
         let screen_name_array;
+        //The index of the screen name in the screen name array
         let index;
 
         //Check if the parameters are defined
@@ -138,11 +139,17 @@ class User_Hash_Table {
             //Check if the email exists
             if(await this.searchUser(email)){
                 try{
+                    //Get the array from the selected email
                     screen_name_array = this.#users[email][`screen_name`];
-                    index = screen_name_array.indexOf(screen_name);
+                    //Check if the array exists
                     if(screen_name_array){
+                        //Get the index of the screen name in the array
+                        index = screen_name_array.indexOf(screen_name);
+                        //Check if the screen name is present in the array
                         if(index > -1){
+                            //Remove the screen name from the array
                             screen_name_array.splice(index, 1);
+                            //Remove the screen name from the database
                             await firestore_db.delete(`Users`, email, `screen_name`, screen_name);
                         }
                         else
@@ -305,8 +312,5 @@ class Singleton {
         return Singleton.instance;
     }
 }
-
-const twitter = new Singleton().getInstance();
-twitter.removeScreenName(`alekarzeeshan92@gmail.com`, `elonmusk`).then();
 
 module.exports = Singleton;

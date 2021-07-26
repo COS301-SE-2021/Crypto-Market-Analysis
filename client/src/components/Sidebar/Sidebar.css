@@ -9,3 +9,7 @@ a{
 .disable:hover{
     text-decoration: none;
 }
+
+.w{
+    word-wrap: break-word;
+}

@@ -11,7 +11,9 @@ import UpdateProfile from "./Pages/UpdateProfile/updateProfile"
 import Home from "./Pages/Home/Home"
 import Profile from "./Pages/Profile/Profile"
 import PrivateRoute from "./components/newRoute"
+import Overview from "./components/Overview/Overview"
 import HeaderStats from "./Pages/Home/Headers/HeaderStats"
+import DetailedInfo from "./Pages/DetailedInfo/DetailedInfo"
 import {BrowserRouter as router , Switch} from "react-router-dom";
 import { AuthProvider } from "./Auth/Auth"
 import DetailedInfo from "./Pages/DetailedInfo/DetailedInfo";

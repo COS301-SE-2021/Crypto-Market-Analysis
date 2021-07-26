@@ -137,8 +137,8 @@ export default function AllCryptos()
                                         <div className='coin-row'>
 
                                                 <div className='coin'>
+                                                    <a id="link" href= {"/DetailedInfo"}>
                                                     {myCrypto.selected?<Star className="select-star" color="primary" onClick={()=>{select(myCrypto.symbol,"cryptos")}}/>:<Star className="select-star" color="action" onClick={()=>{select(myCrypto.symbol, "cryptos")}}/>}
-                                                    <a id="link" href= {"https://www.coingecko.com/en/coins/"+ myCrypto.name.toLowerCase()}>
                                                     <img src={myCrypto.image} alt='crypto' />
                                                     <h1>{myCrypto.name}</h1>
                                                     </a>

@@ -34,5 +34,5 @@ export default function DetailedInfo({coin_name}) {
                 </div>
             </div>
         </>
-        )
+      )
 }

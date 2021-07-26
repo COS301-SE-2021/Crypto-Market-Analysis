@@ -38,7 +38,7 @@ class Reddit {
     }
 
 
-        TestScrape = async (Subreddit) => {
+        completeScrape= async (Subreddit) => {
         const subreddit1 = await r.getSubreddit(Subreddit);
         let Data = [];
         const topPosts1 = await subreddit1.getTop({limit: 100});
@@ -48,23 +48,24 @@ class Reddit {
                     text: post.title,
                     link: post.url,
                     score: post.score,
-                    author: post.author
+                    author: post.author.name
                   }
 
             );
         });
-        console.log(Data)
-        // this.#firestore_db.save('reddit_data',Subreddit,'posts',empty);
+        // console.log(Data)
+        this.#firestore_db.save('reddit_info',Subreddit,'full_posts',empty);
+        this.#firestore_db.save('reddit_info',Subreddit,'full_posts',Data);
         // this.#firestore_db.save('reddit_data',Subreddit,'posts',Data);
     }
 }
 
 let reddits = new Reddit();
-reddits.TestScrape("CryptoCurrencies").then();
-// reddits.TestScrape("SatoshiStreetBets").then();
-// reddits.scrapeSubreddit("Crypto_Currency_News").then();
-// reddits.scrapeSubreddit("CryptoCurrencyTrading").then();
-// reddits.scrapeSubreddit("Cryptomarkets").then();
+reddits.completeScrape("CryptoCurrencies").then();
+reddits.completeScrape("SatoshiStreetBets").then();
+reddits.completeScrape("Crypto_Currency_News").then();
+reddits.completeScrape("CryptoCurrencyTrading").then();
+reddits.completeScrape("Cryptomarkets").then();
 // reddits.scrapeSubreddit2("Bitcoin").then();
 // reddits.scrapeSubreddit2("Ethereum").then();
 

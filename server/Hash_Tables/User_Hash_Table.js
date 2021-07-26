@@ -123,6 +123,33 @@ class User_Hash_Table {
             return Promise.reject(`Parameters are undefined`);
     }
 
+    async removeScreenName(email, screen_name){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        //Check if the parameters are defined
+        if(email && screen_name){
+            //Check if the email exists
+            if(await this.searchUser(email)){
+                try{
+                    if(this.#users[email][screen_name]){
+
+                    }
+                    else
+                        return Promise.reject(`User is not following the selected screen name`);
+                }
+                catch (error) {
+                    return Promise.reject(error);
+                }
+            }
+            else
+                return Promise.reject(`Invalid email entered`);
+        }
+        else
+            return Promise.reject(`Parameters are undefined`);
+    }
 
     async fetchUser(key){
         if(!this.#initialized){

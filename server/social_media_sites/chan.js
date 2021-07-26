@@ -36,15 +36,11 @@ class chan {
                         let $ = cheerio.load(item.content);
                         let data =
                             {
-                                //postid: $('.meta a').attr('data-post-menu'),
-                                //    link: $('a').attr('href'),
+
                                 opimg: $('img').attr('src'),
-                                //     replies: $('.meta > b:nth-child(1)').text(),
-                                //    imgReplies: $('.meta > b:nth-child(2)').text(),
-                                //     title: $('.teaser > b').first().text(),
-                                op: $('.teaser').text(),
-                                // title: $('.postMessage').text()
-                                //date: $('span  > b:nth-child(8)').text(),
+
+                                op: $('.teaser').text()
+
                             }
                         return data;
 
@@ -68,7 +64,7 @@ chans.crawlCatalogue().then(response => {
     for(let i=0;i<response.length;i++)
     {
 
-
+            response[i].opimg= "https:"+response[i].opimg;
             response[i].op.replace(/\b((?:[a-z][\w-]+:(?:\/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/g,'');
             response[i].op.replace(/^(?:[a-z]*?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/gi,'');
 

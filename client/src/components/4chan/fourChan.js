@@ -51,25 +51,45 @@ export default function FourChan({}){
 
                             {/*<ul className="list-group list-group-flush">*/}
                             {/*<ul>*/}
-                                {
-                                    fourChans.map((fourChan) =>{
-                                        return(
-                                            // <li className="list-group-item">{fourChan.four}</li>
-                                        <div className="card">
-                                            <div className="card-header">
-                                                4Chan
-                                            </div>
-                                            <div className="card-body">
-                                                <blockquote className="blockquote mb-0">
-                                                    <p>{fourChan.four}</p>
-                                                    <footer className="blockquote-footer">Someone famous in <cite
-                                                        title="Source Title">Source Title</cite></footer>
-                                                </blockquote>
-                                            </div>
-                                        </div>
-                                        )
-                                    })
-                                }
+                            {/*    {*/}
+                            {/*        fourChans.map((fourChan) =>{*/}
+                            {/*            return(*/}
+                            {/*                // <li className="list-group-item">{fourChan.four}</li>*/}
+                            {/*            <div className="card">*/}
+                            {/*                <div className="card-header">*/}
+                            {/*                    4Chan*/}
+                            {/*                </div>*/}
+                            {/*                <div className="card-body">*/}
+                            {/*                    <blockquote className="blockquote mb-0">*/}
+                            {/*                        <p>{fourChan.four}</p>*/}
+                            {/*                        <footer className="blockquote-footer">Someone famous in <cite*/}
+                            {/*                            title="Source Title">Source Title</cite></footer>*/}
+                            {/*                    </blockquote>*/}
+                            {/*                </div>*/}
+                            {/*            </div>*/}
+                            {/*            )*/}
+                            {/*        })*/}
+                            {/*    }*/}
+
+            {
+                fourChans.map((fourChan) =>{
+
+                    return(
+                        <div className="card mb-3">
+                            {/*<img className="card-img-top" src={fourChan.four.opimg}></img>*/}
+                            <div className="card-body">
+                                <p className="card-text">{fourChan.four.op}</p>
+                                <p className="card-text">
+                                    <small className="text-muted">posted on the /biz board</small>
+                                </p>
+                            </div>
+                        </div>
+                    )
+                })
+            }
+
+
+
                             {/*</ul>*/}
                         {/*</div>*/}
                         {/*{item}*/}

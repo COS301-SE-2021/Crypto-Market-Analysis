@@ -43,6 +43,7 @@
     "node-fetch": "^2.6.1",
     "node-sentiment": "^0.0.8",
     "nodemailer": "^6.6.1",
+    "npm-merge-driver": "^2.3.6",
     "react-elastic-carousel": "^0.11.5",
     "react-table": "^7.7.0",
     "snoowrap": "^1.23.0",

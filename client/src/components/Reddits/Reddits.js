@@ -26,7 +26,9 @@ export default function Reddits({}){
                 }
 
             }
+            console.log("test begin");
             console.log(posts_)
+            console.log("test begin");
             setReddits(posts_);
         })
         .catch(err => {console.error(err);})
@@ -41,9 +43,9 @@ export default function Reddits({}){
     //filter list based on the search input
     //second try delete .posts in searchReddit.posts
 
-    const searchedReddit = reddits.filter((reddit)=>{
-        return reddit.posts.toLowerCase().includes(searchReddit.toLowerCase())
-    })
+    // const searchedReddit = reddits.filter((reddit)=>{
+    //     return reddit.posts.toLowerCase().includes(searchReddit.toLowerCase())
+    // })
 
 
 
@@ -51,39 +53,41 @@ export default function Reddits({}){
 
     return(
         <>
-            <div>
-                <form>
-                    <input type="search" className="form-control rounded" placeholder="Search..."
-                           onChange={searchPost}
-                    />
-                </form>
-            </div>
-            <div style={{marginTop:"3%"}} >
+            {/*<div>*/}
+            {/*    <form>*/}
+            {/*        <input type="search" className="form-control rounded" placeholder="Search..."*/}
+            {/*               onChange={searchPost}*/}
+            {/*        />*/}
+            {/*    </form>*/}
+            {/*</div>*/}
+            {/*<div style={{marginTop:"3%"}} >*/}
 
-                    <div className="container card-wrapper" >
-
-
+            {/*        <div className="container card-wrapper" >*/}
 
 
-                        <div className="row">
-                            <div className="card">
+                {
+                    reddits.map((post) =>{
 
-                                <ul className="list-group list-group-flush">
-                                    {
-                                        searchedReddit.map((post) =>{
-
-                                            return(
-                                                <li className="list-group-item">{post.posts}</li>
-                                            )
-                                        })
-                                    }
-                                </ul>
+                        return(
+                            <div className="card mb-3">
+                                <img className="card-img-top" src={post.posts.link} alt="Card image cap"></img>
+                                <div className="card-body">
+                                    <h5 className="card-title">Card title</h5>
+                                    <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                    <p className="card-text">
+                                        <small className="text-muted">Last updated 3 mins ago</small>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
+                        )
+                    })
+                }
 
 
-                        {/*{*/}
-                        {/*    searchedReddit.map((post) =>{*/}
+
+
+
+                        {/*    searchedReddit.map((post) =>{*/}}
                         {/*        return(*/}
                         {/*            <div className="card" style="width: 18rem;">*/}
                         {/*                <div className="card-body">*/}
@@ -92,7 +96,6 @@ export default function Reddits({}){
                         {/*            </div>*/}
                         {/*        )*/}
                         {/*    })*/}
-                        {/*}*/}
 
 
 
@@ -100,9 +103,10 @@ export default function Reddits({}){
 
 
 
-                    </div>
-                </div>
+
+                {/*    </div>*/}
+                {/*</div>*/}
 
         </>
     )
-}
+        }

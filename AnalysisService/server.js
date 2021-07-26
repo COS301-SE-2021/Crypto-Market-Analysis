@@ -15,10 +15,10 @@ cron.schedule('*/1 * * * *', async () => {
      await analysis.sentimentAnalysis('Bitcoin','Twitter').then(data=>{
          console.log('outputting data');
          console.log(data);
-         average.Analyse_Average('Twitter','Bitcoin').then(data=>{
+         average.Analyse_Average('Twitter','Bitcoin').then(dt=>{
              console.log('showing data results');
-             console.log(data);
-             let msgType = new notificationType(data,'Bitcoin');
+             console.log(dt);
+             let msgType = new notificationType(dt,'Bitcoin');
              let results = msgType.Results();
              notification.followers('Bitcoin',results);
          });

@@ -70,12 +70,12 @@ export default function Reddits({}){
 
                         return(
                             <div className="card mb-3">
-                                <img className="card-img-top" src={post.posts.link} alt="Card image cap"></img>
+                                <img className="card-img-top" src={post.posts.link} alt="Post doesnt contain image"></img>
                                 <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
-                                    <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                    <h5 className="card-title">Post Reddit Score: {post.posts.score}</h5>
+                                    <p className="card-text">{post.posts.text}</p>
                                     <p className="card-text">
-                                        <small className="text-muted">Last updated 3 mins ago</small>
+                                        <small className="text-muted">posted by: {post.posts.author}</small>
                                     </p>
                                 </div>
                             </div>

@@ -129,16 +129,27 @@ class User_Hash_Table {
             this.#initialized = true;
         }
 
+        //
+        let screen_name_array;
+        let index;
+
         //Check if the parameters are defined
         if(email && screen_name){
             //Check if the email exists
             if(await this.searchUser(email)){
                 try{
-                    if(this.#users[email][screen_name]){
-
+                    screen_name_array = this.#users[email][`screen_name`];
+                    index = screen_name_array.indexOf(screen_name);
+                    if(screen_name_array){
+                        if(index > -1){
+                            screen_name_array.splice(index, 1);
+                            await firestore_db.delete(`Users`, email, `screen_name`, screen_name);
+                        }
+                        else
+                            return Promise.reject(`User is not following the selected screen_name`)
                     }
                     else
-                        return Promise.reject(`User is not following the selected screen name`);
+                        return Promise.reject(`User is not following the anyone on twitter`);
                 }
                 catch (error) {
                     return Promise.reject(error);
@@ -294,5 +305,8 @@ class Singleton {
         return Singleton.instance;
     }
 }
+
+const twitter = new Singleton().getInstance();
+twitter.removeScreenName(`alekarzeeshan92@gmail.com`, `elonmusk`).then();
 
 module.exports = Singleton;

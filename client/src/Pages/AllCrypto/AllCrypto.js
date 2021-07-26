@@ -52,7 +52,7 @@ export default function AllCryptos()
               follows and mark it as selected                  
             */
               function getCoins(coinsList){
-              axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=50&page=1&sparkline=false')
+              axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=250&page=1&sparkline=false')
               .then(async (response_data) => {
                   
                   await response_data.data.map((coin)=>{

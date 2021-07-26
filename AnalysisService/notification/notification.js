@@ -6,7 +6,7 @@ const send_email= async(email,results)=>{
     const sender = emailObject.createTransport({
         service: 'gmail',
         auth: {
-            user: process.env.EMAIL_USERNAME,
+            user: process.env.EMAIL_USERNAME || 'codexteam4@gmail.com',
             pass: process.env.EMAIL_PASSWORD
         }
     });

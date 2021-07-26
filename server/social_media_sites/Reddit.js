@@ -54,8 +54,8 @@ class Reddit {
             );
         });
         // console.log(Data)
-        this.#firestore_db.save('reddit_info',Subreddit,'full_posts',empty);
-        this.#firestore_db.save('reddit_info',Subreddit,'full_posts',Data);
+        this.#firestore_db.save('reddit_info',Subreddit,'posts',empty);
+        this.#firestore_db.save('reddit_info',Subreddit,'posts',Data);
         // this.#firestore_db.save('reddit_data',Subreddit,'posts',Data);
     }
 }

@@ -34,9 +34,9 @@ export default function FourChan({}){
     },[]);
     return(
         <>
-            <div style={{marginTop:"3%"}} >
+            {/*<div style={{marginTop:"3%"}} >*/}
 
-                <div className="container card-wrapper" >
+            {/*    <div className="container card-wrapper" >*/}
                     {/*<div className="crypto-search">*/}
                     {/*    <form>*/}
                     {/*        <input type="search" className=" w-full form-control rounded" placeholder="Search..."*/}
@@ -46,21 +46,34 @@ export default function FourChan({}){
 
 
 
-                    <div className="row">
-                        <div className="card">
+                    {/*<div className="row">*/}
+                    {/*    <div className="card">*/}
 
-                            <ul className="list-group list-group-flush">
+                            {/*<ul className="list-group list-group-flush">*/}
+                            {/*<ul>*/}
                                 {
                                     fourChans.map((fourChan) =>{
                                         return(
-                                            <li className="list-group-item">{fourChan.four}</li>
+                                            // <li className="list-group-item">{fourChan.four}</li>
+                                        <div className="card">
+                                            <div className="card-header">
+                                                4Chan
+                                            </div>
+                                            <div className="card-body">
+                                                <blockquote className="blockquote mb-0">
+                                                    <p>{fourChan.four}</p>
+                                                    <footer className="blockquote-footer">Someone famous in <cite
+                                                        title="Source Title">Source Title</cite></footer>
+                                                </blockquote>
+                                            </div>
+                                        </div>
                                         )
                                     })
                                 }
-                            </ul>
-                        </div>
+                            {/*</ul>*/}
+                        {/*</div>*/}
                         {/*{item}*/}
-                    </div>
+                    {/*</div>*/}
 
 
 
@@ -77,8 +90,8 @@ export default function FourChan({}){
 
                     {/*</div>*/}
 
-                </div>
-            </div>
+            {/*    </div>*/}
+            {/*</div>*/}
 
         </>
     )

@@ -175,7 +175,7 @@ class User_Hash_Table {
             this.#initialized = true;
         }
       
-      //Holds the screen names retrieved from the user hash table in memory
+        //Holds the screen names retrieved from the user hash table in memory
         let screen_name_array;
         //The index of the screen name in the screen name array
         let index;
@@ -197,6 +197,7 @@ class User_Hash_Table {
                             screen_name_array.splice(index, 1);
                             //Remove the screen name from the database
                             await firestore_db.delete(`Users`, email, `screen_name`, screen_name);
+                            return true;
                         }
                         else
                             return Promise.reject(`User is not following the selected screen_name`)
@@ -207,8 +208,54 @@ class User_Hash_Table {
                 catch (error) {
                     return Promise.reject(error);
                 }
-              
-              }
+            }
+            else
+                return Promise.reject(`Invalid email entered`);
+        }
+        else
+            return Promise.reject(`Parameters are undefined`);
+    }
+
+    async removeSocialMediaSite(email, social_media){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        //Holds the social media sites retrieved from the user hash table in memory
+        let social_media_sites_array;
+        //The index of the social media in the social media sites array
+        let index;
+
+        //Check if the parameters are defined
+        if(email && social_media){
+            //Check if the email exists
+            if(await this.searchUser(email)){
+                try{
+                    //Get the array from the selected email
+                    social_media_sites_array = this.#users[email][`social_media_sites`];
+                    //Check if the array exists
+                    if(social_media_sites_array){
+                        //Get the index of the social media in the array
+                        index = social_media_sites_array.indexOf(social_media);
+                        //Check if the screen name is present in the array
+                        if(index > -1){
+                            //Remove the social media from the array
+                            social_media_sites_array.splice(index, 1);
+                            //Remove the social media from the database
+                            await firestore_db.delete(`Users`, email, `social_media_sites`, social_media);
+                            return true;
+                        }
+                        else
+                            return Promise.reject(`User is not following the selected social media platform`)
+                    }
+                    else
+                        return Promise.reject(`User is not following any social media platforms`);
+                }
+                catch (error) {
+                    return Promise.reject(error);
+                }
+            }
             else
                 return Promise.reject(`Invalid email entered`);
         }

@@ -81,6 +81,48 @@ class User_Hash_Table {
         }
     }
 
+    async insertSocialMediaSite(key, social_media){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        //Check if the parameters are defined
+        if(key && social_media){
+            //Check if the email exists
+            if(await this.searchUser(key)){
+                //Check if the site exists
+                if(social_media === `Twitter` || social_media === `Reddit` || social_media === `4chan`){
+                    //Get the social media sites array containing the list of social media platforms the user is following
+                    let social_media_sites_array = this.#users[key].social_media_sites;
+                    //If the screen name array doesn't exist create it
+                    if(!social_media_sites_array) {
+                        this.#users[key][`social_media_sites`] = [];
+                        social_media_sites_array = this.#users[key].social_media_site;
+                    }
+                    //Check if the social media already exists in the array. If it doesn't add it
+                    if(social_media_sites_array.indexOf(social_media) === -1) {
+                        try{
+                            //Add the social media site to the array of social media and add it to the database
+                            social_media_sites_array.push(social_media);
+                            firestore_db.save(`Users`, key, `social_media_sites`, social_media, true);
+                            return Promise.resolve(true);
+                        }
+                        catch (error){
+                            return await Promise.reject(error);
+                        }
+                    }
+                }
+                else
+                    return Promise.reject(`User is already following the selected social media site`);
+            }
+            else
+                return Promise.reject(`Invalid email entered`);
+        }
+        else
+            return Promise.reject(`Parameters are undefined`);
+    }
+
     async insertScreenName(key, screen_name){
         if(!this.#initialized){
             await this.#init;
@@ -155,7 +197,7 @@ class User_Hash_Table {
                         try{
                             //Add the subreddit to the array of subreddits and add it to the database
                             subreddits_array.push(subreddit);
-                            firestore_db.save(`Users`, key, `subreddits`, subreddits_array, true);
+                            firestore_db.save(`Users`, key, `subreddits`, subreddit, true);
                             return Promise.resolve(true);
                         }
                         catch (error){
@@ -290,6 +332,42 @@ class User_Hash_Table {
             return null;
     }
 
+    async getSocialMediaSites(key){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        if(key){
+            let value = this.#users[key];
+            if(value){
+                value = value.social_media_sites;
+                if(value)
+                    return value;
+                else
+                    return null
+            }
+            else
+                return null;
+        }
+        else
+            return null;
+    }
+
+    async searchSocialMediaFollowers(key, social_media){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        if(key && social_media){
+
+        }
+        else{
+
+        }
+    }
+
     async searchScreenName(screen_name){
         if(!this.#initialized){
             await this.#init;
@@ -318,6 +396,8 @@ class Singleton {
 }
 
 const singleton = new Singleton().getInstance();
-singleton.insertSubreddits().then();
+singleton.getSocialMediaSites(`alekarzeeshan92@gmail.com`).then(res => {
+    console.log(res);
+});
 
 module.exports = Singleton;

@@ -17,24 +17,6 @@ const get4chanPost = async ()=>{
         return Promise.reject(new Error(err));
     }
 }
-/** This function gets all the tweets stored in the database.
- * @return  {object} Containing an array of screen names and tweets array if it was successful or a rejected Promise.
- * */
-const getUserTweets = async ()=>{
-    let screen_names = [];
-    let tweets = [];
-    try{
-        const docs = await firestore_db.fetch(`twitter_data`).then(snapshot => {return snapshot.docs});
-        for(const doc of docs){
-            screen_names.push(doc.data().screen_name);
-            tweets.push(doc.data().tweets);
-        }
-        return {status: `Ok`, screen_names: screen_names, tweets_array: tweets}
-    }
-    catch(err){
-        return Promise.reject(new Error(err));
-    }
-}
 
 /** Gets all the reddit posts from the database.
  * @return  {object} Containing an array of posts if it was successful or a rejected Promise.
@@ -53,7 +35,7 @@ const getRedditPost = async ()=>{
 }
 const getUserCrypto = async (email_address)=>{
     try{
-        await user_object.getCryptoName(email_address);
+        return await user_object.getCryptoName(email_address);
     }
     catch (error){
         return Promise.reject(error);
@@ -61,26 +43,17 @@ const getUserCrypto = async (email_address)=>{
 }
 
 const fetchUserSocialMedia = async(email_address)=>{
-    let socialMediaName = [];
-    const email = email_address;
     try{
-        const docs = await firestore_db.fetch(`Users`).then(snapshot => {return snapshot.docs});
-        for(const doc of docs){
-            if(doc.id === email){
-                socialMediaName.push(doc.data().social_media_sites);
-                break;
-            }
-        }
-        return {status: `Ok`, SocialMediaName: socialMediaName};
+        await user_object.getSocialMediaSites(email_address);
     }
-    catch(err){
-        return Promise.reject(new Error(err));
+    catch (error){
+        return Promise.reject(error);
     }
 }
 
 const followCrypto = async (email_address,symbol,crypto_name )=>{
     try{
-        await user_object.insertCrypto(email_address, symbol, crypto_name);
+        return await user_object.insertCrypto(email_address, symbol, crypto_name);
     }
     catch (error){
         return Promise.reject(error)
@@ -88,7 +61,7 @@ const followCrypto = async (email_address,symbol,crypto_name )=>{
 }
 const followSocialMedia = async (email_address,social_media )=> {
     try{
-        await user_object.insertSocialMediaSite(email_address, social_media);
+        return await user_object.insertSocialMediaSite(email_address, social_media);
     }
     catch (error){
         return Promise.reject(error);

@@ -13,18 +13,6 @@ const userFunctions =require('./userFunctions')
 //     })
 // });
 
-router.post("/getUserTweets", async (request,response)=>{
-    const email = request.body.email;
-    if(!email || !(typeof email === 'string' || email instanceof String))
-        return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
-    userFunctions.getUserTweets().then( tweets => {
-        return response.status(200).json(tweets);
-    }).catch( err => {
-        return response(500).json({status:`Internal Server Error`, error: err})
-    })
-});
-
-
 // router.post("/getRedditPost", async (request,response)=>{
 //     if(request.body.email === null)
 //         return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});

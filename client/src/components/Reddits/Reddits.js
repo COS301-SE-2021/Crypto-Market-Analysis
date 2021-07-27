@@ -6,8 +6,9 @@ import axios from "axios";
 export default function Reddits(){
 
     let [reddits,setReddits] = useState([]);
-    useEffect( () => {
     const [searchReddit, setSearchReddit] = useState("");
+    useEffect( () => {
+   
     let  cryptoReq = {
         email: localStorage.getItem("emailSession")
     }

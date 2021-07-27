@@ -17,16 +17,20 @@ class User_Hash_Table {
                     let crypto;
                     let crypto_name;
                     let screen_name = [];
+                    let subreddits = [];
+                    let social_media_sites = [];
                     for (const doc of docs){
                         cryptocurrencies = {};
                         crypto = doc.data().crypto;
                         crypto_name = doc.data().crypto_name;
                         screen_name = doc.data().screen_name;
+                        subreddits = doc.data().subreddits;
+                        social_media_sites = doc.data().social_media_sites;
                         if(crypto){
                             for(const [index, value] of crypto.entries())
                                 cryptocurrencies[value] = crypto_name[index];
                         }
-                        this.#users[doc.id] = {cryptocurrencies, screen_name};
+                        this.#users[doc.id] = {cryptocurrencies, screen_name, subreddits, social_media_sites};
                     }
                 }
         }).catch((error) => {
@@ -77,6 +81,48 @@ class User_Hash_Table {
         }
     }
 
+    async insertSocialMediaSite(key, social_media){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        //Check if the parameters are defined
+        if(key && social_media){
+            //Check if the email exists
+            if(await this.searchUser(key)){
+                //Check if the site exists
+                if(social_media === `Twitter` || social_media === `Reddit` || social_media === `4chan`){
+                    //Get the social media sites array containing the list of social media platforms the user is following
+                    let social_media_sites_array = this.#users[key].social_media_sites;
+                    //If the screen name array doesn't exist create it
+                    if(!social_media_sites_array) {
+                        this.#users[key][`social_media_sites`] = [];
+                        social_media_sites_array = this.#users[key].social_media_site;
+                    }
+                    //Check if the social media already exists in the array. If it doesn't add it
+                    if(social_media_sites_array.indexOf(social_media) === -1) {
+                        try{
+                            //Add the social media site to the array of social media and add it to the database
+                            social_media_sites_array.push(social_media);
+                            firestore_db.save(`Users`, key, `social_media_sites`, social_media, true);
+                            return Promise.resolve(true);
+                        }
+                        catch (error){
+                            return await Promise.reject(error);
+                        }
+                    }
+                }
+                else
+                    return Promise.reject(`User is already following the selected social media site`);
+            }
+            else
+                return Promise.reject(`Invalid email entered`);
+        }
+        else
+            return Promise.reject(`Parameters are undefined`);
+    }
+
     async insertScreenName(key, screen_name){
         if(!this.#initialized){
             await this.#init;
@@ -124,12 +170,12 @@ class User_Hash_Table {
     }
 
     async removeScreenName(email, screen_name){
-        if(!this.#initialized){
+      if(!this.#initialized){
             await this.#init;
             this.#initialized = true;
         }
-
-        //Holds the screen names retrieved from the user hash table in memory
+      
+      //Holds the screen names retrieved from the user hash table in memory
         let screen_name_array;
         //The index of the screen name in the screen name array
         let index;
@@ -161,13 +207,60 @@ class User_Hash_Table {
                 catch (error) {
                     return Promise.reject(error);
                 }
-            }
+              
+              }
             else
                 return Promise.reject(`Invalid email entered`);
         }
         else
             return Promise.reject(`Parameters are undefined`);
     }
+
+    async insertSubreddits(key, subreddit){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+  
+        //Check if the parameters are defined
+        if(key && subreddit){
+            //Check if the email exists
+            if(await this.searchUser(key)){
+                /*//Get the twitter class instance
+                const Twitter = require(`../social_media_sites/Twitter`);
+                const reddit = new Twitter().getInstance();
+                //Check if the screen name exists
+                const exists = reddit.userLookup(subreddits);*/
+                /*if(exists){*/
+                    //Get the subreddit array containing the list of subreddits
+                    let subreddits_array = this.#users[key].subreddits;
+                    //If the subreddit array doesn't exist create it
+                    if(!subreddits_array) {
+                        this.#users[key][`subreddits`] = [];
+                        subreddits_array = this.#users[key].subreddits;
+                    }
+                    //Check if the subreddit already exists in the array. If it doesn't add it
+                    if(subreddits_array.indexOf(subreddit) === -1) {
+                        try{
+                            //Add the subreddit to the array of subreddits and add it to the database
+                            subreddits_array.push(subreddit);
+                            firestore_db.save(`Users`, key, `subreddits`, subreddit, true);
+                            return Promise.resolve(true);
+                        }
+                        catch (error){
+                            return await Promise.reject(error);
+                        }
+                    }
+                /*}
+                else
+                    return Promise.reject(`Subreddits does not exist`);*/
+              }
+            else
+                return Promise.reject(`Invalid email entered`);
+        }
+        else
+            return Promise.reject(`Parameters are undefined`);
+     }
 
     async fetchUser(key){
         if(!this.#initialized){
@@ -285,6 +378,53 @@ class User_Hash_Table {
             return null;
     }
 
+    async getSocialMediaSites(key){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        if(key){
+            let value = this.#users[key];
+            if(value){
+                value = value.social_media_sites;
+                if(value)
+                    return value;
+                else
+                    return null
+            }
+            else
+                return null;
+        }
+        else
+            return null;
+    }
+
+    async searchCryptoAndSocialMedia(social_media, cryptocurrency){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        if(social_media && cryptocurrency){
+            const emails = await this.getEmails();
+            let social_media_sites;
+            let cryptocurrencies;
+            let followers = [];
+            for(const email of emails){
+                social_media_sites = await this.getSocialMediaSites(email);
+                if(social_media_sites && social_media_sites.includes(social_media)){
+                    cryptocurrencies = await this.getCryptoName(email);
+                    if(cryptocurrencies && cryptocurrencies.includes(cryptocurrency))
+                        followers.push(email);
+                }
+            }
+            return followers;
+        }
+        else
+            return Promise.reject(`Parameters are not defined`);
+    }
+
     async searchScreenName(screen_name){
         if(!this.#initialized){
             await this.#init;
@@ -297,7 +437,6 @@ class User_Hash_Table {
                 return true;
         return false;
     }
-
 }
 
 class Singleton {

@@ -17,16 +17,18 @@ class User_Hash_Table {
                     let crypto;
                     let crypto_name;
                     let screen_name = [];
+                    let subreddits = [];
                     for (const doc of docs){
                         cryptocurrencies = {};
                         crypto = doc.data().crypto;
                         crypto_name = doc.data().crypto_name;
                         screen_name = doc.data().screen_name;
+                        subreddits = doc.data().subreddits;
                         if(crypto){
                             for(const [index, value] of crypto.entries())
                                 cryptocurrencies[value] = crypto_name[index];
                         }
-                        this.#users[doc.id] = {cryptocurrencies, screen_name};
+                        this.#users[doc.id] = {cryptocurrencies, screen_name, subreddits};
                     }
                 }
         }).catch((error) => {
@@ -115,6 +117,52 @@ class User_Hash_Table {
                 }
                 else
                     return Promise.reject(`Screen name does not exist`);
+            }
+            else
+                return Promise.reject(`Invalid email entered`);
+        }
+        else
+            return Promise.reject(`Parameters are undefined`);
+    }
+
+    async insertSubreddits(key, subreddit){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        //Check if the parameters are defined
+        if(key && subreddit){
+            //Check if the email exists
+            if(await this.searchUser(key)){
+                /*//Get the twitter class instance
+                const Twitter = require(`../social_media_sites/Twitter`);
+                const reddit = new Twitter().getInstance();
+                //Check if the screen name exists
+                const exists = reddit.userLookup(subreddits);*/
+                /*if(exists){*/
+                    //Get the subreddit array containing the list of subreddits
+                    let subreddits_array = this.#users[key].subreddits;
+                    //If the subreddit array doesn't exist create it
+                    if(!subreddits_array) {
+                        this.#users[key][`subreddits`] = [];
+                        subreddits_array = this.#users[key].subreddits;
+                    }
+                    //Check if the subreddit already exists in the array. If it doesn't add it
+                    if(subreddits_array.indexOf(subreddit) === -1) {
+                        try{
+                            //Add the subreddit to the array of subreddits and add it to the database
+                            subreddits_array.push(subreddit);
+                            firestore_db.save(`Users`, key, `subreddits`, subreddits_array, true);
+                            return Promise.resolve(true);
+                        }
+                        catch (error){
+                            return await Promise.reject(error);
+                        }
+                    }
+                /*}
+                else
+                    return Promise.reject(`Subreddits does not exist`);*/
             }
             else
                 return Promise.reject(`Invalid email entered`);
@@ -267,5 +315,8 @@ class Singleton {
         return Singleton.instance;
     }
 }
+
+const singleton = new Singleton().getInstance();
+singleton.insertSubreddits().then();
 
 module.exports = Singleton;

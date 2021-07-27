@@ -52,11 +52,12 @@ const getRedditPost = async ()=>{
     }
 }
 const getUserCrypto = async (email_address)=>{
-    const crypto = await user_object.getCrypto(email_address);
-    if(crypto)
-        return crypto;
-    else
-        return Promise.reject(new Error(`Email not valid`));
+    try{
+        await user_object.getCryptoName(email_address);
+    }
+    catch (error){
+        return Promise.reject(error);
+    }
 }
 
 const fetchUserSocialMedia = async(email_address)=>{

@@ -127,43 +127,11 @@ const followCrypto = async (email_address,symbol,crypt_name )=>{
     }
 }
 const followSocialMedia = async (email_address,social_media )=> {
-    const email = email_address;
-    let social_media_sites = [];
-    let found = false;
-
     try{
-        const docs = await firestore_db.fetch(`Users`).then(snapshot => {return snapshot.docs});
-        for(const doc of docs){
-            if(doc.id === email){
-                found = true;
-                if(doc.data().social_media_sites)
-                    social_media_sites = doc.data().social_media_sites;
-                else
-                    social_media_sites = [];
-                break;
-            }
-        }
-
-        if(found === false)
-            return {status: `Not authorized`, error: `The user does not exist`};
-
-        if(!social_media_sites.includes(social_media))
-            social_media_sites.push(social_media);
-        else{
-            return {status: `Accepted`, message: `The site already exists`};
-        }
-
-        try{
-            await firestore_db.save(`Users`, email, `social_media_sites`, social_media_sites);
-        }
-        catch (err){
-            return {status: `Internal Server Error`, error: err};
-        }
-
-        return {status: `Ok`, message: `The social media site has been successfully added`};
+        await user_object.insertSocialMediaSite(email_address, social_media);
     }
-    catch(err){
-        return {status:`Internal server error`, error: err};
+    catch (error){
+        return Promise.reject(error);
     }
 }
 
@@ -186,5 +154,6 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
 
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
+
 
 module.exports = {saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto,followSocialMedia, get4chanPost}

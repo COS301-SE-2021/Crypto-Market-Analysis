@@ -354,18 +354,29 @@ class User_Hash_Table {
             return null;
     }
 
-    async searchSocialMediaFollowers(key, social_media){
+    async searchCryptoAndSocialMedia(social_media, cryptocurrency){
         if(!this.#initialized){
             await this.#init;
             this.#initialized = true;
         }
 
-        if(key && social_media){
-
+        if(social_media && cryptocurrency){
+            const emails = await this.getEmails();
+            let social_media_sites;
+            let cryptocurrencies;
+            let followers = [];
+            for(const email of emails){
+                social_media_sites = await this.getSocialMediaSites(email);
+                if(social_media_sites && social_media_sites.includes(social_media)){
+                    cryptocurrencies = await this.getCryptoName(email);
+                    if(cryptocurrencies && cryptocurrencies.includes(cryptocurrency))
+                        followers.push(email);
+                }
+            }
+            return followers;
         }
-        else{
-
-        }
+        else
+            return Promise.reject(`Parameters are not defined`);
     }
 
     async searchScreenName(screen_name){
@@ -394,10 +405,5 @@ class Singleton {
         return Singleton.instance;
     }
 }
-
-const singleton = new Singleton().getInstance();
-singleton.getSocialMediaSites(`alekarzeeshan92@gmail.com`).then(res => {
-    console.log(res);
-});
 
 module.exports = Singleton;

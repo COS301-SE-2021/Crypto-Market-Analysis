@@ -78,53 +78,12 @@ const fetchUserSocialMedia = async(email_address)=>{
     }
 }
 
-const followCrypto = async (email_address,symbol,crypt_name )=>{
-
-    const email = email_address;
-    let crypto = [];
-    let crypto_name = [];
-    let found = false;
-
+const followCrypto = async (email_address,symbol,crypto_name )=>{
     try{
-        const docs =  await firestore_db.fetch(`Users`).then(snapshot => {return snapshot.docs});
-        for(const doc of docs){
-            if(doc.id === email){
-                found = true;
-                if(doc.data().crypto)
-                    crypto = doc.data().crypto;
-                else
-                    crypto = [];
-                if(doc.data().crypto_name)
-                    crypto_name = doc.data().crypto_name;
-                else
-                    crypto_name = [];
-                break;
-            }
-        }
-
-        if(found === false){ return {status: `Not authorized`, error: `The user does not exist`};}
-
-        if(!crypto_name.includes(crypt_name)){
-            crypto.push(symbol);
-            crypto_name.push(crypt_name);
-        }
-        else {
-            return {status: `Accepted`, message: `The cryptocurrency already exists`};
-        }
-
-        try{
-            await firestore_db.save(`Users`, email, `crypto`, crypto);
-            await firestore_db.save(`Users`, email, `crypto_name`, crypto_name);
-            await user_object.insertCrypto(email, crypto, crypto_name);
-        }
-        catch (err){
-            return {status: `Internal Server Error`, error:err};
-        }
-
-        return {status: `Ok`, message: `The crypto been successfully added`};
+        await user_object.insertCrypto(email_address, symbol, crypto_name);
     }
-    catch(err){
-        return Promise.reject(new Error(err));
+    catch (error){
+        return Promise.reject(error)
     }
 }
 const followSocialMedia = async (email_address,social_media )=> {

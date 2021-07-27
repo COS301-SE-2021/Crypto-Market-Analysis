@@ -1,23 +1,36 @@
 /*eslint-disable*/
-import React, { useState,useRef}  from "react";
+import React, { useState, useRef, useEffect}  from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
 import {Avatar} from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 
+import "./Sidebar.css"
+
 // import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
 // import UserDropdown from "components/Dropdowns/UserDropdown.js";
 
 export default function Sidebar() {
-  const [collapseShow, setCollapseShow] = React.useState("hidden");
+
+  const unblockHandle = useRef()
+  const history = useHistory()
+  const [collapseShow, setCollapseShow] = React.useState("hidden")
+  const [show, setShow] = useState(false)
+  let   [linkDisable, setLinkDisable] = useState({})
+  const  user = localStorage.getItem("emailSession")
   let  cryptoReq = {
     email: localStorage.getItem("emailSession")
   }
-  const [show, setShow] = useState(false);
-  const  user = localStorage.getItem("emailSession")
     
-  const unblockHandle = useRef();
-  const history = useHistory()
+    useEffect(()=>{
+      
+      if(user != null){
+        setLinkDisable(false)
+      }
+      else{
+        setLinkDisable(true)
+      }
+    },[])
   
     const changeLocation = ()=>{
       
@@ -52,14 +65,16 @@ export default function Sidebar() {
     }
 
   return (
+  
     <>
-      <Modal show={show}>
-        <Modal.Body style={{textAlign:"center"}}>
-          <>Oops, you're not logged in</>
+      <Modal show={show} style={{textAlign:"center"}}>
+        <Modal.Body >
+          <h4>Oops</h4>
+          <p>Looks like you're not logged in. Please log in to access to more features</p>
         </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={onCancel} variant="danger">Cancel</Button>
-          <Button onClick={OnContinue} variant="succes">Login</Button>
+        <Modal.Footer className="justify-center" >
+          <Button onClick={onCancel} className="btn btn-danger">Cancel</Button>
+          <Button onClick={OnContinue} className="btn btn-success">Login</Button>
         </Modal.Footer>
       </Modal>
       <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"
@@ -167,7 +182,7 @@ export default function Sidebar() {
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/dashboard") !== -1
+                    (window.location.href.indexOf("/home") !== -1
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
@@ -177,7 +192,7 @@ export default function Sidebar() {
                   <i
                     className={
                       "fas fa-tv mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/dashboard") !== -1
+                      (window.location.href.indexOf("/home") !== -1
                         ? "opacity-75"
                         : "text-blueGray-300")
                     }
@@ -190,7 +205,7 @@ export default function Sidebar() {
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/settings") !== -1
+                    (window.location.href.indexOf("/Settings") !== -1
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
@@ -200,7 +215,7 @@ export default function Sidebar() {
                   <i
                     className={
                       "fas fa-tools mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/settings") !== -1
+                      (window.location.href.indexOf("/Settings") !== -1
                         ? "opacity-75"
                         : "text-blueGray-300")
                     }
@@ -232,9 +247,9 @@ export default function Sidebar() {
                 </Link>
               </li>
               <li className="items-center">
-                <Link onClick={()=> localStorage.clear()}
+                {linkDisable ? <Link onClick={(event) => event.preventDefault()}
                   className={
-                    "text-xs uppercase py-3 font-bold block " +
+                    "text-xs uppercase py-3 font-bold block disable " +
                     (window.location.href.indexOf("/") !== -1
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
@@ -251,7 +266,27 @@ export default function Sidebar() {
                     }
                   />{" "}
                   Logout
-                </Link>
+                </Link> 
+                :<Link onClick={()=> localStorage.clear()}
+                  className={
+                    "text-xs uppercase py-3 font-bold block  " +
+                    (window.location.href.indexOf("/login") !== -1
+                      ? "text-lightBlue-500 hover:text-lightBlue-600"
+                      : "text-blueGray-700 hover:text-blueGray-500")
+                  }
+                  to="/login"
+
+                >
+                  <i
+                    className={
+                      "fas fa-sign-out-alt mr-2 text-sm " +
+                      (window.location.href.indexOf("/login") !== -1
+                        ? "opacity-75"
+                        : "text-blueGray-300")
+                    }
+                  ></i>{" "}
+                  Logout
+                </Link>}
               </li>
             </ul>
 

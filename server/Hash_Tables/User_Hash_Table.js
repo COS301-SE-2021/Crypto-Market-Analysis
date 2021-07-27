@@ -18,17 +18,19 @@ class User_Hash_Table {
                     let crypto_name;
                     let screen_name = [];
                     let subreddits = [];
+                    let social_media_sites = [];
                     for (const doc of docs){
                         cryptocurrencies = {};
                         crypto = doc.data().crypto;
                         crypto_name = doc.data().crypto_name;
                         screen_name = doc.data().screen_name;
                         subreddits = doc.data().subreddits;
+                        social_media_sites = doc.data().social_media_sites;
                         if(crypto){
                             for(const [index, value] of crypto.entries())
                                 cryptocurrencies[value] = crypto_name[index];
                         }
-                        this.#users[doc.id] = {cryptocurrencies, screen_name, subreddits};
+                        this.#users[doc.id] = {cryptocurrencies, screen_name, subreddits, social_media_sites};
                     }
                 }
         }).catch((error) => {
@@ -300,7 +302,6 @@ class User_Hash_Table {
                 return true;
         return false;
     }
-
 }
 
 class Singleton {

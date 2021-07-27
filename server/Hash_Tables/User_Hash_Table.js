@@ -169,12 +169,59 @@ class User_Hash_Table {
             return Promise.reject(`Parameters are undefined`);
     }
 
+    async removeScreenName(email, screen_name){
+      if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+      
+      //Holds the screen names retrieved from the user hash table in memory
+        let screen_name_array;
+        //The index of the screen name in the screen name array
+        let index;
+
+        //Check if the parameters are defined
+        if(email && screen_name){
+            //Check if the email exists
+            if(await this.searchUser(email)){
+                try{
+                    //Get the array from the selected email
+                    screen_name_array = this.#users[email][`screen_name`];
+                    //Check if the array exists
+                    if(screen_name_array){
+                        //Get the index of the screen name in the array
+                        index = screen_name_array.indexOf(screen_name);
+                        //Check if the screen name is present in the array
+                        if(index > -1){
+                            //Remove the screen name from the array
+                            screen_name_array.splice(index, 1);
+                            //Remove the screen name from the database
+                            await firestore_db.delete(`Users`, email, `screen_name`, screen_name);
+                        }
+                        else
+                            return Promise.reject(`User is not following the selected screen_name`)
+                    }
+                    else
+                        return Promise.reject(`User is not following the anyone on twitter`);
+                }
+                catch (error) {
+                    return Promise.reject(error);
+                }
+              
+              }
+            else
+                return Promise.reject(`Invalid email entered`);
+        }
+        else
+            return Promise.reject(`Parameters are undefined`);
+    }
+
     async insertSubreddits(key, subreddit){
         if(!this.#initialized){
             await this.#init;
             this.#initialized = true;
         }
-
+  
         //Check if the parameters are defined
         if(key && subreddit){
             //Check if the email exists
@@ -207,14 +254,13 @@ class User_Hash_Table {
                 /*}
                 else
                     return Promise.reject(`Subreddits does not exist`);*/
-            }
+              }
             else
                 return Promise.reject(`Invalid email entered`);
         }
         else
             return Promise.reject(`Parameters are undefined`);
-    }
-
+     }
 
     async fetchUser(key){
         if(!this.#initialized){

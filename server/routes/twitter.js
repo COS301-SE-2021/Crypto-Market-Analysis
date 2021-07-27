@@ -36,7 +36,27 @@ router.post('/follow', async (request, response) => {
         return response.status(200).json({status: `Success`, message: `Screen name successfully added`});
     }
     catch(error){
-        return response.status(500).json({status: 500, error: `Something went wrong while trying to retrieve the tweets: ${error}`});
+        return response.status(500).json({status: 500, error: `Something went wrong while trying to add the screen name: ${error}`});
+    }
+});
+
+router.post('/unfollow', async (request, response) => {
+    //The email of the user
+    const email = request.body.email;
+    //The screen name of the person that the user wants to unfollow
+    const screen_name = request.body.screen_name;
+
+    //Check if the request has the parameters
+    if(!screen_name || !email)
+        return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
+
+    try {
+        //Remove the screen name from the email specified
+        await user_object.removeScreenName(email, screen_name);
+        return response.status(200).json({status: `Success`, message: `Screen name successfully removed`});
+    }
+    catch(error){
+        return response.status(500).json({status: 500, error: `Something went wrong while trying to remove the screen name: ${error}`});
     }
 });
 

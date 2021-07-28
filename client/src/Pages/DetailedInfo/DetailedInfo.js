@@ -9,11 +9,11 @@ import Reddits from '../../components/Reddits/Reddits'
 import FourChan from '../../components/4chan/fourChan'
 import Sidebar from "../../components/Sidebar/Sidebar.js";
 
-export default function DetailedInfo({coin_name}) {
-
-
+export default function DetailedInfo(props) {
+    let coin_name = props.location.state.coin_name
     return(
         <>
+        {console.log(coin_name)}
         <Sidebar />
             <div className="md:ml-64" >
                 <div className="container" >
@@ -22,7 +22,7 @@ export default function DetailedInfo({coin_name}) {
                             <Overview coin_name={coin_name}/>
                         </Tab>
                         <Tab eventKey="Tweets" title="Tweets">
-                            <Tweets coin_name={coin_name} />
+                            {/* <Tweets coin_name={coin_name} /> */}
                         </Tab>
                         <Tab eventKey="Reddit" title="Reddit">
                             <Reddits />

@@ -317,6 +317,21 @@ class Twitter {
             await Promise.reject(`An error occurred while getting the embedded tweets: ${error}`);
         }
     }
+
+    async validateScreenName(screen_name){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        try{
+            await this.userLookup(screen_name);
+            return `<a href="https://twitter.com/${screen_name}?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-size="large" data-show-count="false">Follow @${screen_name}</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`;
+        }
+        catch (error){
+            return Promise.reject(error);
+        }
+    }
 }
 
 class Singleton {

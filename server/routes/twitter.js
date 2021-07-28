@@ -22,6 +22,23 @@ router.post('/getCryptoTweets', async (request, response) => {
     }
 });
 
+router.post('/validateScreenName', async (request, response) => {
+   const screen_name = request.body.screen_name;
+
+    //Check if the request has the parameters
+    if(!screen_name)
+        return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
+
+    try {
+        //Validate the screen name and return the html content to follow the screen name
+        const data = await twitter.validateScreenName(screen_name);
+        return response.status(200).json({status: `Success`, data: data});
+    }
+    catch(error){
+        return response.status(500).json({status: 500, error: `Something went wrong while trying to add the screen name: ${error}`});
+    }
+});
+
 router.post('/follow', async (request, response) => {
      const email = request.body.email;
      const screen_name = request.body.screen_name;

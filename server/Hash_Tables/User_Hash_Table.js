@@ -149,31 +149,25 @@ class User_Hash_Table {
                 //Get the twitter class instance
                 const Twitter = require(`../social_media_sites/Twitter`);
                 const twitter = new Twitter().getInstance();
-                //Check if the screen name exists
-                const exists = twitter.userLookup(screen_name);
-                if(exists){
-                    //Get the screen names array containing the list of screen names all the users are following
-                    let screen_name_array = this.#users[key].screen_name;
-                    //If the screen name array doesn't exist create it
-                    if(!screen_name_array) {
-                        this.#users[key][`screen_name`] = [];
-                        screen_name_array = this.#users[key].screen_name;
+                //Get the screen names array containing the list of screen names all the users are following
+                let screen_name_array = this.#users[key].screen_name;
+                //If the screen name array doesn't exist create it
+                if(!screen_name_array) {
+                    this.#users[key][`screen_name`] = [];
+                    screen_name_array = this.#users[key].screen_name;
+                }
+                //Check if the screen name already exists in the array. If it doesn't add it
+                if(screen_name_array.indexOf(screen_name) === -1) {
+                    try{
+                        //Add the screen name to the array of screen names and add it to the database
+                        screen_name_array.push(screen_name);
+                        firestore_db.save(`Users`, key, `screen_name`, screen_name, true);
+                        return Promise.resolve(true);
                     }
-                    //Check if the screen name already exists in the array. If it doesn't add it
-                    if(screen_name_array.indexOf(screen_name) === -1) {
-                        try{
-                            //Add the screen name to the array of screen names and add it to the database
-                            screen_name_array.push(screen_name);
-                            firestore_db.save(`Users`, key, `screen_name`, screen_name, true);
-                            return Promise.resolve(true);
-                        }
-                        catch (error){
-                            return await Promise.reject(error);
-                        }
+                    catch (error){
+                        return await Promise.reject(error);
                     }
                 }
-                else
-                    return Promise.reject(`Screen name does not exist`);
             }
             else
                 return Promise.reject(`Invalid email entered`);

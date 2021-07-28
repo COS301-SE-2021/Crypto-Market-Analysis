@@ -60,6 +60,19 @@ router.post("/followCrypto", async (request,response)=>{
     }
 });
 
+router.post("/unfollowCrypto", async (request,response)=>{
+
+    if(request.body.email === null || request.body.symbol === null)
+        return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
+    else{
+        await userFunctions.unfollowCrypto(request.body.email,request.body.symbol).then(data=>{
+            return response.status(200).json(data);
+        }).catch(err=>{
+            return response.status(500).json({status:`Internal server error`, error: err})
+        });
+    }
+});
+
 /** This function adds a social media site to the users account
  * @param {object} request A request object with the email and social_media_sites.
  * @param {object} response A response object which will return the status code.
@@ -77,6 +90,7 @@ router.post("/followSocialMedia",async (request,response)=>{
           })
         }
 });
+
 
 /** This function gets the social media a user is following
  * @param {object} request A request object with the email and symbol.

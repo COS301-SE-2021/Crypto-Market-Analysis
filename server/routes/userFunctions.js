@@ -59,6 +59,16 @@ const followCrypto = async (email_address,symbol,crypto_name )=>{
         return Promise.reject(error)
     }
 }
+
+const unfollowCrypto = async (email_address, symbol) => {
+    try{
+        await user_object.removeCrypto(email_address, symbol);
+    }
+    catch (error){
+        return Promise.reject(error);
+    }
+}
+
 const followSocialMedia = async (email_address,social_media )=> {
     try{
         return await user_object.insertSocialMediaSite(email_address, social_media);
@@ -79,7 +89,6 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
         await firestore_db.save(socialmedia, crypto, `Min`, mini);
         await firestore_db.save(socialmedia, crypto, `Max`, maxi);
         await firestore_db.save(socialmedia, crypto, `Average`, average);
-
     }
     catch(err){
         return {status:`Internal Server Error`, error: err}
@@ -89,4 +98,4 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
 }
 
 
-module.exports = {saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto,followSocialMedia, get4chanPost}
+module.exports = {saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, get4chanPost}

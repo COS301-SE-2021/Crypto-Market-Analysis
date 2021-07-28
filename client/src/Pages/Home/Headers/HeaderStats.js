@@ -49,7 +49,7 @@ export default function HeaderStats() {
             await response.data.map((coin)=>{
               console.log(coinsList)
               coinsList.forEach(element => {
-                if(element === coin.symbol){
+                if(element === coin.name){
                   userCryptoList.push(coin)
                 }
               });

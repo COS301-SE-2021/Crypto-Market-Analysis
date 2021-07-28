@@ -69,16 +69,29 @@ class User_Hash_Table {
             this.#initialized = true;
         }
 
-        let value = await this.fetchUser(key);
-        if(value){
-            value = value.cryptocurrencies;
-            if(value){
-                if(!value[crypto])
-                    value[crypto] = crypto_name;
+        //Check if the parameters are defined
+        if(key && crypto && crypto_name){
+            //Check if the email exists
+            if(await this.searchUser(key)){
+                    //Check if the crypto already exists. If it doesn't add it
+                    if(!this.#users[key][`cryptocurrencies`] || !this.#users[key][`cryptocurrencies`][crypto]) {
+                        try{
+                            //Add crypto to the cryptocurrencies object
+                            this.#users[key][`cryptocurrencies`][crypto] = crypto_name
+                            firestore_db.save(`Users`, key, `crypto`, crypto, true);
+                            firestore_db.save(`Users`, key, `crypto_name`, crypto_name, true);
+                            return Promise.resolve(true);
+                        }
+                        catch (error){
+                            return await Promise.reject(error);
+                        }
+                    }
             }
             else
-                value[crypto] = crypto_name
+                return Promise.reject(`Invalid email entered`);
         }
+        else
+            return Promise.reject(`Parameters are undefined`);
     }
 
     async insertSocialMediaSite(key, social_media){
@@ -169,6 +182,42 @@ class User_Hash_Table {
             return Promise.reject(`Parameters are undefined`);
     }
 
+    async removeCrypto(email, symbol){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        //Check if the parameters are defined
+        if(email && symbol){
+            //Check if the email exists
+            if(await this.searchUser(email)){
+                try{
+                    //Check if the user is following any cryptocurrencies and if the crypto exists
+                    if(this.#users[email][`cryptocurrencies`] && this.#users[email][`cryptocurrencies`][symbol]){
+                            //Get the crypto name
+                            const name = this.#users[email][`cryptocurrencies`][symbol];
+                            //Remove the crypto from the object
+                            delete this.#users[email][`cryptocurrencies`][symbol];
+                            //Remove the crypto symbol from the database
+                            await firestore_db.delete(`Users`, email, `crypto`, symbol);
+                            //Remove the crypto name from the database
+                            await firestore_db.delete(`Users`, email, `crypto_name`, name);
+                            return true;
+                    }
+                    else
+                        return Promise.reject(`User is not following the selected crypto`);
+                }
+                catch (error) {
+                    return Promise.reject(error);
+                }
+            }
+            else
+                return Promise.reject(`Invalid email entered`);
+        }
+        else
+            return Promise.reject(`Parameters are undefined`);
+    }
     async removeScreenName(email, screen_name){
       if(!this.#initialized){
             await this.#init;

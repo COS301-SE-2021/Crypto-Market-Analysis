@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.css";
 import { Markup } from 'react-render-markup'
+import DetailedInfo from '../../Pages/DetailedInfo/DetailedInfo'
 import React,{ useState, useEffect } from 'react'
 import axios from "axios"
 
@@ -14,12 +15,13 @@ export default function Overview({coin_name}){
         .catch(err => {console.error(err);})
     })
 
+
     return(
         <>
          {coin.id ? <><div className="container mt-16 mb-12">
             <div className="row">
                 <div className="col-4">
-                    <img src={coin.image.large}/>
+                    <img alt={"image"} src={coin.image.large}/>
                 </div>
                 <div className="col-8">
                     <p className="text-sm">  <Markup markup={coin.description.en} /></p>
@@ -67,23 +69,23 @@ export default function Overview({coin_name}){
                         <tbody>
                             <tr>
                                 <td>Price change in 1 hour</td>
-                                <td >{coin.market_data.price_change_percentage_1h_in_currency.zar > 0 ? <span className="badge badge-success ml-2">{coin.market_data.price_change_percentage_1h_in_currency.zar}</span> : <span className="badge badge-danger ml-2">{coin.market_data.price_change_percentage_1h_in_currency.zar}</span>} </td>
+                                <td >{coin.market_data.price_change_percentage_1h_in_currency.zar > 0 ? <span className="badge badge-success ml-2">{coin.market_data.price_change_percentage_1h_in_currency.zar.toFixed(2)}%</span> : <span className="badge badge-danger ml-2">{coin.market_data.price_change_percentage_1h_in_currency.zar.toFixed(2)}%</span>} </td>
                             </tr>
                             <tr>
                                 <td>Price change in 24 hours</td>
-                                <td>{coin.market_data.price_change_percentage_24h_in_currency.zar > 0 ? <span className="badge badge-success ml-2">{coin.market_data.price_change_percentage_24h_in_currency.zar}</span> : <span className="badge badge-danger ml-2">{coin.market_data.price_change_percentage_24h_in_currency.zar}</span>}</td>
+                                <td>{coin.market_data.price_change_percentage_24h_in_currency.zar > 0 ? <span className="badge badge-success ml-2">{coin.market_data.price_change_percentage_24h_in_currency.zar.toFixed(2)}%</span> : <span className="badge badge-danger ml-2">{coin.market_data.price_change_percentage_24h_in_currency.zar.toFixed(2)}%</span>}</td>
                             </tr>
                             <tr>
                                 <td>Price change in 7 days</td>
-                                <td>{coin.market_data.price_change_percentage_7d_in_currency.zar > 0 ? <span className="badge badge-success ml-2">{coin.market_data.price_change_percentage_7d_in_currency.zar}</span> : <span className="badge badge-danger ml-2">{coin.market_data.price_change_percentage_7d_in_currency.zar}</span>}</td>
+                                <td>{coin.market_data.price_change_percentage_7d_in_currency.zar > 0 ? <span className="badge badge-success ml-2">{coin.market_data.price_change_percentage_7d_in_currency.zar.toFixed(2)}%</span> : <span className="badge badge-danger ml-2">{coin.market_data.price_change_percentage_7d_in_currency.zar.toFixed(2)}%</span>}</td>
                             </tr>
                             <tr>
                                 <td>Price change in 14 days</td>
-                                <td>{coin.market_data.price_change_percentage_14d_in_currency.zar > 0 ? <span className="badge badge-success ml-2">{coin.market_data.price_change_percentage_14d_in_currency.zar}</span> : <span className="badge badge-danger ml-2">{coin.market_data.price_change_percentage_14d_in_currency.zar}</span>}</td>
+                                <td>{coin.market_data.price_change_percentage_14d_in_currency.zar > 0 ? <span className="badge badge-success ml-2">{coin.market_data.price_change_percentage_14d_in_currency.zar.toFixed(2)}%</span> : <span className="badge badge-danger ml-2">{coin.market_data.price_change_percentage_14d_in_currency.zar.toFixed(2)}%</span>}</td>
                             </tr>
                             <tr>
                                 <td>Price change in 30 days</td>
-                                <td>{coin.market_data.price_change_percentage_30d_in_currency.zar > 0 ? <span className="badge badge-success ml-2">{coin.market_data.price_change_percentage_30d_in_currency.zar}</span> : <span className="badge badge-danger ml-2">{coin.market_data.price_change_percentage_30d_in_currency.zar}</span>}</td>
+                                <td>{coin.market_data.price_change_percentage_30d_in_currency.zar > 0 ? <span className="badge badge-success ml-2">{coin.market_data.price_change_percentage_30d_in_currency.zar.toFixed(2)}%</span> : <span className="badge badge-danger ml-2">{coin.market_data.price_change_percentage_30d_in_currency.zar.toFixed(2)}%</span>}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -91,7 +93,7 @@ export default function Overview({coin_name}){
             </div>
         </div>
         <div className="container">
-        <div className=" text-sm p-2 px-0" ><span className="uppercase font-bold">Last updated at : </span> {coin.market_data.last_updated}</div>
+        <div className=" text-sm p-2 px-0" ><span className="uppercase font-bold">Last updated at : </span> {new Date(coin.market_data.last_updated).toString()}</div>
         </div></>:<></>}
         </>
     )

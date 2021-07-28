@@ -7,24 +7,24 @@ import "./Header.css";
 
 
 
-const coins = ["Bitcoin","Ethereum","Theta","Binance Coin","Cardano","XRP","USD Coin","Dogecoin","Polkadot","Binance USD"]
+const coins = ["btc","eth","usdt","bnb","ada","xrp","usdc","doge","dot","busd"]
 
 export default function HeaderStats() {
   let [cryptos, setCryptos] = useState([]);
   
   useEffect(async () => {
     let selectedCryptos = []
-    let  reqeustObj = { email: localStorage.getItem("emailSession") }
-
-    if(reqeustObj != null){ /* If user logged in, get crypto coins followed by that user */
+    let  requestObj = { email: localStorage.getItem("emailSession") }
+    console.log(requestObj.email)
+    if(requestObj.email != null){ /* If user logged in, get crypto coins followed by that user */
 
       /*
       The post request get cryptocurrencies and social media platforms the user follows
       */
-      axios.post('http://localhost:8080/user/getUserCryptos/', reqeustObj)
+      axios.post('http://localhost:8080/user/getUserCryptos/', requestObj)
       .then(async(response) => {
-      
-        await response.data.messageN[0].map((coin)=>{
+        console.log(response)
+        await response.data.map((coin)=>{
           selectedCryptos.push(coin)
         })
         getCoins(selectedCryptos)
@@ -32,6 +32,7 @@ export default function HeaderStats() {
       .catch(err => {console.error(err);})
     }
     else{ /* else if user is not logged in, use default(Top 10) crypto coins */
+      console.log("CALLED")
       getCoins(coins)
     }
   },[])
@@ -46,13 +47,14 @@ export default function HeaderStats() {
             let userCryptoList = []
 
             await response.data.map((coin)=>{
-
+              console.log(coinsList)
               coinsList.forEach(element => {
-                if(element === coin.name){
+                if(element === coin.symbol){
                   userCryptoList.push(coin)
                 }
               });
             })
+            console.log(userCryptoList)
             setCryptos(userCryptoList)
         })
         .catch(err => {console.error(err);})
@@ -73,7 +75,7 @@ export default function HeaderStats() {
                         <Carousel.Item>
                           <div key={coin.id} className="w-full lg:w-12/12 xl:w-12/12 px-4 mt-5">
 
-                              <a id="link" href= {"https://www.coingecko.com/en/coins/"+ coin.name.toLowerCase()}>
+                              <a id="link" href= {"/home/DetailedInfo"}>
                                   <CardStats
                                       statSubtitle={coin.name}
                                       statTitle={coin.current_price}

@@ -8,6 +8,7 @@ import ScriptTag from 'react-script-tag'
 export default function Tweets({coin_name}){
   
   let [tweets, setTweets] = useState([]);
+  let [errorResponse, setErrorResponse] = useState([]);
   let tweetsReq = { 
       crypto_name: coin_name,
       email: localStorage.getItem("emailSession")
@@ -16,15 +17,28 @@ export default function Tweets({coin_name}){
     useEffect(async () => {
       axios.post('http://localhost:8080/twitter/getCryptoTweets',tweetsReq)
       .then(response =>{
-          setTweets(response.data.data)
+        //console.log(response)
+        setTweets(response.data.data)
+        setErrorResponse(null)
+      },res=>{
+        //console.log(res.response)
+        setErrorResponse(res.response.data.error)
       })
-      .catch(err => {console.error(err);})
-
-      
     },[])
+
     return(
         <>
+        {console.log(errorResponse)}
+        {errorResponse ? <>
+          <div className="container mt-16 " >
+            <div className="alert alert-warning alert-dismissible fade show m-auto text-center" style={{width:"70%"}}>
+              {errorResponse.includes("The user is not following people on twitter")? <span>Oops, looks like you don't follow anyone on Twitter :(</span>
+              :errorResponse.includes("No tweets to display")? <span>Oops, looks like we don't have any tweets to display :(</span>
+              :<span>Oops, looks like you don't follow the selected coin :(, choose a coin you follow to see what people are saying about it on twitter</span>}
+            </div>
+          </div>
         
+        </> : <>
         <ScriptTag isHydrating={true} type="text/javascript" src="https://platform.twitter.com/widgets.js" />
         <div id="tweets" className="container mt-16">
             <Carousel cols={3} rows={2} gap={3} loop >
@@ -41,7 +55,7 @@ export default function Tweets({coin_name}){
                } 
                </Carousel>
            
-        </div>
+        </div></>}
         </>
     )
 }

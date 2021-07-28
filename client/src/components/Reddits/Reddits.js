@@ -3,19 +3,17 @@ import axios from "axios";
 
 
 
-export default function Reddits({}){
+export default function Reddits(){
 
     let [reddits,setReddits] = useState([]);
     const [searchReddit, setSearchReddit] = useState("");
-
-    useEffect(async () => {
+    useEffect( () => {
+   
     let  cryptoReq = {
         email: localStorage.getItem("emailSession")
-
-
     }
 
-    axios.post('http://localhost:8080/user/getRedditPost/',cryptoReq)
+    axios.post('http://localhost:8080/reddit/getRedditPost/',cryptoReq)
         .then(response => {
             let posts_ = [];
             for(let j = 0; j<response.data.posts.length; j++)

@@ -58,7 +58,7 @@ export default function AllCryptos()
                   await response_data.data.map((coin)=>{
                       
                     coinsList.forEach(element => {
-                          if(element === coin.symbol){
+                          if(element === coin.name){
                               coin.selected = true;
                           }
                       })
@@ -95,9 +95,8 @@ export default function AllCryptos()
                         let  cryptoToRemove = {
                             email: localStorage.getItem("emailSession"),
                               symbol: crypto.symbol,
-                              crypto_name: crypto.name,
                           }
-                          axios.post('http://localhost:8080/user/followCrypto/',cryptoToRemove)
+                          axios.post('http://localhost:8080/user/unfollowCrypto/',cryptoToRemove)
                               .then(response => console.log(response))
                               .catch(err => {console.error(err);})
                     }

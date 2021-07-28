@@ -51,6 +51,15 @@ const fetchUserSocialMedia = async(email_address)=>{
     }
 }
 
+const fetchUserSubreddits = async(email_address)=>{
+    try{
+        await user_object.getSubreddit(email_address);
+    }
+    catch (error){
+        return Promise.reject(error);
+    }
+}
+
 const followCrypto = async (email_address,symbol,crypto_name )=>{
     try{
         return await user_object.insertCrypto(email_address, symbol, crypto_name);
@@ -78,6 +87,15 @@ const followSocialMedia = async (email_address,social_media )=> {
     }
 }
 
+const followSubreddit = async (email_address,social_media )=> {
+    try{
+        return await user_object.insertSubreddit(email_address, social_media);
+    }
+    catch (error){
+        return Promise.reject(error);
+    }
+}
+
 
 const saveToDB = async (arr, socialmedia , crypto)=> {
     let mini=Math.min.apply(Math, arr)
@@ -98,4 +116,4 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
 }
 
 
-module.exports = {saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, get4chanPost}
+module.exports = {followSubreddit, fetchUserSubreddits, saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, get4chanPost}

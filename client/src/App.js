@@ -14,6 +14,7 @@ import PrivateRoute from "./components/newRoute"
 import Overview from "./components/Overview/Overview"
 import HeaderStats from "./Pages/Home/Headers/HeaderStats"
 import DetailedInfo from "./Pages/DetailedInfo/DetailedInfo"
+import Subreddits from "./Pages/Subreddits/Subreddits"
 import {BrowserRouter as router , Switch} from "react-router-dom";
 import { AuthProvider } from "./Auth/Auth"
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
@@ -34,6 +35,7 @@ function App() {
                      <Route exact path="/Profile" component={Profile}></Route>
                      <Route exact path="/HeaderStats" component={HeaderStats}></Route>
                      <Route exact path="/home/DetailedInfo" component={DetailedInfo}></Route>
+                     <Route exact path="/Subreddits" component={Subreddits}></Route>
                  </section>
            </Switch>
           </AuthProvider>

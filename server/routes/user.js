@@ -91,6 +91,19 @@ router.post("/followSocialMedia",async (request,response)=>{
         }
 });
 
+router.post("/followSubreddit",async (request,response)=>{
+    if(!request.body.email || !request.body.social_media_sites){
+        return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
+    }
+    else{
+        await userFunctions.followSubreddit(request.body.email,request.body.social_media_sites).then(data=>{
+            response.status(200).json(data);
+        }).catch(err=>{
+            response.status(500).json({status:`Internal server error`, error: err});
+        })
+    }
+});
+
 
 /** This function gets the social media a user is following
  * @param {object} request A request object with the email and symbol.
@@ -104,6 +117,20 @@ router.post("/fetchUserSocialMedia", async (request, response) => {
     }
     else{
         userFunctions.fetchUserSocialMedia(request.body.email).then(data=>{
+            return response.status(200).json(data);
+        }).catch(err=>{
+            return response(401).json({status:`error`, error: err})
+        })
+    }
+});
+
+router.post("/fetchUserSubreddits", async (request, response) => {
+
+    if(request.body.email === null) {
+        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
+    }
+    else{
+        userFunctions.fetchUserSubreddits(request.body.email).then(data=>{
             return response.status(200).json(data);
         }).catch(err=>{
             return response(401).json({status:`error`, error: err})

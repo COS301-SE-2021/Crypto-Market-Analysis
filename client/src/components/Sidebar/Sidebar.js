@@ -1,11 +1,12 @@
 /*eslint-disable*/
 import React, { useState, useRef, useEffect}  from "react";
 import { Link, useHistory } from "react-router-dom";
-import { Modal, Button } from "react-bootstrap";
+// import { Modal, Button } from "react-bootstrap";
 import {Avatar} from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 
-import "./Sidebar.css"
+import "./Sidebar.css";
+import ModalComp from "../Modal/Modal";
 
 // import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
 // import UserDropdown from "components/Dropdowns/UserDropdown.js";
@@ -40,13 +41,14 @@ export default function Sidebar() {
           return true;
         }
         else{
+          console.log("TRiggered")
           handleShowModal();
           return false;
         }
         
       });
     }
-
+  
     const handleShowModal =()=>{
       setShow(true);
     }
@@ -67,16 +69,8 @@ export default function Sidebar() {
   return (
   
     <>
-      <Modal show={show} style={{textAlign:"center"}}>
-        <Modal.Body >
-          <h4>Oops</h4>
-          <p>Looks like you're not logged in. Please log in to access to more features</p>
-        </Modal.Body>
-        <Modal.Footer className="justify-center" >
-          <Button onClick={onCancel} className="btn btn-danger">Cancel</Button>
-          <Button onClick={OnContinue} className="btn btn-success">Login</Button>
-        </Modal.Footer>
-      </Modal>
+      <ModalComp show={show} cancel={onCancel} continue={OnContinue} />
+       
       <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"
       >
         <div className="md:flex-col md:items-stretch md:min-h-full md:flex-wrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">

@@ -91,6 +91,19 @@ router.post("/followSocialMedia",async (request,response)=>{
         }
 });
 
+router.post("/unfollowSocialMedia", async (request,response)=>{
+
+    if(!request.body.email || !request.body.social_media_sites)
+        return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
+    else{
+        await userFunctions.unfollowSocialMedia(request.body.email,request.body.social_media_sites).then(data=>{
+            return response.status(200).json(data);
+        }).catch(err=>{
+            return response.status(500).json({status:`Internal server error`, error: err})
+        });
+    }
+});
+
 
 /** This function gets the social media a user is following
  * @param {object} request A request object with the email and symbol.

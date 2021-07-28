@@ -7,7 +7,7 @@ import "../Settings/Settings.css"
 import "./AllCrypto.css"
 
 const coins = ["btc","eth","usdt","bnb","ada","xrp","usdc","doge","dot","busd"]
-export default function AllCryptos()
+export default function AllCryptos(props)
 {
     // cryptos = cryptos
     let [cryptos, setCryptos] = useState([]);
@@ -70,7 +70,8 @@ export default function AllCryptos()
             }
 
     const select = (name,type) => {
-        console.log(cryptos)
+        
+        
         if(type == "cryptos"){
             cryptos =  [...cryptos.map((crypto)=>{
                 if(name == crypto.symbol){
@@ -106,7 +107,10 @@ export default function AllCryptos()
                 }
             })]
             setCryptos(cryptos)
-        }
+       }
+       let func = props.alert 
+        func() //alert observer in parent component to trigger change in headerstat
+
     }
 
     //sets search to whats typed in the search input field

@@ -1,3 +1,4 @@
+import React, { useState, useEffect}  from "react";
 
 import "bootstrap/dist/css/bootstrap.css";
 import Sidebar from "../../components/Sidebar/Sidebar.js";
@@ -8,8 +9,20 @@ import "../../assets/styles/tailwind.css";
 import AllCryptos from "../AllCrypto/AllCrypto.js";
 
 function Home(){
-
+    let [favObserver, setFavObserver] = useState(false) 
     let user = localStorage.getItem("emailSession")
+
+    /*
+        Triggers headerstats component to refresh crypto cards
+    */
+    const alertObserver = ()=>{
+        if(favObserver){
+            setFavObserver(false)
+        }
+        else{
+            setFavObserver(true)
+        }
+    }
     return (
         <>
             <Sidebar />
@@ -20,7 +33,7 @@ function Home(){
                             user !== null ? <div className="uppercase text-xl font-bold p-2 px-0" style={{color:"#58667e",margin:"auto"}}>Cryptocurrencies you're following <hr/></div>
                             :<div className="uppercase text-xl font-bold p-2 px-0" style={{color:"#58667e",margin:"auto"}}>Top 10 cryptocurrencies by market cap <hr/></div>
                         }
-                        <HeaderStats />
+                        <HeaderStats ob={favObserver}/>
                     </div>
                     {/* {
                         user !== null? <div className="row py-5" style={{backgroundColor:"#fff"}}>
@@ -31,7 +44,7 @@ function Home(){
                     <div className="row pt-3" style={{backgroundColor:"#23292f",color:"white"}}>
                         <div className="uppercase text-xl font-bold p-2 px-0" style={{display:"flex",color:"white",margin:"auto"}}> Top 250 Cryptocurrencies<hr style={{borderColor:"white"}}/></div>
                         <div className="container" style={{display:"flex",color:"white",margin:"auto"}}>
-                        <AllCryptos />
+                        <AllCryptos alert={alertObserver}/>
                         </div>
                     </div>
                 </div>

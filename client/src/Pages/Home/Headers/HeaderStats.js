@@ -12,15 +12,16 @@ import "./Header.css";
 
 const coins = ["btc","eth","usdt","bnb","ada","xrp","usdc","doge","dot","busd"]
 
-export default function HeaderStats() {
+export default function HeaderStats(props) {
   const unblockHandle = useRef()
   const history = useHistory()
   const [show, setShow] = useState(false)
-  let [cryptos, setCryptos] = useState([]);
+  let [cryptos, setCryptos] = useState([])
   let  requestObj = { email: localStorage.getItem("emailSession") }
   let coin = "" //coin name to pass to detailedInfo
   
   useEffect(async () => {
+   
     let selectedCryptos = []
    
     console.log(requestObj.email)
@@ -31,7 +32,6 @@ export default function HeaderStats() {
       */
       axios.post('http://localhost:8080/user/getUserCryptos/', requestObj)
       .then(async(response) => {
-        // console.log(response)
         await response.data.map((coin)=>{
           selectedCryptos.push(coin)
         })
@@ -43,7 +43,7 @@ export default function HeaderStats() {
       // console.log("CALLED")
       getCoins(coins)
     }
-  },[])
+  },[props.ob])
 
   /*
     The post request get cryptocurrencies from coingecko API

@@ -80,11 +80,13 @@ export default function AllCryptos()
                         if selected add to favourite list else remove it
                     */
                     if(crypto.selected) {
+                       
                         let  cryptoToAdd = {
                           email: localStorage.getItem("emailSession"),
                             symbol: crypto.symbol,
                             crypto_name: crypto.name,
                         }
+                       
                         axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd)
                             .then(response => console.log(response))
                             .catch(err => {console.error(err);})
@@ -122,18 +124,19 @@ export default function AllCryptos()
         {/* <Sidebar /> */}
          <div className="container">
             <div className="row"> 
+                <div className="crypto-search">
+                    <form>
+                        <input type="search" className="form-control rounded" placeholder="Search..."
+                                onChange={searchCoin}/>
+                    </form>
+                </div>
                 <div className=" overflow-auto block crypto-wrapper" style={{height:"600px",margin:"auto"}}>
-                    <div className="crypto-search">
-                        <form>
-                            <input type="search" className="form-control rounded" placeholder="Search..."
-                                   onChange={searchCoin}/>
-                        </form>
-                    </div>
+                    
                     {
-                        searchedCryptos.map((myCrypto) =>{
+                        searchedCryptos.map((myCrypto,index) =>{
                             
                             return(
-                                <div className='coin-container'>
+                                <div key={index} className='coin-container'>
 
 
                                         <div className='coin-row'>

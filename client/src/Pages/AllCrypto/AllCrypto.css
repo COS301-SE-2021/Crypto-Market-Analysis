@@ -1,10 +1,20 @@
 .crypto-wrapper
 {
-    height:600px
+  height:600px;
+  padding-right: 35x;
 }
-.crypto-wrapper::-webkit-scrollbar
-{
-    display: none;
+
+.crypto-wrapper::-webkit-scrollbar {
+  width: 10px;
+  margin-right:10px;
+}
+
+.crypto-wrapper::-webkit-scrollbar-track {
+  background-color: darkgrey;
+}
+
+.crypto-wrapper::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 .coin-container {
   display: flex;
@@ -49,6 +59,7 @@
   text-align: right;
   justify-content: space-between;
   width: 100%;
+  
 }
 
 .coin-price {

@@ -31,7 +31,7 @@ router.post('/validateScreenName', async (request, response) => {
 
     try {
         //Validate the screen name and return the html content to follow the screen name
-        const data = await user_object.validateScreenName(screen_name);
+        const data = await twitter.validateScreenName(screen_name);
         return response.status(200).json({status: `Success`, data: data});
     }
     catch(error){

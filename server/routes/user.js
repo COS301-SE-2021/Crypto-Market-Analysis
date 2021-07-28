@@ -92,6 +92,9 @@ router.post("/followSocialMedia",async (request,response)=>{
 });
 
 router.post("/followSubreddit",async (request,response)=>{
+    console.log(request.body.email);
+    console.log(request.body.social_media_sites);
+
     if(!request.body.email || !request.body.social_media_sites){
         return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
     }

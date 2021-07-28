@@ -1,6 +1,5 @@
 import "bootstrap/dist/css/bootstrap.css";
 import { Star, } from "@material-ui/icons";
-import { SocialIcon } from 'react-social-icons';
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 
@@ -36,23 +35,23 @@ function Subreddits()
                    Set default platform if data is not set else
                    push platform to a list
                  */
-                // if(response.data.SocialMediaName != null)
-                // {
-                //     selectedPlatforms = []
-                //     await response.data.SocialMediaName[0].map((site)=>{
-                //         selectedPlatforms.push(site)
-                //         console.log(selectedPlatforms)
-                //     })
-                // }
-                //
-                // platformsList.map((_platform)=>{
-                //     selectedPlatforms.forEach(element => {
-                //         if(element === _platform.name){
-                //             _platform.selected = true;
-                //         }
-                //     })
-                // })
-                // setPlatforms(platformsList)
+                if(response.data.SocialMediaName != null)
+                {
+                    selectedPlatforms = []
+                    await response.data.SocialMediaName[0].map((site)=>{
+                        selectedPlatforms.push(site)
+                        console.log(selectedPlatforms)
+                    })
+                }
+
+                platformsList.map((_platform)=>{
+                    selectedPlatforms.forEach(element => {
+                        if(element === _platform.name){
+                            _platform.selected = true;
+                        }
+                    })
+                })
+                setPlatforms(platformsList)
 
             })
             .catch(err => {console.error(err)})
@@ -73,6 +72,10 @@ function Subreddits()
     })
 
     const select = (name,type) => {
+        console.log("testing")
+        console.log(name);
+        console.log(type);
+        console.log("testing")
         if(type === "platforms")
         {
             platforms =  [...platforms.map((platform)=>{
@@ -86,7 +89,7 @@ function Subreddits()
                         email: localStorage.getItem("emailSession"),
                         social_media_sites: platform.name
                     }
-                    axios.post('http://localhost:8080/user/followSocialMedia/',cryptoToAdd)
+                    axios.post('http://localhost:8080/user/followSubreddit/',cryptoToAdd)
                         .then(response => console.log(response))
                         .catch(err => {console.error(err);})
                 }

@@ -88,8 +88,9 @@ const followSocialMedia = async (email_address,social_media )=> {
 }
 
 const followSubreddit = async (email_address,social_media )=> {
+    console.log("in userfunctions");
     try{
-        return await user_object.insertSubreddit(email_address, social_media);
+        return await user_object.insertSubreddits(email_address, social_media);
     }
     catch (error){
         return Promise.reject(error);

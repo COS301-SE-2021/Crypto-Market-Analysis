@@ -136,51 +136,6 @@ class User_Hash_Table {
             return Promise.reject(`Parameters are undefined`);
     }
 
-
-    async insertSubreddit(key, social_media){
-        if(!this.#initialized){
-            await this.#init;
-            this.#initialized = true;
-        }
-
-        //Check if the parameters are defined
-        if(key && social_media){
-            //Check if the email exists
-            if(await this.searchUser(key)){
-                //Check if the site exists
-                if(social_media === `Twitter` || social_media === `Reddit` || social_media === `4chan`){
-                    //Get the social media sites array containing the list of social media platforms the user is following
-                    let social_media_sites_array = this.#users[key].subreddits;
-                    //If the screen name array doesn't exist create it
-                    if(!social_media_sites_array) {
-                        this.#users[key][`subreddits`] = [];
-                        social_media_sites_array = this.#users[key].subreddits;
-                    }
-                    //Check if the social media already exists in the array. If it doesn't add it
-                    if(social_media_sites_array.indexOf(social_media) === -1) {
-                        try{
-                            //Add the social media site to the array of social media and add it to the database
-                            social_media_sites_array.push(social_media);
-                            firestore_db.save(`Users`, key, `subreddits`, social_media, true);
-                            return Promise.resolve(true);
-                        }
-                        catch (error){
-                            return await Promise.reject(error);
-                        }
-                    }
-                }
-                else
-                    return Promise.reject(`User is already following the selected subreddit`);
-            }
-            else
-                return Promise.reject(`Invalid email entered`);
-        }
-        else
-            return Promise.reject(`Parameters are undefined`);
-    }
-
-
-
     async insertScreenName(key, screen_name){
         if(!this.#initialized){
             await this.#init;
@@ -358,6 +313,7 @@ class User_Hash_Table {
     }
 
     async insertSubreddits(key, subreddit){
+        console.log("in userhash")
         if(!this.#initialized){
             await this.#init;
             this.#initialized = true;

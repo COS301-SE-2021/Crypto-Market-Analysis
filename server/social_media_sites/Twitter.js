@@ -324,13 +324,11 @@ class Twitter {
             this.#initialized = true;
         }
 
-        try{
-            await this.userLookup(screen_name);
+        const exists = await this.userLookup(screen_name);
+        if(exists)
             return `<a href="https://twitter.com/${screen_name}?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-size="large" data-show-count="false">Follow @${screen_name}</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`;
-        }
-        catch (error){
-            return Promise.reject(error);
-        }
+        else
+            return Promise.reject(`Screen name does not exist`);
     }
 }
 

@@ -7,7 +7,7 @@ const get4chanPost = async ()=>{
     let fourChanPosts = [];
 
     try{
-        const docs = await firestore_db.fetch(`4chan_data`).then((snapshot) => {return snapshot.docs;});
+        const docs = await firestore_db.fetch(`4chan_info`).then((snapshot) => {return snapshot.docs;});
         for(const doc of docs)
             fourChanPosts.push(doc.data().posts);
 
@@ -24,7 +24,7 @@ const get4chanPost = async ()=>{
 const getRedditPost = async ()=>{
     let posts = [];
     try{
-        const docs = await firestore_db.fetch(`reddit_data`).then(snapshot => {return snapshot.docs});
+        const docs = await firestore_db.fetch(`reddit_info`).then(snapshot => {return snapshot.docs});
         for(const doc of docs)
             posts.push(doc.data().posts);
         return {status: `Ok`, posts: posts};

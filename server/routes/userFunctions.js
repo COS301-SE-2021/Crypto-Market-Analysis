@@ -44,7 +44,7 @@ const getUserCrypto = async (email_address)=>{
 
 const fetchUserSocialMedia = async(email_address)=>{
     try{
-        await user_object.getSocialMediaSites(email_address);
+        return await user_object.getSocialMediaSites(email_address);
     }
     catch (error){
         return Promise.reject(error);

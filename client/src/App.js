@@ -12,6 +12,7 @@ import Home from "./Pages/Home/Home"
 import Profile from "./Pages/Profile/Profile"
 import PrivateRoute from "./components/newRoute"
 import HeaderStats from "./Pages/Home/Headers/HeaderStats"
+import Notification from "./Pages/Notification/Notification"
 import {BrowserRouter as router , Switch} from "react-router-dom";
 import { AuthProvider } from "./Auth/Auth"
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
@@ -31,6 +32,7 @@ function App() {
                      <Route exact path="/AllCrypto" component={AllCrypto}></Route>
                      <Route exact path="/Profile" component={Profile}></Route>
                      <Route exact path="/HeaderStats" component={HeaderStats}></Route>
+                     <Route exact path="/Notification" component={Notification}></Route>
                  </section>
            </Switch>
           </AuthProvider>

@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const userFunctions =require('./userFunctions')
+const userFunctions =require('./userFunctions');
+const Twitter = require(`../social_media_sites/Twitter`);
+const twitter = new Twitter().getInstance();
 
 router.post("/get4chanPost", async (request,response)=>{
     const email = request.body.email;
@@ -53,6 +55,7 @@ router.post("/followCrypto", async (request,response)=>{
         return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
     else{
         await userFunctions.followCrypto(request.body.email,request.body.symbol,request.body.crypto_name).then(data=>{
+            twitter.getTimeline(request.body.email).catch(err => response.status(500).json({status:`Internal server error`, error: err}));
             return response.status(200).json(data);
         }).catch(err=>{
             return response.status(500).json({status:`Internal server error`, error: err})

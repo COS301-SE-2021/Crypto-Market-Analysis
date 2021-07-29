@@ -61,18 +61,9 @@ const Profile = props =>
 
         axios.post('http://localhost:8080/user/fetchUserSocialMedia/',cryptoReq)
             .then(response => {
-                let socialName = []
-                for(let j = 0; j < response.data.SocialMediaName.length; j++)
-                {
-                    for(let x = 0; x < response.data.SocialMediaName[j].length; x++)
-                    {
-
-                        socialName.push({socMediaName : response.data.SocialMediaName[j][x]})
-
-                    }
-
-                }
-                console.log(socialName);
+                let socialName = [];
+                for(const platform of response.data)
+                    socialName.push({socMediaName: platform});
                 setCrypt(socialName);
             })
             .catch(err => {console.error(err);})

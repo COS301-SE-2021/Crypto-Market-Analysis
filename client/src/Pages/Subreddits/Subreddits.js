@@ -22,23 +22,22 @@ function Subreddits()
         let selectedPlatforms = ["CryptoCurrencyTrading"]
         let  userReq = { email: localStorage.getItem("emailSession") }
 
-
-
-
-
         /*
         Request to get subreddits followed by the user
         */
-        axios.post('http://localhost:8080/user/fetchUserSubreddits/',userReq)
+        axios.post('http://localhost:8080/user/getUserSubreddits/',userReq)
             .then(async(response) =>{
                 /*
                    Set default platform if data is not set else
                    push platform to a list
                  */
-                if(response.data.SocialMediaName != null)
+
+                console.log(response.data);
+                //test
+                if(response.data != null)
                 {
                     selectedPlatforms = []
-                    await response.data.SocialMediaName[0].map((site)=>{
+                    await response.data.map((site)=>{
                         selectedPlatforms.push(site)
                         console.log(selectedPlatforms)
                     })
@@ -52,6 +51,7 @@ function Subreddits()
                     })
                 })
                 setPlatforms(platformsList)
+                //test
 
             })
             .catch(err => {console.error(err)})
@@ -85,6 +85,8 @@ function Subreddits()
                     /*
                         if selected add to favourite list else remove it
                     */
+
+                    //add condition to unfollow endpoint
                     let  cryptoToAdd = {
                         email: localStorage.getItem("emailSession"),
                         social_media_sites: platform.name

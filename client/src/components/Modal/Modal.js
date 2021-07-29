@@ -10,10 +10,8 @@ export default function ModalComp(props) {
        
       },[props.show])
       
-
     return(
         <>
-        {console.log(show)}
         <Modal show={show} style={{textAlign:"center"}}>
             <Modal.Body >
             <h4>Oops</h4>

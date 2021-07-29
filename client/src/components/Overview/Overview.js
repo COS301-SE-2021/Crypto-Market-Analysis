@@ -7,22 +7,31 @@ import {Line} from 'react-chartjs-2'
 import HistoryChart from "../HistoryChart/HistoryChart"
 import CoinData from "../CoinData/CoinData"
 import coinGecko from "../apis/CoinGecko"
+import {AppBar, Tab, Tabs} from "@material-ui/core";
 
 export default function Overview({coin_name}){
     let [coin, setCoin] = useState({});
     let [marketP, setmarketP] =useState({});
     let [coinData, setCoinData] = useState({});
-    let mP = [];
+    let [marketData, setMarketData] = useState({});
 
-    const formatData = data => {
+    const [selectedTab, setSelectedTab] = React.useState(0);
+
+    const handleChange = (event, newValue) =>
+    {
+        setSelectedTab(newValue);
+    }
+
+    const formatData = (data) => {
         return data.map(el => {
             return{
                 t: el[0],
-                y: el[1].toFixed(2)
+                y: el[1]
             }
 
         })
     }
+
 
     useEffect(async () => {
         axios.get('https://api.coingecko.com/api/v3/coins/'+coin_name.toLowerCase())
@@ -33,49 +42,62 @@ export default function Overview({coin_name}){
 
         const fetchData = async () => {
             const [day, week, year, detail] = await Promise.all([
-                coinGecko.get("/coins/"+ coin_name + "/market_chart/", {
-                    params : {
+                coinGecko.get("/coins/" + coin_name + "/market_chart/", {
+                    params: {
                         vs_currency: "zar",
                         days: "1"
                     },
                 }),
-                coinGecko.get("/coins/"+ coin_name + "/market_chart/", {
-                        params : {
-                            vs_currency: "zar",
-                            days: "7"
-                        },
-                    }),
-                    coinGecko.get("/coins/"+ coin_name + "/market_chart/", {
-                            params : {
-                                vs_currency: "zar",
-                                days: "365"
-                            },
-                        }),
+                coinGecko.get("/coins/" + coin_name + "/market_chart/", {
+                    params: {
+                        vs_currency: "zar",
+                        days: "7"
+                    },
+                }),
+                coinGecko.get("/coins/" + coin_name + "/market_chart/", {
+                    params: {
+                        vs_currency: "zar",
+                        days: "365"
+                    },
+                }),
                 coinGecko.get("/coins/markets/", {
-                    params : {
+                    params: {
                         vs_currency: "zar",
                         days: "365"
                     },
                 })
 
-                    ]);
-           // console.log(result.data);
-            setCoinData({
-                day: formatData(day.data.prices),
-                week:formatData(week.data.prices),
-                year: formatData(year.data.prices),
-                detail: detail.data[0],
-            });
+            ]);
+            // console.log(result.data);
+
+
+            for (let i = 0; i < detail.data.length; i++) {
+                if (coin_name.toLowerCase() === detail.data[i].id) {
+                    setCoinData({
+                        day: formatData(day.data.prices),
+                        week: formatData(week.data.prices),
+                        year: formatData(year.data.prices),
+                        detail: detail.data[i],
+                    });
+                }
+                console.log(detail.data[i])
+            }
+
+            for (let i =0; i < detail.data.length; i++)
+            {
+                if(coin_name.toLowerCase() === detail.data[i].id)
+                {
+                    setMarketData({
+                        day: formatData(day.data.market_caps),
+                        week: formatData(week.data.market_caps),
+                        year: formatData(year.data.market_caps),
+                        detail: detail.data[i],
+                    })
+                }
+            }
         }
         await fetchData();
 
-        axios.get('https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=7&interval=daily')
-            .then(async(response) => {
-
-                //setmarketP(mP)
-                setmarketP(coin)
-            })
-            .catch(err => {console.error(err);})
     },[])
 
 
@@ -126,9 +148,34 @@ export default function Overview({coin_name}){
         <div className="container mt-16">
             <div className="row"> 
                 <div className="col-8">
-                    <HistoryChart data={coinData} />
-                    <CoinData />
+                    <div>
+                        <h2>
+                            {coin.name} ({coin.symbol}) Chart
+                        </h2>
+                    </div>
+                    <AppBar position={"static"}>
+                        <Tabs value={selectedTab} onChange={handleChange}>
+                            <Tab label="Price" >
+
+                            </Tab>
+
+                            <Tab label={"Market Cap"}>
+
+                            </Tab>
+                        </Tabs>
+                    </AppBar>
+                    {
+                        selectedTab === 0 &&
+                        <HistoryChart data={coinData}/>
+
+                    }
+                    {
+                        selectedTab === 1 &&
+                        <CoinData data={marketData}/>
+
+                    }
                 </div>
+
                 <div className="col-4">
 
                     <table className="table">
@@ -152,6 +199,10 @@ export default function Overview({coin_name}){
                             <tr>
                                 <td>Price change in 30 days</td>
                                 <td>{coin.market_data.price_change_percentage_30d_in_currency.zar > 0 ? <span className="badge badge-success ml-2">{coin.market_data.price_change_percentage_30d_in_currency.zar.toFixed(2)}%</span> : <span className="badge badge-danger ml-2">{coin.market_data.price_change_percentage_30d_in_currency.zar.toFixed(2)}%</span>}</td>
+                            </tr>
+                            <tr>
+                                <td>Price change in 1 year</td>
+                                <td>{coin.market_data.price_change_percentage_1y_in_currency.zar > 0 ? <span className="badge badge-success ml-2">{coin.market_data.price_change_percentage_30d_in_currency.zar.toFixed(2)}%</span> : <span className="badge badge-danger ml-2">{coin.market_data.price_change_percentage_30d_in_currency.zar.toFixed(2)}%</span>}</td>
                             </tr>
                         </tbody>
                     </table>

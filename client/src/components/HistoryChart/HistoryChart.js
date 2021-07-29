@@ -64,9 +64,8 @@ const HistoryChart = ({data}) => {
     };
     return (
         <div>
-           <div>
-               {renderPrice()}
-           </div>
+
+
 
             <div>
 
@@ -79,6 +78,8 @@ const HistoryChart = ({data}) => {
                 <button onClick={() => setTimeFormat("7d")} className="btn btn-outline-secondary btn-sm mx-1">7d</button>
                 <button onClick={() => setTimeFormat("1y")} className="btn btn-outline-secondary btn-sm">1y</button>
             </div>
+
+
         </div>
 
     )

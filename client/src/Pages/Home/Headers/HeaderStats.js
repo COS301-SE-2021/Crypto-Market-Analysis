@@ -61,10 +61,10 @@ export default function HeaderStats() {
                 <div className="col-12">
                 <Carousel cols={3} rows={2} gap={8} loop >
                 {
-                   cryptos.map((coin) => {
+                   cryptos.map((coin, index) => {
                       return (
                         <Carousel.Item>
-                          <div key={coin.id} className="w-full lg:w-12/12 xl:w-12/12 px-4 mt-5">
+                          <div key={index} className="w-full lg:w-12/12 xl:w-12/12 px-4 mt-5">
                               <a id="link" href= {"/home/DetailedInfo"}>
                                   <CardStats
                                       statSubtitle={coin.name}

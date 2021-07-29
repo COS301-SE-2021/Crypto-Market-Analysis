@@ -130,11 +130,11 @@ export default function AllCryptos()
                     {
                         searchedCryptos.map((myCrypto, index) =>{
                             return(
-                                <div className='coin-container'>
+                                <div className='coin-container' key={index}>
                                         <div className='coin-row'>
                                                 <div className='coin'>
                                                     {/* <a id="link" href= {"/home/DetailedInfo"}> */}
-                                                    {myCrypto.selected?<Star key={index} className="select-star" color="primary" onClick={()=>{select(myCrypto.symbol,"cryptos")}}/>:<Star className="select-star" color="action" onClick={()=>{select(myCrypto.symbol, "cryptos")}}/>}
+                                                    {myCrypto.selected?<Star className="select-star" color="primary" onClick={()=>{select(myCrypto.symbol,"cryptos")}}/>:<Star className="select-star" color="action" onClick={()=>{select(myCrypto.symbol, "cryptos")}}/>}
                                                     <img src={myCrypto.image} alt='crypto' />
                                                     <h1>{myCrypto.name}</h1>
                                                     {/* </a> */}
@@ -155,9 +155,6 @@ export default function AllCryptos()
                                                     </p>
                                                 </div>
                                         </div>
-
-
-
                               </div>
                             )
                         })

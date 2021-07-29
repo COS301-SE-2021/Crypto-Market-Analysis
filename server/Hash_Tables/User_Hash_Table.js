@@ -481,13 +481,13 @@ class User_Hash_Table {
                 if(value)
                     return value;
                 else
-                    return null
+                    return Promise.reject(`User is not following any social media sites`);
             }
             else
-                return null;
+                return Promise.reject(`Invalid email entered`);
         }
         else
-            return null;
+            return Promise.reject(`Parameter is not defined`);
     }
 
     async searchCryptoAndSocialMedia(social_media, cryptocurrency){

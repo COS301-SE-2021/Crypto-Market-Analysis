@@ -3,9 +3,26 @@ import { Markup } from 'react-render-markup'
 import DetailedInfo from '../../Pages/DetailedInfo/DetailedInfo'
 import React,{ useState, useEffect } from 'react'
 import axios from "axios"
+import {Line} from 'react-chartjs-2'
+import HistoryChart from "../HistoryChart/HistoryChart"
+import CoinData from "../CoinData/CoinData"
+import coinGecko from "../apis/CoinGecko"
 
 export default function Overview({coin_name}){
     let [coin, setCoin] = useState({});
+    let [marketP, setmarketP] =useState({});
+    let [coinData, setCoinData] = useState({});
+    let mP = [];
+
+    const formatData = data => {
+        return data.map(el => {
+            return{
+                t: el[0],
+                y: el[1].toFixed(2)
+            }
+
+        })
+    }
 
     useEffect(async () => {
         axios.get('https://api.coingecko.com/api/v3/coins/'+coin_name.toLowerCase())
@@ -13,7 +30,53 @@ export default function Overview({coin_name}){
             setCoin(response.data)
         })
         .catch(err => {console.error(err);})
-    })
+
+        const fetchData = async () => {
+            const [day, week, year, detail] = await Promise.all([
+                coinGecko.get("/coins/"+ coin_name + "/market_chart/", {
+                    params : {
+                        vs_currency: "zar",
+                        days: "1"
+                    },
+                }),
+                coinGecko.get("/coins/"+ coin_name + "/market_chart/", {
+                        params : {
+                            vs_currency: "zar",
+                            days: "7"
+                        },
+                    }),
+                    coinGecko.get("/coins/"+ coin_name + "/market_chart/", {
+                            params : {
+                                vs_currency: "zar",
+                                days: "365"
+                            },
+                        }),
+                coinGecko.get("/coins/markets/", {
+                    params : {
+                        vs_currency: "zar",
+                        days: "365"
+                    },
+                })
+
+                    ]);
+           // console.log(result.data);
+            setCoinData({
+                day: formatData(day.data.prices),
+                week:formatData(week.data.prices),
+                year: formatData(year.data.prices),
+                detail: detail.data[0],
+            });
+        }
+        await fetchData();
+
+        axios.get('https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=7&interval=daily')
+            .then(async(response) => {
+
+                //setmarketP(mP)
+                setmarketP(coin)
+            })
+            .catch(err => {console.error(err);})
+    },[])
 
 
     return(
@@ -63,8 +126,11 @@ export default function Overview({coin_name}){
         <div className="container mt-16">
             <div className="row"> 
                 <div className="col-8">
+                    <HistoryChart data={coinData} />
+                    <CoinData />
                 </div>
                 <div className="col-4">
+
                     <table className="table">
                         <tbody>
                             <tr>
@@ -93,11 +159,14 @@ export default function Overview({coin_name}){
             </div>
         </div>
         <div className="container">
-        <div className=" text-sm p-2 px-0" ><span className="uppercase font-bold">Last updated at : </span> {new Date(coin.market_data.last_updated).toString()}</div>
+        <div className=" text-sm p-2 px-0" >
+            <span className="uppercase font-bold">Last updated at : </span> {new Date(coin.market_data.last_updated).toString()}
+        </div>
         </div></>:<></>}
         </>
     )
-}
+};
+
 Overview.defaultProps = {
     coin_name: "bitcoin"
 }

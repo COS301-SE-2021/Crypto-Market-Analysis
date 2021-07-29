@@ -16,6 +16,9 @@ import HeaderStats from "./Pages/Home/Headers/HeaderStats"
 import DetailedInfo from "./Pages/DetailedInfo/DetailedInfo"
 import {BrowserRouter as router , Switch} from "react-router-dom";
 import { AuthProvider } from "./Auth/Auth"
+import CoinData from "./components/CoinData/CoinData";
+import HistoryChart from "./components/HistoryChart/HistoryChart";
+
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 function App() {
   return (
@@ -34,6 +37,7 @@ function App() {
                      <Route exact path="/Profile" component={Profile}></Route>
                      <Route exact path="/HeaderStats" component={HeaderStats}></Route>
                      <Route exact path="/home/DetailedInfo" component={DetailedInfo}></Route>
+
                  </section>
            </Switch>
           </AuthProvider>

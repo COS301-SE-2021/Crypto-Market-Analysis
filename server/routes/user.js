@@ -41,6 +41,18 @@ router.post("/getUserCryptos", async (request, response) => {
          })
      }
  });
+//testcode
+router.post("/getUserSubreddits", async (request, response) => {
+    if(!request.body.email)
+        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
+    else {
+        userFunctions.getUserSubreddits(request.body.email).then(data=>{
+            return response.status(200).json(data);
+        }).catch(err=>{
+            return response(401).json({status:`error`, error: err})
+        })
+    }
+});
 
 /** This function adds a social media site to the users account
  * @param {object} request A request object with the email and symbol.
@@ -66,6 +78,18 @@ router.post("/unfollowCrypto", async (request,response)=>{
         return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
     else{
         await userFunctions.unfollowCrypto(request.body.email,request.body.symbol).then(data=>{
+            return response.status(200).json(data);
+        }).catch(err=>{
+            return response.status(500).json({status:`Internal server error`, error: err})
+        });
+    }
+});
+
+router.post("/unfollowSubreddit", async (request,response)=>{
+    if(request.body.email === null || request.body.subreddit === null)
+        return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
+    else{
+        await userFunctions.unfollowSubreddit(request.body.email,request.body.subreddit).then(data=>{
             return response.status(200).json(data);
         }).catch(err=>{
             return response.status(500).json({status:`Internal server error`, error: err})

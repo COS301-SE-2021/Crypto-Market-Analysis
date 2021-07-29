@@ -41,6 +41,15 @@ const getUserCrypto = async (email_address)=>{
         return Promise.reject(error);
     }
 }
+//test code
+const getUserSubreddits = async (email_address)=>{
+    try{
+        return await user_object.getUserSubreddits(email_address);
+    }
+    catch (error){
+        return Promise.reject(error);
+    }
+}
 
 const fetchUserSocialMedia = async(email_address)=>{
     try{
@@ -72,6 +81,15 @@ const followCrypto = async (email_address,symbol,crypto_name )=>{
 const unfollowCrypto = async (email_address, symbol) => {
     try{
         await user_object.removeCrypto(email_address, symbol);
+    }
+    catch (error){
+        return Promise.reject(error);
+    }
+}
+
+const unfollowSubreddit = async (email_address, subreddit) => {
+    try{
+        await user_object.removeSubreddit(email_address, subreddit);
     }
     catch (error){
         return Promise.reject(error);
@@ -117,4 +135,4 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
 }
 
 
-module.exports = {followSubreddit, fetchUserSubreddits, saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, get4chanPost}
+module.exports = {getUserSubreddits,unfollowSubreddit, followSubreddit, fetchUserSubreddits, saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, get4chanPost}

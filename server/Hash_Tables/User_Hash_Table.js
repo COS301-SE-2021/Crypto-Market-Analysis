@@ -127,7 +127,11 @@ class User_Hash_Table {
                     }
                 }
                 else
+                {
+                    // await this.removeSubreddit(key, social_media)
                     return Promise.reject(`User is already following the selected social media site`);
+                }
+
             }
             else
                 return Promise.reject(`Invalid email entered`);
@@ -312,6 +316,54 @@ class User_Hash_Table {
             return Promise.reject(`Parameters are undefined`);
     }
 
+    async removeSubreddit(email, social_media){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        //Holds the social media sites retrieved from the user hash table in memory
+        let social_media_sites_array;
+        //The index of the social media in the social media sites array
+        let index;
+
+        //Check if the parameters are defined
+        if(email && social_media){
+            //Check if the email exists
+            if(await this.searchUser(email)){
+                try{
+                    //Get the array from the selected email
+                    social_media_sites_array = this.#users[email][`subreddits`];
+                    //Check if the array exists
+                    if(social_media_sites_array){
+                        //Get the index of the social media in the array
+                        index = social_media_sites_array.indexOf(social_media);
+                        //Check if the screen name is present in the array
+                        if(index > -1){
+                            //Remove the social media from the array
+                            social_media_sites_array.splice(index, 1);
+                            //Remove the social media from the database
+                            await firestore_db.delete(`Users`, email, `subreddits`, social_media);
+                            return true;
+                        }
+                        else
+                            return Promise.reject(`User is not following the selected subreddit`)
+                    }
+                    else
+                        return Promise.reject(`User is not following any subreddit`);
+                }
+                catch (error) {
+                    return Promise.reject(error);
+                }
+            }
+            else
+                return Promise.reject(`Invalid email entered`);
+        }
+        else
+            return Promise.reject(`Parameters are undefined`);
+    }
+
+    //THE ONE BEING USED
     async insertSubreddits(key, subreddit){
         console.log("in userhash")
         if(!this.#initialized){
@@ -347,6 +399,10 @@ class User_Hash_Table {
                         catch (error){
                             return await Promise.reject(error);
                         }
+                    }
+                    else{
+                        //CASE THAT SUBREDDIT EXITS SO WE REMOVE IT
+                         await this.removeSubreddit(key, subreddit)
                     }
                 /*}
                 else
@@ -406,6 +462,29 @@ class User_Hash_Table {
                     return Object.values(value);
                 else
                     return Promise.reject(`The email is not following any cryptocurrencies`);
+            }
+            else
+                return Promise.reject(`Invalid email entered`);
+        }
+        else
+            return Promise.reject(`No parameters are defined`);
+    }
+
+
+    async getUserSubreddits(key){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        if(key){
+            let value = this.#users[key];
+            if(value){
+                value = value.subreddits;
+                if(value)
+                    return Object.values(value);
+                else
+                    return Promise.reject(`The email is not following any subreddits`);
             }
             else
                 return Promise.reject(`Invalid email entered`);

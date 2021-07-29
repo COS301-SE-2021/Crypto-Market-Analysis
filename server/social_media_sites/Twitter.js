@@ -330,6 +330,19 @@ class Twitter {
         else
             return Promise.reject(`Screen name does not exist`);
     }
+
+    async getAllNamesTimeline(){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        const emails = await user_object.getEmails();
+        for(const email of emails) {
+            if(await user_object.getScreenName(email))
+                this.getTimeline(email).then()
+        }
+    }
 }
 
 class Singleton {
@@ -345,4 +358,6 @@ class Singleton {
     }
 }
 
+const singleton = new Singleton().getInstance();
+singleton.getAllNamesTimeline().then();
 module.exports = Singleton;

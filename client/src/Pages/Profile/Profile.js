@@ -140,10 +140,10 @@ const Profile = props =>
                             selectedTab === 0 &&
                             <ul className="list-group list-group-flush">
                                 {
-                                    socs.map((Soc) =>{
+                                    socs.map((Soc, index) =>{
                                         return(
                                             <div>
-                                                <li className="list-group-item">{Soc.socName}</li>
+                                                <li className="list-group-item" key={index}>{Soc.socName}</li>
                                             </div>
                                         )
                                     })
@@ -157,10 +157,10 @@ const Profile = props =>
                         <ul className="list-group list-group-flush">
                             <ul className="list-group list-group-flush">
                             {
-                                crypts.map((Soc) =>{
+                                crypts.map((Soc, index) =>{
                                     return(
                                         <div>
-                                            <li className="list-group-item">{Soc.socMediaName}</li>
+                                            <li className="list-group-item" key={index}>{Soc.socMediaName}</li>
                                         </div>
                                     )
                                 })

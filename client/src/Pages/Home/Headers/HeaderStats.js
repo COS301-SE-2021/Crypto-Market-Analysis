@@ -15,7 +15,6 @@ export default function HeaderStats() {
   useEffect(async () => {
     let selectedCryptos = []
     let  requestObj = { email: localStorage.getItem("emailSession") }
-    console.log(requestObj.email)
     if(requestObj.email != null){ /* If user logged in, get crypto coins followed by that user */
 
       /*
@@ -23,7 +22,6 @@ export default function HeaderStats() {
       */
       axios.post('http://localhost:8080/user/getUserCryptos/', requestObj)
       .then(async(response) => {
-        console.log(response)
         await response.data.map((coin)=>{
           selectedCryptos.push(coin)
         })
@@ -32,7 +30,6 @@ export default function HeaderStats() {
       .catch(err => {console.error(err);})
     }
     else{ /* else if user is not logged in, use default(Top 10) crypto coins */
-      console.log("CALLED")
       getCoins(coins)
     }
   },[])
@@ -47,34 +44,27 @@ export default function HeaderStats() {
             let userCryptoList = []
 
             await response.data.map((coin)=>{
-              console.log(coinsList)
               coinsList.forEach(element => {
                 if(element === coin.name){
                   userCryptoList.push(coin)
                 }
               });
             })
-            console.log(userCryptoList)
             setCryptos(userCryptoList)
         })
         .catch(err => {console.error(err);})
   }
   return (
     <>
-    
-
             <div className="container" style={{width:'90%',margin:'auto'}}>
               <div className="row">
                 <div className="col-12">
                 <Carousel cols={3} rows={2} gap={8} loop >
                 {
                    cryptos.map((coin) => {
-
-
                       return (
                         <Carousel.Item>
                           <div key={coin.id} className="w-full lg:w-12/12 xl:w-12/12 px-4 mt-5">
-
                               <a id="link" href= {"/home/DetailedInfo"}>
                                   <CardStats
                                       statSubtitle={coin.name}
@@ -86,7 +76,6 @@ export default function HeaderStats() {
                                       statCoinImage={coin.image}
                                   />
                               </a>
-
                           </div> 
                         </Carousel.Item>
                       )

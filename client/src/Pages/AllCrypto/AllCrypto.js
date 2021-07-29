@@ -85,17 +85,15 @@ export default function AllCryptos()
                             crypto_name: crypto.name,
                         }
                         axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd)
-                            .then(response => console.log(response))
                             .catch(err => {console.error(err);})
                     }
                     else{
                         let  cryptoToRemove = {
                             email: localStorage.getItem("emailSession"),
-                              symbol: crypto.symbol,
+                            symbol: crypto.symbol,
                           }
                           axios.post('http://localhost:8080/user/unfollowCrypto/',cryptoToRemove)
-                              .then(response => console.log(response))
-                              .catch(err => {console.error(err);})
+                              .catch(err => {console.error(JSON.stringify(err));})
                     }
                 }
                 return {

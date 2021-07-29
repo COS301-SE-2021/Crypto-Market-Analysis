@@ -42,19 +42,8 @@ const Profile = props =>
         axios.post('http://localhost:8080/user/getUserCryptos/',cryptoReq)
             .then( response => {
                 let soc = [];
-                let socialName = []
-                // console.log(response.data)
-                for(let j = 0; j<response.data.messageN.length; j++)
-                {
-                    for(let x = 0; x<response.data.messageN[j].length; x++)
-                    {
-
-                        soc.push({socName: response.data.messageN[j][x]})
-
-                    }
-
-                }
-                console.log(soc);
+                for(const crypto of response.data)
+                    soc.push({socName: crypto});
                 setSoc(soc);
             })
             .catch(err => {console.error(err);})

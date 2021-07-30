@@ -10,7 +10,6 @@ const Analyse_Average = async(SocialMedia,cryptocurrency)=>{
                     console.log(doc.data().Average)
                     console.log(doc.data().Old_Average);
                     if (difference < 0) {
-                        return 'negative';
                         resolve('negative');
                     } else if (difference > 0) {
                         resolve('positive');

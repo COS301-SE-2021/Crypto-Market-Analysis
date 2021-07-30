@@ -6,6 +6,7 @@ const CoinData = ({data}) => {
     const chartRefs = useRef();
     const {day, week, year, fourteenDays, month, threeMonths, detail} = data;
     const [timeFormat, setTimeFormat] = useState("24h");
+    let chartInstance;
 
     const determineTimeFormat = () => {
         switch (timeFormat){
@@ -28,9 +29,10 @@ const CoinData = ({data}) => {
 
     useEffect(() => {
 
+
         if(chartRefs && chartRefs.current && detail)
         {
-            const chartInstance = new Chartjs(chartRefs.current, {
+            chartInstance = new Chartjs(chartRefs.current, {
                 type: 'line',
                 data: {
                     datasets: [
@@ -51,22 +53,6 @@ const CoinData = ({data}) => {
         }
     })
 
-    const renderPrice = () => {
-        if(detail)
-        {
-            return(
-                <>
-                    <p className={"my-0"}> R{detail.market_cap}
-                    </p>
-                    <p
-                        className={detail.price_change_24h < 0
-                            ? "text-danger my-0"
-                            : "text-success my-0"
-                        }>{detail.price_change_percentage_24h.toFixed(2)}%</p>
-                </>
-            )
-        }
-    };
     return (
         <div>
 

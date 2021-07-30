@@ -3,7 +3,6 @@ import { Markup } from 'react-render-markup'
 import DetailedInfo from '../../Pages/DetailedInfo/DetailedInfo'
 import React,{ useState, useEffect } from 'react'
 import axios from "axios"
-import {Line} from 'react-chartjs-2'
 import HistoryChart from "../HistoryChart/HistoryChart"
 import CoinData from "../CoinData/CoinData"
 import coinGecko from "../apis/CoinGecko"
@@ -11,7 +10,6 @@ import {AppBar, Tab, Tabs} from "@material-ui/core";
 
 export default function Overview({coin_name}){
     let [coin, setCoin] = useState({});
-    let [marketP, setmarketP] =useState({});
     let [coinData, setCoinData] = useState({});
     let [marketData, setMarketData] = useState({});
 
@@ -86,8 +84,6 @@ export default function Overview({coin_name}){
                 })
 
             ]);
-            // console.log(result.data);
-
 
             for (let i = 0; i < detail.data.length; i++) {
                 if (coin_name.toLowerCase() === detail.data[i].id) {

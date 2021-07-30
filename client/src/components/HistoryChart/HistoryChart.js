@@ -1,12 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react'
 import Chartjs from 'chart.js'
 import {historyOptions} from "../../chartConfigs/chartConfigs";
-import axios from "axios";
 
 const HistoryChart = ({data}) => {
     const chartRef = useRef();
     const {day, week, year, fourteenDays, month, threeMonths, detail} = data;
     const [timeFormat, setTimeFormat] = useState("24h");
+    let chartInstance;
 
     const determineTimeFormat = () => {
         switch (timeFormat){
@@ -31,7 +31,7 @@ const HistoryChart = ({data}) => {
 
         if(chartRef && chartRef.current && detail)
         {
-            const chartInstance = new Chartjs(chartRef.current, {
+             chartInstance = new Chartjs(chartRef.current, {
                 type: 'line',
                 data: {
                     datasets: [
@@ -52,22 +52,6 @@ const HistoryChart = ({data}) => {
         }
     })
 
-    const renderPrice = () => {
-        if(detail)
-        {
-            return(
-             <>
-                <p className={"my-0"}> R{detail.current_price.toFixed(2)}
-                </p>
-                <p
-                className={detail.price_change_24h < 0
-                ? "text-danger my -0"
-                : "text-success my-0"
-                }>{detail.price_change_percentage_24h.toFixed(2)}%</p>
-            </>
-            )
-        }
-    };
     return (
         <div>
 

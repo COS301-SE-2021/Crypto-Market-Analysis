@@ -16,7 +16,6 @@ const Analyse_Average = async(SocialMedia,cryptocurrency)=>{
                     } else {
                         resolve('nothing');
                     }
-
                 }
 
             })

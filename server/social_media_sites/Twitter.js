@@ -343,6 +343,21 @@ class Twitter {
                 this.getTimeline(email).then()
         }
     }
+
+    async getTweetIDs(){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        //Get the emails of all users currently registered
+        const emails = await user_object.getEmails();
+        console.log(Object.keys(this.#twitter_users));
+        /*const ids = [];
+        for(const email of emails) {
+            
+        }*/
+    }
 }
 
 class Singleton {
@@ -358,6 +373,6 @@ class Singleton {
     }
 }
 
-const singleton = new Singleton().getInstance();
-singleton.getAllNamesTimeline().then();
+/*const singleton = new Singleton().getInstance();
+singleton.getTweetIDs().then();*/
 module.exports = Singleton;

@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Icon} from "coinmarketcap-cryptocurrency-icons";
 
 export default function CardStats({
   statSubtitle,
@@ -9,8 +8,7 @@ export default function CardStats({
   statPercent,
   statPercentColor,
   statDescripiron,
-  statIconName,
-  statIconColor,
+  statCoinImage
 }) {
   return (
     <>
@@ -26,14 +24,7 @@ export default function CardStats({
               </span>
             </div>
             <div className="relative w-auto pl-4 flex-initial">
-              {/* <div
-                className={
-                  "text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full " +
-                  statIconColor
-                }
-              > */}
-                <Icon className="d-inline-block"  i={statIconName} size={35}/>
-              {/* </div> */}
+                <img src={statCoinImage} height="40px" width="40px"/>
             </div>
           </div>
           <p className="text-sm text-blueGray-400 mt-4">
@@ -64,21 +55,17 @@ CardStats.defaultProps = {
   statPercent: "3.48",
   statPercentColor: "text-emerald-500",
   statDescripiron: "Since last month",
-  statIconName: "far fa-chart-bar",
-  statIconColor: "bg-red-500",
+  statCoinImage: "",
 };
 
 CardStats.propTypes = {
   statSubtitle: PropTypes.string,
-  statTitle: PropTypes.string,
+  statTitle: PropTypes.number,
   statArrow: PropTypes.oneOf(["up", "down"]),
   statPercent: PropTypes.string,
   // can be any of the text color utilities
   // from tailwindcss
   statPercentColor: PropTypes.string,
   statDescripiron: PropTypes.string,
-  statIconName: PropTypes.string,
-  // can be any of the background color utilities
-  // from tailwindcss
-  statIconColor: PropTypes.string,
+  statCoinImage: PropTypes.string,
 };

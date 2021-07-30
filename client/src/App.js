@@ -11,8 +11,10 @@ import UpdateProfile from "./Pages/UpdateProfile/updateProfile"
 import Home from "./Pages/Home/Home"
 import Profile from "./Pages/Profile/Profile"
 import PrivateRoute from "./components/newRoute"
+import Overview from "./components/Overview/Overview"
 import HeaderStats from "./Pages/Home/Headers/HeaderStats"
 import Notification from "./Pages/Notification/Notification"
+import DetailedInfo from "./Pages/DetailedInfo/DetailedInfo"
 import {BrowserRouter as router , Switch} from "react-router-dom";
 import { AuthProvider } from "./Auth/Auth"
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
@@ -22,7 +24,7 @@ function App() {
           <AuthProvider>
            <Switch>
                  <section className="header">
-                     <Route exact path="/" component={splash}></Route>
+                     <Route exact path="/" component={Home}></Route>
                      <Route exact path="/register" component={Register}></Route>
                      <PrivateRoute exact path="/home" component={Home}></PrivateRoute>
                      <Route exact path="/login" component={login}></Route>
@@ -33,6 +35,7 @@ function App() {
                      <Route exact path="/Profile" component={Profile}></Route>
                      <Route exact path="/HeaderStats" component={HeaderStats}></Route>
                      <Route exact path="/Notification" component={Notification}></Route>
+                     <Route exact path="/home/DetailedInfo" component={DetailedInfo}></Route>
                  </section>
            </Switch>
           </AuthProvider>

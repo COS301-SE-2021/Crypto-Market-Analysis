@@ -1,57 +1,64 @@
-import Carousel from 'react-multi-carousel'
-import 'react-multi-carousel/lib/styles.css'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import Carousel from 'react-grid-carousel'
 import { Markup } from 'react-render-markup'
 import ScriptTag from 'react-script-tag'
 
-import CardTweets from '../Cards/CardTweets/CardTweets'
 
-export default function Tweets({}){
-    const responsive = {
-        desktop: {
-          breakpoint: { max: 3000, min: 1024 },
-          items: 4,
-          slidesToSlide: 3 // optional, default to 1.
-        },
-        tablet: {
-          breakpoint: { max: 1024, min: 464 },
-          items: 2,
-          slidesToSlide: 2 // optional, default to 1.
-        },
-        mobile: {
-          breakpoint: { max: 464, min: 0 },
-          items: 1,
-          slidesToSlide: 1 // optional, default to 1.
-        }
-      };
+export default function Tweets({coin_name}){
+  
+  let [tweets, setTweets] = useState([]);
+  let [errorResponse, setErrorResponse] = useState([]);
+  let tweetsReq = { 
+      crypto_name: coin_name,
+      email: localStorage.getItem("emailSession")
+  }
+
+    useEffect(async () => {
+      axios.post('http://localhost:8080/twitter/getCryptoTweets',tweetsReq)
+      .then(response =>{
+        //console.log(response)
+        setTweets(response.data.data)
+        setErrorResponse(null)
+      },res=>{
+        //console.log(res.response)
+        setErrorResponse(res.response.data.error)
+      })
+    },[])
+
     return(
         <>
+        {console.log(errorResponse)}
+        {errorResponse ? <>
+          <div className="container mt-16 " >
+            <div className="alert alert-warning alert-dismissible fade show m-auto text-center" style={{width:"70%"}}>
+              {errorResponse.includes("The user is not following people on twitter")? <span>Oops, looks like you don't follow anyone on Twitter :(</span>
+              :errorResponse.includes("No tweets to display")? <span>Oops, looks like we don't have any tweets to display :(</span>
+              :<span>Oops, looks like you don't follow the selected coin :(, choose a coin you follow to see what people are saying about it on twitter</span>}
+            </div>
+          </div>
         
+        </> : <>
         <ScriptTag isHydrating={true} type="text/javascript" src="https://platform.twitter.com/widgets.js" />
         <div id="tweets" className="container mt-16">
-            <div style={{borderTop:"1px solid grey",borderBottom:"1px solid grey"}}><h4 className="display-4">Tweets</h4></div>
-            <Carousel 
-                swipeable={true}
-                draggable={true}
-                showDots={true}
-                responsive={responsive}
-                ssr={true} // means to render carousel on server-side.
-                infinite={true}
-                autoPlaySpeed={1000}
-                keyBoardControl={true}
-                customTransition="all .5"
-                transitionDuration={500}
-                containerClass=""
-                removeArrowOnDeviceType={["tablet", "mobile"]}
-                dotListClass="custom-dot-list-style"
-                itemClass=""
-            >
-                <div style={{margin:"10px",height:"200px"}}><CardTweets/></div>
-                <div style={{margin:"10px",height:"200px"}}><CardTweets/></div>
-                <div style={{margin:"10px",height:"200px"}}><CardTweets/></div>
-                <div style={{margin:"10px",height:"200px"}}><CardTweets/></div>
-                
-            </Carousel>
-        </div>
+            <Carousel cols={3} rows={2} gap={3} loop >
+              {
+                    tweets.map((tweet) => {
+                    return (
+                      <Carousel.Item>
+                        <div  className="w-full lg:w-12/12 xl:w-12/12 px-1">
+                          <Markup markup={tweet} />
+                        </div> 
+                      </Carousel.Item>
+                    )
+                 })
+               } 
+               </Carousel>
+           
+        </div></>}
         </>
     )
+}
+Tweets.defaultProps = {
+  coin_name: "Bitcoin"
 }

@@ -1,5 +1,6 @@
 *
 {
+
     margin:0;
     padding:0;
 
@@ -56,7 +57,14 @@
     text-decoration: none;
     border: 1px solid coral !important;
     border-radius: 25px;
-    background-color: aqua !important;
+    background-color: aqua;
     margin-top: 5px;
 
+}
+
+.head
+{
+    font-size: 80px;
+    font-weight: 100;
+    text-color: white!important;
 }

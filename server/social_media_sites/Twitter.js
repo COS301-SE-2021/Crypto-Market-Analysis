@@ -1,6 +1,8 @@
 const Twit = require('twit');
 const fetch = require('node-fetch');
 const Database = require(`../database/Database`);
+const User_Hash_Table = require(`../Hash_Tables/User_Hash_Table`);
+const user_object = new User_Hash_Table().getInstance();
 const consumer_key = 'GGXUovWNfvGvagGakjfTzDfe1';
 const consumer_secret = 'UMG68Qym8K7vvsdtlEEIn0vRpyNj6Mfbmz6VUKMC3zn7tQNiat';
 const access_token = '1401939250858319875-zS8LTvSWz5UspdmaF63hxzpkLv0lbE';
@@ -14,64 +16,289 @@ const T = new Twit({
 
 class Twitter {
     #firestore_db = null;
-    #oembed_url = "https://publish.twitter.com/oembed"
+    #oembed_url = "https://publish.twitter.com/oembed";
+    #twitter_users;
+    #init;
+    #initialized = false;
 
     constructor(){
         if(this.#firestore_db === null)
             this.#firestore_db = new Database().getInstance();
+
+        this.#twitter_users = {};
+        this.#init = this.#firestore_db.fetch(`Twitter_data`)
+            .then(snapshot => {
+                const docs = snapshot.docs;
+                for(const doc of docs){
+                    const keys = Object.keys(doc.data());
+                    const values = Object.values(doc.data());
+                    let doc_value = {};
+                    for(const [index, value] of values.entries())
+                        doc_value[keys[index]] = value;
+
+                    this.#twitter_users[doc.id] = doc_value;
+                    this.#twitter_users[`embedded_tweets`] = {};
+                }
+            }).catch((error) => {
+                console.error(error);
+            });
     }
 
-    /** This functions receives a cryptocurrency name, gets the tweets relevant to the cryptocurrency and responds with it in an array.
-     * @param crypto_name {String} The name of the cryptocurrency
-     * @return {[String]} Html blockquotes containing the tweets.
-     * */
-    async getCryptoTweets(crypto_name){
-        let tweets = [];
-        try {
-            const snapshot = await this.#firestore_db.fetch(`Twitter`);
-            const docs = await snapshot.docs;
-            for (const doc in docs) {
-                if (docs.hasOwnProperty(doc)) {
-                    if (docs[doc].id.toLowerCase() === crypto_name) {
-                        const tweets_id = docs[doc].data().id;
-                        for (const id in tweets_id) {
-                            if (tweets_id.hasOwnProperty(id))
-                                tweets.push(await this.getEmbeddedTweet(tweets_id[id]));
-                            else
-                                await Promise.reject(`tweets_id has no property id`);
+    async userLookup(screen_name){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        if(screen_name){
+            if(await user_object.searchScreenName(screen_name))
+                return true;
+            else{
+                const response = await T.get('users/show', {screen_name: screen_name}).catch(error => {return error});
+                return !!response.data;
+            }
+        }
+        else
+            throw `No parameters passed in`;
+    }
+
+    async getTimeline(email){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        if(!email)
+            return Promise.reject(`Parameter is not defined`);
+        else{
+            const users = await user_object.getScreenName(email);
+            if(users){
+                for(const user of users){
+                    let queryTime = new Date().getTime();
+                    let last_query = await this.getQueryTime(user);
+                    if(last_query){
+                        const difference = Math.floor((Math.floor(queryTime/1000) - last_query._seconds)/60);
+                        if(difference >= 10)
+                            this.callTimelineAPI(user, email, new Date()).then();
+                        else{
+                            const crypto_currencies = await user_object.getCryptoName(email);
+                            if(crypto_currencies.length !== 0){
+                                for(const crypto of Object.entries(crypto_currencies)) {
+                                    if(this.#twitter_users[user][crypto])
+                                        this.filterData(email, await this.#twitter_users[user][crypto], user).then();
+                                }
+                            }
                         }
                     }
-                } else
-                    await Promise.reject(`Docs has no property doc`);
+                    else{
+                        this.callTimelineAPI(user, email, new Date()).then();
+                    }
+                }
             }
-
-            if(tweets.length < 1)
-                await Promise.reject(`The user is not following the selected cryptocurrency`)
-
-            return tweets;
-        }
-        catch (error){
-            await Promise.reject(error);
+            else
+                return Promise.reject(`User is not following anyone on twitter`);
         }
     }
 
-    /**This function gets all the tweets from the people the user is following on twitter
-     * @return {String} A string array containing html blockquotes for each tweet that can be directly embeded on a website.
-     * */
-    async getAllTweets(){
-        let tweets_id = null;
-        let blockquotes = [];
-        const snapshot = await this.#firestore_db.fetch(`Twitter`);
-        const docs = await snapshot.docs;
-        for(let i = 0; i < docs.length; i++){
-            tweets_id = docs[i].data().id;
-            if(tweets_id !== undefined){
-                for(let z = 0; z < tweets_id.length; z++){
-                    blockquotes.push(await this.getEmbeddedTweet(tweets_id[z]));
+    async callTimelineAPI(user, email, queryTime){
+        let tweets = {};
+        return await T.get('statuses/user_timeline', {screen_name: user, count:200, include_rts: 1}, async (error, data) => {
+            if(error)
+                return Promise.reject(error);
+            else{
+                for(const tweet of data)
+                    tweets[tweet.id_str] = tweet.text;
+
+                try{
+                    await this.filterData(email, tweets, user);
+                    await this.insertQueryTime(user, queryTime);
+                }
+                catch (error){
+                    return Promise.reject(error);
+                }
+            }
+        });
+    }
+
+    async filterData(email, tweets, user){
+        if(email && tweets && user){
+            const crypto = await user_object.getCrypto(email);
+            const crypto_name = await user_object.getCryptoName(email);
+
+            if(crypto && crypto_name) {
+                for(const [index, value] of crypto.entries()){
+                    let temp_array = {...tweets};
+                    const regex_string = `\\s${crypto_name[index]}\\s|` + `\\s${value}\\s`;
+                    const regex = new RegExp(regex_string, "gi");
+                    for(const tweet of Object.entries(temp_array)){
+                        if(regex.exec(tweet[1]) === null)
+                            delete temp_array[tweet[0]];
+                    }
+
+                    try{
+                        if(Object.keys(temp_array).length !== 0){
+                            this.#firestore_db.save(`Twitter`, crypto_name[index], `id`, Object.keys(temp_array));
+                            this.#firestore_db.save(`Twitter`, crypto_name[index], `post`, Object.values(temp_array));
+                            this.#firestore_db.save(`Twitter_data`, user, crypto_name[index], temp_array);
+                            if(this.#twitter_users[user])
+                                this.#twitter_users[user][crypto_name[index]] = temp_array;
+                        }
+                    }
+                    catch (error){
+                        return Promise.reject(error);
+                    }
                 }
             }
         }
-        return blockquotes;
+        else
+            return Promise.reject(`Parameters are not defined`);
+    }
+
+    async getValue(key){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        if(key)
+            return this.#twitter_users[key];
+        else
+            return null
+    }
+
+    async insertQueryTime(screen_name, queryTime){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        if(screen_name && queryTime){
+            try{
+                if(this.#twitter_users[screen_name])
+                    this.#twitter_users[screen_name].last_query = queryTime;
+                else
+                    this.#twitter_users[screen_name] = {last_query: queryTime};
+                this.#firestore_db.save(`Twitter_data`, screen_name, `last_query`, queryTime);
+            }
+            catch (error){
+                return Promise.reject(error);
+            }
+        }
+        else
+            return Promise.reject(`Parameters are undefined`);
+    }
+
+    async getQueryTime(screen_name){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        if(screen_name){
+            try{
+                if(this.#twitter_users[screen_name])
+                    return this.#twitter_users[screen_name].last_query;
+                else
+                    return undefined;
+            }
+            catch (error){
+                return Promise.reject(error);
+            }
+        }
+        else
+            return Promise.reject(`Parameter is undefined`);
+    }
+
+    async getCryptoTweets(email, crypto_name){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        //Check if the parameters are set
+        if(crypto_name && email){
+            //Check if the email is valid
+            if(await user_object.searchUser(email)){
+                //Check if the crypto_name is valid
+                if(await user_object.searchCryptoName(email, crypto_name)){
+                    //Get the names of the people the user is following on twitter
+                    const screen_names = await user_object.getScreenName(email);
+                    //Stores the id's of the tweets from the people the user is following about the cryptocurrencies the user is interested in
+                    const id_array = [];
+
+                    if(screen_names){
+                        //For each screen name check if they have the selected cryptocurrency and add it to the id array
+                        for(const name of screen_names){
+                            if(this.#twitter_users[name][crypto_name])
+                                Array.prototype.push.apply(id_array, Object.keys(this.#twitter_users[name][crypto_name]));
+                        }
+
+                        if(id_array.length !== 0)
+                            return await this.getHtmlBlockquotes(id_array);
+                        else
+                            return Promise.reject(`No tweets to display`);
+                    }
+                    else
+                        return Promise.reject(`The user is not following people on twitter`);
+                }
+                else
+                    return Promise.reject(`Email is not following the selected cryptocurrency`);
+            }
+            else
+                return Promise.reject(`Email is invalid`);
+        }
+        else
+            return Promise.reject(`Parameters are not defined`);
+    }
+
+    async getEmbeddedTweets(email){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        //Get the names of the people the user is following on twitter
+        const screen_names = await user_object.getScreenName(email);
+        //Get the names of the cryptocurrencies the user is following
+        const cryptocurrencies = await user_object.getCryptoName(email);
+        //Stores the id's of the tweets from the people the user is following about the cryptocurrencies the user is interested in
+        const id_array = [];
+
+        //Get the id of each tweet
+        if(cryptocurrencies && screen_names){
+            for(const crypto of cryptocurrencies){
+                for(const name of screen_names){
+                    if(this.#twitter_users[name][crypto] && Object.keys(this.#twitter_users[name][crypto]).length !== 0)
+                        Array.prototype.push.apply(id_array, Object.keys(this.#twitter_users[name][crypto]));
+                }
+            }
+
+            return await this.getHtmlBlockquotes(id_array);
+        }
+        else
+            return Promise.reject(`The user is not following cryptocurrencies or people on twitter`);
+    }
+
+    async getHtmlBlockquotes(id_array){
+        //Stores the html blockquote for each tweet in the id_array
+        let embedded_tweets = [];
+
+        if(id_array){
+            //Get the html blockquote for each id in id_array and store it in the twitter_users object
+            for(const id of id_array){
+                //Check if the id exists in the object or call the api to get the embedded_tweet
+                if(this.#twitter_users[`embedded_tweets`][id])
+                    embedded_tweets.push(this.#twitter_users[`embedded_tweets`][id]);
+                else{
+                    const html_tweet = await this.callEmbedAPI(id);
+                    embedded_tweets.push(html_tweet);
+                    this.#twitter_users[`embedded_tweets`][id] = html_tweet;
+                }
+            }
+            return embedded_tweets;
+        }
+        else
+            return Promise.reject(`No tweets to embed`);
     }
 
     /** This function gets the tweet id as a parameter and returns an html formatted response to display the tweet.
@@ -79,7 +306,7 @@ class Twitter {
      * @param {String} screen_name Optional screen name of the user.
      * @return {blockquote} Returns an html blockquote tag to display the tweet.
      * */
-    async getEmbeddedTweet(tweet_id, screen_name = "Codex98318352"){
+    async callEmbedAPI(tweet_id, screen_name = "Codex98318352"){
         const url = `${this.#oembed_url}?url=https://twitter.com/${screen_name}/status/${tweet_id}`;
         try{
             const response = await fetch(url);
@@ -91,134 +318,46 @@ class Twitter {
         }
     }
 
-    /** Gets the id's of the screen names of the users passed as a parameter.
-     * @param {[String]} users An array of the screen name of twitter users.
-     * */
-    async getUsersID(users) {
-        if(users==null){
-            return Promise.reject(new Error('error null value entered'));
+    async validateScreenName(screen_name){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
         }
-        let screenNames = "";
-        users.forEach((user, index) => {
-            if(index === users.length - 1)
-                screenNames += user;
-            else
-                screenNames += user + ",";
-        })
-        await T.get('users/lookup', {screen_name:screenNames}, (err, data, response) => {
-            if(err) {
-                console.error(`An error occurred while connecting to the Twitter API: ${err}`);
-                return -1;
-            }
-            else{
-                data.forEach(async (user) => {
-                    this.#firestore_db.save('twitter_data',user.screen_name,'id',user.id);
-                });
 
-            }
-        }).then();
+        const exists = await this.userLookup(screen_name);
+        if(exists)
+            return `<a href="https://twitter.com/${screen_name}?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-size="large" data-show-count="false">Follow @${screen_name}</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`;
+        else
+            return Promise.reject(`Screen name does not exist`);
     }
 
-    /** This function accepts a list of users and makes an API call to the Twitter API to get the 10 latest tweets.
-     * @param {[String]} users An array of the screen name of twitter users.
-     * @param {String} email The email of the curret user in the session.
-     * */
-    getUserTimeline(email, users){
-        let error = 0;
-        if(email==null || users==null){
-            return Promise.reject(new Error('error null value entered'));
-        }
-        if (!Array.isArray(users)) {
-            console.error("Variable passed in is not of type String[]");
-            error = -2;
-            return error;
-        }
-        else if(users.length < 1) {
-            error = -1;
-            return error;
-        }
-        else{
-            users.forEach(async user => {
-                if(typeof user !== 'string'){
-                    console.error("Array contains values that are not of type String");
-                    error = -2;
-                }
-                else{
-                    await T.get('statuses/user_timeline', {screen_name: user, count:200, include_rts: 1}, async (err, data, response) => {
-                        if(response.caseless.get("status") !== "200 OK"){
-                            console.error(`An error occurred while connecting to the twitter API: ${response.caseless.get("status")}`);
-                            console.error(err);
-                            error = -3;
-                        }
-                        else{
-                            let tweets = [];
-                            let tweets_id = [];
-                            data.forEach(tweet => {
-                                //console.log(tweet.id_str);
-                                tweets_id.push(tweet.id_str);
-                                tweets.push(tweet.text);
-                            });
-                            tweets = await this.filterData(email, tweets, tweets_id);
-                        }
-                    });
-                }
-            });
-            return error;
-        }
-    }
-
-    async filterData(email, tweets , tweets_id){
-        if(email == null || tweets == null || tweets_id == null)
-            return Promise.reject(new Error('Null value entered for one of the parameters'));
-
-        let cryptoSymbols = [];
-        let cryptoNames = [];
-        let tempTweet = null;
-        let tempSymbol = null;
-        let tempName = null;
-        let tempArray = [];
-        let temp_tweets_id = [];
-
-        const snapshot = await this.#firestore_db.fetch(`Users`);
-        snapshot.docs.every(doc => {
-            if(doc.id === email){
-                cryptoSymbols = doc.data().crypto;
-                cryptoNames = doc.data().crypto_name;
-                return false;
-            }
-            return true;
-        });
-
-        if(cryptoSymbols !== null && cryptoNames !== null && cryptoNames.length === cryptoSymbols.length){
-            for(const [index, value] of cryptoSymbols.entries()){
-                tempArray = [];
-                temp_tweets_id = [];
-                tempSymbol = value.toLowerCase();
-                tempName = cryptoNames[index].toLowerCase();
-                tweets.forEach((tweet, position) => {
-                    tempTweet = tweet.toLowerCase();
-                    if(tweet.search("RT")){
-                        if(tempTweet.search(tempSymbol) !== -1 || tempTweet.search(tempName) !== -1) {
-                            tempArray.push(tweet);
-                            temp_tweets_id.push(tweets_id[position]);
-                        }
-                    }
-                });
-                if(tempArray.length > 0){
-                    try{
-                        this.#firestore_db.save(`Twitter`, cryptoNames[index], `post`, tempArray);
-                        this.#firestore_db.save(`Twitter`, cryptoNames[index], `id`, temp_tweets_id);
-                    }
-                    catch(e) {
-                        console.error(`An error occurred while connecting to the database: \n${e}`);
-                    }
-                }
-            }
-            return tweets;
+    async getAllNamesTimeline(){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
         }
 
-        return Promise.reject(new Error(`User is not following any cryptos`));
+        const emails = await user_object.getEmails();
+        for(const email of emails) {
+            if(await user_object.getScreenName(email))
+                this.getTimeline(email).then()
+        }
     }
 }
 
-module.exports = Twitter;
+class Singleton {
+
+    constructor() {
+        if (!Singleton.instance) {
+            Singleton.instance = new Twitter();
+        }
+    }
+
+    getInstance() {
+        return Singleton.instance;
+    }
+}
+
+const singleton = new Singleton().getInstance();
+singleton.getAllNamesTimeline().then();
+module.exports = Singleton;

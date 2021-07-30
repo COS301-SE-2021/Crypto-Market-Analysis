@@ -1,3 +1,15 @@
-.items-center li{
+a{
+    text-decoration: none !important;
+}
+.disable{
+    cursor: default;
+    color: #cbd5e1 !important;
+}
+
+.disable:hover{
     text-decoration: none;
+}
+
+.w{
+    word-wrap: break-word;
 }

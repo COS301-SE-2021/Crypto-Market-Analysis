@@ -114,7 +114,6 @@ router.post("/unfollowSocialMedia", async (request,response)=>{
  * @return          A status code stating if the request was successful.
  * */
 router.post("/fetchUserSocialMedia", async (request, response) => {
-
     if(request.body.email === null) {
         return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
     }

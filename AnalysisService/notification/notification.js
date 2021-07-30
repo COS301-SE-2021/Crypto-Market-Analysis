@@ -22,7 +22,7 @@ const send_email= async(email,results)=>{
             console.log(error);
         } else {
             console.log('Email sent: ' + data.response);
-            const promise =  new Promise(function (resolve, reject) {
+            return  new Promise(function (resolve, reject) {
                 firestore_db.getUsers('Users').onSnapshot(async (documents) => {
                     documents.forEach((doc) => {
                         if (typeof doc.id !== "undefined" && doc.id === email) {
@@ -47,7 +47,7 @@ const send_email= async(email,results)=>{
                 })
 
             })
-            return promise;
+
 
 
         }

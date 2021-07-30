@@ -77,4 +77,14 @@ router.post('/unfollow', async (request, response) => {
     }
 });
 
+router.post(`getTweetIDs`, async (request, response) => {
+    try{
+        const data = await twitter.getTweetIDs();
+        return response.status(200).json({status: `Success`, data: data});
+    }
+    catch (error){
+        return response.status(500).json({status: 500, error: `Something went wrong while trying to retrieve the id's: ${error}`})
+    }
+});
+
 module.exports = router

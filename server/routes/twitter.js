@@ -77,7 +77,7 @@ router.post('/unfollow', async (request, response) => {
     }
 });
 
-router.post(`getTweetIDs`, async (request, response) => {
+router.post('/getTweetIDs', async (request, response) => {
     try{
         const data = await twitter.getTweetIDs();
         return response.status(200).json({status: `Success`, data: data});

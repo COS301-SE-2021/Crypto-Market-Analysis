@@ -41,7 +41,7 @@ export default function Overview({coin_name}){
         .catch(err => {console.error(err);})
 
         const fetchData = async () => {
-            const [day, week, year, detail] = await Promise.all([
+            const [day, week, year, fourteenDays, month, threeMonths, detail] = await Promise.all([
                 coinGecko.get("/coins/" + coin_name + "/market_chart/", {
                     params: {
                         vs_currency: "zar",
@@ -52,6 +52,24 @@ export default function Overview({coin_name}){
                     params: {
                         vs_currency: "zar",
                         days: "7"
+                    },
+                }),
+                coinGecko.get("/coins/" + coin_name + "/market_chart/", {
+                    params: {
+                        vs_currency: "zar",
+                        days: "14"
+                    },
+                }),
+                coinGecko.get("/coins/" + coin_name + "/market_chart/", {
+                    params: {
+                        vs_currency: "zar",
+                        days: "30"
+                    },
+                }),
+                coinGecko.get("/coins/" + coin_name + "/market_chart/", {
+                    params: {
+                        vs_currency: "zar",
+                        days: "90"
                     },
                 }),
                 coinGecko.get("/coins/" + coin_name + "/market_chart/", {
@@ -77,6 +95,9 @@ export default function Overview({coin_name}){
                         day: formatData(day.data.prices),
                         week: formatData(week.data.prices),
                         year: formatData(year.data.prices),
+                        fourteenDays: formatData(fourteenDays.data.prices),
+                        month: formatData(month.data.prices),
+                        threeMonths: formatData(threeMonths.data.prices),
                         detail: detail.data[i],
                     });
                 }
@@ -91,6 +112,9 @@ export default function Overview({coin_name}){
                         day: formatData(day.data.market_caps),
                         week: formatData(week.data.market_caps),
                         year: formatData(year.data.market_caps),
+                        fourteenDays: formatData(fourteenDays.data.market_caps),
+                        month: formatData(month.data.market_caps),
+                        threeMonths: formatData(threeMonths.data.market_caps),
                         detail: detail.data[i],
                     })
                 }

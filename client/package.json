@@ -43,6 +43,7 @@
     "react-social-icons": "^5.4.1",
     "react-test-renderer": "^17.0.2",
     "react-typewriting-effect": "^1.0.4",
+    "reactstrap": "^8.9.0",
     "router-dom": "^2.1.4",
     "social-media-icons-react": "^1.1.2",
     "typesaurus": "^7.2.0",

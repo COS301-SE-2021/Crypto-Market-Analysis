@@ -39,50 +39,55 @@ export default function Overview({coin_name}){
         .catch(err => {console.error(err);})
 
         const fetchData = async () => {
-            const [day, week, year, fourteenDays, month, threeMonths, detail] = await Promise.all([
-                coinGecko.get("/coins/" + coin_name + "/market_chart/", {
-                    params: {
-                        vs_currency: "zar",
-                        days: "1"
-                    },
-                }),
-                coinGecko.get("/coins/" + coin_name + "/market_chart/", {
-                    params: {
-                        vs_currency: "zar",
-                        days: "7"
-                    },
-                }),
-                coinGecko.get("/coins/" + coin_name + "/market_chart/", {
-                    params: {
-                        vs_currency: "zar",
-                        days: "14"
-                    },
-                }),
-                coinGecko.get("/coins/" + coin_name + "/market_chart/", {
-                    params: {
-                        vs_currency: "zar",
-                        days: "30"
-                    },
-                }),
-                coinGecko.get("/coins/" + coin_name + "/market_chart/", {
-                    params: {
-                        vs_currency: "zar",
-                        days: "90"
-                    },
-                }),
-                coinGecko.get("/coins/" + coin_name + "/market_chart/", {
+            const [week] = await Promise.all([coinGecko.get("/coins/" + coin_name + "/market_chart/", {
+                params: {
+                    vs_currency: "zar",
+                    days: "7"
+                },
+            })]);
+
+            const [day] = await Promise.all([coinGecko.get("/coins/" + coin_name + "/market_chart/", {
+                params: {
+                    vs_currency: "zar",
+                    days: "1"
+                },
+            })]);
+
+            const [fourteenDays] = await Promise.all([coinGecko.get("/coins/" + coin_name + "/market_chart/", {
+                params: {
+                    vs_currency: "zar",
+                    days: "14"
+                },
+            })]);
+
+            const [month] = await Promise.all([coinGecko.get("/coins/" + coin_name + "/market_chart/", {
+                params: {
+                    vs_currency: "zar",
+                    days: "30"
+                },
+            })]);
+
+            const [threeMonths] = await Promise.all([coinGecko.get("/coins/" + coin_name + "/market_chart/", {
+                params: {
+                    vs_currency: "zar",
+                    days: "90"
+                },
+            })]);
+
+            const [year] = await Promise.all([coinGecko.get("/coins/" + coin_name + "/market_chart/", {
                     params: {
                         vs_currency: "zar",
                         days: "365"
                     },
-                }),
+                })]);
+
+            const [detail] = await Promise.all([
                 coinGecko.get("/coins/markets/", {
                     params: {
                         vs_currency: "zar",
                         days: "365"
                     },
-                })
-
+                }),
             ]);
 
             for (let i = 0; i < detail.data.length; i++) {
@@ -236,7 +241,7 @@ export default function Overview({coin_name}){
         </div></>:<></>}
         </>
     )
-};
+}
 
 Overview.defaultProps = {
     coin_name: "bitcoin"

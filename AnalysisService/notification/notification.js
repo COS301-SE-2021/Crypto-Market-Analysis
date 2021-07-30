@@ -12,7 +12,7 @@ const send_email= async(email,results)=>{
     });
     const receiver = {
         from: 'codexteam4@gmail.com',
-        to: 'mojohnnylerato@gmail.com',
+        to: email,
         subject: 'Cryptocurrency Notification',
         text: results,
         html: results,
@@ -26,22 +26,20 @@ const send_email= async(email,results)=>{
                 firestore_db.getUsers('Users').onSnapshot(async (documents) => {
                     documents.forEach((doc) => {
                         if (typeof doc.id !== "undefined" && doc.id === email) {
-                            let notification_data =[];
+                            let myObj = {};
+                            let newObj = {};
+                            let date = String(new Date());
                             if (typeof doc.data().notification !=="undefined")
                             {
-                                notification_data=doc.data().notification;
+                                myObj=doc.data().notification;
                             }
-                            console.log('Displaying notification data');
-                            console.log(notification_data);
-                            let arrayOfNotification=doc.data().notification;
-                            const date = String(new Date());
-                            let notificationLine ='Cryptocurrency Notification'+'='+ results +'='+date;
-                            arrayOfNotification.push(notificationLine)
+                            newObj[date] = {"Email":results};
+                            let cmyObj = Object.assign({},myObj,newObj);
                             const notify ={
-                                notification:arrayOfNotification
+                                notification:cmyObj
                             }
-                            firestore_db.saveData('Users','mojohnnylerato@gmail.com',notify);
-                            resolve('success');
+                            firestore_db.saveData('Users',email,notify);
+
                         }
                     })
                 })
@@ -54,17 +52,14 @@ const send_email= async(email,results)=>{
     });
 }
 const followers = async(cryptocurrency,results)=>{
-    let i=1;
     firestore_db.getUsers('Users').onSnapshot((documents) => {
         documents.forEach((doc) => {
             console.log(doc.data().crypto_name); // For data inside doc
             if(typeof doc.data().crypto_name !== "undefined" && doc.data().crypto_name.includes(cryptocurrency))
             {
 
-                if(i ===1){
-                    i=2;
                     send_email(doc.id,results);
-                }
+
 
             }
             console.log(doc.id); // For doc name

@@ -350,13 +350,26 @@ class Twitter {
             this.#initialized = true;
         }
 
-        //Get the emails of all users currently registered
-        const emails = await user_object.getEmails();
-        console.log(Object.keys(this.#twitter_users));
-        /*const ids = [];
-        for(const email of emails) {
-            
-        }*/
+        //Stores all of the crypto names currently followed by all of the users
+        const cryptos = await user_object.getAllCryptoNames();
+        //Stores all the screen names
+        const screen_names = Object.keys(this.#twitter_users);
+        //Stores all of the keys
+        let keys = [];
+        //Stores the id of each tweet
+        const ids = [];
+        for(const name of screen_names) {
+            keys = Object.keys(this.#twitter_users[name]);
+            //Check if the key is a cryptocurrency name
+            for(const key of keys){
+                if(cryptos.includes(key)){
+                    //Add the ids of each tweet to the array
+                    Array.prototype.push.apply(ids, Object.keys(this.#twitter_users[name][key]));
+                }
+            }
+        }
+
+        return ids;
     }
 }
 
@@ -373,6 +386,4 @@ class Singleton {
     }
 }
 
-/*const singleton = new Singleton().getInstance();
-singleton.getTweetIDs().then();*/
 module.exports = Singleton;

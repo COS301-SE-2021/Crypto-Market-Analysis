@@ -4,12 +4,19 @@ import {historyOptions} from "../../chartConfigs/chartConfigs";
 
 const HistoryChart = ({data}) => {
     const chartRef = useRef();
-    const {day, week, year, fourteenDays, month, threeMonths, detail} = data;
+    const {day} = data;
+    const {week} = data;
+    const {year} = data;
+    const {fourteenDays} = data;
+    const {month} = data;
+    const {threeMonths} = data;
+    const {detail} = data;
     const [timeFormat, setTimeFormat] = useState("24h");
     let chartInstance;
 
     const determineTimeFormat = () => {
         switch (timeFormat){
+
             case "24h":
                 return day;
             case "7d":
@@ -23,7 +30,7 @@ const HistoryChart = ({data}) => {
             case "1y":
                 return year;
             default:
-                return day;
+                return "";
         }
     }
 
@@ -31,19 +38,21 @@ const HistoryChart = ({data}) => {
 
         if(chartRef && chartRef.current && detail)
         {
-             chartInstance = new Chartjs(chartRef.current, {
+            chartInstance = new Chartjs(chartRef.current, {
                 type: 'line',
                 data: {
                     datasets: [
                         {
-                        label: detail.name + " price" ,
-                        data: determineTimeFormat(),
-                        backgroundColor: "rgba(174,305,194,0.5)",
-                        borderColor: "rgba(174,305,194,0.4)",
-                        pointRadius: 0,
-                    },
+                            label: detail.name + " price" ,
+                            data: determineTimeFormat(),
+                            backgroundColor: "rgba(255, 255, 255,0)",
+                            borderColor: "rgba(0,0,0,0.9)",
+                            pointRadius: 0,
+                            hoverOffset: 4,
+                        },
 
                     ],
+
                 },
                 options: {
                     ...historyOptions,
@@ -59,7 +68,7 @@ const HistoryChart = ({data}) => {
 
             <div>
 
-                <canvas ref={chartRef} id="myChart" height={250} width={250}></canvas>
+                <canvas ref={chartRef} id="myChart" height={500} width={500}></canvas>
 
             </div>
 

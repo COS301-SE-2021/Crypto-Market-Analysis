@@ -15,8 +15,17 @@ export const historyOptions ={
         xAxes: [
             {
                 type: "time",
-                distribution: "linear"
+                distribution: "linear",
+
             }
-        ]
+        ],
+        yAxes: [{
+            ticks: {
+                callback: function (value, index, values)
+                {
+                    return 'R' + value.toLocaleString();
+                }
+            }
+        }]
     }
 }

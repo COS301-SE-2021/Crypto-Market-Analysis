@@ -17,6 +17,7 @@ import Notification from "./Pages/Notification/Notification"
 import DetailedInfo from "./Pages/DetailedInfo/DetailedInfo"
 import {BrowserRouter as router , Switch} from "react-router-dom";
 import { AuthProvider } from "./Auth/Auth"
+
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
                      <Route exact path="/HeaderStats" component={HeaderStats}></Route>
                      <Route exact path="/Notification" component={Notification}></Route>
                      <Route exact path="/home/DetailedInfo" component={DetailedInfo}></Route>
+
                  </section>
            </Switch>
           </AuthProvider>

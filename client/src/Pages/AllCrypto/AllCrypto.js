@@ -70,7 +70,6 @@ export default function AllCryptos()
             }
 
     const select = (name,type) => {
-        console.log(cryptos)
         if(type == "cryptos"){
             cryptos =  [...cryptos.map((crypto)=>{
                 if(name == crypto.symbol){
@@ -86,17 +85,15 @@ export default function AllCryptos()
                             crypto_name: crypto.name,
                         }
                         axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd)
-                            .then(response => console.log(response))
                             .catch(err => {console.error(err);})
                     }
                     else{
                         let  cryptoToRemove = {
                             email: localStorage.getItem("emailSession"),
-                              symbol: crypto.symbol,
+                            symbol: crypto.symbol,
                           }
                           axios.post('http://localhost:8080/user/unfollowCrypto/',cryptoToRemove)
-                              .then(response => console.log(response))
-                              .catch(err => {console.error(err);})
+                              .catch(err => {console.error(JSON.stringify(err));})
                     }
                 }
                 return {
@@ -129,14 +126,10 @@ export default function AllCryptos()
                         </form>
                     </div>
                     {
-                        searchedCryptos.map((myCrypto) =>{
-                            
+                        searchedCryptos.map((myCrypto, index) =>{
                             return(
-                                <div className='coin-container'>
-
-
+                                <div className='coin-container' key={index}>
                                         <div className='coin-row'>
-
                                                 <div className='coin'>
                                                     {/* <a id="link" href= {"/home/DetailedInfo"}> */}
                                                     {myCrypto.selected?<Star className="select-star" color="primary" onClick={()=>{select(myCrypto.symbol,"cryptos")}}/>:<Star className="select-star" color="action" onClick={()=>{select(myCrypto.symbol, "cryptos")}}/>}
@@ -145,26 +138,21 @@ export default function AllCryptos()
                                                     {/* </a> */}
                                                     <p className='coin-symbol'>{myCrypto.symbol}</p>
                                                 </div>
+                                                <div className='coin-data'>
+                                                    <p className='coin-price'>R{myCrypto.current_price}</p>
+                                                    <p className='coin-volume'>R{myCrypto.total_volume.toLocaleString()}</p>
 
+                                                    {myCrypto.price_change_percentage_24h < 0 ? (
+                                                        <p className='coin-percent red'>{myCrypto.price_change_percentage_24h.toFixed(2)}%</p>
+                                                    ) : (
+                                                        <p className='coin-percent green'>{myCrypto.price_change_percentage_24h.toFixed(2)}%</p>
+                                                    )}
 
-                                            <div className='coin-data'>
-                                                <p className='coin-price'>R{myCrypto.current_price}</p>
-                                                <p className='coin-volume'>R{myCrypto.total_volume.toLocaleString()}</p>
-
-                                                {myCrypto.price_change_percentage_24h < 0 ? (
-                                                    <p className='coin-percent red'>{myCrypto.price_change_percentage_24h.toFixed(2)}%</p>
-                                                ) : (
-                                                    <p className='coin-percent green'>{myCrypto.price_change_percentage_24h.toFixed(2)}%</p>
-                                                )}
-
-                                                <p className='coin-marketcap'>
-                                                    Mkt Cap: R{myCrypto.market_cap.toLocaleString()}
-                                                </p>
-                                            </div>
+                                                    <p className='coin-marketcap'>
+                                                        Mkt Cap: R{myCrypto.market_cap.toLocaleString()}
+                                                    </p>
+                                                </div>
                                         </div>
-
-
-
                               </div>
                             )
                         })

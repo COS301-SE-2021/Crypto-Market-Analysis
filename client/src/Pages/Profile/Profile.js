@@ -5,10 +5,9 @@ import styled from 'styled-components';
 import {Avatar, Tabs, AppBar, Tab} from "@material-ui/core"
 import EditIcon from "@material-ui/icons/Edit"
 import axios from "axios";
-import { Markup } from 'react-render-markup'
 import Sidebar from "../../components/Sidebar/Sidebar";
 import "./Profile.css"
-import ScriptTag from 'react-script-tag'
+
 
 const Button = styled.button`
 display: block;
@@ -39,10 +38,7 @@ const Profile = props =>
         email: localStorage.getItem("emailSession")
     }
     useEffect(async () => {
-        
 
-
-        await loadScript()
         axios.post('http://localhost:8080/user/getUserCryptos/',userReq)
             .then( response => {
                 let soc = [];
@@ -77,14 +73,15 @@ const Profile = props =>
             .catch(err => {console.error(err);})
 
     },[])
-    const loadScript = ()=> {
-        console.log("searchContainer")
-        var tag = document.createElement('script');
-        tag.async = false;
-        tag.src = "https://platform.twitter.com/widgets.js";
-        let profileContainer = document.getElementById('profileContainer')
-        console.log(profileContainer)
-        profileContainer.replaceChild(tag,profileContainer.firstElementChild)
+
+    const handleFollow = (userToSearch)=>{
+        window.twttr.widgets.createFollowButton(
+            userToSearch,
+            document.getElementById('followBtn'),
+            {
+                size: 'large'
+            }
+        )
     }
 
     const followUser = ()=>{
@@ -105,18 +102,8 @@ const Profile = props =>
         
         let user = { screen_name: userToSearch }
         axios.post('http://localhost:8080/twitter/validateScreenName/',user)
-        .then(response=>{
-            console.log(response)
-            let searchBtn = document.getElementById('searchButtons')
-            let followBtn = document.createElement('span')
-            followBtn.innerHTML = response.data.data
-           
-            followBtn.onclick = followUser
-            
-
-            console.log(followBtn)
-            searchBtn.replaceChild(followBtn, searchBtn.lastElementChild)
-            followBtn.firstChild.setAttribute('href','#')
+        .then(()=>{
+            handleFollow(userToSearch)
         })
         .catch(err => {console.error(err)})
     }
@@ -125,8 +112,8 @@ const Profile = props =>
     return(
 
         <>
-        
             <Sidebar />
+            <script sync src="https://platform.twitter.com/widgets.js%22%3E"></script>
             <div className="md:ml-64">
                 <div id="profileContainer" className="container" >
                 <span></span>
@@ -231,8 +218,8 @@ const Profile = props =>
                     }
                     {
                         selectedTab === 2 &&
-                        <div id="searchContainer" className="container">
-                           
+                        <div id="searchContainer" className="container" >
+                           <script sync src="https://platform.twitter.com/widgets.js%22%3E"></script>
                             <div className="row searchFilter" >
                                 <div className="col-sm-12" >
                                     <div className="input-group" >
@@ -253,7 +240,7 @@ const Profile = props =>
                                                 </ul>
                                             </div>
                                             <button id="searchBtn" type="button" className="btn btn-secondary btn-search" onClick={searchUsername} ><span className="glyphicon glyphicon-search" >&nbsp;</span> <span className="label-icon" >Search</span></button>
-                                            <span></span>
+                                            <span id='followBtn'></span>
                                         </div>
                                     </div>
                                 </div>
@@ -263,7 +250,6 @@ const Profile = props =>
 
                 </div>
             </div>
-
         </>
     );
 }

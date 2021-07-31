@@ -35,12 +35,6 @@ function Home(){
                         }
                         <HeaderStats ob={favObserver}/>
                     </div>
-                    {/* {
-                        user !== null? <div className="row py-5" style={{backgroundColor:"#fff"}}>
-                                            <div className="uppercase text-xl font-bold p-2 px-0" style={{color:"#58667e",margin:"auto"}}>Average Sentimental graph <hr/></div>
-                                            <HeaderStats /> 
-                                        </div> : <></>
-                    } */}
                     <div className="row pt-3" style={{backgroundColor:"#23292f",color:"white"}}>
                         <div className="uppercase text-xl font-bold p-2 px-0" style={{display:"flex",color:"white",margin:"auto"}}> Top 250 Cryptocurrencies<hr style={{borderColor:"white"}}/></div>
                         <div className="container" style={{display:"flex",color:"white",margin:"auto"}}>

@@ -527,6 +527,33 @@ class User_Hash_Table {
                 return true;
         return false;
     }
+
+    async getAllCryptoNames() {
+        if (!this.#initialized) {
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        //Get the emails of all the user's registered
+        const emails = await this.getEmails();
+        //Used to store all the cryptos
+        let cryptos = {};
+        //Temp array used to store each cryptocurrency
+        let cryptoNames = [];
+
+        for (const email of emails) {
+            cryptoNames = await this.getCryptoName(email);
+            for (const name of cryptoNames) {
+                if (!cryptos[name])
+                    cryptos[name] = 0;
+            }
+        }
+
+        //Used to store the crypto names
+        const keys = Object.keys(cryptos);
+        if (keys.length !== 0)
+            return keys;
+    }
 }
 
 class Singleton {

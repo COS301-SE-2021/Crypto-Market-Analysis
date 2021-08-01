@@ -7,7 +7,7 @@ const send_email= async(email,results)=>{
         service: 'gmail',
         auth: {
             user: process.env.EMAIL_USERNAME || 'codexteam4@gmail.com',
-            pass: process.env.EMAIL_PASSWORD
+            pass: process.env.EMAIL_PASSWORD || 'PNeux9E^peM6s:z;'
         }
     });
     const receiver = {
@@ -22,6 +22,32 @@ const send_email= async(email,results)=>{
             console.log(error);
         } else {
             console.log('Email sent: ' + data.response);
+            return  new Promise(function (resolve, reject) {
+                firestore_db.getUsers('Users').onSnapshot(async (documents) => {
+                    documents.forEach((doc) => {
+                        if (typeof doc.id !== "undefined" && doc.id === email) {
+                            let myObj = {};
+                            let newObj = {};
+                            let date = String(new Date());
+                            if (typeof doc.data().notification !=="undefined")
+                            {
+                                myObj=doc.data().notification;
+                            }
+                            newObj[date] = {"Email":results};
+                            let cmyObj = Object.assign({},myObj,newObj);
+                            const notify ={
+                                notification:cmyObj
+                            }
+                            firestore_db.saveData('Users',email,notify);
+
+                        }
+                    })
+                })
+
+            })
+
+
+
         }
     });
 }
@@ -31,7 +57,10 @@ const followers = async(cryptocurrency,results)=>{
             console.log(doc.data().crypto_name); // For data inside doc
             if(typeof doc.data().crypto_name !== "undefined" && doc.data().crypto_name.includes(cryptocurrency))
             {
-                send_email(doc.id,results);
+
+                    send_email(doc.id,results);
+
+
             }
             console.log(doc.id); // For doc name
         })

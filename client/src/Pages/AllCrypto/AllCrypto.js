@@ -89,17 +89,15 @@ export default function AllCryptos(props)
                         }
                        
                         axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd)
-                            .then(response => console.log(response))
                             .catch(err => {console.error(err);})
                     }
                     else{
                         let  cryptoToRemove = {
                             email: localStorage.getItem("emailSession"),
-                              symbol: crypto.symbol,
+                            symbol: crypto.symbol,
                           }
                           axios.post('http://localhost:8080/user/unfollowCrypto/',cryptoToRemove)
-                              .then(response => console.log(response))
-                              .catch(err => {console.error(err);})
+                              .catch(err => {console.error(JSON.stringify(err));})
                     }
                 }
                 return {
@@ -143,7 +141,6 @@ export default function AllCryptos(props)
 
 
                                         <div className='coin-row'>
-
                                                 <div className='coin'>
                                                     {/* <a id="link" href= {"/home/DetailedInfo"}> */}
                                                     {myCrypto.selected?<Star className="select-star" color="primary" onClick={()=>{select(myCrypto.symbol,"cryptos")}}/>:<Star className="select-star" color="action" onClick={()=>{select(myCrypto.symbol, "cryptos")}}/>}
@@ -152,26 +149,21 @@ export default function AllCryptos(props)
                                                     {/* </a> */}
                                                     <p className='coin-symbol'>{myCrypto.symbol}</p>
                                                 </div>
+                                                <div className='coin-data'>
+                                                    <p className='coin-price'>R{myCrypto.current_price}</p>
+                                                    <p className='coin-volume'>R{myCrypto.total_volume.toLocaleString()}</p>
 
+                                                    {myCrypto.price_change_percentage_24h < 0 ? (
+                                                        <p className='coin-percent red'>{myCrypto.price_change_percentage_24h.toFixed(2)}%</p>
+                                                    ) : (
+                                                        <p className='coin-percent green'>{myCrypto.price_change_percentage_24h.toFixed(2)}%</p>
+                                                    )}
 
-                                            <div className='coin-data'>
-                                                <p className='coin-price'>R{myCrypto.current_price}</p>
-                                                <p className='coin-volume'>R{myCrypto.total_volume.toLocaleString()}</p>
-
-                                                {myCrypto.price_change_percentage_24h < 0 ? (
-                                                    <p className='coin-percent red'>{myCrypto.price_change_percentage_24h.toFixed(2)}%</p>
-                                                ) : (
-                                                    <p className='coin-percent green'>{myCrypto.price_change_percentage_24h.toFixed(2)}%</p>
-                                                )}
-
-                                                <p className='coin-marketcap'>
-                                                    Mkt Cap: R{myCrypto.market_cap.toLocaleString()}
-                                                </p>
-                                            </div>
+                                                    <p className='coin-marketcap'>
+                                                        Mkt Cap: R{myCrypto.market_cap.toLocaleString()}
+                                                    </p>
+                                                </div>
                                         </div>
-
-
-
                               </div>
                             )
                         })

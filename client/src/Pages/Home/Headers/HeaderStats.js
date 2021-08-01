@@ -23,8 +23,7 @@ export default function HeaderStats(props) {
   useEffect(async () => {
    
     let selectedCryptos = []
-   
-    console.log(requestObj.email)
+    let  requestObj = { email: localStorage.getItem("emailSession") }
     if(requestObj.email != null){ /* If user logged in, get crypto coins followed by that user */
 
       /*
@@ -40,7 +39,6 @@ export default function HeaderStats(props) {
       .catch(err => {console.error(err);})
     }
     else{ /* else if user is not logged in, use default(Top 10) crypto coins */
-      // console.log("CALLED")
       getCoins(coins)
     }
   },[props.ob])
@@ -55,14 +53,12 @@ export default function HeaderStats(props) {
             let userCryptoList = []
 
             await response.data.map((coin)=>{
-              // console.log(coinsList)
               coinsList.forEach(element => {
                 if(element === coin.name){
                   userCryptoList.push(coin)
                 }
               });
             })
-            // console.log(userCryptoList)
             setCryptos(userCryptoList)
         })
         .catch(err => {console.error(err);})

@@ -330,6 +330,45 @@ class Twitter {
         else
             return Promise.reject(`Screen name does not exist`);
     }
+
+    async getAllNamesTimeline(){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        const emails = await user_object.getEmails();
+        for(const email of emails) {
+            if(await user_object.getScreenName(email))
+                this.getTimeline(email).then()
+        }
+    }
+
+    async getTweetIDs(email, crypto_name){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        //Stores all the screen names
+        const screen_names = Object.keys(this.#twitter_users);
+        //Stores all of the keys
+        let keys = [];
+        //Stores the id of each tweet
+        const ids = [];
+        for(const name of screen_names) {
+            keys = Object.keys(this.#twitter_users[name]);
+            //Check if the key is the selected cryptocurrency
+            for(const key of keys){
+                if(key === crypto_name){
+                    //Add the ids of each tweet to the array
+                    Array.prototype.push.apply(ids, Object.keys(this.#twitter_users[name][key]));
+                }
+            }
+        }
+
+        return ids;
+    }
 }
 
 class Singleton {

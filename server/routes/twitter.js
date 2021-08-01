@@ -77,4 +77,23 @@ router.post('/unfollow', async (request, response) => {
     }
 });
 
+router.post('/getTweetIDs', async (request, response) => {
+    // The email of the user
+    const email = request.body.email;
+    // The name of the cryptocurrency
+    const crypto_name = request.body.crypto_name;
+
+    //Check if the request has the parameters
+    if(!crypto_name || !email)
+        return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
+
+    try{
+        const data = await twitter.getTweetIDs(email, crypto_name);
+        return response.status(200).json({status: `Success`, data: data});
+    }
+    catch (error){
+        return response.status(500).json({status: 500, error: `Something went wrong while trying to retrieve the id's: ${error}`})
+    }
+});
+
 module.exports = router

@@ -344,14 +344,12 @@ class Twitter {
         }
     }
 
-    async getTweetIDs(){
+    async getTweetIDs(email, crypto_name){
         if(!this.#initialized){
             await this.#init;
             this.#initialized = true;
         }
 
-        //Stores all of the crypto names currently followed by all of the users
-        const cryptos = await user_object.getAllCryptoNames();
         //Stores all the screen names
         const screen_names = Object.keys(this.#twitter_users);
         //Stores all of the keys
@@ -360,9 +358,9 @@ class Twitter {
         const ids = [];
         for(const name of screen_names) {
             keys = Object.keys(this.#twitter_users[name]);
-            //Check if the key is a cryptocurrency name
+            //Check if the key is the selected cryptocurrency
             for(const key of keys){
-                if(cryptos.includes(key)){
+                if(key === crypto_name){
                     //Add the ids of each tweet to the array
                     Array.prototype.push.apply(ids, Object.keys(this.#twitter_users[name][key]));
                 }

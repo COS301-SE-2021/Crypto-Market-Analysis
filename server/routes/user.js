@@ -6,8 +6,8 @@ const twitter = new Twitter().getInstance();
 
 router.post("/get4chanPost", async (request,response)=>{
     const email = request.body.email;
-    // if(!email || !(typeof email === 'string' || email instanceof String))
-    //     return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
+    if(!email || !(typeof email === 'string' || email instanceof String))
+        return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
     userFunctions.get4chanPost().then( tweets => {
         return response.status(200).json(tweets);
     }).catch(err=>{
@@ -15,17 +15,17 @@ router.post("/get4chanPost", async (request,response)=>{
     })
 });
 
-// router.post("/getRedditPost", async (request,response)=>{
-//     if(request.body.email === null)
-//         return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
-//     else{
-//         userFunctions.getRedditPost(request.body.email).then(data=>{
-//             response.status(200).json(data);
-//         }).catch(err=>{
-//             return response(401).json({status:`error`, error: err})
-//         })
-//     }
-// });
+router.post("/getRedditPost", async (request,response)=>{
+    if(request.body.email === null)
+        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
+    else{
+        userFunctions.getRedditPost(request.body.email).then(data=>{
+            response.status(200).json(data);
+        }).catch(err=>{
+            return response(401).json({status:`error`, error: err})
+        })
+    }
+});
 
 /** This function gets the cryptos a user is following
  * @param {object} request A request object with the email and symbol.
@@ -43,6 +43,18 @@ router.post("/getUserCryptos", async (request, response) => {
          })
      }
  });
+//testcode
+router.post("/getUserSubreddits", async (request, response) => {
+    if(!request.body.email)
+        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
+    else {
+        userFunctions.getUserSubreddits(request.body.email).then(data=>{
+            return response.status(200).json(data);
+        }).catch(err=>{
+            return response(401).json({status:`error`, error: err})
+        })
+    }
+});
 
 /** This function adds a social media site to the users account
  * @param {object} request A request object with the email and symbol.
@@ -69,6 +81,18 @@ router.post("/unfollowCrypto", async (request,response)=>{
         return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
     else{
         await userFunctions.unfollowCrypto(request.body.email,request.body.symbol).then(data=>{
+            return response.status(200).json(data);
+        }).catch(err=>{
+            return response.status(500).json({status:`Internal server error`, error: err})
+        });
+    }
+});
+
+router.post("/unfollowSubreddit", async (request,response)=>{
+    if(request.body.email === null || request.body.subreddit === null)
+        return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
+    else{
+        await userFunctions.unfollowSubreddit(request.body.email,request.body.subreddit).then(data=>{
             return response.status(200).json(data);
         }).catch(err=>{
             return response.status(500).json({status:`Internal server error`, error: err})
@@ -119,6 +143,20 @@ router.post("/fetchUserSocialMedia", async (request, response) => {
     }
     else{
         userFunctions.fetchUserSocialMedia(request.body.email).then(data=>{
+            return response.status(200).json(data);
+        }).catch(err=>{
+            return response(401).json({status:`error`, error: err})
+        })
+    }
+});
+
+router.post("/fetchUserSubreddits", async (request, response) => {
+
+    if(request.body.email === null) {
+        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
+    }
+    else{
+        userFunctions.fetchUserSubreddits(request.body.email).then(data=>{
             return response.status(200).json(data);
         }).catch(err=>{
             return response(401).json({status:`error`, error: err})

@@ -37,7 +37,6 @@ export default function Sidebar() {
           return true;
         }
         else{
-          console.log("TRiggered")
           handleShowModal();
           return false;
         }

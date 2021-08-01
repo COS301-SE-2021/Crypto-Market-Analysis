@@ -17,7 +17,7 @@ export default function HeaderStats(props) {
   const [show, setShow] = useState(false)
   let [cryptos, setCryptos] = useState([])
   let  requestObj = { email: localStorage.getItem("emailSession") }
-  let coin = "" //coin name to pass to detailedInfo
+  let coin_ = "" //coin name to pass to detailedInfo
   
   useEffect(async () => {
    
@@ -67,13 +67,11 @@ export default function HeaderStats(props) {
       
     unblockHandle.current = history.block(() => {
       if(requestObj.email){
-        coin =  coinname
+        coin_ =  coinname
         OnContinue();
-        return true;
       }
       else{
         handleShowModal();
-        return false;
       }
       
     });
@@ -93,7 +91,7 @@ export default function HeaderStats(props) {
       unblockHandle.current()
     }
     if(requestObj.email != null){
-      history.push({pathname:"/home/DetailedInfo", state:{coin_name:coin}})
+      history.push({pathname:"/home/DetailedInfo", state:{coin_name:coin_}})
     }
     else{
       history.push('/login')
@@ -109,7 +107,7 @@ export default function HeaderStats(props) {
                 <div className="col-12">
                 <Carousel cols={3} rows={2} gap={8} >
                 {
-                   cryptos.map((coin) => {
+                   cryptos.map((_coin) => {
                       return (
                         <Carousel.Item key={coin.id}>
                           <div className="w-full lg:w-12/12 xl:w-12/12 px-4 mt-5">

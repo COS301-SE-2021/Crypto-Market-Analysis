@@ -1,9 +1,8 @@
-import React, { useState, useEffect}  from "react";
+import React, { useState}  from "react";
 
 import "bootstrap/dist/css/bootstrap.css";
 import Sidebar from "../../components/Sidebar/Sidebar.js";
 import HeaderStats from "./Headers/HeaderStats.js";
-import DetailedInfo from "../DetailedInfo/DetailedInfo"
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "../../assets/styles/tailwind.css";
 import AllCryptos from "../AllCrypto/AllCrypto.js";

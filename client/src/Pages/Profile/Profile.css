@@ -142,7 +142,6 @@
   }
   @media (max-width: 768px){
     .ct-header .ct-jumbotron {  
-      width: 80%;
       margin: 20px 10px;
       top: 40%;
       width: 95%;

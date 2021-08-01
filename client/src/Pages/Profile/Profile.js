@@ -59,7 +59,7 @@ const Profile = props =>
 
     },[])
 
-    const handleFollow = (userToSearch)=>{
+    const handleFollow = (user)=>{
         window.twttr.widgets.createFollowButton(
             userToSearch,
             document.getElementById('followBtn'),
@@ -69,16 +69,16 @@ const Profile = props =>
         )
     }
 
-    const followUser = ()=>{
-        console.log("FOLLOW")
-        let user = {email: localStorage.getItem("emailSession"), screen_name: userToSearch }
-        axios.post('http://localhost:8080/twitter/follow/',user)
-        .then(response=>{
-            console.log(response)
-        })
-        .catch(err => {console.error(err)})
+    // const followUser = ()=>{
+    //     console.log("FOLLOW")
+    //     let user = {email: localStorage.getItem("emailSession"), screen_name: userToSearch }
+    //     axios.post('http://localhost:8080/twitter/follow/',user)
+    //     .then(response=>{
+    //         console.log(response)
+    //     })
+    //     .catch(err => {console.error(err)})
 
-    }
+    // }
 
     const searchInput = (event) =>{ setUserToSearch(event.target.value) }
 

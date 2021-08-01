@@ -142,11 +142,10 @@ export default function AllCryptos(props)
 
                                         <div className='coin-row'>
                                                 <div className='coin'>
-                                                    {/* <a id="link" href= {"/home/DetailedInfo"}> */}
+                                                   
                                                     {myCrypto.selected?<Star className="select-star" color="primary" onClick={()=>{select(myCrypto.symbol,"cryptos")}}/>:<Star className="select-star" color="action" onClick={()=>{select(myCrypto.symbol, "cryptos")}}/>}
                                                     <img src={myCrypto.image} alt='crypto' />
                                                     <h1>{myCrypto.name}</h1>
-                                                    {/* </a> */}
                                                     <p className='coin-symbol'>{myCrypto.symbol}</p>
                                                 </div>
                                                 <div className='coin-data'>

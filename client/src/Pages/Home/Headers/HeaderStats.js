@@ -5,7 +5,6 @@ import { Link, useHistory } from "react-router-dom"
 
 import ModalComp from "../../../components/Modal/Modal"
 import CardStats from "../../../components/Cards/CardStats"
-import DetailedInfo from "../../DetailedInfo/DetailedInfo"
 import "./Header.css";
 
 

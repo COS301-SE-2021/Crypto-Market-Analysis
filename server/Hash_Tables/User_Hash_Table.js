@@ -153,31 +153,25 @@ class User_Hash_Table {
                 //Get the twitter class instance
                 const Twitter = require(`../social_media_sites/Twitter`);
                 const twitter = new Twitter().getInstance();
-                //Check if the screen name exists
-                const exists = twitter.userLookup(screen_name);
-                if(exists){
-                    //Get the screen names array containing the list of screen names all the users are following
-                    let screen_name_array = this.#users[key].screen_name;
-                    //If the screen name array doesn't exist create it
-                    if(!screen_name_array) {
-                        this.#users[key][`screen_name`] = [];
-                        screen_name_array = this.#users[key].screen_name;
+                //Get the screen names array containing the list of screen names all the users are following
+                let screen_name_array = this.#users[key].screen_name;
+                //If the screen name array doesn't exist create it
+                if(!screen_name_array) {
+                    this.#users[key][`screen_name`] = [];
+                    screen_name_array = this.#users[key].screen_name;
+                }
+                //Check if the screen name already exists in the array. If it doesn't add it
+                if(screen_name_array.indexOf(screen_name) === -1) {
+                    try{
+                        //Add the screen name to the array of screen names and add it to the database
+                        screen_name_array.push(screen_name);
+                        firestore_db.save(`Users`, key, `screen_name`, screen_name, true);
+                        return Promise.resolve(true);
                     }
-                    //Check if the screen name already exists in the array. If it doesn't add it
-                    if(screen_name_array.indexOf(screen_name) === -1) {
-                        try{
-                            //Add the screen name to the array of screen names and add it to the database
-                            screen_name_array.push(screen_name);
-                            firestore_db.save(`Users`, key, `screen_name`, screen_name, true);
-                            return Promise.resolve(true);
-                        }
-                        catch (error){
-                            return await Promise.reject(error);
-                        }
+                    catch (error){
+                        return await Promise.reject(error);
                     }
                 }
-                else
-                    return Promise.reject(`Screen name does not exist`);
             }
             else
                 return Promise.reject(`Invalid email entered`);
@@ -567,13 +561,13 @@ class User_Hash_Table {
                 if(value)
                     return value;
                 else
-                    return null
+                    return Promise.reject(`User is not following any social media sites`);
             }
             else
-                return null;
+                return Promise.reject(`Invalid email entered`);
         }
         else
-            return null;
+            return Promise.reject(`Parameter is not defined`);
     }
 
     async getSubreddit(key){
@@ -635,6 +629,33 @@ class User_Hash_Table {
             if(value.screen_name && (value.screen_name).indexOf(screen_name) > -1)
                 return true;
         return false;
+    }
+
+    async getAllCryptoNames() {
+        if (!this.#initialized) {
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        //Get the emails of all the user's registered
+        const emails = await this.getEmails();
+        //Used to store all the cryptos
+        let cryptos = {};
+        //Temp array used to store each cryptocurrency
+        let cryptoNames = [];
+
+        for (const email of emails) {
+            cryptoNames = await this.getCryptoName(email);
+            for (const name of cryptoNames) {
+                if (!cryptos[name])
+                    cryptos[name] = 0;
+            }
+        }
+
+        //Used to store the crypto names
+        const keys = Object.keys(cryptos);
+        if (keys.length !== 0)
+            return keys;
     }
 }
 

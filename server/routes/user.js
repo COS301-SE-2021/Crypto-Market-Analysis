@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const userFunctions =require('./userFunctions')
+const userFunctions =require('./userFunctions');
+const Twitter = require(`../social_media_sites/Twitter`);
+const twitter = new Twitter().getInstance();
 
 router.post("/get4chanPost", async (request,response)=>{
     const email = request.body.email;
@@ -65,6 +67,7 @@ router.post("/followCrypto", async (request,response)=>{
         return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
     else{
         await userFunctions.followCrypto(request.body.email,request.body.symbol,request.body.crypto_name).then(data=>{
+            twitter.getTimeline(request.body.email).catch(err => response.status(500).json({status:`Internal server error`, error: err}));
             return response.status(200).json(data);
         }).catch(err=>{
             return response.status(500).json({status:`Internal server error`, error: err})
@@ -115,19 +118,16 @@ router.post("/followSocialMedia",async (request,response)=>{
         }
 });
 
-router.post("/followSubreddit",async (request,response)=>{
-    console.log(request.body.email);
-    console.log(request.body.social_media_sites);
+router.post("/unfollowSocialMedia", async (request,response)=>{
 
-    if(!request.body.email || !request.body.social_media_sites){
+    if(!request.body.email || !request.body.social_media_sites)
         return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
-    }
     else{
-        await userFunctions.followSubreddit(request.body.email,request.body.social_media_sites).then(data=>{
-            response.status(200).json(data);
+        await userFunctions.unfollowSocialMedia(request.body.email,request.body.social_media_sites).then(data=>{
+            return response.status(200).json(data);
         }).catch(err=>{
-            response.status(500).json({status:`Internal server error`, error: err});
-        })
+            return response.status(500).json({status:`Internal server error`, error: err})
+        });
     }
 });
 
@@ -138,7 +138,6 @@ router.post("/followSubreddit",async (request,response)=>{
  * @return          A status code stating if the request was successful.
  * */
 router.post("/fetchUserSocialMedia", async (request, response) => {
-
     if(request.body.email === null) {
         return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
     }

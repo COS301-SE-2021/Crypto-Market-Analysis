@@ -42,14 +42,22 @@ function Subreddits()
                         console.log(selectedPlatforms)
                     })
                 }
-
-                platformsList.map((_platform)=>{
+                //sonarcloud
+                // platformsList.map((_platform)=>{
+                //     selectedPlatforms.forEach(element => {
+                //         if(element === _platform.name){
+                //             _platform.selected = true;
+                //         }
+                //     })
+                // })
+                    platformsList.forEach((_platform)=>{
                     selectedPlatforms.forEach(element => {
                         if(element === _platform.name){
                             _platform.selected = true;
                         }
                     })
                 })
+                //sonarcloud
                 setPlatforms(platformsList)
                 //test
 

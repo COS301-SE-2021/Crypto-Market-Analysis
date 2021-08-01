@@ -111,7 +111,7 @@ export default function HeaderStats(props) {
                       return (
                         <Carousel.Item key={coin.id}>
                           <div className="w-full lg:w-12/12 xl:w-12/12 px-4 mt-5">
-                              <Link to={{pathname:"/home/DetailedInfo", state:{coin_name:coin.name}}} onClick={changeLocation(coin.name)}>
+                              <Link to={{pathname:"/home/DetailedInfo", state:{coin_name:coin.name}}} onClick={()=>{changeLocation(coin.name)}}>
                                   <CardStats
                                       statSubtitle={coin.name}
                                       statTitle={coin.current_price}

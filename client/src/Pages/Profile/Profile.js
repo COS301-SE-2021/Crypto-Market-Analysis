@@ -69,16 +69,15 @@ const Profile = props =>
         )
     }
 
-    // const followUser = ()=>{
-    //     console.log("FOLLOW")
-    //     let user = {email: localStorage.getItem("emailSession"), screen_name: userToSearch }
-    //     axios.post('http://localhost:8080/twitter/follow/',user)
-    //     .then(response=>{
-    //         console.log(response)
-    //     })
-    //     .catch(err => {console.error(err)})
+    const followUser = ()=>{
+        let user = {email: localStorage.getItem("emailSession"), screen_name: userToSearch }
+        axios.post('http://localhost:8080/twitter/follow/',user)
+        .then(response=>{
+            console.log(response)
+        })
+        .catch(err => {console.error(err)})
 
-    // }
+    }
 
     const searchInput = (event) =>{ setUserToSearch(event.target.value) }
 
@@ -225,7 +224,7 @@ const Profile = props =>
                                                 </ul>
                                             </div>
                                             <button id="searchBtn" type="button" className="btn btn-secondary btn-search" onClick={searchUsername} ><span className="glyphicon glyphicon-search" >&nbsp;</span> <span className="label-icon" >Search</span></button>
-                                            <span id='followBtn'></span>
+                                            <span id='followBtn' onClick={followUser()}></span>
                                         </div>
                                     </div>
                                 </div>

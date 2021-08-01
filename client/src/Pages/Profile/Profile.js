@@ -118,7 +118,7 @@ const Profile = props =>
 
                             <div>
                                 <div style={{display:"flex",justifyContent:"space-between", width: "108%"}}>
-                                    <h4>{cryptoReq.email}</h4>
+                                    <h4>{userReq.email}</h4>
                                 </div>
 
 
@@ -163,13 +163,9 @@ const Profile = props =>
 
                     <AppBar position={"static"}>
                         <Tabs value={selectedTab} onChange={handleChange}>
-                            <Tab label="Cryptos Followed" >
-
-                            </Tab>
-
-                            <Tab label={"Platforms Followed"}>
-
-                            </Tab>
+                            <Tab label="Cryptos Followed" />
+                            <Tab label="Platforms Followed"/>
+                            <Tab label="Preferences"/>
                         </Tabs>
                     </AppBar>
 

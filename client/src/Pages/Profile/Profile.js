@@ -224,7 +224,7 @@ const Profile = props =>
                                                 </ul>
                                             </div>
                                             <button id="searchBtn" type="button" className="btn btn-secondary btn-search" onClick={searchUsername} ><span className="glyphicon glyphicon-search" >&nbsp;</span> <span className="label-icon" >Search</span></button>
-                                            <span id='followBtn' onClick={followUser()}></span>
+                                            <span id='followBtn' onClick={()=>{followUser()}}></span>
                                         </div>
                                     </div>
                                 </div>

@@ -109,7 +109,7 @@ export default function HeaderStats(props) {
                 <div className="col-12">
                 <Carousel cols={3} rows={2} gap={8} >
                 {
-                   cryptos.map((_coin) => {
+                   cryptos.map((coin) => {
                       return (
                         <Carousel.Item key={coin.id}>
                           <div className="w-full lg:w-12/12 xl:w-12/12 px-4 mt-5">

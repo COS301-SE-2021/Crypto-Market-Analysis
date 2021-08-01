@@ -13,7 +13,7 @@ export default function FourChan(){
 
         }
 
-        axios.post('http://localhost:8080/chan/get4chanPost/',cryptoReq)
+        axios.post('http://localhost:8080/user/get4chanPost/',cryptoReq)
             .then(response => {
                 let posts_4chan = [];
                 for(let j = 0; j<response.data.posts_array.length; j++)

@@ -41,10 +41,28 @@ const getUserCrypto = async (email_address)=>{
         return Promise.reject(error);
     }
 }
+//test code
+const getUserSubreddits = async (email_address)=>{
+    try{
+        return await user_object.getUserSubreddits(email_address);
+    }
+    catch (error){
+        return Promise.reject(error);
+    }
+}
 
 const fetchUserSocialMedia = async(email_address)=>{
     try{
         return await user_object.getSocialMediaSites(email_address);
+    }
+    catch (error){
+        return Promise.reject(error);
+    }
+}
+
+const fetchUserSubreddits = async(email_address)=>{
+    try{
+        await user_object.getSubreddit(email_address);
     }
     catch (error){
         return Promise.reject(error);
@@ -69,6 +87,15 @@ const unfollowCrypto = async (email_address, symbol) => {
     }
 }
 
+const unfollowSubreddit = async (email_address, subreddit) => {
+    try{
+        await user_object.removeSubreddit(email_address, subreddit);
+    }
+    catch (error){
+        return Promise.reject(error);
+    }
+}
+
 const followSocialMedia = async (email_address,social_media )=> {
     try{
         return await user_object.insertSocialMediaSite(email_address, social_media);
@@ -78,9 +105,10 @@ const followSocialMedia = async (email_address,social_media )=> {
     }
 }
 
-const unfollowSocialMedia = async (email_address, social_media) => {
+const followSubreddit = async (email_address,social_media )=> {
+    console.log("in userfunctions");
     try{
-        return await user_object.removeSocialMediaSite(email_address, social_media);
+        return await user_object.insertSubreddits(email_address, social_media);
     }
     catch (error){
         return Promise.reject(error);
@@ -105,4 +133,4 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
 
-module.exports = {saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, get4chanPost}
+module.exports = {getUserSubreddits,unfollowSubreddit, followSubreddit, fetchUserSubreddits, saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, get4chanPost}

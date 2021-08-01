@@ -22,13 +22,13 @@ export default function DetailedInfo(props) {
                             <Overview coin_name={coin_name}/>
                         </Tab>
                         <Tab eventKey="Tweets" title="Tweets">
-                            {/* <Tweets coin_name={coin_name} /> */}
+                            <Tweets coin_name={coin_name} />
                         </Tab>
                         <Tab eventKey="Reddit" title="Reddit">
-                            <Reddits />
+                            {/* <Reddits /> */}
                         </Tab>
                         <Tab eventKey="4chan" title="4chan">
-                            <FourChan />
+                            {/* <FourChan /> */}
                         </Tab>
                     </Tabs>
                 </div>

@@ -69,9 +69,11 @@ export default function HeaderStats(props) {
       if(requestObj.email){
         coin_ =  coinname
         OnContinue();
+        return true;
       }
       else{
         handleShowModal();
+        return false;
       }
       
     });

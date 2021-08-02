@@ -18,10 +18,9 @@ function Notifications() {
     }
     useEffect(async () => {
         await db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).get().then((data)=>{
-            for(const social of data.data().notification) {
+            /*for(const social of data.data().notification) {
                   console.log(social);
-            }
-
+            }*/
         })
     });
     return (
@@ -39,7 +38,6 @@ function Notifications() {
                             </Card.Header>
                             <Card.Body>
                                 <Row>
-
                                     <Col class="col-md-6 offset-md-4">
                                         <Alert variant="info">
                                             <i className="far fa-bell"></i>
@@ -52,9 +50,7 @@ function Notifications() {
                                             </span>
                                         </Alert>
                                     </Col>
-
                                 </Row>
-
                             </Card.Body>
                         </Card>
                     </Container>

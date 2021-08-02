@@ -8,6 +8,7 @@ import coinGecko from "../apis/CoinGecko"
 import {AppBar, Tab, Tabs} from "@material-ui/core";
 
 export default function Overview({coin_name}){
+    console.log(`Arguments: ${coin_name}`);
     let [coin, setCoin] = useState({});
     let [coinData, setCoinData] = useState({});
     let [marketData, setMarketData] = useState({});
@@ -31,13 +32,15 @@ export default function Overview({coin_name}){
 
 
     useEffect(async () => {
-        axios.get('https://api.coingecko.com/api/v3/coins/'+coin_name.toLowerCase())
+        coin_name = coin_name.toLowerCase();
+        axios.get('https://api.coingecko.com/api/v3/coins/'+coin_name)
             .then(async(response) => {
                 setCoin(response.data)
             })
             .catch(err => {console.error(err);})
 
         const fetchData = async () => {
+
             const [week] = await Promise.all([coinGecko.get("/coins/" + coin_name + "/market_chart/", {
                 params: {
                     vs_currency: "zar",
@@ -96,7 +99,6 @@ export default function Overview({coin_name}){
                 }),
             ]);
 
-            console.log(week.data.prices);
             for (let i = 0; i < detail.data.length; i++) {
                 if (coin_name.toLowerCase() === detail.data[i].id) {
                     setCoinData({
@@ -109,7 +111,6 @@ export default function Overview({coin_name}){
                         detail: detail.data[i],
                     });
                 }
-                console.log(detail.data[i])
             }
 
             for (let i =0; i < detail.data.length; i++)

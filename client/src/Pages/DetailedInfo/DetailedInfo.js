@@ -10,10 +10,9 @@ import FourChan from '../../components/4chan/fourChan'
 import Sidebar from "../../components/Sidebar/Sidebar.js";
 
 export default function DetailedInfo(props) {
-    let coin_name = props.location.state.coin_name
+    const coin_name = props.location.state.coin_name
     return(
         <>
-        {console.log(coin_name)}
         <Sidebar />
             <div className="md:ml-64" >
                 <div className="container" >

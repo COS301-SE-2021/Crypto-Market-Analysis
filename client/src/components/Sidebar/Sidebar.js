@@ -190,7 +190,7 @@ export default function Sidebar() {
                 </Link>
               </li>
 
-              <li className="items-center">
+              {/*<li className="items-center">
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
@@ -211,8 +211,8 @@ export default function Sidebar() {
                   />{" "}
                   Settings
                 </Link>
-              </li>
-              <li className="items-center">
+              </li>*/}
+              {/*<li className="items-center">
                 <Link
                     className={
                       "text-xs uppercase py-3 font-bold block " +
@@ -232,7 +232,7 @@ export default function Sidebar() {
                   ></i>{" "}
                   Notification
                 </Link>
-              </li>
+              </li>*/}
               <li className="items-center">
                 <Link
                   className={

@@ -165,7 +165,7 @@ router.post("/fetchUserSubreddits", async (request, response) => {
     }
 });
 
-
+//this is the functions
 router.post("/followSubreddit",async (request,response)=>{
     if(!request.body.email || !request.body.social_media_sites){
         return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});

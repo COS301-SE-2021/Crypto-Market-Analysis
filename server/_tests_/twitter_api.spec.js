@@ -11,8 +11,8 @@ describe('POST /twitter/getCryptoTweets', () => {
 
         for(const body of body_data){
             const response = await request(app).post(`/twitter/getCryptoTweets`).send({});
-            console.log(response);
-            expect(response.statusCode).toBe(400);
+            expect(response.error.status).toBe(400);
+            expect(response.error.text).toEqual(`{"error":{"message":"Malformed request. Please check your parameters"}}`);
         }
     });
 });

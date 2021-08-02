@@ -7,7 +7,7 @@ import "../Settings/Settings.css"
 import "./AllCrypto.css"
 
 const coins = ["btc","eth","usdt","bnb","ada","xrp","usdc","doge","dot","busd"]
-export default function AllCryptos()
+export default function AllCryptos(props)
 {
     // cryptos = cryptos
     let [cryptos, setCryptos] = useState([]);
@@ -70,6 +70,8 @@ export default function AllCryptos()
             }
 
     const select = (name,type) => {
+        
+        
         if(type == "cryptos"){
             cryptos =  [...cryptos.map((crypto)=>{
                 if(name == crypto.symbol){
@@ -79,11 +81,13 @@ export default function AllCryptos()
                         if selected add to favourite list else remove it
                     */
                     if(crypto.selected) {
+                       
                         let  cryptoToAdd = {
                           email: localStorage.getItem("emailSession"),
                             symbol: crypto.symbol,
                             crypto_name: crypto.name,
                         }
+                       
                         axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd)
                             .catch(err => {console.error(err);})
                     }
@@ -101,7 +105,10 @@ export default function AllCryptos()
                 }
             })]
             setCryptos(cryptos)
-        }
+       }
+       let func = props.alert 
+        func() //alert observer in parent component to trigger change in headerstat
+
     }
 
     //sets search to whats typed in the search input field
@@ -118,24 +125,27 @@ export default function AllCryptos()
         {/* <Sidebar /> */}
          <div className="container">
             <div className="row"> 
+                <div className="crypto-search">
+                    <form>
+                        <input type="search" className="form-control rounded" placeholder="Search..."
+                                onChange={searchCoin}/>
+                    </form>
+                </div>
                 <div className=" overflow-auto block crypto-wrapper" style={{height:"600px",margin:"auto"}}>
-                    <div className="crypto-search">
-                        <form>
-                            <input type="search" className="form-control rounded" placeholder="Search..."
-                                   onChange={searchCoin}/>
-                        </form>
-                    </div>
+                    
                     {
-                        searchedCryptos.map((myCrypto, index) =>{
+                        searchedCryptos.map((myCrypto,index) =>{
+                            
                             return(
-                                <div className='coin-container' key={index}>
+                                <div key={index} className='coin-container'>
+
+
                                         <div className='coin-row'>
                                                 <div className='coin'>
-                                                    {/* <a id="link" href= {"/home/DetailedInfo"}> */}
+                                                   
                                                     {myCrypto.selected?<Star className="select-star" color="primary" onClick={()=>{select(myCrypto.symbol,"cryptos")}}/>:<Star className="select-star" color="action" onClick={()=>{select(myCrypto.symbol, "cryptos")}}/>}
                                                     <img src={myCrypto.image} alt='crypto' />
                                                     <h1>{myCrypto.name}</h1>
-                                                    {/* </a> */}
                                                     <p className='coin-symbol'>{myCrypto.symbol}</p>
                                                 </div>
                                                 <div className='coin-data'>

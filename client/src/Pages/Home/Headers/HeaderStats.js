@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import axios from "axios"
-import Carousel from 'react-grid-carousel'
+import Carousel from "react-grid-carousel"
+import { Link, useHistory } from "react-router-dom"
 
+import ModalComp from "../../../components/Modal/Modal"
 import CardStats from "../../../components/Cards/CardStats"
 import "./Header.css";
 
@@ -9,10 +11,16 @@ import "./Header.css";
 
 const coins = ["btc","eth","usdt","bnb","ada","xrp","usdc","doge","dot","busd"]
 
-export default function HeaderStats() {
-  let [cryptos, setCryptos] = useState([]);
+export default function HeaderStats(props) {
+  const unblockHandle = useRef()
+  const history = useHistory()
+  const [show, setShow] = useState(false)
+  let [cryptos, setCryptos] = useState([])
+  let  requestObj = { email: localStorage.getItem("emailSession") }
+  let coin_ = "" //coin name to pass to detailedInfo
   
   useEffect(async () => {
+   
     let selectedCryptos = []
     let  requestObj = { email: localStorage.getItem("emailSession") }
     if(requestObj.email != null){ /* If user logged in, get crypto coins followed by that user */
@@ -32,7 +40,7 @@ export default function HeaderStats() {
     else{ /* else if user is not logged in, use default(Top 10) crypto coins */
       getCoins(coins)
     }
-  },[])
+  },[props.ob])
 
   /*
     The post request get cryptocurrencies from coingecko API
@@ -54,18 +62,58 @@ export default function HeaderStats() {
         })
         .catch(err => {console.error(err);})
   }
+
+  const changeLocation = (coinname)=>{
+      
+    unblockHandle.current = history.block(() => {
+      if(requestObj.email){
+        coin_ =  coinname
+        OnContinue();
+        return true;
+      }
+      else{
+        handleShowModal();
+        return false;
+      }
+      
+    });
+  }
+  const handleShowModal =()=>{
+    setShow(true);
+  }
+
+  const onCancel =(e)=>{
+    setShow(false);
+    
+  }
+
+  const OnContinue =()=>{
+
+    if (unblockHandle) {
+      unblockHandle.current()
+    }
+    if(requestObj.email != null){
+      history.push({pathname:"/home/DetailedInfo", state:{coin_name:coin_}})
+    }
+    else{
+      history.push('/login')
+    }
+    
+  }
+
   return (
     <>
+            <ModalComp show={show} cancel={onCancel} continue={OnContinue} />
             <div className="container" style={{width:'90%',margin:'auto'}}>
               <div className="row">
                 <div className="col-12">
-                <Carousel cols={3} rows={2} gap={8} loop >
+                <Carousel cols={3} rows={2} gap={8} >
                 {
-                   cryptos.map((coin, index) => {
+                   cryptos.map((coin) => {
                       return (
-                        <Carousel.Item>
-                          <div key={index} className="w-full lg:w-12/12 xl:w-12/12 px-4 mt-5">
-                              <a id="link" href= {"/home/DetailedInfo"}>
+                        <Carousel.Item key={coin.id}>
+                          <div className="w-full lg:w-12/12 xl:w-12/12 px-4 mt-5">
+                              <Link to={{pathname:"/home/DetailedInfo", state:{coin_name:coin.name}}} onClick={()=>{changeLocation(coin.name)}}>
                                   <CardStats
                                       statSubtitle={coin.name}
                                       statTitle={coin.current_price}
@@ -75,7 +123,7 @@ export default function HeaderStats() {
                                       statDescripiron="In 24 hours"
                                       statCoinImage={coin.image}
                                   />
-                              </a>
+                              </Link>
                           </div> 
                         </Carousel.Item>
                       )

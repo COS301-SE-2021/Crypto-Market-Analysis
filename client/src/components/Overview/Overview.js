@@ -1,6 +1,5 @@
 import "bootstrap/dist/css/bootstrap.css";
 import { Markup } from 'react-render-markup'
-import DetailedInfo from '../../Pages/DetailedInfo/DetailedInfo'
 import React,{ useState, useEffect } from 'react'
 import axios from "axios"
 import HistoryChart from "../HistoryChart/HistoryChart"

@@ -6,6 +6,8 @@ import {Avatar, Tabs, AppBar, Tab} from "@material-ui/core"
 import EditIcon from "@material-ui/icons/Edit"
 import axios from "axios";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import "./Profile.css"
+
 
 const Button = styled.button`
 display: block;
@@ -24,6 +26,7 @@ const Profile = props =>
     let[socs,setSoc] =useState([]);
 
     const [selectedTab, setSelectedTab] = React.useState(0);
+    const [userToSearch, setUserToSearch] = useState({})
 
     const handleChange = (event, newValue) =>
     {
@@ -31,15 +34,12 @@ const Profile = props =>
     }
 
     let[crypts, setCrypt] = useState([]);
-    let  cryptoReq = {
+    let  userReq = {
         email: localStorage.getItem("emailSession")
     }
     useEffect(async () => {
 
-
-
-
-        axios.post('http://localhost:8080/user/getUserCryptos/',cryptoReq)
+        axios.post('http://localhost:8080/user/getUserCryptos/',userReq)
             .then( response => {
                 let soc = [];
                 for(const crypto of response.data)
@@ -48,7 +48,7 @@ const Profile = props =>
             })
             .catch(err => {console.error(err);})
 
-        axios.post('http://localhost:8080/user/fetchUserSocialMedia/',cryptoReq)
+        axios.post('http://localhost:8080/user/fetchUserSocialMedia/',userReq)
             .then(response => {
                 let socialName = [];
                 for(const platform of response.data)
@@ -57,11 +57,47 @@ const Profile = props =>
             })
             .catch(err => {console.error(err);})
 
-    },[]);
+    },[])
+
+    const handleFollow = (user)=>{
+        window.twttr.widgets.createFollowButton(
+            userToSearch,
+            document.getElementById('followBtn'),
+            {
+                size: 'large'
+            }
+        )
+    }
+
+    const followUser = ()=>{
+        let user = {email: localStorage.getItem("emailSession"), screen_name: userToSearch }
+        axios.post('http://localhost:8080/twitter/follow/',user)
+        .then(response=>{
+            console.log(response)
+        })
+        .catch(err => {console.error(err)})
+
+    }
+
+    const searchInput = (event) =>{ setUserToSearch(event.target.value) }
+
+    const searchUsername = async () =>{
+        
+        
+        let user = { screen_name: userToSearch }
+        axios.post('http://localhost:8080/twitter/validateScreenName/',user)
+        .then(()=>{
+            handleFollow(userToSearch)
+        })
+        .catch(err => {console.error(err)})
+    }
+
+    
     return(
 
         <>
             <Sidebar />
+            <script sync src="https://platform.twitter.com/widgets.js%22%3E"></script>
             <div className="md:ml-64">
                 <div className="container" >
 
@@ -81,7 +117,7 @@ const Profile = props =>
 
                             <div>
                                 <div style={{display:"flex",justifyContent:"space-between", width: "108%"}}>
-                                    <h4>{cryptoReq.email}</h4>
+                                    <h4>{userReq.email}</h4>
                                 </div>
 
 
@@ -126,13 +162,9 @@ const Profile = props =>
 
                     <AppBar position={"static"}>
                         <Tabs value={selectedTab} onChange={handleChange}>
-                            <Tab label="Cryptos Followed" >
-
-                            </Tab>
-
-                            <Tab label={"Platforms Followed"}>
-
-                            </Tab>
+                            <Tab label="Cryptos Followed" />
+                            <Tab label="Platforms Followed"/>
+                            <Tab label="Preferences"/>
                         </Tabs>
                     </AppBar>
 
@@ -168,10 +200,40 @@ const Profile = props =>
                             </ul>
                         </ul>
                     }
+                    {
+                        selectedTab === 2 &&
+                        <div id="searchContainer" className="container" >
+                           <script sync src="https://platform.twitter.com/widgets.js%22%3E"></script>
+                            <div className="row searchFilter" >
+                                <div className="col-sm-12" >
+                                    <div className="input-group" >
+                                        <input id="table_filter" type="text" className="form-control" aria-label="Text input with segmented button dropdown" onChange={searchInput}/>
+                                        <div id="searchButtons" className="input-group-btn" >
+                                            <button type="button" className="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ><span className="label-icon" >Platform</span> <span className="caret" >&nbsp;</span></button>
+                                            <div className="dropdown-menu dropdown-menu-right" >
+                                                <ul className="category_filters" >
+                                                    <li >
+                                                        <input className="cat_type category-input" data-label="Twitter" id="twitter" value="" name="radios" type="radio" /><label htmlFor="twitter" >Twitter</label>
+                                                    </li>
+                                                    <li >
+                                                        <input type="radio" name="radios" id="reddit" value="Reddi" /><label className="category-label" htmlFor="reddit" >Reddit</label>
+                                                    </li>
+                                                    <li >
+                                                        <input type="radio" name="radios" id="4chan" value="4chan" /><label className="category-label" htmlFor="4chan" >4chan</label>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <button id="searchBtn" type="button" className="btn btn-secondary btn-search" onClick={searchUsername} ><span className="glyphicon glyphicon-search" >&nbsp;</span> <span className="label-icon" >Search</span></button>
+                                            <span id='followBtn' onClick={()=>{followUser()}}></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
 
                 </div>
             </div>
-
         </>
     );
 }

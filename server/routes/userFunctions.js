@@ -21,19 +21,53 @@ const get4chanPost = async ()=>{
 /** Gets all the reddit posts from the database.
  * @return  {object} Containing an array of posts if it was successful or a rejected Promise.
 * */
+//
+// const getRedditPost = async (email)=>{
+//     // const citiesRef = db.collection('cities');
+//     // const coastalCities = await citiesRef.where('regions', 'array-contains-any',
+//     //     ['west_coast', 'east_coast']).get();
+//     let posts = [];
+//     try{
+//         const docs = await firestore_db.fetch(`reddit_info`).then(snapshot => {return snapshot.docs});
+//         for(const doc of docs)
+//             posts.push(doc("CryptoCurrencies").data().posts);
+//         return {status: `Ok`, posts: posts};
+//     }
+//     catch(err){
+//         return Promise.reject(new Error(err));
+//     }
+// }
 
-const getRedditPost = async ()=>{
+/*
+const citiesRef = db.collection('cities');
+const coastalCities = await citiesRef.where('regions', 'array-contains-any',
+    ['west_coast', 'east_coast']).get();
+ */
+const getRedditPost = async (email)=>{
+    let subs = await getUserSubreddits(email);
+    console.log(subs);
     let posts = [];
-    try{
-        const docs = await firestore_db.fetch(`reddit_info`).then(snapshot => {return snapshot.docs});
-        for(const doc of docs)
-            posts.push(doc.data().posts);
-        return {status: `Ok`, posts: posts};
+    let docs = [];
+    for(let i=0; i<subs.length; i++)
+    {
+
+        docs.push(await firestore_db.fetch(`reddit_info`,subs[i],'posts'));
     }
-    catch(err){
-        return Promise.reject(new Error(err));
-    }
+    console.log(docs);
+    posts = docs;
+    return {status: `Ok`, posts: posts};
+    // try{
+    //     for(const doc of docs)
+    //         posts.push(doc.data().posts);
+    //     console.log(posts);
+    //     return {status: `Ok`, posts: posts};
+    // }
+    // catch(err){
+    //     return Promise.reject(new Error(err));
+    // }
 }
+
+
 
 
 

@@ -10,17 +10,9 @@ describe('POST /', () => {
 });
 
 describe('POST /user', () => {
-    test('responds with error message in json 404', done => {
-        request(app)
-            .post('/user')
-            .send({})
-            .expect('Content-Type', /json/)
-            .expect(404)
-            .end((err,res) => {
-                if(err) return done(err);
-                expect(res.body.error.message).to.equal("Not found")
-                return done();
-            });
+    test('invalid default user route. return 404 not found error', async () => {
+        const response = await request(app).post(`/user`).send({});
+        expect(response.statusCode).toBe(404);
     });
 });
 

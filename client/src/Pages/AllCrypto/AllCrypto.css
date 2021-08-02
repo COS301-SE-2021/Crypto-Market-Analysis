@@ -1,9 +1,19 @@
 .crypto-wrapper
 {
   height:600px;
-  padding-right: 35px;
+  padding-right: 2em;
 }
-
+.crypto-search
+{
+    width: 100%;
+    align-content: center;
+    margin-bottom: 2em;
+}
+.crypto-search input{
+  width: 30%;
+  margin:auto;
+  
+}
 .coin-container {
   display: flex;
   justify-content: center;

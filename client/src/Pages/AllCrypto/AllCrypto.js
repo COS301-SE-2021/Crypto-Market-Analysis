@@ -113,7 +113,7 @@ export default function AllCryptos(props)
     }
 
     //sets search to whats typed in the search input field
-    const searchCoin = (event) => {setSearchCrypto(event.target.value)}
+    const searchCoin = (event) => { setSearchCrypto(event.target.value) }
    
 
     //filter list based on the search input
@@ -127,14 +127,12 @@ export default function AllCryptos(props)
          <div className="container">
             <div className="row"> 
                 <div className="crypto-search">
-                    <form>
-                        <input type="search" className="form-control rounded" placeholder="Search..."
+                    <input type="search" className="form-control rounded" placeholder="Search..."
                                 onChange={searchCoin}/>
-                    </form>
                 </div>
                 <div className=" overflow-auto block crypto-wrapper" style={{height:"600px",margin:"auto"}}>
-                    
-                    {
+                    {searchedCryptos.length < 1 ? <p className="text-center">Oops :( <br/>We don't have that coin</p>
+                    :<>{
                         searchedCryptos.map((myCrypto,index) =>{
                             
                             return(
@@ -168,6 +166,7 @@ export default function AllCryptos(props)
                             )
                         })
                     }
+                     </>}
                 </div>
             </div>
         </div>

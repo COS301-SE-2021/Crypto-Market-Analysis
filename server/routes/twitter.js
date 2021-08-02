@@ -20,8 +20,10 @@ router.post('/getCryptoTweets', async (request, response, next) => {
         const embedded_tweets = await twitter.getCryptoTweets(email,crypto_name);
         return response.status(200).json({data: embedded_tweets})
     }
-    catch(error){
-        return response.status(500).json({status: 500, error: `Something went wrong while trying to retrieve the tweets: ${error}`});
+    catch(err){
+        let error = new Error(err);
+        error.status = 500;
+        return next(error);
     }
 });
 

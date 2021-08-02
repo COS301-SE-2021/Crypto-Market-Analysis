@@ -5,13 +5,16 @@ const twitter = new Twitter().getInstance();
 const User_Hash_Table = require(`../Hash_Tables/User_Hash_Table`);
 const user_object = new User_Hash_Table().getInstance();
 
-router.post('/getCryptoTweets', async (request, response) => {
+router.post('/getCryptoTweets', async (request, response, next) => {
     const crypto_name = request.body.crypto_name;
     const email = request.body.email;
 
     //Check if the request has the parameters
-    if(!crypto_name || !email)
-        return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
+    if(!crypto_name || !email){
+        let error = new Error(`Malformed request. Please check your parameters`);
+        error.status = 400;
+        return next(error);
+    }
 
     try {
         const embedded_tweets = await twitter.getCryptoTweets(email,crypto_name);

@@ -72,23 +72,28 @@ router.post('/follow', async (request, response, next) => {
     }
 });
 
-router.post('/unfollow', async (request, response) => {
+router.post('/unfollow', async (request, response, next) => {
     //The email of the user
     const email = request.body.email;
     //The screen name of the person that the user wants to unfollow
     const screen_name = request.body.screen_name;
 
     //Check if the request has the parameters
-    if(!screen_name || !email)
-        return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
+    if(!screen_name || !email){
+        let error = new Error(`Malformed request. Please check your parameters`);
+        error.status = 400;
+        return next(error);
+    }
 
     try {
         //Remove the screen name from the email specified
         await user_object.removeScreenName(email, screen_name);
         return response.status(200).json({status: `Success`, message: `Screen name successfully removed`});
     }
-    catch(error){
-        return response.status(500).json({status: 500, error: `Something went wrong while trying to remove the screen name: ${error}`});
+    catch(err){
+        let error = new Error(err);
+        error.status = 500;
+        return next(error);
     }
 });
 

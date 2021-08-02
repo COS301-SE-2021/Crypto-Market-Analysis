@@ -58,15 +58,20 @@ class Reddit {
         this.#firestore_db.save('reddit_info',Subreddit,'posts',Data);
         // this.#firestore_db.save('reddit_data',Subreddit,'posts',Data);
     }
+
+    getAll= async () => {
+        const emails = await this.#firestore_db.fetch("Subreddits","allSubreddits","reddits");
+        console.log(emails);
+    }
+
 }
 
 let reddits = new Reddit();
-reddits.completeScrape("CryptoCurrencies").then();
-reddits.completeScrape("SatoshiStreetBets").then();
-reddits.completeScrape("Crypto_Currency_News").then();
-reddits.completeScrape("CryptoCurrencyTrading").then();
-reddits.completeScrape("Cryptomarkets").then();
-// reddits.scrapeSubreddit2("Bitcoin").then();
-// reddits.scrapeSubreddit2("Ethereum").then();
+// reddits.completeScrape("CryptoCurrencies").then();
+// reddits.completeScrape("SatoshiStreetBets").then();
+// reddits.completeScrape("Crypto_Currency_News").then();
+// reddits.completeScrape("CryptoCurrencyTrading").then();
+// reddits.completeScrape("Cryptomarkets").then();
+reddits.getAll().then(r => console.log(r));
 
 module.exports = Reddit;

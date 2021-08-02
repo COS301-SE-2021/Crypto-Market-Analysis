@@ -357,7 +357,7 @@ class User_Hash_Table {
             return Promise.reject(`Parameters are undefined`);
     }
 
-    //THE ONE BEING USED
+    //THE ONE BEING USED conf
     async insertSubreddits(key, subreddit){
         console.log("in userhash")
         if(!this.#initialized){
@@ -387,6 +387,10 @@ class User_Hash_Table {
                         try{
                             //Add the subreddit to the array of subreddits and add it to the database
                             subreddits_array.push(subreddit);
+                            //add it to list
+                            //test
+                            await this.allSubreddit(subreddit);
+                            //test
                             firestore_db.save(`Users`, key, `subreddits`, subreddit, true);
                             return Promise.resolve(true);
                         }
@@ -656,6 +660,30 @@ class User_Hash_Table {
         const keys = Object.keys(cryptos);
         if (keys.length !== 0)
             return keys;
+    }
+
+    async allSubreddit(subreddit) {
+        if (!this.#initialized) {
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        let subreddits_array = firestore_db.fetch("Subreddits","allSubreddits","SubredditList");
+
+
+        //Check if the subreddit already exists in the array. If it doesn't add it
+        if(subreddits_array.indexOf(subreddit) === -1) {
+            try{
+                //Add the subreddit to the array of subreddits and add it to the database
+                subreddits_array.push(subreddit);
+                firestore_db.save(`Subreddits`, `allSubreddits`, `SubredditList`, true);
+                return Promise.resolve(true);
+            }
+            catch (error){
+                return await Promise.reject(error);
+            }
+        }
+
     }
 }
 

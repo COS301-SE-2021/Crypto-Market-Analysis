@@ -1,11 +1,11 @@
 .crypto-wrapper
 {
   height:600px;
-  padding-right: 35x;
+  padding-right: 35px;
 }
 
 .crypto-wrapper::-webkit-scrollbar {
-  width: 10px;
+  width: 1.2em;
   margin-right:10px;
 }
 

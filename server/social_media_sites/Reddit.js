@@ -82,7 +82,8 @@ class Reddit {
     }
 }
 
-let reddits = new Reddit();
+//let reddits = new Reddit();
+
 // reddits.completeScrape("CryptoCurrencies").then();
 // reddits.completeScrape("SatoshiStreetBets").then();
 // reddits.completeScrape("Crypto_Currency_News").then();
@@ -91,7 +92,11 @@ let reddits = new Reddit();
 // reddits.scrapeSubreddit2("Bitcoin").then();
 // reddits.scrapeSubreddit2("Ethereum").then();
 
-reddits.allSubreddits().then();
+
+// let res = reddits.allSubreddits().then();
+// for (let i =0;i<res.length;i++) {
+//     reddits.completeScrape(res[i]).then();
+// }
 
 
 module.exports = Reddit;

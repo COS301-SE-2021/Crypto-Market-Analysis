@@ -43,6 +43,7 @@ router.post("/getUserCryptos", async (request, response) => {
          })
      }
  });
+
 //testcode
 router.post("/getUserSubreddits", async (request, response) => {
     if(!request.body.email)

@@ -21,6 +21,7 @@ const get4chanPost = async ()=>{
 /** Gets all the reddit posts from the database.
  * @return  {object} Containing an array of posts if it was successful or a rejected Promise.
 * */
+
 const getRedditPost = async ()=>{
     let posts = [];
     try{
@@ -33,6 +34,9 @@ const getRedditPost = async ()=>{
         return Promise.reject(new Error(err));
     }
 }
+
+
+
 const getUserCrypto = async (email_address)=>{
     try{
         return await user_object.getCryptoName(email_address);

@@ -53,7 +53,7 @@ const getUserSubreddits = async (email_address)=>{
 
 const fetchUserSocialMedia = async(email_address)=>{
     try{
-        await user_object.getSocialMediaSites(email_address);
+        return await user_object.getSocialMediaSites(email_address);
     }
     catch (error){
         return Promise.reject(error);
@@ -115,7 +115,6 @@ const followSubreddit = async (email_address,social_media )=> {
     }
 }
 
-
 const saveToDB = async (arr, socialmedia , crypto)=> {
     let mini=Math.min.apply(Math, arr)
     let maxi = Math.max.apply(Math, arr)
@@ -133,6 +132,5 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
 
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
-
 
 module.exports = {getUserSubreddits,unfollowSubreddit, followSubreddit, fetchUserSubreddits, saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, get4chanPost}

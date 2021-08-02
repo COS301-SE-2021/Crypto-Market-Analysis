@@ -60,7 +60,7 @@ CardStats.defaultProps = {
 
 CardStats.propTypes = {
   statSubtitle: PropTypes.string,
-  statTitle: PropTypes.string,
+  statTitle: PropTypes.number,
   statArrow: PropTypes.oneOf(["up", "down"]),
   statPercent: PropTypes.string,
   // can be any of the text color utilities

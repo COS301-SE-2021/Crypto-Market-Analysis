@@ -70,44 +70,45 @@ export default function AllCryptos(props)
             }
 
     const select = (name,type) => {
+        setTimeout(function() {
         
-        
-        if(type == "cryptos"){
-            cryptos =  [...cryptos.map((crypto)=>{
-                if(name == crypto.symbol){
-                    crypto.selected = !crypto.selected;
+            if(type == "cryptos"){
+                cryptos =  [...cryptos.map((crypto)=>{
+                    if(name == crypto.symbol){
+                        crypto.selected = !crypto.selected;
 
-                    /*
-                        if selected add to favourite list else remove it
-                    */
-                    if(crypto.selected) {
-                       
-                        let  cryptoToAdd = {
-                          email: localStorage.getItem("emailSession"),
-                            symbol: crypto.symbol,
-                            crypto_name: crypto.name,
-                        }
-                       
-                        axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd)
-                            .catch(err => {console.error(err);})
-                    }
-                    else{
-                        let  cryptoToRemove = {
+                        /*
+                            if selected add to favourite list else remove it
+                        */
+                        if(crypto.selected) {
+                        
+                            let  cryptoToAdd = {
                             email: localStorage.getItem("emailSession"),
-                            symbol: crypto.symbol,
-                          }
-                          axios.post('http://localhost:8080/user/unfollowCrypto/',cryptoToRemove)
-                              .catch(err => {console.error(JSON.stringify(err));})
+                                symbol: crypto.symbol,
+                                crypto_name: crypto.name,
+                            }
+                        
+                            axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd)
+                                .catch(err => {console.error(err);})
+                        }
+                        else{
+                            let  cryptoToRemove = {
+                                email: localStorage.getItem("emailSession"),
+                                symbol: crypto.symbol,
+                            }
+                            axios.post('http://localhost:8080/user/unfollowCrypto/',cryptoToRemove)
+                                .catch(err => {console.error(JSON.stringify(err));})
+                        }
                     }
-                }
-                return {
-                    ...crypto
-                }
-            })]
-            setCryptos(cryptos)
-       }
-       let func = props.alert 
-        func() //alert observer in parent component to trigger change in headerstat
+                    return {
+                        ...crypto
+                    }
+                })]
+                setCryptos(cryptos)
+            }
+            let func = props.alert 
+                func() //alert observer in parent component to trigger change in headerstat
+        },2000)
 
     }
 

@@ -70,49 +70,50 @@ export default function AllCryptos(props)
             }
 
     const select = (name,type) => {
+        setTimeout(function() {
         
-        
-        if(type == "cryptos"){
-            cryptos =  [...cryptos.map((crypto)=>{
-                if(name == crypto.symbol){
-                    crypto.selected = !crypto.selected;
+            if(type == "cryptos"){
+                cryptos =  [...cryptos.map((crypto)=>{
+                    if(name == crypto.symbol){
+                        crypto.selected = !crypto.selected;
 
-                    /*
-                        if selected add to favourite list else remove it
-                    */
-                    if(crypto.selected) {
-                       
-                        let  cryptoToAdd = {
-                          email: localStorage.getItem("emailSession"),
-                            symbol: crypto.symbol,
-                            crypto_name: crypto.name,
-                        }
-                       
-                        axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd)
-                            .catch(err => {console.error(err);})
-                    }
-                    else{
-                        let  cryptoToRemove = {
+                        /*
+                            if selected add to favourite list else remove it
+                        */
+                        if(crypto.selected) {
+                        
+                            let  cryptoToAdd = {
                             email: localStorage.getItem("emailSession"),
-                            symbol: crypto.symbol,
-                          }
-                          axios.post('http://localhost:8080/user/unfollowCrypto/',cryptoToRemove)
-                              .catch(err => {console.error(JSON.stringify(err));})
+                                symbol: crypto.symbol,
+                                crypto_name: crypto.name,
+                            }
+                        
+                            axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd)
+                                .catch(err => {console.error(err);})
+                        }
+                        else{
+                            let  cryptoToRemove = {
+                                email: localStorage.getItem("emailSession"),
+                                symbol: crypto.symbol,
+                            }
+                            axios.post('http://localhost:8080/user/unfollowCrypto/',cryptoToRemove)
+                                .catch(err => {console.error(JSON.stringify(err));})
+                        }
                     }
-                }
-                return {
-                    ...crypto
-                }
-            })]
-            setCryptos(cryptos)
-       }
-       let func = props.alert 
-        func() //alert observer in parent component to trigger change in headerstat
+                    return {
+                        ...crypto
+                    }
+                })]
+                setCryptos(cryptos)
+            }
+            let func = props.alert 
+                func() //alert observer in parent component to trigger change in headerstat
+        },2000)
 
     }
 
     //sets search to whats typed in the search input field
-    const searchCoin = (event) => {setSearchCrypto(event.target.value)}
+    const searchCoin = (event) => { setSearchCrypto(event.target.value) }
    
 
     //filter list based on the search input
@@ -126,14 +127,12 @@ export default function AllCryptos(props)
          <div className="container">
             <div className="row"> 
                 <div className="crypto-search">
-                    <form>
-                        <input type="search" className="form-control rounded" placeholder="Search..."
+                    <input type="search" className="form-control rounded" placeholder="Search..."
                                 onChange={searchCoin}/>
-                    </form>
                 </div>
                 <div className=" overflow-auto block crypto-wrapper" style={{height:"600px",margin:"auto"}}>
-                    
-                    {
+                    {searchedCryptos.length < 1 ? <p className="text-center">Oops :( <br/>We don't have that coin</p>
+                    :<>{
                         searchedCryptos.map((myCrypto,index) =>{
                             
                             return(
@@ -167,6 +166,7 @@ export default function AllCryptos(props)
                             )
                         })
                     }
+                     </>}
                 </div>
             </div>
         </div>

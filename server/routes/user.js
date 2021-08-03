@@ -43,6 +43,7 @@ router.post("/getUserCryptos", async (request, response) => {
          })
      }
  });
+
 //testcode
 router.post("/getUserSubreddits", async (request, response) => {
     if(!request.body.email)
@@ -160,6 +161,20 @@ router.post("/fetchUserSubreddits", async (request, response) => {
             return response.status(200).json(data);
         }).catch(err=>{
             return response(401).json({status:`error`, error: err})
+        })
+    }
+});
+
+//this is the functions
+router.post("/followSubreddit",async (request,response)=>{
+    if(!request.body.email || !request.body.social_media_sites){
+        return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
+    }
+    else{
+        await userFunctions.followSubreddit(request.body.email,request.body.social_media_sites).then(data=>{
+            response.status(200).json(data);
+        }).catch(err=>{
+            response.status(500).json({status:`Internal server error`, error: err});
         })
     }
 });

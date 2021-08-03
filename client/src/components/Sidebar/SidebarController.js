@@ -1,4 +1,4 @@
-import React, { useState,useRef}  from "react";
+import React, { useState,useRef, useEffect}  from "react";
 import SidebarView  from './SidebarView';
 import {useHistory} from "react-router-dom";
 
@@ -8,8 +8,23 @@ const SidebarController = () => {
     const [show, setShow] = useState(false);
     const unblockHandle = useRef();
     const history = useHistory()
+    let [linkDisable, setLinkDisable] = useState({})
+    let  cryptoReq = {
+        email: localStorage.getItem("emailSession")
+    }
 
     //Sidebar Controller
+    useEffect(() => {
+
+        if(user != null){
+            setLinkDisable(false)
+        }
+        else{
+            setLinkDisable(true)
+        }
+
+    }, [])
+
     function handleShowModal () {
         setShow(true);
     }

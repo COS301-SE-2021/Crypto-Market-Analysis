@@ -74,13 +74,13 @@ export default function UpdateProfile() {
                             />
                         </Form.Group>
                         <Button disabled={loading} className="w-100" type="submit">
-                            <Link to="/Profile">Update</Link>
+                            <Link to="/ProfileView">Update</Link>
                         </Button>
                     </Form>
                 </Card.Body>
             </Card>
             <div className="w-100 text-center mt-2">
-                <Link to="/Profile">Abort</Link>
+                <Link to="/ProfileView">Abort</Link>
             </div>
         </>
     )

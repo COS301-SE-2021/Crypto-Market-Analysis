@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import {Avatar, Tabs, AppBar, Tab} from "@material-ui/core"
 import EditIcon from "@material-ui/icons/Edit"
 import axios from "axios";
-import Sidebar from "../../components/Sidebar/Sidebar";
+import Sidebar from "../../components/Sidebar/SidebarView";
 import "./Profile.css"
 
 
@@ -20,84 +20,22 @@ outline: 5px;
 width: 150%;
 `
 
-const Profile = props =>
-{
-
-    let[socs,setSoc] =useState([]);
-
-    const [selectedTab, setSelectedTab] = React.useState(0);
-    const [userToSearch, setUserToSearch] = useState({})
-
-    const handleChange = (event, newValue) =>
-    {
-        setSelectedTab(newValue);
-    }
-
-    let[crypts, setCrypt] = useState([]);
-    let  userReq = {
-        email: localStorage.getItem("emailSession")
-    }
-    useEffect(async () => {
-
-        axios.post('http://localhost:8080/user/getUserCryptos/',userReq)
-            .then( response => {
-                let soc = [];
-                for(const crypto of response.data)
-                    soc.push({socName: crypto});
-                setSoc(soc);
-            })
-            .catch(err => {console.error(err);})
-
-        axios.post('http://localhost:8080/user/fetchUserSocialMedia/',userReq)
-            .then(response => {
-                let socialName = [];
-                for(const platform of response.data)
-                    socialName.push({socMediaName: platform});
-                setCrypt(socialName);
-            })
-            .catch(err => {console.error(err);})
-
-    },[])
-
-    const handleFollow = (user)=>{
-        window.twttr.widgets.createFollowButton(
-            userToSearch,
-            document.getElementById('followBtn'),
-            {
-                size: 'large'
-            }
-        )
-    }
-
-    const followUser = ()=>{
-        let user = {email: localStorage.getItem("emailSession"), screen_name: userToSearch }
-        axios.post('http://localhost:8080/twitter/follow/',user)
-        .then(response=>{
-            console.log(response)
-        })
-        .catch(err => {console.error(err)})
-
-    }
-
-    const searchInput = (event) =>{ setUserToSearch(event.target.value) }
-
-    const searchUsername = async () =>{
-        
-        
-        let user = { screen_name: userToSearch }
-        axios.post('http://localhost:8080/twitter/validateScreenName/',user)
-        .then(()=>{
-            handleFollow(userToSearch)
-        })
-        .catch(err => {console.error(err)})
-    }
-
-    
-    return(
+const ProfileView = ({
+     props,
+     handleChange,
+    handleFollow,
+     followUser,
+     searchInput,
+     searchUsername,
+    socs,
+    crypts,
+    userReq,
+    selectedTab
+}) => (
 
         <>
             <Sidebar />
-            <script sync src="https://platform.twitter.com/widgets.js%22%3E"></script>
+            <script sync src="https://platform.twitter.com/widgets.js%22%3E"/>
             <div className="md:ml-64">
                 <div className="container" >
 
@@ -203,7 +141,7 @@ const Profile = props =>
                     {
                         selectedTab === 2 &&
                         <div id="searchContainer" className="container" >
-                           <script sync src="https://platform.twitter.com/widgets.js%22%3E"></script>
+                           <script sync src="https://platform.twitter.com/widgets.js%22%3E"/>
                             <div className="row searchFilter" >
                                 <div className="col-sm-12" >
                                     <div className="input-group" >
@@ -216,7 +154,7 @@ const Profile = props =>
                                                         <input className="cat_type category-input" data-label="Twitter" id="twitter" value="" name="radios" type="radio" /><label htmlFor="twitter" >Twitter</label>
                                                     </li>
                                                     <li >
-                                                        <input type="radio" name="radios" id="reddit" value="Reddi" /><label className="category-label" htmlFor="reddit" >Reddit</label>
+                                                        <input type="radio" name="radios" id="reddit" value="Reddit" /><label className="category-label" htmlFor="reddit" >Reddit</label>
                                                     </li>
                                                     <li >
                                                         <input type="radio" name="radios" id="4chan" value="4chan" /><label className="category-label" htmlFor="4chan" >4chan</label>
@@ -224,7 +162,7 @@ const Profile = props =>
                                                 </ul>
                                             </div>
                                             <button id="searchBtn" type="button" className="btn btn-secondary btn-search" onClick={searchUsername} ><span className="glyphicon glyphicon-search" >&nbsp;</span> <span className="label-icon" >Search</span></button>
-                                            <span id='followBtn' onClick={()=>{followUser()}}></span>
+                                            <span id='followBtn' onClick={()=>{followUser()}}/>
                                         </div>
                                     </div>
                                 </div>
@@ -235,6 +173,5 @@ const Profile = props =>
                 </div>
             </div>
         </>
-    );
-}
-export default Profile;
+)
+export default ProfileView;

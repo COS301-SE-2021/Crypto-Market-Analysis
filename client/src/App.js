@@ -9,7 +9,7 @@ import AllCrypto from "./Pages/AllCrypto/AllCrypto";
 import UpdatePassword from "./Pages/UpdatePassword/updatePassword"
 import UpdateProfile from "./Pages/UpdateProfile/updateProfile"
 import Home from "./Pages/Home/Home"
-import Profile from "./Pages/Profile/Profile"
+import ProfileView from "./Pages/Profile/ProfileView"
 import PrivateRoute from "./components/newRoute"
 import Overview from "./components/Overview/Overview"
 import HeaderStats from "./Pages/Home/Headers/HeaderStats"
@@ -32,7 +32,7 @@ function App() {
                      <Route exact path="/updateProfile" component={UpdateProfile}></Route>
                      <Route exact path="/Settings" component={Settings}></Route>
                      <Route exact path="/AllCrypto" component={AllCrypto}></Route>
-                     <Route exact path="/Profile" component={Profile}></Route>
+                     <Route exact path="/ProfileView" component={ProfileView}></Route>
                      <Route exact path="/HeaderStats" component={HeaderStats}></Route>
                      <Route exact path="/DetailedInfo" component={DetailedInfo}></Route>
                  </section>

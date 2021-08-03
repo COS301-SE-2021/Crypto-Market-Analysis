@@ -13,3 +13,47 @@ a{
 .w{
     word-wrap: break-word;
 }
+.dot {
+    height: 15px;
+    width: 15px;
+    background-color: red;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.sec{
+    position: relative;
+    right: -13px;
+    top:-22px;
+}
+
+.counter.counter-lg {
+    top: -24px !important;
+    color:red;
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.notification {
+    background-color: #555;
+    color: white;
+    text-decoration: none;
+    padding: 3px 6px;
+    position: relative;
+    display: inline-block;
+}
+
+.notification:hover {
+    background: red;
+}
+
+.notification .badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    padding: 5px 10px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+}

@@ -12,7 +12,7 @@ const send_email= async(email,results)=>{
     });
     const receiver = {
         from: 'codexteam4@gmail.com',
-        to: email,
+        to: 'mojohnnylerato@gmail.com',
         subject: 'Cryptocurrency Notification',
         text: results,
         html: results,
@@ -29,11 +29,12 @@ const send_email= async(email,results)=>{
                             let myObj = {};
                             let newObj = {};
                             let date = String(new Date());
+                            let read = false;
                             if (typeof doc.data().notification !=="undefined")
                             {
                                 myObj=doc.data().notification;
                             }
-                            newObj[date] = {"Email":results};
+                            newObj[date] = {"Email":results, 'Read': read};
                             let cmyObj = Object.assign({},myObj,newObj);
                             const notify ={
                                 notification:cmyObj

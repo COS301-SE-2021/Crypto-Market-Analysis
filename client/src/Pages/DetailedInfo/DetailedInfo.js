@@ -9,13 +9,12 @@ import Reddits from '../../components/Reddits/Reddits'
 import FourChan from '../../components/4chan/fourChan'
 import Sidebar from "../../components/Sidebar/SidebarView.js";
 
-export default function DetailedInfo({coin_name}) {
-
-
+export default function DetailedInfo(props) {
+    const coin_name = props.location.state.coin_name
     return(
         <>
         <Sidebar />
-            <div className="md:ml-64" style={{backgroundColor:"#cbd5e1"}}>
+            <div className="md:ml-64" >
                 <div className="container" >
                     <Tabs defaultActiveKey="Overview" transition={false}>
                         <Tab eventKey="Overview" title="Overview">
@@ -34,5 +33,5 @@ export default function DetailedInfo({coin_name}) {
                 </div>
             </div>
         </>
-        )
+      )
 }

@@ -44,6 +44,13 @@ class Database {
             console.error(`An error occurred while connecting to the database: \n${e}`);
         }
     }
+    getUsers(collectionPath){
+        return this.#db.collection(collectionPath);
+    }
+    getField(collectionPath,documentName)
+    {
+        return this.#db.collection(collectionPath).doc(documentName).get();
+    }
     fetch(collectionPath, documentName, field)
     {
         if(field === null && collectionPath !==undefined){

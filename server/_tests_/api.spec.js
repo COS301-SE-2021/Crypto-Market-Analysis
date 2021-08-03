@@ -1,34 +1,18 @@
 const request = require('supertest');
-const expect = require('chai').expect;
+//const expect = require('chai').expect;
 const app = require("../app");
 
 describe('POST /', () => {
-    test('responds with error message in json 404', done => {
-        request(app)
-            .post('/')
-            .send({})
-            .expect(404)
-            .expect('Content-Type', /json/)
-            .end((err,res) => {
-                if(err) return done(err);
-                expect(res.body.error.message).to.equal("Not found")
-                return done();
-            });
+    test('invalid default route. returns 404 not found error', async () => {
+        const response = await request(app).post(`/`).send({});
+        expect(response.statusCode).toBe(404);
     });
 });
 
 describe('POST /user', () => {
-    test('responds with error message in json 404', done => {
-        request(app)
-            .post('/user')
-            .send({})
-            .expect('Content-Type', /json/)
-            .expect(404)
-            .end((err,res) => {
-                if(err) return done(err);
-                expect(res.body.error.message).to.equal("Not found")
-                return done();
-            });
+    test('invalid default user route. return 404 not found error', async () => {
+        const response = await request(app).post(`/user`).send({});
+        expect(response.statusCode).toBe(404);
     });
 });
 

@@ -7,7 +7,7 @@ const get4chanPost = async ()=>{
     let fourChanPosts = [];
 
     try{
-        const docs = await firestore_db.fetch(`4chan_data`).then((snapshot) => {return snapshot.docs;});
+        const docs = await firestore_db.fetch(`4chan_info`).then((snapshot) => {return snapshot.docs;});
         for(const doc of docs)
             fourChanPosts.push(doc.data().posts);
 
@@ -17,156 +17,141 @@ const get4chanPost = async ()=>{
         return Promise.reject(new Error(err));
     }
 }
-/** This function gets all the tweets stored in the database.
- * @return  {object} Containing an array of screen names and tweets array if it was successful or a rejected Promise.
- * */
-const getUserTweets = async ()=>{
-    let screen_names = [];
-    let tweets = [];
-    try{
-        const docs = await firestore_db.fetch(`twitter_data`).then(snapshot => {return snapshot.docs});
-        for(const doc of docs){
-            screen_names.push(doc.data().screen_name);
-            tweets.push(doc.data().tweets);
-        }
-        return {status: `Ok`, screen_names: screen_names, tweets_array: tweets}
-    }
-    catch(err){
-        return Promise.reject(new Error(err));
-    }
-}
 
 /** Gets all the reddit posts from the database.
  * @return  {object} Containing an array of posts if it was successful or a rejected Promise.
 * */
-const getRedditPost = async ()=>{
+//
+// const getRedditPost = async (email)=>{
+//     // const citiesRef = db.collection('cities');
+//     // const coastalCities = await citiesRef.where('regions', 'array-contains-any',
+//     //     ['west_coast', 'east_coast']).get();
+//     let posts = [];
+//     try{
+//         const docs = await firestore_db.fetch(`reddit_info`).then(snapshot => {return snapshot.docs});
+//         for(const doc of docs)
+//             posts.push(doc("CryptoCurrencies").data().posts);
+//         return {status: `Ok`, posts: posts};
+//     }
+//     catch(err){
+//         return Promise.reject(new Error(err));
+//     }
+// }
+
+/*
+const citiesRef = db.collection('cities');
+const coastalCities = await citiesRef.where('regions', 'array-contains-any',
+    ['west_coast', 'east_coast']).get();
+ */
+const getRedditPost = async (email)=>{
+    let subs = await getUserSubreddits(email);
+    console.log(subs);
     let posts = [];
-    try{
-        const docs = await firestore_db.fetch(`reddit_data`).then(snapshot => {return snapshot.docs});
-        for(const doc of docs)
-            posts.push(doc.data().posts);
-        return {status: `Ok`, posts: posts};
+    let docs = [];
+    for(let i=0; i<subs.length; i++)
+    {
+
+        docs.push(await firestore_db.fetch(`reddit_info`,subs[i],'posts'));
     }
-    catch(err){
-        return Promise.reject(new Error(err));
+    console.log(docs);
+    posts = docs;
+    return {status: `Ok`, posts: posts};
+    // try{
+    //     for(const doc of docs)
+    //         posts.push(doc.data().posts);
+    //     console.log(posts);
+    //     return {status: `Ok`, posts: posts};
+    // }
+    // catch(err){
+    //     return Promise.reject(new Error(err));
+    // }
+}
+
+
+
+
+
+const getUserCrypto = async (email_address)=>{
+    try{
+        return await user_object.getCryptoName(email_address);
+    }
+    catch (error){
+        return Promise.reject(error);
     }
 }
-const getUserCrypto = async (email_address)=>{
-    const crypto = await user_object.getCrypto(email_address);
-    if(crypto)
-        return crypto;
-    else
-        return Promise.reject(new Error(`Email not valid`));
+//test code
+const getUserSubreddits = async (email_address)=>{
+    try{
+        return await user_object.getUserSubreddits(email_address);
+    }
+    catch (error){
+        return Promise.reject(error);
+    }
 }
 
 const fetchUserSocialMedia = async(email_address)=>{
-    let socialMediaName = [];
-    const email = email_address;
     try{
-        const docs = await firestore_db.fetch(`Users`).then(snapshot => {return snapshot.docs});
-        for(const doc of docs){
-            if(doc.id === email){
-                socialMediaName.push(doc.data().social_media_sites);
-                break;
-            }
-        }
-        return {status: `Ok`, SocialMediaName: socialMediaName};
+        return await user_object.getSocialMediaSites(email_address);
     }
-    catch(err){
-        return Promise.reject(new Error(err));
+    catch (error){
+        return Promise.reject(error);
     }
 }
 
-const followCrypto = async (email_address,symbol,crypt_name )=>{
-
-    const email = email_address;
-    let crypto = [];
-    let crypto_name = [];
-    let found = false;
-
+const fetchUserSubreddits = async(email_address)=>{
     try{
-        const docs =  await firestore_db.fetch(`Users`).then(snapshot => {return snapshot.docs});
-        for(const doc of docs){
-            if(doc.id === email){
-                found = true;
-                if(doc.data().crypto)
-                    crypto = doc.data().crypto;
-                else
-                    crypto = [];
-                if(doc.data().crypto_name)
-                    crypto_name = doc.data().crypto_name;
-                else
-                    crypto_name = [];
-                break;
-            }
-        }
-
-        if(found === false){ return {status: `Not authorized`, error: `The user does not exist`};}
-
-        if(!crypto_name.includes(crypt_name)){
-            crypto.push(symbol);
-            crypto_name.push(crypt_name);
-        }
-        else {
-            return {status: `Accepted`, message: `The cryptocurrency already exists`};
-        }
-
-        try{
-            await firestore_db.save(`Users`, email, `crypto`, crypto);
-            await firestore_db.save(`Users`, email, `crypto_name`, crypto_name);
-            await user_object.insertCrypto(email, crypto, crypto_name);
-        }
-        catch (err){
-            return {status: `Internal Server Error`, error:err};
-        }
-
-        return {status: `Ok`, message: `The crypto been successfully added`};
+        await user_object.getSubreddit(email_address);
     }
-    catch(err){
-        return Promise.reject(new Error(err));
+    catch (error){
+        return Promise.reject(error);
     }
 }
+
+const followCrypto = async (email_address,symbol,crypto_name )=>{
+    try{
+        return await user_object.insertCrypto(email_address, symbol, crypto_name);
+    }
+    catch (error){
+        return Promise.reject(error)
+    }
+}
+
+const unfollowCrypto = async (email_address, symbol) => {
+    try{
+        await user_object.removeCrypto(email_address, symbol);
+    }
+    catch (error){
+        return Promise.reject(error);
+    }
+}
+
+const unfollowSubreddit = async (email_address, subreddit) => {
+    try{
+        await user_object.removeSubreddit(email_address, subreddit);
+    }
+    catch (error){
+        return Promise.reject(error);
+    }
+}
+
 const followSocialMedia = async (email_address,social_media )=> {
-    const email = email_address;
-    let social_media_sites = [];
-    let found = false;
-
     try{
-        const docs = await firestore_db.fetch(`Users`).then(snapshot => {return snapshot.docs});
-        for(const doc of docs){
-            if(doc.id === email){
-                found = true;
-                if(doc.data().social_media_sites)
-                    social_media_sites = doc.data().social_media_sites;
-                else
-                    social_media_sites = [];
-                break;
-            }
-        }
-
-        if(found === false)
-            return {status: `Not authorized`, error: `The user does not exist`};
-
-        if(!social_media_sites.includes(social_media))
-            social_media_sites.push(social_media);
-        else{
-            return {status: `Accepted`, message: `The site already exists`};
-        }
-
-        try{
-            await firestore_db.save(`Users`, email, `social_media_sites`, social_media_sites);
-        }
-        catch (err){
-            return {status: `Internal Server Error`, error: err};
-        }
-
-        return {status: `Ok`, message: `The social media site has been successfully added`};
+        return await user_object.insertSocialMediaSite(email_address, social_media);
     }
-    catch(err){
-        return {status:`Internal server error`, error: err};
+    catch (error){
+        return Promise.reject(error);
     }
 }
 
+const followSubreddit = async (email_address,social_media )=> {
+    console.log("in userfunctions");
+    try{
+        return await user_object.insertSubreddits(email_address, social_media);
+    }
+    catch (error){
+        return Promise.reject(error);
+    }
+}
 
 const saveToDB = async (arr, socialmedia , crypto)=> {
     let mini=Math.min.apply(Math, arr)
@@ -178,7 +163,6 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
         await firestore_db.save(socialmedia, crypto, `Min`, mini);
         await firestore_db.save(socialmedia, crypto, `Max`, maxi);
         await firestore_db.save(socialmedia, crypto, `Average`, average);
-
     }
     catch(err){
         return {status:`Internal Server Error`, error: err}
@@ -187,4 +171,4 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
 
-module.exports = {saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto,followSocialMedia, get4chanPost}
+module.exports = {getUserSubreddits,unfollowSubreddit, followSubreddit, fetchUserSubreddits, saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, get4chanPost}

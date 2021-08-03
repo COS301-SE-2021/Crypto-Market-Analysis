@@ -68,7 +68,9 @@ const HistoryChart = ({data}) => {
 
             <div>
 
-                <canvas ref={chartRef} id="myChart" height={500} width={500}></canvas>
+                <canvas ref={chartRef} id="myChart" height={500} width={500}>
+
+                </canvas>
 
             </div>
 

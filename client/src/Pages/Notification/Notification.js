@@ -22,7 +22,7 @@ function Notifications() {
             console.log(e)
             let viewObject = notify.data().notification;
             console.log(viewObject);
-            if(viewObject[e]!=='undefined'){
+            if(viewObject[e].Read!=='undefined'){
                 viewObject[e].Read =true;
             }
 
@@ -65,27 +65,53 @@ function Notifications() {
                 i=i+1;
                 console.log(key)
                 //console.log(`${key}: ${value.Email}`);
-                notification_Array.push( <Alert variant="info">
-                    <Link  onClick={()=>handleView(key)} value={key}
-                          className={
-                            "text-xs uppercase py-3 font-bold block " +
-                            (window.location.href.indexOf("/Profile") !== -1
-                                ? "text-lightBlue-500 hover:text-lightBlue-600"
-                                : "text-blueGray-700 hover:text-blueGray-500")
-                        }
-                        to="/Profile"
-                    >
-                    <i className="far fa-bell"></i>
-                    <span>
+                if(value.Read===true){
+                    notification_Array.push( <Alert variant="info">
+                        <Link  onClick={()=>handleView(key)} value={key}
+                               className={
+                                   "text-xs uppercase py-3 font-bold block " +
+                                   (window.location.href.indexOf("/Profile") !== -1
+                                       ? "text-lightBlue-500 hover:text-lightBlue-600"
+                                       : "text-blueGray-700 hover:text-blueGray-500")
+                               }
+                               to="/Profile"
+                        >
+                            <i className="far fa-bell"></i>
+                            <span>
                                         <p className="text-success"><h3>Cryptocurrency Notification {Notification_object.Email}</h3></p><p>{key}</p>
 
-                                          {value.Email}
-                        <br></br>
+                                {value.Email}
+                                <br></br>
 
                                                  <button  onClick={handleDelete} value={key} type="button" className="btn btn-outline-warning"><i className="fas fa-trash-alt"></i>Delete</button>
                     </span>
-                    </Link>
-                </Alert>)
+                        </Link>
+                    </Alert>)
+                }
+               else if(value.Read===false){
+                    notification_Array.push( <Alert variant="info">
+                        <Link  onClick={()=>handleView(key)} value={key}
+                               className={
+                                   "text-xs uppercase py-3 font-bold block " +
+                                   (window.location.href.indexOf("/Profile") !== -1
+                                       ? "text-lightBlue-500 hover:text-lightBlue-600"
+                                       : "text-blueGray-700 hover:text-blueGray-500")
+                               }
+                               to="/Profile"
+                        >
+                            <i className="far fa-bell"></i>
+                            <span>
+                                        <p className="text-warning"><h3>Cryptocurrency Notification {Notification_object.Email}</h3></p><p>{key}</p>
+
+                                {value.Email}
+                                <br></br>
+
+                                                 <button  onClick={handleDelete} value={key} type="button" className="btn btn-outline-warning"><i className="fas fa-trash-alt"></i>Delete</button>
+                    </span>
+                        </Link>
+                    </Alert>)
+                }
+
                 if(i === Object.entries(notify.data().notification).length){
                     setElem(notification_Array);
                 }

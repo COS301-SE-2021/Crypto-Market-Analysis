@@ -37,7 +37,7 @@ export default function Sidebar() {
         let counter = 0;
         for (const [key, value] of Object.entries(notify.data().notification)) {
           i=i+1;
-          if(value.Read===false)
+          if(value.Read===false && value.Read!=='undefined')
           {
             counter= counter+1;
           }

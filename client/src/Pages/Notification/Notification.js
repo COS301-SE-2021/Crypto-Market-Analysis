@@ -12,20 +12,29 @@ import db from "../../firebase";
 function Notifications() {
     let[Notification_object,setNotification] =useState([]);
     let[elem,setElem] =useState([]);
+    let[Objectdata,setObjData] =useState([]);
     const notificationAlertRef = React.useRef(null);
    const handleDelete= async (e)=> {
+       console.log('delete pressed');
         e.preventDefault();
         await db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).get().then((notify)=> {
             // console.log(notify.data().notification.Email);
             let i = 0;
             let object = notify.data().notification;
 
-
+            console.log("object before");
+            console.log(object);
+            console.log(object.hasOwnProperty(e.target.value))
             delete object[e.target.value];
+            console.log(" after");
+            console.log(object);
+            console.log(object.hasOwnProperty(e.target.value))
             const notification_object ={
                 notification:object
             }
-            db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).set(notification_object, {merge:true});
+            setObjData(notification_object);
+            db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).set(notification_object,
+                {merge: true});
         })
     }
     useEffect(async () => {
@@ -53,7 +62,7 @@ function Notifications() {
             }
 
         })
-    });
+    },[])
     return (
         <>
             <div className="rna-container">

@@ -6,7 +6,9 @@ import {Avatar, Tabs, AppBar, Tab} from "@material-ui/core"
 import EditIcon from "@material-ui/icons/Edit"
 import axios from "axios";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import "./Profile.css"
+import "./Profile.css";
+import Subreddits from "../Subreddits/Subreddits";
+import Reddits from "../../components/Reddits/Reddits";
 
 
 const Button = styled.button`
@@ -34,6 +36,7 @@ const Profile = props =>
     }
 
     let[crypts, setCrypt] = useState([]);
+    let[subs, setSubs] = useState([]);
     let  userReq = {
         email: localStorage.getItem("emailSession")
     }
@@ -54,6 +57,15 @@ const Profile = props =>
                 for(const platform of response.data)
                     socialName.push({socMediaName: platform});
                 setCrypt(socialName);
+            })
+            .catch(err => {console.error(err);})
+
+        axios.post('http://localhost:8080/user/getUserSubreddits/',userReq)
+            .then(response => {
+                let subName = [];
+                for(const subred of response.data)
+                    subName.push({subredditName: subred});
+                setSubs(subName);
             })
             .catch(err => {console.error(err);})
 
@@ -165,6 +177,8 @@ const Profile = props =>
                             <Tab label="Cryptos Followed" />
                             <Tab label="Platforms Followed"/>
                             <Tab label="Preferences"/>
+                            <Tab label="Subreddits"/>
+                            <Tab label="Subreddits Followed"/>
                         </Tabs>
                     </AppBar>
 
@@ -231,7 +245,24 @@ const Profile = props =>
                             </div>
                         </div>
                     }
-
+                    {
+                        selectedTab === 3 &&
+                        <Subreddits />
+                    }
+                    {
+                        selectedTab === 4 &&
+                        <ul className="list-group list-group-flush">
+                            {
+                                subs.map((Sub, index) =>{
+                                    return(
+                                        <div>
+                                            <li className="list-group-item" key={index}>{Sub.subredditName}</li>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </ul>
+                    }
                 </div>
             </div>
         </>

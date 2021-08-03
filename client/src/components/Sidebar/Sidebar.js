@@ -233,14 +233,11 @@ export default function Sidebar() {
                     }
                     to="/Notification"
                 >
-                  <i
-                      className={
-                        "fas fa-user mr-2 text-sm " +
-                        (window.location.href.indexOf("/Notification") !== -1
-                            ? "opacity-75"
-                            : "text-blueGray-300")
-                      }
-                  ></i>{" "}
+                  <a href="" className="notification">
+                    <i className="fas fa-envelope fa-lg"></i>
+                    <span className="badge rounded-pill badge-notification bg-danger">1</span>
+                  </a>
+                  {" "}
                   Notification
                 </Link>
               </li>

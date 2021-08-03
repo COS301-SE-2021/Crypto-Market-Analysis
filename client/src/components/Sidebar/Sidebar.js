@@ -6,6 +6,7 @@ import {Avatar} from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 
 import "./Sidebar.css"
+import db from "../../firebase";
 
 // import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
 // import UserDropdown from "components/Dropdowns/UserDropdown.js";
@@ -16,13 +17,14 @@ export default function Sidebar() {
   const history = useHistory()
   const [collapseShow, setCollapseShow] = React.useState("hidden")
   const [show, setShow] = useState(false)
+  const [status, setStatus] = useState(0)
   let   [linkDisable, setLinkDisable] = useState({})
   const  user = localStorage.getItem("emailSession")
   let  cryptoReq = {
     email: localStorage.getItem("emailSession")
   }
     
-    useEffect(()=>{
+    useEffect(async ()=>{
       
       if(user != null){
         setLinkDisable(false)
@@ -30,6 +32,22 @@ export default function Sidebar() {
       else{
         setLinkDisable(true)
       }
+      await db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).get().then((notify)=>{
+        let i = 0;
+        let counter = 0;
+        for (const [key, value] of Object.entries(notify.data().notification)) {
+          i=i+1;
+          if(value.Read===false)
+          {
+            counter= counter+1;
+          }
+          if(i === Object.entries(notify.data().notification).length){
+            setStatus(counter);
+          }
+        }
+      })
+
+
     },[])
   
     const changeLocation = ()=>{
@@ -235,7 +253,7 @@ export default function Sidebar() {
                 >
                   <a href="" className="notification">
                     <i className="fas fa-envelope fa-lg"></i>
-                    <span className="badge rounded-pill badge-notification bg-danger">1</span>
+                    <span className="badge rounded-pill badge-notification bg-danger">{status}</span>
                   </a>
                   {" "}
                   Notification

@@ -82,6 +82,10 @@ class Reddit {
     }
 
     getCoinRedditPost= async (coin) => {
+        if (coin.split(" ").length > 1) {
+            // at least 2 strings
+            coin = "CryptoCurrencies";
+        }
         const subreddit1 = await r.getSubreddit(coin);
         let Data = [];
         const topPosts1 = await subreddit1.getTop({limit: 100});
@@ -100,7 +104,8 @@ class Reddit {
     }
 }
 
-//let reddits = new Reddit();
+// let reddits = new Reddit();
+// reddits.getCoinRedditPost("Binance Coin");
 
 // reddits.completeScrape("CryptoCurrencies").then();
 // reddits.completeScrape("SatoshiStreetBets").then();

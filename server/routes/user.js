@@ -155,16 +155,20 @@ router.post("/fetchUserSocialMedia", async (request, response) => {
     }
 });
 
-router.post("/fetchUserSubreddits", async (request, response) => {
+router.post("/fetchUserSubreddits", async (request, response, next) => {
 
     if(request.body.email === null) {
-        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
+        let error = new Error(`Malformed request. Please check your parameters`);
+        error.status = 400;
+        return next(error);
     }
     else{
         userFunctions.fetchUserSubreddits(request.body.email).then(data=>{
             return response.status(200).json(data);
         }).catch(err=>{
-            return response(401).json({status:`error`, error: err})
+            let error = new Error(err);
+            error.status = 500;
+            return next(error);
         })
     }
 });

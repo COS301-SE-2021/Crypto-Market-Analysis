@@ -123,15 +123,20 @@ router.post("/followSocialMedia",async (request,response, next)=>{
         }
 });
 
-router.post("/unfollowSocialMedia", async (request,response)=>{
+router.post("/unfollowSocialMedia", async (request,response, next)=>{
 
-    if(!request.body.email || !request.body.social_media_sites)
-        return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
+    if(!request.body.email || !request.body.social_media_sites){
+        let error = new Error(`Malformed request. Please check your parameters`);
+        error.status = 400;
+        return next(error);
+    }
     else{
         await userFunctions.unfollowSocialMedia(request.body.email,request.body.social_media_sites).then(data=>{
             return response.status(200).json(data);
         }).catch(err=>{
-            return response.status(500).json({status:`Internal server error`, error: err})
+            let error = new Error(err);
+            error.status = 500;
+            return next(error);
         });
     }
 });

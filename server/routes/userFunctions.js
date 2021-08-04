@@ -143,6 +143,15 @@ const followSocialMedia = async (email_address,social_media )=> {
     }
 }
 
+const unfollowSocialMedia = async (email_address, social_media) => {
+    try{
+        return await user_object.removeSocialMediaSite(email_address, social_media);
+    }
+    catch (error){
+        return Promise.reject(error);
+    }
+}
+
 const followSubreddit = async (email_address,social_media )=> {
     console.log("in userfunctions");
     try{
@@ -171,4 +180,4 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
 
-module.exports = {getUserSubreddits,unfollowSubreddit, followSubreddit, fetchUserSubreddits, saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, get4chanPost}
+module.exports = {getUserSubreddits,unfollowSubreddit, followSubreddit, fetchUserSubreddits, saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, get4chanPost}

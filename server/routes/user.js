@@ -4,25 +4,35 @@ const userFunctions =require('./userFunctions');
 const Twitter = require(`../social_media_sites/Twitter`);
 const twitter = new Twitter().getInstance();
 
-router.post("/get4chanPost", async (request,response)=>{
+router.post("/get4chanPost", async (request,response, next)=>{
     const email = request.body.email;
-    if(!email || !(typeof email === 'string' || email instanceof String))
-        return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
+    if(!email || !(typeof email === 'string' || email instanceof String)){
+        let error = new Error(`Malformed request. Please check your parameters`);
+        error.status = 400;
+        return next(error);
+    }
     userFunctions.get4chanPost().then( tweets => {
         return response.status(200).json(tweets);
     }).catch(err=>{
-        return response(401).json({status:`error`, error: err})
+        let error = new Error(err);
+        error.status = 500;
+        return next(error);
     })
 });
 
-router.post("/getRedditPost", async (request,response)=>{
-    if(request.body.email === null)
-        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
+router.post("/getRedditPost", async (request,response, next)=>{
+    if(!request.body.email){
+        let error = new Error(`Malformed request. Please check your parameters`);
+        error.status = 400;
+        return next(error);
+    }
     else{
         userFunctions.getRedditPost(request.body.email).then(data=>{
             response.status(200).json(data);
         }).catch(err=>{
-            return response(401).json({status:`error`, error: err})
+            let error = new Error(err);
+            error.status = 500;
+            return next(error);
         })
     }
 });
@@ -66,7 +76,7 @@ router.post("/getUserCryptos", async (request, response, next) => {
      }
  });
 
-//testcode
+//test code
 router.post("/getUserSubreddits", async (request, response, next) => {
     if(!request.body.email){
         let error = new Error(`Malformed request. Please check your parameters`);

@@ -38,18 +38,20 @@ export default function Reddit({coin_name}){
             {
                 reddits.map((post) =>{
 
-                    return(
-                        <div className="card mb-3">
-                            <img className="card-img-top" src={post.posts.link} alt="Post doesnt contain image"></img>
-                            <div className="card-body">
-                                <h5 className="card-title">Post Reddit Score: {post.posts.score}</h5>
-                                <p className="card-text">{post.posts.text}</p>
-                                <p className="card-text">
-                                    <small className="text-muted">posted by: {post.posts.author}</small>
-                                </p>
+                        return(
+                            <div className="card mb-3" >
+                                <img className="card-img-top" src={post.posts.link} alt="Post doesnt contain image" style={{width: '436px', height: '532px'}}></img>
+                                <div className="card-body">
+                                    <h5 className="card-title">Post Reddit Score: {post.posts.score}</h5>
+                                    <p className="card-text">{post.posts.text}</p>
+                                    <p className="card-text">
+                                        <small className="text-muted">posted by: {post.posts.author}</small>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                    )
+                        )
+
+
                 })
             }
         </>

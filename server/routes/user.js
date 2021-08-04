@@ -27,17 +27,19 @@ router.post("/getRedditPost", async (request,response)=>{
     }
 });
 
-router.post("/coinRedditPost", async (request,response)=>{
-    // console.log(request.body.email);
-    // console.log(request.body.coin);
-
-    if(request.body.email === null || request.body.coin === null)
-        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
+router.post("/coinRedditPost", async (request,response, next)=>{
+    if(!request.body.email|| !request.body.coin){
+        let error = new Error(`Malformed request. Please check your parameters`);
+        error.status = 400;
+        return next(error);
+    }
     else{
         userFunctions.coinRedditPost(request.body.coin).then(data=>{
             response.status(200).json(data);
         }).catch(err=>{
-            return response(401).json({status:`error`, error: err})
+            let error = new Error(err);
+            error.status = 500;
+            return next(error);
         })
     }
 });

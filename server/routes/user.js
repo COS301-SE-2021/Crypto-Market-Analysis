@@ -47,14 +47,19 @@ router.post("/coinRedditPost", async (request,response)=>{
  * @param {object} response A response object which will return the status code.
  * @return          A status code stating if the request was successful.
  * */
-router.post("/getUserCryptos", async (request, response) => {
-     if(!request.body.email)
-         return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
+router.post("/getUserCryptos", async (request, response, next) => {
+     if(!request.body.email){
+         let error = new Error(`Malformed request. Please check your parameters`);
+         error.status(400);
+         return next(error);
+     }
      else {
           userFunctions.getUserCrypto(request.body.email).then(data=>{
              return response.status(200).json(data);
          }).catch(err=>{
-             return response(401).json({status:`error`, error: err})
+             let error = new Error(err);
+             error.status(500);
+             return next(error);
          })
      }
  });

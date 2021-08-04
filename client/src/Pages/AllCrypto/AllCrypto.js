@@ -1,10 +1,12 @@
 import "bootstrap/dist/css/bootstrap.css";
 import React, { useState, useEffect } from 'react';
+import { useHistory } from "react-router-dom"
 import axios from "axios";
 import { Star, } from "@material-ui/icons";
 
 import "../Settings/Settings.css"
 import "./AllCrypto.css"
+import ModalComp from "../../components/Modal/Modal"
 
 const coins = ["btc","eth","usdt","bnb","ada","xrp","usdc","doge","dot","busd"]
 export default function AllCryptos(props)
@@ -12,7 +14,8 @@ export default function AllCryptos(props)
     // cryptos = cryptos
     let [cryptos, setCryptos] = useState([]);
     const [searchCrypto, setSearchCrypto] = useState("");
-
+    const [show, setShow] = useState(false)
+    const history = useHistory()
    
 
     useEffect(async () => {
@@ -48,28 +51,45 @@ export default function AllCryptos(props)
     },[]);
 
     /*
-              Get a list of coins from Coingecko. For each crypto, check if it matches crypto a user 
-              follows and mark it as selected                  
-            */
-              function getCoins(coinsList){
-              axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=250&page=1&sparkline=false')
-              .then(async (response_data) => {
-                  
-                  await response_data.data.map((coin)=>{
-                      
-                    coinsList.forEach(element => {
-                          if(element === coin.name){
-                              coin.selected = true;
-                          }
-                      })
-                  })
-                  setCryptos(response_data.data)
-              
-              })
-              .catch(err => {console.error(err);})
-            }
+        Get a list of coins from Coingecko. For each crypto, check if it matches crypto a user 
+        follows and mark it as selected                  
+    */
+        function getCoins(coinsList){
+        axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=250&page=1&sparkline=false')
+        .then(async (response_data) => {
+            
+            await response_data.data.map((coin)=>{
+                
+            coinsList.forEach(element => {
+                    if(element === coin.name){
+                        coin.selected = true;
+                    }
+                })
+            })
+            setCryptos(response_data.data)
+        
+        })
+        .catch(err => {console.error(err);})
+    }
 
-    const select = (name,type) => {
+    const onCancel =(e)=>{
+        setShow(false);    
+    }
+    const OnContinue =()=>{
+        history.push('/login')
+      }
+
+    const select = (name,type)=>{
+
+        if(localStorage.getItem("emailSession") != null){
+            selectFinalize(name,type)
+        }
+        else{
+            setShow(true)
+        }
+
+    }
+    const selectFinalize = (name,type) => {
         setTimeout(function() {
         
             if(type == "cryptos"){
@@ -123,7 +143,7 @@ export default function AllCryptos(props)
     
     return(
         <>       
-        {/* <Sidebar /> */}
+        <ModalComp show={show} cancel={onCancel} continue={OnContinue} />
          <div className="container">
             <div className="row"> 
                 <div className="crypto-search">
@@ -132,8 +152,8 @@ export default function AllCryptos(props)
                 </div>
                 <div className=" overflow-auto block crypto-wrapper" style={{height:"600px",margin:"auto"}}>
                     {searchedCryptos.length < 1 ? <p className="text-center">Oops :( <br/>We don't have that coin</p>
-                    :<>{
-                        searchedCryptos.map((myCrypto,index) =>{
+                    :<>
+                        {searchedCryptos.map((myCrypto,index) =>{
                             
                             return(
                                 <div key={index} className='coin-container'>

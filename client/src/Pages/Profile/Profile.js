@@ -177,8 +177,8 @@ const Profile = props =>
                             <Tab label="Cryptos Followed" />
                             <Tab label="Platforms Followed"/>
                             <Tab label="Preferences"/>
-                            <Tab label="Subreddits"/>
-                            <Tab label="Subreddits Followed"/>
+                            {/*<Tab label="Subreddits"/>*/}
+                            {/*<Tab label="Subreddits Followed"/>*/}
                         </Tabs>
                     </AppBar>
 
@@ -245,24 +245,24 @@ const Profile = props =>
                             </div>
                         </div>
                     }
-                    {
-                        selectedTab === 3 &&
-                        <Subreddits />
-                    }
-                    {
-                        selectedTab === 4 &&
-                        <ul className="list-group list-group-flush">
-                            {
-                                subs.map((Sub, index) =>{
-                                    return(
-                                        <div>
-                                            <li className="list-group-item" key={index}>{Sub.subredditName}</li>
-                                        </div>
-                                    )
-                                })
-                            }
-                        </ul>
-                    }
+                    {/*{*/}
+                    {/*    selectedTab === 3 &&*/}
+                    {/*    <Subreddits />*/}
+                    {/*}*/}
+                    {/*{*/}
+                    {/*    selectedTab === 4 &&*/}
+                    {/*    <ul className="list-group list-group-flush">*/}
+                    {/*        {*/}
+                    {/*            subs.map((Sub, index) =>{*/}
+                    {/*                return(*/}
+                    {/*                    <div>*/}
+                    {/*                        <li className="list-group-item" key={index}>{Sub.subredditName}</li>*/}
+                    {/*                    </div>*/}
+                    {/*                )*/}
+                    {/*            })*/}
+                    {/*        }*/}
+                    {/*    </ul>*/}
+                    {/*}*/}
                 </div>
             </div>
         </>

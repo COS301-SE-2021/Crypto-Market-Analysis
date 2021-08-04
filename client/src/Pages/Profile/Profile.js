@@ -7,6 +7,7 @@ import EditIcon from "@material-ui/icons/Edit"
 import axios from "axios";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import "./Profile.css"
+import { SocialIcon } from 'react-social-icons';
 
 
 const Button = styled.button`
@@ -25,8 +26,10 @@ const Profile = props =>
 
     let[socs,setSoc] =useState([]);
 
-    const [selectedTab, setSelectedTab] = React.useState(0);
+    const [selectedTab, setSelectedTab] = React.useState(0)
     const [userToSearch, setUserToSearch] = useState({})
+    let [err, setErr] = useState([])
+    let [follows, setFollows] = useState(false)
 
     const handleChange = (event, newValue) =>
     {
@@ -60,20 +63,28 @@ const Profile = props =>
     },[])
 
     const handleFollow = (user)=>{
-        window.twttr.widgets.createFollowButton(
-            userToSearch,
-            document.getElementById('followBtn'),
-            {
-                size: 'large'
-            }
-        )
+
+       
+        let target =  document.getElementById('followBtn')
+       
+        if(target.children.length >= 1){ target.removeChild(target.childNodes[0]) }
+
+        let btn = document.createElement("button")
+        btn.setAttribute("class","btn btn-success")
+        btn.style.backgroundColor = "#1b95e0"
+        btn.innerText = "follow @" + userToSearch 
+        target.append(btn)
+      
+        
     }
 
     const followUser = ()=>{
         let user = {email: localStorage.getItem("emailSession"), screen_name: userToSearch }
+        console.log("Follow")
         axios.post('http://localhost:8080/twitter/follow/',user)
         .then(response=>{
             console.log(response)
+            setFollows(true)
         })
         .catch(err => {console.error(err)})
 
@@ -87,7 +98,11 @@ const Profile = props =>
         let user = { screen_name: userToSearch }
         axios.post('http://localhost:8080/twitter/validateScreenName/',user)
         .then(()=>{
+            setErr(null)
             handleFollow(userToSearch)
+
+        },(reject)=>{
+            setErr(reject.response.data.error)
         })
         .catch(err => {console.error(err)})
     }
@@ -205,11 +220,13 @@ const Profile = props =>
                         <div id="searchContainer" className="container" >
                            <script sync src="https://platform.twitter.com/widgets.js%22%3E"></script>
                             <div className="row searchFilter" >
+                               
                                 <div className="col-sm-12" >
+                                    <div className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0">Search for a twitter user you want us to check out for you</div>
                                     <div className="input-group" >
                                         <input id="table_filter" type="text" className="form-control" aria-label="Text input with segmented button dropdown" onChange={searchInput}/>
-                                        <div id="searchButtons" className="input-group-btn" >
-                                            <button type="button" className="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ><span className="label-icon" >Platform</span> <span className="caret" >&nbsp;</span></button>
+                                        <div className="input-group-btn" >
+                                            {/* <button type="button" className="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ><span className="label-icon" >Platform</span> <span className="caret" >&nbsp;</span></button>
                                             <div className="dropdown-menu dropdown-menu-right" >
                                                 <ul className="category_filters" >
                                                     <li >
@@ -222,12 +239,18 @@ const Profile = props =>
                                                         <input type="radio" name="radios" id="4chan" value="4chan" /><label className="category-label" htmlFor="4chan" >4chan</label>
                                                     </li>
                                                 </ul>
-                                            </div>
+                                            </div> */}
                                             <button id="searchBtn" type="button" className="btn btn-secondary btn-search" onClick={searchUsername} ><span className="glyphicon glyphicon-search" >&nbsp;</span> <span className="label-icon" >Search</span></button>
-                                            <span id='followBtn' onClick={()=>{followUser()}}></span>
                                         </div>
                                     </div>
+                                    <div>
+                                        {err && err.includes("Screen name does not exist") ? <span className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0">User does not exist</span>
+                                        : follows ? <span className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0">Follow successful</span>
+                                        :<span id='followBtn' className="mt-16" onClick={()=>{followUser()}}></span>}
+                                    </div>
+                                    
                                 </div>
+                                
                             </div>
                         </div>
                     }

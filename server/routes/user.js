@@ -60,14 +60,19 @@ router.post("/getUserCryptos", async (request, response) => {
  });
 
 //testcode
-router.post("/getUserSubreddits", async (request, response) => {
-    if(!request.body.email)
-        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
+router.post("/getUserSubreddits", async (request, response, next) => {
+    if(!request.body.email){
+        let error = new Error(`Malformed request. Please check your parameters`);
+        error.status = 400;
+        return next(error);
+    }
     else {
         userFunctions.getUserSubreddits(request.body.email).then(data=>{
             return response.status(200).json(data);
         }).catch(err=>{
-            return response(401).json({status:`error`, error: err})
+            let error = new Error(err);
+            error.status = 500;
+            return next(error);
         })
     }
 });
@@ -77,16 +82,21 @@ router.post("/getUserSubreddits", async (request, response) => {
  * @param {object} response A response object which will return the status code.
  * @return          A status code stating if the request was successful.
  * */
-router.post("/followCrypto", async (request,response)=>{
+router.post("/followCrypto", async (request,response, next)=>{
 
-    if(request.body.email === null || request.body.symbol === null || request.body.crypto_name === null)
-        return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
+    if(request.body.email === null || request.body.symbol === null || request.body.crypto_name === null){
+        let error = new Error(`Malformed request. Please check your parameters`);
+        error.status = 400;
+        return next(error);
+    }
     else{
         await userFunctions.followCrypto(request.body.email,request.body.symbol,request.body.crypto_name).then(data=>{
             twitter.getTimeline(request.body.email).catch(err => response.status(500).json({status:`Internal server error`, error: err}));
             return response.status(200).json(data);
         }).catch(err=>{
-            return response.status(500).json({status:`Internal server error`, error: err})
+            let error = new Error(err);
+            error.status = 500;
+            return next(error);
         });
     }
 });

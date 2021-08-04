@@ -172,6 +172,8 @@ class User_Hash_Table {
                         return await Promise.reject(error);
                     }
                 }
+                else
+                    return Promise.reject(`You are already following this screen name`);
             }
             else
                 return Promise.reject(`Invalid email entered`);

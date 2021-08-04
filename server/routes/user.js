@@ -170,15 +170,19 @@ router.post("/fetchUserSubreddits", async (request, response) => {
 });
 
 //this is the functions
-router.post("/followSubreddit",async (request,response)=>{
+router.post("/followSubreddit",async (request,response, next)=>{
     if(!request.body.email || !request.body.social_media_sites){
-        return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
+        let error = new Error(`Malformed request. Please check your parameters`);
+        error.status = 400;
+        return next(error);
     }
     else{
         await userFunctions.followSubreddit(request.body.email,request.body.social_media_sites).then(data=>{
             response.status(200).json(data);
         }).catch(err=>{
-            response.status(500).json({status:`Internal server error`, error: err});
+            let error = new Error(err);
+            error.status = 500;
+            return next(error);
         })
     }
 });

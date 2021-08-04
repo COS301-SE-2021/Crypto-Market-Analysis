@@ -28,8 +28,8 @@ router.post("/getRedditPost", async (request,response)=>{
 });
 
 router.post("/coinRedditPost", async (request,response)=>{
-    console.log(request.body.email);
-    console.log(request.body.coin);
+    // console.log(request.body.email);
+    // console.log(request.body.coin);
 
     if(request.body.email === null || request.body.coin === null)
         return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});

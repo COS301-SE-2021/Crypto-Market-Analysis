@@ -80,6 +80,24 @@ class Reddit {
                 console.error(error);
             });
     }
+
+    getCoinRedditPost= async (coin) => {
+        const subreddit1 = await r.getSubreddit(coin);
+        let Data = [];
+        const topPosts1 = await subreddit1.getTop({limit: 100});
+        topPosts1.forEach((post) => {
+            Data.push(
+                {
+                    text: post.title,
+                    link: post.url,
+                    score: post.score,
+                    author: post.author.name
+                }
+
+            );
+        });
+        return Data;
+    }
 }
 
 //let reddits = new Reddit();

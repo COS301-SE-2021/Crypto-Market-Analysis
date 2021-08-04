@@ -2,6 +2,9 @@ const Database = require('../database/Database');
 const User_Hash_Table = require(`../Hash_Tables/User_Hash_Table`);
 const user_object = new User_Hash_Table().getInstance();
 const firestore_db = new Database().getInstance();
+const reddit =require('../social_media_sites/Reddit');
+const redditScrapper = new reddit();
+
 
 const get4chanPost = async ()=>{
     let fourChanPosts = [];
@@ -67,6 +70,15 @@ const getRedditPost = async (email)=>{
     // }
 }
 
+
+const coinRedditPost = async (coin)=>{
+    // try {
+        return await redditScrapper.getCoinRedditPost(coin);
+    // }catch (e) {
+    //     return Promise.reject(new Error(err))
+    // }
+
+}
 
 
 
@@ -180,4 +192,4 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
 
-module.exports = {getUserSubreddits,unfollowSubreddit, followSubreddit, fetchUserSubreddits, saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, get4chanPost}
+module.exports = {coinRedditPost, getUserSubreddits,unfollowSubreddit, followSubreddit, fetchUserSubreddits, saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, get4chanPost}

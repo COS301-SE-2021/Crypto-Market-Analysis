@@ -27,6 +27,21 @@ router.post("/getRedditPost", async (request,response)=>{
     }
 });
 
+router.post("/coinRedditPost", async (request,response)=>{
+    // console.log(request.body.email);
+    // console.log(request.body.coin);
+
+    if(request.body.email === null || request.body.coin === null)
+        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
+    else{
+        userFunctions.coinRedditPost(request.body.coin).then(data=>{
+            response.status(200).json(data);
+        }).catch(err=>{
+            return response(401).json({status:`error`, error: err})
+        })
+    }
+});
+
 /** This function gets the cryptos a user is following
  * @param {object} request A request object with the email and symbol.
  * @param {object} response A response object which will return the status code.

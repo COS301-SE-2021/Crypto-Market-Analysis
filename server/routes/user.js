@@ -91,15 +91,20 @@ router.post("/followCrypto", async (request,response)=>{
     }
 });
 
-router.post("/unfollowCrypto", async (request,response)=>{
+router.post("/unfollowCrypto", async (request,response, next)=>{
 
-    if(request.body.email === null || request.body.symbol === null)
-        return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
+    if(request.body.email === null || request.body.symbol === null){
+        let error = new Error(`Malformed request. Please check your parameters`);
+        error.status = 400;
+        return next(error);
+    }
     else{
         await userFunctions.unfollowCrypto(request.body.email,request.body.symbol).then(data=>{
             return response.status(200).json(data);
         }).catch(err=>{
-            return response.status(500).json({status:`Internal server error`, error: err})
+            let error = new Error(err);
+            error.status = 500;
+            return next(error);
         });
     }
 });

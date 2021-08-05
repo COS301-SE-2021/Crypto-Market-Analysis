@@ -75,19 +75,26 @@ class Reddit {
                 }
                 const flat = arr.flat();
                 let unique = flat.filter((item, i, ar) => ar.indexOf(item) === i);
-                console.log(unique);
+               // console.log(unique);
             }).catch((error) => {
                 console.error(error);
             });
     }
 
     getCoinRedditPost= async (coin) => {
+        let notfound = {
+            text: "Subreddit Not Found... Displaying data from r/CryptoCurrencies",
+            link: "https://external-preview.redd.it/gDidjvUkV806tx6OToVm2_UbSB8_s2-ES7yuh99BUGs.jpg?auto=webp&s=7b3e2d041d6843e13228a9bda2aa3eb5eaed7d9e",
+            score: "0",
+            author: "System Message"
+        }
+        let Data = [];
         if (coin.split(" ").length > 1) {
             // at least 2 strings
             coin = "CryptoCurrencies";
+            Data.push(notfound)
         }
         const subreddit1 = await r.getSubreddit(coin);
-        let Data = [];
         const topPosts1 = await subreddit1.getTop({limit: 100});
         topPosts1.forEach((post) => {
             Data.push(
@@ -100,12 +107,17 @@ class Reddit {
 
             );
         });
+        if(Data.length===0)
+        {
+            Data.push(notfound);
+        }
+       // console.log(Data);
         return Data;
     }
 }
 
 // let reddits = new Reddit();
-// reddits.getCoinRedditPost("Binance Coin");
+// reddits.getCoinRedditPost("clemobhe").then();
 
 // reddits.completeScrape("CryptoCurrencies").then();
 // reddits.completeScrape("SatoshiStreetBets").then();

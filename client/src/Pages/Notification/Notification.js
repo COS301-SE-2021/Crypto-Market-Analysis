@@ -13,19 +13,13 @@ import {Link} from "react-router-dom";
 function Notifications() {
     let[Notification_object,setNotification] =useState([]);
     let[elem,setElem] =useState([]);
-    let[Objectdata,setObjData] =useState([]);
     const notificationAlertRef = React.useRef(null);
     const handleView= async (e)=> {
-         // e.preventDefault();
-          console.log('view has been clicked')
         await db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).get().then((notify)=> {
-            console.log(e)
             let viewObject = notify.data().notification;
-            console.log(viewObject);
             if(viewObject[e].Read!=='undefined'){
                 viewObject[e].Read =true;
             }
-
             const notification_view_object ={
                 notification: viewObject
             }
@@ -37,8 +31,6 @@ function Notifications() {
        console.log('delete pressed');
         e.preventDefault();
         await db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).get().then((notify)=> {
-            // console.log(notify.data().notification.Email);
-            let i = 0;
             let object = notify.data().notification;
 
             console.log("object before");
@@ -51,14 +43,13 @@ function Notifications() {
             const notification_object ={
                 notification:object
             }
-            setObjData(notification_object);
             db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).set(notification_object,
                 {merge: true});
         })
     }
-    useEffect(async () => {
+    useEffect( () => {
         let notification_Array = [];
-        await db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).get().then((notify)=>{
+        db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).get().then((notify)=>{
                  // console.log(notify.data().notification.Email);
             let i = 0;
             for (const [key, value] of Object.entries(notify.data().notification)) {
@@ -118,7 +109,7 @@ function Notifications() {
             }
 
         })
-    },[])
+    },)
     return (
         <>
             <div className="rna-container">

@@ -1,0 +1,14 @@
+<a href="">
+  <i class="fas fa-envelope fa-lg"></i>
+  <span class="badge bg-danger badge-dot"></span>
+</a>
+
+<a href="">
+  <i class="fas fa-envelope fa-lg"></i>
+  <span class="badge rounded-pill badge-notification bg-danger">1</span>
+</a>
+
+<a href="">
+  <i class="fas fa-envelope fa-lg"></i>
+  <span class="badge rounded-pill badge-notification bg-danger">999+</span>
+</a>

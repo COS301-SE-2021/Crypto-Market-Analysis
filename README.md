@@ -25,7 +25,7 @@ is and inform the user if it is about to change.
 - [SRS Document](https://www.overleaf.com/read/srdwqvnyjsbw)
 - [Architecture Document](https://www.overleaf.com/read/dzqkrswqcwkf)
 - [Coding Standard](https://www.overleaf.com/read/gnpzqgqghdjj)
-- [Technical Installation Guide]https://drive.google.com/file/d/16ITjgmtEoIiJkWIPlelzZNIttZIxsWhC/view?usp=sharing)
+- [Technical Installation Guide](https://drive.google.com/file/d/16ITjgmtEoIiJkWIPlelzZNIttZIxsWhC/view?usp=sharing)
 ## Demo Videos
 - [Demo 1](https://drive.google.com/file/d/10VWnXqI9cWJKdfY-M69qh-IMqVguGrGT/view?usp=sharing)
 - [Demo 2]()

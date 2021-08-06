@@ -35,7 +35,7 @@ export default function DetailedInfo(props) {
                             <FourChan />
                         </Tab>
                         <Tab eventKey="News" title="News">
-                            <News />
+                            <News coin_name={coin_name}/>
                         </Tab>
                     </Tabs>
                 </div>

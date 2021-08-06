@@ -17,6 +17,15 @@ const get4chanPost = async ()=>{
         return Promise.reject(new Error(err));
     }
 }
+const getNotification=async(email)=>{
+    const fields = await firestore_db.fetchNotification(email).then(data=>{
+        return data;
+    });
+    return fields;
+}
+const setNotification=async(email,object)=>{
+    await firestore_db.storeNotification(email, object);
+}
 
 /** Gets all the reddit posts from the database.
  * @return  {object} Containing an array of posts if it was successful or a rejected Promise.
@@ -105,4 +114,4 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
 
-module.exports = {saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, get4chanPost}
+module.exports = {setNotification,saveToDB,getNotification,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, get4chanPost}

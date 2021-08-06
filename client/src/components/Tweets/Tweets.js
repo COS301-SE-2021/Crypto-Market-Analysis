@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Carousel from 'react-grid-carousel'
-import { Markup } from 'react-render-markup'
-import ScriptTag from 'react-script-tag'
 
 
 export default function Tweets({coin_name}){
@@ -15,22 +13,30 @@ export default function Tweets({coin_name}){
   }
 
     useEffect(async () => {
-      axios.post('http://localhost:8080/twitter/getCryptoTweets',tweetsReq)
+     
+      axios.post('http://localhost:8080/twitter/getTweetIDs',tweetsReq)
       .then(response =>{
-        //console.log(response)
+       
         setTweets(response.data.data)
+       
         setErrorResponse(null)
+
+        let tweet = document.getElementsByClassName("tweets")
+        for(let i = 0; i < tweet.length; i++) {
+             
+              window.twttr.widgets
+              .createTweet(response.data.data[i], tweet[i])
+          }
       },res=>{
-        //console.log(res.response)
+        
         setErrorResponse(res.response.data.error)
       })
     },[])
 
     return(
         <>
-        {console.log(errorResponse)}
         {errorResponse ? <>
-          <div className="container mt-16 " >
+          <div className="container mt-16" >
             <div className="alert alert-warning alert-dismissible fade show m-auto text-center" style={{width:"70%"}}>
               {errorResponse.includes("The user is not following people on twitter")? <span>Oops, looks like you don't follow anyone on Twitter :(</span>
               :errorResponse.includes("No tweets to display")? <span>Oops, looks like we don't have any tweets to display :(</span>
@@ -39,20 +45,20 @@ export default function Tweets({coin_name}){
           </div>
         
         </> : <>
-        <ScriptTag isHydrating={true} type="text/javascript" src="https://platform.twitter.com/widgets.js" />
-        <div id="tweets" className="container mt-16">
+        
+        <div className="container mt-16">
             <Carousel cols={3} rows={2} gap={3} loop >
               {
-                    tweets.map((tweet) => {
+                  tweets.map((tweet,index) => {
                     return (
-                      <Carousel.Item>
-                        <div  className="w-full lg:w-12/12 xl:w-12/12 px-1">
-                          <Markup markup={tweet} />
-                        </div> 
+                      <Carousel.Item key={index}>
+                          <div  className="w-full lg:w-12/12 xl:w-8/12 px-1 ">
+                            <div className="tweets"/>
+                          </div> 
                       </Carousel.Item>
                     )
                  })
-               } 
+               }
                </Carousel>
            
         </div></>}

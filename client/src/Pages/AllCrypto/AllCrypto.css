@@ -1,10 +1,18 @@
 .crypto-wrapper
 {
-    height:600px
+  height:600px;
+  padding-right: 2em;
 }
-.crypto-wrapper::-webkit-scrollbar
+.crypto-search
 {
-    display: none;
+    width: 100%;
+    align-content: center;
+    margin-bottom: 2em;
+}
+.crypto-search input{
+  width: 30%;
+  margin:auto;
+  
 }
 .coin-container {
   display: flex;
@@ -49,6 +57,7 @@
   text-align: right;
   justify-content: space-between;
   width: 100%;
+  
 }
 
 .coin-price {

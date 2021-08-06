@@ -58,15 +58,68 @@ class Reddit {
         this.#firestore_db.save('reddit_info',Subreddit,'posts',Data);
         // this.#firestore_db.save('reddit_data',Subreddit,'posts',Data);
     }
+
+    //get subreddits all users are following then scrap that specific array
+    allSubreddits= async () => {
+        let val;
+        let test;
+        let arr = [];
+        val= this.#firestore_db.fetch(`Users`)
+            .then(snapshot => {
+                const docs = snapshot.docs;
+                for(const doc of docs){
+                    if(doc.data().subreddits)
+                    {
+                        arr.push(doc.data().subreddits)
+                    }
+                }
+                const flat = arr.flat();
+                let unique = flat.filter((item, i, ar) => ar.indexOf(item) === i);
+                console.log(unique);
+            }).catch((error) => {
+                console.error(error);
+            });
+    }
+
+    getCoinRedditPost= async (coin) => {
+        if (coin.split(" ").length > 1) {
+            // at least 2 strings
+            coin = "CryptoCurrencies";
+        }
+        const subreddit1 = await r.getSubreddit(coin);
+        let Data = [];
+        const topPosts1 = await subreddit1.getTop({limit: 100});
+        topPosts1.forEach((post) => {
+            Data.push(
+                {
+                    text: post.title,
+                    link: post.url,
+                    score: post.score,
+                    author: post.author.name
+                }
+
+            );
+        });
+        return Data;
+    }
 }
 
-let reddits = new Reddit();
-reddits.completeScrape("CryptoCurrencies").then();
-reddits.completeScrape("SatoshiStreetBets").then();
-reddits.completeScrape("Crypto_Currency_News").then();
-reddits.completeScrape("CryptoCurrencyTrading").then();
-reddits.completeScrape("Cryptomarkets").then();
+// let reddits = new Reddit();
+// reddits.getCoinRedditPost("Binance Coin");
+
+// reddits.completeScrape("CryptoCurrencies").then();
+// reddits.completeScrape("SatoshiStreetBets").then();
+// reddits.completeScrape("Crypto_Currency_News").then();
+// reddits.completeScrape("CryptoCurrencyTrading").then();
+// reddits.completeScrape("Cryptomarkets").then();
 // reddits.scrapeSubreddit2("Bitcoin").then();
 // reddits.scrapeSubreddit2("Ethereum").then();
+
+
+// let res = reddits.allSubreddits().then();
+// for (let i =0;i<res.length;i++) {
+//     reddits.completeScrape(res[i]).then();
+// }
+
 
 module.exports = Reddit;

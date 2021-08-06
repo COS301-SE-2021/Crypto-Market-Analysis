@@ -12,13 +12,34 @@ import Home from "./Pages/Home/Home"
 import Profile from "./Pages/Profile/Profile"
 import PrivateRoute from "./components/newRoute"
 import Overview from "./components/Overview/Overview"
-import HeaderStats from "./Pages/Home/Headers/HeaderStats"
 import Notification from "./Pages/Notification/Notification"
 import DetailedInfo from "./Pages/DetailedInfo/DetailedInfo"
+import Subreddits from "./Pages/Subreddits/Subreddits"
 import {BrowserRouter as router , Switch} from "react-router-dom";
 import { AuthProvider } from "./Auth/Auth"
+
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import { useEffect } from 'react';
 function App() {
+    useEffect(async ()=>{
+        window.twttr = await (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0],
+            t = window.twttr || {};
+            if (d.getElementById(id)) return t;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://platform.twitter.com/widgets.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        
+            t._e = [];
+            t.ready = function(f) {
+            t._e.push(f)
+            };
+        
+            return t;
+        }(document, "script", "twitter-wjs"))
+    },[])
+
   return (
       <router>
           <AuthProvider>
@@ -33,9 +54,9 @@ function App() {
                      <Route exact path="/Settings" component={Settings}></Route>
                      <Route exact path="/AllCrypto" component={AllCrypto}></Route>
                      <Route exact path="/Profile" component={Profile}></Route>
-                     <Route exact path="/HeaderStats" component={HeaderStats}></Route>
-                     <Route exact path="/Notification" component={Notification}></Route>
+                     <Route exact path="/Notifications" component={Notification}></Route>
                      <Route exact path="/home/DetailedInfo" component={DetailedInfo}></Route>
+                     <Route exact path="/Subreddits" component={Subreddits}></Route>
                  </section>
            </Switch>
           </AuthProvider>

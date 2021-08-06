@@ -47,7 +47,22 @@ class Database {
         else
             this.#db.collection(collectionPath).doc(documentName).set(data, {merge:true}).then();
     }
+    async fetchNotification(email){
+        if(email !== 'undefined')
+            return this.#db.collection('Users').doc(email).get();
+    }
+    async storeNotification(email,object){
+        if(typeof email !== 'undefined') {
+            console.log('something')
+            const notification_object ={
+                notification:object
+            }
+           try{await this.#db.collection('Users').doc(email).update(notification_object);
+            }
+            catch (err){console.log('error saving to database')}
+        }
 
+    }
     async fetch(collectionPath, documentName = null, field = null)
     {
         if(documentName === null)

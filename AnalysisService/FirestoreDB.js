@@ -3,5 +3,5 @@ const serviceAC = require('./database/firebase.json')
 admin.initializeApp({
     credential: admin.credential.cert(serviceAC)
 });
-const db = admin.firestore();
+const db = admin;
 module.exports ={db}

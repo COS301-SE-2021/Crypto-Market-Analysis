@@ -20,11 +20,15 @@ export default function Signup() {
         }
 
         try {
+            let sst = ["Reddit","Twitter","Medium"]
+            let arr = ["SatoshiStreetBets", "CryptoCurrencyTrading", "CryptoCurrencies"]
             setError("")
             setLoading(true)
             await signup(emailRef.current.value, passwordRef.current.value)
             await db.collection('Users').doc(emailRef.current.value).set({
-                user_id: emailRef.current.value
+                user_id: emailRef.current.value,
+                social_media_sites: sst,
+                subreddits: arr
             });
             localStorage.setItem('emailSession',emailRef.current.value);
 

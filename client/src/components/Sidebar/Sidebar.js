@@ -3,7 +3,9 @@ import React, { useState, useRef, useEffect}  from "react";
 import { Link, useHistory } from "react-router-dom";
 import {Avatar} from "@material-ui/core";
 
-import "./Sidebar.css";
+
+import "./Sidebar.css"
+import db from "../../firebase";
 import ModalComp from "../Modal/Modal";
 
 
@@ -13,13 +15,14 @@ export default function Sidebar() {
   const history = useHistory()
   const [collapseShow, setCollapseShow] = React.useState("hidden")
   const [show, setShow] = useState(false)
+  const [status, setStatus] = useState(0)
   let   [linkDisable, setLinkDisable] = useState({})
   const  user = localStorage.getItem("emailSession")
   let  cryptoReq = {
     email: localStorage.getItem("emailSession")
   }
     
-    useEffect(()=>{
+    useEffect(async ()=>{
       
       if(user != null){
         setLinkDisable(false)
@@ -27,6 +30,22 @@ export default function Sidebar() {
       else{
         setLinkDisable(true)
       }
+      await db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).get().then((notify)=>{
+        let i = 0;
+        let counter = 0;
+        for (const [key, value] of Object.entries(notify.data().notification)) {
+          i=i+1;
+          if(value.Read===false && value.Read!=='undefined')
+          {
+            counter= counter+1;
+          }
+          if(i === Object.entries(notify.data().notification).length){
+            setStatus(counter);
+          }
+        }
+      })
+
+
     },[])
   
     const changeLocation = ()=>{
@@ -222,14 +241,11 @@ export default function Sidebar() {
                     }
                     to="/Notification"
                 >
-                  <i
-                      className={
-                        "fas fa-user mr-2 text-sm " +
-                        (window.location.href.indexOf("/Notification") !== -1
-                            ? "opacity-75"
-                            : "text-blueGray-300")
-                      }
-                  ></i>{" "}
+                  <a href="" className="notification">
+                    <i className="fas fa-envelope fa-lg"></i>
+                    <span className="badge rounded-pill badge-notification bg-danger">{status}</span>
+                  </a>
+                  {" "}
                   Notification
                 </Link>
               </li>*/}

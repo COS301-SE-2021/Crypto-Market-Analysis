@@ -7,6 +7,7 @@ import EditIcon from "@material-ui/icons/Edit";
 
 import "./Sidebar.css"
 import db from "../../firebase";
+import axios from "axios";
 
 // import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
 // import UserDropdown from "components/Dropdowns/UserDropdown.js";
@@ -32,20 +33,28 @@ export default function Sidebar() {
       else{
         setLinkDisable(true)
       }
-      await db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).get().then((notify)=>{
-        let i = 0;
-        let counter = 0;
-        for (const [key, value] of Object.entries(notify.data().notification)) {
-          i=i+1;
-          if(value.Read===false && value.Read!=='undefined')
-          {
-            counter= counter+1;
-          }
-          if(i === Object.entries(notify.data().notification).length){
-            setStatus(counter);
-          }
-        }
-      })
+
+      let  emailReq = {
+        email: localStorage.getItem("emailSession")
+      }
+      // this.setState({emailRequest: response.data});
+      axios.post('http://localhost:8080/user/getNotificationObject/',emailReq)
+          .then(response => {
+            let i = 0;
+            let counter = 0;
+            for (const [key, value] of Object.entries(response.data)) {
+              i=i+1;
+              if(value.Read===false && value.Read!=='undefined')
+              {
+                counter= counter+1;
+              }
+              if(i === Object.entries(response.data).length){
+                setStatus(counter);
+              }
+            }
+
+          })
+          .catch(err => {console.error(err);})
 
 
     },[])

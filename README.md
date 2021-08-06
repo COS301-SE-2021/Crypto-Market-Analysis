@@ -21,7 +21,7 @@ tag e.g., Bitcoin to the moon. This will allow the application to understand wha
 is and inform the user if it is about to change.
 
 ## Documentation
-- [User Manual](https://drive.google.com/file/d/1SQO1l27z3_9bIyhtAdZ6CPJZCF-Ci67I/view?usp=sharing)
+- [User Manual](https://drive.google.com/file/d/1A6rl9PwpFhXdEfVpM9qe2cl7VDRg9BSP/view?usp=sharing)
 - [SRS Document](https://www.overleaf.com/read/srdwqvnyjsbw)
 - [Architecture Document](https://www.overleaf.com/read/dzqkrswqcwkf)
 - [Coding Standard](https://www.overleaf.com/read/gnpzqgqghdjj)

@@ -27,8 +27,8 @@ const sslServer = https.createServer(
 sslServer.listen(3443, () => console.log('Secure server running on port 3443'))
 let push = new Push_notification();
 
-//cron.schedule('*/1 * * * *', async () => {
-  /*  console.log('Analysing every minute');
+cron.schedule('*/1 * * * *', async () => {
+   console.log('Analysing every minute');
     await analysis.sentimentAnalysis('Bitcoin','Twitter').then(data=>{
         console.log('outputting data');
         console.log(data);
@@ -42,4 +42,4 @@ let push = new Push_notification();
 
     }).catch(err=>{   console.log('Error in Sentiment Analysis');})
     console.log('Analysing done!');
-});*/
+});

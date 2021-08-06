@@ -21,6 +21,7 @@
     "badwords-filter": "^1.1.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "brain.js": "^2.0.0-beta.2",
     "cheerio": "^1.0.0-rc.10",
     "coingecko-api": "^1.0.10",
     "concurrently": "^6.2.0",

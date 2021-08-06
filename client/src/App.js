@@ -54,7 +54,7 @@ function App() {
                      <Route exact path="/Settings" component={Settings}></Route>
                      <Route exact path="/AllCrypto" component={AllCrypto}></Route>
                      <Route exact path="/Profile" component={Profile}></Route>
-                     <Route exact path="/Notifications" component={Notification}></Route>
+                     <Route exact path="/Notification" component={Notification}></Route>
                      <Route exact path="/home/DetailedInfo" component={DetailedInfo}></Route>
                      <Route exact path="/Subreddits" component={Subreddits}></Route>
                  </section>

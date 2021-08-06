@@ -47,6 +47,7 @@ router.post("/getUserCryptos", async (request, response) => {
  * @param {object} response A response object which will return the status code.
  * @return          A status code stating if the request was successful.
  * */
+
 router.post("/followCrypto", async (request,response)=>{
 
     if(request.body.email === null || request.body.symbol === null || request.body.crypto_name === null)
@@ -72,6 +73,25 @@ router.post("/unfollowCrypto", async (request,response)=>{
         });
     }
 });
+router.post("/getNotificationObject", async (request,response)=>{
+    if(request.body.email === null || typeof request.body.email === 'undefined')
+        return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
+     await userFunctions.getNotification(request.body.email).then(data=>{
+             return response.status(200).json(data.data().notification);
+
+     }).catch(err=>{
+         return response.status(400).json('no notification');
+     })
+
+});
+router.post("/setNotificationObject", async (request,response)=>{
+    await userFunctions.setNotification(request.body.email, request.body.object).then(data=>{
+            return response.status(200).json('data successfully saved');
+        }
+
+    )
+
+})
 
 /** This function adds a social media site to the users account
  * @param {object} request A request object with the email and social_media_sites.

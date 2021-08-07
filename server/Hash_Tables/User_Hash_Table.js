@@ -627,7 +627,7 @@ class User_Hash_Table {
         }
 
         const values = Object.values(this.#users[email].screen_name);
-        if(values.indexOf(screen_name) > -1)
+        if(values && values.indexOf(screen_name) > -1)
             return true;
         return false;
     }

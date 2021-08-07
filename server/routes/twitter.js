@@ -29,17 +29,18 @@ router.post('/getCryptoTweets', async (request, response, next) => {
 
 router.post('/validateScreenName', async (request, response, next) => {
    const screen_name = request.body.screen_name;
+   const email = request.body.email;
 
     //Check if the request has the parameters
-    if(!screen_name) {
+    if(!screen_name || !email) {
         let error = new Error(`Malformed request. Please check your parameters`);
         error.status = 400;
         return next(error);
     }
 
-        try {
-        //Validate the screen name and return the html content to follow the screen name
-        const data = await twitter.validateScreenName(screen_name);
+    try {
+        //Validate the screen name and return boolean variable to indicate if it exists or not
+        const data = await twitter.validateScreenName(screen_name, email);
         return response.status(200).json({status: `Success`, data: data});
     }
     catch(err){

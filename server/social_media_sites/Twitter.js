@@ -53,7 +53,7 @@ class Twitter {
         if(screen_name && email){
             if(await user_object.searchScreenName(screen_name, email))
                 return Promise.reject(`You are already following the selected screen name`);
-            else if(await user_object.searchScreenName(screen_name))
+            else if(await user_object.searchScreenName(screen_name, email))
                 return true;
             else{
                 const response = await T.get('users/show', {screen_name: screen_name}).catch(error => {return error});
@@ -329,9 +329,9 @@ class Twitter {
         try{
             const exists = await this.userLookup(screen_name, email);
             if(exists)
-                return `<a href="https://twitter.com/${screen_name}?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-size="large" data-show-count="false">Follow @${screen_name}</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`;
+                return true;
             else
-                return Promise.reject(`Screen name does not exist`);
+                return false;
         }
         catch (error){
             return Promise.reject(error);
@@ -390,8 +390,5 @@ class Singleton {
         return Singleton.instance;
     }
 }
-
-/*const singleton = new Singleton().getInstance();
-singleton.userLookup(`elonmusk`, `alekarzeeshan92@gmail.com`).then(res => console.log(res));*/
 
 module.exports = Singleton;

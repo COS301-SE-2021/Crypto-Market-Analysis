@@ -1,9 +1,7 @@
 import './App.css';
-import {Route, Link} from "react-router-dom"
+import {Route} from "react-router-dom"
 import login from "./Pages/Login/login"
 import Register from "./Pages/Register/register"
-import splash from "./Pages/Splash/splash"
-import token from "./Pages/Login/token"
 import Settings from "./Pages/Settings/Settings";
 import AllCrypto from "./Pages/AllCrypto/AllCrypto";
 import UpdatePassword from "./Pages/UpdatePassword/updatePassword"
@@ -11,11 +9,10 @@ import UpdateProfile from "./Pages/UpdateProfile/updateProfile"
 import Home from "./Pages/Home/Home"
 import Profile from "./Pages/Profile/Profile"
 import PrivateRoute from "./components/newRoute"
-import Overview from "./components/Overview/Overview"
 import Notification from "./Pages/Notification/Notification"
 import DetailedInfo from "./Pages/DetailedInfo/DetailedInfo"
 import Subreddits from "./Pages/Subreddits/Subreddits"
-import {BrowserRouter as router , Switch} from "react-router-dom";
+import {BrowserRouter as Router , Switch} from "react-router-dom";
 import { AuthProvider } from "./Auth/Auth"
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
@@ -23,7 +20,7 @@ import { useEffect } from 'react';
 function App() {
     useEffect(async ()=>{
         window.twttr = await (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0],
+            let js, fjs = d.getElementsByTagName(s)[0],
             t = window.twttr || {};
             if (d.getElementById(id)) return t;
             js = d.createElement(s);
@@ -41,7 +38,7 @@ function App() {
     },[])
 
   return (
-      <router>
+      <Router>
           <AuthProvider>
            <Switch>
                  <section className="header">
@@ -60,7 +57,7 @@ function App() {
                  </section>
            </Switch>
           </AuthProvider>
-      </router>
+      </Router>
 
   );
 }

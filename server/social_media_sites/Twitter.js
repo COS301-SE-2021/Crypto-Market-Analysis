@@ -44,19 +44,20 @@ class Twitter {
             });
     }
 
-    async userLookup(screen_name){
+    async userLookup(screen_name, email){
         if(!this.#initialized){
             await this.#init;
             this.#initialized = true;
         }
 
-        if(screen_name){
-            if(await user_object.searchScreenName(screen_name))
-                return true;
-            else{
-                const response = await T.get('users/show', {screen_name: screen_name}).catch(error => {return error});
-                return !!response.data;
-            }
+        if(screen_name, email){
+            console.log(this.#twitter_users);
+            // if(await user_object.searchScreenName(screen_name))
+            //     return true;
+            // else{
+            //     const response = await T.get('users/show', {screen_name: screen_name}).catch(error => {return error});
+            //     return !!response.data;
+            // }
         }
         else
             throw `No parameters passed in`;
@@ -383,5 +384,8 @@ class Singleton {
         return Singleton.instance;
     }
 }
+
+/*const singleton = new Singleton().getInstance();
+singleton.userLookup(`elonmusk`, `alekarzeeshan92@gmail.com`).then(res => console.log(res));*/
 
 module.exports = Singleton;

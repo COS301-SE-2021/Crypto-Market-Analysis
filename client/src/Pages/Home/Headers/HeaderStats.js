@@ -2,7 +2,8 @@ import React, { useState, useRef, useEffect } from "react"
 import axios from "axios"
 import Carousel from "react-grid-carousel"
 import { Link, useHistory } from "react-router-dom"
-
+import ClipLoader from "react-spinners/ClipLoader"
+import { Alert } from "react-bootstrap"
 import ModalComp from "../../../components/Modal/Modal"
 import CardStats from "../../../components/Cards/CardStats"
 import "./Header.css";
@@ -15,6 +16,7 @@ export default function HeaderStats(props) {
   const unblockHandle = useRef()
   const history = useHistory()
   const [show, setShow] = useState(false)
+  let [loading, setLoading] = useState(true);
   let [cryptos, setCryptos] = useState([])
   let  requestObj = { email: localStorage.getItem("emailSession") }
   let coin_ = "" //coin name to pass to detailedInfo
@@ -41,6 +43,7 @@ export default function HeaderStats(props) {
     else{ /* else if user is not logged in, use default(Top 10) crypto coins */
       axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=10&page=1&sparkline=false')
           .then(async response => {
+            console.log(response)
             let crypto_names = [];
 
             for(const crypto of response.data)
@@ -56,6 +59,7 @@ export default function HeaderStats(props) {
     The post request get cryptocurrencies from coingecko API
   */
   function getCoins(coinsList){
+ 
     axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=250&page=1&sparkline=false')
         .then(async(response) => {
             let userCryptoList = []
@@ -63,11 +67,13 @@ export default function HeaderStats(props) {
             await response.data.map((coin)=>{
               coinsList.forEach(element => {
                 if(element === coin.name){
+                  
                   userCryptoList.push(coin)
                 }
               });
             })
             setCryptos(userCryptoList)
+            setLoading(false)
         })
         .catch(err => {console.error(err);})
   }
@@ -116,9 +122,9 @@ export default function HeaderStats(props) {
             <div className="container" style={{width:'90%',margin:'auto'}}>
               <div className="row">
                 <div className="col-12">
+                
                 <Carousel cols={3} rows={2} gap={8} >
-                {
-                   cryptos.map((coin) => {
+                   {cryptos.map((coin) => {
                       return (
                         <Carousel.Item key={coin.id}>
                           <div className="w-full lg:w-12/12 xl:w-12/12 px-4 mt-5">

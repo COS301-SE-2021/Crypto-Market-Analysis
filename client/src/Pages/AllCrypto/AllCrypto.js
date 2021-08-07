@@ -1,10 +1,14 @@
 import "bootstrap/dist/css/bootstrap.css";
 import React, { useState, useEffect } from 'react';
+import { useHistory } from "react-router-dom"
+import SweetAlert from 'react-bootstrap-sweetalert'
+import ClipLoader from "react-spinners/ClipLoader"
 import axios from "axios";
 import { Star, } from "@material-ui/icons";
 
 import "../Settings/Settings.css"
 import "./AllCrypto.css"
+import ModalComp from "../../components/Modal/Modal"
 
 const coins = ["btc","eth","usdt","bnb","ada","xrp","usdc","doge","dot","busd"]
 export default function AllCryptos(props)
@@ -12,7 +16,10 @@ export default function AllCryptos(props)
     // cryptos = cryptos
     let [cryptos, setCryptos] = useState([]);
     const [searchCrypto, setSearchCrypto] = useState("");
-
+    const [show, setShow] = useState(false)
+    const [showSweetAlert, setShowSweetAlert] = useState(false)
+    let [loading, setLoading] = useState(true);
+    const history = useHistory()
    
 
     useEffect(async () => {
@@ -48,29 +55,48 @@ export default function AllCryptos(props)
     },[]);
 
     /*
-              Get a list of coins from Coingecko. For each crypto, check if it matches crypto a user 
-              follows and mark it as selected                  
-            */
-              function getCoins(coinsList){
-              axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=250&page=1&sparkline=false')
-              .then(async (response_data) => {
-                  
-                  await response_data.data.map((coin)=>{
-                      
-                    coinsList.forEach(element => {
-                          if(element === coin.name){
-                              coin.selected = true;
-                          }
-                      })
-                  })
-                  setCryptos(response_data.data)
-              
-              })
-              .catch(err => {console.error(err);})
-            }
+        Get a list of coins from Coingecko. For each crypto, check if it matches crypto a user 
+        follows and mark it as selected                  
+    */
+        function getCoins(coinsList){
+        axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=250&page=1&sparkline=false')
+        .then(async (response_data) => {
+            
+            await response_data.data.map((coin)=>{
+                
+            coinsList.forEach(element => {
+                    if(element === coin.name){
+                        coin.selected = true;
+                    }
+                })
+            })
+            setCryptos(response_data.data)
+            setLoading(false)
+        
+        })
+        .catch(err => {console.error(err);})
+    }
 
-    const select = (name,type) => {
-        setTimeout(function() {
+    const onCancel =(e)=>{
+        setShow(false);    
+    }
+    const OnContinue =()=>{
+        history.push('/login')
+      }
+
+    const select = (name,type)=>{
+
+        if(localStorage.getItem("emailSession") != null){
+            selectFinalize(name,type)
+            
+        }
+        else{
+            setShow(true)
+        }
+
+    }
+    const selectFinalize = (name,type) => {
+        
         
             if(type == "cryptos"){
                 cryptos =  [...cryptos.map((crypto)=>{
@@ -87,17 +113,24 @@ export default function AllCryptos(props)
                                 symbol: crypto.symbol,
                                 crypto_name: crypto.name,
                             }
-                        
-                            axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd)
+                           
+                            axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd).then(()=>{
+                                setShowSweetAlert(true)
+                            })
                                 .catch(err => {console.error(err);})
+                            
                         }
                         else{
                             let  cryptoToRemove = {
                                 email: localStorage.getItem("emailSession"),
                                 symbol: crypto.symbol,
                             }
-                            axios.post('http://localhost:8080/user/unfollowCrypto/',cryptoToRemove)
+                            
+                            axios.post('http://localhost:8080/user/unfollowCrypto/',cryptoToRemove).then(()=>{
+                                setShowSweetAlert(true)
+                            })
                                 .catch(err => {console.error(JSON.stringify(err));})
+
                         }
                     }
                     return {
@@ -106,10 +139,9 @@ export default function AllCryptos(props)
                 })]
                 setCryptos(cryptos)
             }
+            
             let func = props.alert 
                 func() //alert observer in parent component to trigger change in headerstat
-        },2000)
-
     }
 
     //sets search to whats typed in the search input field
@@ -118,12 +150,14 @@ export default function AllCryptos(props)
 
     //filter list based on the search input
     const searchedCryptos = cryptos.filter((crypto)=>{
-        return crypto.name.toLowerCase().includes(searchCrypto.toLowerCase())
+
+        return crypto.name.toLowerCase().includes(searchCrypto.toLowerCase()) ||  crypto.symbol.toLowerCase().includes(searchCrypto.toLowerCase())
     })
     
     return(
         <>       
-        {/* <Sidebar /> */}
+        <ModalComp show={show} cancel={onCancel} continue={OnContinue} />
+        <SweetAlert show={showSweetAlert} success title={"Coin added"} onConfirm={()=>{setShowSweetAlert(false)}}>Coin added</SweetAlert>
          <div className="container">
             <div className="row"> 
                 <div className="crypto-search">
@@ -131,9 +165,10 @@ export default function AllCryptos(props)
                                 onChange={searchCoin}/>
                 </div>
                 <div className=" overflow-auto block crypto-wrapper" style={{height:"600px",margin:"auto"}}>
-                    {searchedCryptos.length < 1 ? <p className="text-center">Oops :( <br/>We don't have that coin</p>
-                    :<>{
-                        searchedCryptos.map((myCrypto,index) =>{
+                    {loading ? <ClipLoader  loading={loading} size={150} />:
+                    searchedCryptos.length < 1 ? <p className="text-center">Oops :( <br/>We don't have that coin</p>
+                    :<>
+                        {searchedCryptos.map((myCrypto,index) =>{
                             
                             return(
                                 <div key={index} className='coin-container'>

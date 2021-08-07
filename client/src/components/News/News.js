@@ -52,7 +52,7 @@ export default function News(props) {
                     article_card.className = `col-5 card mr-5 mt-5`;
                     article_card.style.cssText = `border: 0.1em groove black;`
                     article_card.innerHTML = `<a href=${article.url}>
-                                                <img src=${article.image.thumbnail} class="card-img-top my-3" style="text-decoration: none; color: black;">
+                                                <div><img src=${article.image.thumbnail} class="card-img-top my-3" style="text-decoration: none; color: black; height: 13em;"></div>
                                                 <div class="card-body">
                                                     <p class="h6 card-subtitle mb-2 text-muted">${article.provider.name.toUpperCase()}</p> 
                                                     <p class="h6 card-subtitle mb-2 text-muted">${published_date.toLocaleString()}</p>

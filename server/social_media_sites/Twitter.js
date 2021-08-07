@@ -50,14 +50,15 @@ class Twitter {
             this.#initialized = true;
         }
 
-        if(screen_name, email){
-            console.log(this.#twitter_users);
-            // if(await user_object.searchScreenName(screen_name))
-            //     return true;
-            // else{
-            //     const response = await T.get('users/show', {screen_name: screen_name}).catch(error => {return error});
-            //     return !!response.data;
-            // }
+        if(screen_name && email){
+            if(await user_object.searchScreenName(screen_name, email))
+                return Promise.reject(`You are already following the selected screen name`);
+            else if(await user_object.searchScreenName(screen_name))
+                return true;
+            else{
+                const response = await T.get('users/show', {screen_name: screen_name}).catch(error => {return error});
+                return !!response.data;
+            }
         }
         else
             throw `No parameters passed in`;
@@ -319,17 +320,22 @@ class Twitter {
         }
     }
 
-    async validateScreenName(screen_name){
+    async validateScreenName(screen_name, email){
         if(!this.#initialized){
             await this.#init;
             this.#initialized = true;
         }
 
-        const exists = await this.userLookup(screen_name);
-        if(exists)
-            return `<a href="https://twitter.com/${screen_name}?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-size="large" data-show-count="false">Follow @${screen_name}</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`;
-        else
-            return Promise.reject(`Screen name does not exist`);
+        try{
+            const exists = await this.userLookup(screen_name, email);
+            if(exists)
+                return `<a href="https://twitter.com/${screen_name}?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-size="large" data-show-count="false">Follow @${screen_name}</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>`;
+            else
+                return Promise.reject(`Screen name does not exist`);
+        }
+        catch (error){
+            return Promise.reject(error);
+        }
     }
 
     async getAllNamesTimeline(){

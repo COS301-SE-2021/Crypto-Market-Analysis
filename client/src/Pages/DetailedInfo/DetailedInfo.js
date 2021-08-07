@@ -9,6 +9,7 @@ import Reddits from '../../components/Reddits/Reddits'
 import FourChan from '../../components/4chan/fourChan'
 import Sidebar from "../../components/Sidebar/Sidebar.js";
 import Reddit from "../../components/Reddit/Reddit.js";
+import News from "../../components/News/News";
 
 export default function DetailedInfo(props) {
     const coin_name = props.location.state.coin_name
@@ -21,7 +22,7 @@ export default function DetailedInfo(props) {
                         <Tab eventKey="Overview" title="Overview">
                             <Overview coin_name={coin_name}/>
                         </Tab>
-                        <Tab eventKey="Tweets" title="Tweets">
+                        <Tab eventKey="Twitter" title="Twitter">
                             <Tweets coin_name={coin_name} />
                         </Tab>
                         {/*<Tab eventKey="Reddit" title="Reddit">*/}
@@ -33,7 +34,9 @@ export default function DetailedInfo(props) {
                         <Tab eventKey="4chan" title="4chan">
                             <FourChan />
                         </Tab>
-
+                        <Tab eventKey="News" title="News">
+                            <News coin_name={coin_name}/>
+                        </Tab>
                     </Tabs>
                 </div>
             </div>

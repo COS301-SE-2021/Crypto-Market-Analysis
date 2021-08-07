@@ -24,7 +24,6 @@ export default function FourChan(){
                     }
 
                 }
-                console.log(posts_4chan)
                 setfourChans(posts_4chan);
             })
             .catch(err => {console.error(err);})

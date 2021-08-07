@@ -48,7 +48,6 @@ const coastalCities = await citiesRef.where('regions', 'array-contains-any',
  */
 const getRedditPost = async (email)=>{
     let subs = await getUserSubreddits(email);
-    console.log(subs);
     let posts = [];
     let docs = [];
     for(let i=0; i<subs.length; i++)

@@ -95,10 +95,8 @@ const Profile = props =>
 
     const followUser = ()=>{
         let user = {email: localStorage.getItem("emailSession"), screen_name: userToSearch }
-        console.log("Follow")
         axios.post('http://localhost:8080/twitter/follow/',user)
         .then(response=>{
-            console.log(response)
             // setFollows(true)
         })
         .catch(err => {console.error(err)})
@@ -106,11 +104,9 @@ const Profile = props =>
     }
     const unFollowUser = ()=>{
         let user = {email: localStorage.getItem("emailSession"), screen_name: userToSearch }
-        console.log("uFollow")
         axios.post('http://localhost:8080/twitter/unfollow/',user)
         .then(response=>{
-            console.log(response)
-            
+
         })
         .catch(err => {console.error(err)})
 
@@ -120,19 +116,16 @@ const Profile = props =>
 
     const searchUsername = async (event) =>{
         event.preventDefault()
-        console.log(searchRef.current.value)
-       
+
        
         let user = { screen_name: searchRef.current.value }
         axios.post('http://localhost:8080/twitter/validateScreenName/',user)
         .then((response)=>{
-            console.log(response)
             //setErr(null)
             // setNotFollows(true)
             handleFollow(user.screen_name)
 
         },(reject)=>{
-            console.log(reject)
             // setErr(reject.response.data.error)
         })
         .catch(err => {console.error(err)})
@@ -274,7 +267,7 @@ const Profile = props =>
                                         </div>
                                     </div>
                                     <div>
-                                        {console.log(err)}
+                                        {console.error(err)}
                                         {/* {err && err.message && err.message.includes("Screen name does not exist") ? <span className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0">User does not exist</span>
                                         : follows ? <button type="button" className="btn btn-outline-info btn-sm" id="unfollow" onClick={unFollowUser}><i className="fa fa-twitter mr-5" aria-hidden="true" style={{fontSize: "1.2em"}}></i><i>unfollow @elonmusk</i></button>
                                         : notFollows ?<button type="button" className="btn btn-outline-info btn-sm" id="unfollow" onClick={followUser}><i className="fa fa-twitter mr-5" aria-hidden="true" style={{fontSize: "1.2em"}}></i><i >Follow {userToSearch}</i></button>

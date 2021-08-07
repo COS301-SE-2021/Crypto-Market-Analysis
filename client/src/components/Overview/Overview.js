@@ -30,14 +30,12 @@ export default function Overview({coin_name}) {
     }
 
     useEffect(async () => {
-        console.log("useeffect")
         // setInterval()
         // const interval = setInterval(function(){console.log("time now " + time) 
         // setTime(Date.now())}, 30000)
         
            
 
-        // console.log(interval)
         coin_name = coin_name.toLowerCase();
         axios.get('https://api.coingecko.com/api/v3/coins/' + coin_name)
             .then(async (response) => {

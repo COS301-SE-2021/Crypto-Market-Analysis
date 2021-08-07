@@ -47,7 +47,7 @@ export default function Tweets({coin_name}){
         </> : <>
         
         <div className="container mt-16">
-            <Carousel cols={3} rows={2} gap={3} loop >
+            <Carousel cols={3} rows={2} gap={3} >
               {
                   tweets.map((tweet,index) => {
                     return (

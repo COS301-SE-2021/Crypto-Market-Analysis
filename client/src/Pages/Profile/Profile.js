@@ -1,5 +1,6 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import { Link } from "react-router-dom";
+import { Form  } from "react-bootstrap"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components';
 import {Avatar, Tabs, AppBar, Tab} from "@material-ui/core"
@@ -9,6 +10,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import "./Profile.css";
 import Subreddits from "../Subreddits/Subreddits";
 import Reddits from "../../components/Reddits/Reddits";
+import SweetAlert from 'react-bootstrap-sweetalert'
 
 
 const Button = styled.button`
@@ -31,6 +33,8 @@ const Profile = props =>
     const [userToSearch, setUserToSearch] = useState({})
     let [err, setErr] = useState([])
     let [follows, setFollows] = useState(false)
+    let [notFollows, setNotFollows] = useState(false)
+    const searchRef = useRef()
 
     const handleChange = (event, newValue) =>
     {
@@ -95,7 +99,18 @@ const Profile = props =>
         axios.post('http://localhost:8080/twitter/follow/',user)
         .then(response=>{
             console.log(response)
-            setFollows(true)
+            // setFollows(true)
+        })
+        .catch(err => {console.error(err)})
+
+    }
+    const unFollowUser = ()=>{
+        let user = {email: localStorage.getItem("emailSession"), screen_name: userToSearch }
+        console.log("uFollow")
+        axios.post('http://localhost:8080/twitter/unfollow/',user)
+        .then(response=>{
+            console.log(response)
+            
         })
         .catch(err => {console.error(err)})
 
@@ -103,17 +118,22 @@ const Profile = props =>
 
     const searchInput = (event) =>{ setUserToSearch(event.target.value) }
 
-    const searchUsername = async () =>{
-        
-        
-        let user = { screen_name: userToSearch }
+    const searchUsername = async (event) =>{
+        event.preventDefault()
+        console.log(searchRef.current.value)
+       
+       
+        let user = { screen_name: searchRef.current.value }
         axios.post('http://localhost:8080/twitter/validateScreenName/',user)
-        .then(()=>{
-            setErr(null)
-            handleFollow(userToSearch)
+        .then((response)=>{
+            console.log(response)
+            //setErr(null)
+            // setNotFollows(true)
+            handleFollow(user.screen_name)
 
         },(reject)=>{
-            setErr(reject.response.data.error)
+            console.log(reject)
+            // setErr(reject.response.data.error)
         })
         .catch(err => {console.error(err)})
     }
@@ -122,6 +142,7 @@ const Profile = props =>
     return(
 
         <>
+
             <Sidebar />
             <script sync src="https://platform.twitter.com/widgets.js%22%3E"></script>
             <div className="md:ml-64">
@@ -237,29 +258,28 @@ const Profile = props =>
                                 <div className="col-sm-12" >
                                     <div className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0">Search for a twitter user you want us to check out for you</div>
                                     <div className="input-group" >
-                                        <input id="table_filter" type="text" className="form-control" aria-label="Text input with segmented button dropdown" onChange={searchInput}/>
+                                        {/* <input id="searchInput" type="text" className="form-control" aria-label="Text input with segmented button dropdown" onChange={searchInput} /> */}
                                         <div className="input-group-btn" >
-                                            {/* <button type="button" className="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ><span className="label-icon" >Platform</span> <span className="caret" >&nbsp;</span></button>
-                                            <div className="dropdown-menu dropdown-menu-right" >
-                                                <ul className="category_filters" >
-                                                    <li >
-                                                        <input className="cat_type category-input" data-label="Twitter" id="twitter" value="" name="radios" type="radio" /><label htmlFor="twitter" >Twitter</label>
-                                                    </li>
-                                                    <li >
-                                                        <input type="radio" name="radios" id="reddit" value="Reddi" /><label className="category-label" htmlFor="reddit" >Reddit</label>
-                                                    </li>
-                                                    <li >
-                                                        <input type="radio" name="radios" id="4chan" value="4chan" /><label className="category-label" htmlFor="4chan" >4chan</label>
-                                                    </li>
-                                                </ul>
-                                            </div> */}
-                                            <button id="searchBtn" type="button" className="btn btn-secondary btn-search" onClick={searchUsername} ><span className="glyphicon glyphicon-search" >&nbsp;</span> <span className="label-icon" >Search</span></button>
+                                        <Form onSubmit={searchUsername}>
+                                            <Form.Group >
+                                                <Form.Control type="text" ref={searchRef} required />
+                                            
+                                            
+                                            <Button id="searchBtn" type="button" className="btn btn-secondary btn-search" type="submit">
+                                            <span className="glyphicon glyphicon-search" >&nbsp;</span> <span className="label-icon" >Search</span>
+                                            </Button>
+                                            </Form.Group>
+                                        </Form>
+                                            
                                         </div>
                                     </div>
                                     <div>
-                                        {err && err.includes("Screen name does not exist") ? <span className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0">User does not exist</span>
-                                        : follows ? <span className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0">Follow successful</span>
-                                        :<span id='followBtn' className="mt-16" onClick={()=>{followUser()}}></span>}
+                                        {console.log(err)}
+                                        {/* {err && err.message && err.message.includes("Screen name does not exist") ? <span className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0">User does not exist</span>
+                                        : follows ? <button type="button" className="btn btn-outline-info btn-sm" id="unfollow" onClick={unFollowUser}><i className="fa fa-twitter mr-5" aria-hidden="true" style={{fontSize: "1.2em"}}></i><i>unfollow @elonmusk</i></button>
+                                        : notFollows ?<button type="button" className="btn btn-outline-info btn-sm" id="unfollow" onClick={followUser}><i className="fa fa-twitter mr-5" aria-hidden="true" style={{fontSize: "1.2em"}}></i><i >Follow {userToSearch}</i></button>
+                                        // <span id='followBtn' className="mt-16" onClick={()=>{followUser()}}></span>
+                                        :<></>} */}
                                     </div>
                                     
                                 </div>

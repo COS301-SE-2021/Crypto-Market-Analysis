@@ -1,6 +1,8 @@
 import "bootstrap/dist/css/bootstrap.css";
 import React, { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom"
+import SweetAlert from 'react-bootstrap-sweetalert'
+import ClipLoader from "react-spinners/ClipLoader"
 import axios from "axios";
 import { Star, } from "@material-ui/icons";
 
@@ -15,6 +17,8 @@ export default function AllCryptos(props)
     let [cryptos, setCryptos] = useState([]);
     const [searchCrypto, setSearchCrypto] = useState("");
     const [show, setShow] = useState(false)
+    const [showSweetAlert, setShowSweetAlert] = useState(false)
+    let [loading, setLoading] = useState(true);
     const history = useHistory()
    
 
@@ -67,6 +71,7 @@ export default function AllCryptos(props)
                 })
             })
             setCryptos(response_data.data)
+            setLoading(false)
         
         })
         .catch(err => {console.error(err);})
@@ -83,6 +88,7 @@ export default function AllCryptos(props)
 
         if(localStorage.getItem("emailSession") != null){
             selectFinalize(name,type)
+            
         }
         else{
             setShow(true)
@@ -90,7 +96,7 @@ export default function AllCryptos(props)
 
     }
     const selectFinalize = (name,type) => {
-        setTimeout(function() {
+        
         
             if(type == "cryptos"){
                 cryptos =  [...cryptos.map((crypto)=>{
@@ -107,17 +113,24 @@ export default function AllCryptos(props)
                                 symbol: crypto.symbol,
                                 crypto_name: crypto.name,
                             }
-                        
-                            axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd)
+                           
+                            axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd).then(()=>{
+                                setShowSweetAlert(true)
+                            })
                                 .catch(err => {console.error(err);})
+                            
                         }
                         else{
                             let  cryptoToRemove = {
                                 email: localStorage.getItem("emailSession"),
                                 symbol: crypto.symbol,
                             }
-                            axios.post('http://localhost:8080/user/unfollowCrypto/',cryptoToRemove)
+                            
+                            axios.post('http://localhost:8080/user/unfollowCrypto/',cryptoToRemove).then(()=>{
+                                setShowSweetAlert(true)
+                            })
                                 .catch(err => {console.error(JSON.stringify(err));})
+
                         }
                     }
                     return {
@@ -126,10 +139,9 @@ export default function AllCryptos(props)
                 })]
                 setCryptos(cryptos)
             }
+            
             let func = props.alert 
                 func() //alert observer in parent component to trigger change in headerstat
-        },2000)
-
     }
 
     //sets search to whats typed in the search input field
@@ -138,12 +150,14 @@ export default function AllCryptos(props)
 
     //filter list based on the search input
     const searchedCryptos = cryptos.filter((crypto)=>{
-        return crypto.name.toLowerCase().includes(searchCrypto.toLowerCase())
+
+        return crypto.name.toLowerCase().includes(searchCrypto.toLowerCase()) ||  crypto.symbol.toLowerCase().includes(searchCrypto.toLowerCase())
     })
     
     return(
         <>       
         <ModalComp show={show} cancel={onCancel} continue={OnContinue} />
+        <SweetAlert show={showSweetAlert} success title={"Coin added"} onConfirm={()=>{setShowSweetAlert(false)}}>Coin added</SweetAlert>
          <div className="container">
             <div className="row"> 
                 <div className="crypto-search">
@@ -151,7 +165,8 @@ export default function AllCryptos(props)
                                 onChange={searchCoin}/>
                 </div>
                 <div className=" overflow-auto block crypto-wrapper" style={{height:"600px",margin:"auto"}}>
-                    {searchedCryptos.length < 1 ? <p className="text-center">Oops :( <br/>We don't have that coin</p>
+                    {loading ? <ClipLoader  loading={loading} size={150} />:
+                    searchedCryptos.length < 1 ? <p className="text-center">Oops :( <br/>We don't have that coin</p>
                     :<>
                         {searchedCryptos.map((myCrypto,index) =>{
                             

@@ -15,15 +15,12 @@ export default function Tweets({coin_name}){
     useEffect(async () => {
      
       axios.post('http://localhost:8080/twitter/getTweetIDs',tweetsReq)
-      .then(response =>{
-       
-        setTweets(response.data.data)
-       
-        setErrorResponse(null)
+      .then(response => {
+        setTweets(response.data.data);
+        setErrorResponse(null);
 
-        let tweet = document.getElementsByClassName("tweets")
+        let tweet = document.getElementsByClassName("tweets");
         for(let i = 0; i < tweet.length; i++) {
-             
               window.twttr.widgets
               .createTweet(response.data.data[i], tweet[i])
           }

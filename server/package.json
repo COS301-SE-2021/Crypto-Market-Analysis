@@ -50,7 +50,8 @@
     "snoowrap": "^1.23.0",
     "ts-jest": "^27.0.3",
     "tweet-scraper": "^1.0.1",
-    "twit": "^2.2.11"
+    "twit": "^2.2.11",
+    "web-push": "^3.4.5"
   },
   "devDependencies": {
     "apos-to-lex-form": "^1.0.5",

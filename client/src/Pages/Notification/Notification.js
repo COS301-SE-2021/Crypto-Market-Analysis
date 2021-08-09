@@ -145,6 +145,7 @@ class Notifications extends React.Component {
             <div className="md:ml-64">
 
                 <Container fluid>
+
                     <Card>
                         <Card.Header>
                             <Card.Title as="h4">Notifications</Card.Title>

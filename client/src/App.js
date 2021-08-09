@@ -13,6 +13,7 @@ import Profile from "./Pages/Profile/Profile"
 import PrivateRoute from "./components/newRoute"
 import Overview from "./components/Overview/Overview"
 import HeaderStats from "./Pages/Home/Headers/HeaderStats"
+import Notification from "./Pages/Notification/Notification"
 import DetailedInfo from "./Pages/DetailedInfo/DetailedInfo"
 import {BrowserRouter as router , Switch} from "react-router-dom";
 import { AuthProvider } from "./Auth/Auth"
@@ -34,6 +35,7 @@ function App() {
                      <Route exact path="/AllCrypto" component={AllCrypto}></Route>
                      <Route exact path="/Profile" component={Profile}></Route>
                      <Route exact path="/HeaderStats" component={HeaderStats}></Route>
+                     <Route exact path="/Notification" component={Notification}></Route>
                      <Route exact path="/home/DetailedInfo" component={DetailedInfo}></Route>
 
                  </section>

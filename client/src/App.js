@@ -10,6 +10,7 @@ import UpdatePassword from "./Pages/UpdatePassword/updatePassword"
 import UpdateProfile from "./Pages/UpdateProfile/updateProfile"
 import Home from "./Pages/Home/Home"
 import Profile from "./Pages/Profile/Profile"
+import Push from "./Pages/Push/Push"
 import PrivateRoute from "./components/newRoute"
 import Overview from "./components/Overview/Overview"
 import Notification from "./Pages/Notification/Notification"
@@ -47,6 +48,7 @@ function App() {
                  <section className="header">
                      <Route exact path="/" component={Home}></Route>
                      <Route exact path="/register" component={Register}></Route>
+                     <Route exact path="/Push" component={Push}></Route>
                      <PrivateRoute exact path="/home" component={Home}></PrivateRoute>
                      <Route exact path="/login" component={login}></Route>
                      <Route exact path="/updatePassword" component={UpdatePassword}></Route>

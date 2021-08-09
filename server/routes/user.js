@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const userFunctions =require('./userFunctions')
-
+const Database = require('../database/Database');
+const firestore_db = new Database().getInstance();
 router.post("/get4chanPost", async (request,response)=>{
     const email = request.body.email;
     // if(!email || !(typeof email === 'string' || email instanceof String))
@@ -123,7 +124,13 @@ router.post("/unfollowSocialMedia", async (request,response)=>{
         });
     }
 });
+router.post("/storePush", async (request,response)=>{
+     await userFunctions.setPush(request.body.subs).then(data=>{
+         return response.status(200).json("subs stored");
+     })
 
+
+});
 
 /** This function gets the social media a user is following
  * @param {object} request A request object with the email and symbol.
@@ -141,6 +148,31 @@ router.post("/fetchUserSocialMedia", async (request, response) => {
             return response(401).json({status:`error`, error: err})
         })
     }
+});
+const webpush = require("web-push");
+const Push_notification=require('./notification/push_notification')
+router.post("/subscribe", async (req, res) => {
+    // Get pushSubscription object
+    //console.log(req.body);
+    const web_push = new Push_notification();
+        web_push.setDetails();
+    console.log('Showing subscription');
+    let subscription={};
+        await userFunctions.getPush().then(data=>{
+            subscription = data;
+    });
+    console.log("subscription");
+    console.log(subscription);
+    // Send 201 - resource created
+    res.status(201).json({});
+
+    // Create payload
+    const payload = JSON.stringify({ title: "Push notification Test" });
+
+    // Pass object into sendNotification
+    webpush
+        .sendNotification(subscription, payload)
+        .catch(err => console.error(err));
 });
 
 module.exports = router

@@ -51,6 +51,14 @@ class Database {
         if(email !== 'undefined')
             return this.#db.collection('Users').doc(email).get();
     }
+    async fetchPushNotification(){
+        return this.#db.collection('Subscribers').doc('Subs').get();
+        // .then(data=>{
+        //     // console.log('showing data')
+        //    // console.log(data.data().subing);
+        //         return data.data().subing;
+        //     });
+    }
     async storeNotification(email,object){
         if(typeof email !== 'undefined') {
             console.log('something')
@@ -61,6 +69,17 @@ class Database {
             }
             catch (err){console.log('error saving to database')}
         }
+
+    }
+    async setPushNotification(object){
+            console.log('something')
+            const notification_object ={
+                subing:object
+            }
+            try{await this.#db.collection('Subscribers').doc('Subs').set(notification_object);
+            }
+            catch (err){console.log('error saving to database')}
+
 
     }
     async fetch(collectionPath, documentName = null, field = null)

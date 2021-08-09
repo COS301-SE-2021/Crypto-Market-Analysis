@@ -8,15 +8,24 @@ export const historyOptions ={
     animation:{
         duration: 2000
     },
-
+    type:"spline",
     maintainAspectRatio: false,
     responsive: true,
     scales: {
         xAxes: [
             {
                 type: "time",
-                distribution: "linear"
+                distribution: "linear",
+
             }
-        ]
+        ],
+        yAxes: [{
+            ticks: {
+                callback: function (value, index, values)
+                {
+                    return 'R' + value.toLocaleString();
+                }
+            }
+        }]
     }
 }

@@ -39,8 +39,8 @@ const CoinData = ({data}) => {
                         {
                             label: detail.name + " market cap",
                             data: determineTimeFormat(),
-                            backgroundColor: "rgba(174,305,194,0.5)",
-                            borderColor: "rgba(174,305,194,0.4)",
+                            backgroundColor: "rgba(255, 255, 255,0)",
+                            borderColor: "rgba(0,0,0,0.9)",
                             pointRadius: 0,
                         },
 
@@ -56,9 +56,9 @@ const CoinData = ({data}) => {
     return (
         <div>
 
-            <div>
+            <div width={500}>
 
-                <canvas ref={chartRefs} id="myChart" height={250} width={250}></canvas>
+                <canvas ref={chartRefs} id="myChart" height={500} width={500}/>
 
             </div>
 

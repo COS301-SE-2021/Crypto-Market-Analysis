@@ -19,17 +19,14 @@ class Push extends React.Component {
             notificationObject:{},
             emailRequest:{}
         }
+        this.handleSubscribe = this.handleSubscribe.bind(this);
     }
-    componentDidMount(){
+    handleSubscribe= async (e)=> {
         const publicVapidKey =
             "BC0gVsYz3ljCKUO5KCfEcpaTFj3Ye_Q_q8vAWBTKDd_53jXsvtRMOYqTCUggv62UE3As_8psAJwXwTKTgXYUKNs";
-
-// Check for service worker
         if ("serviceWorker" in navigator) {
             send().catch(err => console.error(err));
         }
-
-// Register SW, Register Push, Send Push
         async function send() {
             // Register Service Worker
             console.log("Registering service worker...");
@@ -56,19 +53,9 @@ class Push extends React.Component {
                     "content-type": "application/json"
                 }
             });
-            let  emailReq = {
-                subscription
-            }
-            axios.post('http://localhost:8080/user/subscribe/',emailReq)
-                .then(response => {
-                  console.log(response);
-
-                })
-                .catch(err => {console.error(err);})
 
             console.log("Push Sent...");
         }
-
         function urlBase64ToUint8Array(base64String) {
             const padding = "=".repeat((4 - base64String.length % 4) % 4);
             const base64 = (base64String + padding)
@@ -83,6 +70,14 @@ class Push extends React.Component {
             }
             return outputArray;
         }
+
+    }
+    componentDidMount(){
+
+
+
+
+
 
     }
 

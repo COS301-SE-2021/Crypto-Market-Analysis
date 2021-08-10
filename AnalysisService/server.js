@@ -4,14 +4,14 @@ const path = require('path')
 const bodyParser = require("body-parser");
 const fs = require('fs')
 const dotenv = require('dotenv');
-
+const http = require('http');
 const cron = require('node-cron');
 const analysis = require('./analysisFunction');
 const notification = require('./notification/notification');
 const notificationType =require('./notification/notificationType')
 
 const average = require('./notification/AverageSentiment')
-const app = express()
+const app = require('./app');
 
 app.use('/', (req, res, next) => {
     res.send('SSL server started')
@@ -26,7 +26,8 @@ const sslServer = https.createServer(
 )
 
 sslServer.listen(3443, () => console.log('Secure server running on port 3443'))
-
+http.createServer(app);
+app.listen(8000);
 //let push = new Push_notification();
 
 // cron.schedule('*/1 * * * *', async () => {

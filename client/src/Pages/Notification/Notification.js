@@ -22,16 +22,11 @@ class Notifications extends React.Component {
     }
 
     handleDelete= async (e)=> {
-        console.log('you pressed delete!')
         let object = this.state.notificationObject;
 
-        console.log("object before");
-        console.log(object);
-        console.log(object.hasOwnProperty(e.target.value))
+
         delete object[e.target.value];
-        console.log(" after");
-        console.log(object);
-        console.log(object.hasOwnProperty(e.target.value))
+
         let  emailReq = {
             email: localStorage.getItem("emailSession"),
             object: object
@@ -40,7 +35,6 @@ class Notifications extends React.Component {
 
         axios.post('http://localhost:8080/user/setNotificationObject/',emailReq)
             .then(response => {
-                  console.log(response);
             })
         this.setState({notificationObject: object});
         const objectdata= this.state.notificationObject;
@@ -48,7 +42,6 @@ class Notifications extends React.Component {
 
     }
     handleView= async (e)=> {
-        console.log('you pressed view!')
         let viewObject = this.state.notificationObject;
         if(viewObject[e].Read!=='undefined'){
             viewObject[e].Read =true;
@@ -61,21 +54,16 @@ class Notifications extends React.Component {
 
         axios.post('http://localhost:8080/user/setNotificationObject/',ObjectReq)
             .then(response => {
-                console.log(response);
             })
 
     }
     generateData(object_response){
-        console.log('showing the response')
         this.setState({notificationObject: object_response});
         const objectOfNotificationdata= this.state.notificationObject;
         const notification_Array = [];
-        console.log(Object.keys(objectOfNotificationdata).length)
         let i=0;
         for (const [key, value] of Object.entries(objectOfNotificationdata)) {
             i=i+1;
-            console.log(value.Read)
-            //console.log(`${key}: ${value.Email}`);
             if(value.Read===true){
                 notification_Array.push( <Alert variant="info">
                     <i className="far fa-bell"></i>
@@ -98,7 +86,6 @@ class Notifications extends React.Component {
                 </Alert>)
             }
             else if(value.Read===false){
-                console.log('i am here');
                 notification_Array.push( <Alert variant="info">
                     <i className="far fa-bell"></i>
                     <span>
@@ -120,9 +107,7 @@ class Notifications extends React.Component {
                 </Alert>)
             }
             if(i=== Object.keys(objectOfNotificationdata).length){
-                console.log('setting state');
                 this.setState({elem: notification_Array});
-                console.log( this.state.elem);
             }
         }
     }
@@ -130,7 +115,7 @@ class Notifications extends React.Component {
         let  emailReq = {
             email: localStorage.getItem("emailSession")
         }
-       // this.setState({emailRequest: response.data});
+
         axios.post('http://localhost:8080/user/getNotificationObject/',emailReq)
             .then(response => {
                 this.generateData(response.data)

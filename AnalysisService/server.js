@@ -31,21 +31,26 @@ http.createServer(app);
 app.listen(8000);
 cron.schedule('*/1 * * * *', async () => {
     console.log('analysing every minutes')
-    firestore_db.getUsers('Twitter').onSnapshot(async (documents) => {
+   firestore_db.getUsers('Twitter').onSnapshot(async (documents) => {
         await documents.forEach((doc) => {
             if (typeof doc.id !== "undefined") {
                 analysis.sentimentAnalysis(doc.id,'Twitter').then(data=>{
-                  //  console.log(data);
                 }).catch(err=>{console.log(err)})
             }
           })
         })
+    firestore_db.getUsers('Twitter').onSnapshot(async (documents) => {
+        await documents.forEach((doc) => {
+            if (typeof doc.id !== "undefined") {
+                average.Analyse_Average('Twitter',doc.id ).then(dt=>{
+                    let msgType = new notificationType(dt,doc.id );
+                    let results = msgType.Results();
+                    console.log(results);
+                    //notification.followers('Bitcoin',results);
+                }).catch(err=>{   console.log(err);})
+            }
+        })
+    })
 
-       /* average.Analyse_Average('Twitter','Bitcoin').then(dt=>{
-            let msgType = new notificationType(dt,'Bitcoin');
-            let results = msgType.Results();
-            notification.followers('Bitcoin',results);
 
-
-    }).catch(err=>{   console.log('Error in Sentiment Analysis');})*/
 });

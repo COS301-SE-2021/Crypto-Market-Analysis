@@ -7,7 +7,7 @@ let openMin = Infinity;
 let closeMin = Infinity;
 let lowMin = Infinity;
 let highMin = Infinity;
-//head
+
 function timeConverter(UNIX_timestamp){
     const a = new Date(UNIX_timestamp * 1000);
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -77,28 +77,28 @@ axios.get('https://min-api.cryptocompare.com/data/v2/histohour?fsym=BTC&tsym=USD
         const scaledData = trainingData.map(scaleDown);
 
         const trainingDatas = [
-    scaledData.slice(0, 5),
-    scaledData.slice(5, 10),
-    scaledData.slice(10, 15),
-    scaledData.slice(15, 20),
-];
+            scaledData.slice(0, 5),
+            scaledData.slice(5, 10),
+            scaledData.slice(10, 15),
+            scaledData.slice(15, 20),
+        ];
 
-//console.log(trainingData); commit this
+//console.log(trainingData);
 
-const net = new brain.recurrent.LSTMTimeStep({
-    //we have open close high and low so its 4 for input and output tets
-    //Hidden layers are the layers that lie between the input and output layer of a neural network.
-    inputSize: 4,
-    HiddenLayers: [8,8],
-    outputSize: 4
-});
+        const net = new brain.recurrent.LSTMTimeStep({
+            //we have open close high and low so its 4 for input and output
+            //Hidden layers are the layers that lie between the input and output layer of a neural network.
+            inputSize: 4,
+            HiddenLayers: [8,8],
+            outputSize: 4
+        });
 
 
-net.train(trainingDatas, {
-    learningRate: 0.005,
-    errorThresh: 0.0000000000002,
-    log: (stats) => console.log(stats)
-});
+        net.train(trainingDatas, {
+            learningRate: 0.005,
+            errorThresh: 0.0000000000002,
+            log: (stats) => console.log(stats)
+        });
 
         console.log("Bitcoin Price Forecast")
         console.log(net.forecast([
@@ -107,9 +107,10 @@ net.train(trainingDatas, {
         ], 1).map(scaleUp));
 
 
-console.log("Current Bitcoin Price")
-console.log(trainingData[19])
+        console.log("Current Bitcoin Price")
+        console.log(trainingData[19])
     });
+
 
 
 

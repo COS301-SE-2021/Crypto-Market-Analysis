@@ -5,6 +5,7 @@ export default function News(props) {
 
     useEffect(() => {
         let news_element = document.getElementById(`news-articles`);
+        let news_parent_element = document.getElementById(`news`);
 
         const options = {
             method: 'GET',
@@ -47,13 +48,29 @@ export default function News(props) {
                         newRow = 0;
                     }
 
+                    let sentiments = [`positive`, `negative`, `neutral`];
+                    let sentiment = sentiments[Math.floor(Math.random() * sentiments.length)];
+                    let icon_element = null;
+
                     let article_card = document.createElement(`div`);
                     let published_date = new Date(article.datePublished);
+                    if(sentiment === `positive`){
+                        article_card.style.cssText = `border: 0.1em solid green`;
+                        icon_element = `<p style="text-align: right;"><i class = "fas fa-arrow-up text-success">Positive</i></p>`;
+                    }
+                    else if (sentiment === `negative`){
+                        article_card.style.cssText = `border: 0.1em solid red`;
+                        icon_element = `<p style="text-align: right;"><i class = "fas fa-arrow-down text-danger">Negative</i></p>`;
+                    }
+                    else if (sentiment === `neutral`){
+                        article_card.style.cssText = `border: 0.1em solid yellow`;
+                        icon_element = `<p style="text-align: right;"><i class = "fas fa-minus-circle text-warning">Neutral</i></p>`;
+                    }
                     article_card.className = `col-5 card mr-5 mt-5`;
-                    article_card.style.cssText = `border: 0.1em groove black;`
                     article_card.innerHTML = `<a href=${article.url}>
                                                 <div><img src=${article.image.thumbnail} class="card-img-top my-3" style="text-decoration: none; color: black; height: 13em;"></div>
                                                 <div class="card-body">
+                                                    ${icon_element}
                                                     <p class="h6 card-subtitle mb-2 text-muted">${article.provider.name.toUpperCase()}</p> 
                                                     <p class="h6 card-subtitle mb-2 text-muted">${published_date.toLocaleString()}</p>
                                                     <p class="h4 card-title mt-3">${article.title}</p>
@@ -66,25 +83,39 @@ export default function News(props) {
                 news_element.innerHTML = news_articles;
             }
             else{
-                news_element.innerHTML = "";
-                news_element.innerHTML = `<h1 className={'display-4'}>There's no news to display at the moment. Check again later</h1>`;
-                news_element.style.cssText = `margin: 0; position: absolute; top: 50%; -ms-transform: translateY(-50%); transform: translateY(-50%);`
+                news_parent_element.innerHTML = "";
+                news_parent_element.innerHTML = `<h1 className={'display-4'}>There's no news to display at the moment. Check again later</h1>`;
+                news_parent_element.style.cssText = `margin: 0; position: absolute; top: 50%; -ms-transform: translateY(-50%); transform: translateY(-50%);`
             }
 
         }).catch(error => {
             console.error(`An error occurred while trying to retrieve the news articles: ${error}`);
-            news_element.innerHTML = "";
-            news_element.innerHTML = `<h1 className={'display-4'}>Cannot get news articles at this moment. Please try again later</h1>`;
-            news_element.style.cssText = `margin: 0; position: absolute; top: 50%; -ms-transform: translateY(-50%); transform: translateY(-50%);`
+            news_parent_element.innerHTML = "";
+            news_parent_element.innerHTML = `<h1 className={'display-4'}>Cannot get news articles at this moment. Please try again later</h1>`;
+            news_parent_element.style.cssText = `margin: 0; position: absolute; top: 50%; -ms-transform: translateY(-50%); transform: translateY(-50%);`
         });
 
         return() => {
-            news_element.innerHTML = "";
+            news_parent_element.innerHTML = "";
         }
 
     }, []);
 
     return (
-        <div id={`news-articles`}></div>
+        <div id={`news`}>
+            <div className="dropdown">
+                <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown
+                    Example
+                    <span className="caret"></span></button>
+                <ul className="dropdown-menu">
+                    <li><a href="#">HTML</a></li>
+                    <li><a href="#">CSS</a></li>
+                    <li><a href="#">JavaScript</a></li>
+                </ul>
+            </div>
+            <div id={`news-articles`} className={`mt-5`}>
+
+            </div>
+        </div>
     )
 }

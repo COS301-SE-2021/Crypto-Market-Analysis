@@ -122,7 +122,8 @@ let highMin = Infinity;
 
 
 // Make a request for a user with a given ID
-axios.get('https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=19&api_key=7d4a73a2b7a6fd2e5d57acd8c019cb82178961644e25b7caad3239d04e79da4b')
+//axios.get('https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=19&api_key=7d4a73a2b7a6fd2e5d57acd8c019cb82178961644e25b7caad3239d04e79da4b')
+axios.get('https://min-api.cryptocompare.com/data/v2/histohour?fsym=BTC&tsym=USD&limit=19&api_key=7d4a73a2b7a6fd2e5d57acd8c019cb82178961644e25b7caad3239d04e79da4b')
     .then(function (response) {
         // handle success
         //console.log(JSON.stringify(response.data.Data.Data[0].time));
@@ -177,7 +178,7 @@ axios.get('https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&
             trainingData.push(rawdata)
 
         }
-        // console.log(trainingData.length);
+         //console.log(trainingData.length);
         // console.log(trainingData);
 
     })
@@ -220,16 +221,23 @@ const net = new brain.recurrent.LSTMTimeStep({
 
 //iterations of training
 net.train(trainingDatas, {
-    // learningRate: 0.005,
-    // errorThresh: 0.02,
-
-
-
-
-    iterations: 20500,
     learningRate: 0.005,
-    errorThresh: 0.02,
-    momentum: 0.08,
+    errorThresh: 0.0000000000002,
+
+    // iterations: 20000, // the maximum times to iterate the training data --> number greater than 0
+    // errorThresh: 0.005, // the acceptable error percentage from training data --> number between 0 and 1
+    // log: false, // true to use console.log, when a function is supplied it is used --> Either true or a function
+    // logPeriod: 10, // iterations between logging out --> number greater than 0
+    // learningRate: 0.03, // scales with delta to effect training rate --> number between 0 and 1
+    // momentum: 0.1, // scales with next layer's change value --> number between 0 and 1
+    // callback: null, // a periodic call back that can be triggered while training --> null or function
+    // callbackPeriod: 10, // the number of iterations through the training data between callback calls --> number greater than 0
+    // timeout: Infinity, // the max number of milliseconds to train for --> number greater than 0
+
+
+    //iterations: 20500,
+    //,
+   // momentum: 0.08,
 
     log: (stats) => console.log(stats)
 });
@@ -246,7 +254,9 @@ net.train(trainingDatas, {
 
 // console.log(trainingData[17])
 // console.log(trainingData[18])
+console.log("match to prediction")
 console.log(trainingData[19])
+console.log("match to prediction")
 
 
 

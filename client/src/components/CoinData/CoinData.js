@@ -56,7 +56,7 @@ const CoinData = ({data}) => {
     return (
         <div>
 
-            <div width={500}>
+            <div>
 
                 <canvas ref={chartRefs} id="myChart" height={500} width={500}/>
 

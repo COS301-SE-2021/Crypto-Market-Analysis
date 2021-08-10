@@ -490,6 +490,7 @@ class User_Hash_Table {
             return Promise.reject(`Parameter is not defined`);
     }
 
+
     async searchCryptoAndSocialMedia(social_media, cryptocurrency){
         if(!this.#initialized){
             await this.#init;

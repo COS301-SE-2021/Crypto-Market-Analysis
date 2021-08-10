@@ -8,7 +8,6 @@ export const historyOptions ={
     animation:{
         duration: 2000
     },
-    type:"spline",
     maintainAspectRatio: false,
     responsive: true,
     scales: {

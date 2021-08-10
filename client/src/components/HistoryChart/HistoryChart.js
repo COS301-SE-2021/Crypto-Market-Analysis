@@ -2,6 +2,9 @@ import React, {useEffect, useRef, useState} from 'react'
 import Chartjs from 'chart.js'
 //import chart from 'canvas.js'
 import {historyOptions} from "../../chartConfigs/chartConfigs";
+import CanvasJSReact from '../../canvasjs.react';
+let CanvasJS = CanvasJSReact.CanvasJS;
+let CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const HistoryChart = ({data}) => {
     const chartRef = useRef();
@@ -14,6 +17,7 @@ const HistoryChart = ({data}) => {
     const {detail} = data;
     const [timeFormat, setTimeFormat] = useState("24h");
     let chartInstance;
+    let options;
 
     const determineTimeFormat = () => {
         switch (timeFormat){
@@ -58,6 +62,32 @@ const HistoryChart = ({data}) => {
                 },
             });
         }
+
+         /*options = {
+            animationEnabled: true,
+            title:{
+                text: "Monthly Sales - 2017"
+            },
+            axisX: {
+                valueFormatString: "MMM"
+            },
+            axisY: {
+                title: "Sales (in USD)",
+                prefix: "$",
+            },
+             labels:['Jan','Feb','Mar'],
+            data: [{
+                yValueFormatString: "$#,###",
+                xValueFormatString: "MMMM",
+                type: "spline",
+                dataPoints: [
+                    {data:[1,2,3]}
+
+
+                ]
+            }]
+        }*/
+
     })
 
     return (
@@ -67,9 +97,9 @@ const HistoryChart = ({data}) => {
 
             <div>
 
-                <canvas ref={chartRef} id="myChart" height={500} width={500}>
+                <CanvasJSChart options={options} id="myChart" height={500} width={500}>
 
-                </canvas>
+                </CanvasJSChart>
 
             </div>
 

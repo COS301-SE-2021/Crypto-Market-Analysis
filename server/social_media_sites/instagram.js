@@ -86,7 +86,7 @@ axios.get('https://min-api.cryptocompare.com/data/v2/histohour?fsym=BTC&tsym=USD
 //console.log(trainingData);
 
 const net = new brain.recurrent.LSTMTimeStep({
-    //we have open close high and low so its 4 for input and output
+    //we have open close high and low so its 4 for input and output tets
     //Hidden layers are the layers that lie between the input and output layer of a neural network.
     inputSize: 4,
     HiddenLayers: [8,8],

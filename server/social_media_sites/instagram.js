@@ -107,7 +107,7 @@ net.train(trainingDatas, {
         ], 1).map(scaleUp));
 
 
-console.log("Current Bitcoin Price ")
+console.log("Current Bitcoin Price")
 console.log(trainingData[19])
     });
 

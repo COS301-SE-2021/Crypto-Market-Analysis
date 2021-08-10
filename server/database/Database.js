@@ -51,8 +51,13 @@ class Database {
         if(email !== 'undefined')
             return this.#db.collection('Users').doc(email).get();
     }
-    async fetchPushNotification(){
-        return this.#db.collection('Subscribers').doc('Subs').get();
+    async fetchPushNotification(email){
+        try{
+            return this.#db.collection('Subscribers').doc(email).get();
+        }
+        catch {
+            return {'not subscribed':'email'};
+        }
         // .then(data=>{
         //     // console.log('showing data')
         //    // console.log(data.data().subing);
@@ -71,12 +76,12 @@ class Database {
         }
 
     }
-    async setPushNotification(object){
+    async setPushNotification(email,object){
             console.log('something')
             const notification_object ={
-                subing:object
+                subs:object
             }
-            try{await this.#db.collection('Subscribers').doc('Subs').set(notification_object);
+            try{await this.#db.collection('Subscribers').doc(email).set(notification_object);
             }
             catch (err){console.log('error saving to database')}
 

@@ -125,13 +125,19 @@ router.post("/unfollowSocialMedia", async (request,response)=>{
     }
 });
 router.post("/storePush", async (request,response)=>{
-     await userFunctions.setPush(request.body.subs).then(data=>{
+     await userFunctions.setPush(request.body.email,request.body.object).then(data=>{
          return response.status(200).json("subs stored");
      })
 
 
 });
+router.post("/GETPush", async (request,response)=>{
+    await userFunctions.getPush(request.body.email).then(data=>{
+        return response.status(200).json(data);
+    })
 
+
+});
 /** This function gets the social media a user is following
  * @param {object} request A request object with the email and symbol.
  * @param {object} response A response object which will return the status code.
@@ -152,24 +158,16 @@ router.post("/fetchUserSocialMedia", async (request, response) => {
 const webpush = require("web-push");
 const Push_notification=require('./notification/push_notification')
 router.post("/subscribe", async (req, res) => {
-    // Get pushSubscription object
-    //console.log(req.body);
     const web_push = new Push_notification();
         web_push.setDetails();
-    console.log('Showing subscription');
     let subscription={};
         await userFunctions.getPush().then(data=>{
             subscription = data;
     });
     console.log("subscription");
     console.log(subscription);
-    // Send 201 - resource created
     res.status(201).json({});
-
-    // Create payload
     const payload = JSON.stringify({ title: "Push notification Test" });
-
-    // Pass object into sendNotification
     webpush
         .sendNotification(subscription, payload)
         .catch(err => console.error(err));

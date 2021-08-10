@@ -26,13 +26,17 @@ const getNotification=async(email)=>{
 const setNotification=async(email,object)=>{
     await firestore_db.storeNotification(email, object);
 }
-const setPush=async(object)=>{
-    await firestore_db.setPushNotification(object);
+const setPush=async(email,object)=>{
+    await firestore_db.setPushNotification(email,object);
 }
-const getPush=async()=>{
+const getPush=async(email)=>{
     let mydata={};
-   await firestore_db.fetchPushNotification().then(data=>{
-       mydata=data.data().subing;
+   await firestore_db.fetchPushNotification(email).then(data=>{
+      try{ mydata=data.data().subs;
+      }
+      catch{
+          mydata={'not subscribed':'email'}
+      }
 
     });
     return mydata;

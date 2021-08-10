@@ -15,9 +15,10 @@ class Push extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            elem: [],
-            notificationObject:{},
-            emailRequest:{}
+            elements: [  <Col class="col-md-6 offset-md-4">
+                <button  onClick={this.handleSubscribe}  type="button" className="btn btn-outline-warning">
+                    Subscribe</button>
+            </Col>]
         }
         this.handleSubscribe = this.handleSubscribe.bind(this);
     }
@@ -46,13 +47,16 @@ class Push extends React.Component {
             // Send Push Notification
             console.log("Sending Push...");
             console.log(subscription)
-            await fetch("http://localhost:8080/user/subscribe/", {
-                method: "POST",
-                body: JSON.stringify(subscription),
-                headers: {
-                    "content-type": "application/json"
-                }
-            });
+            let  PushReq = {
+                email: localStorage.getItem("emailSession"),
+                object: subscription
+            }
+            axios.post('http://localhost:8080/user/storePush/',PushReq)
+                .then(response => {
+                    console.log(response)
+
+                })
+                .catch(err => {console.error(err);})
 
             console.log("Push Sent...");
         }
@@ -73,7 +77,32 @@ class Push extends React.Component {
 
     }
     componentDidMount(){
+        let  PushReq = {
+            email: localStorage.getItem("emailSession")
+        }
+        axios.post('http://localhost:8080/user/GETPush/',PushReq)
+            .then(response => {
+                console.log(response.data)
+                if(response.data === {'not subscribed':'email'})
+                {
+                    const notification_Arrays = [];
+                    notification_Arrays.push(<Col class="col-md-6 offset-md-4">
+                        <button  onClick={this.handleSubscribe}  type="button" className="btn btn-outline-warning">
+                            Subscribe</button>
+                    </Col>);
+                    this.setState({elements: notification_Arrays});
+                }
+                else if(response.data !== {'not subscribed':'email'}){
+                    const notificationpush= [];
+                    notificationpush.push(<Col class="col-md-6 offset-md-4">
+                        <button  onClick={this.handleSubscribe}  type="button" className="btn btn-outline-warning">
+                            Subscribe</button>
+                    </Col>);
+                    this.setState({elements: notificationpush});
+                }
 
+            })
+            .catch(err => {console.error(err);})
 
 
 
@@ -94,13 +123,13 @@ class Push extends React.Component {
                             </Card.Header>
                             <Card.Body>
                                 <Row>
-                                    <Col class="col-md-6 offset-md-4">
-                                        Push
-                                    </Col>
+                                    {this.state.elements}
                                 </Row>
 
                             </Card.Body>
                         </Card>
+
+
                     </Container>
                 </div>
             </>

@@ -158,6 +158,24 @@ const sentimentAnalysis = async (cryptos,socialmedias)=>{
         return {status:`Internal server error`, error: err};
     }
 }
-
-module.exports = {splits,convertion,analysewords,spellingc,saveToDB,sentimentAnalysis}
+const analyseArticle =async(Article)=>{
+    return  new Promise(function (resolve, reject) {
+        convertion(Article).then(comment => {
+            splits(comment).then(newWording => {
+                spellingc(newWording).then(filtered => {
+                    analysewords(filtered).then(analysis => {
+                        console.log(analysis)
+                        if (analysis > 0) {
+                            resolve('positive') ;
+                        } else if (analysis < 0) {
+                            resolve('negative');
+                        } else
+                           resolve('neutral');
+                    })
+                })
+            })
+        })
+    })
+}
+module.exports = {analyseArticle,splits,convertion,analysewords,spellingc,saveToDB,sentimentAnalysis}
 

@@ -83,7 +83,7 @@ axios.get('https://min-api.cryptocompare.com/data/v2/histohour?fsym=BTC&tsym=USD
     scaledData.slice(15, 20),
 ];
 
-//console.log(trainingData);
+//console.log(trainingData); commit this
 
 const net = new brain.recurrent.LSTMTimeStep({
     //we have open close high and low so its 4 for input and output tets

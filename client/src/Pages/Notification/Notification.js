@@ -28,18 +28,10 @@ function Notifications() {
         })
     }
    const handleDelete= async (e)=> {
-       console.log('delete pressed');
         e.preventDefault();
         await db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).get().then((notify)=> {
             let object = notify.data().notification;
-
-            console.log("object before");
-            console.log(object);
-            console.log(object.hasOwnProperty(e.target.value))
             delete object[e.target.value];
-            console.log(" after");
-            console.log(object);
-            console.log(object.hasOwnProperty(e.target.value))
             const notification_object ={
                 notification:object
             }
@@ -50,12 +42,10 @@ function Notifications() {
     useEffect( () => {
         let notification_Array = [];
         db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).get().then((notify)=>{
-                 // console.log(notify.data().notification.Email);
             let i = 0;
             for (const [key, value] of Object.entries(notify.data().notification)) {
                 i=i+1;
-                console.log(key)
-                //console.log(`${key}: ${value.Email}`);
+
                 if(value.Read===true){
                     notification_Array.push( <Alert variant="info">
                         <Link  onClick={()=>handleView(key)} value={key}

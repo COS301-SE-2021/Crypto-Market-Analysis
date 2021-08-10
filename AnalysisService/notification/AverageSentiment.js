@@ -7,8 +7,7 @@ const Analyse_Average = async(SocialMedia,cryptocurrency)=>{
             documents.forEach((doc) => {
                 if (typeof doc.id !== "undefined" && doc.id === cryptocurrency) {
                     const difference = doc.data().Average - doc.data().Old_Average;
-                    console.log(doc.data().Average)
-                    console.log(doc.data().Old_Average);
+
                     if (difference < 0) {
                         resolve('negative');
                     } else if (difference > 0) {

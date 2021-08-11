@@ -16,7 +16,7 @@ router.post('/getAverages', async (request, response, next) => {
             const data = await sentiment_functions.getAverages(email, crypto_name);
             return response.status(200).json({data: data});
         }
-        catch (error){
+        catch (err){
             let error = new Error(err);
             error.status = 500;
             return next(error);

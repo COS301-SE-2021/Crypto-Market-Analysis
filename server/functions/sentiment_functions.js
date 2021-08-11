@@ -9,12 +9,13 @@ const getAverages = async (email, crypto_name) => {
         if(social_media_sites){
             for(const platform of social_media_sites){
                 try{
-                    averages[`${platform}_Averages`] = await firestore_database.fetch(platform, crypto_name, `Average_Change`);
+                    averages[`${platform}_Averages`] = await firestore_database.fetch(platform, crypto_name, `Average`);
                 }
                 catch (error) {
                     return Promise.reject(error);
                 }
             }
+
             return averages;
         }
         else

@@ -21,7 +21,4 @@ const Analyse_Average = async(SocialMedia,cryptocurrency)=>{
         })
     })
 }
-Analyse_Average('Twitter','Bitcoin').then(data=>{
-    console.log(data);
-}).catch(err=>{console.log(err)})
 module.exports ={Analyse_Average };

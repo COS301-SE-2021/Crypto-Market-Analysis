@@ -167,7 +167,7 @@ router.post("/subscribe", async (req, res) => {
     console.log("subscription");
     console.log(subscription);
     res.status(201).json({});
-    const payload = JSON.stringify({ title: "Push notification Test" });
+    const payload = JSON.stringify({ title: "You have subscribed to receive push notifications" });
     webpush
         .sendNotification(subscription, payload)
         .catch(err => console.error(err));

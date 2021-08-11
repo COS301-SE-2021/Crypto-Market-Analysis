@@ -51,6 +51,12 @@ class Push extends React.Component {
                 email: localStorage.getItem("emailSession"),
                 object: subscription
             }
+            axios.post('http://localhost:8080/user/subscribe/',PushReq)
+                .then(response => {
+                    console.log(response)
+
+                })
+                .catch(err => {console.error(err);})
             axios.post('http://localhost:8080/user/storePush/',PushReq)
                 .then(response => {
                     console.log(response)
@@ -83,16 +89,16 @@ class Push extends React.Component {
         axios.post('http://localhost:8080/user/GETPush/',PushReq)
             .then(response => {
                 console.log(response.data)
-                if(response.data === {'not subscribed':'email'})
+                if(Object.keys(response.data).length !== 0)
                 {
                     const notification_Arrays = [];
                     notification_Arrays.push(<Col class="col-md-6 offset-md-4">
                         <button  onClick={this.handleSubscribe}  type="button" className="btn btn-outline-warning">
-                            Subscribe</button>
+                            Subscribed</button>
                     </Col>);
                     this.setState({elements: notification_Arrays});
                 }
-                else if(response.data !== {'not subscribed':'email'}){
+                else{
                     const notificationpush= [];
                     notificationpush.push(<Col class="col-md-6 offset-md-4">
                         <button  onClick={this.handleSubscribe}  type="button" className="btn btn-outline-warning">

@@ -17,8 +17,8 @@ export default function UpdatePassword() {
             setError("")
             setLoading(true)
             await resetPassword(emailRef.current.value)
-            history.push("/home")
             setMessage('Reset Message delivered to Email')
+            //history.push("/login")
         } catch {
             setError("Failed to reset password enter valid details!")
         }
@@ -31,24 +31,21 @@ export default function UpdatePassword() {
             <Card>
                 <Card.Body>
                     <h2 className="text-center mb-4">Reset Password</h2>
-
-                                {error && <Alert variant="danger">{error}</Alert>}
-                                <Form onSubmit={handleSubmit}>
-                                    <Form.Group id="email">
-                                        <Form.Label>Email</Form.Label>
-                                        <Form.Control type="email" ref={emailRef} required />
-                                    </Form.Group>
-                                    <Button disabled={loading} className="w-100" type="submit">
-                                        ResetPassword
-                                    </Button>
-                                </Form>
+                    {error && <Alert variant="danger">{error}</Alert>}
+                    {message && <Alert variant="success">{message}</Alert>}
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Group id="email">
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control type="email" ref={emailRef} required />
+                        </Form.Group>
+                        <Button disabled={loading} className="w-100" type="submit">
+                            Reset Password
+                        </Button>
+                    </Form>
                 </Card.Body>
             </Card>
             <div className="w-100 text-center mt-2">
                 <Link to="/login">Login!</Link>
-            </div>
-            <div className="w-100 text-center mt-2">
-                New user? <Link to="/register">Register new Account!</Link>
             </div>
         </>
     )

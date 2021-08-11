@@ -11,6 +11,7 @@ export default function Overview({coin_name}) {
     let [coin, setCoin] = useState({});
     let [coinData, setCoinData] = useState({});
     let [marketData, setMarketData] = useState({});
+    let [time, setTime] = useState(Date.now());
 
     const [selectedTab, setSelectedTab] = React.useState(0);
 
@@ -29,6 +30,12 @@ export default function Overview({coin_name}) {
     }
 
     useEffect(async () => {
+        // setInterval()
+        // const interval = setInterval(function(){console.log("time now " + time) 
+        // setTime(Date.now())}, 30000)
+        
+           
+
         coin_name = coin_name.toLowerCase();
         axios.get('https://api.coingecko.com/api/v3/coins/' + coin_name)
             .then(async (response) => {
@@ -128,19 +135,21 @@ export default function Overview({coin_name}) {
         }
         await fetchData();
 
-    }, [])
+    
+    },[])
 
 
     return (
         <>
+            timer  is {time}
             {coin.id ? <>
                 <div className="container mt-16 mb-12">
                     <div className="row">
-                        <div className="col-4">
-                            <img alt={"image"} src={coin.image.large}/>
+                        <div className="col-12">
+                            <img alt={"image"} src={coin.image.large} style={{margin:"auto"}}/>
                         </div>
-                        <div className="col-8">
-                            <p className="text-sm"><Markup markup={coin.description.en}/></p>
+                        <div className="col-12 mt-5">
+                            <p className="text-md"><Markup markup={coin.description.en}/></p>
                         </div>
                     </div>
                 </div>
@@ -152,7 +161,7 @@ export default function Overview({coin_name}) {
                                 className="fas fa-hashtag fa-3x"></i><h1
                                 className="d-inline ml-2">{coin.market_cap_rank}</h1></span></div>
                             <div className="d-inline float-right mt-4 uppercase font-bold p-2 px-0"><a
-                                style={{color: "black", textDecoration: "none"}} href={coin.links.homepage}> <i
+                                style={{color: "black", textDecoration: "none"}} href={coin.links.homepage[0]}> <i
                                 className="fas fa-link"></i> Visit {coin.name} </a></div>
                         </div>
                     </div>

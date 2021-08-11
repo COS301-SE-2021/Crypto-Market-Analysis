@@ -44,7 +44,31 @@ const getPush=async(email)=>{
 /** Gets all the reddit posts from the database.
  * @return  {object} Containing an array of posts if it was successful or a rejected Promise.
 * */
-const getRedditPost = async ()=>{
+
+//
+// const getRedditPost = async (email)=>{
+//     // const citiesRef = db.collection('cities');
+//     // const coastalCities = await citiesRef.where('regions', 'array-contains-any',
+//     //     ['west_coast', 'east_coast']).get();
+//     let posts = [];
+//     try{
+//         const docs = await firestore_db.fetch(`reddit_info`).then(snapshot => {return snapshot.docs});
+//         for(const doc of docs)
+//             posts.push(doc("CryptoCurrencies").data().posts);
+//         return {status: `Ok`, posts: posts};
+//     }
+//     catch(err){
+//         return Promise.reject(new Error(err));
+//     }
+// }
+
+/*
+const citiesRef = db.collection('cities');
+const coastalCities = await citiesRef.where('regions', 'array-contains-any',
+    ['west_coast', 'east_coast']).get();
+ */
+const getRedditPost = async (email)=>{
+    let subs = await getUserSubreddits(email);
     let posts = [];
     try{
         const docs = await firestore_db.fetch(`reddit_info`).then(snapshot => {return snapshot.docs});

@@ -22,6 +22,7 @@ class Notifications extends React.Component {
         this.handleDelete = this.handleDelete.bind(this);
     }
 
+
     handleDelete= async (e)=> {
         let object = this.state.notificationObject;
 
@@ -83,6 +84,7 @@ class Notifications extends React.Component {
                         <br></br>
 
                                                  <button  onClick={this.handleDelete} value={key} type="button" className="btn btn-outline-warning"><i className="fas fa-trash-alt"></i>Delete</button>
+
                     </span>
                 </Alert>)
             }

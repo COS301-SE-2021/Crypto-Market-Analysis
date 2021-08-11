@@ -620,16 +620,15 @@ class User_Hash_Table {
             return Promise.reject(`Parameters are not defined`);
     }
 
-    async searchScreenName(screen_name){
+    async searchScreenName(screen_name, email){
         if(!this.#initialized){
             await this.#init;
             this.#initialized = true;
         }
 
-        const values = Object.values(this.#users);
-        for(const value of values)
-            if(value.screen_name && (value.screen_name).indexOf(screen_name) > -1)
-                return true;
+        const values = Object.values(this.#users[email].screen_name);
+        if(values && values.indexOf(screen_name) > -1)
+            return true;
         return false;
     }
 

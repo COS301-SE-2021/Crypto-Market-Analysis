@@ -413,16 +413,42 @@ export default function Sidebar() {
                 </a>
               </li>
 
+              <li className="items-center">
+                {linkDisable ? <Link
+                  className={
+                    "text-xs uppercase py-3 font-bold block " +
+                    (window.location.href.indexOf("/login") !== -1
+                      ? "text-lightBlue-500 hover:text-lightBlue-600"
+                      : "text-blueGray-700 hover:text-blueGray-500")
+                  }
+                  to="/login"
+
+
               <li className="inline-flex">
                 <a
                   href="https://www.creative-tim.com/learning-lab/tailwind/react/alerts/notus"
                   target="_blank"
                   className="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold"
                 >
-                  <i className="fab fa-css3-alt mr-2 text-blueGray-300 text-base"></i>
-                  CSS Components
-                </a>
-              </li>
+
+                  <i
+                    className={
+                      "fas fa-sign-out-alt mr-2 text-sm " +
+                      (window.location.href.indexOf("/login") !== -1
+                        ? "opacity-75"
+                        : "text-blueGray-300")
+                    }
+                  />{" "}
+                  Login
+                </Link> 
+                :<Link onClick={()=> localStorage.clear()}
+                  className={
+                    "text-xs uppercase py-3 font-bold block  " +
+                    (window.location.href.indexOf("/login") !== -1
+                      ? "text-lightBlue-500 hover:text-lightBlue-600"
+                      : "text-blueGray-700 hover:text-blueGray-500")
+                  }
+                  to="/home"
 
               <li className="inline-flex">
                 <a

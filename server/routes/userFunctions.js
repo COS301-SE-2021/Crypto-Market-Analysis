@@ -80,6 +80,15 @@ const coinRedditPost = async (coin)=>{
 }
 
 
+const getUserNetwork = async (email_address)=>{
+    try{
+        return await user_object.getUserNetwork(email_address);
+    }
+    catch (error){
+        return Promise.reject(error);
+    }
+}
+
 
 
 const getUserCrypto = async (email_address)=>{
@@ -191,4 +200,4 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
 
-module.exports = {coinRedditPost, getUserSubreddits,unfollowSubreddit, followSubreddit, fetchUserSubreddits, saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, get4chanPost}
+module.exports = {getUserNetwork,coinRedditPost, getUserSubreddits,unfollowSubreddit, followSubreddit, fetchUserSubreddits, saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, get4chanPost}

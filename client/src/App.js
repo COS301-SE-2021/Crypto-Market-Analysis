@@ -8,6 +8,7 @@ import Settings from "./Pages/Settings/Settings";
 import AllCrypto from "./Pages/AllCrypto/AllCrypto";
 import UpdatePassword from "./Pages/UpdatePassword/updatePassword"
 import UpdateProfile from "./Pages/UpdateProfile/updateProfile"
+import Predictions from "./Pages/Predictions/Predictions"
 import Home from "./Pages/Home/Home"
 import Profile from "./Pages/Profile/Profile"
 import PrivateRoute from "./components/newRoute"
@@ -57,6 +58,7 @@ function App() {
                      <Route exact path="/Notifications" component={Notification}></Route>
                      <Route exact path="/home/DetailedInfo" component={DetailedInfo}></Route>
                      <Route exact path="/Subreddits" component={Subreddits}></Route>
+                     <Route exact path="/Predictions" component={Predictions}></Route>
                  </section>
            </Switch>
           </AuthProvider>

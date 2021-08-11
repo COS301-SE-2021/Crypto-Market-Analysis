@@ -1,8 +1,8 @@
 const Database = require(`../database/Database`);
 const firestore_database = new Database().getInstance();
 
-const getAverages = () => {
-    
+const getAverages = async (crypto_name) => {
+    const averages = await firestore_database.fetch();
 };
 
 module.exports = {getAverages};

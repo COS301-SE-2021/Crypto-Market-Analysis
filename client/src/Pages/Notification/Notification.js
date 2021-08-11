@@ -9,6 +9,7 @@ import {
 import {Link} from "react-router-dom";
 import axios from "axios";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import Push from "../Push/Push";
 class Notifications extends React.Component {
 
     constructor(props) {
@@ -134,6 +135,7 @@ class Notifications extends React.Component {
                     <Card>
                         <Card.Header>
                             <Card.Title as="h4">Notifications</Card.Title>
+                            <Push/>
                         </Card.Header>
                         <Card.Body>
                             <Row>

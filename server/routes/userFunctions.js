@@ -35,7 +35,7 @@ const getPush=async(email)=>{
       try{ mydata=data.data().subs;
       }
       catch{
-          mydata={'not subscribed':'email'}
+          mydata={}
       }
 
     });

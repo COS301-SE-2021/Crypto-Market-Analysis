@@ -71,8 +71,15 @@ class NeuralNetwork {
     }
 
      train= async (coin) =>  {
-        await axios.get('https://min-api.cryptocompare.com/data/v2/histohour?fsym='+coin+'&tsym=USD&limit=19&api_key=7d4a73a2b7a6fd2e5d57acd8c019cb82178961644e25b7caad3239d04e79da4b')
+        await axios.get('https://min-api.cryptocompare.com/data/v2/histohour?fsym='+coin+'&tsym=ZAR&limit=19&api_key=7d4a73a2b7a6fd2e5d57acd8c019cb82178961644e25b7caad3239d04e79da4b')
             .then(function (response) {
+                 trainingData = [];
+                 openMin = Infinity;
+                 closeMin = Infinity;
+                lowMin = Infinity;
+                 highMin = Infinity;
+                 arr = [];
+                 store= 0;
                 for(let i=0; i<response.data.Data.Data.length;i++)
                 {
                     if (response.data.Data.Data[i].open < openMin)
@@ -194,18 +201,18 @@ class NeuralNetwork {
 
 
 let network = new NeuralNetwork();
-// let AllCoins = network.allCoins().then(function (response) {
-//      for(let p=0;p<response.length;p++)
-//      {
-//          network.train(response[p]).then(function (store) {
-//
-// });
-//      }
-// });
-
-network.train("ltc").then(function (store) {
+let AllCoins = network.allCoins().then(function (response) {
+     for(let p=0;p<response.length;p++)
+     {
+         network.train(response[p]).then(function (store) {
 
 });
+     }
+});
+
+// network.train("ltc").then(function (store) {
+//
+// });
 
 
 

@@ -101,12 +101,18 @@ export default function News(props) {
 
     }, []);
 
+    <script src={`https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js%22%3E`}>
+
+    </script>
     return (
         <div id={`news`}>
             <div className="dropdown">
                 <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown
                     Example
-                    <span className="caret"></span></button>
+                    <span className="caret">
+
+                    </span>
+                </button>
                 <ul className="dropdown-menu">
                     <li><a href="#">HTML</a></li>
                     <li><a href="#">CSS</a></li>

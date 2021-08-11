@@ -23,6 +23,7 @@
     "enzyme-to-json": "^3.6.2",
     "es7": "^1.0.8-beta.4",
     "firebase": "^8.6.5",
+    "googleapis": "^84.0.0",
     "jquery": "^3.6.0",
     "mdb": "^0.1.0",
     "mdbreact": "^5.0.2",

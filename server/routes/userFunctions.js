@@ -82,30 +82,42 @@ const getUserNetwork = async (email_address)=>{
 
 //getCoinPredictions
 const getCoinPredictions = async (email)=>{
-        let coins =  await getUserNetwork(email);
-        console.log(coins);
-        let posts = [];
-        let docs = [];
-        for(let i=0; i<coins.length; i++)
-        {
-           // console.log(coins[i]);
-            let open = await firestore_db.fetch(`CryptoPricePrediction`,coins[i],'open')
-            let close = await firestore_db.fetch(`CryptoPricePrediction`,coins[i],'close')
-            let high = await firestore_db.fetch(`CryptoPricePrediction`,coins[i],'high')
-            let low = await firestore_db.fetch(`CryptoPricePrediction`,coins[i],'low')
-            let obj = {
-                open: open,
-                close: close,
-                high: high,
-                low: low
-            };
-            docs.push(obj);
-           // console.log(obj);
-        }
-       // console.log(docs);
-        posts = docs;
-        console.log(posts);
-        return {status: `Ok`, posts: posts};
+       //  let coins =  await getUserNetwork(email);
+       //  console.log(coins);
+       //  let posts = [];
+       //  let docs = [];
+       //  for(let i=0; i<coins.length; i++)
+       //  {
+       //     // console.log(coins[i]);
+       //      let open = await firestore_db.fetch(`CryptoPricePrediction`,coins[i],'open')
+       //      let close = await firestore_db.fetch(`CryptoPricePrediction`,coins[i],'close')
+       //      let high = await firestore_db.fetch(`CryptoPricePrediction`,coins[i],'high')
+       //      let low = await firestore_db.fetch(`CryptoPricePrediction`,coins[i],'low')
+       //      let obj = {
+       //          open: open,
+       //          close: close,
+       //          high: high,
+       //          low: low
+       //      };
+       //      docs.push(obj);
+       //     // console.log(obj);
+       //  }
+       // // console.log(docs);
+       //  posts = docs;
+       //  console.log(posts);
+       //  return {status: `Ok`, posts: posts};
+    let fourChanPosts = [];
+
+    try{
+        const docs = await firestore_db.fetch(`CryptoPricePrediction`).then((snapshot) => {return snapshot.docs;});
+        for(const doc of docs)
+            fourChanPosts.push(doc.data());
+
+        return {status: `Ok`, posts_array: fourChanPosts};
+    }
+    catch(err){
+        return Promise.reject(new Error(err));
+    }
 }
 
 const getUserCrypto = async (email_address)=>{

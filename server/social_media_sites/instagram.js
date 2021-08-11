@@ -80,6 +80,7 @@ class NeuralNetwork {
                  highMin = Infinity;
                  arr = [];
                  store= 0;
+                 //console.log(response.data);
                 for(let i=0; i<response.data.Data.Data.length;i++)
                 {
                     if (response.data.Data.Data[i].open < openMin)
@@ -99,7 +100,8 @@ class NeuralNetwork {
                         highMin = response.data.Data.Data[i].high;
                     }
                     let rawdata = {
-                        //time: timeConverter(response.data.Data.Data[i].time),
+                        coin: coin,
+                        time: timeConverter(response.data.Data.Data[i].time),
                         open: response.data.Data.Data[i].open,
                         high: response.data.Data.Data[i].high,
                         low: response.data.Data.Data[i].low,
@@ -137,7 +139,7 @@ class NeuralNetwork {
                     learningRate: 0.005,
                     errorThresh: 0.0000000000002,
 
-                    //log: (stats) => console.log(stats)
+                    log: (stats) => console.log(stats)
                 });
 
                 console.log(coin+" Price Forecast")
@@ -178,6 +180,7 @@ class NeuralNetwork {
 
          try{
              let zero = 0;
+             let average = store[0].open + store[0].close + store[0].high + store[0].low/4;
              this.#firestore_db.save('CryptoPricePrediction',coin,'open',zero);
              this.#firestore_db.save('CryptoPricePrediction',coin,'high',zero);
              this.#firestore_db.save('CryptoPricePrediction',coin,'low',zero);
@@ -186,6 +189,8 @@ class NeuralNetwork {
              this.#firestore_db.save('CryptoPricePrediction',coin,'high',store[0].high);
              this.#firestore_db.save('CryptoPricePrediction',coin,'low',store[0].low);
              this.#firestore_db.save('CryptoPricePrediction',coin,'close',store[0].close);
+             this.#firestore_db.save('CryptoPricePrediction',coin,'coin', coin);
+             this.#firestore_db.save('CryptoPricePrediction',coin,'average', average);
          }
          catch (error){
              return Promise.reject(error);
@@ -201,18 +206,56 @@ class NeuralNetwork {
 
 
 let network = new NeuralNetwork();
-let AllCoins = network.allCoins().then(function (response) {
-     for(let p=0;p<response.length;p++)
-     {
-         network.train(response[p]).then(function (store) {
-
-});
-     }
-});
-
-// network.train("ltc").then(function (store) {
+// let AllCoins = network.allCoins().then(function (response) {
+//      for(let p=0;p<response.length;p++)
+//      {
+//          network.train(response[p]).then(function (store) {
 //
 // });
+//      }
+// });
+
+// network.train("btc").then(function (store) {
+//
+// });
+//
+// network.train("eth").then(function (store) {
+//
+// });
+//
+// network.train("usdt").then(function (store) {
+//
+// });
+//
+// network.train("bnb").then(function (store) {
+//
+// });
+//
+// network.train("ada").then(function (store) {
+//
+// });
+//
+// network.train("xrp").then(function (store) {
+//
+// });
+//
+// network.train("doge").then(function (store) {
+//
+// });
+
+// network.train("usdc").then(function (store) {
+//
+// });
+//
+// network.train("dot").then(function (store) {
+//
+// });
+//
+// network.train("uni").then(function (store) {
+//
+// });
+
+
 
 
 

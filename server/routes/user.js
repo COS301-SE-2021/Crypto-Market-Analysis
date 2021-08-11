@@ -76,6 +76,24 @@ router.post("/getUserCryptos", async (request, response, next) => {
      }
  });
 
+
+router.post("/getUserNetwork", async (request, response, next) => {
+    if(!request.body.email){
+        let error = new Error(`Malformed request. Please check your parameters`);
+        error.status(400);
+        return next(error);
+    }
+    else {
+        userFunctions.getUserNetwork(request.body.email).then(data=>{
+            return response.status(200).json(data);
+        }).catch(err=>{
+            let error = new Error(err);
+            error.status(500);
+            return next(error);
+        })
+    }
+});
+
 //test code
 router.post("/getUserSubreddits", async (request, response, next) => {
     if(!request.body.email){

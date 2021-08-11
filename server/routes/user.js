@@ -160,17 +160,13 @@ const Push_notification=require('./notification/push_notification')
 router.post("/subscribe", async (req, res) => {
     const web_push = new Push_notification();
         web_push.setDetails();
-    let subscription={};
-        await userFunctions.getPush().then(data=>{
-            subscription = data;
-    });
-    console.log("subscription");
-    console.log(subscription);
-    res.status(201).json({});
+        const subscription=req.body.object;
     const payload = JSON.stringify({ title: "You have subscribed to receive push notifications" });
     webpush
         .sendNotification(subscription, payload)
         .catch(err => console.error(err));
+    res.status(201).json(subscription);
+
 });
 
 module.exports = router

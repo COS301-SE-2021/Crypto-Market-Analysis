@@ -7,7 +7,7 @@ const CoinGecko = require('coingecko-api');
 const CoinGeckoClient = new CoinGecko();
 
 function Predictions() {
-
+   let [predictions,setPredictions] = useState([]);
 let PredictionsCoins = [];
 
     useEffect(async () => {
@@ -44,57 +44,52 @@ let PredictionsCoins = [];
                       }
                   }
               }
-                console.log(PredictionsCoins);
-
-
+              console.log(PredictionsCoins);
+              setPredictions(PredictionsCoins);
             })
             .catch(err => {console.error(err)})
-
-        // console.log("test")
-        // console.log(allcoins.data[0].symbol)
-        // console.log("test")
     },[]);
 
-    return (
-        <>
-            <div className="container-fluid" >
+    // return (
+    //     <>
+    //
+    //                         {
+    //                             predictions.map((data) =>{
+    //                                 return(
+    //                                     <div>
+    //                                         <p>{data.picture}</p>
+    //                                         <p>{data.name}</p>
+    //                                         <p>{data.symbol}</p>
+    //                                         <p>{data.price}</p>
+    //                                         <p>{data.open}</p>
+    //                                         <p>{data.close}</p>
+    //                                         <p>{data.low}</p>
+    //                                         <p>{data.high}</p>
+    //                                     </div>
+    //
+    //
+    //                                 )
+    //                             })
+    //                         }
+    //
+    //     </>
+    // );
+    return predictions.map((i) =>{
+        return (
+            <h1>
+                {i.open}
+                {/*{i.picture}*/}
+                {/*{i.symbol}*/}
+                {/*{i.price}*/}
+                {/*{i.open}*/}
+                {/*{i.close}*/}
+                {/*{i.high}*/}
+                {/*{i.low}*/}
+            </h1>
 
+        )
+    });
 
-                <div className="row">
-                    <div className="col-md-12">
-                        <table className="table crypto-table">
-                            <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Symbol</th>
-                                <th scope="col">Market Cap</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Supply</th>
-                                <th scope="col">Vol(24h)</th>
-                                <th scope="col">%(24h)</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td><img
-                                    src="https://cdn4.iconfinder.com/data/icons/crypto-currency-and-coin-2/256/bitcoincash_bch_bitcoin-128.png"/><span
-                                    className="text-warning"> Bitcoin</span></td>
-                                <td>BTC</td>
-                                <td>$134.655,333</td>
-                                <td className="text-warning">$768.655</td>
-                                <td className="text-warning">$122.998</td>
-                                <td className="text-warning">$5.443.233,600</td>
-                                <td className="text-success">%5.54 <i className="fa fa-arrow-up"></i></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </>
-    );
 }
 
 export default Predictions;

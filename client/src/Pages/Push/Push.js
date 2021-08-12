@@ -17,7 +17,7 @@ class Push extends React.Component {
         this.state = {
             elements: [  <Col class="col-md-6 offset-md-4">
                 <button  onClick={this.handleSubscribe}  type="button" className="btn btn-outline-warning">
-                    Subscribe</button>
+                    Subscribe<i className="fab fa-chrome"></i><i className="fab fa-firefox"></i></button>
             </Col>]
         }
         this.handleSubscribe = this.handleSubscribe.bind(this);
@@ -26,6 +26,10 @@ class Push extends React.Component {
         let  PushReq = {
             email: localStorage.getItem("emailSession")
         }
+        axios.post('http://localhost:8080/user/sendMail',PushReq)
+            .then(response => {
+                console.log(response);
+            })
         axios.post('http://localhost:8080/user/GETPush/',PushReq)
             .then(response => {
                 console.log(response.data)

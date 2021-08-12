@@ -8,7 +8,7 @@ import {
 } from "react-bootstrap";
 import {Link} from "react-router-dom";
 import axios from "axios";
-import './Notification.css';
+import './Note.css';
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Push from "../Push/Push";
 class Notifications extends React.Component {
@@ -41,6 +41,7 @@ class Notifications extends React.Component {
         axios.post('http://localhost:8080/user/setNotificationObject/',emailReq)
             .then(response => {
             })
+
         this.setState({notificationObject: object});
         const objectdata= this.state.notificationObject;
         this.generateData(objectdata);
@@ -82,6 +83,7 @@ class Notifications extends React.Component {
             })
 
     }
+
     generateData(object_response){
         this.setState({notificationObject: object_response});
         const objectOfNotificationdata= this.state.notificationObject;
@@ -96,11 +98,11 @@ class Notifications extends React.Component {
                                         <Link  onClick={()=>this.handleView(key)} value={key}
                                                                             className={
                                                                                 "text-xs uppercase py-3 font-bold block " +
-                                                                                (window.location.href.indexOf("/home/DetailedInfo") !== -1
+                                                                                (window.location.href.indexOf("/home") !== -1
                                                                                     ? "text-lightBlue-500 hover:text-Red-600"
                                                                                     : "text-blueGray-700 hover:text-Green-500")
                                                                             }
-                                                                            to="/home/DetailedInfo"
+                                                                            to="/home"
                                         > <p className="text-success"><h3>Cryptocurrency Notification</h3></p></Link><p>{key}</p>
 
                         {value.Email}
@@ -113,22 +115,24 @@ class Notifications extends React.Component {
             }
             else if(value.Read===false){
                 notification_Array.push( <Alert variant="info">
+
                     <i className="far fa-bell"></i>
                     <span>
                                          <Link  onClick={()=>this.handleView(key)} value={key}
                                                 className={
                                                     "text-xs uppercase py-3 font-bold block " +
-                                                    (window.location.href.indexOf("/home/DetailedInfo") !== -1
-                                                        ? "text-lightBlue-500 hover:text-lightBlue-600"
-                                                        : "text-blueGray-700 hover:text-blueGray-500")
+                                                    (window.location.href.indexOf("/home") !== -1
+                                                        ? "text-Blue-500 hover:text-Red-600"
+                                                        : "text-Gray-700 hover:text-Red-500")
                                                 }
-                                                to="/home/DetailedInfo"
+                                                to="/home"
                                          ><p className="text-warning"><h3>Cryptocurrency Notification </h3></p></Link><p>{key}</p>
 
                         {value.Email}
                         <br></br>
 
                                                  <button  onClick={this.handleDelete} value={key} type="button" className="btn btn-outline-warning"><i className="fas fa-trash-alt"></i>Delete</button>
+
 
                     </span>
                 </Alert>)
@@ -158,16 +162,17 @@ class Notifications extends React.Component {
 
                 <Container fluid>
 
-                    <Card>
-                        <Card.Header>
-                            <Card.Title as="h4">Notifications</Card.Title>
+                    <Card >
+                        <Card.Header >
+                           <Card.Title as="h4" class="card text-center">NOTIFICATIONS</Card.Title>
                             <Push/>
                             <button  onClick={this.handleDeleteALL} type="button" className="btn btn-outline-warning"><i className="fas fa-trash-alt"></i>Clear Notification</button>
                         </Card.Header>
-                        <Card.Body>
+                        <Card.Body >
                             <Row>
-                                <Col class="col-md-6 offset-md-4">
+                                <Col class="col-md-6 offset-md-4" className="card border-primary mb-3">
                                     {this.state.elem}
+
                                 </Col>
                             </Row>
 

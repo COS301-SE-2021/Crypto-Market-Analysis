@@ -31,7 +31,7 @@ http.createServer(app);
 app.listen(8000);
 cron.schedule('*/1 * * * *', async () => {
     console.log('analysing every minutes')
-   firestore_db.getUsers('Twitter').onSnapshot(async (documents) => {
+  /* firestore_db.getUsers('Twitter').onSnapshot(async (documents) => {
         await documents.forEach((doc) => {
             if (typeof doc.id !== "undefined") {
                 analysis.sentimentAnalysis(doc.id,'Twitter').then(data=>{
@@ -39,7 +39,7 @@ cron.schedule('*/1 * * * *', async () => {
                 }).catch(err=>{console.log(err)})
             }
           })
-        })
+        })*/
   /*  firestore_db.getUsers('Reddit').onSnapshot(async (documents) => {
         await documents.forEach((doc) => {
             if (typeof doc.id !== "undefined") {

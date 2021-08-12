@@ -50,46 +50,46 @@ let PredictionsCoins = [];
             .catch(err => {console.error(err)})
     },[]);
 
-    // return (
-    //     <>
-    //
-    //                         {
-    //                             predictions.map((data) =>{
-    //                                 return(
-    //                                     <div>
-    //                                         <p>{data.picture}</p>
-    //                                         <p>{data.name}</p>
-    //                                         <p>{data.symbol}</p>
-    //                                         <p>{data.price}</p>
-    //                                         <p>{data.open}</p>
-    //                                         <p>{data.close}</p>
-    //                                         <p>{data.low}</p>
-    //                                         <p>{data.high}</p>
-    //                                     </div>
-    //
-    //
-    //                                 )
-    //                             })
-    //                         }
-    //
-    //     </>
-    // );
-    return predictions.map((i) =>{
-        return (
-            <h1>
-                {i.open}
-                <p>{i.picture}</p>
-                {/*{i.picture}*/}
-                {/*{i.symbol}*/}
-                {/*{i.price}*/}
-                {/*{i.open}*/}
-                {/*{i.close}*/}
-                {/*{i.high}*/}
-                {/*{i.low}*/}
-            </h1>
+    return(
+        <>
+            <div className="container-fluid" >
+                <div className="row">
+                    <div className="col-md-12">
+                        <table className="table crypto-table">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Symbol</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Prediction</th>
+                            </tr>
+                            </thead>
+                            <tbody>
 
-        )
-    });
+            {
+                predictions.map((i) =>{
+
+                    return(
+                                <tr>
+                                    <td>#</td>
+                                    <td><span class="text-warning">{i.name}</span></td>
+                                    <td>{i.symbol}</td>
+                                    <td class="text-warning">{i.price}</td>
+                                    <td class="text-warning">{i.open}</td>
+                                </tr>
+                            )
+                })
+            }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </>
+    )
+
 
 }
 

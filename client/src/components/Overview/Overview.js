@@ -6,12 +6,15 @@ import HistoryChart from "../HistoryChart/HistoryChart"
 import CoinData from "../CoinData/CoinData"
 import coinGecko from "../apis/CoinGecko"
 import {AppBar, Tab, Tabs} from "@material-ui/core";
+import ClipLoader from "react-spinners/ClipLoader"
 
 export default function Overview({coin_name}) {
     let [coin, setCoin] = useState({});
     let [coinData, setCoinData] = useState({});
     let [marketData, setMarketData] = useState({});
     let [time, setTime] = useState(Date.now());
+    let [loading, setLoading] = useState(true);
+    let [graphLoader, setGraphLoader] = useState(true);
 
     const [selectedTab, setSelectedTab] = React.useState(0);
 
@@ -30,18 +33,15 @@ export default function Overview({coin_name}) {
     }
 
     useEffect(async () => {
-        console.log("useeffect")
-        // setInterval()
-        // const interval = setInterval(function(){console.log("time now " + time) 
-        // setTime(Date.now())}, 30000)
-        
-           
+     
+        /*use time to rerender the component every 30 seconds(Update price every 30 sec)*/
+        setTimeout(function(){ setTime(Date.now())}, 30000)
 
-        // console.log(interval)
         coin_name = coin_name.toLowerCase();
         axios.get('https://api.coingecko.com/api/v3/coins/' + coin_name)
             .then(async (response) => {
                 setCoin(response.data)
+                setLoading(false)
             })
             .catch(err => {
                 console.error(err);
@@ -118,6 +118,7 @@ export default function Overview({coin_name}) {
                         threeMonths: formatData(threeMonths.data.prices),
                         detail: detail.data[i],
                     });
+                    setGraphLoader(false)
                 }
             }
 
@@ -137,14 +138,12 @@ export default function Overview({coin_name}) {
         }
         await fetchData();
 
-    
-    },[])
+    },[time])
 
 
     return (
         <>
-            timer  is {time}
-            {coin.id ? <>
+            {loading ? <div className="mx-auto mt-16 text-center"><ClipLoader  loading={loading} size={150} /></div> : coin.id ? <>
                 <div className="container mt-16 mb-12">
                     <div className="row">
                         <div className="col-12">
@@ -218,6 +217,7 @@ export default function Overview({coin_name}) {
                             {
 
                                 selectedTab === 0 &&
+                                graphLoader ? <div className="mx-auto mt-16 text-center"><ClipLoader  loading={graphLoader} size={150} /> </div>:
                                 <HistoryChart data={coinData}/>
 
 

@@ -79,7 +79,7 @@ const Dropdown = () => {
     };
 
     return (
-        <div className={`mb-5 pr-5`} style={{position: `absolute`, right: `0em`}}>
+        <div className={`pr-5`} style={{margin:`auto`, right: `0em`}}>
             <FormControl className={classes.formControl}>
                 <InputLabel id="sentiment-label">Sentiment</InputLabel>
                 <Select
@@ -138,12 +138,12 @@ export default function News(props) {
                 for(const article of data){
                     if(newRow === 2 || start){
                         if(start) {
-                            news_articles += "<div class='row mx-5'>"
+                            // news_articles += "<div class='mx-5'>"
                             start = false;
                         }
                         else{
                             news_articles += "</div>";
-                            news_articles += "<div class='row mx-5'>";
+                            // news_articles += "<div class='mx-5'>";
                         }
 
                         newRow = 0;
@@ -208,7 +208,7 @@ export default function News(props) {
     return (
         <div id={`news`} className={`row`}>
             <Dropdown/>
-            <div id={`news-articles`} className={`mt-5 col-12`}>
+            <div id={`news-articles`} className={`row mt-3 ml-5 col-12`}>
 
             </div>
         </div>

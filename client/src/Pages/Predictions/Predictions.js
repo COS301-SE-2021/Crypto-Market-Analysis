@@ -31,7 +31,7 @@ let PredictionsCoins = [];
                                       picture: picture,
                                       name: name,
                                       symbol: symbol,
-                                      price: price.data,
+                                      price: price.data.USD,
                                       open: response.data.posts_array[x].open,
                                       close: response.data.posts_array[x].close,
                                       low: response.data.posts_array[x].low,
@@ -44,8 +44,17 @@ let PredictionsCoins = [];
                       }
                   }
               }
-              console.log(PredictionsCoins);
-              setPredictions(PredictionsCoins);
+             console.log("test");
+                var resArr = [];
+                PredictionsCoins.forEach(function(item){
+                    var i = resArr.findIndex(x => x.name == item.name);
+                    if(i <= -1){
+                        resArr.push({name: item.name, symbol: item.symbol, price: item.price, open: item.open, close: item.close, low: item.low});
+                    }
+                });
+                //console.log(resArr);
+             console.log("test");
+              setPredictions(resArr);
             })
             .catch(err => {console.error(err)})
     },[]);
@@ -69,12 +78,15 @@ let PredictionsCoins = [];
 
             {
                 predictions.map((i) =>{
-
+                    // console.dir(i);
                     return(
+                                // <p>{i.name}
+                                //     <p>{i.price}</p>
+                                // </p>
                                 <tr>
                                     <td>#</td>
                                     <td><span class="text-warning">{i.name}</span></td>
-                                    <td>{i.symbol}</td>
+                                    <td>{i.symbol.toUpperCase()}</td>
                                     <td class="text-warning">{i.price}</td>
                                     <td class="text-warning">{i.open}</td>
                                 </tr>

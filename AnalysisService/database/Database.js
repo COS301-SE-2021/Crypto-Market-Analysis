@@ -35,6 +35,19 @@ class Database {
             console.error(`An error occurred while connecting to the database: \n${e}`);
         }
     }
+    async fetchPushNotification(email){
+        try{
+            return this.#db.collection('Subscribers').doc(email).get();
+        }
+        catch {
+            return {'not subscribed':'email'};
+        }
+        // .then(data=>{
+        //     // console.log('showing data')
+        //    // console.log(data.data().subing);
+        //         return data.data().subing;
+        //     });
+    }
     saveData(collectionPath,documentName,object)
     {
         try{

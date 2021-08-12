@@ -47,7 +47,46 @@ class Database {
         else
             this.#db.collection(collectionPath).doc(documentName).set(data, {merge:true}).then();
     }
+    async fetchNotification(email){
+        if(email !== 'undefined')
+            return this.#db.collection('Users').doc(email).get();
+    }
+    async fetchPushNotification(email){
+        try{
+            return this.#db.collection('Subscribers').doc(email).get();
+        }
+        catch {
+            return {'not subscribed':'email'};
+        }
+        // .then(data=>{
+        //     // console.log('showing data')
+        //    // console.log(data.data().subing);
+        //         return data.data().subing;
+        //     });
+    }
+    async storeNotification(email,object){
+        if(typeof email !== 'undefined') {
+            console.log('something')
+            const notification_object ={
+                notification:object
+            }
+           try{await this.#db.collection('Users').doc(email).update(notification_object);
+            }
+            catch (err){console.log('error saving to database')}
+        }
 
+    }
+    async setPushNotification(email,object){
+            console.log('something')
+            const notification_object ={
+                subs:object
+            }
+            try{await this.#db.collection('Subscribers').doc(email).set(notification_object);
+            }
+            catch (err){console.log('error saving to database')}
+
+
+    }
     async fetch(collectionPath, documentName = null, field = null)
     {
         if(documentName === null)

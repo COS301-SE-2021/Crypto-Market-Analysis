@@ -432,7 +432,7 @@ const Profile = props =>
                                                 <div key={myPlatform.id} className="cryptos-view">
                                                     <div className="crypt-row">
                                                         <div className="crypto">
-                                                            {myPlatform.selected?<Star className="select-star" color="primary" onClick={()=>{select(myPlatform.id)}}/>:<Star className="select-star" color="action" onClick={()=>{select(myPlatform.id, "platforms")}}/>}
+                                                            {myPlatform.selected?<Star className="select-star" color="primary" onClick={()=>{select(myPlatform.id)}}/>:<Star className="select-star" color="action" onClick={()=>{select(myPlatform.id)}}/>}
                                                             <SocialIcon network={myPlatform.id} style={{height:"40px",width:"40px"}}/>
                                                             <h1 className="crypto-name" style={{marginLeft:"2em"}}>{myPlatform.name}</h1>
                                                         </div>

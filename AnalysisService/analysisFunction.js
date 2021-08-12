@@ -144,6 +144,8 @@ const sentimentAnalysis = async (cryptos,socialmedias)=>{
                                 if (i === Bigdata.length) {
                                     saveToDB(analysisArr, socialmedia, crypto).then(data => {
                                         resolve(data);
+                                    }).catch(err=>{
+                                        console.log(err+" :Error saving to database")
                                     })
                                 }
                             })

@@ -168,5 +168,36 @@ router.post("/subscribe", async (req, res) => {
     res.status(201).json(subscription);
 
 });
-
+const emailObject = require('nodemailer');
+router.post("/sendMail", async (req, res) => {
+    const sender =await emailObject.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.EMAIL_USERNAME || 'codexteam4@gmail.com',
+            pass: process.env.EMAIL_PASSWORD || 'PNeux9E^peM6s:z;'
+        }
+    });
+    const receiver = {
+        from: 'CryptoMarketAnalysis@sites.co.za',//'codexteam4@gmail.com',
+        to: req.body.email,
+        subject: 'Subscribed!',
+        text: "You have subscribed to receive push notification and Email",
+        html: "<body style=\" background-color: black;text-align: center;color: white;font-family: Arial, Helvetica, sans-serif; \">\n" +
+            "\n" +
+            "<h1>Subscription</h1>\n" +
+            "<p>You have subscribed to receive push notification Alert</p>\n" +
+            "<p></p>\n" +
+            "<img src=\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiMQS1-LtJdXdKYhcC1WJ9pQjE9SOksrUc7IynK7z1ybmLsRx6Rmj4OIvRxtyYXj5PSGU&usqp=CAU\" alt=\"Avatar\" style=\"width:200px\">\n" +
+            "\n" +
+            "</body>",
+    };
+    await sender.sendMail(receiver, function(error, data) {
+        if (error) {
+            res.status(401).json(error+" Error Sending Email");
+        } else {
+            res.status(201).json('Email sent: ' + data.response);
+        }
+    })
+    res.status(201).json("Email has been sent!");
+});
 module.exports = router

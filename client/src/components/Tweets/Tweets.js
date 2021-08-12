@@ -44,8 +44,8 @@ export default function Tweets({coin_name}){
             </div>
           </div>
         
-        </> : loader ?
-        
+        </> :<></>}
+         {loader ?
          <div className="mx-auto mt-16 text-center"><ClipLoader className="mx-auto mt-16" loading={loader} size={150} /> </div>
         : <div className="carousel-container container mt-8" >
             <Carousel cols={3} rows={2} gap={3}>

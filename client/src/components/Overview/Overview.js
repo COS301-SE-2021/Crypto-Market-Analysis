@@ -107,23 +107,25 @@ export default function Overview({coin_name}) {
                 }),
             ]);
 
-            for (let i = 0; i < detail.data.length; i++) {
-                if (coin_name.toLowerCase() === detail.data[i].id) {
-                    setCoinData({
-                        day: formatData(day.data.prices),
-                        week: formatData(week.data.prices),
-                        year: formatData(year.data.prices),
-                        fourteenDays: formatData(fourteenDays.data.prices),
-                        month: formatData(month.data.prices),
-                        threeMonths: formatData(threeMonths.data.prices),
-                        detail: detail.data[i],
-                    });
-                    setGraphLoader(false)
-                }
-            }
-
-            for (let i = 0; i < detail.data.length; i++) {
-                if (coin_name.toLowerCase() === detail.data[i].id) {
+            
+                detail.data.forEach(data => {
+                    if (coin_name.toLowerCase() === data.id) {
+                        setCoinData({
+                            day: formatData(day.data.prices),
+                            week: formatData(week.data.prices),
+                            year: formatData(year.data.prices),
+                            fourteenDays: formatData(fourteenDays.data.prices),
+                            month: formatData(month.data.prices),
+                            threeMonths: formatData(threeMonths.data.prices),
+                            detail: data,
+                        });
+                        setGraphLoader(false)
+                    }
+                })
+                
+            
+                detail.data.forEach(data => {
+                if (coin_name.toLowerCase() === data.id) {
                     setMarketData({
                         day: formatData(day.data.market_caps),
                         week: formatData(week.data.market_caps),
@@ -131,10 +133,10 @@ export default function Overview({coin_name}) {
                         fourteenDays: formatData(fourteenDays.data.market_caps),
                         month: formatData(month.data.market_caps),
                         threeMonths: formatData(threeMonths.data.market_caps),
-                        detail: detail.data[i],
+                        detail: data,
                     })
                 }
-            }
+            })
         }
         await fetchData();
 
@@ -143,7 +145,8 @@ export default function Overview({coin_name}) {
 
     return (
         <>
-            {loading ? <div className="mx-auto mt-16 text-center"><ClipLoader  loading={loading} size={150} /></div> : coin.id ? <>
+            {loading ? <div className="mx-auto mt-16 text-center"><ClipLoader  loading={loading} size={150} /></div> : <></>}
+            {coin.id ? <>
                 <div className="container mt-16 mb-12">
                     <div className="row">
                         <div className="col-12">
@@ -214,12 +217,12 @@ export default function Overview({coin_name}) {
                                     </Tab>
                                 </Tabs>
                             </AppBar>
+                            {graphLoader ? <div className="mx-auto mt-16 text-center"><ClipLoader  loading={graphLoader} size={150} /> </div>:<>
                             {
 
                                 selectedTab === 0 &&
-                                graphLoader ? <div className="mx-auto mt-16 text-center"><ClipLoader  loading={graphLoader} size={150} /> </div>:
                                 <HistoryChart data={coinData}/>
-
+                                
 
                             }
                             {
@@ -231,6 +234,7 @@ export default function Overview({coin_name}) {
                             {
 
                             }
+                            </>}
                         </div>
 
                         <div className="col-4 my-5">

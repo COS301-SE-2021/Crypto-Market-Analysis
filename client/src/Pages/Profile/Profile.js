@@ -80,7 +80,7 @@ const Profile = props =>
                 for(const platform of response.data)
                     socialName.push({socMediaName: platform});
 
-                platformsList.map((_platform)=>{
+                platformsList.forEach((_platform)=>{
                     socialName.forEach(element => {
                         if(element.socMediaName === _platform.name){
                             _platform.selected = true;
@@ -432,7 +432,7 @@ const Profile = props =>
                                                 <div key={myPlatform.id} className="cryptos-view">
                                                     <div className="crypt-row">
                                                         <div className="crypto">
-                                                            {myPlatform.selected?<Star className="select-star" color="primary" onClick={()=>{select(myPlatform.id,"platforms")}}/>:<Star className="select-star" color="action" onClick={()=>{select(myPlatform.id, "platforms")}}/>}
+                                                            {myPlatform.selected?<Star className="select-star" color="primary" onClick={()=>{select(myPlatform.id)}}/>:<Star className="select-star" color="action" onClick={()=>{select(myPlatform.id, "platforms")}}/>}
                                                             <SocialIcon network={myPlatform.id} style={{height:"40px",width:"40px"}}/>
                                                             <h1 className="crypto-name" style={{marginLeft:"2em"}}>{myPlatform.name}</h1>
                                                         </div>

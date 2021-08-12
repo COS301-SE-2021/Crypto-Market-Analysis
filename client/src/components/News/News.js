@@ -8,7 +8,7 @@ import Select from '@material-ui/core/Select';
 import axios from "axios";
 
 
-/*const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
     formControl: {
         margin: theme.spacing(1),
         minWidth: 120,
@@ -23,7 +23,7 @@ const Dropdown = () => {
     const [age, setAge] = React.useState('');
 
     const handleChange = (event) => {
-        const positive_temp = document.getElementsByClassName(`positive`);
+        /*const positive_temp = document.getElementsByClassName(`positive`);
         const negative_temp = document.getElementsByClassName(`negative`);
         const neutral_temp = document.getElementsByClassName(`neutral`);
         let positive_elements = [];
@@ -35,14 +35,26 @@ const Dropdown = () => {
         for(const element of negative_temp)
             negative_elements.push(element);
         for(const element of neutral_temp)
-            neutral_elements.push(element);
+            neutral_elements.push(element);*/
 
         const target_value = event.target.value;
         setAge(target_value);
 
-        /!*if(target_value === `positive-dropdown`){
+        if(target_value === `none`){
             const positive_elements = document.getElementsByClassName(`positive`);
+            for(const element of positive_elements)
+                element.style.display="block";
 
+            const negative_elements = document.getElementsByClassName(`negative`);
+            for(const element of negative_elements)
+                element.style.display="block";
+
+            const neutral_elements = document.getElementsByClassName(`neutral`);
+            for(const element of neutral_elements)
+                element.style.display="block";
+        }
+        else if(target_value === `positive-dropdown`){
+            const positive_elements = document.getElementsByClassName(`positive`);
             for(const element of positive_elements)
                 element.style.display="block";
 
@@ -53,8 +65,8 @@ const Dropdown = () => {
             const neutral_elements = document.getElementsByClassName(`neutral`);
             for(const element of neutral_elements)
                 element.style.display="none";
-        }*!/
-        if(target_value === `positive-dropdown`){
+        }
+        /*if(target_value === `positive-dropdown`){
             console.log(positive_elements);
             let news_element = document.getElementById(`news-articles`);
             news_element.innerHTML = "";
@@ -63,7 +75,7 @@ const Dropdown = () => {
                 console.log(element);
                 news_element.appendChild(element);
             }
-        }
+        }*/
     };
 
     return (
@@ -77,7 +89,7 @@ const Dropdown = () => {
                     onChange={handleChange}
                     autoWidth
                 >
-                    <MenuItem value="">
+                    <MenuItem value={`none`}>
                         <em>None</em>
                     </MenuItem>
                     <MenuItem value={`positive-dropdown`}>Positive</MenuItem>
@@ -88,7 +100,7 @@ const Dropdown = () => {
             </FormControl>
         </div>
     );
-}*/
+}
 
 export default function News(props) {
 
@@ -145,22 +157,22 @@ export default function News(props) {
                     let published_date = new Date(article.datePublished);
                     if(sentiment === `positive`){
                         article_card.className = `positive`;
-                        article_card.style.cssText = `border: 0.2em groove green;`;
+                        article_card.style.cssText = `border: 0.2em groove green; max-width: 30em;`;
                         icon_element = `<p style="text-align: right;"><i class = "fas fa-arrow-up text-success">Positive</i></p>`;
                     }
                     else if (sentiment === `negative`){
                         article_card.className = `negative`;
-                        article_card.style.cssText = `border: 0.2em solid red`;
+                        article_card.style.cssText = `border: 0.2em solid red; max-width: 30em;`;
                         icon_element = `<p style="text-align: right;"><i class = "fas fa-arrow-down text-danger">Negative</i></p>`;
                     }
                     else if (sentiment === `neutral`){
                         article_card.className = `neutral`;
-                        article_card.style.cssText = `border: 0.2em solid yellow`;
+                        article_card.style.cssText = `border: 0.2em solid yellow; max-width: 30em;`;
                         icon_element = `<p style="text-align: right;"><i class = "fas fa-minus-circle text-warning">Neutral</i></p>`;
                     }
                     article_card.className += ` col-5 card mr-5 mt-5`;
                     article_card.innerHTML = `<a href=${article.url}>
-                                                <div><img src=${article.image.thumbnail} class="card-img-top my-3" style="text-decoration: none; color: black; height: 13em;"></div>
+                                                <div style="max-width: 28em;"><img src=${article.image.thumbnail} class="card-img-top my-3" style="text-decoration: none; color: black; height: 15em;"></div>
                                                 <div class="card-body">
                                                     ${icon_element}
                                                     <p class="h6 card-subtitle mb-2 text-muted">${article.provider.name.toUpperCase()}</p> 
@@ -195,7 +207,7 @@ export default function News(props) {
 
     return (
         <div id={`news`} className={`row`}>
-            {/*<Dropdown/>*/}
+            <Dropdown/>
             <div id={`news-articles`} className={`mt-5 col-12`}>
 
             </div>

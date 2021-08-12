@@ -8,7 +8,7 @@ import SweetAlert from 'react-bootstrap-sweetalert'
 
 import EditIcon from "@material-ui/icons/Edit";
 
-
+import ModalComp from "../Modal/Modal"
 import "./Sidebar.css"
 import db from "../../firebase";
 import axios from "axios";
@@ -223,29 +223,6 @@ export default function Sidebar() {
                     Dashboard
                   </Link>
                 </li>
-
-                <li className="items-center">
-                  <Link
-                      className={
-                        "text-xs uppercase py-3 font-bold block " +
-                        (window.location.href.indexOf("/Settings") !== -1
-                            ? "text-lightBlue-500 hover:text-lightBlue-600"
-                            : "text-blueGray-700 hover:text-blueGray-500")
-                      }
-                      to="/Settings"
-                      onClick={changeLocation}
-                  >
-                    <i
-                        className={
-                          "fas fa-tools mr-2 text-sm " +
-                          (window.location.href.indexOf("/Settings") !== -1
-                              ? "opacity-75"
-                              : "text-blueGray-300")
-                        }
-                    />{" "}
-                    Settings
-                  </Link>
-                </li>
                 <li className="items-center">
                   <Link
                       className={
@@ -287,34 +264,44 @@ export default function Sidebar() {
                   </Link>
                 </li>
                 <li className="items-center">
-                  {linkDisable ? <Link onClick={(event) => event.preventDefault()}
-                                       className={
-                                         "text-xs uppercase py-3 font-bold block disable " +
-                                         (window.location.href.indexOf("/") !== -1
-                                             ? "text-lightBlue-500 hover:text-lightBlue-600"
-                                             : "text-blueGray-700 hover:text-blueGray-500")
-                                       }
-                                       to="/"
+                {user === null ? <Link
+                  className={
+                    "text-xs uppercase py-3 font-bold block " +
+                    (window.location.href.indexOf("/login") !== -1
+                      ? "text-lightBlue-500 hover:text-lightBlue-600"
+                      : "text-blueGray-700 hover:text-blueGray-500")
+                  }
+                  to="/login"
+                  onClick={()=> {
+                    setLogin(true)
+                    changeLocation()
+                  }}
+                >
 
-                      >
-                        <i
-                            className={
-                              "fas fa-sign-out-alt mr-2 text-sm " +
-                              (window.location.href.indexOf("/") !== -1
-                                  ? "opacity-75"
-                                  : "text-blueGray-300")
-                            }
-                        />{" "}
-                        Logout
-                      </Link>
-                      :<Link onClick={()=> localStorage.clear()}
-                             className={
-                               "text-xs uppercase py-3 font-bold block  " +
-                               (window.location.href.indexOf("/login") !== -1
-                                   ? "text-lightBlue-500 hover:text-lightBlue-600"
-                                   : "text-blueGray-700 hover:text-blueGray-500")
-                             }
-                             to="/login"
+                  <i
+                    className={
+                      "fas fa-sign-out-alt mr-2 text-sm " +
+                      (window.location.href.indexOf("/login") !== -1
+                        ? "opacity-75"
+                        : "text-blueGray-300")
+                    }
+                  />{" "}
+                  Login
+                </Link> 
+                :<Link onClick={()=> {
+                      localStorage.setItem("loggedOut",true)
+                      localStorage.clear()
+                      setShowSweetAlert(true)
+                    }}
+                      className={
+                        "text-xs uppercase py-3 font-bold block  " +
+                        (window.location.href.indexOf("/login") !== -1
+                          ? "text-lightBlue-500 hover:text-lightBlue-600"
+                          : "text-blueGray-700 hover:text-blueGray-500")
+                      }
+                    
+                          
+                          to="/home"
 
                       >
                         <i

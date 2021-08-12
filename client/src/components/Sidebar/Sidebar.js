@@ -2,11 +2,13 @@
 import React, { useState, useRef, useEffect}  from "react";
 import { Link, useHistory } from "react-router-dom";
 import {Avatar} from "@material-ui/core";
+import SweetAlert from 'react-bootstrap-sweetalert'
 
 
 import "./Sidebar.css"
 import db from "../../firebase";
 import ModalComp from "../Modal/Modal";
+
 
 
 export default function Sidebar() {
@@ -15,8 +17,9 @@ export default function Sidebar() {
   const history = useHistory()
   const [collapseShow, setCollapseShow] = React.useState("hidden")
   const [show, setShow] = useState(false)
+  const [showSweetAlert, setShowSweetAlert] = useState(false)
   const [status, setStatus] = useState(0)
-  let   [linkDisable, setLinkDisable] = useState({})
+  let   [login, setLogin] = useState(false)
   const  user = localStorage.getItem("emailSession")
   let  cryptoReq = {
     email: localStorage.getItem("emailSession")
@@ -24,12 +27,7 @@ export default function Sidebar() {
     
     useEffect(async ()=>{
       
-      if(user != null){
-        setLinkDisable(false)
-      }
-      else{
-        setLinkDisable(true)
-      }
+     
       await db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).get().then((notify)=>{
         let i = 0;
         let counter = 0;
@@ -49,9 +47,9 @@ export default function Sidebar() {
     },[])
   
     const changeLocation = ()=>{
-      
+      console.log(login)
       unblockHandle.current = history.block(() => {
-        if(user){
+        if(user || login){
           OnContinue();
           return true;
         }
@@ -84,7 +82,12 @@ export default function Sidebar() {
   
     <>
       <ModalComp show={show} cancel={onCancel} continue={OnContinue} />
-       
+      <SweetAlert show={showSweetAlert} success title={"Logout successful"} onConfirm={()=>{
+        if(localStorage.getItem("loggedOut")){
+          history.push("/")
+        }
+        setShowSweetAlert(false)
+        }}></SweetAlert>
       <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"
       >
         <div className="md:flex-col md:items-stretch md:min-h-full md:flex-wrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
@@ -208,47 +211,7 @@ export default function Sidebar() {
                   Dashboard
                 </Link>
               </li>
-
-              {/*<li className="items-center">
-                <Link
-                  className={
-                    "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/Settings") !== -1
-                      ? "text-lightBlue-500 hover:text-lightBlue-600"
-                      : "text-blueGray-700 hover:text-blueGray-500")
-                  }
-                  to="/Settings"
-                  onClick={changeLocation}
-                >
-                  <i
-                    className={
-                      "fas fa-tools mr-2 text-sm " +
-                      (window.location.href.indexOf("/Settings") !== -1
-                        ? "opacity-75"
-                        : "text-blueGray-300")
-                    }
-                  />{" "}
-                  Settings
-                </Link>
-              </li>*/}
-              {/*<li className="items-center">
-                <Link
-                    className={
-                      "text-xs uppercase py-3 font-bold block " +
-                      (window.location.href.indexOf("/Notification") !== -1
-                          ? "text-lightBlue-500 hover:text-lightBlue-600"
-                          : "text-blueGray-700 hover:text-blueGray-500")
-                    }
-                    to="/Notification"
-                >
-                  <a href="" className="notification">
-                    <i className="fas fa-envelope fa-lg"></i>
-                    <span className="badge rounded-pill badge-notification bg-danger">{status}</span>
-                  </a>
-                  {" "}
-                  Notification
-                </Link>
-              </li>*/}
+             
               <li className="items-center">
                 <Link
                   className={
@@ -294,7 +257,7 @@ export default function Sidebar() {
                 </Link>
               </li>
               <li className="items-center">
-                {linkDisable ? <Link
+                {user === null ? <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
                     (window.location.href.indexOf("/login") !== -1
@@ -302,7 +265,10 @@ export default function Sidebar() {
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
                   to="/login"
-
+                  onClick={()=> {
+                    setLogin(true)
+                    changeLocation()
+                  }}
                 >
                   <i
                     className={
@@ -314,14 +280,18 @@ export default function Sidebar() {
                   />{" "}
                   Login
                 </Link> 
-                :<Link onClick={()=> localStorage.clear()}
+                :<Link onClick={()=> {
+                  localStorage.setItem("loggedOut",true)
+                  localStorage.clear()
+                  setShowSweetAlert(true)
+                }}
                   className={
                     "text-xs uppercase py-3 font-bold block  " +
                     (window.location.href.indexOf("/login") !== -1
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="/home"
+                  
 
                 >
                   <i

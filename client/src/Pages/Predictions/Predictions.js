@@ -78,6 +78,7 @@ let PredictionsCoins = [];
         return (
             <h1>
                 {i.open}
+                <p>{i.picture}</p>
                 {/*{i.picture}*/}
                 {/*{i.symbol}*/}
                 {/*{i.price}*/}

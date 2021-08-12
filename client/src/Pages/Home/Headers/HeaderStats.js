@@ -3,7 +3,6 @@ import axios from "axios"
 import Carousel from "react-grid-carousel"
 import { Link, useHistory } from "react-router-dom"
 import ClipLoader from "react-spinners/ClipLoader"
-import { Alert } from "react-bootstrap"
 import ModalComp from "../../../components/Modal/Modal"
 import CardStats from "../../../components/Cards/CardStats"
 import "./Header.css";

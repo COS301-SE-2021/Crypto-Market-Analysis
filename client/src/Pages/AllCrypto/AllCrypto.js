@@ -13,11 +13,11 @@ import ModalComp from "../../components/Modal/Modal"
 const coins = ["btc","eth","usdt","bnb","ada","xrp","usdc","doge","dot","busd"]
 export default function AllCryptos(props)
 {
-    // cryptos = cryptos
     let [cryptos, setCryptos] = useState([]);
     const [searchCrypto, setSearchCrypto] = useState("");
     const [show, setShow] = useState(false)
     const [showSweetAlert, setShowSweetAlert] = useState(false)
+    const [alertTitle,setAlertTitle] = useState("")
     let [loading, setLoading] = useState(true);
     const history = useHistory()
    
@@ -52,7 +52,7 @@ export default function AllCryptos(props)
         getCoins(selectedCryptos)
 
       
-    },[]);
+    },[props.logged]);
 
     /*
         Get a list of coins from Coingecko. For each crypto, check if it matches crypto a user 
@@ -115,7 +115,9 @@ export default function AllCryptos(props)
                             }
                            
                             axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd).then(()=>{
+                                setAlertTitle("Coin added")
                                 setShowSweetAlert(true)
+                                
                             })
                                 .catch(err => {console.error(err);})
                             
@@ -127,7 +129,9 @@ export default function AllCryptos(props)
                             }
                             
                             axios.post('http://localhost:8080/user/unfollowCrypto/',cryptoToRemove).then(()=>{
+                                setAlertTitle("Coin removed")
                                 setShowSweetAlert(true)
+                                
                             })
                                 .catch(err => {console.error(JSON.stringify(err));})
 
@@ -157,7 +161,7 @@ export default function AllCryptos(props)
     return(
         <>       
         <ModalComp show={show} cancel={onCancel} continue={OnContinue} />
-        <SweetAlert show={showSweetAlert} success title={"Coin added"} onConfirm={()=>{setShowSweetAlert(false)}}>Coin added</SweetAlert>
+        <SweetAlert show={showSweetAlert} success title={alertTitle} onConfirm={()=>{setShowSweetAlert(false)}}></SweetAlert>
          <div className="container">
             <div className="row"> 
                 <div className="crypto-search">
@@ -165,7 +169,7 @@ export default function AllCryptos(props)
                                 onChange={searchCoin}/>
                 </div>
                 <div className=" overflow-auto block crypto-wrapper" style={{height:"600px",margin:"auto"}}>
-                    {loading ? <ClipLoader  loading={loading} size={150} />:
+                    {loading ? <ClipLoader loading={loading} size={150} />:
                     searchedCryptos.length < 1 ? <p className="text-center">Oops :( <br/>We don't have that coin</p>
                     :<>
                         {searchedCryptos.map((myCrypto,index) =>{

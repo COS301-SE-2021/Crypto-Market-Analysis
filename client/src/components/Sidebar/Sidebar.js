@@ -3,7 +3,11 @@ import React, { useState, useRef, useEffect}  from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
 import {Avatar} from "@material-ui/core";
+
+import SweetAlert from 'react-bootstrap-sweetalert'
+
 import EditIcon from "@material-ui/icons/Edit";
+
 
 import "./Sidebar.css"
 import db from "../../firebase";
@@ -12,27 +16,22 @@ import axios from "axios";
 // import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
 // import UserDropdown from "components/Dropdowns/UserDropdown.js";
 
+
 export default function Sidebar() {
 
   const unblockHandle = useRef()
   const history = useHistory()
   const [collapseShow, setCollapseShow] = React.useState("hidden")
   const [show, setShow] = useState(false)
+  const [showSweetAlert, setShowSweetAlert] = useState(false)
   const [status, setStatus] = useState(0)
-  let   [linkDisable, setLinkDisable] = useState({})
+  let   [login, setLogin] = useState(false)
   const  user = localStorage.getItem("emailSession")
   let  cryptoReq = {
     email: localStorage.getItem("emailSession")
   }
 
   useEffect(async ()=>{
-
-    if(user != null){
-      setLinkDisable(false)
-    }
-    else{
-      setLinkDisable(true)
-    }
 
     let  emailReq = {
       email: localStorage.getItem("emailSession")
@@ -62,7 +61,7 @@ export default function Sidebar() {
   const changeLocation = ()=>{
 
     unblockHandle.current = history.block(() => {
-      if(user){
+      if(user || login){
         OnContinue();
         return true;
       }
@@ -92,31 +91,28 @@ export default function Sidebar() {
   }
 
   return (
+  
+    <>
+      <ModalComp show={show} cancel={onCancel} continue={OnContinue} />
+      <SweetAlert show={showSweetAlert} success title={"Logout successful"} onConfirm={()=>{
+        if(localStorage.getItem("loggedOut")){
+          history.push("/")
+        }
+        setShowSweetAlert(false)
+        }}></SweetAlert>
+      <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"
+      >
+        <div className="md:flex-col md:items-stretch md:min-h-full md:flex-wrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
+          {/* Toggler */}
 
-      <>
-        <Modal show={show} style={{textAlign:"center"}}>
-          <Modal.Body >
-            <h4>Oops</h4>
-            <p>Looks like you're not logged in. Please log in to access to more features</p>
-          </Modal.Body>
-          <Modal.Footer className="justify-center" >
-            <Button onClick={onCancel} className="btn btn-danger">Cancel</Button>
-            <Button onClick={OnContinue} className="btn btn-success">Login</Button>
-          </Modal.Footer>
-        </Modal>
-        <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"
-        >
-          <div className="md:flex-col md:items-stretch md:min-h-full md:flex-wrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
-            {/* Toggler */}
-
-            <div>
-              <div style={{
-                position:"static",
-                display:"flex",
-                justifyContent:"space-between",
-                margin:"10px 0px",
-                borderBottom: "1px solid grey"
-              }}>
+          <div>
+            <div style={{
+              position:"static",
+              display:"flex",
+              justifyContent:"space-between",
+              margin:"10px 0px",
+              borderBottom: "1px solid grey"
+            }}>
                 <div>
                   <Avatar style={{width: "20px", height: "20px", borderRadius: "80px" }} className="aV" src='https://static.vecteezy.com/system/resources/previews/002/318/271/non_2x/user-profile-icon-free-vector.jpg'
                   />
@@ -353,6 +349,7 @@ export default function Sidebar() {
                 </Link>
               </li>
 
+
               <li className="items-center">
                 <Link
                   className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
@@ -414,7 +411,7 @@ export default function Sidebar() {
               </li>
 
               <li className="items-center">
-                {linkDisable ? <Link
+                {user === null ? <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
                     (window.location.href.indexOf("/login") !== -1
@@ -422,13 +419,10 @@ export default function Sidebar() {
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
                   to="/login"
-
-
-              <li className="inline-flex">
-                <a
-                  href="https://www.creative-tim.com/learning-lab/tailwind/react/alerts/notus"
-                  target="_blank"
-                  className="text-blueGray-700 hover:text-blueGray-500 text-sm block mb-4 no-underline font-semibold"
+                  onClick={()=> {
+                    setLogin(true)
+                    changeLocation()
+                  }}
                 >
 
                   <i
@@ -441,14 +435,18 @@ export default function Sidebar() {
                   />{" "}
                   Login
                 </Link> 
-                :<Link onClick={()=> localStorage.clear()}
+                :<Link onClick={()=> {
+                  localStorage.setItem("loggedOut",true)
+                  localStorage.clear()
+                  setShowSweetAlert(true)
+                }}
                   className={
                     "text-xs uppercase py-3 font-bold block  " +
                     (window.location.href.indexOf("/login") !== -1
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="/home"
+                  
 
               <li className="inline-flex">
                 <a

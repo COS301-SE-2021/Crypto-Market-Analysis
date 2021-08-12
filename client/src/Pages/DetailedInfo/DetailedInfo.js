@@ -5,7 +5,6 @@ import Tab from 'react-bootstrap/Tab'
 
 import Overview from '../../components/Overview/Overview'
 import Tweets from '../../components/Tweets/Tweets'
-import Reddits from '../../components/Reddits/Reddits'
 import FourChan from '../../components/4chan/fourChan'
 import Sidebar from "../../components/Sidebar/Sidebar.js";
 import Reddit from "../../components/Reddit/Reddit.js";
@@ -25,11 +24,8 @@ export default function DetailedInfo(props) {
                         <Tab eventKey="Twitter" title="Twitter">
                             <Tweets coin_name={coin_name} />
                         </Tab>
-                        {/*<Tab eventKey="Reddit" title="Reddit">*/}
-                        {/*    <Reddits />*/}
-                        {/*</Tab>*/}
                         <Tab eventKey="Reddit" title="Reddit">
-                            {/* <Reddit coin_name={coin_name} /> */}
+                            <Reddit coin_name={coin_name} />
                         </Tab>
                         <Tab eventKey="4chan" title="4chan">
                             <FourChan />

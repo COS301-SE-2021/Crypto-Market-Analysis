@@ -8,6 +8,7 @@ const userRoutes = require('./routes/user');
 const twitterRoute = require('./routes/twitter');
 const redditRoute = require('./routes/reddit');
 const chanRoute = require('./routes/chan');
+const sentimentRoute = require('./routes/sentiment');
 
 app.use(morgan("dev"));
 app.use('/uploads', express.static('uploads'));
@@ -31,6 +32,7 @@ app.use("/user", userRoutes);
 app.use("/twitter", twitterRoute);
 app.use("/reddit", redditRoute);
 app.use("/chan", chanRoute);
+app.use("/sentiment", sentimentRoute);
 
 app.use((req, res, next) => {
     const error = new Error("Not found");

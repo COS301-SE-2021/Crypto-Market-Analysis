@@ -18,6 +18,7 @@ import { AuthProvider } from "./Auth/Auth"
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import { useEffect } from 'react';
+
 function App() {
     useEffect(async ()=>{
         window.twttr = await (function(d, s, id) {

@@ -8,6 +8,7 @@ import {
 } from "react-bootstrap";
 import {Link} from "react-router-dom";
 import axios from "axios";
+import './Notification.css';
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Push from "../Push/Push";
 class Notifications extends React.Component {
@@ -18,8 +19,10 @@ class Notifications extends React.Component {
             elem: [],
             notificationObject:{},
             emailRequest:{}
+
         }
         this.handleDelete = this.handleDelete.bind(this);
+        this.handleDeleteALL = this.handleDeleteALL.bind(this);
     }
 
 
@@ -40,6 +43,26 @@ class Notifications extends React.Component {
             })
         this.setState({notificationObject: object});
         const objectdata= this.state.notificationObject;
+        this.generateData(objectdata);
+
+    }
+    handleDeleteALL= async (e)=> {
+        let object = {};
+
+
+
+        let  emailReq = {
+            email: localStorage.getItem("emailSession"),
+            object: object
+
+        }
+
+        axios.post('http://localhost:8080/user/setNotificationObject/',emailReq)
+            .then(response => {
+            })
+        this.setState({notificationObject: object});
+        const objectdata= {};
+        this.setState({});
         this.generateData(objectdata);
 
     }
@@ -73,11 +96,11 @@ class Notifications extends React.Component {
                                         <Link  onClick={()=>this.handleView(key)} value={key}
                                                                             className={
                                                                                 "text-xs uppercase py-3 font-bold block " +
-                                                                                (window.location.href.indexOf("/DetailedInfo") !== -1
-                                                                                    ? "text-lightBlue-500 hover:text-lightBlue-600"
-                                                                                    : "text-blueGray-700 hover:text-blueGray-500")
+                                                                                (window.location.href.indexOf("/home/DetailedInfo") !== -1
+                                                                                    ? "text-lightBlue-500 hover:text-Red-600"
+                                                                                    : "text-blueGray-700 hover:text-Green-500")
                                                                             }
-                                                                            to="/DetailedInfo"
+                                                                            to="/home/DetailedInfo"
                                         > <p className="text-success"><h3>Cryptocurrency Notification</h3></p></Link><p>{key}</p>
 
                         {value.Email}
@@ -95,17 +118,18 @@ class Notifications extends React.Component {
                                          <Link  onClick={()=>this.handleView(key)} value={key}
                                                 className={
                                                     "text-xs uppercase py-3 font-bold block " +
-                                                    (window.location.href.indexOf("/DetailedInfo") !== -1
+                                                    (window.location.href.indexOf("/home/DetailedInfo") !== -1
                                                         ? "text-lightBlue-500 hover:text-lightBlue-600"
                                                         : "text-blueGray-700 hover:text-blueGray-500")
                                                 }
-                                                to="/DetailedInfo"
+                                                to="/home/DetailedInfo"
                                          ><p className="text-warning"><h3>Cryptocurrency Notification </h3></p></Link><p>{key}</p>
 
                         {value.Email}
                         <br></br>
 
                                                  <button  onClick={this.handleDelete} value={key} type="button" className="btn btn-outline-warning"><i className="fas fa-trash-alt"></i>Delete</button>
+
                     </span>
                 </Alert>)
             }
@@ -138,6 +162,7 @@ class Notifications extends React.Component {
                         <Card.Header>
                             <Card.Title as="h4">Notifications</Card.Title>
                             <Push/>
+                            <button  onClick={this.handleDeleteALL} type="button" className="btn btn-outline-warning"><i className="fas fa-trash-alt"></i>Clear Notification</button>
                         </Card.Header>
                         <Card.Body>
                             <Row>

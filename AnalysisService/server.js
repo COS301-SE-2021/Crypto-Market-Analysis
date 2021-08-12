@@ -35,18 +35,19 @@ cron.schedule('*/1 * * * *', async () => {
         await documents.forEach((doc) => {
             if (typeof doc.id !== "undefined") {
                 analysis.sentimentAnalysis(doc.id,'Twitter').then(data=>{
+
                 }).catch(err=>{console.log(err)})
             }
           })
         })
-    firestore_db.getUsers('Reddit').onSnapshot(async (documents) => {
+  /*  firestore_db.getUsers('Reddit').onSnapshot(async (documents) => {
         await documents.forEach((doc) => {
             if (typeof doc.id !== "undefined") {
                 analysis.sentimentAnalysis(doc.id,'Reddit').then(data=>{
                 }).catch(err=>{console.log(err)})
             }
         })
-    })
+    })*/
     firestore_db.getUsers('Twitter').onSnapshot(async (documents) => {
         await documents.forEach((doc) => {
             if (typeof doc.id !== "undefined") {

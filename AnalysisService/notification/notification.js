@@ -25,29 +25,28 @@ const send_email= async(email,results)=>{
             console.log(error);
         } else {
             console.log('Email sent: ' + data.response);
-            return  new Promise(function (resolve, reject) {
-                firestore_db.getUsers('Users').onSnapshot(async (documents) => {
-                   await documents.forEach((doc) => {
-                        if (typeof doc.id !== "undefined" && doc.id === email) {
-                            let myObj = {};
-                            let newObj = {};
-                            let date = String(new Date());
-                            let read = false;
-                            if (typeof doc.data().notification !=="undefined")
-                            {
-                                myObj=doc.data().notification;
-                            }
-                            newObj[date] = {"Email":results, 'Read': read};
-                            let cmyObj = Object.assign({},myObj,newObj);
-                            const notify ={
-                                notification:cmyObj
-                            }
-                            firestore_db.saveData('Users',email,notify);
-
+            firestore_db.getUsers('Users').onSnapshot(async (documents) => {
+                await documents.forEach((doc) => {
+                    if (typeof doc.id !== "undefined" && doc.id===email) {
+                        let myObj = {};
+                        let newObj = {};
+                        let date = String(new Date());
+                        let read = false;
+                        if (typeof doc.data().notification !=="undefined")
+                        {
+                            myObj=doc.data().notification;
                         }
-                    })
-                })
+                        newObj[date] = {"Email":results, 'Read': read};
+                        let cmyObj = Object.assign({},myObj,newObj);
+                        const notify ={
+                            notification:cmyObj
+                        }
 
+                        // firestore_db.saveData('Users',doc.id,notify);
+                        resolve(notify)
+
+                    }
+                })
             })
 
 
@@ -60,13 +59,12 @@ const followers = async(cryptocurrency,results)=>{
         await firestore_db.getUsers('Users').onSnapshot((documents) => {
             documents.forEach(async (doc) => {
                 console.log(doc.data().crypto_name); // For data inside doc
-                if (typeof doc.data().crypto_name !== "undefined" && doc.data().crypto_name.includes(cryptocurrency)) {
+                if (typeof doc.data().crypto_name !== "undefined" && doc.data().crypto_name.includes(cryptocurrency) && doc.data().crypto_name===cryptocurrency) {
 
                     await send_email(doc.id, results);
-                    //const subscription = firestore_db.fetchPushNotification(doc.id);
-
+                   // const subscription = firestore_db.fetchPushNotification(doc.id);
+                    let subscription={}
                     web_push.setDetails();
-                    let subscription = {};
                     await firestore_db.fetchPushNotification(doc.id).then(data => {
                         try {
                             subscription = data.data().subs;
@@ -81,6 +79,8 @@ const followers = async(cryptocurrency,results)=>{
                             .sendNotification(subscription, payload)
                             .catch(err => console.error(err));
                     }
+
+
 
 
                 }

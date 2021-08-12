@@ -143,6 +143,7 @@ const Profile = props =>
     }
 
     const followUser = ()=>{
+
         let user = {email: localStorage.getItem("emailSession"), screen_name: searchRef.current.value }
         
         axios.post('http://localhost:8080/twitter/follow/',user)
@@ -157,6 +158,7 @@ const Profile = props =>
 
     }
     const unFollowUser = ()=>{
+
         let user = {email: localStorage.getItem("emailSession"), screen_name: searchRef.current.value }
        
         axios.post('http://localhost:8080/twitter/unfollow/',user)
@@ -175,8 +177,7 @@ const Profile = props =>
       
         setLoading(true)
         event.preventDefault()
-        console.log(searchRef.current.value)
-       
+
        
         let user = { screen_name: searchRef.current.value, email: localStorage.getItem("emailSession")}
         axios.post('http://localhost:8080/twitter/validateScreenName/',user)

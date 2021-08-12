@@ -72,6 +72,7 @@ export default function News(props) {
             }
 
         }).catch(error => {
+            console.error(`An error occurred while trying to retrieve the news articles: ${error}`);
             news_element.innerHTML = "";
             news_element.innerHTML = `<h1 className={'display-4'}>Cannot get news articles at this moment. Please try again later</h1>`;
             news_element.style.cssText = `margin: 0; position: absolute; top: 50%; -ms-transform: translateY(-50%); transform: translateY(-50%);`

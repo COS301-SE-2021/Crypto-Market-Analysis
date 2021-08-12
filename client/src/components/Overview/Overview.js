@@ -33,6 +33,7 @@ export default function Overview({coin_name}) {
     }
 
     useEffect(async () => {
+
      
         /*use time to rerender the component every 30 seconds(Update price every 30 sec)*/
         setTimeout(function(){ setTime(Date.now())}, 30000)

@@ -1,5 +1,94 @@
 import React, { useEffect } from "react";
+import { makeStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 import axios from "axios";
+
+
+/*const useStyles = makeStyles((theme) => ({
+    formControl: {
+        margin: theme.spacing(1),
+        minWidth: 120,
+    },
+    selectEmpty: {
+        marginTop: theme.spacing(2),
+    },
+}));
+
+const Dropdown = () => {
+    const classes = useStyles();
+    const [age, setAge] = React.useState('');
+
+    const handleChange = (event) => {
+        const positive_temp = document.getElementsByClassName(`positive`);
+        const negative_temp = document.getElementsByClassName(`negative`);
+        const neutral_temp = document.getElementsByClassName(`neutral`);
+        let positive_elements = [];
+        let negative_elements = [];
+        let neutral_elements = [];
+        for(const element of Object.entries(positive_temp))
+            positive_elements.push(element);
+
+        for(const element of negative_temp)
+            negative_elements.push(element);
+        for(const element of neutral_temp)
+            neutral_elements.push(element);
+
+        const target_value = event.target.value;
+        setAge(target_value);
+
+        /!*if(target_value === `positive-dropdown`){
+            const positive_elements = document.getElementsByClassName(`positive`);
+
+            for(const element of positive_elements)
+                element.style.display="block";
+
+            const negative_elements = document.getElementsByClassName(`negative`);
+            for(const element of negative_elements)
+                element.style.display="none";
+
+            const neutral_elements = document.getElementsByClassName(`neutral`);
+            for(const element of neutral_elements)
+                element.style.display="none";
+        }*!/
+        if(target_value === `positive-dropdown`){
+            console.log(positive_elements);
+            let news_element = document.getElementById(`news-articles`);
+            news_element.innerHTML = "";
+            console.log(positive_elements);
+            for(const element of Object.entries(positive_elements)) {
+                console.log(element);
+                news_element.appendChild(element);
+            }
+        }
+    };
+
+    return (
+        <div className={`mb-5 pr-5`} style={{position: `absolute`, right: `0em`}}>
+            <FormControl className={classes.formControl}>
+                <InputLabel id="sentiment-label">Sentiment</InputLabel>
+                <Select
+                    labelId="sentiment-label"
+                    id="sentiment"
+                    value={age}
+                    onChange={handleChange}
+                    autoWidth
+                >
+                    <MenuItem value="">
+                        <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={`positive-dropdown`}>Positive</MenuItem>
+                    <MenuItem value={`negative-dropdown`}>Negative</MenuItem>
+                    <MenuItem value={`neutral-dropdown`}>Neutral</MenuItem>
+                </Select>
+                <FormHelperText>Filter by sentiment</FormHelperText>
+            </FormControl>
+        </div>
+    );
+}*/
 
 export default function News(props) {
 
@@ -55,18 +144,21 @@ export default function News(props) {
                     let article_card = document.createElement(`div`);
                     let published_date = new Date(article.datePublished);
                     if(sentiment === `positive`){
-                        article_card.style.cssText = `border: 0.1em solid green`;
+                        article_card.className = `positive`;
+                        article_card.style.cssText = `border: 0.2em groove green;`;
                         icon_element = `<p style="text-align: right;"><i class = "fas fa-arrow-up text-success">Positive</i></p>`;
                     }
                     else if (sentiment === `negative`){
-                        article_card.style.cssText = `border: 0.1em solid red`;
+                        article_card.className = `negative`;
+                        article_card.style.cssText = `border: 0.2em solid red`;
                         icon_element = `<p style="text-align: right;"><i class = "fas fa-arrow-down text-danger">Negative</i></p>`;
                     }
                     else if (sentiment === `neutral`){
-                        article_card.style.cssText = `border: 0.1em solid yellow`;
+                        article_card.className = `neutral`;
+                        article_card.style.cssText = `border: 0.2em solid yellow`;
                         icon_element = `<p style="text-align: right;"><i class = "fas fa-minus-circle text-warning">Neutral</i></p>`;
                     }
-                    article_card.className = `col-5 card mr-5 mt-5`;
+                    article_card.className += ` col-5 card mr-5 mt-5`;
                     article_card.innerHTML = `<a href=${article.url}>
                                                 <div><img src=${article.image.thumbnail} class="card-img-top my-3" style="text-decoration: none; color: black; height: 13em;"></div>
                                                 <div class="card-body">
@@ -101,25 +193,10 @@ export default function News(props) {
 
     }, []);
 
-    <script src={`https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js%22%3E`}>
-
-    </script>
     return (
-        <div id={`news`}>
-            <div className="dropdown">
-                <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown
-                    Example
-                    <span className="caret">
-
-                    </span>
-                </button>
-                <ul className="dropdown-menu">
-                    <li><a href="#">HTML</a></li>
-                    <li><a href="#">CSS</a></li>
-                    <li><a href="#">JavaScript</a></li>
-                </ul>
-            </div>
-            <div id={`news-articles`} className={`mt-5`}>
+        <div id={`news`} className={`row`}>
+            {/*<Dropdown/>*/}
+            <div id={`news-articles`} className={`mt-5 col-12`}>
 
             </div>
         </div>

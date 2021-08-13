@@ -128,7 +128,7 @@ export default function News(props) {
             }
         };
 
-        axios.request(options).then(response => {
+        axios.request(options).then(async response => {
 
             if(response.data){
                 news_element.innerHTML = "";
@@ -142,29 +142,33 @@ export default function News(props) {
                         newRow = 0;
                     }
 
-                    let sentiments = [`positive`, `negative`, `neutral`];
-                    let sentiment = sentiments[Math.floor(Math.random() * sentiments.length)];
-                    let icon_element = null;
+                    /*let sentiments = [`positive`, `negative`, `neutral`];
+                    let sentiment = sentiments[Math.floor(Math.random() * sentiments.length)];*/
+                    let sentiment = await axios.post(`http://localhost:8000/ArticleAnalytics`, {article: article.body}).then(res => {
+                        const sentiment = res.data;
+                        console.log(res);
+                        console.log(sentiment);
+                        let icon_element = null;
 
-                    let article_card = document.createElement(`div`);
-                    let published_date = new Date(article.datePublished);
-                    if(sentiment === `positive`){
-                        article_card.className = `positive`;
-                        article_card.style.cssText = `border: 0.2em groove green; max-width: 30em;`;
-                        icon_element = `<p style="text-align: right;"><i class = "fas fa-arrow-up text-success">Positive</i></p>`;
-                    }
-                    else if (sentiment === `negative`){
-                        article_card.className = `negative`;
-                        article_card.style.cssText = `border: 0.2em solid red; max-width: 30em;`;
-                        icon_element = `<p style="text-align: right;"><i class = "fas fa-arrow-down text-danger">Negative</i></p>`;
-                    }
-                    else if (sentiment === `neutral`){
-                        article_card.className = `neutral`;
-                        article_card.style.cssText = `border: 0.2em solid yellow; max-width: 30em;`;
-                        icon_element = `<p style="text-align: right;"><i class = "fas fa-minus-circle text-warning">Neutral</i></p>`;
-                    }
-                    article_card.className += ` col-5 card mr-5 mt-5`;
-                    article_card.innerHTML = `<a href=${article.url}>
+                        let article_card = document.createElement(`div`);
+                        let published_date = new Date(article.datePublished);
+                        if(sentiment === `positive`){
+                            article_card.className = `positive`;
+                            article_card.style.cssText = `border: 0.2em groove green; max-width: 30em;`;
+                            icon_element = `<p style="text-align: right;"><i class = "fas fa-arrow-up text-success">Positive</i></p>`;
+                        }
+                        else if (sentiment === `negative`){
+                            article_card.className = `negative`;
+                            article_card.style.cssText = `border: 0.2em solid red; max-width: 30em;`;
+                            icon_element = `<p style="text-align: right;"><i class = "fas fa-arrow-down text-danger">Negative</i></p>`;
+                        }
+                        else if (sentiment === `neutral`){
+                            article_card.className = `neutral`;
+                            article_card.style.cssText = `border: 0.2em solid yellow; max-width: 30em;`;
+                            icon_element = `<p style="text-align: right;"><i class = "fas fa-minus-circle text-warning">Neutral</i></p>`;
+                        }
+                        article_card.className += ` col-5 card mr-5 mt-5`;
+                        article_card.innerHTML = `<a href=${article.url}>
                                                 <div style="max-width: 28em;"><img src=${article.image.thumbnail} class="card-img-top my-3" style="text-decoration: none; color: black; height: 15em;"></div>
                                                 <div class="card-body">
                                                     ${icon_element}
@@ -173,8 +177,9 @@ export default function News(props) {
                                                     <p class="h4 card-title mt-3">${article.title}</p>
                                                 </div>
                                               </a>`;
-                    newRow++;
-                    news_articles += article_card.outerHTML;
+                        newRow++;
+                        news_articles += article_card.outerHTML;
+                    });
                 }
 
                 news_element.innerHTML = news_articles;

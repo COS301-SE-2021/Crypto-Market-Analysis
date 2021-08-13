@@ -10,6 +10,7 @@ const getAverages = async (email, crypto_name) => {
             for(const platform of social_media_sites){
                 try{
                     let average = await firestore_database.fetch(platform, crypto_name, `Average_Change`);
+
                     if(average) {
                         if(averages.length > 0){
                             for(const [index,element] of average.entries()) {

@@ -7,6 +7,7 @@ import CoinData from "../CoinData/CoinData"
 import coinGecko from "../apis/CoinGecko"
 import {AppBar, Tab, Tabs} from "@material-ui/core";
 import ClipLoader from "react-spinners/ClipLoader"
+import SentimentChart from "../SentimentChart/SentimentChart"
 
 export default function Overview({coin_name}) {
     let [coin, setCoin] = useState({});
@@ -15,7 +16,6 @@ export default function Overview({coin_name}) {
     let [time, setTime] = useState(Date.now());
     let [loading, setLoading] = useState(true);
     let [graphLoader, setGraphLoader] = useState(true);
-
     const [selectedTab, setSelectedTab] = React.useState(0);
 
     const handleChange = (event, newValue) => {
@@ -47,6 +47,7 @@ export default function Overview({coin_name}) {
             .catch(err => {
                 console.error(err);
             })
+
 
         const fetchData = async () => {
 
@@ -233,7 +234,8 @@ export default function Overview({coin_name}) {
                             }
 
                             {
-
+                                selectedTab === 2 &&
+                                <SentimentChart />
                             }
                             </>}
                         </div>

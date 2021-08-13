@@ -235,7 +235,7 @@ export default function Overview({coin_name}) {
 
                             {
                                 selectedTab === 2 &&
-                                <SentimentChart />
+                                <SentimentChart data={marketData}/>
                             }
                             </>}
                         </div>

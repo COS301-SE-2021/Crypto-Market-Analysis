@@ -31,45 +31,9 @@ export default function FourChan(){
         },10000)
 
     },[]);
+
     return(
         <>
-            {/*<div style={{marginTop:"3%"}} >*/}
-
-            {/*    <div className="container card-wrapper" >*/}
-                    {/*<div className="crypto-search">*/}
-                    {/*    <form>*/}
-                    {/*        <input type="search" className=" w-full form-control rounded" placeholder="Search..."*/}
-                    {/*                />*/}
-                    {/*    </form>*/}
-                    {/*</div>*/}
-
-
-
-                    {/*<div className="row">*/}
-                    {/*    <div className="card">*/}
-
-                            {/*<ul className="list-group list-group-flush">*/}
-                            {/*<ul>*/}
-                            {/*    {*/}
-                            {/*        fourChans.map((fourChan) =>{*/}
-                            {/*            return(*/}
-                            {/*                // <li className="list-group-item">{fourChan.four}</li>*/}
-                            {/*            <div className="card">*/}
-                            {/*                <div className="card-header">*/}
-                            {/*                    4Chan*/}
-                            {/*                </div>*/}
-                            {/*                <div className="card-body">*/}
-                            {/*                    <blockquote className="blockquote mb-0">*/}
-                            {/*                        <p>{fourChan.four}</p>*/}
-                            {/*                        <footer className="blockquote-footer">Someone famous in <cite*/}
-                            {/*                            title="Source Title">Source Title</cite></footer>*/}
-                            {/*                    </blockquote>*/}
-                            {/*                </div>*/}
-                            {/*            </div>*/}
-                            {/*            )*/}
-                            {/*        })*/}
-                            {/*    }*/}
-
             {
                 fourChans.map((fourChan) =>{
 
@@ -86,32 +50,6 @@ export default function FourChan(){
                     )
                 })
             }
-
-
-
-                            {/*</ul>*/}
-                        {/*</div>*/}
-                        {/*{item}*/}
-                    {/*</div>*/}
-
-
-
-                    {/*<div className="row">*/}
-                    {/*    {*/}
-                    {/*        reddits.map((reddit) =>{*/}
-
-                    {/*            return(*/}
-                    {/*                <li className="list-group-item">{reddit.posts}</li>*/}
-                    {/*            )*/}
-
-                    {/*        })*/}
-                    {/*    }*/}
-
-                    {/*</div>*/}
-
-            {/*    </div>*/}
-            {/*</div>*/}
-
         </>
     )
 }

@@ -22,19 +22,17 @@ export default class ChartGraph extends React.Component {
         }
     }
     componentDidMount() {
+        console.log(this.props.crypto);
         let  objectRequest = {
-            socialmedia: 'Twitter',
-            crypto: 'Bitcoin'
+            socialmedia: this.props.social,
+            crypto: this.props.crypto
         }
         axios.post('http://localhost:8080/user/fetchAnalysis/',objectRequest)
             .then(response => {
-                console.log(response.data.Analysis_score);
                 let arr = response.data.Analysis_score;
                 arr = arr.map(function(each_element){
                     return Number(each_element.toFixed(2));
                 });
-                console.log("This is the array")
-                console.log(arr)
                 this.setState({
                     options: {
                         ...this.state.options,

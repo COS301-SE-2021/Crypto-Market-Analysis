@@ -28,7 +28,28 @@ export default class ChartGraph extends React.Component {
         }
         axios.post('http://localhost:8080/user/fetchAnalysis/',objectRequest)
             .then(response => {
-               console.log(response.data);
+                console.log(response.data.Analysis_score);
+                let arr = response.data.Analysis_score;
+                arr = arr.map(function(each_element){
+                    return Number(each_element.toFixed(2));
+                });
+                console.log("This is the array")
+                console.log(arr)
+                this.setState({
+                    options: {
+                        ...this.state.options,
+                        xaxis: {
+                            ...this.state.options.xaxis,
+                            categories: response.data.xaxis
+                        }
+                    },
+                    series: [{
+                        ...this.state.series,
+                        name: 'series-1',
+                        data: arr
+
+                    }]
+                })
             })
             .catch(err => {console.error(err);})
     }

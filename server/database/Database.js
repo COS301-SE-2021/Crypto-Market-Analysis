@@ -64,13 +64,8 @@ class Database {
         //         return data.data().subing;
         //     });
     }
-    async fetchAnalysisScore(Social_Media,Cryptocurrency){
-        try{
-            return this.#db.collection(Social_Media).doc(Cryptocurrency).get();
-        }
-        catch {
-            return {};
-        }
+    fetchAnalysisScore(Social_Media){
+        return this.#db.collection(Social_Media);
     }
     async storeNotification(email,object){
         if(typeof email !== 'undefined') {

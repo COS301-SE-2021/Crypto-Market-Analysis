@@ -8,7 +8,7 @@ import SweetAlert from 'react-bootstrap-sweetalert'
 
 import EditIcon from "@material-ui/icons/Edit";
 
-
+import ModalComp from "../Modal/Modal"
 import "./Sidebar.css"
 import db from "../../firebase";
 import axios from "axios";
@@ -91,28 +91,28 @@ export default function Sidebar() {
   }
 
   return (
-  
-    <>
-      <ModalComp show={show} cancel={onCancel} continue={OnContinue} />
-      <SweetAlert show={showSweetAlert} success title={"Logout successful"} onConfirm={()=>{
-        if(localStorage.getItem("loggedOut")){
-          history.push("/")
-        }
-        setShowSweetAlert(false)
-        }}></SweetAlert>
-      <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"
-      >
-        <div className="md:flex-col md:items-stretch md:min-h-full md:flex-wrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
-          {/* Toggler */}
 
-          <div>
-            <div style={{
-              position:"static",
-              display:"flex",
-              justifyContent:"space-between",
-              margin:"10px 0px",
-              borderBottom: "1px solid grey"
-            }}>
+      <>
+        <ModalComp show={show} cancel={onCancel} continue={OnContinue} />
+        <SweetAlert show={showSweetAlert} success title={"Logout successful"} onConfirm={()=>{
+          if(localStorage.getItem("loggedOut")){
+            history.push("/")
+          }
+          setShowSweetAlert(false)
+        }}></SweetAlert>
+        <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"
+        >
+          <div className="md:flex-col md:items-stretch md:min-h-full md:flex-wrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
+            {/* Toggler */}
+
+            <div>
+              <div style={{
+                position:"static",
+                display:"flex",
+                justifyContent:"space-between",
+                margin:"10px 0px",
+                borderBottom: "1px solid grey"
+              }}>
                 <div>
                   <Avatar style={{width: "20px", height: "20px", borderRadius: "80px" }} className="aV" src='https://static.vecteezy.com/system/resources/previews/002/318/271/non_2x/user-profile-icon-free-vector.jpg'
                   />
@@ -223,29 +223,6 @@ export default function Sidebar() {
                     Dashboard
                   </Link>
                 </li>
-
-                <li className="items-center">
-                  <Link
-                      className={
-                        "text-xs uppercase py-3 font-bold block " +
-                        (window.location.href.indexOf("/Settings") !== -1
-                            ? "text-lightBlue-500 hover:text-lightBlue-600"
-                            : "text-blueGray-700 hover:text-blueGray-500")
-                      }
-                      to="/Settings"
-                      onClick={changeLocation}
-                  >
-                    <i
-                        className={
-                          "fas fa-tools mr-2 text-sm " +
-                          (window.location.href.indexOf("/Settings") !== -1
-                              ? "opacity-75"
-                              : "text-blueGray-300")
-                        }
-                    />{" "}
-                    Settings
-                  </Link>
-                </li>
                 <li className="items-center">
                   <Link
                       className={
@@ -287,34 +264,44 @@ export default function Sidebar() {
                   </Link>
                 </li>
                 <li className="items-center">
-                  {linkDisable ? <Link onClick={(event) => event.preventDefault()}
-                                       className={
-                                         "text-xs uppercase py-3 font-bold block disable " +
-                                         (window.location.href.indexOf("/") !== -1
-                                             ? "text-lightBlue-500 hover:text-lightBlue-600"
-                                             : "text-blueGray-700 hover:text-blueGray-500")
-                                       }
-                                       to="/"
-
+                  {user === null ? <Link
+                          className={
+                            "text-xs uppercase py-3 font-bold block " +
+                            (window.location.href.indexOf("/login") !== -1
+                                ? "text-lightBlue-500 hover:text-lightBlue-600"
+                                : "text-blueGray-700 hover:text-blueGray-500")
+                          }
+                          to="/login"
+                          onClick={()=> {
+                            setLogin(true)
+                            changeLocation()
+                          }}
                       >
+
                         <i
                             className={
                               "fas fa-sign-out-alt mr-2 text-sm " +
-                              (window.location.href.indexOf("/") !== -1
+                              (window.location.href.indexOf("/login") !== -1
                                   ? "opacity-75"
                                   : "text-blueGray-300")
                             }
                         />{" "}
-                        Logout
+                        Login
                       </Link>
-                      :<Link onClick={()=> localStorage.clear()}
+                      :<Link onClick={()=> {
+                        localStorage.setItem("loggedOut",true)
+                        localStorage.clear()
+                        setShowSweetAlert(true)
+                      }}
                              className={
                                "text-xs uppercase py-3 font-bold block  " +
                                (window.location.href.indexOf("/login") !== -1
                                    ? "text-lightBlue-500 hover:text-lightBlue-600"
                                    : "text-blueGray-700 hover:text-blueGray-500")
                              }
-                             to="/login"
+
+
+                             to="/home"
 
                       >
                         <i

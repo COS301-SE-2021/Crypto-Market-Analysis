@@ -43,15 +43,18 @@ const getPush=async(email)=>{
 }
 const getAnalysis=async(Social_Media,Cryptocurrency)=>{
     let metadata={};
-    await firestore_db.fetchAnalysisScore(Social_Media,Cryptocurrency).then(data=>{
-        try{ metadata=data;
-        }
-        catch{
-            metadata={}
-        }
+    return new Promise(function (resolve, reject) {
+        firestore_db.fetchAnalysisScore(Social_Media).onSnapshot(async (documents) => {
+            documents.forEach((doc) => {
 
-    });
-    return metadata;
+                if (doc.id === Cryptocurrency) {
+                    resolve(doc.data());
+
+                }
+
+            })
+        })
+    })
 }
 
 /** Gets all the reddit posts from the database.

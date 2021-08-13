@@ -156,7 +156,7 @@ router.post("/fetchUserSocialMedia", async (request, response) => {
     }
 });
 router.post("/fetchAnalysis", async (request, response) => {
-    if(request.body.socialmedia === null || request.body.crypto ) {
+    if(request.body.socialmedia === null || request.body.crypto===null ) {
         return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
     }
     else{

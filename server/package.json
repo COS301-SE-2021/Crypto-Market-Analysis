@@ -8,7 +8,8 @@
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix ../client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "analysis": "npm run server --prefix ../AnalysisService",
+    "dev": "concurrently \"npm run server\" \"npm run analysis\" \"npm run client\""
   },
   "keywords": [],
   "author": "Codex",

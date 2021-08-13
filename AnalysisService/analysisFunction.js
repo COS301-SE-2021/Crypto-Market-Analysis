@@ -87,12 +87,12 @@ const saveOld = async(SocialMedia , cryptocurrency)=>{
         })
     });
 }
-const saveToDB = async (arr, socialmedia , crypto)=> {
+const saveToDB = async (axis,arr, socialmedia , crypto)=> {
     let mini=Math.min.apply(Math, arr)
     let maxi = Math.max.apply(Math, arr)
     const age = arr => arr.reduce((acc,v) => acc + v)
     let average = age(arr)
-    firestore_db.saveData(socialmedia,crypto,{Analysis_score: arr ,Min: mini,Max: maxi,Average: average})
+    firestore_db.saveData(socialmedia,crypto,{xaxis:axis,Analysis_score: arr ,Min: mini,Max: maxi,Average: average})
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
 //return analysis value
@@ -129,6 +129,7 @@ const sentimentAnalysis = async (cryptos,socialmedias)=>{
             reject(`Internal server error`);
         }
         const analysisArr = [];
+        const axis = [];
         let i = 0;
         try {
             await Bigdata.forEach(element =>
@@ -139,10 +140,12 @@ const sentimentAnalysis = async (cryptos,socialmedias)=>{
                                 if (isNaN(analysis)) {
                                     analysis = 0;
                                 }
-                                analysisArr.push(analysis * 10);
+                                analysisArr.push(analysis);
+
                                 i++;
+                                axis.push(i);
                                 if (i === Bigdata.length) {
-                                    saveToDB(analysisArr, socialmedia, crypto).then(data => {
+                                    saveToDB(axis,analysisArr, socialmedia, crypto).then(data => {
                                         resolve(data);
                                     }).catch(err=>{
                                         console.log(err+" :Error saving to database")

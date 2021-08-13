@@ -62,7 +62,7 @@ const followers = async(cryptocurrency,results)=>{
                         }
                         firestore_db.saveData('Users', doc.id, notify);
                        // resolve("Data has been saved!")
-                        await send_email(doc.id, results);
+                        //await send_email(doc.id, results);
                         // const subscription = firestore_db.fetchPushNotification(doc.id);
                         console.log('Sending another email');
                         let subscription={}

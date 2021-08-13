@@ -28,6 +28,7 @@ const sslServer = https.createServer(
 
 sslServer.listen(3443, () => console.log('Secure server running on port 3443'))
 http.createServer(app);
+
 app.listen(8000);
 cron.schedule('*/60 * * * *', async () => {
     console.log('analysing every hour')

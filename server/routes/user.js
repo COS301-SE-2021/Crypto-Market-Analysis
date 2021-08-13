@@ -155,6 +155,18 @@ router.post("/fetchUserSocialMedia", async (request, response) => {
         })
     }
 });
+router.post("/fetchAnalysis", async (request, response) => {
+    if(request.body.socialmedia === null || request.body.crypto ) {
+        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
+    }
+    else{
+        userFunctions.getAnalysis(request.body.socialmedia,request.body.crypto).then(data=>{
+            return response.status(200).json(data);
+        }).catch(err=>{
+            return response(401).json({status:`error`, error: err})
+        })
+    }
+});
 const webpush = require("web-push");
 const Push_notification=require('./notification/push_notification')
 router.post("/subscribe", async (req, res) => {

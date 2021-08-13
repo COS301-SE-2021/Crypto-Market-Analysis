@@ -41,6 +41,19 @@ const getPush=async(email)=>{
     });
     return mydata;
 }
+const getAnalysis=async(Social_Media,Cryptocurrency)=>{
+    let metadata={};
+    await firestore_db.fetchAnalysisScore(Social_Media,Cryptocurrency).then(data=>{
+        try{ metadata=data;
+        }
+        catch{
+            metadata={}
+        }
+
+    });
+    return metadata;
+}
+
 /** Gets all the reddit posts from the database.
  * @return  {object} Containing an array of posts if it was successful or a rejected Promise.
 * */
@@ -152,4 +165,4 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
 
-module.exports = {getPush,setPush,setNotification,saveToDB,getNotification,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, get4chanPost}
+module.exports = {getAnalysis,getPush,setPush,setNotification,saveToDB,getNotification,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, get4chanPost}

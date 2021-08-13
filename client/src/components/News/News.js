@@ -144,10 +144,19 @@ export default function News(props) {
 
                     /*let sentiments = [`positive`, `negative`, `neutral`];
                     let sentiment = sentiments[Math.floor(Math.random() * sentiments.length)];*/
-                    let sentiment = await axios.post(`http://localhost:8000/ArticleAnalytics`, {article: article.body}).then(res => {
+
+                    const analysisOptions = {
+                    	method: 'POST',
+			            url: 'http://localhost:8000/ArticleAnalytics',
+			            data: {
+			                article: article.snippet,
+			            }
+                    }
+
+                    await axios.request(analysisOptions)
+                    .then(res => {
+                    	console.log(res);
                         const sentiment = res.data;
-                        console.log(res);
-                        console.log(sentiment);
                         let icon_element = null;
 
                         let article_card = document.createElement(`div`);
@@ -181,7 +190,6 @@ export default function News(props) {
                         news_articles += article_card.outerHTML;
                     });
                 }
-
                 news_element.innerHTML = news_articles;
             }
             else{

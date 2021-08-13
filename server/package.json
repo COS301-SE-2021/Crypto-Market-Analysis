@@ -37,7 +37,7 @@
     "firestore-jest-mock": "^0.14.0",
     "firestore-schema-validator": "^0.8.0",
     "instagram-scraping": "^1.0.13",
-    "jest": "^27.0.4",
+    "jest": "^27.0.6",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.12",
     "morgan": "^1.10.0",

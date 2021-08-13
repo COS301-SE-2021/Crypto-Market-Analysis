@@ -40,6 +40,4 @@ const getAverages = async (email, crypto_name) => {
     }
 };
 
-getAverages(`alekarzeeshan92@gmail.com`, `Bitcoin`).then(res => console.log(res));
-
 module.exports = {getAverages};

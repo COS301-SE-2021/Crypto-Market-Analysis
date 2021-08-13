@@ -11,6 +11,7 @@ import axios from "axios";
 import './Note.css';
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Push from "../Push/Push";
+import ChartGraph from "../../components/GraphReport/Sentiment";
 class Notifications extends React.Component {
 
     constructor(props) {
@@ -175,7 +176,7 @@ class Notifications extends React.Component {
 
                                 </Col>
                             </Row>
-
+                            {/*<ChartGraph/>*/}
                         </Card.Body>
                     </Card>
                 </Container>

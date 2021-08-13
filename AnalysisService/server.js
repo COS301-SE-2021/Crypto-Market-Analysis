@@ -31,15 +31,15 @@ http.createServer(app);
 app.listen(8000);
 cron.schedule('*/1 * * * *', async () => {
     console.log('analysing every minutes')
-  /* firestore_db.getUsers('Twitter').onSnapshot(async (documents) => {
+  firestore_db.getUsers('Twitter').onSnapshot(async (documents) => {
         await documents.forEach((doc) => {
             if (typeof doc.id !== "undefined") {
                 analysis.sentimentAnalysis(doc.id,'Twitter').then(data=>{
-
                 }).catch(err=>{console.log(err)})
             }
           })
-        })*/
+        })
+    console.log('Analysis Done!')
   /*  firestore_db.getUsers('Reddit').onSnapshot(async (documents) => {
         await documents.forEach((doc) => {
             if (typeof doc.id !== "undefined") {
@@ -48,20 +48,20 @@ cron.schedule('*/1 * * * *', async () => {
             }
         })
     })*/
-    firestore_db.getUsers('Twitter').onSnapshot(async (documents) => {
-        await documents.forEach((doc) => {
-            if (typeof doc.id !== "undefined") {
-                average.Analyse_Average('Twitter',doc.id ).then(dt=>{
-                    let msgType = new notificationType(dt,doc.id );
-                    const nothing= doc.id  + ' average sentiment did not change!';
-                    let results = msgType.Results();
-                    if(results !==nothing ){
-                        notification.followers(doc.id,results);
-                    }
-                }).catch(err=>{   console.log(err);})
-            }
-        })
-    })
+    // firestore_db.getUsers('Twitter').onSnapshot(async (documents) => {
+    //     await documents.forEach((doc) => {
+    //         if (typeof doc.id !== "undefined") {
+    //             average.Analyse_Average('Twitter',doc.id ).then(dt=>{
+    //                 let msgType = new notificationType(dt,doc.id );
+    //                 const nothing= doc.id  + ' average sentiment did not change!';
+    //                 let results = msgType.Results();
+    //                 if(results !==nothing ){
+    //                     notification.followers(doc.id,results);
+    //                 }
+    //             }).catch(err=>{   console.log(err);})
+    //         }
+    //     })
+    // })
 
 
 });

@@ -176,7 +176,7 @@ class Notifications extends React.Component {
 
                                 </Col>
                             </Row>
-                            {/*<ChartGraph/>*/}
+                            <ChartGraph/>
                         </Card.Body>
                     </Card>
                 </Container>

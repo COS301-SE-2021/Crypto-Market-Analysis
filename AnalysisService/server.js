@@ -55,13 +55,17 @@ cron.schedule('*/1 * * * *', async () => {
     //                 let msgType = new notificationType(dt,doc.id );
     //                 const nothing= doc.id  + ' average sentiment did not change!';
     //                 let results = msgType.Results();
-    //                 if(results !==nothing ){
-    //                     notification.followers(doc.id,results);
+    //                 if(results ===nothing ){
+    //                     console.log('Storing the emails');
+    //                     const data= notification.followers(doc.id,results);
+    //                     //throw "function has finished";
     //                 }
     //             }).catch(err=>{   console.log(err);})
     //         }
     //     })
+    //
     // })
+    console.log('Messaging done!')
 
 
 });

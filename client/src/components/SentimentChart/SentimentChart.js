@@ -6,27 +6,13 @@ import axios from "axios";
 import coinGecko from "../apis/CoinGecko";
 
 
-const SentimentChart = () => {
+const SentimentChart = ({data}) => {
     const chartRef = useRef();
+    const {detail} = data;
     //const {sentiment} = data;
     let [averages, setAverages] = useState({});
     const [timeFormat, setTimeFormat] = useState("2m");
     let chartInstance;
-    let [details,setDetails] = useState({})
-    let [Coin, SetCoin] = useState({});
-    let [loading, setLoading] = useState(true);
-
-
-    /*const determineTimeFormat = () => {
-        switch (timeFormat){
-
-            case "24h":
-                return sentiment;
-            default:
-                return "";
-        }
-    }*/
-
 
 
     useEffect(async () => {
@@ -34,25 +20,19 @@ const SentimentChart = () => {
         try {
             const fetchDatas = async () => {
 
-                const [detail] = await Promise.all([
+                const [coinDetail] = await Promise.all([
                     coinGecko.get("/coins/markets/", {
                         params: {
                             vs_currency: "zar",
-                            days: "365",
-                            interval: "weekly"
                         },
                     }),
                 ]);
 
-                detail.data.forEach(data => {
-                    setDetails({
-                        detail: data,
-                    })
-                })
+                console.log(detail.name)
 
                 let requestObj = {
                     email: localStorage.getItem("emailSession"),
-                    crypto_name: "Bitcoin",
+                    crypto_name: detail.name,
                 }
 
                 axios.post('http://localhost:8080/sentiment/getAverages', requestObj)
@@ -69,6 +49,60 @@ const SentimentChart = () => {
                     }).catch(err => {
                     console.error(err);
                 })
+
+                console.log(averages.data[0])
+                let l = [600000, 1200000, 2400000];
+                //for(let i =0; i < averages.data.length; i++)
+                //{
+                if (chartRef && chartRef.current) {
+
+                    chartInstance = new Chartjs(chartRef.current, {
+                        type: 'line',
+
+                        data: {
+                            labels: l,
+                            datasets: [
+                                {
+                                    label: detail.name + " sentiment" ,
+                                    data: [ averages.data[0], averages.data[1], averages.data[2]],
+                                    backgroundColor: "rgba(255, 255, 255,0)",
+                                    borderColor: "rgba(0,0,0,0.9)",
+                                    pointRadius: 0,
+                                    hoverOffset: 4,
+                                },
+
+                            ],
+
+                        },
+                        options: {
+                            lineHeightAnnotation: {
+                                always: true,
+                                hover: false,
+                                lineWeight: 1.5
+                            },
+
+                            animation:{
+                                duration: 2000
+                            },
+
+                            maintainAspectRatio: false,
+                            responsive: true,
+                            scales: {
+                                xAxes: [
+                                    {
+                                        type: "time",
+                                        distribution: "linear",
+
+                                    }
+                                ],
+                                yAxes: [{
+                                    beginAtZero: true,
+                                }]
+                            }
+                        },
+                    });
+                }
+                //}
             }
 
             await fetchDatas()
@@ -80,47 +114,10 @@ const SentimentChart = () => {
         //console.log(averages.length);
     },[]);
 
-    let l = [600000, 1200000, 2400000];
-    for(let i =0; i < averages.data.length; i++)
-    {
-        if (chartRef && chartRef.current) {
-            // const labels = new Date.now();
-            chartInstance = new Chartjs(chartRef.current, {
-                type: 'line',
 
-                data: {
-                    labels: l,
-                    datasets: [
-                        {
-                            label: details.name + " sentiment" ,
-                            data: [ averages.data[i] ],
-                            backgroundColor: "rgba(255, 255, 255,0)",
-                            borderColor: "rgba(0,0,0,0.9)",
-                            pointRadius: 0,
-                            hoverOffset: 4,
-                        },
-
-                    ],
-
-                },
-                options: {
-                    ...historyOptions,
-                },
-            });
-        }
-    }
 
     return (
         <div>
-
-            {/*<div>
-            <Line data={chartInstance}>
-
-                
-                
-            </Line>
-        </div>*/}
-
 
             <div>
 

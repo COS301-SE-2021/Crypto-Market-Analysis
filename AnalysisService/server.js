@@ -29,8 +29,8 @@ const sslServer = https.createServer(
 sslServer.listen(3443, () => console.log('Secure server running on port 3443'))
 http.createServer(app);
 app.listen(8000);
-cron.schedule('*/1 * * * *', async () => {
-    console.log('analysing every minutes')
+cron.schedule('*/60 * * * *', async () => {
+    console.log('analysing every hour')
   firestore_db.getUsers('Twitter').onSnapshot(async (documents) => {
         await documents.forEach((doc) => {
             if (typeof doc.id !== "undefined") {

@@ -23,20 +23,6 @@ const Dropdown = () => {
     const [age, setAge] = React.useState('');
 
     const handleChange = (event) => {
-        /*const positive_temp = document.getElementsByClassName(`positive`);
-        const negative_temp = document.getElementsByClassName(`negative`);
-        const neutral_temp = document.getElementsByClassName(`neutral`);
-        let positive_elements = [];
-        let negative_elements = [];
-        let neutral_elements = [];
-        for(const element of Object.entries(positive_temp))
-            positive_elements.push(element);
-
-        for(const element of negative_temp)
-            negative_elements.push(element);
-        for(const element of neutral_temp)
-            neutral_elements.push(element);*/
-
         const target_value = event.target.value;
         setAge(target_value);
 
@@ -66,16 +52,32 @@ const Dropdown = () => {
             for(const element of neutral_elements)
                 element.style.display="none";
         }
-        /*if(target_value === `positive-dropdown`){
-            console.log(positive_elements);
-            let news_element = document.getElementById(`news-articles`);
-            news_element.innerHTML = "";
-            console.log(positive_elements);
-            for(const element of Object.entries(positive_elements)) {
-                console.log(element);
-                news_element.appendChild(element);
-            }
-        }*/
+        else if(target_value === `negative-dropdown`){
+            const positive_elements = document.getElementsByClassName(`positive`);
+            for(const element of positive_elements)
+                element.style.display="none";
+
+            const negative_elements = document.getElementsByClassName(`negative`);
+            for(const element of negative_elements)
+                element.style.display="block";
+
+            const neutral_elements = document.getElementsByClassName(`neutral`);
+            for(const element of neutral_elements)
+                element.style.display="none";
+        }
+        else if(target_value === `neutral-dropdown`){
+            const positive_elements = document.getElementsByClassName(`positive`);
+            for(const element of positive_elements)
+                element.style.display="none";
+
+            const negative_elements = document.getElementsByClassName(`negative`);
+            for(const element of negative_elements)
+                element.style.display="none";
+
+            const neutral_elements = document.getElementsByClassName(`neutral`);
+            for(const element of neutral_elements)
+                element.style.display="block";
+        }
     };
 
     return (
@@ -132,20 +134,11 @@ export default function News(props) {
                 news_element.innerHTML = "";
                 let news_articles = "";
                 let newRow = 0;
-                let start = true;
                 const data = response.data.value;
 
                 for(const article of data){
-                    if(newRow === 2 || start){
-                        if(start) {
-                            // news_articles += "<div class='mx-5'>"
-                            start = false;
-                        }
-                        else{
-                            news_articles += "</div>";
-                            // news_articles += "<div class='mx-5'>";
-                        }
-
+                    if(newRow === 2){
+                        news_articles += "</div>";
                         newRow = 0;
                     }
 

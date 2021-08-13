@@ -64,6 +64,14 @@ class Database {
         //         return data.data().subing;
         //     });
     }
+    async fetchAnalysisScore(Social_Media,Cryptocurrency){
+        try{
+            return this.#db.collection(Social_Media).doc(Cryptocurrency).get();
+        }
+        catch {
+            return {};
+        }
+    }
     async storeNotification(email,object){
         if(typeof email !== 'undefined') {
             console.log('something')

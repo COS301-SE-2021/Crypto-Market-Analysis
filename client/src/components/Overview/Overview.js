@@ -6,13 +6,16 @@ import HistoryChart from "../HistoryChart/HistoryChart"
 import CoinData from "../CoinData/CoinData"
 import coinGecko from "../apis/CoinGecko"
 import {AppBar, Tab, Tabs} from "@material-ui/core";
+import ClipLoader from "react-spinners/ClipLoader"
+import SentimentChart from "../SentimentChart/SentimentChart"
 
 export default function Overview({coin_name}) {
     let [coin, setCoin] = useState({});
     let [coinData, setCoinData] = useState({});
     let [marketData, setMarketData] = useState({});
     let [time, setTime] = useState(Date.now());
-
+    let [loading, setLoading] = useState(true);
+    let [graphLoader, setGraphLoader] = useState(true);
     const [selectedTab, setSelectedTab] = React.useState(0);
 
     const handleChange = (event, newValue) => {
@@ -30,20 +33,21 @@ export default function Overview({coin_name}) {
     }
 
     useEffect(async () => {
-        // setInterval()
-        // const interval = setInterval(function(){console.log("time now " + time) 
-        // setTime(Date.now())}, 30000)
-        
-           
+
+     
+        /*use time to rerender the component every 30 seconds(Update price every 30 sec)*/
+        setTimeout(function(){ setTime(Date.now())}, 30000)
 
         coin_name = coin_name.toLowerCase();
         axios.get('https://api.coingecko.com/api/v3/coins/' + coin_name)
             .then(async (response) => {
                 setCoin(response.data)
+                setLoading(false)
             })
             .catch(err => {
                 console.error(err);
             })
+
 
         const fetchData = async () => {
 
@@ -105,22 +109,25 @@ export default function Overview({coin_name}) {
                 }),
             ]);
 
-            for (let i = 0; i < detail.data.length; i++) {
-                if (coin_name.toLowerCase() === detail.data[i].id) {
-                    setCoinData({
-                        day: formatData(day.data.prices),
-                        week: formatData(week.data.prices),
-                        year: formatData(year.data.prices),
-                        fourteenDays: formatData(fourteenDays.data.prices),
-                        month: formatData(month.data.prices),
-                        threeMonths: formatData(threeMonths.data.prices),
-                        detail: detail.data[i],
-                    });
-                }
-            }
-
-            for (let i = 0; i < detail.data.length; i++) {
-                if (coin_name.toLowerCase() === detail.data[i].id) {
+            
+                detail.data.forEach(data => {
+                    if (coin_name.toLowerCase() === data.id) {
+                        setCoinData({
+                            day: formatData(day.data.prices),
+                            week: formatData(week.data.prices),
+                            year: formatData(year.data.prices),
+                            fourteenDays: formatData(fourteenDays.data.prices),
+                            month: formatData(month.data.prices),
+                            threeMonths: formatData(threeMonths.data.prices),
+                            detail: data,
+                        });
+                        setGraphLoader(false)
+                    }
+                })
+                
+            
+                detail.data.forEach(data => {
+                if (coin_name.toLowerCase() === data.id) {
                     setMarketData({
                         day: formatData(day.data.market_caps),
                         week: formatData(week.data.market_caps),
@@ -128,20 +135,19 @@ export default function Overview({coin_name}) {
                         fourteenDays: formatData(fourteenDays.data.market_caps),
                         month: formatData(month.data.market_caps),
                         threeMonths: formatData(threeMonths.data.market_caps),
-                        detail: detail.data[i],
+                        detail: data,
                     })
                 }
-            }
+            })
         }
         await fetchData();
 
-    
-    },[])
+    },[time])
 
 
     return (
         <>
-            timer  is {time}
+            {loading ? <div className="mx-auto mt-16 text-center"><ClipLoader  loading={loading} size={150} /></div> : <></>}
             {coin.id ? <>
                 <div className="container mt-16 mb-12">
                     <div className="row">
@@ -213,11 +219,12 @@ export default function Overview({coin_name}) {
                                     </Tab>
                                 </Tabs>
                             </AppBar>
+                            {graphLoader ? <div className="mx-auto mt-16 text-center"><ClipLoader  loading={graphLoader} size={150} /> </div>:<>
                             {
 
                                 selectedTab === 0 &&
                                 <HistoryChart data={coinData}/>
-
+                                
 
                             }
                             {
@@ -227,8 +234,10 @@ export default function Overview({coin_name}) {
                             }
 
                             {
-
+                                selectedTab === 2 &&
+                                <SentimentChart data={marketData}/>
                             }
+                            </>}
                         </div>
 
                         <div className="col-4 my-5">

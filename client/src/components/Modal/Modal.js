@@ -14,12 +14,21 @@ export default function ModalComp(props) {
         <>
         <Modal show={show} style={{textAlign:"center"}}>
             <Modal.Body >
-            <h4>Oops</h4>
-            <p>Looks like you're not logged in. Please log in to access to more features</p>
+           
+            {
+                props.text != null ? <>
+                        <h4>Wait</h4>
+                        <p>{props.text}</p> 
+                    </>:<>
+                        <h4>Oops</h4>
+                        <p>Looks like you're not logged in. Please log in to access to more features</p>
+                    </>
+            }
+            
             </Modal.Body>
             <Modal.Footer className="justify-center" >
                 <Button onClick={props.cancel} className="btn btn-danger">Cancel</Button>
-                <Button onClick={props.continue} className="btn btn-success">Login</Button>
+                <Button onClick={props.continue} className="btn btn-success">{props.text != null ? <>Delete</> : <>Login</>}</Button>
             </Modal.Footer>
         </Modal>
         </>

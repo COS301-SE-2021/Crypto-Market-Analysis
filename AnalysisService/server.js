@@ -1,19 +1,21 @@
 const express = require('express')
 const https = require('https')
 const path = require('path')
+const bodyParser = require("body-parser");
 const fs = require('fs')
 const dotenv = require('dotenv');
+const http = require('http');
 const cron = require('node-cron');
 const analysis = require('./analysisFunction');
 const notification = require('./notification/notification');
 const notificationType =require('./notification/notificationType')
-const Push_notification=require('./notification/push_notification')
+const Database = require('./database/Database');
+const firestore_db = new Database().getInstance();
 const average = require('./notification/AverageSentiment')
-const app = express()
+const app = require('./app');
 
 app.use('/', (req, res, next) => {
     res.send('SSL server started')
-
 })
 
 const sslServer = https.createServer(
@@ -25,21 +27,40 @@ const sslServer = https.createServer(
 )
 
 sslServer.listen(3443, () => console.log('Secure server running on port 3443'))
-let push = new Push_notification();
+http.createServer(app);
+app.listen(8000);
+cron.schedule('*/11 * * * *', async () => {
+  /* firestore_db.getUsers('Twitter').onSnapshot(async (documents) => {
+        await documents.forEach((doc) => {
+            if (typeof doc.id !== "undefined") {
+                analysis.sentimentAnalysis(doc.id,'Twitter').then(data=>{
 
-//cron.schedule('*/1 * * * *', async () => {
-  /*  console.log('Analysing every minute');
-    await analysis.sentimentAnalysis('Bitcoin','Twitter').then(data=>{
-        console.log('outputting data');
-        console.log(data);
-        average.Analyse_Average('Twitter','Bitcoin').then(dt=>{
-            console.log('showing data results');
-            console.log(dt);
-            let msgType = new notificationType(dt,'Bitcoin');
-            let results = msgType.Results();
-            notification.followers('Bitcoin',results);
-        });
+                }).catch(err=>{console.log(err)})
+            }
+          })
+        })*/
+  /*  firestore_db.getUsers('Reddit').onSnapshot(async (documents) => {
+        await documents.forEach((doc) => {
+            if (typeof doc.id !== "undefined") {
+                analysis.sentimentAnalysis(doc.id,'Reddit').then(data=>{
+                }).catch(err=>{console.log(err)})
+            }
+        })
+    })*/
+    firestore_db.getUsers('Twitter').onSnapshot(async (documents) => {
+        await documents.forEach((doc) => {
+            if (typeof doc.id !== "undefined") {
+                average.Analyse_Average('Twitter',doc.id ).then(dt=>{
+                    let msgType = new notificationType(dt,doc.id );
+                    const nothing= doc.id  + ' average sentiment did not change!';
+                    let results = msgType.Results();
+                    if(results !==nothing ){
+                        notification.followers(doc.id,results);
+                    }
+                }).catch(err=>{   console.log(err);})
+            }
+        })
+    })
 
-    }).catch(err=>{   console.log('Error in Sentiment Analysis');})
-    console.log('Analysing done!');
-});*/
+
+});

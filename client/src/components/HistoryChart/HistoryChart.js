@@ -12,26 +12,35 @@ const HistoryChart = ({data}) => {
     const {threeMonths} = data;
     const {detail} = data;
     const [timeFormat, setTimeFormat] = useState("24h");
+    const [errorMessage, setErrorMessage] = useState('');
     let chartInstance;
 
-    const determineTimeFormat = () => {
-        switch (timeFormat){
+    const handleClick = () => {
+        setErrorMessage("No graph data at the moment!");
+    }
 
-            case "24h":
-                return day;
-            case "7d":
-                return week;
-            case "14d":
-                return fourteenDays;
-            case "30d":
-                return month;
-            case "90d":
-                return threeMonths;
-            case "1y":
-                return year;
-            default:
-                return "";
+    const determineTimeFormat = () => {
+        try{
+            switch (timeFormat){
+                case "24h":
+                    return day;
+                case "7d":
+                    return week;
+                case "14d":
+                    return fourteenDays;
+                case "30d":
+                    return month;
+                case "90d":
+                    return threeMonths;
+                case "1y":
+                    return year;
+                default:
+                    return "";
+            }
+        }catch(err){
+            console.log(err)
         }
+
     }
 
     useEffect(() => {
@@ -59,6 +68,9 @@ const HistoryChart = ({data}) => {
                 },
             });
         }
+        else {
+            alert("No graph data to return");
+        }
     })
 
     return (
@@ -75,12 +87,12 @@ const HistoryChart = ({data}) => {
             </div>
 
             <div className="chart-button mt-1">
-                <button onClick={() => setTimeFormat("24h")} className="btn btn-outline-secondary btn-sm">24h</button>
-                <button onClick={() => setTimeFormat("7d")} className="btn btn-outline-secondary btn-sm mx-1">7d</button>
-                <button onClick={() => setTimeFormat("14d")} className="btn btn-outline-secondary btn-sm mx-1">14d</button>
-                <button onClick={() => setTimeFormat("30d")} className="btn btn-outline-secondary btn-sm mx-1">30d</button>
-                <button onClick={() => setTimeFormat("90d")} className="btn btn-outline-secondary btn-sm mx-1">90d</button>
-                <button onClick={() => setTimeFormat("1y")} className="btn btn-outline-secondary btn-sm">1y</button>
+                chartInstance === null ? {errorMessage} : chartInstance > 0 ? <button onClick={() => setTimeFormat("24h")} className="btn btn-outline-secondary btn-sm">24h</button>
+                 chartRef === null ? {errorMessage} : chartRef > 0 ?<button onClick={() => setTimeFormat("7d")} className="btn btn-outline-secondary btn-sm mx-1">7d</button>
+                 chartInstance === null ? {errorMessage} : chartInstance > 0 ?<button onClick={() => setTimeFormat("14d")} className="btn btn-outline-secondary btn-sm mx-1">14d</button>
+                 chartInstance === null ? {errorMessage} : chartInstance > 0 ?<button onClick={() => setTimeFormat("30d")} className="btn btn-outline-secondary btn-sm mx-1">30d</button>
+                 chartInstance === null ? {errorMessage} : chartInstance > 0 ?<button onClick={() => setTimeFormat("90d")} className="btn btn-outline-secondary btn-sm mx-1">90d</button>
+                 chartInstance === null ? {errorMessage} : chartInstance > 0 ?<button onClick={() => setTimeFormat("1y")} className="btn btn-outline-secondary btn-sm">1y</button>
             </div>
 
 

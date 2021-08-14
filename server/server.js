@@ -6,11 +6,9 @@ const Reddit = require('./social_media_sites/Reddit');
 const Twitter = require(`./social_media_sites/Twitter`);
 const twitter = new Twitter().getInstance();
 dotenv.config();
-app.set(`port`, process.env.PORT || 8080);
-app.set(`host`, process.env.HOST || `127.0.0.1`);
-http.createServer(app).listen(app.get(`port`), app.get(`host`), () => {
-    console.log(`Express app listening on port ${app.get(`port`)} on IP ${app.get(`host`)}`);
-});
+const port = process.env.port || 8080;
+console.log(`Listening on port ${port}`);
+http.createServer(app);
 cron.schedule('*/10 * * * *', () => {
     twitter.getAllNamesTimeline().then();
 //     let reddits = new Reddit();
@@ -22,4 +20,5 @@ cron.schedule('*/10 * * * *', () => {
 //     reddits.scrapeSubreddit2("Bitcoin").then();
 //     reddits.scrapeSubreddit2("Ethereum").then();
 });
+app.listen(port);
 

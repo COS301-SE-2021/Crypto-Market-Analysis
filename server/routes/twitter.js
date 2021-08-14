@@ -18,7 +18,7 @@ router.post('/getCryptoTweets', async (request, response, next) => {
 
     try {
         const embedded_tweets = await twitter.getCryptoTweets(email,crypto_name);
-        return response.status(200).json({data: embedded_tweets});
+        return response.status(200).json({data: embedded_tweets})
     }
     catch(err){
         let error = new Error(err);

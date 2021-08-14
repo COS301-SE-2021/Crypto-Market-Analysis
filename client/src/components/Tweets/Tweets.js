@@ -1,32 +1,29 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Carousel from 'react-grid-carousel'
-import "./Tweets.css"
-import ClipLoader from "react-spinners/ClipLoader"
 
 
 export default function Tweets({coin_name}){
   
   let [tweets, setTweets] = useState([]);
   let [errorResponse, setErrorResponse] = useState([]);
-  let [loader, setLoader] = useState(true);
   let tweetsReq = { 
       crypto_name: coin_name,
       email: localStorage.getItem("emailSession")
   }
 
     useEffect(async () => {
+     
       axios.post('http://localhost:8080/twitter/getTweetIDs',tweetsReq)
-      .then(async(response) => {
+      .then(response => {
         setTweets(response.data.data);
         setErrorResponse(null);
-        setLoader(false)
+
         let tweet = document.getElementsByClassName("tweets");
         for(let i = 0; i < tweet.length; i++) {
-            await window.twttr.widgets
-            .createTweet(response.data.data[i], tweet[i]) 
+              window.twttr.widgets
+              .createTweet(response.data.data[i], tweet[i])
           }
-          
       },res=>{
         
         setErrorResponse(res.response.data.error)
@@ -44,22 +41,24 @@ export default function Tweets({coin_name}){
             </div>
           </div>
         
-        </> :<></>}
-         {loader ?
-         <div className="mx-auto mt-16 text-center"><ClipLoader className="mx-auto mt-16" loading={loader} size={150} /> </div>
-        : <div className="carousel-container container mt-8" >
-            <Carousel cols={3} rows={2} gap={3}>
+        </> : <>
+        
+        <div className="container mt-16">
+            <Carousel cols={3} rows={2} gap={3} >
               {
                   tweets.map((tweet,index) => {
                     return (
-                      <Carousel.Item key={index} >
-                        <div className="tweets" />
+                      <Carousel.Item key={index}>
+                          <div  className="w-full lg:w-12/12 xl:w-8/12 px-1 ">
+                            <div className="tweets"/>
+                          </div> 
                       </Carousel.Item>
                     )
                  })
-              }
-            </Carousel>
-        </div>}
+               }
+               </Carousel>
+           
+        </div></>}
         </>
     )
 }

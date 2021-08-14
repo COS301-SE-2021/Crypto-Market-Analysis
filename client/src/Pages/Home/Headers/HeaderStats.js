@@ -3,6 +3,7 @@ import axios from "axios"
 import Carousel from "react-grid-carousel"
 import { Link, useHistory } from "react-router-dom"
 import ClipLoader from "react-spinners/ClipLoader"
+import { Alert } from "react-bootstrap"
 import ModalComp from "../../../components/Modal/Modal"
 import CardStats from "../../../components/Cards/CardStats"
 import "./Header.css";
@@ -52,7 +53,7 @@ export default function HeaderStats(props) {
           })
     }
 
-  },[props.ob,props.logged])
+  },[props.ob])
 
   /*
     The post request get cryptocurrencies from coingecko API
@@ -96,7 +97,7 @@ export default function HeaderStats(props) {
     setShow(true);
   }
 
-  const onCancel =()=>{
+  const onCancel =(e)=>{
     setShow(false);
     
   }
@@ -118,11 +119,10 @@ export default function HeaderStats(props) {
   return (
     <>
             <ModalComp show={show} cancel={onCancel} continue={OnContinue} />
-            
             <div className="container" style={{width:'90%',margin:'auto'}}>
               <div className="row">
                 <div className="col-12">
-                {loading ? <div className="mx-auto mt-8 text-center"><ClipLoader  loading={loading} size={150} /></div>:
+                
                 <Carousel cols={3} rows={2} gap={8} >
                    {cryptos.map((coin) => {
                       return (
@@ -145,7 +145,6 @@ export default function HeaderStats(props) {
                   })
                 }
                 </Carousel>
-                }
                 </div>
               </div>
             </div>

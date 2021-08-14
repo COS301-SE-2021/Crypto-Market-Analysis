@@ -26,6 +26,8 @@ const convertion = async (post)=> {
 
         for(const i of s)
         {
+            console.log("Before")
+            console.log(post)
             const emoji_object= name.emoji;
             for (let k in emoji_object) {
                 if(emoji_object[k]==i)
@@ -33,6 +35,8 @@ const convertion = async (post)=> {
                     post =post.replace(i,k);
                 }
             }
+            console.log("After")
+            console.log(post)
         }
 
     });
@@ -77,12 +81,7 @@ const saveOld = async(SocialMedia , cryptocurrency)=>{
     await firestore_db.getUsers(SocialMedia).onSnapshot((documents) => {
         documents.forEach((doc) => {
             if (typeof doc.id !== "undefined" && doc.id === cryptocurrency) {
-                if(typeof doc.data().Average!== "undefined"){
-                    firestore_db.saveData(SocialMedia,cryptocurrency,{Old_Average: doc.data().Average})
-                }
-                else{
-                    firestore_db.saveData(SocialMedia,cryptocurrency,{Old_Average: 0})
-                }
+                firestore_db.saveData(SocialMedia,cryptocurrency,{Old_Average: doc.data().Average})
             }
         })
     });
@@ -108,73 +107,57 @@ const analysewords = async (filteredwords)=>{
 
 }
 const sentimentAnalysis = async (cryptos,socialmedias)=>{
-    return  new Promise(async function (resolve, reject) {
-        if (cryptos === null || socialmedias === null)
-            reject(`Malformed request. Please check your parameters`);
+    if(cryptos === null || socialmedias === null)
+        return {status: `Bad Request`, error: `Malformed request. Please check your parameters`};
 
-        const crypto = cryptos;
-        const socialmedia = socialmedias;
-        let Bigdata = null
-       try{
-            await saveOld(socialmedia, crypto).then(data => {
-       })}
-        catch {
-            console.log('no old')
-        }
-        try {
-           await getData(socialmedia, crypto).then(crypto_Data => {
-                Bigdata = crypto_Data;
-            })
-        } catch (err) {
-            reject(`Internal server error`);
-        }
-        const analysisArr = [];
-        let i = 0;
-        try {
-            await Bigdata.forEach(element =>
-                convertion(element).then(comment => {
-                    splits(comment).then(newWording => {
-                        spellingc(newWording).then(filteredwords => {
-                            analysewords(filteredwords).then(analysis => {
-                                if (isNaN(analysis)) {
-                                    analysis = 0;
-                                }
-                                analysisArr.push(analysis * 10);
-                                i++;
-                                if (i === Bigdata.length) {
-                                    saveToDB(analysisArr, socialmedia, crypto).then(data => {
-                                        resolve(data);
-                                    }).catch(err=>{
-                                        console.log(err+" :Error saving to database")
-                                    })
-                                }
-                            })
+    const crypto =cryptos;
+    const socialmedia = socialmedias;
+    let Bigdata = null
+    saveOld(socialmedia,crypto).then(data=>{
+        console.log('old average saved')
+    })
+    try{
+        await getData(socialmedia,crypto).then(crypto_Data=>{
+            Bigdata= crypto_Data;
+        })
+    }
+    catch (err){
+        return {status:`Internal server error`, error: err};
+    }
+    console.log('analysis started')
+    console.log(Bigdata)
+    const analysisArr = [];
+    let i=0;
+    try {
+        await Bigdata.forEach(element =>
+            convertion(element).then(comment => {
+                splits(comment).then(newWording => {
+                    spellingc(newWording).then(filteredwords => {
+                        analysewords(filteredwords).then(analysis => {
+                            console.log(analysis)
+                            if (isNaN(analysis)) {
+                                analysis = 0;
+                            }
+                            analysisArr.push(analysis * 10);
+                            i++;
+                            if (i === Bigdata.length) {
+                                saveToDB(analysisArr,socialmedia,crypto).then(data=>{
+                                    console.log('returning data')
+                                    console.log(data)
+                                    return data;
+                                })
+                            }
                         })
                     })
                 })
-            );
-        } catch (err) {
-            reject(`Internal server error`);
-        }
-    })
-}
-const analyseArticle =async(Article)=>{
-    return  new Promise(function (resolve, reject) {
-        convertion(Article).then(comment => {
-            splits(comment).then(newWording => {
-                spellingc(newWording).then(filtered => {
-                    analysewords(filtered).then(analysis => {
-                        if (analysis > 0) {
-                            resolve('positive') ;
-                        } else if (analysis < 0) {
-                            resolve('negative');
-                        } else
-                           resolve('neutral');
-                    })
-                })
             })
-        })
-    })
+        );
+    }
+
+    catch(err){
+        return {status:`Internal server error`, error: err};
+    }
 }
-module.exports = {analyseArticle,splits,convertion,analysewords,spellingc,saveToDB,sentimentAnalysis}
+
+module.exports = {splits,convertion,analysewords,spellingc,saveToDB,sentimentAnalysis}
 

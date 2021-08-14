@@ -466,6 +466,27 @@ class User_Hash_Table {
             return Promise.reject(`No parameters are defined`);
     }
 
+    async getUserNetwork(key){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        if(key){
+            let value = this.#users[key];
+            if(value){
+                value = value.crypto;
+                if(value)
+                    return Object.values(value);
+                else
+                    return Promise.reject(`The email is not following any cryptocurrencies`);
+            }
+            else
+                return Promise.reject(`Invalid email entered`);
+        }
+        else
+            return Promise.reject(`No parameters are defined`);
+    }
 
     async getUserSubreddits(key){
         if(!this.#initialized){

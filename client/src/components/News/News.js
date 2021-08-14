@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -6,7 +6,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import axios from "axios";
-
+import ClipLoader from "react-spinners/ClipLoader";
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -105,7 +105,7 @@ const Dropdown = () => {
 }
 
 export default function News(props) {
-
+    let [loading, setLoading] = useState(true);
     useEffect(() => {
         let news_element = document.getElementById(`news-articles`);
         let news_parent_element = document.getElementById(`news`);
@@ -197,6 +197,7 @@ export default function News(props) {
                 news_parent_element.innerHTML = `<h1 className={'display-4'}>There's no news to display at the moment. Check again later</h1>`;
                 news_parent_element.style.cssText = `margin: 0; position: absolute; top: 50%; -ms-transform: translateY(-50%); transform: translateY(-50%);`
             }
+            setLoading(false);
 
         }).catch(error => {
             console.error(`An error occurred while trying to retrieve the news articles: ${error}`);

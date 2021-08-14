@@ -24,8 +24,6 @@ app.use((req, res, next) => {
     next();
 })
 
-// Routes which should handle requests
-//app.use("/user", userRoutes);
 app.use("/", userRoutes);
 app.use((req, res, next) => {
     const error = new Error("Not found");

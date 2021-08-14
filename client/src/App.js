@@ -57,6 +57,7 @@ function App() {
                      <Route exact path="/Notification" component={Notification}></Route>
                      <Route exact path="/home/DetailedInfo" component={DetailedInfo}></Route>
                      <Route exact path="/Subreddits" component={Subreddits}></Route>
+                     <Route exact path="/Predictions" component={Predictions}></Route>
                  </section>
            </Switch>
           </AuthProvider>

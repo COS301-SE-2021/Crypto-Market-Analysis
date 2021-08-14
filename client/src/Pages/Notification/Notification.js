@@ -1,127 +1,188 @@
-import React, {useEffect, useState} from "react";
-import NotificationAlert from "react-notification-alert";
+import React from "react";
 import {
     Alert,
     Card,
     Container,
     Row,
-    Col,
+    Col,Toast
 } from "react-bootstrap";
-import db from "../../firebase";
 import {Link} from "react-router-dom";
+import axios from "axios";
+import './Note.css';
+import Sidebar from "../../components/Sidebar/Sidebar";
+import Push from "../Push/Push";
+class Notifications extends React.Component {
 
-function Notifications() {
-    let[Notification_object,setNotification] =useState([]);
-    let[elem,setElem] =useState([]);
-    const notificationAlertRef = React.useRef(null);
-    const handleView= async (e)=> {
-        await db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).get().then((notify)=> {
-            let viewObject = notify.data().notification;
-            if(viewObject[e].Read!=='undefined'){
-                viewObject[e].Read =true;
-            }
-            const notification_view_object ={
-                notification: viewObject
-            }
-            db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).set(notification_view_object,
-                {merge: true});
-        })
+    constructor(props) {
+        super(props)
+        this.state = {
+            elem: [],
+            notificationObject:{},
+            emailRequest:{}
+
+        }
+        this.handleDelete = this.handleDelete.bind(this);
+        this.handleDeleteALL = this.handleDeleteALL.bind(this);
     }
-   const handleDelete= async (e)=> {
-        e.preventDefault();
-        await db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).get().then((notify)=> {
-            let object = notify.data().notification;
-            delete object[e.target.value];
-            const notification_object ={
-                notification:object
-            }
-            db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).set(notification_object,
-                {merge: true});
-        })
+
+
+    handleDelete= async (e)=> {
+        let object = this.state.notificationObject;
+
+
+        delete object[e.target.value];
+
+        let  emailReq = {
+            email: localStorage.getItem("emailSession"),
+            object: object
+
+        }
+
+        axios.post('http://localhost:8080/user/setNotificationObject/',emailReq)
+            .then(response => {
+            })
+
+        this.setState({notificationObject: object});
+        const objectdata= this.state.notificationObject;
+        this.generateData(objectdata);
+
     }
-    useEffect( () => {
-        let notification_Array = [];
-        db.firestore().collection('Users').doc(localStorage.getItem("emailSession")).get().then((notify)=>{
-            let i = 0;
-            for (const [key, value] of Object.entries(notify.data().notification)) {
-                i=i+1;
+    handleDeleteALL= async (e)=> {
+        let object = {};
 
-                if(value.Read===true){
-                    notification_Array.push( <Alert variant="info">
-                        <Link  onClick={()=>handleView(key)} value={key}
-                               className={
-                                   "text-xs uppercase py-3 font-bold block " +
-                                   (window.location.href.indexOf("/Profile") !== -1
-                                       ? "text-lightBlue-500 hover:text-lightBlue-600"
-                                       : "text-blueGray-700 hover:text-blueGray-500")
-                               }
-                               to="/Profile"
-                        >
-                            <i className="far fa-bell"></i>
-                            <span>
-                                        <p className="text-success"><h3>Cryptocurrency Notification {Notification_object.Email}</h3></p><p>{key}</p>
 
-                                {value.Email}
-                                <br></br>
 
-                                                 <button  onClick={handleDelete} value={key} type="button" className="btn btn-outline-warning"><i className="fas fa-trash-alt"></i>Delete</button>
+        let  emailReq = {
+            email: localStorage.getItem("emailSession"),
+            object: object
+
+        }
+
+        axios.post('http://localhost:8080/user/setNotificationObject/',emailReq)
+            .then(response => {
+            })
+        this.setState({notificationObject: object});
+        const objectdata= {};
+        this.setState({});
+        this.generateData(objectdata);
+
+    }
+    handleView= async (e)=> {
+        let viewObject = this.state.notificationObject;
+        if(viewObject[e].Read!=='undefined'){
+            viewObject[e].Read =true;
+        }
+        let  ObjectReq = {
+            email: localStorage.getItem("emailSession"),
+            object: viewObject
+
+        }
+
+        axios.post('http://localhost:8080/user/setNotificationObject/',ObjectReq)
+            .then(response => {
+            })
+
+    }
+
+    generateData(object_response){
+        this.setState({notificationObject: object_response});
+        const objectOfNotificationdata= this.state.notificationObject;
+        const notification_Array = [];
+        let i=0;
+        for (const [key, value] of Object.entries(objectOfNotificationdata)) {
+            i=i+1;
+            if(value.Read===true){
+                notification_Array.push( <Alert variant="info">
+                    <i className="far fa-bell"></i>
+                    <span>
+                                        <Link  onClick={()=>this.handleView(key)} value={key}
+                                                                            className={
+                                                                                "text-xs uppercase py-3 font-bold block " +
+                                                                                (window.location.href.indexOf("/home") !== -1
+                                                                                    ? "text-lightBlue-500 hover:text-Red-600"
+                                                                                    : "text-blueGray-700 hover:text-Green-500")
+                                                                            }
+                                                                            to="/home"
+                                        > <p className="text-success"><h3>Cryptocurrency Notification</h3></p></Link><p>{key}</p>
+
+                        {value.Email}
+                        <br></br>
+
+                                                 <button  onClick={this.handleDelete} value={key} type="button" className="btn btn-outline-warning"><i className="fas fa-trash-alt"></i>Delete</button>
+
                     </span>
-                        </Link>
-                    </Alert>)
-                }
-               else if(value.Read===false){
-                    notification_Array.push( <Alert variant="info">
-                        <Link  onClick={()=>handleView(key)} value={key}
-                               className={
-                                   "text-xs uppercase py-3 font-bold block " +
-                                   (window.location.href.indexOf("/Profile") !== -1
-                                       ? "text-lightBlue-500 hover:text-lightBlue-600"
-                                       : "text-blueGray-700 hover:text-blueGray-500")
-                               }
-                               to="/Profile"
-                        >
-                            <i className="far fa-bell"></i>
-                            <span>
-                                        <p className="text-warning"><h3>Cryptocurrency Notification {Notification_object.Email}</h3></p><p>{key}</p>
-
-                                {value.Email}
-                                <br></br>
-
-                                                 <button  onClick={handleDelete} value={key} type="button" className="btn btn-outline-warning"><i className="fas fa-trash-alt"></i>Delete</button>
-                    </span>
-                        </Link>
-                    </Alert>)
-                }
-
-                if(i === Object.entries(notify.data().notification).length){
-                    setElem(notification_Array);
-                }
+                </Alert>)
             }
+            else if(value.Read===false){
+                notification_Array.push( <Alert variant="info">
 
-        })
-    },)
-    return (
-        <>
-            <div className="rna-container">
-                <NotificationAlert ref={notificationAlertRef} />
+                    <i className="far fa-bell"></i>
+                    <span>
+                                         <Link  onClick={()=>this.handleView(key)} value={key}
+                                                className={
+                                                    "text-xs uppercase py-3 font-bold block " +
+                                                    (window.location.href.indexOf("/home") !== -1
+                                                        ? "text-Blue-500 hover:text-Red-600"
+                                                        : "text-Gray-700 hover:text-Red-500")
+                                                }
+                                                to="/home"
+                                         ><p className="text-warning"><h3>Cryptocurrency Notification </h3></p></Link><p>{key}</p>
+
+                        {value.Email}
+                        <br></br>
+
+                                                 <button  onClick={this.handleDelete} value={key} type="button" className="btn btn-outline-warning"><i className="fas fa-trash-alt"></i>Delete</button>
+
+
+                    </span>
+                </Alert>)
+            }
+            if(i=== Object.keys(objectOfNotificationdata).length){
+                this.setState({elem: notification_Array});
+            }
+        }
+    }
+    componentDidMount(){
+        let  emailReq = {
+            email: localStorage.getItem("emailSession")
+        }
+
+        axios.post('http://localhost:8080/user/getNotificationObject/',emailReq)
+            .then(response => {
+                this.generateData(response.data)
+
+            })
+            .catch(err => {console.error(err);})
+      }
+
+    render() {
+        return (
+            <><Sidebar />
+            <div className="md:ml-64">
+
+                <Container fluid>
+
+                    <Card >
+                        <Card.Header >
+                           <Card.Title as="h4" class="card text-center">NOTIFICATIONS</Card.Title>
+                            <Push/>
+                            <button  onClick={this.handleDeleteALL} type="button" className="btn btn-outline-warning"><i className="fas fa-trash-alt"></i>Clear Notification</button>
+                        </Card.Header>
+                        <Card.Body >
+                            <Row>
+                                <Col class="col-md-6 offset-md-4" className="card border-primary mb-3">
+                                    {this.state.elem}
+
+                                </Col>
+                            </Row>
+
+                        </Card.Body>
+                    </Card>
+                </Container>
             </div>
-            <Container fluid>
-                <Card>
-                    <Card.Header>
-                        <Card.Title as="h4">Notifications</Card.Title>
-                    </Card.Header>
-                    <Card.Body>
-                        <Row>
-                            <Col class="col-md-6 offset-md-4">
-                                {elem}
-                            </Col>
-                        </Row>
-
-                    </Card.Body>
-                </Card>
-            </Container>
-        </>
-    );
+            </>
+        );
+    }
 }
 
 export default Notifications;

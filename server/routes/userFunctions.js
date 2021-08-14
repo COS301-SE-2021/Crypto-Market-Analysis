@@ -2,9 +2,6 @@ const Database = require('../database/Database');
 const User_Hash_Table = require(`../Hash_Tables/User_Hash_Table`);
 const user_object = new User_Hash_Table().getInstance();
 const firestore_db = new Database().getInstance();
-const reddit =require('../social_media_sites/Reddit');
-const redditScrapper = new reddit();
-
 
 const get4chanPost = async ()=>{
     let fourChanPosts = [];
@@ -20,10 +17,34 @@ const get4chanPost = async ()=>{
         return Promise.reject(new Error(err));
     }
 }
+const getNotification=async(email)=>{
+    const fields = await firestore_db.fetchNotification(email).then(data=>{
+        return data;
+    });
+    return fields;
+}
+const setNotification=async(email,object)=>{
+    await firestore_db.storeNotification(email, object);
+}
+const setPush=async(email,object)=>{
+    await firestore_db.setPushNotification(email,object);
+}
+const getPush=async(email)=>{
+    let mydata={};
+   await firestore_db.fetchPushNotification(email).then(data=>{
+      try{ mydata=data.data().subs;
+      }
+      catch{
+          mydata={}
+      }
 
+    });
+    return mydata;
+}
 /** Gets all the reddit posts from the database.
  * @return  {object} Containing an array of posts if it was successful or a rejected Promise.
 * */
+
 //
 // const getRedditPost = async (email)=>{
 //     // const citiesRef = db.collection('cities');
@@ -49,6 +70,7 @@ const coastalCities = await citiesRef.where('regions', 'array-contains-any',
 const getRedditPost = async (email)=>{
     let subs = await getUserSubreddits(email);
     let posts = [];
+
     let docs = [];
     for(let i=0; i<subs.length; i++)
     {
@@ -121,17 +143,20 @@ const getCoinPredictions = async (email)=>{
 }
 
 const getUserCrypto = async (email_address)=>{
+
     try{
-        return await user_object.getCryptoName(email_address);
+        const docs = await firestore_db.fetch(`reddit_info`).then(snapshot => {return snapshot.docs});
+        for(const doc of docs)
+            posts.push(doc.data().posts);
+        return {status: `Ok`, posts: posts};
     }
-    catch (error){
-        return Promise.reject(error);
+    catch(err){
+        return Promise.reject(new Error(err));
     }
 }
-//test code
-const getUserSubreddits = async (email_address)=>{
+const getUserCrypto = async (email_address)=>{
     try{
-        return await user_object.getUserSubreddits(email_address);
+        return await user_object.getCryptoName(email_address);
     }
     catch (error){
         return Promise.reject(error);
@@ -141,15 +166,6 @@ const getUserSubreddits = async (email_address)=>{
 const fetchUserSocialMedia = async(email_address)=>{
     try{
         return await user_object.getSocialMediaSites(email_address);
-    }
-    catch (error){
-        return Promise.reject(error);
-    }
-}
-
-const fetchUserSubreddits = async(email_address)=>{
-    try{
-        await user_object.getSubreddit(email_address);
     }
     catch (error){
         return Promise.reject(error);
@@ -174,15 +190,6 @@ const unfollowCrypto = async (email_address, symbol) => {
     }
 }
 
-const unfollowSubreddit = async (email_address, subreddit) => {
-    try{
-        await user_object.removeSubreddit(email_address, subreddit);
-    }
-    catch (error){
-        return Promise.reject(error);
-    }
-}
-
 const followSocialMedia = async (email_address,social_media )=> {
     try{
         return await user_object.insertSocialMediaSite(email_address, social_media);
@@ -195,16 +202,6 @@ const followSocialMedia = async (email_address,social_media )=> {
 const unfollowSocialMedia = async (email_address, social_media) => {
     try{
         return await user_object.removeSocialMediaSite(email_address, social_media);
-    }
-    catch (error){
-        return Promise.reject(error);
-    }
-}
-
-const followSubreddit = async (email_address,social_media )=> {
-    console.log("in userfunctions");
-    try{
-        return await user_object.insertSubreddits(email_address, social_media);
     }
     catch (error){
         return Promise.reject(error);
@@ -229,4 +226,6 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
 
-module.exports = {getCoinPredictions,getUserNetwork,coinRedditPost, getUserSubreddits,unfollowSubreddit, followSubreddit, fetchUserSubreddits, saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, get4chanPost}
+
+module.exports = {getPush,setPush,setNotification,getNotification,getCoinPredictions,getUserNetwork,coinRedditPost, getUserSubreddits,unfollowSubreddit, followSubreddit, fetchUserSubreddits, saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, get4chanPost}
+

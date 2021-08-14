@@ -8,8 +8,7 @@
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix ../client",
-    "analysis": "npm run server --prefix ../AnalysisService",
-    "dev": "concurrently \"npm run server\" \"npm run analysis\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [],
   "author": "Codex",
@@ -17,12 +16,11 @@
   "dependencies": {
     "avl": "^1.5.1",
     "axios": "^0.21.1",
-    "babel-jest": "^27.0.6",
+    "babel-jest": "^27.0.2",
     "bad-words": "^3.0.4",
     "badwords-filter": "^1.1.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
-    "brain.js": "^2.0.0-beta.2",
     "cheerio": "^1.0.0-rc.10",
     "coingecko-api": "^1.0.10",
     "concurrently": "^6.2.0",
@@ -37,7 +35,7 @@
     "firestore-jest-mock": "^0.14.0",
     "firestore-schema-validator": "^0.8.0",
     "instagram-scraping": "^1.0.13",
-    "jest": "^27.0.6",
+    "jest": "^27.0.4",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.12",
     "morgan": "^1.10.0",

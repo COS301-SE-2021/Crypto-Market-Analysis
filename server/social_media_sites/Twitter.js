@@ -54,14 +54,9 @@ class Twitter {
             if(await user_object.searchScreenName(screen_name, email))
                 return Promise.reject(`You are already following the selected screen name`);
             else{
-                try{
-                    T.get('users/show', {screen_name: screen_name}).then(() => {
-                        return true;
-                    });
-                }
-                catch (error){
-                    return false;
-                }
+                return T.get('users/show', {screen_name: screen_name}).then(() => {
+                    return true;
+                }).catch(() => {return false;});
             }
         }
         else

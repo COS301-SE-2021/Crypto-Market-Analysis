@@ -35,13 +35,14 @@ describe(`POST /twitter/getCryptoTweets`, () => {
 
 describe(`POST /twitter/validateScreenName`, () => {
     test(`when parameters are correct`, async () => {
-        const response = await request(app).post(`/twitter/validateScreenName`).send({email: `codexteam4@gmail.com`, screen_name: `test`});
+        const response = await request(app).post(`/twitter/validateScreenName`).send({email: `codexteam4@gmail.com`, screen_name: `elon`});
+        console.log(response.body);
         expect(response.status).toBe(200);
         expect(response.body.data).toBeDefined();
         expect(response.body.data).toBeTruthy();
     });
     test(`when email is not valid`, async () => {
-        const response = await request(app).post(`/twitter/validateScreenName`).send({email: `fake@notvalid.com`, screen_name: `test`});
+        const response = await request(app).post(`/twitter/validateScreenName`).send({email: `fake@notvalid.com`, screen_name: `elonmusk`});
         expect(response.error.status).toBe(500);
         expect(response.error.text).toEqual(`{"error":{"message":"Invalid email entered"}}`);
     });
@@ -53,7 +54,7 @@ describe(`POST /twitter/validateScreenName`, () => {
     });
     test(`when parameters are missing`, async () => {
         const body_data = [
-            {crypto_name: "Bitcoin"},
+            {screen_name: "elonmusk"},
             {email: "test@test.com"},
             {}
         ]
@@ -66,4 +67,62 @@ describe(`POST /twitter/validateScreenName`, () => {
     });
 });
 
+describe(`POST /twitter/follow`, () => {
+    test(`when parameters are correct`, async () => {
+        const response = await request(app).post(`/twitter/follow`).send({email: `codexteam4@gmail.com`, screen_name: `elon`});
+        expect(response.status).toBe(200);
+        expect(response.body.message).toBeDefined();
+        expect(response.body.message).toBe(`Screen name successfully added`);
+    });
+    test(`when email is not valid`, async () => {
+        const response = await request(app).post(`/twitter/follow`).send({email: `fake@notvalid.com`, screen_name: `elonmusk`});
+        expect(response.error.status).toBe(500);
+        expect(response.error.text).toEqual(`{"error":{"message":"Invalid email entered"}}`);
+    });
+    test(`when parameters are missing`, async () => {
+        const body_data = [
+            {screen_name: "elonmusk"},
+            {email: "test@test.com"},
+            {}
+        ]
 
+        for(const body of body_data){
+            const response = await request(app).post(`/twitter/follow`).send({});
+            expect(response.error.status).toBe(400);
+            expect(response.error.text).toEqual(`{"error":{"message":"Malformed request. Please check your parameters"}}`);
+        }
+    });
+});
+
+describe(`POST /twitter/unfollow`, () => {
+    test(`when parameters are correct`, async () => {
+        const response = await request(app).post(`/twitter/unfollow`).send({email: `codexteam4@gmail.com`, screen_name: `elonmusk`});
+        console.log(response);
+        expect(response.status).toBe(200);
+        expect(response.body.message).toBeDefined();
+        expect(response.body.message).toBe(`Screen name successfully removed`);
+    });
+    test(`when email is not valid`, async () => {
+        const response = await request(app).post(`/twitter/unfollow`).send({email: `fake@notvalid.com`, screen_name: `elonmusk`});
+        expect(response.error.status).toBe(500);
+        expect(response.error.text).toEqual(`{"error":{"message":"Invalid email entered"}}`);
+    });
+    test(`when screen name is not valid`, async () => {
+        const response = await request(app).post(`/twitter/unfollow`).send({email: `codexteam4@gmail.com`, screen_name: `test`});
+        expect(response.error.status).toBe(500);
+        expect(response.error.text).toEqual(`{"error":{"message":"User is not following the selected screen_name"}}`);
+    });
+    test(`when parameters are missing`, async () => {
+        const body_data = [
+            {screen_name: "elonmusk"},
+            {email: "test@test.com"},
+            {}
+        ]
+
+        for(const body of body_data){
+            const response = await request(app).post(`/twitter/unfollow`).send({});
+            expect(response.error.status).toBe(400);
+            expect(response.error.text).toEqual(`{"error":{"message":"Malformed request. Please check your parameters"}}`);
+        }
+    });
+});

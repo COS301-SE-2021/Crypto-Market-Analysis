@@ -53,11 +53,15 @@ class Twitter {
         if(screen_name && email){
             if(await user_object.searchScreenName(screen_name, email))
                 return Promise.reject(`You are already following the selected screen name`);
-            else if(await user_object.searchScreenName(screen_name, email))
-                return true;
             else{
-                const response = await T.get('users/show', {screen_name: screen_name}).catch(error => {return error});
-                return !!response.data;
+                try{
+                    T.get('users/show', {screen_name: screen_name}).then(() => {
+                        return true;
+                    });
+                }
+                catch (error){
+                    return false;
+                }
             }
         }
         else
@@ -327,11 +331,15 @@ class Twitter {
         }
 
         try{
-            const exists = await this.userLookup(screen_name, email);
-            if(exists)
-                return true;
+            if(await user_object.searchUser(email)){
+                const exists = await this.userLookup(screen_name, email);
+                if(exists)
+                    return true;
+                else
+                    return false;
+            }
             else
-                return false;
+                return Promise.reject(`Invalid email entered`);
         }
         catch (error){
             return Promise.reject(error);

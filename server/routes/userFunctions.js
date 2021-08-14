@@ -49,7 +49,6 @@ const coastalCities = await citiesRef.where('regions', 'array-contains-any',
 const getRedditPost = async (email)=>{
     let subs = await getUserSubreddits(email);
     let posts = [];
-
     let docs = [];
     for(let i=0; i<subs.length; i++)
     {
@@ -230,6 +229,4 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
 
-
-module.exports = {getPush,setPush,setNotification,saveToDB,getNotification,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, get4chanPostgetCoinPredictions,getUserNetwork,coinRedditPost, getUserSubreddits,unfollowSubreddit, followSubreddit, fetchUserSubreddits, saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, get4chanPost}
-
+module.exports = {getCoinPredictions,getUserNetwork,coinRedditPost, getUserSubreddits,unfollowSubreddit, followSubreddit, fetchUserSubreddits, saveToDB,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, get4chanPost}

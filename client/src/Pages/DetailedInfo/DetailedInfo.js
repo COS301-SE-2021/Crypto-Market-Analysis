@@ -29,9 +29,7 @@ export default function DetailedInfo(props) {
                         {/*    <Reddits />*/}
                         {/*</Tab>*/}
                         <Tab eventKey="Reddit" title="Reddit">
-
-                            <Reddit coin_name={coin_name} />
-
+                             <Reddit coin_name={coin_name} />
                         </Tab>
                         <Tab eventKey="4chan" title="4chan">
                             <FourChan />

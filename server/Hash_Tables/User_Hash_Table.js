@@ -25,12 +25,13 @@ class User_Hash_Table {
                         crypto_name = doc.data().crypto_name;
                         screen_name = doc.data().screen_name;
                         subreddits = doc.data().subreddits;
+                        crypto = doc.data().crypto;
                         social_media_sites = doc.data().social_media_sites;
                         if(crypto){
                             for(const [index, value] of crypto.entries())
                                 cryptocurrencies[value] = crypto_name[index];
                         }
-                        this.#users[doc.id] = {cryptocurrencies, screen_name, subreddits, social_media_sites};
+                        this.#users[doc.id] = {cryptocurrencies, screen_name, subreddits, social_media_sites, crypto};
                     }
                 }
         }).catch((error) => {
@@ -454,6 +455,28 @@ class User_Hash_Table {
             let value = this.#users[key];
             if(value){
                 value = value.cryptocurrencies;
+                if(value)
+                    return Object.values(value);
+                else
+                    return Promise.reject(`The email is not following any cryptocurrencies`);
+            }
+            else
+                return Promise.reject(`Invalid email entered`);
+        }
+        else
+            return Promise.reject(`No parameters are defined`);
+    }
+    //getUserNetwork
+    async getUserNetwork(key){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        if(key){
+            let value = this.#users[key];
+            if(value){
+                value = value.crypto;
                 if(value)
                     return Object.values(value);
                 else

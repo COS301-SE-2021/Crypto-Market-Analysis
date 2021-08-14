@@ -13,7 +13,7 @@ import PrivateRoute from "./components/newRoute"
 import Notification from "./Pages/Notification/Notification"
 import DetailedInfo from "./Pages/DetailedInfo/DetailedInfo"
 import Subreddits from "./Pages/Subreddits/Subreddits"
-import Subreddits from "./Pages/Predictions/Predictions"
+//import Predictions from "./Pages/Predictions/Predictions"
 import {BrowserRouter as Router , Switch} from "react-router-dom";
 import { AuthProvider } from "./Auth/Auth"
 

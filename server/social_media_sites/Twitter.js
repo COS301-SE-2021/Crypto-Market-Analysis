@@ -129,7 +129,7 @@ class Twitter {
             if(crypto && crypto_name) {
                 for(const [index, value] of crypto.entries()){
                     let temp_array = {...tweets};
-                    const regex_string = `\\s${crypto_name[index]}\\s|` + `\\s${value}\\s`;
+                    const regex_string = `${crypto_name[index]}\\s|` + `${value}\\s`;
                     const regex = new RegExp(regex_string, "gi");
                     for(const tweet of Object.entries(temp_array)){
                         if(regex.exec(tweet[1]) === null)
@@ -140,7 +140,7 @@ class Twitter {
                         if(Object.keys(temp_array).length !== 0){
                             this.#firestore_db.save(`Twitter`, crypto_name[index], `id`, Object.keys(temp_array));
                             this.#firestore_db.save(`Twitter`, crypto_name[index], `post`, Object.values(temp_array));
-                            this.#firestore_db.save(`Twitter_data`, user, crypto_name[index], temp_array);
+                            this.#firestore_db.save(`Twitter_data`, user, crypto_name[index], tweets);
                             if(this.#twitter_users[user])
                                 this.#twitter_users[user][crypto_name[index]] = temp_array;
                         }
@@ -349,8 +349,9 @@ class Twitter {
 
         const emails = await user_object.getEmails();
         for(const email of emails) {
-            if(await user_object.getScreenName(email))
+            if(await user_object.getScreenName(email)) {
                 this.getTimeline(email).then()
+            }
         }
     }
 

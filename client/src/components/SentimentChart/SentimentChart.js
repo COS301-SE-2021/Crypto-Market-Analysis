@@ -8,15 +8,13 @@ import coinGecko from "../apis/CoinGecko";
 
 const SentimentChart = ({data}) => {
     const chartRef = useRef();
-    const {detail} = data;
     //const {sentiment} = data;
     let [averages, setAverages] = useState({});
     const [timeFormat, setTimeFormat] = useState("2m");
-    let chartInstance;
-
 
     useEffect(async () => {
-
+        const {detail} = data;
+        let chartInstance;
         try {
             const fetchDatas = async () => {
 
@@ -27,7 +25,7 @@ const SentimentChart = ({data}) => {
                         },
                     }),
                 ]);
-
+                console.log(detail);
                 console.log(detail.name)
 
                 let requestObj = {
@@ -45,68 +43,68 @@ const SentimentChart = ({data}) => {
                         averagesList.push({AVG: cA});
 
                         setAverages(cA);
+
+                        console.log(averages.data[0])
+                        let l = [600000, 1200000, 2400000];
+                        //for(let i =0; i < averages.data.length; i++)
+                        //{
+                        if (chartRef && chartRef.current) {
+
+                            chartInstance = new Chartjs(chartRef.current, {
+                                type: 'line',
+
+                                data: {
+                                    labels: l,
+                                    datasets: [
+                                        {
+                                            label: detail.name + " sentiment" ,
+                                            data: [ averages.data[0], averages.data[1], averages.data[2]],
+                                            backgroundColor: "rgba(255, 255, 255,0)",
+                                            borderColor: "rgba(0,0,0,0.9)",
+                                            pointRadius: 0,
+                                            hoverOffset: 4,
+                                        },
+
+                                    ],
+
+                                },
+                                options: {
+                                    lineHeightAnnotation: {
+                                        always: true,
+                                        hover: false,
+                                        lineWeight: 1.5
+                                    },
+
+                                    animation:{
+                                        duration: 2000
+                                    },
+
+                                    maintainAspectRatio: false,
+                                    responsive: true,
+                                    scales: {
+                                        xAxes: [
+                                            {
+                                                type: "time",
+                                                distribution: "linear",
+
+                                            }
+                                        ],
+                                        yAxes: [{
+                                            beginAtZero: true,
+                                        }]
+                                    }
+                                },
+                            });
+                        }
+                        //}
                         // console.log(cA.data[0]);
                     }).catch(err => {
                     console.error(err);
                 })
-
-                console.log(averages.data[0])
-                let l = [600000, 1200000, 2400000];
-                //for(let i =0; i < averages.data.length; i++)
-                //{
-                if (chartRef && chartRef.current) {
-
-                    chartInstance = new Chartjs(chartRef.current, {
-                        type: 'line',
-
-                        data: {
-                            labels: l,
-                            datasets: [
-                                {
-                                    label: detail.name + " sentiment" ,
-                                    data: [ averages.data[0], averages.data[1], averages.data[2]],
-                                    backgroundColor: "rgba(255, 255, 255,0)",
-                                    borderColor: "rgba(0,0,0,0.9)",
-                                    pointRadius: 0,
-                                    hoverOffset: 4,
-                                },
-
-                            ],
-
-                        },
-                        options: {
-                            lineHeightAnnotation: {
-                                always: true,
-                                hover: false,
-                                lineWeight: 1.5
-                            },
-
-                            animation:{
-                                duration: 2000
-                            },
-
-                            maintainAspectRatio: false,
-                            responsive: true,
-                            scales: {
-                                xAxes: [
-                                    {
-                                        type: "time",
-                                        distribution: "linear",
-
-                                    }
-                                ],
-                                yAxes: [{
-                                    beginAtZero: true,
-                                }]
-                            }
-                        },
-                    });
-                }
-                //}
             }
 
             await fetchDatas()
-            console.log(averages.data.length)
+
         }catch (e){
             console.log(e);
         }

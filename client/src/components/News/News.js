@@ -114,7 +114,7 @@ export default function News(props) {
             method: 'GET',
             url: 'https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/search/NewsSearchAPI',
             params: {
-                q: props.coin_name,
+                q: props.coin_name + " " + props.coin_symbol,
                 pageNumber: '1',
                 pageSize: '30',
                 autoCorrect: 'true',
@@ -155,7 +155,6 @@ export default function News(props) {
 
                     await axios.request(analysisOptions)
                     .then(res => {
-                    	console.log(res);
                         const sentiment = res.data;
                         let icon_element = null;
 

@@ -42,7 +42,7 @@ is and inform the user if it is about to change.
 *Team Leader*
 <img src="https://media-exp1.licdn.com/dms/image/C4D03AQFjJBK2bJ7ouQ/profile-displayphoto-shrink_200_200/0/1618577870324?e=1633564800&v=beta&t=ExvuVwueZsRpbnao_f63bM1s5zTStY7NwT7QfkeeNyM" width="250" height="250"> | [Github](https://github.com/Zee864/Zee864) [Linkedin](https://www.linkedin.com/in/zeeshaan-alekar-bb5107210/) | 
 |  **Melusi Mkhonta** 
-<img src="https://media-exp1.licdn.com/dms/image/C4D03AQHmAT8DMMsJxQ/profile-displayphoto-shrink_200_200/0/1556401991717?e=1627516800&v=beta&t=gRM6pH7lWpWjNN6_C_8rKcyhjWcilkeHZoxWoutMXe4" width="250" height="250"> | [Github](https://github.com/MelussiMkhonta) [Linkedin](https://www.linkedin.com/in/dinho-mkhonta-997b85185/) | 
+<img src="https://media-exp1.licdn.com/dms/image/C4D03AQHmAT8DMMsJxQ/profile-displayphoto-shrink_800_800/0/1556401991717?e=1634774400&v=beta&t=vEN9dETk8hDu4H8FAhQwj2q-3-PGNgSCJDOmZL9VNuM" width="250" height="250"> | [Github](https://github.com/MelussiMkhonta) [Linkedin](https://www.linkedin.com/in/dinho-mkhonta-997b85185/) | 
 |  **Lerato Moselane** 
 <img src="https://media-exp1.licdn.com/dms/image/C4D03AQFCuFCADPonVQ/profile-displayphoto-shrink_200_200/0/1618497881777?e=1627516800&v=beta&t=JVs0l4KOj23XiDOKPpVqPAm3dm3LKXvFtL7mfpJoa9M" width="250" height="250"> | [Github](https://github.com/u18037951) [Linkedin](https://www.linkedin.com/in/lerato-moselane-b7aa9220b/) |
 |  **Bheki Ndhlovu** 

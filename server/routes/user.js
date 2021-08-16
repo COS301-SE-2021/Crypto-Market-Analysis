@@ -4,39 +4,6 @@ const userFunctions =require('./userFunctions')
 const Database = require('../database/Database');
 const firestore_db = new Database().getInstance();
 
-router.post("/get4chanPost", async (request,response, next)=>{
-    const email = request.body.email;
-    if(!email || !(typeof email === 'string' || email instanceof String)){
-        let error = new Error(`Malformed request. Please check your parameters`);
-        error.status = 400;
-        return next(error);
-    }
-    userFunctions.get4chanPost().then( tweets => {
-        return response.status(200).json(tweets);
-    }).catch(err=>{
-        let error = new Error(err);
-        error.status = 500;
-        return next(error);
-    })
-});
-
-router.post("/getRedditPost", async (request,response, next)=>{
-    if(!request.body.email){
-        let error = new Error(`Malformed request. Please check your parameters`);
-        error.status = 400;
-        return next(error);
-    }
-    else{
-        userFunctions.getRedditPost(request.body.email).then(data=>{
-            response.status(200).json(data);
-        }).catch(err=>{
-            let error = new Error(err);
-            error.status = 500;
-            return next(error);
-        })
-    }
-});
-
 /** This function gets the cryptos a user is following
  * @param {object} request A request object with the email and symbol.
  * @param {object} response A response object which will return the status code.
@@ -59,75 +26,6 @@ router.post("/getUserCryptos", async (request, response, next) => {
     }
 });
 
-router.post("/unfollowSubreddit", async (request,response, next)=>{
-    if(request.body.email === null || request.body.subreddit === null){
-        let error = new Error(`Malformed request. Please check your parameters`);
-        error.status = 400;
-        return next(error);
-    }
-    else{
-        await userFunctions.unfollowSubreddit(request.body.email,request.body.subreddit).then(data=>{
-            return response.status(200).json(data);
-        }).catch(err=>{
-            let error = new Error(err);
-            error.status = 500;
-            return next(error);
-        });
-    }
-});
-
-router.post("/followSubreddit",async (request,response, next)=>{
-    if(!request.body.email || !request.body.social_media_sites){
-        let error = new Error(`Malformed request. Please check your parameters`);
-        error.status = 400;
-        return next(error);
-    }
-    else{
-        await userFunctions.followSubreddit(request.body.email,request.body.social_media_sites).then(data=>{
-            response.status(200).json(data);
-        }).catch(err=>{
-            let error = new Error(err);
-            error.status = 500;
-            return next(error);
-        })
-    }
-});
-
-router.post("/fetchUserSubreddits", async (request, response, next) => {
-
-    if(request.body.email === null) {
-        let error = new Error(`Malformed request. Please check your parameters`);
-        error.status = 400;
-        return next(error);
-    }
-    else{
-        userFunctions.fetchUserSubreddits(request.body.email).then(data=>{
-            return response.status(200).json(data);
-        }).catch(err=>{
-            let error = new Error(err);
-            error.status = 500;
-            return next(error);
-        })
-    }
-});
-
-router.post("/getUserSubreddits", async (request, response, next) => {
-    if(!request.body.email){
-        let error = new Error(`Malformed request. Please check your parameters`);
-        error.status = 400;
-        return next(error);
-    }
-    else {
-        userFunctions.getUserSubreddits(request.body.email).then(data=>{
-            return response.status(200).json(data);
-        }).catch(err=>{
-            let error = new Error(err);
-            error.status = 500;
-            return next(error);
-        })
-    }
-});
-
 router.post("/getUserNetwork", async (request, response, next) => {
     if(!request.body.email){
         let error = new Error(`Malformed request. Please check your parameters`);
@@ -140,23 +38,6 @@ router.post("/getUserNetwork", async (request, response, next) => {
         }).catch(err=>{
             let error = new Error(err);
             error.status(500);
-            return next(error);
-        })
-    }
-});
-
-router.post("/coinRedditPost", async (request,response, next)=>{
-    if(!request.body.email|| !request.body.coin){
-        let error = new Error(`Malformed request. Please check your parameters`);
-        error.status = 400;
-        return next(error);
-    }
-    else{
-        userFunctions.coinRedditPost(request.body.coin).then(data=>{
-            response.status(200).json(data);
-        }).catch(err=>{
-            let error = new Error(err);
-            error.status = 500;
             return next(error);
         })
     }

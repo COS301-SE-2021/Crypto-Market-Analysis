@@ -119,17 +119,18 @@ class Database {
         else{
             try{
                 const doc = await this.#db.collection(collectionPath).doc(documentName).get(field);
-                const entries = await Object.entries(doc.data());
-                for(const entry of entries){
-                    if(entry[0] === field)
-                        return entry[1]
+                if(doc){
+                    const entries = await Object.entries(doc.data());
+                    for(const entry of entries){
+                        if(entry[0] === field)
+                            return entry[1]
+                    }
                 }
 
                 return null;
             }
             catch(e) {
-                console.error(`An error occurred while connecting to the database: \n${e}`);
-                return null
+                return null;
             }
         }
     }

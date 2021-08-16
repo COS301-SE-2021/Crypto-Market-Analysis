@@ -7,6 +7,47 @@ const webpush = require("web-push");
 const Push_notification=require('./notification/push_notification')
 const emailObject = require('nodemailer');
 
+/** This function adds a social media site to the users account
+ * @param {object} request A request object with the email and symbol.
+ * @param {object} response A response object which will return the status code.
+ * @return          A status code stating if the request was successful.
+ * */
+router.post("/followCrypto", async (request, response, next)=>{
+
+    if(!request.body.email || !request.body.symbol || !request.body.crypto_name){
+        let error = new Error(`Malformed request. Please check your parameters`);
+        error.status = 400;
+        return next(error);
+    }
+    else{
+        await userFunctions.followCrypto(request.body.email,request.body.symbol,request.body.crypto_name).then(data=>{
+            return response.status(200).json(data);
+        }).catch(err => {
+            let error = new Error(err);
+            error.status = 500;
+            return next(error);
+        });
+    }
+});
+
+router.post("/unfollowCrypto", async (request, response, next)=>{
+
+    if(!request.body.email || !request.body.symbol){
+        let error = new Error(`Malformed request. Please check your parameters`);
+        error.status = 400;
+        return next(error);
+    }
+    else{
+        await userFunctions.unfollowCrypto(request.body.email,request.body.symbol).then(data => {
+            return response.status(200).json(data);
+        }).catch(err=>{
+            let error = new Error(err);
+            error.status = 500;
+            return next(error);
+        });
+    }
+});
+
 /** This function gets the cryptos a user is following
  * @param {object} request A request object with the email and symbol.
  * @param {object} response A response object which will return the status code.
@@ -22,6 +63,68 @@ router.post("/getUserCryptos", async (request, response, next) => {
         userFunctions.getUserCrypto(request.body.email).then(data=>{
             return response.status(200).json(data);
         }).catch(err=>{
+            let error = new Error(err);
+            error.status = 500;
+            return next(error);
+        })
+    }
+});
+
+/** This function adds a social media site to the users account
+ * @param {object} request A request object with the email and social_media_sites.
+ * @param {object} response A response object which will return the status code.
+ * @return          A status code stating if the request was successful.
+ * */
+router.post("/followSocialMedia",async (request, response, next)=>{
+    if(!request.body.email || !request.body.social_media_sites) {
+        let error = new Error(`Malformed request. Please check your parameters`);
+        error.status = 400;
+        return next(error);
+    }
+    else{
+        await userFunctions.followSocialMedia(request.body.email,request.body.social_media_sites).then(data=>{
+            response.status(200).json(data);
+        }).catch(err => {
+            let error = new Error(err);
+            error.status = 500;
+            return next(error);
+        })
+    }
+});
+
+router.post("/unfollowSocialMedia", async (request,response, next)=>{
+
+    if(!request.body.email || !request.body.social_media_sites){
+        let error = new Error(`Malformed request. Please check your parameters`);
+        error.status = 400;
+        return next(error);
+    }
+    else{
+        await userFunctions.unfollowSocialMedia(request.body.email,request.body.social_media_sites).then(data => {
+            return response.status(200).json(data);
+        }).catch(err => {
+            let error = new Error(err);
+            error.status = 500;
+            return next(error);
+        });
+    }
+});
+
+/** This function gets the social media a user is following
+ * @param {object} request A request object with the email and symbol.
+ * @param {object} response A response object which will return the status code.
+ * @return          A status code stating if the request was successful.
+ * */
+router.post("/fetchUserSocialMedia", async (request, response, next) => {
+    if(!request.body.email) {
+        let error = new Error(`Malformed request. Please check your parameters`);
+        error.status = 400;
+        return next(error);
+    }
+    else{
+        userFunctions.fetchUserSocialMedia(request.body.email).then(data=>{
+            return response.status(200).json(data);
+        }).catch(err => {
             let error = new Error(err);
             error.status = 500;
             return next(error);
@@ -46,7 +149,7 @@ router.post("/getUserNetwork", async (request, response, next) => {
     }
 });
 
-router.post("/getCoinPredictions", async (request,response, next)=>{
+router.post("/getCoinPredictions", async (request, response, next)=>{
     if(!request.body.email){
         let error = new Error(`Malformed request. Please check your parameters`);
         error.status(400);
@@ -63,38 +166,7 @@ router.post("/getCoinPredictions", async (request,response, next)=>{
     }
 });
 
-/** This function adds a social media site to the users account
- * @param {object} request A request object with the email and symbol.
- * @param {object} response A response object which will return the status code.
- * @return          A status code stating if the request was successful.
- * */
-router.post("/followCrypto", async (request,response)=>{
-
-    if(!request.body.email || !request.body.symbol || !request.body.crypto_name)
-        return response.status(400).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
-    else{
-        await userFunctions.followCrypto(request.body.email,request.body.symbol,request.body.crypto_name).then(data=>{
-            return response.status(200).json(data);
-        }).catch(err=>{
-            return response.status(500).json({status:`Internal server error`, error: err})
-        });
-    }
-});
-
-router.post("/unfollowCrypto", async (request,response)=>{
-
-    if(request.body.email === null || request.body.symbol === null)
-        return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
-    else{
-        await userFunctions.unfollowCrypto(request.body.email,request.body.symbol).then(data=>{
-            return response.status(200).json(data);
-        }).catch(err=>{
-            return response.status(500).json({status:`Internal server error`, error: err})
-        });
-    }
-});
-
-router.post("/getNotificationObject", async (request,response)=>{
+router.post("/getNotificationObject", async (request, response)=>{
     if(request.body.email === null || typeof request.body.email === 'undefined')
         return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
      await userFunctions.getNotification(request.body.email).then(data=>{
@@ -106,7 +178,7 @@ router.post("/getNotificationObject", async (request,response)=>{
 
 });
 
-router.post("/setNotificationObject", async (request,response)=>{
+router.post("/setNotificationObject", async (request, response)=>{
     await userFunctions.setNotification(request.body.email, request.body.object).then(data=>{
             return response.status(200).json('data successfully saved');
         }
@@ -114,37 +186,6 @@ router.post("/setNotificationObject", async (request,response)=>{
     )
 
 })
-
-/** This function adds a social media site to the users account
- * @param {object} request A request object with the email and social_media_sites.
- * @param {object} response A response object which will return the status code.
- * @return          A status code stating if the request was successful.
- * */
-router.post("/followSocialMedia",async (request,response)=>{
-    if(!request.body.email || !request.body.social_media_sites){
-        return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
-    }
-    else{
-          await userFunctions.followSocialMedia(request.body.email,request.body.social_media_sites).then(data=>{
-              response.status(200).json(data);
-          }).catch(err=>{
-              response.status(500).json({status:`Internal server error`, error: err});
-          })
-        }
-});
-
-router.post("/unfollowSocialMedia", async (request,response)=>{
-
-    if(!request.body.email || !request.body.social_media_sites)
-        return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
-    else{
-        await userFunctions.unfollowSocialMedia(request.body.email,request.body.social_media_sites).then(data=>{
-            return response.status(200).json(data);
-        }).catch(err=>{
-            return response.status(500).json({status:`Internal server error`, error: err})
-        });
-    }
-});
 
 router.post("/storePush", async (request,response)=>{
      await userFunctions.setPush(request.body.email,request.body.object).then(data=>{
@@ -160,24 +201,6 @@ router.post("/GETPush", async (request,response)=>{
     })
 
 
-});
-
-/** This function gets the social media a user is following
- * @param {object} request A request object with the email and symbol.
- * @param {object} response A response object which will return the status code.
- * @return          A status code stating if the request was successful.
- * */
-router.post("/fetchUserSocialMedia", async (request, response) => {
-    if(request.body.email === null) {
-        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
-    }
-    else{
-        userFunctions.fetchUserSocialMedia(request.body.email).then(data=>{
-            return response.status(200).json(data);
-        }).catch(err=>{
-            return response(401).json({status:`error`, error: err})
-        })
-    }
 });
 
 router.post("/subscribe", async (req, res) => {

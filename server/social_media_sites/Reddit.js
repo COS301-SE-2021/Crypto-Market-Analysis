@@ -1,5 +1,8 @@
 const snoowrap = require('snoowrap');
 const Database = require('../database/Database');
+const User_Hash_Table = require(`../Hash_Tables/User_Hash_Table`);
+const user_object = new User_Hash_Table().getInstance();
+const firestore_db = new Database().getInstance();
 const userAgent = 'codex';
 const clientId = '9hYB1ExwwjFAPw';
 const clientSecret = 'jvq3MgpkmN0WUXqnjAct2DXTU-h-ow';
@@ -16,6 +19,62 @@ const r = new snoowrap({
 
 class Reddit {
     #firestore_db = new Database().getInstance();
+
+    unfollowSubreddit = async (email_address, subreddit) => {
+        try{
+            await user_object.removeSubreddit(email_address, subreddit);
+        }
+        catch (error){
+            return Promise.reject(error);
+        }
+    }
+
+    followSubreddit = async (email_address,social_media )=> {
+        console.log("in userfunctions");
+        try{
+            return await user_object.insertSubreddits(email_address, social_media);
+        }
+        catch (error){
+            return Promise.reject(error);
+        }
+    }
+
+    fetchUserSubreddits = async(email_address)=>{
+        try{
+            await user_object.getSubreddit(email_address);
+        }
+        catch (error){
+            return Promise.reject(error);
+        }
+    }
+
+    getUserSubreddits = async (email_address)=>{
+        try{
+            return await user_object.getUserSubreddits(email_address);
+        }
+        catch (error){
+            return Promise.reject(error);
+        }
+    }
+
+    coinRedditPost = async (coin)=>{
+        return await this.getCoinRedditPost(coin);
+    }
+
+     getRedditPost = async (email)=>{
+        let subs = await getUserSubreddits(email);
+        let posts = [];
+        let docs = [];
+        for(let i=0; i<subs.length; i++)
+        {
+
+            docs.push(await firestore_db.fetch(`reddit_info`,subs[i],'posts'));
+        }
+        console.log(docs);
+        posts = docs;
+        return {status: `Ok`, posts: posts};
+    }
+
     scrapeSubreddit = async (Subreddit) => {
         const subreddit1 = await r.getSubreddit(Subreddit);
         let Data = [];
@@ -115,23 +174,5 @@ class Reddit {
         return Data;
     }
 }
-
-// let reddits = new Reddit();
-// reddits.getCoinRedditPost("clemobhe").then();
-
-// reddits.completeScrape("CryptoCurrencies").then();
-// reddits.completeScrape("SatoshiStreetBets").then();
-// reddits.completeScrape("Crypto_Currency_News").then();
-// reddits.completeScrape("CryptoCurrencyTrading").then();
-// reddits.completeScrape("Cryptomarkets").then();
-// reddits.scrapeSubreddit2("Bitcoin").then();
-// reddits.scrapeSubreddit2("Ethereum").then();
-
-
-// let res = reddits.allSubreddits().then();
-// for (let i =0;i<res.length;i++) {
-//     reddits.completeScrape(res[i]).then();
-// }
-
 
 module.exports = Reddit;

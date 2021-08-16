@@ -5,20 +5,6 @@ const firestore_db = new Database().getInstance();
 const reddit =require('../social_media_sites/Reddit');
 const redditScrapper = new reddit();
 
-const get4chanPost = async ()=>{
-    let fourChanPosts = [];
-
-    try{
-        const docs = await firestore_db.fetch(`4chan_info`).then((snapshot) => {return snapshot.docs;});
-        for(const doc of docs)
-            fourChanPosts.push(doc.data().posts);
-
-        return {status: `Ok`, posts_array: fourChanPosts};
-    }
-    catch(err){
-        return Promise.reject(new Error(err));
-    }
-}
 const getNotification=async(email)=>{
     const fields = await firestore_db.fetchNotification(email).then(data=>{
         return data;
@@ -43,45 +29,7 @@ const getPush=async(email)=>{
     });
     return mydata;
 }
-/** Gets all the reddit posts from the database.
- * @return  {object} Containing an array of posts if it was successful or a rejected Promise.
-* */
 
-//
-// const getRedditPost = async (email)=>{
-//     // const citiesRef = db.collection('cities');
-//     // const coastalCities = await citiesRef.where('regions', 'array-contains-any',
-//     //     ['west_coast', 'east_coast']).get();
-//     let posts = [];
-//     try{
-//         const docs = await firestore_db.fetch(`reddit_info`).then(snapshot => {return snapshot.docs});
-//         for(const doc of docs)
-//             posts.push(doc("CryptoCurrencies").data().posts);
-//         return {status: `Ok`, posts: posts};
-//     }
-//     catch(err){
-//         return Promise.reject(new Error(err));
-//     }
-// }
-
-/*
-const citiesRef = db.collection('cities');
-const coastalCities = await citiesRef.where('regions', 'array-contains-any',
-    ['west_coast', 'east_coast']).get();
- */
-const getRedditPost = async (email)=>{
-    let subs = await getUserSubreddits(email);
-    let posts = [];
-    let docs = [];
-    for(let i=0; i<subs.length; i++)
-    {
-
-        docs.push(await firestore_db.fetch(`reddit_info`,subs[i],'posts'));
-    }
-    console.log(docs);
-    posts = docs;
-    return {status: `Ok`, posts: posts};
-}
 
 const getUserNetwork = async (email_address)=>{
     try{
@@ -92,31 +40,16 @@ const getUserNetwork = async (email_address)=>{
     }
 }
 
-const getCoinPredictions = async (email)=>{
-    //  let coins =  await getUserNetwork(email);
-    //  console.log(coins);
-    //  let posts = [];
-    //  let docs = [];
-    //  for(let i=0; i<coins.length; i++)
-    //  {
-    //     // console.log(coins[i]);
-    //      let open = await firestore_db.fetch(`CryptoPricePrediction`,coins[i],'open')
-    //      let close = await firestore_db.fetch(`CryptoPricePrediction`,coins[i],'close')
-    //      let high = await firestore_db.fetch(`CryptoPricePrediction`,coins[i],'high')
-    //      let low = await firestore_db.fetch(`CryptoPricePrediction`,coins[i],'low')
-    //      let obj = {
-    //          open: open,
-    //          close: close,
-    //          high: high,
-    //          low: low
-    //      };
-    //      docs.push(obj);
-    //     // console.log(obj);
-    //  }
-    // // console.log(docs);
-    //  posts = docs;
-    //  console.log(posts);
-    //  return {status: `Ok`, posts: posts};
+const getUserCrypto = async (email_address)=>{
+    try{
+        return await user_object.getCryptoName(email_address);
+    }
+    catch (error){
+        return Promise.reject(error);
+    }
+}
+
+getCoinPredictions = async (email)=>{
     let fourChanPosts = [];
 
     try{
@@ -131,44 +64,9 @@ const getCoinPredictions = async (email)=>{
     }
 }
 
-const coinRedditPost = async (coin)=>{
-    // try {
-    return await redditScrapper.getCoinRedditPost(coin);
-    // }catch (e) {
-    //     return Promise.reject(new Error(err))
-    // }
-
-}
-const getUserCrypto = async (email_address)=>{
-    try{
-        return await user_object.getCryptoName(email_address);
-    }
-    catch (error){
-        return Promise.reject(error);
-    }
-}
-
-const getUserSubreddits = async (email_address)=>{
-    try{
-        return await user_object.getUserSubreddits(email_address);
-    }
-    catch (error){
-        return Promise.reject(error);
-    }
-}
-
-const fetchUserSocialMedia = async(email_address)=>{
+fetchUserSocialMedia = async(email_address)=>{
     try{
         return await user_object.getSocialMediaSites(email_address);
-    }
-    catch (error){
-        return Promise.reject(error);
-    }
-}
-
-const fetchUserSubreddits = async(email_address)=>{
-    try{
-        await user_object.getSubreddit(email_address);
     }
     catch (error){
         return Promise.reject(error);
@@ -211,24 +109,7 @@ const unfollowSocialMedia = async (email_address, social_media) => {
     }
 }
 
-const unfollowSubreddit = async (email_address, subreddit) => {
-    try{
-        await user_object.removeSubreddit(email_address, subreddit);
-    }
-    catch (error){
-        return Promise.reject(error);
-    }
-}
 
-const followSubreddit = async (email_address,social_media )=> {
-    console.log("in userfunctions");
-    try{
-        return await user_object.insertSubreddits(email_address, social_media);
-    }
-    catch (error){
-        return Promise.reject(error);
-    }
-}
 
 const saveToDB = async (arr, socialmedia , crypto)=> {
     let mini=Math.min.apply(Math, arr)
@@ -248,4 +129,5 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
 
-module.exports = {getCoinPredictions, getUserNetwork,coinRedditPost, getPush,setPush,setNotification,saveToDB,getNotification, getUserSubreddits, getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, get4chanPost, unfollowSubreddit, followSubreddit, fetchUserSubreddits}
+module.exports = { getCoinPredictions,getUserNetwork, fetchUserSocialMedia, getPush,setPush,setNotification,saveToDB,getNotification, getUserCrypto,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia}
+

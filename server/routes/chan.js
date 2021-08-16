@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const Reddit = require("../social_media_sites/chan");
+const Chan = require("../social_media_sites/chan");
+const chan = new Chan();
 const userFunctions = require("./userFunctions");
 
 router.post("/get4chanPost", async (request,response, next)=>{
@@ -10,7 +11,7 @@ router.post("/get4chanPost", async (request,response, next)=>{
         error.status = 400;
         return next(error);
     }
-    userFunctions.get4chanPost().then( tweets => {
+    chan.get4chanPost().then( tweets => {
         return response.status(200).json(tweets);
     }).catch(err=>{
         let error = new Error(err);

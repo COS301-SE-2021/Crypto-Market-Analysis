@@ -215,25 +215,25 @@ let network = new NeuralNetwork();
 //      }
 // });
 
-  network.train("btc").then(function (store) {
-      network.train("eth").then(function (store) {
-          network.train("usdt").then(function (store) {
-              network.train("bnb").then(function (store) {
-                  network.train("ada").then(function (store) {
-                      network.train("xrp").then(function (store) {
-                          network.train("doge").then(function (store) {
-                              network.train("usdc").then(function (store) {
-                                  network.train("dot").then(function (store) {
-                                      network.train("uni").then(function (store) {
-                                      });
-                                  });
-                              });
-                          });
-                      });
-                  });
-              });
-          });
-      });
+network.train("btc").then(function (store) {
+    network.train("eth").then(function (store) {
+        network.train("usdt").then(function (store) {
+            network.train("bnb").then(function (store) {
+                network.train("ada").then(function (store) {
+                    network.train("xrp").then(function (store) {
+                        network.train("doge").then(function (store) {
+                            network.train("usdc").then(function (store) {
+                                network.train("dot").then(function (store) {
+                                    network.train("uni").then(function (store) {
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    });
 })
 
 

@@ -87,12 +87,12 @@ const HistoryChart = ({data}) => {
             </div>
 
             <div className="chart-button mt-1">
-                chartInstance === null ? {errorMessage} : chartInstance > 0 ? <button onClick={() => setTimeFormat("24h")} className="btn btn-outline-secondary btn-sm">24h</button>
-                 chartRef === null ? {errorMessage} : chartRef > 0 ?<button onClick={() => setTimeFormat("7d")} className="btn btn-outline-secondary btn-sm mx-1">7d</button>
-                 chartInstance === null ? {errorMessage} : chartInstance > 0 ?<button onClick={() => setTimeFormat("14d")} className="btn btn-outline-secondary btn-sm mx-1">14d</button>
-                 chartInstance === null ? {errorMessage} : chartInstance > 0 ?<button onClick={() => setTimeFormat("30d")} className="btn btn-outline-secondary btn-sm mx-1">30d</button>
-                 chartInstance === null ? {errorMessage} : chartInstance > 0 ?<button onClick={() => setTimeFormat("90d")} className="btn btn-outline-secondary btn-sm mx-1">90d</button>
-                 chartInstance === null ? {errorMessage} : chartInstance > 0 ?<button onClick={() => setTimeFormat("1y")} className="btn btn-outline-secondary btn-sm">1y</button>
+                <button onClick={() => setTimeFormat("24h")} className="btn btn-outline-secondary btn-sm">24h</button>
+                 <button onClick={() => setTimeFormat("7d")} className="btn btn-outline-secondary btn-sm mx-1">7d</button>
+                 <button onClick={() => setTimeFormat("14d")} className="btn btn-outline-secondary btn-sm mx-1">14d</button>
+                 <button onClick={() => setTimeFormat("30d")} className="btn btn-outline-secondary btn-sm mx-1">30d</button>
+                 <button onClick={() => setTimeFormat("90d")} className="btn btn-outline-secondary btn-sm mx-1">90d</button>
+                 <button onClick={() => setTimeFormat("1y")} className="btn btn-outline-secondary btn-sm">1y</button>
             </div>
 
 

@@ -68,8 +68,9 @@ function Predictions() {
 
     return(
         <>
-            <Sidebar></Sidebar>
+
             <div className="container-fluid" >
+
                 <div className="row">
                     <div className="col-md-12">
 

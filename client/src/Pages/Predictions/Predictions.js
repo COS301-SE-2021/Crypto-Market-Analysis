@@ -9,6 +9,7 @@ const CoinGecko = require('coingecko-api');
 const CoinGeckoClient = new CoinGecko();
 
 function Predictions() {
+    let num =0;
     let [predictions,setPredictions] = useState([]);
     let PredictionsCoins = [];
     let [loading, setLoading] = useState(true);
@@ -77,13 +78,15 @@ function Predictions() {
                         {loading ? <div className="mx-auto mt-8 text-center"><ClipLoader loading={loading} size={150} /></div>:
 
                             <table className="table crypto-table">
+                                {/*<h1>Predictions for the next hour based on historical prices</h1>*/}
                                 <thead>
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Symbol</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Prediction</th>
+                                    <th scope="col">Current Price</th>
+                                    <th scope="col">Next Hour Price Forecast</th>
+                                    {/*<th scope="col">Percentage Change</th>*/}
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -95,11 +98,12 @@ function Predictions() {
                                             //     <p>{i.price}</p>
                                             // </p>
                                             <tr>
-                                                <td>#</td>
-                                                <td><span class="text-warning">{i.name}</span></td>
+                                                <td>{++num}</td>
+                                                <td><span class="text-body">{i.name}</span></td>
                                                 <td>{i.symbol.toUpperCase()}</td>
-                                                <td class="text-warning">{i.price}</td>
-                                                <td class="text-warning">{i.open}</td>
+                                                <td class="text-body">{i.price.toFixed(3)}</td>
+                                                <td class="text-body">{i.open.toFixed(3)}</td>
+                                                {/*<td class="text-body">{i.open / i.price * 100}</td>*/}
                                             </tr>
                                         )
                                     })

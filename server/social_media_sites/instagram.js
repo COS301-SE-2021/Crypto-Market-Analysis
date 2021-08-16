@@ -181,16 +181,16 @@ class NeuralNetwork {
         try{
             let zero = 0;
             let average = store[0].open + store[0].close + store[0].high + store[0].low/4;
-            this.#firestore_db.save('CryptoPricePrediction',coin,'open',zero);
-            this.#firestore_db.save('CryptoPricePrediction',coin,'high',zero);
-            this.#firestore_db.save('CryptoPricePrediction',coin,'low',zero);
-            this.#firestore_db.save('CryptoPricePrediction',coin,'close',zero);
-            this.#firestore_db.save('CryptoPricePrediction',coin,'open',store[0].open);
-            this.#firestore_db.save('CryptoPricePrediction',coin,'high',store[0].high);
-            this.#firestore_db.save('CryptoPricePrediction',coin,'low',store[0].low);
-            this.#firestore_db.save('CryptoPricePrediction',coin,'close',store[0].close);
-            this.#firestore_db.save('CryptoPricePrediction',coin,'coin', coin);
-            this.#firestore_db.save('CryptoPricePrediction',coin,'average', average);
+            // await this.#firestore_db.save('CryptoPricePrediction',coin,'open',zero);
+            // // this.#firestore_db.save('CryptoPricePrediction',coin,'high',zero);
+            // // this.#firestore_db.save('CryptoPricePrediction',coin,'low',zero);
+            // // this.#firestore_db.save('CryptoPricePrediction',coin,'close',zero);
+            await this.#firestore_db.save('CryptoPricePrediction',coin,'open',store[0].open);
+            await this.#firestore_db.save('CryptoPricePrediction',coin,'high',store[0].high);
+            await this.#firestore_db.save('CryptoPricePrediction',coin,'low',store[0].low);
+            await this.#firestore_db.save('CryptoPricePrediction',coin,'close',store[0].close);
+            await this.#firestore_db.save('CryptoPricePrediction',coin,'coin', coin);
+            await this.#firestore_db.save('CryptoPricePrediction',coin,'average', average);
         }
         catch (error){
             return Promise.reject(error);
@@ -215,45 +215,42 @@ let network = new NeuralNetwork();
 //      }
 // });
 
-// network.train("btc").then(function (store) {
-//
-// });
-//
-// network.train("eth").then(function (store) {
-//
-// });
-//
-// network.train("usdt").then(function (store) {
-//
-// });
-//
-// network.train("bnb").then(function (store) {
-//
-// });
-//
-// network.train("ada").then(function (store) {
-//
-// });
-//
-// network.train("xrp").then(function (store) {
-//
-// });
-//
-// network.train("doge").then(function (store) {
-//
-// });
+  network.train("btc").then(function (store) {
+      network.train("eth").then(function (store) {
+          network.train("usdt").then(function (store) {
+              network.train("bnb").then(function (store) {
+                  network.train("ada").then(function (store) {
+                      network.train("xrp").then(function (store) {
+                          network.train("doge").then(function (store) {
+                              network.train("usdc").then(function (store) {
+                                  network.train("dot").then(function (store) {
+                                      network.train("uni").then(function (store) {
+                                      });
+                                  });
+                              });
+                          });
+                      });
+                  });
+              });
+          });
+      });
+})
 
-// network.train("usdc").then(function (store) {
-//
-// });
-//
-// network.train("dot").then(function (store) {
-//
-// });
-//
-// network.train("uni").then(function (store) {
-//
-// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

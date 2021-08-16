@@ -4,14 +4,19 @@ const app = require("../app");
 describe(`POST /user/followCrypto`, () => {
     jest.setTimeout(100000);
     test(`when parameters are correct`, async () => {
-        const response = await request(app).post(`/user/followCrypto`).send({email: `codexteam4@gmail.com`, crypto_name: `Ethereum`, symbol: `eth`});
+        const response = await request(app).post(`/user/followCrypto`).send({email: `codexteam4@gmail.com`, crypto_name: `Dogecoin`, symbol: `doge`});
         expect(response.status).toBe(200);
         expect(response.body).toBeTruthy();
     });
     test(`when email is not valid`, async () => {
         const response = await request(app).post(`/user/followCrypto`).send({email: `fake@notvalid.com`, crypto_name: `Ethereum`, symbol: `eth`});
         expect(response.error.status).toBe(500);
-        expect(response.error.text).toEqual(`{"status":"Internal server error","error":"Invalid email entered"}`);
+        expect(response.error.text).toEqual(`{"error":{"message":"Invalid email entered"}}`);
+    });
+    test(`when crypto already exists`, async () => {
+        const response = await request(app).post(`/user/followCrypto`).send({email: `codexteam4@gmail.com`, crypto_name: `Bitcoin`, symbol: `btc`});
+        expect(response.error.status).toBe(500);
+        expect(response.error.text).toEqual(`{"error":{"message":"You are already following this crypto"}}`);
     });
     test(`when parameters are missing`, async () => {
         const body_data = [
@@ -27,32 +32,31 @@ describe(`POST /user/followCrypto`, () => {
         for(const body of body_data){
             const response = await request(app).post(`/user/followCrypto`).send(body);
             expect(response.error.status).toBe(400);
-            expect(response.error.text).toEqual(`{"status":"Bad Request","error":"Malformed request. Please check your parameters"}`);
+            expect(response.error.text).toEqual(`{"error":{"message":"Malformed request. Please check your parameters"}}`);
         }
     });
 });
 
 describe(`POST /user/unfollowCrypto`, () => {
     test(`when parameters are correct`, async () => {
-        const response = await request(app).post(`/user/unfollowCrypto`).send({email: `codexteam4@gmail.com`, screen_name: `elonmusk`});
-        console.log(response);
+        const response = await request(app).post(`/user/unfollowCrypto`).send({email: `codexteam4@gmail.com`, symbol: `eth`});
         expect(response.status).toBe(200);
-        expect(response.body.message).toBeDefined();
-        expect(response.body.message).toBe(`Screen name successfully removed`);
+        expect(response.body).toBeDefined();
+        expect(response.body).toBeTruthy();
     });
     test(`when email is not valid`, async () => {
-        const response = await request(app).post(`/twitter/unfollow`).send({email: `fake@notvalid.com`, screen_name: `elonmusk`});
+        const response = await request(app).post(`/user/unfollowCrypto`).send({email: `fake@notvalid.com`, symbol: `eth`});
         expect(response.error.status).toBe(500);
         expect(response.error.text).toEqual(`{"error":{"message":"Invalid email entered"}}`);
     });
-    test(`when screen name is not valid`, async () => {
-        const response = await request(app).post(`/twitter/unfollow`).send({email: `codexteam4@gmail.com`, screen_name: `test`});
+    test(`when symbol is not valid`, async () => {
+        const response = await request(app).post(`/user/unfollowCrypto`).send({email: `codexteam4@gmail.com`, symbol: `adst`});
         expect(response.error.status).toBe(500);
-        expect(response.error.text).toEqual(`{"error":{"message":"User is not following the selected screen_name"}}`);
+        expect(response.error.text).toEqual(`{"error":{"message":"User is not following the selected crypto"}}`);
     });
     test(`when parameters are missing`, async () => {
         const body_data = [
-            {screen_name: "elonmusk"},
+            {symbol: "eth"},
             {email: "test@test.com"},
             {}
         ]

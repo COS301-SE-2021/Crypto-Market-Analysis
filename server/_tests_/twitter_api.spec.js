@@ -97,7 +97,6 @@ describe(`POST /twitter/follow`, () => {
 describe(`POST /twitter/unfollow`, () => {
     test(`when parameters are correct`, async () => {
         const response = await request(app).post(`/twitter/unfollow`).send({email: `codexteam4@gmail.com`, screen_name: `elonmusk`});
-        console.log(response);
         expect(response.status).toBe(200);
         expect(response.body.message).toBeDefined();
         expect(response.body.message).toBe(`Screen name successfully removed`);

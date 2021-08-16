@@ -78,14 +78,16 @@ class User_Hash_Table {
                         try{
                             //Add crypto to the cryptocurrencies object
                             this.#users[key][`cryptocurrencies`][crypto] = crypto_name
-                            firestore_db.save(`Users`, key, `crypto`, crypto, true);
-                            firestore_db.save(`Users`, key, `crypto_name`, crypto_name, true);
+                            await firestore_db.save(`Users`, key, `crypto`, crypto, true);
+                            await firestore_db.save(`Users`, key, `crypto_name`, crypto_name, true);
                             return Promise.resolve(true);
                         }
                         catch (error){
                             return await Promise.reject(error);
                         }
                     }
+                    else
+                        return Promise.reject(`You are already following this crypto`);
             }
             else
                 return Promise.reject(`Invalid email entered`);
@@ -203,7 +205,7 @@ class User_Hash_Table {
                             await firestore_db.delete(`Users`, email, `crypto`, symbol);
                             //Remove the crypto name from the database
                             await firestore_db.delete(`Users`, email, `crypto_name`, name);
-                            return true;
+                            return Promise.resolve(true);
                     }
                     else
                         return Promise.reject(`User is not following the selected crypto`);
@@ -218,6 +220,7 @@ class User_Hash_Table {
         else
             return Promise.reject(`Parameters are undefined`);
     }
+
     async removeScreenName(email, screen_name){
       if(!this.#initialized){
             await this.#init;

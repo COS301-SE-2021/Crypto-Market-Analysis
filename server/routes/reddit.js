@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Reddit = require("../social_media_sites/Reddit");
+const reddit = new Reddit();
 const userFunctions = require("./userFunctions");
 
 router.post("/getRedditPost", async (request,response, next)=>{
@@ -10,7 +11,7 @@ router.post("/getRedditPost", async (request,response, next)=>{
         return next(error);
     }
     else{
-        userFunctions.getRedditPost(request.body.email).then(data=>{
+        reddit.getRedditPost(request.body.email).then(data=>{
             response.status(200).json(data);
         }).catch(err=>{
             let error = new Error(err);
@@ -27,7 +28,7 @@ router.post("/unfollowSubreddit", async (request,response, next)=>{
         return next(error);
     }
     else{
-        await userFunctions.unfollowSubreddit(request.body.email,request.body.subreddit).then(data=>{
+        await reddit.unfollowSubreddit(request.body.email,request.body.subreddit).then(data=>{
             return response.status(200).json(data);
         }).catch(err=>{
             let error = new Error(err);
@@ -44,7 +45,7 @@ router.post("/followSubreddit",async (request,response, next)=>{
         return next(error);
     }
     else{
-        await userFunctions.followSubreddit(request.body.email,request.body.social_media_sites).then(data=>{
+        await reddit.followSubreddit(request.body.email,request.body.social_media_sites).then(data=>{
             response.status(200).json(data);
         }).catch(err=>{
             let error = new Error(err);
@@ -62,7 +63,7 @@ router.post("/fetchUserSubreddits", async (request, response, next) => {
         return next(error);
     }
     else{
-        userFunctions.fetchUserSubreddits(request.body.email).then(data=>{
+        reddit.fetchUserSubreddits(request.body.email).then(data=>{
             return response.status(200).json(data);
         }).catch(err=>{
             let error = new Error(err);
@@ -79,7 +80,7 @@ router.post("/getUserSubreddits", async (request, response, next) => {
         return next(error);
     }
     else {
-        userFunctions.getUserSubreddits(request.body.email).then(data=>{
+        reddit.getUserSubreddits(request.body.email).then(data=>{
             return response.status(200).json(data);
         }).catch(err=>{
             let error = new Error(err);
@@ -96,7 +97,7 @@ router.post("/coinRedditPost", async (request,response, next)=>{
         return next(error);
     }
     else{
-        userFunctions.coinRedditPost(request.body.coin).then(data=>{
+        reddit.coinRedditPost(request.body.coin).then(data=>{
             response.status(200).json(data);
         }).catch(err=>{
             let error = new Error(err);

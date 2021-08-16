@@ -26,7 +26,7 @@ describe(`POST /twitter/getCryptoTweets`, () => {
         ]
 
         for(const body of body_data){
-            const response = await request(app).post(`/twitter/getCryptoTweets`).send({});
+            const response = await request(app).post(`/twitter/getCryptoTweets`).send(body);
             expect(response.error.status).toBe(400);
             expect(response.error.text).toEqual(`{"error":{"message":"Malformed request. Please check your parameters"}}`);
         }
@@ -60,7 +60,7 @@ describe(`POST /twitter/validateScreenName`, () => {
         ]
 
         for(const body of body_data){
-            const response = await request(app).post(`/twitter/validateScreenName`).send({});
+            const response = await request(app).post(`/twitter/validateScreenName`).send(body);
             expect(response.error.status).toBe(400);
             expect(response.error.text).toEqual(`{"error":{"message":"Malformed request. Please check your parameters"}}`);
         }
@@ -87,7 +87,7 @@ describe(`POST /twitter/follow`, () => {
         ]
 
         for(const body of body_data){
-            const response = await request(app).post(`/twitter/follow`).send({});
+            const response = await request(app).post(`/twitter/follow`).send(body);
             expect(response.error.status).toBe(400);
             expect(response.error.text).toEqual(`{"error":{"message":"Malformed request. Please check your parameters"}}`);
         }
@@ -120,7 +120,7 @@ describe(`POST /twitter/unfollow`, () => {
         ]
 
         for(const body of body_data){
-            const response = await request(app).post(`/twitter/unfollow`).send({});
+            const response = await request(app).post(`/twitter/unfollow`).send(body);
             expect(response.error.status).toBe(400);
             expect(response.error.text).toEqual(`{"error":{"message":"Malformed request. Please check your parameters"}}`);
         }

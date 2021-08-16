@@ -3,6 +3,9 @@ const router = express.Router();
 const userFunctions =require('./userFunctions')
 const Database = require('../database/Database');
 const firestore_db = new Database().getInstance();
+const webpush = require("web-push");
+const Push_notification=require('./notification/push_notification')
+const emailObject = require('nodemailer');
 
 /** This function gets the cryptos a user is following
  * @param {object} request A request object with the email and symbol.
@@ -65,7 +68,6 @@ router.post("/getCoinPredictions", async (request,response, next)=>{
  * @param {object} response A response object which will return the status code.
  * @return          A status code stating if the request was successful.
  * */
-
 router.post("/followCrypto", async (request,response)=>{
 
     if(!request.body.email || !request.body.symbol || !request.body.crypto_name)
@@ -91,6 +93,7 @@ router.post("/unfollowCrypto", async (request,response)=>{
         });
     }
 });
+
 router.post("/getNotificationObject", async (request,response)=>{
     if(request.body.email === null || typeof request.body.email === 'undefined')
         return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
@@ -102,6 +105,7 @@ router.post("/getNotificationObject", async (request,response)=>{
      })
 
 });
+
 router.post("/setNotificationObject", async (request,response)=>{
     await userFunctions.setNotification(request.body.email, request.body.object).then(data=>{
             return response.status(200).json('data successfully saved');
@@ -141,6 +145,7 @@ router.post("/unfollowSocialMedia", async (request,response)=>{
         });
     }
 });
+
 router.post("/storePush", async (request,response)=>{
      await userFunctions.setPush(request.body.email,request.body.object).then(data=>{
          return response.status(200).json("subs stored");
@@ -148,6 +153,7 @@ router.post("/storePush", async (request,response)=>{
 
 
 });
+
 router.post("/GETPush", async (request,response)=>{
     await userFunctions.getPush(request.body.email).then(data=>{
         return response.status(200).json(data);
@@ -155,6 +161,7 @@ router.post("/GETPush", async (request,response)=>{
 
 
 });
+
 /** This function gets the social media a user is following
  * @param {object} request A request object with the email and symbol.
  * @param {object} response A response object which will return the status code.
@@ -172,8 +179,7 @@ router.post("/fetchUserSocialMedia", async (request, response) => {
         })
     }
 });
-const webpush = require("web-push");
-const Push_notification=require('./notification/push_notification')
+
 router.post("/subscribe", async (req, res) => {
     const web_push = new Push_notification();
         web_push.setDetails();
@@ -185,7 +191,7 @@ router.post("/subscribe", async (req, res) => {
     res.status(201).json(subscription);
 
 });
-const emailObject = require('nodemailer');
+
 router.post("/sendMail", async (req, res) => {
     const sender =await emailObject.createTransport({
         service: 'gmail',
@@ -217,4 +223,5 @@ router.post("/sendMail", async (req, res) => {
     })
     res.status(201).json("Email has been sent!");
 });
+
 module.exports = router

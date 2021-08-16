@@ -127,13 +127,11 @@ class User_Hash_Table {
                             return await Promise.reject(error);
                         }
                     }
+                    else
+                        return Promise.reject(`You are already following this site`);
                 }
                 else
-                {
-                    // await this.removeSubreddit(key, social_media)
-                    return Promise.reject(`User is already following the selected social media site`);
-                }
-
+                    return Promise.reject(`Invalid site entered`);
             }
             else
                 return Promise.reject(`Invalid email entered`);

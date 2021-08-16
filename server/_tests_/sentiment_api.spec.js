@@ -26,7 +26,7 @@ describe(`POST /sentiment/getAverages`, () => {
         ]
 
         for(const body of body_data){
-            const response = await request(app).post(`/sentiment/getAverages`).send({});
+            const response = await request(app).post(`/sentiment/getAverages`).send(body);
             expect(response.error.status).toBe(400);
             expect(response.error.text).toEqual(`{"error":{"message":"Malformed request. Please check your parameters"}}`);
         }

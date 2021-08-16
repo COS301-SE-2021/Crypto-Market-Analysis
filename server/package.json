@@ -4,6 +4,7 @@
   "description": "NodeJS backend Project",
   "main": "index.js",
   "scripts": {
+    "integration-tests": "jest --verbose --rootDir=integration_tests_",
     "test": "jest",
     "start": "node server.js",
     "server": "nodemon server.js",

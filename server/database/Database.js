@@ -65,15 +65,19 @@ class Database {
         //     });
     }
     async storeNotification(email,object){
-        if(typeof email !== 'undefined') {
-            console.log('something')
+        if(email && object) {
             const notification_object ={
                 notification:object
             }
-           try{await this.#db.collection('Users').doc(email).update(notification_object);
+           try{
+                await this.#db.collection('Users').doc(email).update(notification_object);
             }
-            catch (err){console.log('error saving to database')}
+            catch (err){
+                return Promise.reject(err);
+            }
         }
+        else
+            return Promise.reject(`Parameters are undefined`);
 
     }
     async setPushNotification(email,object){

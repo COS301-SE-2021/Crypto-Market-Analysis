@@ -135,7 +135,7 @@ router.post("/fetchUserSocialMedia", async (request, response, next) => {
 router.post("/getUserNetwork", async (request, response, next) => {
     if(!request.body.email){
         let error = new Error(`Malformed request. Please check your parameters`);
-        error.status(400);
+        error.status = 400;
         return next(error);
     }
     else {
@@ -143,7 +143,7 @@ router.post("/getUserNetwork", async (request, response, next) => {
             return response.status(200).json(data);
         }).catch(err=>{
             let error = new Error(err);
-            error.status(500);
+            error.status = 500;
             return next(error);
         })
     }
@@ -166,25 +166,42 @@ router.post("/getCoinPredictions", async (request, response, next)=>{
     }
 });
 
-router.post("/getNotificationObject", async (request, response)=>{
-    if(request.body.email === null || typeof request.body.email === 'undefined')
-        return response.status(401).json({status: `Bad Request`, error: `Malformed request. Please check your parameters`});
-     await userFunctions.getNotification(request.body.email).then(data=>{
-             return response.status(200).json(data.data().notification);
-
-     }).catch(err=>{
-         return response.status(400).json('no notification');
-     })
-
+router.post("/getNotificationObject", async (request, response, next)=>{
+    if(!request.body.email){
+        let error = new Error(`Malformed request. Please check your parameters`);
+        error.status = 400;
+        return next(error);
+    }
+    else{
+        await userFunctions.getNotification(request.body.email).then(data => {
+            return response.status(200).json(data.data().notification);
+        }).catch(() => {
+            let error = new Error(`no notification`);
+            error.status = 400;
+            return next(error);
+        });
+    }
 });
 
-router.post("/setNotificationObject", async (request, response)=>{
-    await userFunctions.setNotification(request.body.email, request.body.object).then(data=>{
-            return response.status(200).json('data successfully saved');
+router.post("/setNotificationObject", async (request, response, next)=>{
+    if(!request.body.email || !request.body.object){
+        let error = new Error(`Malformed request. Please check your parameters`);
+        error.status = 400;
+        return next(error);
+    }
+    else {
+        try{
+            await userFunctions.setNotification(request.body.email, request.body.object).then(() => {
+                    return response.status(200).json('data successfully saved');
+                }
+            )
         }
-
-    )
-
+        catch (err){
+            let error = new Error(err);
+            error.status = 500;
+            return next(error);
+        }
+    }
 })
 
 router.post("/storePush", async (request,response)=>{

@@ -616,7 +616,6 @@ class User_Hash_Table {
             return null;
     }
 
-
     async searchCryptoAndSocialMedia(social_media, cryptocurrency){
         if(!this.#initialized){
             await this.#init;

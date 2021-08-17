@@ -216,3 +216,67 @@ describe(`POST /user/getCoinPredictions`, () => {
         }
     });
 });
+
+describe(`POST /user/getNotificationObject`, () => {
+    jest.setTimeout(100000);
+    test(`when parameters are correct`, async () => {
+        const response = await request(app).post(`/user/getNotificationObject`).send({email: `codexteam4@gmail.com`});
+        expect(response.status).toBe(200);
+        expect(response.body).toBeDefined();
+    });
+    test(`when email is not valid`, async () => {
+        const response = await request(app).post(`/user/getNotificationObject`).send({email: `fake@notvalid.com`});
+        expect(response.error.status).toBe(400);
+        expect(response.error.text).toEqual(`{"error":{"message":"no notification"}}`);
+    });
+    test(`when parameters are missing`, async () => {
+        const body_data = [
+            {}
+        ]
+
+        for(const body of body_data){
+            const response = await request(app).post(`/user/getNotificationObject`).send(body);
+            expect(response.error.status).toBe(400);
+            expect(response.error.text).toEqual(`{"error":{"message":"Malformed request. Please check your parameters"}}`);
+        }
+    });
+});
+
+describe(`POST /user/setNotificationObject`, () => {
+    jest.setTimeout(100000);
+    test(`when parameters are correct`, async () => {
+        const response = await request(app).post(`/user/setNotificationObject`).send({email: `codexteam4@gmail.com`, social_media_sites: `Reddit`});
+        expect(response.status).toBe(200);
+        expect(response.body).toBeTruthy();
+    });
+    test(`when email is not valid`, async () => {
+        const response = await request(app).post(`/user/setNotificationObject`).send({email: `fake@notvalid.com`, social_media_sites: `Reddit`});
+        expect(response.error.status).toBe(500);
+        expect(response.error.text).toEqual(`{"error":{"message":"Invalid email entered"}}`);
+    });
+    test(`when social media site is not valid`, async () => {
+        const response = await request(app).post(`/user/setNotificationObject`).send({email: `codexteam4@gmail.com`, social_media_sites: `reddit`});
+        expect(response.error.status).toBe(500);
+        expect(response.error.text).toEqual(`{"error":{"message":"Invalid site entered"}}`);
+    });
+    test(`when social media site already exists`, async () => {
+        const response = await request(app).post(`/user/setNotificationObject`).send({email: `codexteam4@gmail.com`, social_media_sites: `Twitter`});
+        expect(response.error.status).toBe(500);
+        expect(response.error.text).toEqual(`{"error":{"message":"You are already following this site"}}`);
+    });
+    test(`when parameters are missing`, async () => {
+        const body_data = [
+            {email: "test@test.com"},
+            {object: "Reddit"},
+            {}
+        ]
+
+        for(const body of body_data){
+            const response = await request(app).post(`/user/setNotificationObject`).send(body);
+            expect(response.error.status).toBe(400);
+            expect(response.error.text).toEqual(`{"error":{"message":"Malformed request. Please check your parameters"}}`);
+        }
+    });
+});
+
+

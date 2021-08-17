@@ -11,12 +11,15 @@ const getNotification=async(email)=>{
     });
     return fields;
 }
+
 const setNotification=async(email,object)=>{
     await firestore_db.storeNotification(email, object);
 }
+
 const setPush=async(email,object)=>{
     await firestore_db.setPushNotification(email,object);
 }
+
 const getPush=async(email)=>{
     let mydata={};
    await firestore_db.fetchPushNotification(email).then(data=>{
@@ -29,7 +32,6 @@ const getPush=async(email)=>{
     });
     return mydata;
 }
-
 
 const getUserNetwork = async (email_address)=>{
     try{
@@ -49,7 +51,7 @@ const getUserCrypto = async (email_address)=>{
     }
 }
 
-getCoinPredictions = async (email)=>{
+const getCoinPredictions = async (email)=>{
     let fourChanPosts = [];
 
     try{
@@ -64,7 +66,7 @@ getCoinPredictions = async (email)=>{
     }
 }
 
-fetchUserSocialMedia = async(email_address)=>{
+const fetchUserSocialMedia = async(email_address)=>{
     try{
         return await user_object.getSocialMediaSites(email_address);
     }
@@ -108,8 +110,6 @@ const unfollowSocialMedia = async (email_address, social_media) => {
         return Promise.reject(error);
     }
 }
-
-
 
 const saveToDB = async (arr, socialmedia , crypto)=> {
     let mini=Math.min.apply(Math, arr)

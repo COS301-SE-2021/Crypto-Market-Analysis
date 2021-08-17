@@ -294,7 +294,7 @@ class User_Hash_Table {
                             social_media_sites_array.splice(index, 1);
                             //Remove the social media from the database
                             await firestore_db.delete(`Users`, email, `social_media_sites`, social_media);
-                            return true;
+                            return Promise.resolve(true);
                         }
                         else
                             return Promise.reject(`User is not following the selected social media platform`)

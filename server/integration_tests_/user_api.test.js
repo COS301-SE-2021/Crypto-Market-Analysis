@@ -131,3 +131,61 @@ describe(`POST /user/followSocialMedia`, () => {
         }
     });
 });
+
+describe(`POST /user/unfollowSocialMedia`, () => {
+    test(`when parameters are correct`, async () => {
+        const response = await request(app).post(`/user/unfollowSocialMedia`).send({email: `codexteam4@gmail.com`, social_media_sites: `Twitter`});
+        expect(response.status).toBe(200);
+        expect(response.body).toBeDefined();
+        expect(response.body).toBeTruthy();
+    });
+    test(`when email is not valid`, async () => {
+        const response = await request(app).post(`/user/unfollowSocialMedia`).send({email: `fake@notvalid.com`, social_media_sites: `Twitter`});
+        expect(response.error.status).toBe(500);
+        expect(response.error.text).toEqual(`{"error":{"message":"Invalid email entered"}}`);
+    });
+    test(`when site is not valid`, async () => {
+        const response = await request(app).post(`/user/unfollowSocialMedia`).send({email: `codexteam4@gmail.com`, social_media_sites: `4chan`});
+        expect(response.error.status).toBe(500);
+        expect(response.error.text).toEqual(`{"error":{"message":"User is not following the selected social media platform"}}`);
+    });
+    test(`when parameters are missing`, async () => {
+        const body_data = [
+            {social_media_sites: `Twitter`},
+            {email: "test@test.com"},
+            {}
+        ]
+
+        for(const body of body_data){
+            const response = await request(app).post(`/user/unfollowSocialMedia`).send(body);
+            expect(response.error.status).toBe(400);
+            expect(response.error.text).toEqual(`{"error":{"message":"Malformed request. Please check your parameters"}}`);
+        }
+    });
+});
+
+describe(`POST /user/fetchUserSocialMedia`, () => {
+    jest.setTimeout(100000);
+    test(`when parameters are correct`, async () => {
+        const response = await request(app).post(`/user/fetchUserSocialMedia`).send({email: `codexteam4@gmail.com`});
+        expect(response.status).toBe(200);
+        expect(response.body).toBeDefined();
+        expect(response.body).toEqual(expect.any(Array));
+    });
+    test(`when email is not valid`, async () => {
+        const response = await request(app).post(`/user/fetchUserSocialMedia`).send({email: `fake@notvalid.com`});
+        expect(response.error.status).toBe(500);
+        expect(response.error.text).toEqual(`{"error":{"message":"Invalid email entered"}}`);
+    });
+    test(`when parameters are missing`, async () => {
+        const body_data = [
+            {}
+        ]
+
+        for(const body of body_data){
+            const response = await request(app).post(`/user/fetchUserSocialMedia`).send(body);
+            expect(response.error.status).toBe(400);
+            expect(response.error.text).toEqual(`{"error":{"message":"Malformed request. Please check your parameters"}}`);
+        }
+    });
+});

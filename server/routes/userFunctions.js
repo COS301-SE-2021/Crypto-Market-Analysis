@@ -33,15 +33,6 @@ const getPush=async(email)=>{
     return mydata;
 }
 
-const getUserNetwork = async (email_address)=>{
-    try{
-        return await user_object.getUserNetwork(email_address);
-    }
-    catch (error){
-        return Promise.reject(error);
-    }
-}
-
 const getUserCrypto = async (email_address)=>{
     try{
         return await user_object.getCryptoName(email_address);

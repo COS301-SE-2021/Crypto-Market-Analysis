@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const Chan = require("../social_media_sites/chan");
 const chan = new Chan();
-const userFunctions = require("./userFunctions");
 
 router.post("/get4chanPost", async (request,response, next)=>{
     const email = request.body.email;

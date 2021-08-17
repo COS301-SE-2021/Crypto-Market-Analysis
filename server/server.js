@@ -12,7 +12,7 @@ http.createServer(app).listen(app.get(`port`), app.get(`host`), () => {
     console.log(`Express app listening on ${app.get(`host`)}:${app.get(`port`)}`);
 });
 cron.schedule('*/10 * * * *', () => {
-    twitter.getAllNamesTimeline().then();
+    //twitter.getAllNamesTimeline().then();
 //     let reddits = new Reddit();
 //     reddits.scrapeSubreddit("CryptoCurrencies").then();
 //     reddits.scrapeSubreddit("SatoshiStreetBets").then();

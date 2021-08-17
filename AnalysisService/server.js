@@ -47,7 +47,7 @@ cron.schedule('*/11 * * * *', async () => {
             }
         })
     })*/
-    firestore_db.getUsers('Twitter').onSnapshot(async (documents) => {
+    /*firestore_db.getUsers('Twitter').onSnapshot(async (documents) => {
         await documents.forEach((doc) => {
             if (typeof doc.id !== "undefined") {
                 average.Analyse_Average('Twitter',doc.id ).then(dt=>{
@@ -60,7 +60,5 @@ cron.schedule('*/11 * * * *', async () => {
                 }).catch(err=>{   console.log(err);})
             }
         })
-    })
-
-
+    })*/
 });

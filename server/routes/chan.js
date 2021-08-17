@@ -10,8 +10,8 @@ router.post("/get4chanPost", async (request,response, next)=>{
         error.status = 400;
         return next(error);
     }
-    chan.get4chanPost().then( tweets => {
-        return response.status(200).json(tweets);
+    chan.get4chanPost().then( data => {
+        return response.status(200).json(data);
     }).catch(err=>{
         let error = new Error(err);
         error.status = 500;

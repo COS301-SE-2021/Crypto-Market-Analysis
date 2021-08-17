@@ -152,7 +152,7 @@ router.post("/getUserNetwork", async (request, response, next) => {
 router.post("/getCoinPredictions", async (request, response, next)=>{
     if(!request.body.email){
         let error = new Error(`Malformed request. Please check your parameters`);
-        error.status(400);
+        error.status = 400;
         return next(error);
     }
     else {
@@ -160,7 +160,7 @@ router.post("/getCoinPredictions", async (request, response, next)=>{
             return response.status(200).json(data);
         }).catch(err=>{
             let error = new Error(err);
-            error.status(500);
+            error.status = 500;
             return next(error);
         })
     }

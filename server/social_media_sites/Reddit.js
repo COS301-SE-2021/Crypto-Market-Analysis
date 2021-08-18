@@ -30,7 +30,6 @@ class Reddit {
     }
 
     followSubreddit = async (email_address,social_media )=> {
-        console.log("in userfunctions");
         try{
             return await user_object.insertSubreddits(email_address, social_media);
         }

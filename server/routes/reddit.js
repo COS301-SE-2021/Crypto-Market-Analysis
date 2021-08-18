@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const Reddit = require("../social_media_sites/Reddit");
 const reddit = new Reddit();
-const userFunctions = require("./userFunctions");
 
 router.post("/getRedditPost", async (request,response, next)=>{
     if(!request.body.email){

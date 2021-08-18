@@ -27,4 +27,3 @@ describe(`POST /reddit/getRedditPost`, () => {
     });
 });
 
-

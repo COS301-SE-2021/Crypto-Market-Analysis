@@ -360,9 +360,7 @@ class User_Hash_Table {
             return Promise.reject(`Parameters are undefined`);
     }
 
-    //THE ONE BEING USED
     async insertSubreddits(key, subreddit){
-        console.log("in userhash")
         if(!this.#initialized){
             await this.#init;
             this.#initialized = true;
@@ -372,12 +370,6 @@ class User_Hash_Table {
         if(key && subreddit){
             //Check if the email exists
             if(await this.searchUser(key)){
-                /*//Get the twitter class instance
-                const Twitter = require(`../social_media_sites/Twitter`);
-                const reddit = new Twitter().getInstance();
-                //Check if the screen name exists
-                const exists = reddit.userLookup(subreddits);*/
-                /*if(exists){*/
                     //Get the subreddit array containing the list of subreddits
                     let subreddits_array = this.#users[key].subreddits;
                     //If the subreddit array doesn't exist create it
@@ -401,9 +393,6 @@ class User_Hash_Table {
                         //CASE THAT SUBREDDIT EXITS SO WE REMOVE IT
                          await this.removeSubreddit(key, subreddit)
                     }
-                /*}
-                else
-                    return Promise.reject(`Subreddits does not exist`);*/
               }
             else
                 return Promise.reject(`Invalid email entered`);

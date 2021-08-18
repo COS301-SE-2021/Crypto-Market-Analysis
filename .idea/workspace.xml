@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="59ec6733-32e2-49bd-a7e7-7a3ebc6a1a3d" name="Default Changelist" comment="components not rendering fixed">
-      <change afterPath="$PROJECT_DIR$/server/.travis.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/client/yarn.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
+    <list default="true" id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/server/integration_tests_/user_api.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/integration_tests_/user_api.test.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,7 +25,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="develop" />
+        <entry key="$PROJECT_DIR$" value="feature-news-display-sentiment" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -184,96 +180,128 @@
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1624018288694" />
     <property name="javascript.nodejs.core.library.configured.version" value="14.17.0" />
     <property name="javascript.nodejs.core.library.typings.version" value="14.17.0" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/server/node_modules/jest" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/server/social_media_sites/Twitter.js" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/client/node_modules/react-scripts" />
+    <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/server/node_modules/jest" />
     <property name="nodejs.mocha.mocha_node_package_dir" value="$PROJECT_DIR$/server/node_modules/mocha" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="settings.editor.selected.configurable" value="settings.github" />
+    <property name="ts.external.directory.path" value="C:\Users\Zeeshan\OneDrive - University of Pretoria\Documents\BIT\Year 4\Semester 1\COS 301\Projects\Crypto-Market-Analysis\client\node_modules\typescript\lib" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Zeeshan\OneDrive - University of Pretoria\Documents\BIT\Year 4\Semester 1\COS 301\Projects\Crypto-Market-Analysis\server\test" />
-      <recent name="C:\Users\Zeeshan\OneDrive - University of Pretoria\Documents\BIT\Year 4\Semester 1\COS 301\Projects\Crypto-Market-Analysis\server\test\functional\api" />
-      <recent name="C:\Users\Zeeshan\OneDrive - University of Pretoria\Documents\BIT\Year 4\Semester 1\COS 301\Projects\Crypto-Market-Analysis\server\test\functional" />
+      <recent name="C:\Users\Zeeshan\OneDrive - University of Pretoria\Documents\BIT\Year 4\Semester 1\COS 301\Projects\Crypto-Market-Analysis\server\integration_tests_" />
+      <recent name="C:\Users\Zeeshan\OneDrive - University of Pretoria\Documents\BIT\Year 4\Semester 1\COS 301\Projects\Crypto-Market-Analysis\server\int" />
+      <recent name="C:\Users\Zeeshan\OneDrive - University of Pretoria\Documents\BIT\Year 4\Semester 1\COS 301\Projects\Crypto-Market-Analysis\server\Integration tests" />
+      <recent name="C:\Users\Zeeshan\OneDrive - University of Pretoria\Documents\BIT\Year 4\Semester 1\COS 301\Projects\Crypto-Market-Analysis\server\_tests_\Integration tests" />
+      <recent name="C:\Users\Zeeshan\OneDrive - University of Pretoria\Documents\BIT\Year 4\Semester 1\COS 301\Projects\Crypto-Market-Analysis\server\_tests_" />
     </key>
   </component>
-  <component name="RunManager" selected="Jest.register.test.js">
+  <component name="RunManager" selected="Jest.POST /user/getNotificationObject.when email is not valid">
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CardsStats.test.js" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/client/node_modules/react-scripts" />
-      <working-dir value="$PROJECT_DIR$/client" />
-      <envs />
-      <scope-kind value="TEST_FILE" />
-      <test-file value="$PROJECT_DIR$/client/src/components/___tests___/CardsStats.test.js" />
-      <method v="2" />
-    </configuration>
-    <configuration name="CardsTweets.test.js" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+    <configuration name="POST /user/getCoinPredictions" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
       <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
       <working-dir value="$PROJECT_DIR$/server" />
       <envs />
-      <scope-kind value="TEST_FILE" />
-      <test-file value="$PROJECT_DIR$/client/src/components/___tests___/CardsTweets.test.js" />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/server/integration_tests_/user_api.test.js" />
+      <test-names>
+        <test-name value="POST /user/getCoinPredictions" />
+      </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="api.spec.js" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+    <configuration name="POST /user/getCoinPredictions.when parameters are missing" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
       <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
       <working-dir value="$PROJECT_DIR$/server" />
       <envs />
-      <scope-kind value="TEST_FILE" />
-      <test-file value="$PROJECT_DIR$/server/_tests_/api.spec.js" />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/server/integration_tests_/user_api.test.js" />
+      <test-names>
+        <test-name value="POST /user/getCoinPredictions" />
+        <test-name value="when parameters are missing" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="POST /user/getNotificationObject.when email is not valid" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/server" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/server/integration_tests_/user_api.test.js" />
+      <test-names>
+        <test-name value="POST /user/getNotificationObject" />
+        <test-name value="when email is not valid" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="POST /user/getNotificationObject.when parameters are correct" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/server" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/server/integration_tests_/user_api.test.js" />
+      <test-names>
+        <test-name value="POST /user/getNotificationObject" />
+        <test-name value="when parameters are correct" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="POST /user/getNotificationObject.when parameters are missing" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/server" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/server/integration_tests_/user_api.test.js" />
+      <test-names>
+        <test-name value="POST /user/getNotificationObject" />
+        <test-name value="when parameters are missing" />
+      </test-names>
       <method v="2" />
     </configuration>
     <configuration name="npm test" type="JavaScriptTestRunnerJest">
       <node-interpreter value="project" />
       <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/client/node_modules/react-scripts" />
       <working-dir value="$PROJECT_DIR$" />
       <envs />
       <scope-kind value="ALL" />
       <method v="2" />
     </configuration>
-    <configuration name="register.test.js" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/client/node_modules/react-scripts" />
-      <working-dir value="$PROJECT_DIR$/client" />
-      <envs />
-      <scope-kind value="TEST_FILE" />
-      <test-file value="$PROJECT_DIR$/client/src/components/___tests___/register.test.js" />
+    <configuration name="Twitter" type="NodeJSConfigurationType" path-to-js-file="server/social_media_sites/Twitter.js" working-dir="$PROJECT_DIR$">
       <method v="2" />
     </configuration>
-    <configuration name="twitter.spec.js" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/server/node_modules/jest" />
-      <working-dir value="$PROJECT_DIR$/server" />
-      <envs />
-      <scope-kind value="TEST_FILE" />
-      <test-file value="$PROJECT_DIR$/server/_tests_/twitter.spec.js" />
+    <configuration name="User_Hash_Table" type="NodeJSConfigurationType" path-to-js-file="$PROJECT_DIR$/server/functions/User_Hash_Table.js" working-dir="$PROJECT_DIR$">
       <method v="2" />
     </configuration>
     <configuration name="test" type="mocha-javascript-test-runner">
       <node-interpreter>project</node-interpreter>
       <node-options />
+      <mocha-package>$PROJECT_DIR$/server/node_modules/mocha</mocha-package>
       <working-directory>$PROJECT_DIR$/server</working-directory>
       <pass-parent-env>true</pass-parent-env>
       <ui>bdd</ui>
@@ -285,20 +313,22 @@
     </configuration>
     <list>
       <item itemvalue="Jest.npm test" />
-      <item itemvalue="Jest.api.spec.js" />
       <item itemvalue="Mocha.test" />
-      <item itemvalue="Jest.twitter.spec.js" />
-      <item itemvalue="Jest.CardsStats.test.js" />
-      <item itemvalue="Jest.CardsTweets.test.js" />
-      <item itemvalue="Jest.register.test.js" />
+      <item itemvalue="Node.js.Twitter" />
+      <item itemvalue="Node.js.User_Hash_Table" />
+      <item itemvalue="Jest.POST /user/getCoinPredictions" />
+      <item itemvalue="Jest.POST /user/getCoinPredictions.when parameters are missing" />
+      <item itemvalue="Jest.POST /user/getNotificationObject.when parameters are missing" />
+      <item itemvalue="Jest.POST /user/getNotificationObject.when parameters are correct" />
+      <item itemvalue="Jest.POST /user/getNotificationObject.when email is not valid" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Jest.register.test.js" />
-        <item itemvalue="Jest.CardsTweets.test.js" />
-        <item itemvalue="Jest.CardsStats.test.js" />
-        <item itemvalue="Jest.api.spec.js" />
-        <item itemvalue="Jest.twitter.spec.js" />
+        <item itemvalue="Jest.POST /user/getNotificationObject.when email is not valid" />
+        <item itemvalue="Jest.POST /user/getNotificationObject.when parameters are correct" />
+        <item itemvalue="Jest.POST /user/getNotificationObject.when parameters are missing" />
+        <item itemvalue="Jest.POST /user/getCoinPredictions.when parameters are missing" />
+        <item itemvalue="Jest.POST /user/getCoinPredictions" />
       </list>
     </recent_temporary>
   </component>
@@ -307,13 +337,6 @@
     <configuration />
   </component>
   <component name="TaskManager">
-    <task id="LOCAL-00001" summary="Added concurrent server and client links">
-      <created>1622409206950</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1622409206950</updated>
-    </task>
     <task active="true" id="Default" summary="Default task">
       <changelist id="afebd98a-521f-4664-a8b7-23c95011bb57" name="Default Changelist" comment="" />
       <created>1622463494048</created>
@@ -333,268 +356,383 @@
       <workItem from="1623932573749" duration="1003000" />
       <workItem from="1623954741099" duration="533000" />
       <workItem from="1624011139590" duration="6878000" />
-      <workItem from="1624196589162" duration="10928000" />
+      <workItem from="1624887564298" duration="6280000" />
+      <workItem from="1625679863266" duration="17778000" />
+      <workItem from="1625739009175" duration="1150000" />
+      <workItem from="1625740622903" duration="19581000" />
+      <workItem from="1626367305984" duration="4583000" />
+      <workItem from="1626433342018" duration="8865000" />
+      <workItem from="1626523505111" duration="6869000" />
+      <workItem from="1626602949286" duration="56276000" />
+      <workItem from="1627132979464" duration="24459000" />
+      <workItem from="1627378598163" duration="15653000" />
+      <workItem from="1627494930459" duration="5345000" />
+      <workItem from="1627575129310" duration="13209000" />
+      <workItem from="1627589119678" duration="1304000" />
+      <workItem from="1627645953193" duration="15524000" />
+      <workItem from="1627824052472" duration="6404000" />
+      <workItem from="1627893789931" duration="16270000" />
+      <workItem from="1627977933438" duration="7289000" />
+      <workItem from="1628107464898" duration="27161000" />
+      <workItem from="1628244364299" duration="2161000" />
+      <workItem from="1628246733975" duration="1849000" />
+      <workItem from="1628260546066" duration="4346000" />
+      <workItem from="1628281031459" duration="9478000" />
+      <workItem from="1628342664252" duration="100000" />
+      <workItem from="1628366561270" duration="4077000" />
+      <workItem from="1628433372396" duration="3954000" />
+      <workItem from="1628532545381" duration="24043000" />
+      <workItem from="1628684644932" duration="46470000" />
+      <workItem from="1628875675414" duration="3225000" />
+      <workItem from="1628879989668" duration="1821000" />
+      <workItem from="1628882913488" duration="3776000" />
+      <workItem from="1628941847757" duration="13536000" />
+      <workItem from="1629029692205" duration="45776000" />
     </task>
-    <task id="LOCAL-00002" summary="Added partial api endpoint tests">
-      <created>1622485455332</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
+    <task id="LOCAL-00172" summary="Implemented displaying news articles">
+      <created>1628209793575</created>
+      <option name="number" value="00172" />
+      <option name="presentableId" value="LOCAL-00172" />
       <option name="project" value="LOCAL" />
-      <updated>1622485455332</updated>
+      <updated>1628209793575</updated>
     </task>
-    <task id="LOCAL-00003" summary="Added tests for signup endpoint in user">
-      <created>1622490157893</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
+    <task id="LOCAL-00173" summary="Added dependencies">
+      <created>1628338834422</created>
+      <option name="number" value="00173" />
+      <option name="presentableId" value="LOCAL-00173" />
       <option name="project" value="LOCAL" />
-      <updated>1622490157893</updated>
+      <updated>1628338834422</updated>
     </task>
-    <task id="LOCAL-00004" summary="Added a deleteUser module to abstract delete function from the database. Also added tests for the deleteUser function and delete endpoint.">
-      <created>1622545975335</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
+    <task id="LOCAL-00174" summary="Modified search screen name method of user hashtable file">
+      <created>1628339538024</created>
+      <option name="number" value="00174" />
+      <option name="presentableId" value="LOCAL-00174" />
       <option name="project" value="LOCAL" />
-      <updated>1622545975335</updated>
+      <updated>1628339538024</updated>
     </task>
-    <task id="LOCAL-00005" summary="Added Additional Tests">
-      <created>1622558205015</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
+    <task id="LOCAL-00175" summary="Modified validate screen name method of twitter file">
+      <created>1628339763007</created>
+      <option name="number" value="00175" />
+      <option name="presentableId" value="LOCAL-00175" />
       <option name="project" value="LOCAL" />
-      <updated>1622558205015</updated>
+      <updated>1628339763007</updated>
     </task>
-    <task id="LOCAL-00006" summary="http request from login to api with form parameters">
-      <created>1622651447020</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
+    <task id="LOCAL-00176" summary="Modified validate screen name to include edge case where the user is already following the screen name">
+      <created>1628340513404</created>
+      <option name="number" value="00176" />
+      <option name="presentableId" value="LOCAL-00176" />
       <option name="project" value="LOCAL" />
-      <updated>1622651447020</updated>
+      <updated>1628340513404</updated>
     </task>
-    <task id="LOCAL-00007" summary="http request from register to api with form parameters">
-      <created>1622651476124</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
+    <task id="LOCAL-00177" summary="Fixed bugs and errors">
+      <created>1628369430841</created>
+      <option name="number" value="00177" />
+      <option name="presentableId" value="LOCAL-00177" />
       <option name="project" value="LOCAL" />
-      <updated>1622651476124</updated>
+      <updated>1628369430841</updated>
     </task>
-    <task id="LOCAL-00008" summary="app.js fix">
-      <created>1622651504347</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
+    <task id="LOCAL-00178" summary="Fixed bugs and errors">
+      <created>1628369955027</created>
+      <option name="number" value="00178" />
+      <option name="presentableId" value="LOCAL-00178" />
       <option name="project" value="LOCAL" />
-      <updated>1622651504347</updated>
+      <updated>1628369955027</updated>
     </task>
-    <task id="LOCAL-00009" summary="adding email/auth token page to route">
-      <created>1622653879025</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
+    <task id="LOCAL-00179" summary="Added dropdown menu to the news page">
+      <created>1628619027055</created>
+      <option name="number" value="00179" />
+      <option name="presentableId" value="LOCAL-00179" />
       <option name="project" value="LOCAL" />
-      <updated>1622653879025</updated>
+      <updated>1628619027056</updated>
     </task>
-    <task id="LOCAL-00010" summary="login and register">
-      <created>1622653958019</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
+    <task id="LOCAL-00180" summary="Modified news file to include google apis package">
+      <created>1628682124888</created>
+      <option name="number" value="00180" />
+      <option name="presentableId" value="LOCAL-00180" />
       <option name="project" value="LOCAL" />
-      <updated>1622653958019</updated>
+      <updated>1628682124888</updated>
     </task>
-    <task id="LOCAL-00011" summary="token component">
-      <created>1622653979990</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
+    <task id="LOCAL-00181" summary="Added sentiment route">
+      <created>1628697829728</created>
+      <option name="number" value="00181" />
+      <option name="presentableId" value="LOCAL-00181" />
       <option name="project" value="LOCAL" />
-      <updated>1622653979990</updated>
+      <updated>1628697829728</updated>
     </task>
-    <task id="LOCAL-00012" summary="token component">
-      <created>1622666025535</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
+    <task id="LOCAL-00182" summary="Added getAverages route">
+      <created>1628697937248</created>
+      <option name="number" value="00182" />
+      <option name="presentableId" value="LOCAL-00182" />
       <option name="project" value="LOCAL" />
-      <updated>1622666025535</updated>
+      <updated>1628697937248</updated>
     </task>
-    <task id="LOCAL-00013" summary="test">
-      <created>1622667783539</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
+    <task id="LOCAL-00183" summary="Partially implement getAverages function">
+      <created>1628698167446</created>
+      <option name="number" value="00183" />
+      <option name="presentableId" value="LOCAL-00183" />
       <option name="project" value="LOCAL" />
-      <updated>1622667783539</updated>
+      <updated>1628698167446</updated>
     </task>
-    <task id="LOCAL-00014" summary="test">
-      <created>1622670598123</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
+    <task id="LOCAL-00184" summary="Added route error handling for getAverages route">
+      <created>1628698473929</created>
+      <option name="number" value="00184" />
+      <option name="presentableId" value="LOCAL-00184" />
       <option name="project" value="LOCAL" />
-      <updated>1622670598123</updated>
+      <updated>1628698473929</updated>
     </task>
-    <task id="LOCAL-00015" summary="Changed user endpoints to previous methods and removed user.test.js and user_functions.js file">
-      <created>1622678149868</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
+    <task id="LOCAL-00185" summary="Added data retrieval for sentiment_functions.js">
+      <created>1628698707891</created>
+      <option name="number" value="00185" />
+      <option name="presentableId" value="LOCAL-00185" />
       <option name="project" value="LOCAL" />
-      <updated>1622678149869</updated>
+      <updated>1628698707891</updated>
     </task>
-    <task id="LOCAL-00016" summary="Changed user.js">
-      <created>1622711674392</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
+    <task id="LOCAL-00186" summary="Partially implemented getAverages function">
+      <created>1628699213136</created>
+      <option name="number" value="00186" />
+      <option name="presentableId" value="LOCAL-00186" />
       <option name="project" value="LOCAL" />
-      <updated>1622711674392</updated>
+      <updated>1628699213136</updated>
     </task>
-    <task id="LOCAL-00017" summary="Fixed signup endpoint in user.js">
-      <created>1622716787934</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
+    <task id="LOCAL-00187" summary="Implemented getAverages function">
+      <created>1628699404181</created>
+      <option name="number" value="00187" />
+      <option name="presentableId" value="LOCAL-00187" />
       <option name="project" value="LOCAL" />
-      <updated>1622716787934</updated>
+      <updated>1628699404181</updated>
     </task>
-    <task id="LOCAL-00018" summary="Added tests for followCrypto endpoint">
-      <created>1622731350105</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
+    <task id="LOCAL-00188" summary="Fixed the data returned from getAverages to use the Average field from the database instead of Average_Change field from the database">
+      <created>1628700181768</created>
+      <option name="number" value="00188" />
+      <option name="presentableId" value="LOCAL-00188" />
       <option name="project" value="LOCAL" />
-      <updated>1622731350105</updated>
+      <updated>1628700181768</updated>
     </task>
-    <task id="LOCAL-00019" summary="Added follow social media site function as well as implemented all tests">
-      <created>1622744968925</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
+    <task id="LOCAL-00189" summary="getAverages function now returns an array of the averages for each crypto">
+      <created>1628702187359</created>
+      <option name="number" value="00189" />
+      <option name="presentableId" value="LOCAL-00189" />
       <option name="project" value="LOCAL" />
-      <updated>1622744968925</updated>
+      <updated>1628702187359</updated>
     </task>
-    <task id="LOCAL-00020" summary="test files">
-      <created>1622760051490</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
+    <task id="LOCAL-00190" summary="Modified getAverages method to include values from the database">
+      <created>1628707024801</created>
+      <option name="number" value="00190" />
+      <option name="presentableId" value="LOCAL-00190" />
       <option name="project" value="LOCAL" />
-      <updated>1622760051490</updated>
+      <updated>1628707024801</updated>
     </task>
-    <task id="LOCAL-00021" summary="test files">
-      <created>1622760073795</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
+    <task id="LOCAL-00191" summary="Added material UI dropdown">
+      <created>1628774712119</created>
+      <option name="number" value="00191" />
+      <option name="presentableId" value="LOCAL-00191" />
       <option name="project" value="LOCAL" />
-      <updated>1622760073795</updated>
+      <updated>1628774712119</updated>
     </task>
-    <task id="LOCAL-00022" summary="test files">
-      <created>1622761675745</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
+    <task id="LOCAL-00192" summary="Modified news.js to account for different div sizes for the img tag">
+      <created>1628792760036</created>
+      <option name="number" value="00192" />
+      <option name="presentableId" value="LOCAL-00192" />
       <option name="project" value="LOCAL" />
-      <updated>1622761675745</updated>
+      <updated>1628792760036</updated>
     </task>
-    <task id="LOCAL-00023" summary="test files">
-      <created>1622779560371</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
+    <task id="LOCAL-00193" summary="Modified package.json to include path for a analysis service">
+      <created>1628845833439</created>
+      <option name="number" value="00193" />
+      <option name="presentableId" value="LOCAL-00193" />
       <option name="project" value="LOCAL" />
-      <updated>1622779560371</updated>
+      <updated>1628845833440</updated>
     </task>
-    <task id="LOCAL-00024" summary="test files">
-      <created>1622780407752</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
+    <task id="LOCAL-00194" summary="Added functionality for negative and neutral dropdowns">
+      <created>1628847576193</created>
+      <option name="number" value="00194" />
+      <option name="presentableId" value="LOCAL-00194" />
       <option name="project" value="LOCAL" />
-      <updated>1622780407752</updated>
+      <updated>1628847576193</updated>
     </task>
-    <task id="LOCAL-00025" summary="working code">
-      <created>1622783013512</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
+    <task id="LOCAL-00195" summary="Modified Analysis service to change cron schedule to 11 minutes instead of 1 minute and removed unnecessary console.log's">
+      <created>1628849101111</created>
+      <option name="number" value="00195" />
+      <option name="presentableId" value="LOCAL-00195" />
       <option name="project" value="LOCAL" />
-      <updated>1622783013512</updated>
+      <updated>1628849101117</updated>
     </task>
-    <task id="LOCAL-00026" summary=" code">
-      <created>1622837330793</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
+    <task id="LOCAL-00196" summary="Added route to get sentiment for news articles in news.js">
+      <created>1628850755820</created>
+      <option name="number" value="00196" />
+      <option name="presentableId" value="LOCAL-00196" />
       <option name="project" value="LOCAL" />
-      <updated>1622837330793</updated>
+      <updated>1628850755820</updated>
     </task>
-    <task id="LOCAL-00027" summary="edited followcrypto and fixed firebase issue">
-      <created>1623553961024</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
+    <task id="LOCAL-00197" summary="Added dynamic host setting for server as well as integration tests">
+      <created>1628880706888</created>
+      <option name="number" value="00197" />
+      <option name="presentableId" value="LOCAL-00197" />
       <option name="project" value="LOCAL" />
-      <updated>1623553961024</updated>
+      <updated>1628880706889</updated>
     </task>
-    <task id="LOCAL-00028" summary="followSocialMedia implemented">
-      <created>1623611776089</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
+    <task id="LOCAL-00198" summary="Added integration tests for validateScreenName as well as accounted for edge case where email is not valid in the same function">
+      <created>1628954763686</created>
+      <option name="number" value="00198" />
+      <option name="presentableId" value="LOCAL-00198" />
       <option name="project" value="LOCAL" />
-      <updated>1623611776104</updated>
+      <updated>1628954763686</updated>
     </task>
-    <task id="LOCAL-00029" summary="deleted shelf">
-      <created>1623885265026</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
+    <task id="LOCAL-00199" summary="Added integration tests for twitter/follow and twitter/unfollow">
+      <created>1628973491630</created>
+      <option name="number" value="00199" />
+      <option name="presentableId" value="LOCAL-00199" />
       <option name="project" value="LOCAL" />
-      <updated>1623885265027</updated>
+      <updated>1628973491631</updated>
     </task>
-    <task id="LOCAL-00030" summary="test">
-      <created>1623932417419</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
+    <task id="LOCAL-00200" summary="Partially added loading graphic for news component">
+      <created>1628978154024</created>
+      <option name="number" value="00200" />
+      <option name="presentableId" value="LOCAL-00200" />
       <option name="project" value="LOCAL" />
-      <updated>1623932417419</updated>
+      <updated>1628978154024</updated>
     </task>
-    <task id="LOCAL-00031" summary="test">
-      <created>1623971796917</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
+    <task id="LOCAL-00201" summary="Modified regex string for twitter to be more accurate and added test files for sentiment route">
+      <created>1629035812399</created>
+      <option name="number" value="00201" />
+      <option name="presentableId" value="LOCAL-00201" />
       <option name="project" value="LOCAL" />
-      <updated>1623971796917</updated>
+      <updated>1629035812411</updated>
     </task>
-    <task id="LOCAL-00032" summary="test">
-      <created>1623972405577</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
+    <task id="LOCAL-00202" summary="Added coin symbol to the call for news articles to get more relevant articles">
+      <created>1629041961706</created>
+      <option name="number" value="00202" />
+      <option name="presentableId" value="LOCAL-00202" />
       <option name="project" value="LOCAL" />
-      <updated>1623972405577</updated>
+      <updated>1629041961706</updated>
     </task>
-    <task id="LOCAL-00033" summary="test">
-      <created>1623973399650</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
+    <task id="LOCAL-00203" summary="Added integration tests for /sentiment/getAverages route">
+      <created>1629120608434</created>
+      <option name="number" value="00203" />
+      <option name="presentableId" value="LOCAL-00203" />
       <option name="project" value="LOCAL" />
-      <updated>1623973399650</updated>
+      <updated>1629120608434</updated>
     </task>
-    <task id="LOCAL-00034" summary="test">
-      <created>1623974130064</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
+    <task id="LOCAL-00204" summary="Added integration tests for reddit route">
+      <created>1629121351258</created>
+      <option name="number" value="00204" />
+      <option name="presentableId" value="LOCAL-00204" />
       <option name="project" value="LOCAL" />
-      <updated>1623974130064</updated>
+      <updated>1629121351258</updated>
     </task>
-    <task id="LOCAL-00035" summary="Changed twitter method to reflect current database">
-      <created>1624127948740</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
+    <task id="LOCAL-00205" summary="Added integration tests for getUserCryptos route">
+      <created>1629132489410</created>
+      <option name="number" value="00205" />
+      <option name="presentableId" value="LOCAL-00205" />
       <option name="project" value="LOCAL" />
-      <updated>1624127948740</updated>
+      <updated>1629132489410</updated>
     </task>
-    <task id="LOCAL-00036" summary="Fixed followCrypto and added tests">
-      <created>1624192049558</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
+    <task id="LOCAL-00206" summary="Added integration tests for followCrypto route">
+      <created>1629134787387</created>
+      <option name="number" value="00206" />
+      <option name="presentableId" value="LOCAL-00206" />
       <option name="project" value="LOCAL" />
-      <updated>1624192049558</updated>
+      <updated>1629134787388</updated>
     </task>
-    <task id="LOCAL-00037" summary="Fixed followSocialMedia and added tests">
-      <created>1624193979739</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
+    <task id="LOCAL-00207" summary="Modified user.js and twitter_api.spec.js to add correct parameters to the body for integration tests">
+      <created>1629135390026</created>
+      <option name="number" value="00207" />
+      <option name="presentableId" value="LOCAL-00207" />
       <option name="project" value="LOCAL" />
-      <updated>1624193979739</updated>
+      <updated>1629135390026</updated>
     </task>
-    <task id="LOCAL-00038" summary="components not rendering fixed">
-      <created>1624262597819</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
+    <task id="LOCAL-00208" summary="Modified user.js to return correct next object when an error occurs">
+      <created>1629136050899</created>
+      <option name="number" value="00208" />
+      <option name="presentableId" value="LOCAL-00208" />
       <option name="project" value="LOCAL" />
-      <updated>1624262597819</updated>
+      <updated>1629136050899</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00209" summary="Added integration tests for unfollowCrypto route">
+      <created>1629137903847</created>
+      <option name="number" value="00209" />
+      <option name="presentableId" value="LOCAL-00209" />
+      <option name="project" value="LOCAL" />
+      <updated>1629137903847</updated>
+    </task>
+    <task id="LOCAL-00210" summary="Added integration tests for followSocialMedia route">
+      <created>1629138750461</created>
+      <option name="number" value="00210" />
+      <option name="presentableId" value="LOCAL-00210" />
+      <option name="project" value="LOCAL" />
+      <updated>1629138750464</updated>
+    </task>
+    <task id="LOCAL-00211" summary="Added integration tests for default routes">
+      <created>1629139174828</created>
+      <option name="number" value="00211" />
+      <option name="presentableId" value="LOCAL-00211" />
+      <option name="project" value="LOCAL" />
+      <updated>1629139174828</updated>
+    </task>
+    <task id="LOCAL-00212" summary="Added npm command for integration tests and modified tests">
+      <created>1629142382974</created>
+      <option name="number" value="00212" />
+      <option name="presentableId" value="LOCAL-00212" />
+      <option name="project" value="LOCAL" />
+      <updated>1629142383013</updated>
+    </task>
+    <task id="LOCAL-00213" summary="Added integration tests for fetchUserSocialMedia route">
+      <created>1629202538043</created>
+      <option name="number" value="00213" />
+      <option name="presentableId" value="LOCAL-00213" />
+      <option name="project" value="LOCAL" />
+      <updated>1629202538043</updated>
+    </task>
+    <task id="LOCAL-00214" summary="Changed cron schedule to not run after 10/11 min to minimize database query's">
+      <created>1629208439338</created>
+      <option name="number" value="00214" />
+      <option name="presentableId" value="LOCAL-00214" />
+      <option name="project" value="LOCAL" />
+      <updated>1629208439341</updated>
+    </task>
+    <task id="LOCAL-00215" summary="Added integration tests for chan route">
+      <created>1629221056821</created>
+      <option name="number" value="00215" />
+      <option name="presentableId" value="LOCAL-00215" />
+      <option name="project" value="LOCAL" />
+      <updated>1629221056821</updated>
+    </task>
+    <task id="LOCAL-00216" summary="Added integration tests for /user/getCoinPredictions">
+      <created>1629222267028</created>
+      <option name="number" value="00216" />
+      <option name="presentableId" value="LOCAL-00216" />
+      <option name="project" value="LOCAL" />
+      <updated>1629222267028</updated>
+    </task>
+    <task id="LOCAL-00217" summary="Added integration tests for multiple functions and modified routes in user.js to account for error handling">
+      <created>1629225252578</created>
+      <option name="number" value="00217" />
+      <option name="presentableId" value="LOCAL-00217" />
+      <option name="project" value="LOCAL" />
+      <updated>1629225252578</updated>
+    </task>
+    <task id="LOCAL-00218" summary="Removed getUserNetwork">
+      <created>1629226341116</created>
+      <option name="number" value="00218" />
+      <option name="presentableId" value="LOCAL-00218" />
+      <option name="project" value="LOCAL" />
+      <updated>1629226341116</updated>
+    </task>
+    <task id="LOCAL-00219" summary="Added integration tests for getRedditPost route">
+      <created>1629260463021</created>
+      <option name="number" value="00219" />
+      <option name="presentableId" value="LOCAL-00219" />
+      <option name="project" value="LOCAL" />
+      <updated>1629260463021</updated>
+    </task>
+    <task id="LOCAL-00220" summary="Removed redundant/unnecessary code">
+      <created>1629261070659</created>
+      <option name="number" value="00220" />
+      <option name="presentableId" value="LOCAL-00220" />
+      <option name="project" value="LOCAL" />
+      <updated>1629261070660</updated>
+    </task>
+    <option name="localTasksCounter" value="221" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -680,32 +818,32 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added Additional Tests" />
-    <MESSAGE value="http request from login to api with form parameters" />
-    <MESSAGE value="http request from register to api with form parameters" />
-    <MESSAGE value="app.js fix" />
-    <MESSAGE value="adding email/auth token page to route" />
-    <MESSAGE value="login and register" />
-    <MESSAGE value="token component" />
-    <MESSAGE value="Changed user endpoints to previous methods and removed user.test.js and user_functions.js file" />
-    <MESSAGE value="Made changes to user.js" />
-    <MESSAGE value="Changed user.js" />
-    <MESSAGE value="Fixed signup endpoint in user.js" />
-    <MESSAGE value="Added tests for followCrypto endpoint" />
-    <MESSAGE value="Added follow social media site function as well as implemented all tests" />
-    <MESSAGE value="test files" />
-    <MESSAGE value="working code" />
-    <MESSAGE value="edited followcrypto and fixed firebase issue" />
-    <MESSAGE value="followSocialMedia implemented" />
-    <MESSAGE value="deleted shelf" />
-    <MESSAGE value="test" />
-    <MESSAGE value="Implemented getUserTweets" />
-    <MESSAGE value="added unit testing" />
-    <MESSAGE value="Changed twitter method to reflect current database" />
-    <MESSAGE value="Fixed followCrypto and added tests" />
-    <MESSAGE value="Fixed followSocialMedia and added tests" />
-    <MESSAGE value="components not rendering fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="components not rendering fixed" />
+    <MESSAGE value="Added route to get sentiment for news articles in news.js" />
+    <MESSAGE value="Added dynamic host setting for server as well as integration tests" />
+    <MESSAGE value="Added integration tests for validateScreenName as well as accounted for edge case where email is not valid in the same function" />
+    <MESSAGE value="Added integration tests for twitter/follow and twitter/unfollow" />
+    <MESSAGE value="Partially added loading graphic for news component" />
+    <MESSAGE value="Modified regex string for twitter to be more accurate and added test files for sentiment route" />
+    <MESSAGE value="Added coin symbol to the call for news articles to get more relevant articles" />
+    <MESSAGE value="Added integration tests for /sentiment/getAverages route" />
+    <MESSAGE value="Added integration tests for reddit route" />
+    <MESSAGE value="Added integration tests for getUserCryptos route" />
+    <MESSAGE value="Added integration tests for followCrypto route" />
+    <MESSAGE value="Modified user.js and twitter_api.spec.js to add correct parameters to the body for integration tests" />
+    <MESSAGE value="Modified user.js to return correct next object when an error occurs" />
+    <MESSAGE value="Added integration tests for unfollowCrypto route" />
+    <MESSAGE value="Added integration tests for followSocialMedia route" />
+    <MESSAGE value="Added integration tests for default routes" />
+    <MESSAGE value="Added npm command for integration tests and modified tests" />
+    <MESSAGE value="Added integration tests for fetchUserSocialMedia route" />
+    <MESSAGE value="Changed cron schedule to not run after 10/11 min to minimize database query's" />
+    <MESSAGE value="Added integration tests for chan route" />
+    <MESSAGE value="Added integration tests for /user/getCoinPredictions" />
+    <MESSAGE value="Added integration tests for multiple functions and modified routes in user.js to account for error handling" />
+    <MESSAGE value="Removed getUserNetwork" />
+    <MESSAGE value="Added integration tests for getRedditPost route" />
+    <MESSAGE value="Removed redundant/unnecessary code" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed redundant/unnecessary code" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
@@ -716,7 +854,7 @@
     <SUITE FILE_PATH="coverage/Crypto_Market_Analysis$Unit_testing_the__user_route.info" NAME="Unit testing the /user route Coverage Results" MODIFIED="1622555334910" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="JestJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/Crypto_Market_Analysis$user_spec_js.info" NAME="user.spec.js Coverage Results" MODIFIED="1624268170880" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="JestJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/Crypto_Market_Analysis$twitter_spec_js.info" NAME="twitter.spec.js Coverage Results" MODIFIED="1624268430485" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="JestJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/Crypto_Market_Analysis$api_spec_js.info" NAME="api.spec.js Coverage Results" MODIFIED="1624268559350" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="JestJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/Crypto_Market_Analysis$api_spec_js.info" NAME="api.spec.js Coverage Results" MODIFIED="1624200012751" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="JestJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/Crypto_Market_Analysis$Unit_testing_the__delete_route.info" NAME="Unit testing the /delete route Coverage Results" MODIFIED="1622537712006" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="JestJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/Crypto_Market_Analysis$POST__user_adds_an_entry_into_the_database.info" NAME="POST /user.adds an entry into the database Coverage Results" MODIFIED="1622554439693" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="JestJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>

@@ -1,37 +1,69 @@
 import './App.css';
-import {Route, Link} from "react-router-dom"
-import login from "./components/login/login"
-import Register from "./components/login/register"
-import splash from "./components/login/splash"
-import token from "./components/login/token"
-import QuickView from "./components/Home/QuickView/QuickView";
-import Crypto from "./components/Crypto/Crypto";
-import UpdatePassword from "./components/login/updatePassword"
-import UpdateProfile from "./components/login/updateProfile"
-import Home from "./components/Home/Home"
+import {Route} from "react-router-dom"
+import login from "./Pages/Login/login"
+import Register from "./Pages/Register/register"
+import Settings from "./Pages/Settings/Settings";
+import AllCrypto from "./Pages/AllCrypto/AllCrypto";
+import UpdatePassword from "./Pages/UpdatePassword/updatePassword"
+import UpdateProfile from "./Pages/UpdateProfile/updateProfile"
+import Home from "./Pages/Home/Home"
+import Profile from "./Pages/Profile/Profile"
+import Push from "./Pages/Push/Push"
 import PrivateRoute from "./components/newRoute"
-import {BrowserRouter as router , Switch} from "react-router-dom";
+import Notification from "./Pages/Notification/Notification"
+import DetailedInfo from "./Pages/DetailedInfo/DetailedInfo"
+import Subreddits from "./Pages/Subreddits/Subreddits"
+//import Predictions from "./Pages/Predictions/Predictions"
+import {BrowserRouter as Router , Switch} from "react-router-dom";
 import { AuthProvider } from "./Auth/Auth"
+
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import { useEffect } from 'react';
+import Predictions from "./Pages/Predictions/Predictions";
+
 function App() {
+    useEffect(async ()=>{
+        window.twttr = await (function(d, s, id) {
+            let js, fjs = d.getElementsByTagName(s)[0],
+            t = window.twttr || {};
+            if (d.getElementById(id)) return t;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://platform.twitter.com/widgets.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        
+            t._e = [];
+            t.ready = function(f) {
+            t._e.push(f)
+            };
+        
+            return t;
+        }(document, "script", "twitter-wjs"))
+    },[])
+
   return (
-      <router>
+      <Router>
           <AuthProvider>
            <Switch>
                  <section className="header">
-                     <Route exact path="/" component={splash}></Route>
+                     <Route exact path="/" component={Home}></Route>
                      <Route exact path="/register" component={Register}></Route>
+                     <Route exact path="/Push" component={Push}></Route>
                      <PrivateRoute exact path="/home" component={Home}></PrivateRoute>
                      <Route exact path="/login" component={login}></Route>
                      <Route exact path="/updatePassword" component={UpdatePassword}></Route>
                      <Route exact path="/updateProfile" component={UpdateProfile}></Route>
-                     <Route exact path="/QuickView" component={QuickView}></Route>
-                     <Route exact path="/Crypto" component={Crypto}></Route>
+                     <Route exact path="/Settings" component={Settings}></Route>
+                     <Route exact path="/AllCrypto" component={AllCrypto}></Route>
+                     <Route exact path="/Profile" component={Profile}></Route>
+                     <Route exact path="/Notification" component={Notification}></Route>
+                     <Route exact path="/home/DetailedInfo" component={DetailedInfo}></Route>
+                     <Route exact path="/Subreddits" component={Subreddits}></Route>
+                     <Route exact path="/Predictions" component={Predictions}></Route>
                  </section>
            </Switch>
           </AuthProvider>
-
-      </router>
+      </Router>
 
   );
 }

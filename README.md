@@ -21,11 +21,11 @@ tag e.g., Bitcoin to the moon. This will allow the application to understand wha
 is and inform the user if it is about to change.
 
 ## Documentation
-- [User Manual](https://drive.google.com/file/d/1_0NI0np5GlAJHI8rQsfv8XdBEcFbqava/view?usp=sharing)
+- [User Manual](https://drive.google.com/file/d/1SQO1l27z3_9bIyhtAdZ6CPJZCF-Ci67I/view?usp=sharing)
 - [SRS Document](https://www.overleaf.com/read/srdwqvnyjsbw)
 - [Architecture Document](https://www.overleaf.com/read/dzqkrswqcwkf)
 - [Coding Standard](https://www.overleaf.com/read/gnpzqgqghdjj)
-- [Technical Installation Guide](https://drive.google.com/file/d/1lBVpenHd_SW_rZNYEX547-fGQW7VMKru/view?usp=sharing)
+- [Technical Installation Guide]()
 ## Demo Videos
 - [Demo 1](https://drive.google.com/file/d/10VWnXqI9cWJKdfY-M69qh-IMqVguGrGT/view?usp=sharing)
 - [Demo 2]()
@@ -40,9 +40,9 @@ is and inform the user if it is about to change.
 | ----------- | ------- |
 | **Zeeshaan Alekar** 
 *Team Leader*
-<img src="https://media-exp1.licdn.com/dms/image/C4D03AQFjJBK2bJ7ouQ/profile-displayphoto-shrink_200_200/0/1618577870324?e=1633564800&v=beta&t=ExvuVwueZsRpbnao_f63bM1s5zTStY7NwT7QfkeeNyM" width="250" height="250"> | [Github](https://github.com/Zee864/Zee864) [Linkedin](https://www.linkedin.com/in/zeeshaan-alekar-bb5107210/) | 
+<img src="https://media-exp1.licdn.com/dms/image/C4D03AQFjJBK2bJ7ouQ/profile-displayphoto-shrink_800_800/0/1618577870324?e=1627516800&v=beta&t=6nrD6N08oe_w2qdP2qhv4nwP2SrRziSet50cA5WzStI" width="250" height="250"> | [Github](https://github.com/Zee864/Zee864) [Linkedin](https://www.linkedin.com/in/zeeshaan-alekar-bb5107210/) | 
 |  **Melusi Mkhonta** 
-<img src="https://media-exp1.licdn.com/dms/image/C4D03AQHmAT8DMMsJxQ/profile-displayphoto-shrink_800_800/0/1556401991717?e=1634774400&v=beta&t=vEN9dETk8hDu4H8FAhQwj2q-3-PGNgSCJDOmZL9VNuM" width="250" height="250"> | [Github](https://github.com/MelussiMkhonta) [Linkedin](https://www.linkedin.com/in/dinho-mkhonta-997b85185/) | 
+<img src="https://media-exp1.licdn.com/dms/image/C4D03AQHmAT8DMMsJxQ/profile-displayphoto-shrink_200_200/0/1556401991717?e=1627516800&v=beta&t=gRM6pH7lWpWjNN6_C_8rKcyhjWcilkeHZoxWoutMXe4" width="250" height="250"> | [Github](https://github.com/MelussiMkhonta) [Linkedin](https://www.linkedin.com/in/dinho-mkhonta-997b85185/) | 
 |  **Lerato Moselane** 
 <img src="https://media-exp1.licdn.com/dms/image/C4D03AQFCuFCADPonVQ/profile-displayphoto-shrink_200_200/0/1618497881777?e=1627516800&v=beta&t=JVs0l4KOj23XiDOKPpVqPAm3dm3LKXvFtL7mfpJoa9M" width="250" height="250"> | [Github](https://github.com/u18037951) [Linkedin](https://www.linkedin.com/in/lerato-moselane-b7aa9220b/) |
 |  **Bheki Ndhlovu** 

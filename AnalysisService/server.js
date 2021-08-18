@@ -56,7 +56,7 @@ cron.schedule('*/60 * * * *', async () => {
     //                 let msgType = new notificationType(dt,doc.id );
     //                 const nothing= doc.id  + ' average sentiment did not change!';
     //                 let results = msgType.Results();
-    //                 if(results ===nothing ){
+    //                 if(results !==nothing ){
     //                     console.log('Storing the emails');
     //                     const data= notification.followers(doc.id,results);
     //                     //throw "function has finished";

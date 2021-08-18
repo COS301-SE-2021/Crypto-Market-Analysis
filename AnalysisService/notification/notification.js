@@ -22,20 +22,8 @@ const send_email= async(email,results)=>{
     };
     await sender.sendMail(receiver, function(error, data){
         if (error) {
-            console.log(error);
+            return error;
         } else {
-            console.log('Email sent: ' + data.response);
-            // return  new Promise(async function (resolve, reject) {
-            //     firestore_db.getUsers('Users').onSnapshot(async (documents) => {
-            //         await documents.forEach((doc) => {
-            //             if (typeof doc.id !== "undefined" && doc.id === email) {
-            //
-            //
-            //             }
-            //         })
-            //     })
-            //
-            // })
 
         }
     });
@@ -86,7 +74,6 @@ const followers = async(cryptocurrency,results)=>{
 
 
                     }
-                    // console.log(doc.id); // For doc name
                 })
 
         });

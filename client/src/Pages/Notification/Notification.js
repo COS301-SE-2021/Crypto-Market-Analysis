@@ -64,7 +64,7 @@ class Notifications extends React.Component {
             })
         this.setState({notificationObject: object});
         const objectdata= {};
-        this.setState({});
+        this.setState({elem: []});
         this.generateData(objectdata);
 
     }

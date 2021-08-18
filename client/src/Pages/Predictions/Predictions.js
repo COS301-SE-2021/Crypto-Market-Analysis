@@ -1,7 +1,6 @@
 import './Predictions.scss';
 import "bootstrap/dist/css/bootstrap.css";
-import Sidebar from "../../components/Sidebar/Sidebar";
-import { Star, } from "@material-ui/icons";
+
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader"
@@ -51,9 +50,9 @@ function Predictions() {
                     }
                 }
 
-                var resArr = [];
+                let resArr = [];
                 PredictionsCoins.forEach(function(item){
-                    var i = resArr.findIndex(x => x.name == item.name);
+                    let i = resArr.findIndex(x => x.name === item.name);
                     if(i <= -1){
                         resArr.push({name: item.name, symbol: item.symbol, price: item.price, open: item.open, close: item.close, low: item.low});
                     }
@@ -99,10 +98,10 @@ function Predictions() {
                                             // </p>
                                             <tr>
                                                 <td>{++num}</td>
-                                                <td><span class="text-body">{i.name}</span></td>
+                                                <td><span className="text-body">{i.name}</span></td>
                                                 <td>{i.symbol.toUpperCase()}</td>
-                                                <td class="text-body">{i.price.toFixed(3)}</td>
-                                                <td class="text-body">{i.open.toFixed(3)}</td>
+                                                <td className="text-body">{i.price.toFixed(3)}</td>
+                                                <td className="text-body">{i.open.toFixed(3)}</td>
                                                 {/*<td class="text-body">{i.open / i.price * 100}</td>*/}
                                             </tr>
                                         )

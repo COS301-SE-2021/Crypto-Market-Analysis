@@ -12,12 +12,7 @@ const HistoryChart = ({data}) => {
     const {threeMonths} = data;
     const {detail} = data;
     const [timeFormat, setTimeFormat] = useState("24h");
-    const [errorMessage, setErrorMessage] = useState('');
-    let chartInstance;
-
-    const handleClick = () => {
-        setErrorMessage("No graph data at the moment!");
-    }
+    let chartInstance = useRef();
 
     const determineTimeFormat = () => {
         try{

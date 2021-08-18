@@ -6,6 +6,7 @@ describe(`POST /user/followCrypto`, () => {
     test(`when parameters are correct`, async () => {
         const response = await request(app).post(`/user/followCrypto`).send({email: `codexteam4@gmail.com`, crypto_name: `Dogecoin`, symbol: `doge`});
         expect(response.status).toBe(200);
+        expect(response.body).toBeDefined();
         expect(response.body).toBeTruthy();
     });
     test(`when email is not valid`, async () => {

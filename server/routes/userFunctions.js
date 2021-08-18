@@ -120,5 +120,5 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
 
-module.exports = { getCoinPredictions,getUserNetwork, fetchUserSocialMedia, getPush,setPush,setNotification,saveToDB,getNotification, getUserCrypto,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia}
+module.exports = { getCoinPredictions, fetchUserSocialMedia, getPush,setPush,setNotification,saveToDB,getNotification, getUserCrypto,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia}
 

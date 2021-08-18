@@ -20,58 +20,11 @@ const r = new snoowrap({
 class Reddit {
     #firestore_db = new Database().getInstance();
 
-    unfollowSubreddit = async (email_address, subreddit) => {
-        try{
-            await user_object.removeSubreddit(email_address, subreddit);
-        }
-        catch (error){
-            return Promise.reject(error);
-        }
-    }
-
-    followSubreddit = async (email_address,social_media )=> {
-        try{
-            return await user_object.insertSubreddits(email_address, social_media);
-        }
-        catch (error){
-            return Promise.reject(error);
-        }
-    }
-
-    fetchUserSubreddits = async(email_address)=>{
-        try{
-            await user_object.getSubreddit(email_address);
-        }
-        catch (error){
-            return Promise.reject(error);
-        }
-    }
-
-    getUserSubreddits = async (email_address)=>{
-        try{
-            return await user_object.getUserSubreddits(email_address);
-        }
-        catch (error){
-            return Promise.reject(error);
-        }
-    }
 
     coinRedditPost = async (coin)=>{
         return await this.getCoinRedditPost(coin);
     }
 
-     getRedditPost = async (email)=>{
-        let subs = await getUserSubreddits(email);
-        let posts = [];
-        let docs = [];
-        for(let i=0; i<subs.length; i++)
-        {
-
-            docs.push(await firestore_db.fetch(`reddit_info`,subs[i],'posts'));
-        }
-        posts = docs;
-        return {status: `Ok`, posts: posts};
-    }
 
     scrapeSubreddit = async (Subreddit) => {
         const subreddit1 = await r.getSubreddit(Subreddit);

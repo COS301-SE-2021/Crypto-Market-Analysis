@@ -362,7 +362,7 @@ class Twitter {
         }
 
         //Stores all the screen names
-        const screen_names = Object.keys(this.#twitter_users);
+        const screen_names = await user_object.getScreenName(email);
         //Stores all of the keys
         let keys = [];
         //Stores the id of each tweet

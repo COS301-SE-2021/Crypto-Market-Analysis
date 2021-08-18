@@ -21,14 +21,16 @@ tag e.g., Bitcoin to the moon. This will allow the application to understand wha
 is and inform the user if it is about to change.
 
 ## Documentation
-- [User Manual](https://drive.google.com/file/d/1SQO1l27z3_9bIyhtAdZ6CPJZCF-Ci67I/view?usp=sharing)
-- [SRS Document](https://www.overleaf.com/read/srdwqvnyjsbw)
+- [User Manual](https://drive.google.com/file/d/1W5ufAi8wHcO8wfHULj_VdtHNPtJwdiCl/view?usp=sharing)
+- [SRS Document Version 1](https://drive.google.com/file/d/1pY_mQmYjqIm7jmzyNq_VxGB_UZh5Rlom/view?usp=sharing)
+- [SRS Document Version 2]()
+- [SRS Document Version 3]()
 - [Architecture Document](https://www.overleaf.com/read/dzqkrswqcwkf)
 - [Coding Standard](https://www.overleaf.com/read/gnpzqgqghdjj)
-- [Technical Installation Guide]()
+- [Technical Installation Guide](https://drive.google.com/file/d/1l34c34SzAEdvITdEwrEwhEl16SnqAkcW/view?usp=sharing)
 ## Demo Videos
 - [Demo 1](https://drive.google.com/file/d/10VWnXqI9cWJKdfY-M69qh-IMqVguGrGT/view?usp=sharing)
-- [Demo 2]()
+- [Demo 2](https://drive.google.com/file/d/1fskbcnS5MpdyLPBwvptz5oRf9zCwOB7f/view?usp=sharing)
 - [Demo 3]()
 - [Demo 4]()
 ## Project Management
@@ -40,10 +42,12 @@ is and inform the user if it is about to change.
 | ----------- | ------- |
 | **Zeeshaan Alekar** 
 *Team Leader*
-<img src="https://media-exp1.licdn.com/dms/image/C4D03AQFjJBK2bJ7ouQ/profile-displayphoto-shrink_800_800/0/1618577870324?e=1627516800&v=beta&t=6nrD6N08oe_w2qdP2qhv4nwP2SrRziSet50cA5WzStI" width="250" height="250"> | [Github](https://github.com/Zee864/Zee864) [Linkedin](https://www.linkedin.com/in/zeeshaan-alekar-bb5107210/) | 
+<img src="https://media-exp1.licdn.com/dms/image/C4D03AQFjJBK2bJ7ouQ/profile-displayphoto-shrink_200_200/0/1618577870324?e=1634774400&v=beta&t=MBFHpKBiDdokBysuUFkSR_RezlizDbYzeUwdnpl103I" width="250" height="250"> | [Github](https://github.com/Zee864/Zee864) [Linkedin](https://www.linkedin.com/in/zeeshaan-alekar-bb5107210/) | 
 |  **Melusi Mkhonta** 
-<img src="https://media-exp1.licdn.com/dms/image/C4D03AQHmAT8DMMsJxQ/profile-displayphoto-shrink_200_200/0/1556401991717?e=1627516800&v=beta&t=gRM6pH7lWpWjNN6_C_8rKcyhjWcilkeHZoxWoutMXe4" width="250" height="250"> | [Github](https://github.com/MelussiMkhonta) [Linkedin](https://www.linkedin.com/in/dinho-mkhonta-997b85185/) | 
+<img src="https://media-exp1.licdn.com/dms/image/C4D03AQHmAT8DMMsJxQ/profile-displayphoto-shrink_200_200/0/1556401991717?e=1634774400&v=beta&t=2UHj_Mdv1dsQbIRKVmlpVfvqGx7lfkSWce1LtiH7TdE" width="250" height="250"> | [Github](https://github.com/MelussiMkhonta) [Linkedin](https://www.linkedin.com/in/dinho-mkhonta-997b85185/) | 
 |  **Lerato Moselane** 
-<img src="https://media-exp1.licdn.com/dms/image/C4D03AQFCuFCADPonVQ/profile-displayphoto-shrink_200_200/0/1618497881777?e=1627516800&v=beta&t=JVs0l4KOj23XiDOKPpVqPAm3dm3LKXvFtL7mfpJoa9M" width="250" height="250"> | [Github](https://github.com/u18037951) [Linkedin](https://www.linkedin.com/in/lerato-moselane-b7aa9220b/) |
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="250" height="250"> | [Github](https://github.com/u18037951) [Linkedin](https://www.linkedin.com/in/lerato-moselane-b7aa9220b/) |
 |  **Bheki Ndhlovu** 
 <img src="https://i.ibb.co/MZyt31b/Whats-App-Image-2021-06-04-at-01-43-16.jpg" width="250" height="250"> | [Github](https://github.com/BhekiNdhlovu) [Linkedin](https://www.linkedin.com/in/bheki-ndhlovu-46260010b/) |
+|  **Phadime Kgothalang Moifo** 
+<img src="" width="250" height="250"> | [Github]() [Linkedin]() |

@@ -70,7 +70,6 @@ class Reddit {
 
             docs.push(await firestore_db.fetch(`reddit_info`,subs[i],'posts'));
         }
-        console.log(docs);
         posts = docs;
         return {status: `Ok`, posts: posts};
     }

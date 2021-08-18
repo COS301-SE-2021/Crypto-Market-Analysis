@@ -46,7 +46,7 @@ is and inform the user if it is about to change.
 |  **Melusi Mkhonta** 
 <img src="https://media-exp1.licdn.com/dms/image/C4D03AQHmAT8DMMsJxQ/profile-displayphoto-shrink_200_200/0/1556401991717?e=1634774400&v=beta&t=2UHj_Mdv1dsQbIRKVmlpVfvqGx7lfkSWce1LtiH7TdE" width="250" height="250"> | [Github](https://github.com/MelussiMkhonta) [Linkedin](https://www.linkedin.com/in/dinho-mkhonta-997b85185/) | 
 |  **Lerato Moselane** 
-<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="250" height="250"> | [Github](https://github.com/u18037951) [Linkedin](https://www.linkedin.com/in/lerato-moselane-b7aa9220b/) |
+<img src="https://media-exp1.licdn.com/dms/image/C4D03AQFCuFCADPonVQ/profile-displayphoto-shrink_200_200/0/1618497881777?e=1634774400&v=beta&t=u1ltizoX_O2_9ssv7NfzeS5kwXnBgximd0FhqlVkNuk" width="250" height="250"> | [Github](https://github.com/u18037951) [Linkedin](https://www.linkedin.com/in/lerato-moselane-b7aa9220b/) |
 |  **Bheki Ndhlovu** 
 <img src="https://i.ibb.co/MZyt31b/Whats-App-Image-2021-06-04-at-01-43-16.jpg" width="250" height="250"> | [Github](https://github.com/BhekiNdhlovu) [Linkedin](https://www.linkedin.com/in/bheki-ndhlovu-46260010b/) |
 |  **Phadime Kgothalang Moifo** 

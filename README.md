@@ -27,7 +27,7 @@ is and inform the user if it is about to change.
 - [SRS Document Version 3]()
 - [Architecture Document](https://www.overleaf.com/read/dzqkrswqcwkf)
 - [Coding Standard](https://www.overleaf.com/read/gnpzqgqghdjj)
-- [Technical Installation Guide](https://drive.google.com/file/d/1W5ufAi8wHcO8wfHULj_VdtHNPtJwdiCl/view?usp=sharing)
+- [Technical Installation Guide](https://drive.google.com/file/d/1l34c34SzAEdvITdEwrEwhEl16SnqAkcW/view?usp=sharing)
 ## Demo Videos
 - [Demo 1](https://drive.google.com/file/d/10VWnXqI9cWJKdfY-M69qh-IMqVguGrGT/view?usp=sharing)
 - [Demo 2](https://drive.google.com/file/d/1fskbcnS5MpdyLPBwvptz5oRf9zCwOB7f/view?usp=sharing)

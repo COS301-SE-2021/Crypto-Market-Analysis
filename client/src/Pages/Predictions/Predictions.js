@@ -1,11 +1,12 @@
 import './Predictions.scss';
 import "bootstrap/dist/css/bootstrap.css";
-
+import Sidebar from "../../components/Sidebar/Sidebar"
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader"
 const CoinGecko = require('coingecko-api');
 const CoinGeckoClient = new CoinGecko();
+
 
 function Predictions() {
     let num =0;
@@ -68,8 +69,8 @@ function Predictions() {
 
     return(
         <>
-
-            <div className="container-fluid" >
+            <Sidebar />
+            <div className="container" style={{marginLeft:'300px'}} >
 
                 <div className="row">
                     <div className="col-md-12">

@@ -4,7 +4,7 @@ const app = require("../app");
 describe(`POST /twitter/getCryptoTweets`, () => {
     jest.setTimeout(100000);
     test(`when parameters are correct`, async () => {
-        const response = await request(app).post(`/twitter/getCryptoTweets`).send({email: `codexteam4@gmail.com`, crypto_name: `Dogecoin`});
+        const response = await request(app).post(`/twitter/getCryptoTweets`).send({email: `codexteam4@gmail.com`, crypto_name: `Bitcoin`});
         expect(response.status).toBe(200);
         expect(response.body.data).toBeDefined();
     });

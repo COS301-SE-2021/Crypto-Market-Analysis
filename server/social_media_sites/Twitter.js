@@ -235,7 +235,8 @@ class Twitter {
                         }
 
                         if(id_array.length !== 0)
-                            return await this.getHtmlBlockquotes(id_array);
+                            return id_array;
+                            //return await this.getHtmlBlockquotes(id_array);
                         else
                             return Promise.reject(`No tweets to display`);
                     }

@@ -6,9 +6,6 @@ on:
   pull_request:
     branches: [ master ]
     
-defaults:
-  run:
-    working-directory: ./server
 
 jobs:
   build:
@@ -27,5 +24,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm install
+      working-directory: ./server
     - run: npm ci
+      working-direcory: ./server
     - run: npm run build --if-present
+      working-directory: ./server

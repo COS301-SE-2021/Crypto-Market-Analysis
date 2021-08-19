@@ -26,7 +26,7 @@ const SentimentChart = ({data}) => {
                                 response.data
                             });
 
-                        let l = [6000000, 12000000, 24000000];
+                        let l = [60000000, 120000000, 240000000];
                         for(let i =0; i < averagesList[0].AVG.data.length; i++)
                         {
 
@@ -39,7 +39,7 @@ const SentimentChart = ({data}) => {
                                             datasets: [
                                                 {
                                                     label: detail.name + " sentiment",
-                                                    data: [averagesList[0].AVG.data[0], averagesList[0].AVG.data[1], averagesList[0].AVG.data[2]],
+                                                    data: [averagesList[0].AVG.data[0], averagesList[0].AVG.data[1], averagesList[0].AVG.data[2], averagesList[0].AVG.data[3],averagesList[0].AVG.data[4]],
                                                     backgroundColor: "rgba(255, 255, 255,0)",
                                                     borderColor: "rgba(0,0,0,0.9)",
                                                     pointRadius: 0,
@@ -71,7 +71,7 @@ const SentimentChart = ({data}) => {
                                                     }
                                                 ],
                                                 yAxes: [{
-                                                    beginAtZero: true,
+                                                    beginAtZero: false,
                                                 }]
                                             }
                                         },
@@ -103,7 +103,7 @@ const SentimentChart = ({data}) => {
             </div>
 
             <div className="chart-button mt-1">
-                <button onClick={() => setTimeFormat("5h")} className="btn btn-outline-secondary btn-sm">10m</button>
+                <button onClick={() => setTimeFormat("1h")} className="btn btn-outline-secondary btn-sm">24h</button>
             </div>
 
         </div>

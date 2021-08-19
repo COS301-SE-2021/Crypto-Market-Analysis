@@ -6,12 +6,12 @@ const HistoryChart = ({data}) => {
     const chartRef = useRef();
     const {day} = data;
     const {week} = data;
-    const {year} = data;
     const {fourteenDays} = data;
     const {month} = data;
     const {threeMonths} = data;
+    const {year} = data;
     const {detail} = data;
-    const [timeFormat, setTimeFormat] = useState("24h");
+    const [timeFormat, setTimeFormat] = useState("");
     let chartInstance = useRef();
 
     const determineTimeFormat = () => {
@@ -30,7 +30,7 @@ const HistoryChart = ({data}) => {
                 case "1y":
                     return year;
                 default:
-                    return "";
+                    return day;
             }
         }catch(err){
             console.log(err)
@@ -51,7 +51,7 @@ const HistoryChart = ({data}) => {
                             data: determineTimeFormat(),
                             backgroundColor: "rgba(255, 255, 255,0)",
                             borderColor: "rgba(0,0,0,0.9)",
-                            pointRadius: 0,
+                            pointRadius: 1,
                             hoverOffset: 4,
                         },
 

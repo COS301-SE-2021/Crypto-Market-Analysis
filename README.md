@@ -24,14 +24,14 @@ is and inform the user if it is about to change.
 - [User Manual](https://drive.google.com/file/d/1W5ufAi8wHcO8wfHULj_VdtHNPtJwdiCl/view?usp=sharing)
 - [SRS Document Version 1](https://drive.google.com/file/d/1pY_mQmYjqIm7jmzyNq_VxGB_UZh5Rlom/view?usp=sharing)
 - [SRS Document Version 2]()
-- [SRS Document Version 3]()
-- [Architecture Document](https://www.overleaf.com/read/dzqkrswqcwkf)
+- [SRS Document Version 3](https://drive.google.com/file/d/1rv-3MnSJHkgcU5abny-xSlFOZaqpNnc4/view?usp=sharing)
+- [Architecture Document](https://drive.google.com/file/d/1G4JMxFtHQXFOVpyDLLiS2qN9oRh5VzBz/view?usp=sharing)
 - [Coding Standard](https://www.overleaf.com/read/gnpzqgqghdjj)
 - [Technical Installation Guide](https://drive.google.com/file/d/1Xh-8wYFp7jhgSvCvzcVxLdxOihMkmTja/view?usp=sharing)
 ## Demo Videos
 - [Demo 1](https://drive.google.com/file/d/10VWnXqI9cWJKdfY-M69qh-IMqVguGrGT/view?usp=sharing)
 - [Demo 2](https://drive.google.com/file/d/1fskbcnS5MpdyLPBwvptz5oRf9zCwOB7f/view?usp=sharing)
-- [Demo 3]()
+- [Demo 3](https://drive.google.com/file/d/1H6lmlbA4ENauxB_NuLxEtWVfEb8_gvpb/view?usp=sharing)
 - [Demo 4]()
 ## Project Management
 - [Github Project Board](https://github.com/COS301-SE-2021/Crypto-Market-Analysis/projects/1)

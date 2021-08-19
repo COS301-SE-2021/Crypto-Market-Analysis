@@ -23,10 +23,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        working-directory: server
+        path: server
     - run: npm install
-      working-directory: server
     - run: npm ci
-      working-directory: server
     - run: npm run build --if-present
-      working-directory: server

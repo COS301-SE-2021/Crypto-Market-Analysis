@@ -10,12 +10,13 @@ const send_email= async(email,results)=>{
         service: 'gmail',
         auth: {
             user: process.env.EMAIL_USERNAME || 'codexteam4@gmail.com',
-            pass: process.env.EMAIL_PASSWORD || 'PNeux9E^peM6s:z;'
+            pass: process.env.EMAIL_PASSWORD || 'Y' +
+                ''
         }
     });
     const receiver = {
         from: 'codexteam4@gmail.com',
-        to: 'mojohnnylerato@gmail.com',
+        to: email,
         subject: 'Cryptocurrency Notification',
         text: results,
         html: results,
@@ -34,7 +35,6 @@ const followers = async(cryptocurrency,results)=>{
         await firestore_db.getUsers('Users').onSnapshot((documents) => {
 
                 documents.forEach(async (doc) => {
-                    console.log(doc.data().crypto_name); // For data inside doc
                     if (typeof doc.data().crypto_name !== "undefined" && doc.data().crypto_name.includes(cryptocurrency)) {
                         let myObj = {};
                         let newObj = {};
@@ -49,10 +49,7 @@ const followers = async(cryptocurrency,results)=>{
                             notification: cmyObj
                         }
                         firestore_db.saveData('Users', doc.id, notify);
-                       // resolve("Data has been saved!")
-                        //await send_email(doc.id, results);
-                        // const subscription = firestore_db.fetchPushNotification(doc.id);
-                        console.log('Sending another email');
+                        await send_email(doc.id, results);
                         let subscription={}
                         web_push.setDetails();
                         await firestore_db.fetchPushNotification(doc.id).then(data => {

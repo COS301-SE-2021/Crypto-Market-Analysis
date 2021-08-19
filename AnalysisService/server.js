@@ -30,17 +30,17 @@ sslServer.listen(3443, () => console.log('Secure server running on port 3443'))
 http.createServer(app);
 
 app.listen(8000);
-cron.schedule('*/60 * * * *', async () => {
+cron.schedule('*/602 * * * *', async () => {
     console.log('analysing every hour')
-  firestore_db.getUsers('Twitter').onSnapshot(async (documents) => {
-        await documents.forEach((doc) => {
-            if (typeof doc.id !== "undefined") {
-                analysis.sentimentAnalysis(doc.id,'Twitter').then(data=>{
-                }).catch(err=>{console.log(err)})
-            }
-          })
-        })
-    console.log('Analysis Done!')
+  // firestore_db.getUsers('Twitter').onSnapshot(async (documents) => {
+  //       await documents.forEach((doc) => {
+  //           if (typeof doc.id !== "undefined") {
+  //               analysis.sentimentAnalysis(doc.id,'Twitter').then(data=>{
+  //               }).catch(err=>{console.log(err)})
+  //           }
+  //         })
+  //       })
+  //   console.log('Analysis Done!')
   /*  firestore_db.getUsers('Reddit').onSnapshot(async (documents) => {
         await documents.forEach((doc) => {
             if (typeof doc.id !== "undefined") {
@@ -66,7 +66,7 @@ cron.schedule('*/60 * * * *', async () => {
     //     })
     //
     // })
-    console.log('Messaging done!')
+    // console.log('Messaging done!')
 
 
 });

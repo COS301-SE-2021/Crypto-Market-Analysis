@@ -31,8 +31,7 @@ width: 150%;
 
 const platformsList = [{name:"Twitter",id:"twitter"},
     {name:"Reddit",id:"reddit"},
-    {name:"Medium",id:"medium"},
-    {name:"Discord",id:"discord"}
+    {name:"4Chan",id:null}
 ];
 
 const Profile = props =>
@@ -436,7 +435,8 @@ const Profile = props =>
                                                     <div className="crypt-row">
                                                         <div className="crypto">
                                                             {myPlatform.selected?<Star className="select-star" color="primary" onClick={()=>{select(myPlatform.id)}}/>:<Star className="select-star" color="action" onClick={()=>{select(myPlatform.id)}}/>}
-                                                            <SocialIcon network={myPlatform.id} style={{height:"40px",width:"40px"}}/>
+                                                            {myPlatform.id != null ?<SocialIcon network={myPlatform.id} style={{height:"40px",width:"40px"}}/>:
+                                                            <img src={"./4chanLogo.png"} alt="4chan" style={{height:"40px",width:"40px"}} />}
                                                             <h1 className="crypto-name" style={{marginLeft:"2em"}}>{myPlatform.name}</h1>
                                                         </div>
                                                     </div>

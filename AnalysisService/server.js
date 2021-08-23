@@ -30,7 +30,7 @@ sslServer.listen(3443, () => console.log('Secure server running on port 3443'))
 http.createServer(app);
 
 app.listen(8000);
-cron.schedule('*/602 * * * *', async () => {
+cron.schedule('*/1 * * * *', async () => {
     console.log('analysing every hour')
   // firestore_db.getUsers('Twitter').onSnapshot(async (documents) => {
   //       await documents.forEach((doc) => {
@@ -49,24 +49,24 @@ cron.schedule('*/602 * * * *', async () => {
             }
         })
     })*/
-    // firestore_db.getUsers('Twitter').onSnapshot(async (documents) => {
-    //     await documents.forEach((doc) => {
-    //         if (typeof doc.id !== "undefined") {
-    //             average.Analyse_Average('Twitter',doc.id ).then(dt=>{
-    //                 let msgType = new notificationType(dt,doc.id );
-    //                 const nothing= doc.id  + ' average sentiment did not change!';
-    //                 let results = msgType.Results();
-    //                 if(results !==nothing ){
-    //                     console.log('Storing the emails');
-    //                     const data= notification.followers(doc.id,results);
-    //                     //throw "function has finished";
-    //                 }
-    //             }).catch(err=>{   console.log(err);})
-    //         }
-    //     })
-    //
-    // })
-    // console.log('Messaging done!')
+    firestore_db.getUsers('Twitter').onSnapshot(async (documents) => {
+        await documents.forEach((doc) => {
+            if (typeof doc.id !== "undefined") {
+                average.Analyse_Average('Twitter',doc.id ).then(dt=>{
+                    let msgType = new notificationType(dt,doc.id );
+                    const nothing= doc.id  + ' average sentiment did not change!';
+                    let results = msgType.Results();
+                    if(results ===nothing ){
+                        console.log('Storing the emails');
+                        const data= notification.followers(doc.id,results);
+                        //throw "function has finished";
+                    }
+                }).catch(err=>{   console.log(err);})
+            }
+        })
+
+    })
+    console.log('Messaging done!')
 
 
 });

@@ -23,7 +23,7 @@ is and inform the user if it is about to change.
 ## Documentation
 - [User Manual](https://drive.google.com/file/d/1W5ufAi8wHcO8wfHULj_VdtHNPtJwdiCl/view?usp=sharing)
 - [SRS Document Version 1](https://drive.google.com/file/d/1pY_mQmYjqIm7jmzyNq_VxGB_UZh5Rlom/view?usp=sharing)
-- [SRS Document Version 2](https://drive.google.com/file/d/1pY_mQmYjqIm7jmzyNq_VxGB_UZh5Rlom/view?usp=sharing)
+- [SRS Document Version 2](https://drive.google.com/file/d/17TvDLoYiGK0mdSYBkV_ICNdrCxuS7wZz/view?usp=sharing)
 - [SRS Document Version 3](https://drive.google.com/file/d/1rv-3MnSJHkgcU5abny-xSlFOZaqpNnc4/view?usp=sharing)
 - [Architecture Document](https://drive.google.com/file/d/1G4JMxFtHQXFOVpyDLLiS2qN9oRh5VzBz/view?usp=sharing)
 - [Coding Standard](https://www.overleaf.com/read/gnpzqgqghdjj)

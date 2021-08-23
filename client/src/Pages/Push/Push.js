@@ -1,4 +1,5 @@
 import React from "react";
+import SweetAlert from 'react-bootstrap-sweetalert'
 import {
     Alert,
     Card,
@@ -6,21 +7,36 @@ import {
     Row,
     Col,Toast
 } from "react-bootstrap";
-import {Link} from "react-router-dom";
 import axios from "axios";
-import Sidebar from "../../components/Sidebar/Sidebar";
-import {db} from "../../firebase"
 class Push extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            elements: [  <Col class="col-md-6 offset-md-4">
-                <button  onClick={this.handleSubscribe}  type="button" className="btn btn-outline-warning">
-                    Subscribe<i className="fab fa-chrome"></i><i className="fab fa-firefox"></i></button>
-            </Col>]
+            elements: [],
+            alert: false
+
         }
         this.handleSubscribe = this.handleSubscribe.bind(this);
+        this.handleunSubscribe = this.handleunSubscribe.bind(this);
+    }
+    handleunSubscribe= async (e)=>{
+        let  PushReq = {
+            email: localStorage.getItem("emailSession"),
+            object: {}
+        }
+        axios.post('http://localhost:8080/user/storePush/',PushReq)
+            .then(response => {
+                this.setState({alert: true});
+                const notification_Arrays = [];
+                notification_Arrays.push(<Col class="col-md-6 offset-md-4">
+                    <button  onClick={this.handleSubscribe}  type="button" className="btn btn-outline-warning">
+                        Subscribe</button>
+                </Col>);
+                this.setState({elements: notification_Arrays});
+
+            })
+            .catch(err => {console.error(err);})
     }
     handleSubscribe= async (e)=> {
         let  PushReq = {
@@ -32,24 +48,12 @@ class Push extends React.Component {
             })
         axios.post('http://localhost:8080/user/GETPush/',PushReq)
             .then(response => {
-                console.log(response.data)
-                if(Object.keys(response.data).length !== 0)
-                {
                     const notification_Arrays = [];
                     notification_Arrays.push(<Col class="col-md-6 offset-md-4">
-                        <button  onClick={this.handleSubscribe}  type="button" className="btn btn-outline-warning">
-                            Subscribed</button>
+                        <button  onClick={this.handleunSubscribe}  type="button" className="btn btn-outline-warning">
+                            unSubscribe</button>
                     </Col>);
                     this.setState({elements: notification_Arrays});
-                }
-                else{
-                    const notificationpush= [];
-                    notificationpush.push(<Col class="col-md-6 offset-md-4">
-                        <button  onClick={this.handleSubscribe}  type="button" className="btn btn-outline-warning">
-                            Subscribe</button>
-                    </Col>);
-                    this.setState({elements: notificationpush});
-                }
 
             })
             .catch(err => {console.error(err);})
@@ -96,7 +100,8 @@ class Push extends React.Component {
 
             console.log("Push Sent...");
         }
-        function urlBase64ToUint8Array(base64String) {
+
+            function urlBase64ToUint8Array(base64String) {
             const padding = "=".repeat((4 - base64String.length % 4) % 4);
             const base64 = (base64String + padding)
                 .replace(/\-/g, "+")
@@ -113,11 +118,39 @@ class Push extends React.Component {
 
     }
     componentDidMount(){
+        let  PushReq = {
+            email: localStorage.getItem("emailSession")
+        }
+        axios.post('http://localhost:8080/user/GETPush/',PushReq)
+            .then(response => {
+                if(Object.keys(response.data).length === 0)
+                {
+                    const notification_Arrays = [];
+                    notification_Arrays.push(<Col class="col-md-6 offset-md-4">
+                        <button  onClick={this.handleSubscribe}  type="button" className="btn btn-outline-warning">
+                            Subscribe</button>
+                    </Col>);
+                    this.setState({elements: notification_Arrays});
+                }
+                else {
+                    const notification_Arrays = [];
+                    notification_Arrays.push(<Col class="col-md-6 offset-md-4">
+                        <button  onClick={this.handleunSubscribe}  type="button" className="btn btn-outline-warning">
+                            unSubscribe</button>
+                    </Col>);
+                    this.setState({elements: notification_Arrays});
+                }
 
+            })
+            .catch(err => {console.error(err);})
     }
     render() {
         return (
             <>
+                <SweetAlert show={this.state.alert} success title={"Successfully unsubscribed from notification"} onConfirm={()=>{
+                    this.setState({alert: false});
+                }}></SweetAlert>
+
                 <div className="md:ml-64">
                          {this.state.elements}
                 </div>

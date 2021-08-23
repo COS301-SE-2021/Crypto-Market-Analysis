@@ -50,4 +50,4 @@ is and inform the user if it is about to change.
 |  **Bheki Ndhlovu** 
 <img src="https://i.ibb.co/MZyt31b/Whats-App-Image-2021-06-04-at-01-43-16.jpg" width="250" height="250"> | [Github](https://github.com/BhekiNdhlovu) [Linkedin](https://www.linkedin.com/in/bheki-ndhlovu-46260010b/) |
 |  **Phadime Kgothalang Moifo** 
-<img src="https://ibb.co/W3j3ZJJ"><img src="https://i.ibb.co/pP5PcFF/Whats-App-Image-2021-08-18-at-19-29-07.jpg" width="250" height="250"> | [Github](https://kg-3rd.github.io/) [Linkedin](https://www.linkedin.com/in/kgothalang-moifo-0a773b1a9/) |
+<img src="https://i.ibb.co/pP5PcFF/Whats-App-Image-2021-08-18-at-19-29-07.jpg" width="250" height="250"> | [Github](https://kg-3rd.github.io/) [Linkedin](https://www.linkedin.com/in/kgothalang-moifo-0a773b1a9/) |

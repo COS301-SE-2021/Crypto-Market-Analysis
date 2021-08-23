@@ -92,7 +92,19 @@ class Notifications extends React.Component {
 
     generateData(object_response){
         console.log(Object.keys(object_response).length);
-        this.setState({unread: Object.keys(object_response).length});
+
+        let ppo = 0;
+        let counter = 0;
+        for (const [key, value] of Object.entries(object_response)) {
+            ppo=ppo+1;
+            if(value.Read===false && value.Read!=='undefined')
+            {
+                counter= counter+1;
+            }
+            if(ppo === Object.entries(object_response).length){
+                this.setState({unread: counter});
+            }
+        }
         this.setState({notificationObject: object_response});
         const objectOfNotificationdata= this.state.notificationObject;
         const notification_Array = [];

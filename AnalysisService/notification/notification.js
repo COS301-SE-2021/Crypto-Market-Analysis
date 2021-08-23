@@ -49,7 +49,7 @@ const followers = async(cryptocurrency,results)=>{
                             notification: cmyObj
                         }
                         firestore_db.saveData('Users', doc.id, notify);
-                        await send_email(doc.id, results);
+                       // await send_email(doc.id, results);
                         let subscription={}
                         web_push.setDetails();
                         await firestore_db.fetchPushNotification(doc.id).then(data => {

@@ -17,7 +17,7 @@ import axios from "axios";
 // import UserDropdown from "components/Dropdowns/UserDropdown.js";
 
 
-export default function Sidebar() {
+export default function Sidebar(props) {
 
   const unblockHandle = useRef()
   const history = useHistory()
@@ -235,7 +235,7 @@ export default function Sidebar() {
                   >
                     <a href="" className="notification">
                       <i className="fas fa-envelope fa-lg"></i>
-                      <span className="badge rounded-pill badge-notification bg-danger">{status}</span>
+                      <span className="badge rounded-pill badge-notification bg-danger">{0}</span>
                     </a>
                     {" "}
                     Notification

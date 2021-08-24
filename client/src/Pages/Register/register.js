@@ -20,21 +20,16 @@ export default function Signup() {
         }
 
         try {
-            let sst = ["Reddit","Twitter","Medium"]
-            let arr = ["SatoshiStreetBets", "CryptoCurrencyTrading", "CryptoCurrencies"]
             setError("")
             setLoading(true)
-            await signup(emailRef.current.value, passwordRef.current.value)
-            await db.collection('Users').doc(emailRef.current.value).set({
-                user_id: emailRef.current.value,
-                social_media_sites: sst,
-                subreddits: arr
-            });
+            await signup(emailRef.current.value, passwordRef.current.value);
+            const docRef = await db.collection(`Users`).doc(emailRef.current.value);
+            docRef.set({user_id: emailRef.current.value});
             localStorage.setItem('emailSession',emailRef.current.value);
-
             history.push("/home")
-        } catch {
-            setError("Email address already exists")
+        } catch(error) {
+            console.error(`An error occurred while trying to register the user: ${error}`);
+            setError("Email address already exists. Please enter a different email and try again!");
         }
 
         setLoading(false)

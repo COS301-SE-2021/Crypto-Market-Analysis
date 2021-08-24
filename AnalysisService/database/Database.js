@@ -1,5 +1,5 @@
 const admin = require('firebase-admin');
-const serviceAccount = require('./firebase.json');
+const serviceAccount = require('./firebase.js');
 const database = require("../FirestoreDB")
 const db = database.db.firestore();
 /** Initializes the database*/

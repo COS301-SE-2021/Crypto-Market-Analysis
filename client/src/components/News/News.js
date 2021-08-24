@@ -142,8 +142,6 @@ export default function News(props) {
                         newRow = 0;
                     }
 
-                    /*let sentiments = [`positive`, `negative`, `neutral`];
-                    let sentiment = sentiments[Math.floor(Math.random() * sentiments.length)];*/
 
                     const analysisOptions = {
                     	method: 'POST',

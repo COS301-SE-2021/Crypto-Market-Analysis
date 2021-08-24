@@ -1,9 +1,8 @@
+const dotenv = require(`dotenv`).config();
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
-const dotenv = require('dotenv');
-dotenv.config();
 const userRoutes = require('./routes/user');
 const twitterRoute = require('./routes/twitter');
 const redditRoute = require('./routes/reddit');

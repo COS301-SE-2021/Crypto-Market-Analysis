@@ -17,20 +17,18 @@ class User_Hash_Table {
                     let crypto;
                     let crypto_name;
                     let screen_name = [];
-                    let subreddits = [];
                     let social_media_sites = [];
                     for (const doc of docs){
                         cryptocurrencies = {};
                         crypto = doc.data().crypto;
                         crypto_name = doc.data().crypto_name;
                         screen_name = doc.data().screen_name;
-                        subreddits = doc.data().subreddits;
                         social_media_sites = doc.data().social_media_sites;
                         if(crypto){
                             for(const [index, value] of crypto.entries())
                                 cryptocurrencies[value] = crypto_name[index];
                         }
-                        this.#users[doc.id] = {cryptocurrencies, screen_name, subreddits, social_media_sites};
+                        this.#users[doc.id] = {cryptocurrencies, screen_name,social_media_sites};
                     }
                 }
         }).catch((error) => {
@@ -78,14 +76,16 @@ class User_Hash_Table {
                         try{
                             //Add crypto to the cryptocurrencies object
                             this.#users[key][`cryptocurrencies`][crypto] = crypto_name
-                            firestore_db.save(`Users`, key, `crypto`, crypto, true);
-                            firestore_db.save(`Users`, key, `crypto_name`, crypto_name, true);
+                            await firestore_db.save(`Users`, key, `crypto`, crypto, true);
+                            await firestore_db.save(`Users`, key, `crypto_name`, crypto_name, true);
                             return Promise.resolve(true);
                         }
                         catch (error){
                             return await Promise.reject(error);
                         }
                     }
+                    else
+                        return Promise.reject(`You are already following this crypto`);
             }
             else
                 return Promise.reject(`Invalid email entered`);
@@ -125,13 +125,11 @@ class User_Hash_Table {
                             return await Promise.reject(error);
                         }
                     }
+                    else
+                        return Promise.reject(`You are already following this site`);
                 }
                 else
-                {
-                    // await this.removeSubreddit(key, social_media)
-                    return Promise.reject(`User is already following the selected social media site`);
-                }
-
+                    return Promise.reject(`Invalid site entered`);
             }
             else
                 return Promise.reject(`Invalid email entered`);
@@ -151,7 +149,7 @@ class User_Hash_Table {
             //Check if the email exists
             if(await this.searchUser(key)){
                 //Get the twitter class instance
-                const Twitter = require(`../social_media_sites/Twitter`);
+                const Twitter = require(`server/functions/Twitter`);
                 const twitter = new Twitter().getInstance();
                 //Get the screen names array containing the list of screen names all the users are following
                 let screen_name_array = this.#users[key].screen_name;
@@ -203,7 +201,7 @@ class User_Hash_Table {
                             await firestore_db.delete(`Users`, email, `crypto`, symbol);
                             //Remove the crypto name from the database
                             await firestore_db.delete(`Users`, email, `crypto_name`, name);
-                            return true;
+                            return Promise.resolve(true);
                     }
                     else
                         return Promise.reject(`User is not following the selected crypto`);
@@ -218,6 +216,7 @@ class User_Hash_Table {
         else
             return Promise.reject(`Parameters are undefined`);
     }
+
     async removeScreenName(email, screen_name){
       if(!this.#initialized){
             await this.#init;
@@ -293,7 +292,7 @@ class User_Hash_Table {
                             social_media_sites_array.splice(index, 1);
                             //Remove the social media from the database
                             await firestore_db.delete(`Users`, email, `social_media_sites`, social_media);
-                            return true;
+                            return Promise.resolve(true);
                         }
                         else
                             return Promise.reject(`User is not following the selected social media platform`)
@@ -312,104 +311,8 @@ class User_Hash_Table {
             return Promise.reject(`Parameters are undefined`);
     }
 
-    async removeSubreddit(email, social_media){
-        if(!this.#initialized){
-            await this.#init;
-            this.#initialized = true;
-        }
 
-        //Holds the social media sites retrieved from the user hash table in memory
-        let social_media_sites_array;
-        //The index of the social media in the social media sites array
-        let index;
 
-        //Check if the parameters are defined
-        if(email && social_media){
-            //Check if the email exists
-            if(await this.searchUser(email)){
-                try{
-                    //Get the array from the selected email
-                    social_media_sites_array = this.#users[email][`subreddits`];
-                    //Check if the array exists
-                    if(social_media_sites_array){
-                        //Get the index of the social media in the array
-                        index = social_media_sites_array.indexOf(social_media);
-                        //Check if the screen name is present in the array
-                        if(index > -1){
-                            //Remove the social media from the array
-                            social_media_sites_array.splice(index, 1);
-                            //Remove the social media from the database
-                            await firestore_db.delete(`Users`, email, `subreddits`, social_media);
-                            return true;
-                        }
-                        else
-                            return Promise.reject(`User is not following the selected subreddit`)
-                    }
-                    else
-                        return Promise.reject(`User is not following any subreddit`);
-                }
-                catch (error) {
-                    return Promise.reject(error);
-                }
-            }
-            else
-                return Promise.reject(`Invalid email entered`);
-        }
-        else
-            return Promise.reject(`Parameters are undefined`);
-    }
-
-    //THE ONE BEING USED
-    async insertSubreddits(key, subreddit){
-        console.log("in userhash")
-        if(!this.#initialized){
-            await this.#init;
-            this.#initialized = true;
-        }
-  
-        //Check if the parameters are defined
-        if(key && subreddit){
-            //Check if the email exists
-            if(await this.searchUser(key)){
-                /*//Get the twitter class instance
-                const Twitter = require(`../social_media_sites/Twitter`);
-                const reddit = new Twitter().getInstance();
-                //Check if the screen name exists
-                const exists = reddit.userLookup(subreddits);*/
-                /*if(exists){*/
-                    //Get the subreddit array containing the list of subreddits
-                    let subreddits_array = this.#users[key].subreddits;
-                    //If the subreddit array doesn't exist create it
-                    if(!subreddits_array) {
-                        this.#users[key][`subreddits`] = [];
-                        subreddits_array = this.#users[key].subreddits;
-                    }
-                    //Check if the subreddit already exists in the array. If it doesn't add it
-                    if(subreddits_array.indexOf(subreddit) === -1) {
-                        try{
-                            //Add the subreddit to the array of subreddits and add it to the database
-                            subreddits_array.push(subreddit);
-                            firestore_db.save(`Users`, key, `subreddits`, subreddit, true);
-                            return Promise.resolve(true);
-                        }
-                        catch (error){
-                            return await Promise.reject(error);
-                        }
-                    }
-                    else{
-                        //CASE THAT SUBREDDIT EXITS SO WE REMOVE IT
-                         await this.removeSubreddit(key, subreddit)
-                    }
-                /*}
-                else
-                    return Promise.reject(`Subreddits does not exist`);*/
-              }
-            else
-                return Promise.reject(`Invalid email entered`);
-        }
-        else
-            return Promise.reject(`Parameters are undefined`);
-     }
 
     async fetchUser(key){
         if(!this.#initialized){
@@ -458,29 +361,6 @@ class User_Hash_Table {
                     return Object.values(value);
                 else
                     return Promise.reject(`The email is not following any cryptocurrencies`);
-            }
-            else
-                return Promise.reject(`Invalid email entered`);
-        }
-        else
-            return Promise.reject(`No parameters are defined`);
-    }
-
-
-    async getUserSubreddits(key){
-        if(!this.#initialized){
-            await this.#init;
-            this.#initialized = true;
-        }
-
-        if(key){
-            let value = this.#users[key];
-            if(value){
-                value = value.subreddits;
-                if(value)
-                    return Object.values(value);
-                else
-                    return Promise.reject(`The email is not following any subreddits`);
             }
             else
                 return Promise.reject(`Invalid email entered`);
@@ -572,27 +452,6 @@ class User_Hash_Table {
             return Promise.reject(`Parameter is not defined`);
     }
 
-    async getSubreddit(key){
-        if(!this.#initialized){
-            await this.#init;
-            this.#initialized = true;
-        }
-
-        if(key){
-            let value = this.#users[key];
-            if(value){
-                value = value.subreddits;
-                if(value)
-                    return value;
-                else
-                    return null
-            }
-            else
-                return null;
-        }
-        else
-            return null;
-    }
 
 
     async searchCryptoAndSocialMedia(social_media, cryptocurrency){

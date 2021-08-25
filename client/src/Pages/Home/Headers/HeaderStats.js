@@ -19,6 +19,7 @@ export default function HeaderStats(props) {
   let [cryptos, setCryptos] = useState([])
   let  requestObj = { email: localStorage.getItem("emailSession") }
   let coin_ = "" //coin name to pass to detailedInfo
+  let symbol_ = ""
   
   useEffect(async () => {
    
@@ -77,11 +78,12 @@ export default function HeaderStats(props) {
         .catch(err => {console.error(err);})
   }
 
-  const changeLocation = (coinname)=>{
+  const changeLocation = (coinname, coinsymbol)=>{
       
     unblockHandle.current = history.block(() => {
       if(requestObj.email){
-        coin_ =  coinname
+        coin_ =  coinname;
+        symbol_ = coinsymbol;
         OnContinue();
         return true;
       }
@@ -107,7 +109,7 @@ export default function HeaderStats(props) {
       unblockHandle.current()
     }
     if(requestObj.email != null){
-      history.push({pathname:"/home/DetailedInfo", state:{coin_name:coin_}})
+      history.push({pathname:"/home/DetailedInfo", state:{coin_name:coin_, coin_symbol:symbol_}})
     }
     else{
       history.push('/login')
@@ -128,7 +130,7 @@ export default function HeaderStats(props) {
                       return (
                         <Carousel.Item key={coin.id}>
                           <div className="w-full lg:w-12/12 xl:w-12/12 px-4 mt-5">
-                              <Link to={{pathname:"/home/DetailedInfo", state:{coin_name:coin.name}}} onClick={()=>{changeLocation(coin.name)}}>
+                              <Link to={{pathname:"/home/DetailedInfo", state:{coin_name:coin.name, coin_symbol:coin.symbol}}} onClick={()=>{changeLocation(coin.name, coin.symbol)}}>
                                   <CardStats
                                       statSubtitle={coin.name}
                                       statTitle={coin.current_price}

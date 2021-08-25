@@ -6,6 +6,11 @@ const empty = [];
 const Database = require('../database/Database');
 var Filter = require('bad-words'),
 filter = new Filter();
+const User_Hash_Table = require(`../functions/User_Hash_Table`);
+const user_object = new User_Hash_Table().getInstance();
+const firestore_db = new Database().getInstance();
+
+
 
 const url = (board) => {
     return  'http://boards.4chan.org/' + board + '/catalog';
@@ -13,6 +18,22 @@ const url = (board) => {
 
 class chan {
     firestore_db = new Database().getInstance();
+
+
+    get4chanPost = async ()=>{
+        let fourChanPosts = [];
+
+        try{
+            const docs = await firestore_db.fetch(`4chan_info`).then((snapshot) => {return snapshot.docs;});
+            for(const doc of docs)
+                fourChanPosts.push(doc.data().posts);
+
+            return {status: `Ok`, posts_array: fourChanPosts};
+        }
+        catch(err){
+            return Promise.reject(new Error(err));
+        }
+    }
 
     crawlCatalogue = async() => {
         console.log("Starting crawl process for /" + board + "/");
@@ -65,8 +86,6 @@ class chan {
 //             response[i].opimg= "https:"+response[i].opimg;
 //             response[i].op.replace(/\b((?:[a-z][\w-]+:(?:\/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/g,'');
 //             response[i].op.replace(/^(?:[a-z]*?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/gi,'');
-//
-//
 //         for(let x=0;x<cryptos.length;x++)
 //         {
 //
@@ -87,24 +106,3 @@ class chan {
 
 module.exports = chan;
 
-// chans.crawlCatalogue().then(response => {
-//     const flat= response.map(element => element.op);
-//     cryptos = ['bitcoin','ethereum','tether','binance','cardano','dogecoin','xrp','polkadot','litecoin','vechain','monero','btc','eth','usdt','bnb','ada','doge','ripple','chainlink','link','vet','xmr','shib'];
-//     let fin = [];
-//     flat.forEach(element => {
-//         element.replace(/\b((?:[a-z][\w-]+:(?:\/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/g,'');
-//         element.replace(/^(?:[a-z]*?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/gi,'');
-//         cryptos.forEach(coin => {
-//             if(element.toLowerCase().includes(coin))
-//             {
-//                 fin.push(element);
-//             }
-//         })
-//     });
-//     uniqueArray = fin.filter(function(item, pos) {
-//         return fin.indexOf(item) == pos;
-//     })
-//     console.log(uniqueArray);
-//     chans.firestore_db.save('4chan_data','biz','posts',empty);
-//     chans.firestore_db.save('4chan_data','biz','posts',uniqueArray);
-// }).catch(e => console.log(e));

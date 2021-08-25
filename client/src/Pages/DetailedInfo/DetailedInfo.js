@@ -11,7 +11,9 @@ import Reddit from "../../components/Reddit/Reddit.js";
 import News from "../../components/News/News";
 
 export default function DetailedInfo(props) {
-    const coin_name = props.location.state.coin_name
+    const coin_name = props.location.state.coin_name;
+    const coin_symbol = props.location.state.coin_symbol;
+
     return(
         <>
         <Sidebar />
@@ -31,7 +33,7 @@ export default function DetailedInfo(props) {
                             <FourChan />
                         </Tab>
                         <Tab eventKey="News" title="News">
-                            <News coin_name={coin_name}/>
+                            <News coin_name={coin_name} coin_symbol = {coin_symbol}/>
                         </Tab>
                     </Tabs>
                 </div>

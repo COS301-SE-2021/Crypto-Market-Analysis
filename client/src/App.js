@@ -13,11 +13,13 @@ import PrivateRoute from "./components/newRoute"
 import Notification from "./Pages/Notification/Notification"
 import DetailedInfo from "./Pages/DetailedInfo/DetailedInfo"
 import Subreddits from "./Pages/Subreddits/Subreddits"
+//import Predictions from "./Pages/Predictions/Predictions"
 import {BrowserRouter as Router , Switch} from "react-router-dom";
 import { AuthProvider } from "./Auth/Auth"
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import { useEffect } from 'react';
+import Predictions from "./Pages/Predictions/Predictions";
 
 function App() {
     useEffect(async ()=>{
@@ -57,6 +59,7 @@ function App() {
                      <Route exact path="/Notification" component={Notification}></Route>
                      <Route exact path="/home/DetailedInfo" component={DetailedInfo}></Route>
                      <Route exact path="/Subreddits" component={Subreddits}></Route>
+                     <Route exact path="/Predictions" component={Predictions}></Route>
                  </section>
            </Switch>
           </AuthProvider>

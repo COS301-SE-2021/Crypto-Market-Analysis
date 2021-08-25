@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const analysisFunction = require("../analysisFunction")
+const analysisFunction = require("../analysisFunction");
 
 router.post("/ArticleAnalytics", async (request,response)=>{
     const articles = request.body.article;

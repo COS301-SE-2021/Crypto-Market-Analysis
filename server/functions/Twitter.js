@@ -1,7 +1,7 @@
 const Twit = require('twit');
 const fetch = require('node-fetch');
 const Database = require(`../database/Database`);
-const User_Hash_Table = require(`../Hash_Tables/User_Hash_Table`);
+const User_Hash_Table = require(`../functions/User_Hash_Table`);
 const user_object = new User_Hash_Table().getInstance();
 
 const T = new Twit({

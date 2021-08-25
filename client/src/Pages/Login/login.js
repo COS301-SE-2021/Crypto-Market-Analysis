@@ -1,7 +1,8 @@
 import React, { useRef, useState } from "react"
-import { Form, Button, Card, Alert } from "react-bootstrap"
+import { Form, Button, Alert } from "react-bootstrap"
 import { useAuth } from "../../Auth/Auth"
 import { Link, useHistory } from "react-router-dom"
+import "./login.css"
 
 export default function Signup() {
     const emailRef = useRef()
@@ -27,33 +28,45 @@ export default function Signup() {
     }
 
     return (
-        <>
-            <Card>
-                <Card.Body>
-                    <h2 className="text-center mb-4">Login</h2>
-
-                    {error && <Alert variant="danger">{error}</Alert>}
-                    <Form onSubmit={handleSubmit}>
-                        <Form.Group id="email">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control type="email" ref={emailRef} required />
-                        </Form.Group>
-                        <Form.Group id="password">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" ref={passwordRef} required />
-                        </Form.Group>
-                        <Button disabled={loading} className="w-100" type="submit">
-                            Sign In
-                        </Button>
-                    </Form>
-                </Card.Body>
-            </Card>
-            <div className="w-100 text-center mt-2">
-               <Link to="/updatePassword">Forgot Password?</Link>
+        <body>
+        <div className="row">
+            <div className="col-md-4 mx-auto p-0">
+                <div className="card shadow-lg">
+                    <div className="card-header text-center">Login</div>
+                    <div className="card-body">
+                        {error && <Alert variant="danger">{error}</Alert>}
+                        <Form onSubmit={handleSubmit}>
+                        
+                            <Form.Group id="email">
+                                <div style={{width:"70%",margin:"auto"}}>
+                                    <Form.Label className="label">Email</Form.Label>
+                                </div>
+                                <Form.Control type="email" ref={emailRef} style={{width:"70%",margin:"auto"}} required />
+                            </Form.Group>
+                            <Form.Group id="password">
+                                <div style={{width:"70%",margin:"auto"}}>
+                                    <Form.Label className="label">Password</Form.Label>
+                                </div>
+                                <Form.Control type="password" ref={passwordRef} style={{width:"70%",margin:"auto"}} required />
+                            </Form.Group>
+                            <div className="text-right mt-2 mb-2" style={{width:"70%",margin:"auto"}}>
+                                <Link to="/updatePassword" className="label">Forgot Password?</Link>
+                            </div>
+                            <Form.Group className="text-center">
+                                <Button disabled={loading} style={{width:"70%",margin:"auto"}} type="submit">
+                                    Sign In
+                                </Button>
+                            </Form.Group>
+                            <div className="mt-2 new" style={{width:"70%",margin:"auto"}}>
+                                New to Cryptosis? <Link to="/register" className="label">Register here</Link>
+                            </div>
+                        </Form>
+                       
+                    </div>
+                </div>
+                
             </div>
-            <div className="w-100 text-center mt-2">
-                New to Cryptosis? <Link to="/register">Register an account.</Link>
-            </div>
-        </>
+        </div>
+        </body>
     )
 }

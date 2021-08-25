@@ -2,33 +2,24 @@ const Database = require('../database/Database');
 const User_Hash_Table = require(`../Hash_Tables/User_Hash_Table`);
 const user_object = new User_Hash_Table().getInstance();
 const firestore_db = new Database().getInstance();
+const reddit =require('../social_media_sites/Reddit');
+const redditScrapper = new reddit();
 
-const get4chanPost = async ()=>{
-    let fourChanPosts = [];
-
-    try{
-        const docs = await firestore_db.fetch(`4chan_info`).then((snapshot) => {return snapshot.docs;});
-        for(const doc of docs)
-            fourChanPosts.push(doc.data().posts);
-
-        return {status: `Ok`, posts_array: fourChanPosts};
-    }
-    catch(err){
-        return Promise.reject(new Error(err));
-    }
-}
 const getNotification=async(email)=>{
     const fields = await firestore_db.fetchNotification(email).then(data=>{
         return data;
     });
     return fields;
 }
+
 const setNotification=async(email,object)=>{
     await firestore_db.storeNotification(email, object);
 }
+
 const setPush=async(email,object)=>{
     await firestore_db.setPushNotification(email,object);
 }
+
 const getPush=async(email)=>{
     let mydata={};
    await firestore_db.fetchPushNotification(email).then(data=>{
@@ -41,51 +32,28 @@ const getPush=async(email)=>{
     });
     return mydata;
 }
-/** Gets all the reddit posts from the database.
- * @return  {object} Containing an array of posts if it was successful or a rejected Promise.
-* */
 
-//
-// const getRedditPost = async (email)=>{
-//     // const citiesRef = db.collection('cities');
-//     // const coastalCities = await citiesRef.where('regions', 'array-contains-any',
-//     //     ['west_coast', 'east_coast']).get();
-//     let posts = [];
-//     try{
-//         const docs = await firestore_db.fetch(`reddit_info`).then(snapshot => {return snapshot.docs});
-//         for(const doc of docs)
-//             posts.push(doc("CryptoCurrencies").data().posts);
-//         return {status: `Ok`, posts: posts};
-//     }
-//     catch(err){
-//         return Promise.reject(new Error(err));
-//     }
-// }
-
-/*
-const citiesRef = db.collection('cities');
-const coastalCities = await citiesRef.where('regions', 'array-contains-any',
-    ['west_coast', 'east_coast']).get();
- */
-const getRedditPost = async (email)=>{
-    let subs = await getUserSubreddits(email);
-    let posts = [];
-    try{
-        const docs = await firestore_db.fetch(`reddit_info`).then(snapshot => {return snapshot.docs});
-        for(const doc of docs)
-            posts.push(doc.data().posts);
-        return {status: `Ok`, posts: posts};
-    }
-    catch(err){
-        return Promise.reject(new Error(err));
-    }
-}
 const getUserCrypto = async (email_address)=>{
     try{
         return await user_object.getCryptoName(email_address);
     }
     catch (error){
         return Promise.reject(error);
+    }
+}
+
+const getCoinPredictions = async (email)=>{
+    let fourChanPosts = [];
+
+    try{
+        const docs = await firestore_db.fetch(`CryptoPricePrediction`).then((snapshot) => {return snapshot.docs;});
+        for(const doc of docs)
+            fourChanPosts.push(doc.data());
+
+        return {status: `Ok`, posts_array: fourChanPosts};
+    }
+    catch(err){
+        return Promise.reject(new Error(err));
     }
 }
 
@@ -109,7 +77,7 @@ const followCrypto = async (email_address,symbol,crypto_name )=>{
 
 const unfollowCrypto = async (email_address, symbol) => {
     try{
-        await user_object.removeCrypto(email_address, symbol);
+        return await user_object.removeCrypto(email_address, symbol);
     }
     catch (error){
         return Promise.reject(error);
@@ -152,4 +120,5 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
 
-module.exports = {getPush,setPush,setNotification,saveToDB,getNotification,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, get4chanPost}
+module.exports = { getCoinPredictions, fetchUserSocialMedia, getPush,setPush,setNotification,saveToDB,getNotification, getUserCrypto,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia}
+

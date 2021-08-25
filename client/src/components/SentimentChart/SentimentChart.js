@@ -1,58 +1,20 @@
 import React, {useEffect, useRef, useState} from 'react'
 import Chartjs from 'chart.js'
-import {Line} from 'react-chartjs-2'
-import {historyOptions} from "../../chartConfigs/chartConfigs";
 import axios from "axios";
-import coinGecko from "../apis/CoinGecko";
 
-
-const SentimentChart = () => {
+const SentimentChart = ({data}) => {
     const chartRef = useRef();
-    //const {sentiment} = data;
-    let [averages, setAverages] = useState({});
     const [timeFormat, setTimeFormat] = useState("2m");
+    const {detail} = data;
     let chartInstance;
-    let [details,setDetails] = useState({})
-    let [Coin, SetCoin] = useState({});
-    let [loading, setLoading] = useState(true);
-
-
-    /*const determineTimeFormat = () => {
-        switch (timeFormat){
-
-            case "24h":
-                return sentiment;
-            default:
-                return "";
-        }
-    }*/
-
-
 
     useEffect(async () => {
-
         try {
-            const fetchDatas = async () => {
-
-                const [detail] = await Promise.all([
-                    coinGecko.get("/coins/markets/", {
-                        params: {
-                            vs_currency: "zar",
-                            days: "365",
-                            interval: "weekly"
-                        },
-                    }),
-                ]);
-
-                detail.data.forEach(data => {
-                    setDetails({
-                        detail: data,
-                    })
-                })
+            const fetchAverageData = async () => {
 
                 let requestObj = {
                     email: localStorage.getItem("emailSession"),
-                    crypto_name: "Bitcoin",
+                    crypto_name: detail.name,
                 }
 
                 axios.post('http://localhost:8080/sentiment/getAverages', requestObj)
@@ -60,67 +22,77 @@ const SentimentChart = () => {
 
                         let averagesList = [];
 
-                        let cA = response.data;
-                        //for (const avg of cA)
-                        averagesList.push({AVG: cA});
+                        averagesList.push({AVG:
+                                response.data
+                            });
 
-                        setAverages(cA);
-                        // console.log(cA.data[0]);
+                        let l = [6000000, 12000000, 24000000];
+                        for(let i =0; i < averagesList[0].AVG.data.length; i++)
+                        {
+
+                                if (chartRef && chartRef.current) {
+
+                                    chartInstance = new Chartjs(chartRef.current, {
+                                        type: 'line',
+                                        data: {
+                                            labels: l,
+                                            datasets: [
+                                                {
+                                                    label: detail.name + " sentiment",
+                                                    data: [averagesList[0].AVG.data[0], averagesList[0].AVG.data[1], averagesList[0].AVG.data[2]],
+                                                    backgroundColor: "rgba(255, 255, 255,0)",
+                                                    borderColor: "rgba(0,0,0,0.9)",
+                                                    pointRadius: 0,
+                                                    hoverOffset: 4,
+                                                },
+
+                                            ],
+
+                                        },
+                                        options: {
+                                            lineHeightAnnotation: {
+                                                always: true,
+                                                hover: true,
+                                                lineWeight: 1.5
+                                            },
+
+                                            animation: {
+                                                duration: 2000
+                                            },
+
+                                            maintainAspectRatio: false,
+                                            responsive: true,
+                                            scales: {
+                                                xAxes: [
+                                                    {
+                                                        type: "time",
+                                                        distribution: "linear",
+
+                                                    }
+                                                ],
+                                                yAxes: [{
+                                                    beginAtZero: true,
+                                                }]
+                                            }
+                                        },
+                                    });
+                                }
+                        }
+
                     }).catch(err => {
                     console.error(err);
                 })
             }
+            await fetchAverageData()
 
-            await fetchDatas()
-            console.log(averages.data.length)
         }catch (e){
             console.log(e);
         }
-
-        //console.log(averages.length);
     },[]);
 
-    let l = [600000, 1200000, 2400000];
-    for(let i =0; i < averages.data.length; i++)
-    {
-        if (chartRef && chartRef.current) {
-            // const labels = new Date.now();
-            chartInstance = new Chartjs(chartRef.current, {
-                type: 'line',
-
-                data: {
-                    labels: l,
-                    datasets: [
-                        {
-                            label: details.name + " sentiment" ,
-                            data: [ averages.data[i] ],
-                            backgroundColor: "rgba(255, 255, 255,0)",
-                            borderColor: "rgba(0,0,0,0.9)",
-                            pointRadius: 0,
-                            hoverOffset: 4,
-                        },
-
-                    ],
-
-                },
-                options: {
-                    ...historyOptions,
-                },
-            });
-        }
-    }
 
     return (
         <div>
-
-            {/*<div>
-            <Line data={chartInstance}>
-
-                
-                
-            </Line>
-        </div>*/}
-
 
             <div>
 
@@ -131,7 +103,7 @@ const SentimentChart = () => {
             </div>
 
             <div className="chart-button mt-1">
-                <button onClick={() => setTimeFormat("5h")} className="btn btn-outline-secondary btn-sm">2m</button>
+                <button onClick={() => setTimeFormat("5h")} className="btn btn-outline-secondary btn-sm">10m</button>
             </div>
 
         </div>

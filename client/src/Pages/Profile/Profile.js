@@ -31,14 +31,13 @@ width: 150%;
 
 const platformsList = [{name:"Twitter",id:"twitter"},
     {name:"Reddit",id:"reddit"},
-    {name:"Medium",id:"medium"},
-    {name:"Discord",id:"discord"}
+    {name:"4Chan",id:null}
 ];
 
 const Profile = props =>
 {
 
-    const history = useHistory() 
+    const history = useHistory()
     let[socs,setSoc] =useState([]);
     let [platforms, setPlatforms] = useState(platformsList)
     const [selectedTab, setSelectedTab] = React.useState(0)
@@ -49,8 +48,9 @@ const Profile = props =>
     const modalText = "Are you sure you want to delete your account?"
     const [accDelete, setAccDelete] = useState(false)
     let [loading, setLoading] = useState(false);
-    
+
     const searchRef = useRef()
+
 
     const handleChange = (event, newValue) =>
     {
@@ -91,7 +91,7 @@ const Profile = props =>
             })
             .catch(err => {console.error(err);})
 
-        axios.post('http://localhost:8080/user/getUserSubreddits/',userReq)
+        axios.post('http://localhost:8080/reddit/getUserSubreddits/',userReq)
             .then(response => {
                 let subName = [];
                 for(const subred of response.data)
@@ -110,7 +110,7 @@ const Profile = props =>
 
     const handleFollowButton = (user,follows)=>{
 
-       
+
         let target =  document.getElementById('followBtn')
         let iconEL = document.createElement("i")
         iconEL.setAttribute("class","fab fa-twitter mr-2")
@@ -139,13 +139,13 @@ const Profile = props =>
         }
         target.append(newElement)
         cleanSpace()
-        
+
     }
 
     const followUser = ()=>{
 
         let user = {email: localStorage.getItem("emailSession"), screen_name: searchRef.current.value }
-        
+
         axios.post('http://localhost:8080/twitter/follow/',user)
         .then(response=>{
             console.log(response)
@@ -154,13 +154,13 @@ const Profile = props =>
             document.getElementById('followBtn').innerHTML = "<span></span>"
         })
         .catch(err => {console.error(err)})
-        
+
 
     }
     const unFollowUser = ()=>{
 
         let user = {email: localStorage.getItem("emailSession"), screen_name: searchRef.current.value }
-       
+
         axios.post('http://localhost:8080/twitter/unfollow/',user)
         .then(response=>{
             console.log(response)
@@ -169,20 +169,20 @@ const Profile = props =>
             document.getElementById('followBtn').innerHTML = "<span></span>"
         })
         .catch(err => {console.error(err)})
-        
+
 
     }
     const searchUsername = async (event) =>{
         document.getElementById('followBtn').innerHTML = "<span></span>"
-      
+
         setLoading(true)
         event.preventDefault()
 
-       
+
         let user = { screen_name: searchRef.current.value, email: localStorage.getItem("emailSession")}
         axios.post('http://localhost:8080/twitter/validateScreenName/',user)
         .then((response)=>{
-            
+
             if(response.data.data){
                 handleFollowButton(user.screen_name,false)
             }
@@ -202,7 +202,7 @@ const Profile = props =>
     }
 
     const select = (name) => {
-           
+
         platforms =  [...platforms.map((platform)=>{
             if(name === platform.id){
                 platform.selected = !platform.selected;
@@ -216,7 +216,7 @@ const Profile = props =>
                 */
                 if(platform.selected) {
 
-                  
+
                     axios.post('http://localhost:8080/user/followSocialMedia/',platformObj)
                         .then(response =>{
                             console.log(response)
@@ -227,7 +227,7 @@ const Profile = props =>
                 }
                 else{
 
-                    
+
                     axios.post('http://localhost:8080/user/unfollowSocialMedia/',platformObj)
                         .then(response =>{
                             console.log(response)
@@ -242,7 +242,7 @@ const Profile = props =>
             }
         })]
         setPlatforms(platforms)
-            
+
     }
 
     const deleteAccount = () =>{
@@ -251,14 +251,15 @@ const Profile = props =>
     }
 
     const onCancel =(e)=>{
-        setShow(false);    
+        setShow(false);
     }
     const OnContinue =()=>{
         setAccDelete(true)
         setAlertTitle("Account deleted")
         setShowSweetAlert(true)
-        
+
     }
+
 
     return(
 
@@ -271,7 +272,7 @@ const Profile = props =>
                     history.push("/")
                 // localStorage.clear()
                 }
-                
+
 
             }}></SweetAlert>
             <Sidebar />
@@ -330,7 +331,7 @@ const Profile = props =>
                                             <EditIcon />
                                             Update Profile Details
                                         </Button>
-                                        
+
                                     </Link>
                                     <div className="flex text-xs py-3 ml-3">
                                         <Button onClick={deleteAccount}>
@@ -338,7 +339,7 @@ const Profile = props =>
                                             Delete Account
                                         </Button>
                                     </div>
-                                    
+
                                 </div>
 
 
@@ -394,7 +395,7 @@ const Profile = props =>
                         <div id="searchContainer" className="container" >
                            <script sync src="https://platform.twitter.com/widgets.js%22%3E"></script>
                             <div className="row searchFilter" >
-                               
+
                                 <div className="col-sm-12" >
                                     <div className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold pt-4 pb-4 px-0">Search for a twitter user you want us to check out for you</div>
                                     <div className="input-group" >
@@ -405,19 +406,19 @@ const Profile = props =>
                                             </Form.Group>
                                             <Form.Group >
                                                 <Form.Control id="searchBtn" type="submit" className="btn btn-secondary btn-search" value="Search" />
-                                                
+
                                             </Form.Group>
                                         </Form>
-                                        
+
                                         </div>
                                         {loading ? <div className="ml-2 mt-2 text-center"><ClipLoader  loading={loading} size={15} /></div>:<></>}
                                         <div id="followBtn">
                                         <span></span>
                                     </div>
                                     </div>
-       
+
                                 </div>
-                                
+
                             </div>
                         </div>
                     }
@@ -427,14 +428,15 @@ const Profile = props =>
                             <div className="row mt-6">
                                 <div className="col-5 m-auto platform-container overflow-auto ">
                                         {
-                                            
+
                                             platforms.map((myPlatform) =>{
                                                 return(
                                                 <div key={myPlatform.id} className="cryptos-view">
                                                     <div className="crypt-row">
                                                         <div className="crypto">
                                                             {myPlatform.selected?<Star className="select-star" color="primary" onClick={()=>{select(myPlatform.id)}}/>:<Star className="select-star" color="action" onClick={()=>{select(myPlatform.id)}}/>}
-                                                            <SocialIcon network={myPlatform.id} style={{height:"40px",width:"40px"}}/>
+                                                            {myPlatform.id != null ?<SocialIcon network={myPlatform.id} style={{height:"40px",width:"40px"}}/>:
+                                                            <img src={"./4chanLogo.png"} alt="4chan" style={{height:"40px",width:"40px"}} />}
                                                             <h1 className="crypto-name" style={{marginLeft:"2em"}}>{myPlatform.name}</h1>
                                                         </div>
                                                     </div>

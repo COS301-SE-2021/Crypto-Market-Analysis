@@ -1,5 +1,8 @@
 const snoowrap = require('snoowrap');
 const Database = require('../database/Database');
+const User_Hash_Table = require(`../Hash_Tables/User_Hash_Table`);
+const user_object = new User_Hash_Table().getInstance();
+const firestore_db = new Database().getInstance();
 const userAgent = 'codex';
 const clientId = '9hYB1ExwwjFAPw';
 const clientSecret = 'jvq3MgpkmN0WUXqnjAct2DXTU-h-ow';
@@ -16,6 +19,13 @@ const r = new snoowrap({
 
 class Reddit {
     #firestore_db = new Database().getInstance();
+
+
+    coinRedditPost = async (coin)=>{
+        return await this.getCoinRedditPost(coin);
+    }
+
+
     scrapeSubreddit = async (Subreddit) => {
         const subreddit1 = await r.getSubreddit(Subreddit);
         let Data = [];
@@ -115,23 +125,5 @@ class Reddit {
         return Data;
     }
 }
-
-// let reddits = new Reddit();
-// reddits.getCoinRedditPost("clemobhe").then();
-
-// reddits.completeScrape("CryptoCurrencies").then();
-// reddits.completeScrape("SatoshiStreetBets").then();
-// reddits.completeScrape("Crypto_Currency_News").then();
-// reddits.completeScrape("CryptoCurrencyTrading").then();
-// reddits.completeScrape("Cryptomarkets").then();
-// reddits.scrapeSubreddit2("Bitcoin").then();
-// reddits.scrapeSubreddit2("Ethereum").then();
-
-
-// let res = reddits.allSubreddits().then();
-// for (let i =0;i<res.length;i++) {
-//     reddits.completeScrape(res[i]).then();
-// }
-
 
 module.exports = Reddit;

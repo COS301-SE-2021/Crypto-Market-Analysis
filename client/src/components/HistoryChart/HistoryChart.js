@@ -1,42 +1,41 @@
 import React, {useEffect, useRef, useState} from 'react'
 import Chartjs from 'chart.js'
-//import chart from 'canvas.js'
 import {historyOptions} from "../../chartConfigs/chartConfigs";
-import CanvasJSReact from '../../canvasjs.react';
-let CanvasJS = CanvasJSReact.CanvasJS;
-let CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const HistoryChart = ({data}) => {
     const chartRef = useRef();
     const {day} = data;
     const {week} = data;
-    const {year} = data;
     const {fourteenDays} = data;
     const {month} = data;
     const {threeMonths} = data;
+    const {year} = data;
     const {detail} = data;
-    const [timeFormat, setTimeFormat] = useState("24h");
-    let chartInstance;
-    let options;
+    const [timeFormat, setTimeFormat] = useState("");
+    let chartInstance = useRef();
 
     const determineTimeFormat = () => {
-        switch (timeFormat){
-
-            case "24h":
-                return day;
-            case "7d":
-                return week;
-            case "14d":
-                return fourteenDays;
-            case "30d":
-                return month;
-            case "90d":
-                return threeMonths;
-            case "1y":
-                return year;
-            default:
-                return "";
+        try{
+            switch (timeFormat){
+                case "24h":
+                    return day;
+                case "7d":
+                    return week;
+                case "14d":
+                    return fourteenDays;
+                case "30d":
+                    return month;
+                case "90d":
+                    return threeMonths;
+                case "1y":
+                    return year;
+                default:
+                    return day;
+            }
+        }catch(err){
+            console.log(err)
         }
+
     }
 
     useEffect(() => {
@@ -52,42 +51,21 @@ const HistoryChart = ({data}) => {
                             data: determineTimeFormat(),
                             backgroundColor: "rgba(255, 255, 255,0)",
                             borderColor: "rgba(0,0,0,0.9)",
-                            pointRadius: 0,
+                            pointRadius: 1,
                             hoverOffset: 4,
                         },
+
                     ],
+
                 },
                 options: {
                     ...historyOptions,
                 },
             });
         }
-
-         /*options = {
-            animationEnabled: true,
-            title:{
-                text: "Monthly Sales - 2017"
-            },
-            axisX: {
-                valueFormatString: "MMM"
-            },
-            axisY: {
-                title: "Sales (in USD)",
-                prefix: "$",
-            },
-             labels:['Jan','Feb','Mar'],
-            data: [{
-                yValueFormatString: "$#,###",
-                xValueFormatString: "MMMM",
-                type: "spline",
-                dataPoints: [
-                    {data:[1,2,3]}
-
-
-                ]
-            }]
-        }*/
-
+        else {
+            alert("No graph data to return");
+        }
     })
 
     return (
@@ -97,9 +75,9 @@ const HistoryChart = ({data}) => {
 
             <div>
 
-                <CanvasJSChart options={options} id="myChart" height={500} width={500}>
+                <canvas ref={chartRef} id="myChart" height={500} width={500}>
 
-                </CanvasJSChart>
+                </canvas>
 
             </div>
 

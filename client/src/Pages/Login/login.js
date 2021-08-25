@@ -29,7 +29,10 @@ export default function Signup() {
 
     return (
         <body>
-        <div className="row">
+        <div className="row" >
+            <div className="col-md-12 mx-auto p-0" >
+                <img src={"/cryptosis2-t.png"} alt="cryptosis logo" style={{margin:"auto"}} />
+            </div>
             <div className="col-md-4 mx-auto p-0">
                 <div className="card shadow-lg">
                     <div className="card-header text-center">Login</div>
@@ -66,6 +69,7 @@ export default function Signup() {
                 </div>
                 
             </div>
+            
         </div>
         </body>
     )

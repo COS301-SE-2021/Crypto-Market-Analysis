@@ -27,9 +27,9 @@ export default function UpdatePassword() {
     }
 
     return (
-        <body>
+        <body id="body">
         <div className="row">
-            <div className="col-md-4 mx-auto p-0">
+            <div className="col-md-4 mx-auto p-0 mt-5">
                 <div className="card shadow-lg">
                     <div className="card-header text-center">Reset Password</div>
                     <div className="card-body">

@@ -39,7 +39,10 @@ export default function Signup() {
         
         <body>
         <div className="row">
-            <div className="col-md-4 mx-auto p-0">
+            <div className="col-md-4 offset-md-1 p-0 mt-5" >
+                <img src={"/cryptosis-t.png"} alt="cryptosis logo" style={{float:"right"}} />
+            </div>
+            <div className="col-md-4 mx-auto p-0 mt-5">
                 <div className="card shadow-lg">
                     <div className="card-header text-center">Sign Up</div>
                     <div className="card-body">

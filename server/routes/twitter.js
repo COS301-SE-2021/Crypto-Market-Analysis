@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Twitter = require(`../social_media_sites/Twitter`);
+const Twitter = require(`../functions/Twitter`);
 const twitter = new Twitter().getInstance();
 const User_Hash_Table = require(`../Hash_Tables/User_Hash_Table`);
 const user_object = new User_Hash_Table().getInstance();

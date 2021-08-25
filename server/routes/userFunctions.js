@@ -2,7 +2,7 @@ const Database = require('../database/Database');
 const User_Hash_Table = require(`../Hash_Tables/User_Hash_Table`);
 const user_object = new User_Hash_Table().getInstance();
 const firestore_db = new Database().getInstance();
-const reddit =require('../social_media_sites/Reddit');
+const reddit =require('../functions/Reddit');
 const redditScrapper = new reddit();
 
 const getNotification=async(email)=>{

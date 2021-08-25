@@ -149,7 +149,7 @@ class User_Hash_Table {
             //Check if the email exists
             if(await this.searchUser(key)){
                 //Get the twitter class instance
-                const Twitter = require(`../social_media_sites/Twitter`);
+                const Twitter = require(`server/functions/Twitter`);
                 const twitter = new Twitter().getInstance();
                 //Get the screen names array containing the list of screen names all the users are following
                 let screen_name_array = this.#users[key].screen_name;

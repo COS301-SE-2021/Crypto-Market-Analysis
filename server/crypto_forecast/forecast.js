@@ -3,6 +3,7 @@ const apiKey = "7d4a73a2b7a6fd2e5d57acd8c019cb82178961644e25b7caad3239d04e79da4b
 const axios = require('axios');
 const {performance} = require('perf_hooks');
 const brain = require("brain.js");
+
 const Database = require('../database/Database');
 let trainingData = [];
 let openMin = Infinity;
@@ -205,7 +206,6 @@ class NeuralNetwork {
 
 
 
-let network = new NeuralNetwork();
 // let AllCoins = network.allCoins().then(function (response) {
 //      for(let p=0;p<response.length;p++)
 //      {
@@ -215,26 +215,7 @@ let network = new NeuralNetwork();
 //      }
 // });
 
-network.train("btc").then(function (store) {
-    network.train("eth").then(function (store) {
-        network.train("usdt").then(function (store) {
-            network.train("bnb").then(function (store) {
-                network.train("ada").then(function (store) {
-                    network.train("xrp").then(function (store) {
-                        network.train("doge").then(function (store) {
-                            network.train("usdc").then(function (store) {
-                                network.train("dot").then(function (store) {
-                                    network.train("uni").then(function (store) {
-                                    });
-                                });
-                            });
-                        });
-                    });
-                });
-            });
-        });
-    });
-})
+module.exports = { timeConverter, scaleUp, scaleDown , NeuralNetwork}
 
 
 

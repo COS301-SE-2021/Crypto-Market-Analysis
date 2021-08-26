@@ -1,13 +1,12 @@
 const admin = require('firebase-admin');
-const serviceAccount = require('./firebase.json');
-const database = require("../FirestoreDB")
-const db = database.db.firestore();
+const serviceAccount = require('./firebase.js');
+
 /** Initializes the database*/
-/*const initialize = () => {
+const initialize = () => {
     admin.initializeApp({
         credential: admin.credential.cert(serviceAccount)
     });
-}*/
+}
 
 class Database {
 
@@ -15,8 +14,8 @@ class Database {
 
     /** Starts the database */
     constructor() {
-        //initialize();
-        this.#db = db;
+        initialize();
+        this.#db = admin.firestore();
     }
 
     /** Sets the fields in the collection name provided.

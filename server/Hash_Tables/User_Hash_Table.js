@@ -105,7 +105,7 @@ class User_Hash_Table {
             //Check if the email exists
             if(await this.searchUser(key)){
                 //Check if the site exists
-                if(social_media === `Twitter` || social_media === `Reddit` || social_media === `4chan`){
+                if(social_media === `Twitter` || social_media === `Reddit` || social_media === `4Chan`){
                     //Get the social media sites array containing the list of social media platforms the user is following
                     let social_media_sites_array = this.#users[key].social_media_sites;
                     //If the screen name array doesn't exist create it

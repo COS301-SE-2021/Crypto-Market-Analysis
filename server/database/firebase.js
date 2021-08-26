@@ -1,5 +1,3 @@
-
-
 const config = {
   "type": process.env.TYPE,
   "project_id": process.env.PROJECT_ID,

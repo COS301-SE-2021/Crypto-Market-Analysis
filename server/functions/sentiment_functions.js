@@ -1,5 +1,5 @@
 const Database = require(`../database/Database`);
-const User = require(`../Hash_Tables/User_Hash_Table`);
+const User = require(`../functions/User_Hash_Table`);
 const user_object = new User().getInstance();
 const firestore_database = new Database().getInstance();
 

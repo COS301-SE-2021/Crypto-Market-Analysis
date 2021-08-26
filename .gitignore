@@ -7,4 +7,4 @@
 /.idea/
 /AnalysisService/node_modules
 /AnalysisService/.env/
-/server/database/firebase.json/
+/server/database/firebase.js/

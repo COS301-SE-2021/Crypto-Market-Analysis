@@ -1,8 +1,8 @@
 const http = require('http');
 const app = require('./app');
 const cron = require('node-cron');
-const Reddit = require('./social_media_sites/Reddit');
-const Twitter = require(`./social_media_sites/Twitter`);
+const Reddit = require('./functions/Reddit');
+const Twitter = require(`./functions/Twitter`);
 const twitter = new Twitter().getInstance();
 app.set(`port`, process.env.PORT || 8080);
 app.set(`host`, process.env.HOST || `127.0.0.1`);

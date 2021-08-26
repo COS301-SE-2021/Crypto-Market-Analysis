@@ -34,9 +34,11 @@ export default function Overview({coin_name}) {
 
     useEffect(async () => {
 
-     
+
         /*use time to rerender the component every 30 seconds(Update price every 30 sec)*/
-        setTimeout(function(){ setTime(Date.now())}, 30000)
+        setTimeout(function () {
+            setTime(Date.now())
+        }, 30000)
 
         coin_name = coin_name.toLowerCase();
         axios.get('https://api.coingecko.com/api/v3/coins/' + coin_name)
@@ -50,6 +52,13 @@ export default function Overview({coin_name}) {
 
 
         const fetchData = async () => {
+            const [day] = await Promise.all([coinGecko.get("/coins/" + coin_name + "/market_chart/", {
+                params: {
+                    vs_currency: "zar",
+                    days: "1",
+                    interval: "weekly"
+                },
+            })]);
 
             const [week] = await Promise.all([coinGecko.get("/coins/" + coin_name + "/market_chart/", {
                 params: {
@@ -59,13 +68,6 @@ export default function Overview({coin_name}) {
                 },
             })]);
 
-            const [day] = await Promise.all([coinGecko.get("/coins/" + coin_name + "/market_chart/", {
-                params: {
-                    vs_currency: "zar",
-                    days: "1",
-                    interval: "weekly"
-                },
-            })]);
 
             const [fourteenDays] = await Promise.all([coinGecko.get("/coins/" + coin_name + "/market_chart/", {
                 params: {
@@ -109,24 +111,24 @@ export default function Overview({coin_name}) {
                 }),
             ]);
 
-            
-                detail.data.forEach(data => {
-                    if (coin_name.toLowerCase() === data.id) {
-                        setCoinData({
-                            day: formatData(day.data.prices),
-                            week: formatData(week.data.prices),
-                            year: formatData(year.data.prices),
-                            fourteenDays: formatData(fourteenDays.data.prices),
-                            month: formatData(month.data.prices),
-                            threeMonths: formatData(threeMonths.data.prices),
-                            detail: data,
-                        });
-                        setGraphLoader(false)
-                    }
-                })
-                
-            
-                detail.data.forEach(data => {
+
+            detail.data.forEach(data => {
+                if (coin_name.toLowerCase() === data.id) {
+                    setCoinData({
+                        day: formatData(day.data.prices),
+                        week: formatData(week.data.prices),
+                        year: formatData(year.data.prices),
+                        fourteenDays: formatData(fourteenDays.data.prices),
+                        month: formatData(month.data.prices),
+                        threeMonths: formatData(threeMonths.data.prices),
+                        detail: data,
+                    });
+                    setGraphLoader(false)
+                }
+            })
+
+
+            detail.data.forEach(data => {
                 if (coin_name.toLowerCase() === data.id) {
                     setMarketData({
                         day: formatData(day.data.market_caps),
@@ -142,17 +144,18 @@ export default function Overview({coin_name}) {
         }
         await fetchData();
 
-    },[time])
+    }, [time])
 
 
     return (
         <>
-            {loading ? <div className="mx-auto mt-16 text-center"><ClipLoader  loading={loading} size={150} /></div> : <></>}
+            {loading ?
+                <div className="mx-auto mt-16 text-center"><ClipLoader loading={loading} size={150}/></div> : <></>}
             {coin.id ? <>
                 <div className="container mt-16 mb-12">
                     <div className="row">
                         <div className="col-12">
-                            <img alt={"image"} src={coin.image.large} style={{margin:"auto"}}/>
+                            <img alt={"image"} src={coin.image.large} style={{margin: "auto"}}/>
                         </div>
                         <div className="col-12 mt-5">
                             <p className="text-md"><Markup markup={coin.description.en}/></p>
@@ -164,11 +167,11 @@ export default function Overview({coin_name}) {
                     <div className="row">
                         <div className="col-12">
                             <div className="d-inline"><span className="badge badge-primary rounded-circle p-4"><i
-                                className="fas fa-hashtag fa-3x"></i><h1
-                                className="d-inline ml-2">{coin.market_cap_rank}</h1></span></div>
+                                className="fas fa-hashtag fa-3x"/>
+                                <h1 className="d-inline ml-2">{coin.market_cap_rank}</h1></span></div>
                             <div className="d-inline float-right mt-4 uppercase font-bold p-2 px-0"><a
-                                style={{color: "black", textDecoration: "none"}} href={coin.links.homepage[0]}> <i
-                                className="fas fa-link"></i> Visit {coin.name} </a></div>
+                                style={{color: "black", textDecoration: "none"}} href={coin.links.homepage[0]}>
+                                <i className="fas fa-link"/> Visit {coin.name} </a></div>
                         </div>
                     </div>
                 </div>
@@ -219,24 +222,26 @@ export default function Overview({coin_name}) {
                                     </Tab>
                                 </Tabs>
                             </AppBar>
-                            {graphLoader ? <div className="mx-auto mt-16 text-center"><ClipLoader  loading={graphLoader} size={150} /> </div>:<>
-                            {
+                            {graphLoader ? <div className="mx-auto mt-16 text-center"><ClipLoader loading={graphLoader}
+                                                                                                  size={150}/>
+                            </div> : <>
+                                {
 
-                                selectedTab === 0 &&
-                                <HistoryChart data={coinData}/>
-                                
+                                    selectedTab === 0 &&
+                                    <HistoryChart data={coinData}/>
 
-                            }
-                            {
-                                selectedTab === 1 &&
-                                <CoinData data={marketData}/>
 
-                            }
+                                }
+                                {
+                                    selectedTab === 1 &&
+                                    <CoinData data={marketData}/>
 
-                            {
-                                selectedTab === 2 &&
-                                <SentimentChart data={marketData}/>
-                            }
+                                }
+
+                                {
+                                    selectedTab === 2 &&
+                                    <SentimentChart data={marketData}/>
+                                }
                             </>}
                         </div>
 
@@ -300,7 +305,6 @@ export default function Overview({coin_name}) {
         </>
     )
 }
-
 Overview.defaultProps = {
     coin_name: "bitcoin"
 }

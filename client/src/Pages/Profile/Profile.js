@@ -34,7 +34,7 @@ variant:outlined;
 
 const platformsList = [{name:"Twitter",id:"twitter"},
     {name:"Reddit",id:"reddit"},
-    {name:"4chan",id:null}
+    {name:"4Chan",id:null}
 ];
 
 const Profile = props =>
@@ -103,6 +103,8 @@ const Profile = props =>
             })
             .catch(err => {console.error(err);})
 
+
+
     },[])
 
     const cleanSpace = () =>{
@@ -150,13 +152,13 @@ const Profile = props =>
         let user = {email: localStorage.getItem("emailSession"), screen_name: searchRef.current.value }
 
         axios.post('http://localhost:8080/twitter/follow/',user)
-        .then(response=>{
-            console.log(response)
-            setAlertTitle("User added to our watch list")
-            setShowSweetAlert(true)
-            document.getElementById('followBtn').innerHTML = "<span></span>"
-        })
-        .catch(err => {console.error(err)})
+            .then(response=>{
+                console.log(response)
+                setAlertTitle("User added to our watch list")
+                setShowSweetAlert(true)
+                document.getElementById('followBtn').innerHTML = "<span></span>"
+            })
+            .catch(err => {console.error(err)})
 
 
     }
@@ -165,13 +167,13 @@ const Profile = props =>
         let user = {email: localStorage.getItem("emailSession"), screen_name: searchRef.current.value }
 
         axios.post('http://localhost:8080/twitter/unfollow/',user)
-        .then(response=>{
-            console.log(response)
-            setAlertTitle("User removed from our watch list")
-            setShowSweetAlert(true)
-            document.getElementById('followBtn').innerHTML = "<span></span>"
-        })
-        .catch(err => {console.error(err)})
+            .then(response=>{
+                console.log(response)
+                setAlertTitle("User removed from our watch list")
+                setShowSweetAlert(true)
+                document.getElementById('followBtn').innerHTML = "<span></span>"
+            })
+            .catch(err => {console.error(err)})
 
 
     }
@@ -184,24 +186,24 @@ const Profile = props =>
 
         let user = { screen_name: searchRef.current.value, email: localStorage.getItem("emailSession")}
         axios.post('http://localhost:8080/twitter/validateScreenName/',user)
-        .then((response)=>{
+            .then((response)=>{
 
-            if(response.data.data){
-                handleFollowButton(user.screen_name,false)
-            }
-            else{
-                handleFollowButton(null,false)
-            }
-        },(reject)=>{
-            console.log(reject)
-            if(reject.response.data.error.message.includes("You are already following the selected screen name"))
-            {
-                handleFollowButton(user.screen_name,true)
-            }
-        })
-        .catch(err => {
-            console.error(err)
-        })
+                if(response.data.data){
+                    handleFollowButton(user.screen_name,false)
+                }
+                else{
+                    handleFollowButton(null,false)
+                }
+            },(reject)=>{
+                console.log(reject)
+                if(reject.response.data.error.message.includes("You are already following the selected screen name"))
+                {
+                    handleFollowButton(user.screen_name,true)
+                }
+            })
+            .catch(err => {
+                console.error(err)
+            })
     }
 
     const select = (name) => {
@@ -269,11 +271,11 @@ const Profile = props =>
         <>
             <ModalComp show={show} text={modalText} cancel={onCancel} continue={OnContinue} />
             <SweetAlert show={showSweetAlert} success title={alertTitle} onConfirm={()=>{
-                 setShowSweetAlert(false)
+                setShowSweetAlert(false)
                 if(accDelete)
                 {
                     history.push("/")
-                // localStorage.clear()
+                    // localStorage.clear()
                 }
 
 
@@ -284,11 +286,13 @@ const Profile = props =>
                 <div className="container" >
 
                     <Container>
-                        <div style={{
+                        <div className="row pb-5 pt-3" style={{
                             display:"flex",
                             justifyContent:"space-around",
                             margin:"18px 1px",
-                            borderBottom: "1px solid grey"
+                            borderBottom: "1px solid grey",
+                            backgroundColor:"#cbd5e1",
+                            borderRadius: "8px"
                         }}>
                             <div>
 
@@ -332,13 +336,13 @@ const Profile = props =>
 
                                         <Button variant={'contained'} style={{
                                             textAlign: "center",
-                                            backgroundColor: "#FFFFF0",
-                                            color:"black",
+                                            backgroundColor: "#58667e",
+                                            color:"#FFFFF0",
                                             padding: "5px 15px",
                                             borderRadius: "5px",
                                             outline: "5px",
                                             width: "100%"
-                                            }} startIcon={<EditIcon fontSize={'large'} />}>
+                                        }} startIcon={<EditIcon fontSize={'large'} />}>
 
                                             Update Profile Details
                                         </Button>
@@ -347,13 +351,13 @@ const Profile = props =>
                                     <div className="flex text-xs py-3 ml-3">
                                         <Button variant={'contained'} style={{
                                             textAlign: "center",
-                                            backgroundColor: "#FFFFF0",
-                                            color:"black",
+                                            backgroundColor: "#58667e",
+                                            color:"#FFFFF0",
                                             padding: "5px 15px",
                                             borderRadius: "5px",
                                             outline: "5px",
                                             width: "150%",
-                                            }} onClick={deleteAccount} startIcon={<DeleteIcon />}>
+                                        }} onClick={deleteAccount} startIcon={<DeleteIcon />}>
 
                                             Delete Account
                                         </Button>
@@ -382,8 +386,8 @@ const Profile = props =>
                             {
                                 socs.map((Soc, index) =>{
                                     return(
-                                        <div>
-                                            <li className="list-group-item" key={index}>{Soc.socName}</li>
+                                        <div >
+                                            <li className="list-group-item" key={index} style={{backgroundColor:"#cbd5e1"}}>{Soc.socName}</li>
                                         </div>
                                     )
                                 })
@@ -400,7 +404,7 @@ const Profile = props =>
                                     crypts.map((Soc, index) =>{
                                         return(
                                             <div>
-                                                <li className="list-group-item" key={index}>{Soc.socMediaName}</li>
+                                                <li className="list-group-item" key={index} style={{backgroundColor:"#cbd5e1"}}>{Soc.socMediaName}</li>
                                             </div>
                                         )
                                     })
@@ -410,29 +414,29 @@ const Profile = props =>
                     }
                     {
                         selectedTab === 2 &&
-                        <div id="searchContainer" className="container" >
-                           <script sync src="https://platform.twitter.com/widgets.js%22%3E"></script>
+                        <div id="searchContainer" className="container"  style={{backgroundColor:"transparent", borderRadius:"8px"}}>
+                            <script sync src="https://platform.twitter.com/widgets.js%22%3E"></script>
                             <div className="row searchFilter" >
 
                                 <div className="col-sm-12" >
                                     <div className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold pt-4 pb-4 px-0">Search for a twitter user you want us to check out for you</div>
                                     <div className="input-group" >
                                         <div className="input-group-btn" >
-                                        <Form onSubmit={searchUsername}>
-                                            <Form.Group >
-                                                <Form.Control type="text" ref={searchRef} required />
-                                            </Form.Group>
-                                            <Form.Group >
-                                                <Form.Control id="searchBtn" type="submit" className="btn btn-secondary btn-search" value="Search" />
+                                            <Form onSubmit={searchUsername}>
+                                                <Form.Group >
+                                                    <Form.Control type="text" ref={searchRef} required />
+                                                </Form.Group>
+                                                <Form.Group >
+                                                    <Form.Control id="searchBtn" type="submit" className="btn btn-secondary btn-search" value="Search" />
 
-                                            </Form.Group>
-                                        </Form>
+                                                </Form.Group>
+                                            </Form>
 
                                         </div>
                                         {loading ? <div className="ml-2 mt-2 text-center"><ClipLoader  loading={loading} size={15} /></div>:<></>}
                                         <div id="followBtn">
-                                        <span></span>
-                                    </div>
+                                            <span></span>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -441,30 +445,30 @@ const Profile = props =>
                         </div>
                     }
                     {    selectedTab === 3 &&
-                        <div className="container-fluid">
-                            <div className="md:block text-center text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0">Select social media platforms you want to follow</div>
-                            <div className="row mt-6">
-                                <div className="col-5 m-auto platform-container overflow-auto ">
-                                        {
+                    <div className="container-fluid" >
+                        <div className="md:block text-center text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0">Select social media platforms you want to follow</div>
+                        <div className="row mt-6" >
+                            <div className="col-5 m-auto platform-container overflow-auto " style={{backgroundColor:"#cbd5e1"}}>
+                                {
 
-                                            platforms.map((myPlatform) =>{
-                                                return(
-                                                <div key={myPlatform.id} className="cryptos-view">
-                                                    <div className="crypt-row">
-                                                        <div className="crypto">
-                                                            {myPlatform.selected?<Star className="select-star" color="primary" onClick={()=>{select(myPlatform.id)}}/>:<Star className="select-star" color="action" onClick={()=>{select(myPlatform.id)}}/>}
-                                                            {myPlatform.id != null ?<SocialIcon network={myPlatform.id} style={{height:"40px",width:"40px"}}/>:
+                                    platforms.map((myPlatform) =>{
+                                        return(
+                                            <div key={myPlatform.id} className="cryptos-view" >
+                                                <div className="crypt-row">
+                                                    <div className="crypto" >
+                                                        {myPlatform.selected?<Star className="select-star" color="primary" onClick={()=>{select(myPlatform.id)}}/>:<Star className="select-star" color="action" onClick={()=>{select(myPlatform.id)}}/>}
+                                                        {myPlatform.id != null ?<SocialIcon network={myPlatform.id} style={{height:"40px",width:"40px"}}/>:
                                                             <img src={"./4chanLogo.png"} alt="4chan" style={{height:"40px",width:"40px"}} />}
-                                                            <h1 className="crypto-name" style={{marginLeft:"2em"}}>{myPlatform.name}</h1>
-                                                        </div>
+                                                        <h1 className="crypto-name" style={{marginLeft:"2em"}}>{myPlatform.name}</h1>
                                                     </div>
                                                 </div>
-                                            )
-                                        })
-                                    }
-                                </div>
+                                            </div>
+                                        )
+                                    })
+                                }
                             </div>
                         </div>
+                    </div>
                     }
                     {/*{*/}
                     {/*    selectedTab === 4 &&*/}

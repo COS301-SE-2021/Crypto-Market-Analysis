@@ -29,48 +29,48 @@ export default function Signup() {
 
     return (
         <div className="content-cover">
-        <div className="row" >
-            <div className="col-md-12 mx-auto p-0" >
-                <img src={"/cryptosis2-t.png"} alt="cryptosis logo" style={{margin:"auto"}} />
-            </div>
-            <div className="col-md-4 mx-auto p-0">
-                <div className="card shadow-lg">
-                    <div className="card-header text-center">Login</div>
-                    <div className="card-body">
-                        {error && <Alert variant="danger">{error}</Alert>}
-                        <Form onSubmit={handleSubmit}>
+            <div className="row" >
+                <div className="col-md-12 mx-auto p-0" >
+                    <img src={"/cryptosis2-t.png"} alt="cryptosis logo" style={{margin:"auto"}} />
+                </div>
+                <div className="col-md-4 mx-auto p-0">
+                    <div className="card shadow-lg">
+                        <div className="card-header text-center">Login</div>
+                        <div className="card-body">
+                            {error && <Alert variant="danger">{error}</Alert>}
+                            <Form onSubmit={handleSubmit}>
+                            
+                                <Form.Group id="email">
+                                    <div style={{width:"70%",margin:"auto"}}>
+                                        <Form.Label className="label">Email</Form.Label>
+                                    </div>
+                                    <Form.Control type="email" ref={emailRef} style={{width:"70%",margin:"auto"}} required />
+                                </Form.Group>
+                                <Form.Group id="password">
+                                    <div style={{width:"70%",margin:"auto"}}>
+                                        <Form.Label className="label">Password</Form.Label>
+                                    </div>
+                                    <Form.Control type="password" ref={passwordRef} style={{width:"70%",margin:"auto"}} required />
+                                </Form.Group>
+                                <div className="text-right mt-2 mb-2" style={{width:"70%",margin:"auto"}}>
+                                    <Link to="/updatePassword" className="label">Forgot Password?</Link>
+                                </div>
+                                <Form.Group className="text-center">
+                                    <Button disabled={loading} style={{width:"70%",margin:"auto"}} type="submit">
+                                        Sign In
+                                    </Button>
+                                </Form.Group>
+                                <div className="mt-2 new" style={{width:"70%",margin:"auto"}}>
+                                    New to Cryptosis? <Link to="/register" className="label">Register here</Link>
+                                </div>
+                            </Form>
                         
-                            <Form.Group id="email">
-                                <div style={{width:"70%",margin:"auto"}}>
-                                    <Form.Label className="label">Email</Form.Label>
-                                </div>
-                                <Form.Control type="email" ref={emailRef} style={{width:"70%",margin:"auto"}} required />
-                            </Form.Group>
-                            <Form.Group id="password">
-                                <div style={{width:"70%",margin:"auto"}}>
-                                    <Form.Label className="label">Password</Form.Label>
-                                </div>
-                                <Form.Control type="password" ref={passwordRef} style={{width:"70%",margin:"auto"}} required />
-                            </Form.Group>
-                            <div className="text-right mt-2 mb-2" style={{width:"70%",margin:"auto"}}>
-                                <Link to="/updatePassword" className="label">Forgot Password?</Link>
-                            </div>
-                            <Form.Group className="text-center">
-                                <Button disabled={loading} style={{width:"70%",margin:"auto"}} type="submit">
-                                    Sign In
-                                </Button>
-                            </Form.Group>
-                            <div className="mt-2 new" style={{width:"70%",margin:"auto"}}>
-                                New to Cryptosis? <Link to="/register" className="label">Register here</Link>
-                            </div>
-                        </Form>
-                       
+                        </div>
                     </div>
+                    
                 </div>
                 
             </div>
-            
-        </div>
         </div>
     )
 }

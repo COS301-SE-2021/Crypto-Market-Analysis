@@ -7,6 +7,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 const CoinGecko = require('coingecko-api');
 const CoinGeckoClient = new CoinGecko();
 
+
 function Predictions() {
     let num =0;
     let [predictions,setPredictions] = useState([]);

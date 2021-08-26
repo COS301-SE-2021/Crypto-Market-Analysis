@@ -6,6 +6,8 @@ import styled from 'styled-components';
 import {Avatar, Tabs, AppBar, Tab} from "@material-ui/core"
 import EditIcon from "@material-ui/icons/Edit"
 import DeleteIcon from "@material-ui/icons/Delete"
+import Button from "@material-ui/core/Button"
+import Container from "@material-ui/core/Container"
 import axios from "axios";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import ModalComp from "../../components/Modal/Modal"
@@ -18,20 +20,21 @@ import { Star, } from "@material-ui/icons";
 import { SocialIcon } from 'react-social-icons';
 import ClipLoader from "react-spinners/ClipLoader"
 
-const Button = styled.button`
+/*const Button = styled.button`
 display: block;
 text-align: center;
-background-color: #d3d3d3;
+background-color: #FFFFF0;
 color:black;
 padding: 5px 15px;
 border-radius: 5px;
 outline: 5px;
 width: 150%;
-`
+variant:outlined;
+`*/
 
 const platformsList = [{name:"Twitter",id:"twitter"},
     {name:"Reddit",id:"reddit"},
-    {name:"4Chan",id:null}
+    {name:"4chan",id:null}
 ];
 
 const Profile = props =>
@@ -280,16 +283,16 @@ const Profile = props =>
             <div className="md:ml-64">
                 <div className="container" >
 
-                    <div>
+                    <Container>
                         <div style={{
                             display:"flex",
                             justifyContent:"space-around",
-                            margin:"18px 0px",
+                            margin:"18px 1px",
                             borderBottom: "1px solid grey"
                         }}>
                             <div>
 
-                                <Avatar style={{width: "160px", height: "160px", borderRadius: "80px" }} className="aV" src='https://static.vecteezy.com/system/resources/previews/002/318/271/non_2x/user-profile-icon-free-vector.jpg'
+                                <Avatar variant={'rounded'} style={{width: "160px", height: "160px", borderRadius: "80px"}} className="aV" src='https://static.vecteezy.com/system/resources/previews/002/318/271/non_2x/user-profile-icon-free-vector.jpg'
                                 />
 
                             </div>
@@ -301,8 +304,8 @@ const Profile = props =>
 
 
                                 <div style={{display:"flex",justifyContent:"space-between", width: "108%"}}>
-                                    <h6>Follows {socs.length} cryptos</h6>
-                                    <h6>Follows {crypts.length} social media sites</h6>
+                                    <h6>Follows {socs.length} cryptocurrencies</h6>
+                                    <h6>Follows {crypts.length} social media platforms</h6>
                                 </div>
 
                                 <div style={{display:"flex", bottom: "-30px"}}>
@@ -327,32 +330,47 @@ const Profile = props =>
                                             }
                                         />{" "}
 
-                                        <Button>
-                                            <EditIcon />
+                                        <Button variant={'contained'} style={{
+                                            textAlign: "center",
+                                            backgroundColor: "#FFFFF0",
+                                            color:"black",
+                                            padding: "5px 15px",
+                                            borderRadius: "5px",
+                                            outline: "5px",
+                                            width: "100%"
+                                            }} startIcon={<EditIcon fontSize={'large'} />}>
+
                                             Update Profile Details
                                         </Button>
 
                                     </Link>
                                     <div className="flex text-xs py-3 ml-3">
-                                        <Button onClick={deleteAccount}>
-                                            <DeleteIcon />
+                                        <Button variant={'contained'} style={{
+                                            textAlign: "center",
+                                            backgroundColor: "#FFFFF0",
+                                            color:"black",
+                                            padding: "5px 15px",
+                                            borderRadius: "5px",
+                                            outline: "5px",
+                                            width: "150%",
+                                            }} onClick={deleteAccount} startIcon={<DeleteIcon />}>
+
                                             Delete Account
                                         </Button>
                                     </div>
 
                                 </div>
 
-
                             </div>
                         </div>
-                    </div>
+                    </Container>
 
-                    <AppBar position={"static"}>
-                        <Tabs value={selectedTab} onChange={handleChange}>
-                            <Tab label="Cryptos Followed" />
-                            <Tab label="Platforms Followed"/>
-                            <Tab label="Follow users"/>
-                            <Tab label="Add social platforms"/>
+                    <AppBar position={"static"} color={'transparent'}>
+                        <Tabs centered={true} indicatorColor={'primary'} value={selectedTab} onChange={handleChange}>
+                            <Tab style={{color:"black"}} label="Cryptocurrencies Followed" />
+                            <Tab style={{color:"black"}} label="Social Media Platforms Followed"/>
+                            <Tab style={{color:"black"}} label="Follow users"/>
+                            <Tab style={{color:"black"}} label="Add social media platforms"/>
                             {/*<Tab label="Subreddits"/>*/}
                             {/*<Tab label="Subreddits Followed"/>*/}
                         </Tabs>

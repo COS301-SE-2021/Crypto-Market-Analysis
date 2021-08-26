@@ -107,19 +107,20 @@ export default function Sidebar() {
 
           <div>
             <div style={{
-              position:"static",
-              display:"flex",
-              justifyContent:"space-between",
-              margin:"10px 0px",
-              borderBottom: "1px solid grey"
+              // position:"static",
+              // display:"flex",
+              // justifyContent:"space-between",
+              // margin:"0px 0px",
+              borderBottom: "1px solid grey",
+              textAlign:"center"
             }}>
-                <div>
+                {/* <div>
                   <Avatar style={{width: "20px", height: "20px", borderRadius: "80px" }} className="aV" src='https://static.vecteezy.com/system/resources/previews/002/318/271/non_2x/user-profile-icon-free-vector.jpg'
                   />
-                </div>
+                </div> */}
 
-                <div style={{display:"flex",justifyContent:"space-around", width: "-50%", position:"static"}}>
-                  <p className={"w"}>{cryptoReq.email}</p>
+                <div >
+                  <p className={"md:block text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm font-bold px-0"}>{cryptoReq.email}</p>
                 </div>
 
               </div>
@@ -137,10 +138,10 @@ export default function Sidebar() {
             </button>
             {/* Brand */}
             <Link
-                className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold  p-4 px-0"
+                // className="md:block text-left text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold  px-0"
                 to="/"
             >
-              Cryptosis
+              <img className="mt-3" src="/cryptosis2-t.png"/>
             </Link>
             {/* User */}
             <ul className="md:hidden items-center flex flex-wrap list-none">
@@ -233,12 +234,15 @@ export default function Sidebar() {
                       }
                       to="/Notification"
                   >
+                      <i className={"fas fa-bell mr-2 text-sm "+ (window.location.href.indexOf("/profile") !== -1
+                              ? "opacity-75"
+                              : "text-blueGray-300")
+                        }></i>
+                    
+                    Notification
                     <a href="" className="notification">
-                      <i className="fas fa-envelope fa-lg"></i>
                       <span className="badge rounded-pill badge-notification bg-danger">{status}</span>
                     </a>
-                    {" "}
-                    Notification
                   </Link>
                 </li>
                 <li className="items-center">
@@ -276,7 +280,7 @@ export default function Sidebar() {
                   >
                     <i
                         className={
-                          "fas fa-user mr-2 text-sm " +
+                          "fas fa-chart-line mr-2 text-sm " +
                           (window.location.href.indexOf("/Predictions") !== -1
                               ? "opacity-75"
                               : "text-blueGray-300")
@@ -340,7 +344,7 @@ export default function Sidebar() {
               </ul>
 
               {/* Divider */}
-              <hr className="my-4 md:min-w-full" />
+              {/* <hr className="my-2 md:min-w-full" /> */}
               {/* Heading */}
               {/* <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
               Auth Layout Pages

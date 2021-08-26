@@ -141,7 +141,7 @@ export default function Sidebar() {
                 // className="md:block text-left text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold  px-0"
                 to="/"
             >
-              <img src="/cryptosis-t.png"/>
+              <img className="mt-3" src="/cryptosis2-t.png"/>
             </Link>
             {/* User */}
             <ul className="md:hidden items-center flex flex-wrap list-none">

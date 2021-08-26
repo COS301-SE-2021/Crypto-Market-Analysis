@@ -11,7 +11,7 @@ const HistoryChart = ({data}) => {
     const {threeMonths} = data;
     const {year} = data;
     const {detail} = data;
-    const [timeFormat, setTimeFormat] = useState("");
+    const [timeFormat, setTimeFormat] = useState("24h");
     let chartInstance = useRef();
 
     const determineTimeFormat = () => {
@@ -30,7 +30,7 @@ const HistoryChart = ({data}) => {
                 case "1y":
                     return year;
                 default:
-                    return day;
+                    return "";
             }
         }catch(err){
             console.log(err)

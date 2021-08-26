@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const Twitter = require(`../social_media_sites/Twitter`);
+const Twitter = require(`../functions/Twitter`);
 const twitter = new Twitter().getInstance();
-const User_Hash_Table = require(`../Hash_Tables/User_Hash_Table`);
+const User_Hash_Table = require(`../functions/User_Hash_Table`);
 const user_object = new User_Hash_Table().getInstance();
 
 router.post('/getCryptoTweets', async (request, response, next) => {
@@ -99,6 +99,7 @@ router.post('/unfollow', async (request, response, next) => {
 });
 
 router.post('/getTweetIDs', async (request, response, next) => {
+
     // The email of the user
     const email = request.body.email;
     // The name of the cryptocurrency

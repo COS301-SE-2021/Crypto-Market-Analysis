@@ -1,6 +1,5 @@
 import './Predictions.scss';
 import "bootstrap/dist/css/bootstrap.css";
-
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader"
@@ -70,8 +69,7 @@ function Predictions() {
     return(
         <>
             <Sidebar />
-            <div className="container" >
-
+            <div className="container" style={{marginLeft:'300px'}} >
                 <div className="row">
                     <div className="col-md-12">
 

@@ -35,8 +35,7 @@ describe(`POST /twitter/getCryptoTweets`, () => {
 
 describe(`POST /twitter/validateScreenName`, () => {
     test(`when parameters are correct`, async () => {
-        const response = await request(app).post(`/twitter/validateScreenName`).send({email: `codexteam4@gmail.com`, screen_name: `elon`});
-        console.log(response.body);
+        const response = await request(app).post(`/twitter/validateScreenName`).send({email: `codexteam4@gmail.com`, screen_name: `BillGates`});
         expect(response.status).toBe(200);
         expect(response.body.data).toBeDefined();
         expect(response.body.data).toBeTruthy();
@@ -69,7 +68,7 @@ describe(`POST /twitter/validateScreenName`, () => {
 
 describe(`POST /twitter/follow`, () => {
     test(`when parameters are correct`, async () => {
-        const response = await request(app).post(`/twitter/follow`).send({email: `codexteam4@gmail.com`, screen_name: `elon`});
+        const response = await request(app).post(`/twitter/follow`).send({email: `codexteam4@gmail.com`, screen_name: `michael_saylor`});
         expect(response.status).toBe(200);
         expect(response.body.message).toBeDefined();
         expect(response.body.message).toBe(`Screen name successfully added`);

@@ -2,10 +2,7 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
-const dotenv = require('dotenv');
-dotenv.config();
 const userRoutes = require('./routes/analytics');
-//const userRoutes = require('./routes/user');
 
 app.use(morgan("dev"));
 app.use('/uploads', express.static('uploads'));

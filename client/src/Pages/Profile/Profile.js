@@ -19,6 +19,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Star, } from "@material-ui/icons";
 import { SocialIcon } from 'react-social-icons';
 import ClipLoader from "react-spinners/ClipLoader"
+import coinGecko from "../../components/apis/CoinGecko"
 
 /*const Button = styled.button`
 display: block;
@@ -40,6 +41,7 @@ const platformsList = [{name:"Twitter",id:"twitter"},
 const Profile = props =>
 {
 
+    let [marketData, setMarketData] = useState({});
     const history = useHistory()
     let[socs,setSoc] =useState([]);
     let [platforms, setPlatforms] = useState(platformsList)
@@ -73,6 +75,7 @@ const Profile = props =>
                 for(const crypto of response.data)
                     soc.push({socName: crypto});
                 setSoc(soc);
+
             })
             .catch(err => {console.error(err);})
 
@@ -103,7 +106,32 @@ const Profile = props =>
             })
             .catch(err => {console.error(err);})
 
+        /*const fetchData = async () => {
+            const [detail] = await Promise.all([
+                coinGecko.get("/coins/markets/", {
+                    params: {
+                        vs_currency: "zar",
+                        days: "365",
+                        interval: "weekly"
+                    },
+                }),
+            ]);
+            detail.data.forEach(data => {
+                //if (coin_name.toLowerCase() === data.id) {
+                    setMarketData({
+                        detail: data,
+                    });
+                    //setGraphLoader(false)
+                //}
+            })
 
+            for(let i =0; i<detail.data.length;i++)
+            {
+                console.log(detail.data[i].name);
+            }
+
+        //}
+        //await fetchData();*/
 
     },[])
 
@@ -386,6 +414,7 @@ const Profile = props =>
                             {
                                 socs.map((Soc, index) =>{
                                     return(
+
                                         <div >
                                             <li className="list-group-item" key={index} style={{backgroundColor:"#cbd5e1"}}>{Soc.socName}</li>
                                         </div>

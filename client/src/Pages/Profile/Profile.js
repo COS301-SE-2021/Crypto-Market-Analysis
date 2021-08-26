@@ -34,7 +34,7 @@ variant:outlined;
 
 const platformsList = [{name:"Twitter",id:"twitter"},
     {name:"Reddit",id:"reddit"},
-    {name:"4Chan",id:null}
+    {name:"4chan",id:null}
 ];
 
 const Profile = props =>

@@ -28,7 +28,7 @@ export default function Signup() {
     }
 
     return (
-        <body>
+        <div className="content-cover">
         <div className="row" >
             <div className="col-md-12 mx-auto p-0" >
                 <img src={"/cryptosis2-t.png"} alt="cryptosis logo" style={{margin:"auto"}} />
@@ -71,6 +71,6 @@ export default function Signup() {
             </div>
             
         </div>
-        </body>
+        </div>
     )
 }

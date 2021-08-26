@@ -30,10 +30,10 @@
 /*    font-family: 'Fira Sans', sans-serif;*/
 /*}*/
 
-/*body, html, .App, #root, .auth-wrapper {*/
-/*    width: 100%;*/
-/*    height: 100%;*/
-/*}*/
+body, html, .App, #root, .auth-wrapper, .content-cover {
+   width: 100%;
+   height: 100%;
+}
 
 /*.navbar-light {*/
 /*    background-color: #ffffff;*/

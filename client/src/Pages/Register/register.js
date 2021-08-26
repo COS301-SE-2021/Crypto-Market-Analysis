@@ -37,7 +37,7 @@ export default function Signup() {
 
     return (
         
-        <body>
+        <div className="content-cover">
         <div className="row">
             <div className="col-md-4 offset-md-1 p-0 mt-5" >
                 <img src={"/cryptosis-t.png"} alt="cryptosis logo" style={{float:"right"}} />
@@ -84,6 +84,6 @@ export default function Signup() {
         </div>
             
             
-        </body>
+        </div>
     )
 }

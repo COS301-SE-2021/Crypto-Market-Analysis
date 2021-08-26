@@ -36,24 +36,20 @@ body {
 }
 
 .notification {
-    background-color: #555;
-    color: white;
-    text-decoration: none;
-    padding: 3px 6px;
+   
+    /* color: white; */
+    /* text-decoration: none; */
+    /* padding: 3px 6px; */
     position: relative;
     display: inline-block;
 }
 
-.notification:hover {
-    background: red;
-}
-
 .notification .badge {
     position: absolute;
-    top: -10px;
-    right: -10px;
-    padding: 5px 10px;
-    border-radius: 50%;
+    top: -25px;
+    right: -15px;
+    /* padding: 5px 10px; */
+    /* border-radius: 80%; */
     background-color: red;
     color: white;
 }

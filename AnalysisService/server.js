@@ -47,7 +47,6 @@ cron.schedule('*/1 * * * *',  async() => {
                             let results = msgType.Results();
                             if(results ===nothing ){
                                 await notification.followers(crypto,results);
-                                console.log('Storing the emails');
                             }
         }).catch(err=>{return err})
 

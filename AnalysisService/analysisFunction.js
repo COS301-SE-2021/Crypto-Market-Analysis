@@ -184,7 +184,6 @@ const get_Doc_by_User_id =async(cryptocurrency)=>{
                 }
                 if(i === documents._size )
                 {
-                    console.log('returning data');
                     resolve(arrayofdocuments);
                 }
                  i++;

@@ -63,6 +63,7 @@
     "client": "env-cmd -f .env.development.local react-scripts start",
     "server": "npm run server --prefix ./server",
     "analysis": "npm run server --prefix ./AnalysisService",
+    "build": "react-scripts build",
     "build:staging": "env-cmd -f .env.development.local react-scripts build",
     "build:production": "env-cmd -f .env.production.local react-scripts build",
     "test": "react-scripts test",

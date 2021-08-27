@@ -35,7 +35,6 @@ const followers = async(cryptocurrency,results)=>{
         return  new Promise(function (resolve, reject) {
             (async () => {
                 const docdata =await analysis.get_Doc_by_User_id(cryptocurrency)
-                console.log('all people who follow '+cryptocurrency)
                 for(let mydata of docdata)
                 {
                      let myObj = {};

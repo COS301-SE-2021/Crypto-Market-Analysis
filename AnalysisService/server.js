@@ -3,7 +3,7 @@ const https = require('https')
 const path = require('path')
 const bodyParser = require("body-parser");
 const fs = require('fs')
-const dotenv = require('dotenv');
+require("dotenv").config();
 const http = require('http');
 const cron = require('node-cron');
 const analysis = require('./analysisFunction');
@@ -30,7 +30,7 @@ sslServer.listen(3443, () => console.log('Secure server running on port 3443'))
 http.createServer(app);
 
 app.listen(8000);
-cron.schedule('*/1 * * * *', async () => {
+cron.schedule('*/1 * * * *',  async() => {
     console.log('analysing every hour')
   // firestore_db.getUsers('Twitter').onSnapshot(async (documents) => {
   //       await documents.forEach((doc) => {
@@ -49,23 +49,47 @@ cron.schedule('*/1 * * * *', async () => {
             }
         })
     })*/
-    firestore_db.getUsers('Twitter').onSnapshot(async (documents) => {
-        await documents.forEach((doc) => {
-            if (typeof doc.id !== "undefined") {
-                average.Analyse_Average('Twitter',doc.id ).then(dt=>{
-                    let msgType = new notificationType(dt,doc.id );
-                    const nothing= doc.id  + ' average sentiment did not change!';
-                    let results = msgType.Results();
-                    if(results ===nothing ){
-                        console.log('Storing the emails');
-                        const data= notification.followers(doc.id,results);
-                        //throw "function has finished";
-                    }
-                }).catch(err=>{   console.log(err);})
-            }
-        })
+    const cryptos =await analysis.get_Doc_id('Twitter');
+    // for(let crypto of cryptos)
+    // {
+    //     console.log(crypto)
+    //     let data = await  analysis.sentimentAnalysis(crypto,'Twitter').then(data=>{
+    //           }).catch(err=>{return err})
+    //     console.log(data)
+    //
+    // }
+    for(let crypto of cryptos)
+    {
+        console.log(crypto)
+        let data = await average.Analyse_Average('Twitter',crypto ).then(async(dt)=>{
+            let msgType = new notificationType(dt,crypto );
+                            const nothing= crypto  + ' average sentiment did not change!';
+                            let results = msgType.Results();
+                            console.log(results)
+                            if(results ===nothing ){
+                                await notification.followers(crypto,results);
+                                console.log('Storing the emails');
+                            }
+        }).catch(err=>{return err})
 
-    })
+    }
+    // firestore_db.getUsers('Twitter').onSnapshot(async (documents) => {
+    //     await documents.forEach((doc) => {
+    //         if (typeof doc.id !== "undefined") {
+    //             average.Analyse_Average('Twitter',doc.id ).then(dt=>{
+    //                 let msgType = new notificationType(dt,doc.id );
+    //                 const nothing= doc.id  + ' average sentiment did not change!';
+    //                 let results = msgType.Results();
+    //                 if(results ===nothing ){
+    //                     console.log('Storing the emails');
+    //                    // const data= notification.followers(doc.id,results);
+    //                     //throw "function has finished";
+    //                 }
+    //             }).catch(err=>{   console.log(err);})
+    //         }
+    //     })
+    //
+    // })
     console.log('Messaging done!')
 
 

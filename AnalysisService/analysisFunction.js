@@ -9,8 +9,6 @@ const name = require("emoji-name-map");
 const Database = require('./database/Database');
 const firestore_db = new Database().getInstance();
 
-var sentiment = require('node-sentiment');
-
 spellCorrector.loadDictionary();
 const extract_emoji = async (post)=>{
     const arr = a.extractEmoji(post);
@@ -161,6 +159,41 @@ const sentimentAnalysis = async (cryptos,socialmedias)=>{
         }
     })
 }
+const get_Doc_id =async(Social_media)=>{
+
+    let arrayofdocuments = [];
+    return  new Promise(function (resolve, reject) {
+        firestore_db.getUsers(Social_media).onSnapshot(async (documents) => {
+            await documents.forEach((doc) => {
+                if (typeof doc.id !== "undefined") {
+                    arrayofdocuments.push(doc.id);
+                }
+            })
+            resolve(arrayofdocuments)
+        });
+    })
+}
+const get_Doc_by_User_id =async(cryptocurrency)=>{
+    let arrayofdocuments = [];
+    return  new Promise( function (resolve, reject) {
+        let i=1;
+       firestore_db.getUsers('Users').onSnapshot((documents) => {
+            documents.forEach(async (doc) => {
+                if (doc.data().crypto_name.includes(cryptocurrency)) {
+                    arrayofdocuments.push(doc.data());
+                }
+                if(i === documents._size )
+                {
+                    console.log('returning data');
+                    resolve(arrayofdocuments);
+                }
+                 i++;
+            })
+        })
+
+    })
+}
+
 const analyseArticle =async(Article)=>{
     return  new Promise(function (resolve, reject) {
         convertion(Article).then(comment => {
@@ -179,5 +212,5 @@ const analyseArticle =async(Article)=>{
         })
     })
 }
-module.exports = {analyseArticle,splits,convertion,analysewords,spellingc,saveToDB,sentimentAnalysis}
+module.exports = {get_Doc_by_User_id,get_Doc_id,analyseArticle,splits,convertion,analysewords,spellingc,saveToDB,sentimentAnalysis}
 

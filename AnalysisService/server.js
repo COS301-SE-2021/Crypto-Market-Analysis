@@ -30,7 +30,7 @@ sslServer.listen(3443, () => console.log('Secure server running on port 3443'))
 http.createServer(app);
 
 app.listen(8000);
-cron.schedule('*/1 * * * *',  async() => {
+cron.schedule('*/60 * * * *',  async() => {
     console.log('analysing every hour')
     const cryptos =await analysis.get_Doc_id('Twitter');
     for(let crypto of cryptos)
@@ -45,7 +45,7 @@ cron.schedule('*/1 * * * *',  async() => {
             let msgType = new notificationType(dt,crypto );
                             const nothing= crypto  + ' average sentiment did not change!';
                             let results = msgType.Results();
-                            if(results ===nothing ){
+                            if(results !==nothing ){
                                 await notification.followers(crypto,results);
                             }
         }).catch(err=>{return err})

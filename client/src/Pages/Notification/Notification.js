@@ -211,6 +211,19 @@ class Notifications extends React.Component {
                     </Card>
                 </Container>
             </div>
+                {/*<div>*/}
+                {/*    <Sidebar unread={this.state.unread}/>*/}
+                {/*    <div className="md:ml-64">*/}
+                {/*           <Card >*/}
+                {/*                        <Card.Header >*/}
+                {/*                           <Card.Title as="h3" class="card text-center">NOTIFICATIONS</Card.Title>*/}
+                {/*                        </Card.Header>*/}
+                {/*                   <Card.Body>*/}
+
+                {/*                   </Card.Body>*/}
+                {/*            </Card>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
             </>
         );
     }

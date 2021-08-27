@@ -7,7 +7,5 @@
 /.idea/
 /client/workspace.xml
 /AnalysisService/node_modules
-/AnalysisService/package-lock.json
 /AnalysisService/coverage
 /AnalysisService/.env
-/AnalysisService/database

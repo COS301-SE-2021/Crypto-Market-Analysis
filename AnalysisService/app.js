@@ -5,12 +5,12 @@ const bodyParser = require("body-parser");
 const dotenv = require('dotenv');
 dotenv.config();
 const userRoutes = require('./routes/analytics');
-//const userRoutes = require('./routes/user');
 
 app.use(morgan("dev"));
 app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header(
@@ -24,8 +24,6 @@ app.use((req, res, next) => {
     next();
 })
 
-// Routes which should handle requests
-//app.use("/user", userRoutes);
 app.use("/", userRoutes);
 app.use((req, res, next) => {
     const error = new Error("Error code");

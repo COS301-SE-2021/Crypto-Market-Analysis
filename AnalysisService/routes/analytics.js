@@ -16,4 +16,5 @@ router.post("/ArticleAnalytics", async (request,response)=>{
         })
     }
 });
+router.get('/', (req, res) => { res.send('this is an secure server') });
 module.exports = router

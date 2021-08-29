@@ -54,6 +54,7 @@
     "ts-jest": "^27.0.3",
     "tweet-scraper": "^1.0.1",
     "twit": "^2.2.11",
+    "uuid": "^8.3.2",
     "web-push": "^3.4.5"
   },
   "devDependencies": {

@@ -1,13 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const chat = require("../../functions/chat");
-const uuid = require("uuid");
+const uniqid = require('uniqid');
+
 
 
 
 
 router.post("/getAllChats", async (request, response, next)=>{
-    const owner = request.body.email;
+    const owner = request.body.owner;
     const room = request.body.room;
 
     if(!owner || !room){
@@ -28,8 +29,8 @@ router.post("/getAllChats", async (request, response, next)=>{
 
 router.post("/postMessage", async (request, response, next)=>{
 
-    const postId = uuidv4();
-    const owner = request.body.email;
+    const postId = uniqid();
+    const owner = request.body.owner;
     const room = request.body.room;
     const title = request.body.title;
     const body = request.body.body;
@@ -38,13 +39,13 @@ router.post("/postMessage", async (request, response, next)=>{
     const dislike = 0;
     const sentiment = 0;
 
-    if(!owner || !title || !body || !time || !room){
+    if(!owner){
         let error = new Error(`Malformed request. Please check your parameters`);
         error.status = 400;
         return next(error);
     }
     else{
-        await chat.postMessage(owner,title,body,time,like,dislike,sentiment,room).then(data=>{
+        await chat.postMessage(postId,owner,title,body,time,like,dislike,sentiment,room).then(data=>{
             return response.status(200).json(data);
         }).catch(err => {
             let error = new Error(err);
@@ -56,17 +57,18 @@ router.post("/postMessage", async (request, response, next)=>{
 
 
 router.post("/postReact", async (request, response, next)=>{
-    const owner = request.body.email;
+    const owner = request.body.owner;
     const react = request.body.react;
     const postId = request.body.postId;
+    const room = request.body.room;
 
-    if(!email || !react || !postid){
+    if(!owner || !react || !postId){
         let error = new Error(`Malformed request. Please check your parameters`);
         error.status = 400;
         return next(error);
     }
     else{
-        await chat.postReact(owner, react, postId).then(data=>{
+        await chat.postReact(owner, react, postId,room).then(data=>{
             return response.status(200).json(data);
         }).catch(err => {
             let error = new Error(err);

@@ -51,6 +51,19 @@ class Database {
         if(email !== 'undefined')
             return this.#db.collection('Users').doc(email).get();
     }
+
+    async savePost(post){
+        await this.#db.collection(post.room).add({
+            owner: post.owner,
+            title: post.title,
+            body:  post.body,
+            time:  post.time,
+            like:  post.like,
+            dislike:  post.dislike,
+            sentiment:  post.sentiment
+        });
+    }
+
     async fetchPushNotification(email){
         try{
             return this.#db.collection('Subscribers').doc(email).get();

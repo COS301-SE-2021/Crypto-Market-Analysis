@@ -217,7 +217,7 @@ export default function Sidebar() {
                       to="/Notification"
                       onClick={changeLocation}
                   >
-                      <i className={"fas fa-bell mr-2 text-sm "+ (window.location.href.indexOf("/profile") !== -1
+                      <i className={"fas fa-bell mr-2 text-sm "+ (window.location.href.indexOf("/Notification") !== -1
                               ? "opacity-75"
                               : "text-blueGray-300")
                         }></i>

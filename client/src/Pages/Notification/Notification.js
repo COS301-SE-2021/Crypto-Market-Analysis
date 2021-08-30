@@ -11,6 +11,8 @@ import axios from "axios";
 import './Note.css';
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Push from "../Push/Push";
+import ChartGraph from "../../components/GraphReport/Sentiment";
+import SweetAlert from "react-bootstrap-sweetalert";
 class Notifications extends React.Component {
 
     constructor(props) {
@@ -18,7 +20,10 @@ class Notifications extends React.Component {
         this.state = {
             elem: [],
             notificationObject:{},
-            emailRequest:{}
+            emailRequest:{},
+            clear: false,
+            _delete: false,
+             unread:0
 
         }
         this.handleDelete = this.handleDelete.bind(this);
@@ -41,7 +46,7 @@ class Notifications extends React.Component {
         axios.post('http://localhost:8080/user/setNotificationObject/',emailReq)
             .then(response => {
             })
-
+        this.setState({_delete: true});
         this.setState({notificationObject: object});
         const objectdata= this.state.notificationObject;
         this.generateData(objectdata);
@@ -61,9 +66,10 @@ class Notifications extends React.Component {
         axios.post('http://localhost:8080/user/setNotificationObject/',emailReq)
             .then(response => {
             })
+        this.setState({clear: true});
         this.setState({notificationObject: object});
         const objectdata= {};
-        this.setState({});
+        this.setState({elem: []});
         this.generateData(objectdata);
 
     }
@@ -85,6 +91,20 @@ class Notifications extends React.Component {
     }
 
     generateData(object_response){
+        console.log(Object.keys(object_response).length);
+
+        let ppo = 0;
+        let counter = 0;
+        for (const [key, value] of Object.entries(object_response)) {
+            ppo=ppo+1;
+            if(value.Read===false && value.Read!=='undefined')
+            {
+                counter= counter+1;
+            }
+            if(ppo === Object.entries(object_response).length){
+                this.setState({unread: counter});
+            }
+        }
         this.setState({notificationObject: object_response});
         const objectOfNotificationdata= this.state.notificationObject;
         const notification_Array = [];
@@ -149,7 +169,9 @@ class Notifications extends React.Component {
 
         axios.post('http://localhost:8080/user/getNotificationObject/',emailReq)
             .then(response => {
+
                 this.generateData(response.data)
+
 
             })
             .catch(err => {console.error(err);})
@@ -157,7 +179,16 @@ class Notifications extends React.Component {
 
     render() {
         return (
-            <><Sidebar />
+            <>
+                <SweetAlert show={this.state.clear} success title={"Successfully cleared all notifications"} onConfirm={()=>{
+                    this.setState({clear: false});
+                }}></SweetAlert>
+
+                <SweetAlert show={this.state._delete} success title={"Successfully deleted a message"} onConfirm={()=>{
+                    this.setState({_delete: false});
+                }}></SweetAlert>
+                <Sidebar unread={this.state.unread}/>
+
             <div className="md:ml-64">
 
                 <Container fluid>
@@ -175,11 +206,24 @@ class Notifications extends React.Component {
 
                                 </Col>
                             </Row>
-
+                            {/*<ChartGraph social='Twitter' crypto='Ethereum'/>*/}
                         </Card.Body>
                     </Card>
                 </Container>
             </div>
+                {/*<div>*/}
+                {/*    <Sidebar unread={this.state.unread}/>*/}
+                {/*    <div className="md:ml-64">*/}
+                {/*           <Card >*/}
+                {/*                        <Card.Header >*/}
+                {/*                           <Card.Title as="h3" class="card text-center">NOTIFICATIONS</Card.Title>*/}
+                {/*                        </Card.Header>*/}
+                {/*                   <Card.Body>*/}
+
+                {/*                   </Card.Body>*/}
+                {/*            </Card>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
             </>
         );
     }

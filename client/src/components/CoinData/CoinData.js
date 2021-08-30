@@ -5,7 +5,7 @@ import Chartjs from 'chart.js'
 const CoinData = ({data}) => {
     const chartRefs = useRef();
     const {day, week, year, fourteenDays, month, threeMonths, detail} = data;
-    const [timeFormat, setTimeFormat] = useState("24h");
+    const [timeFormat, setTimeFormat] = useState("");
     let chartInstance;
 
     const determineTimeFormat = () => {
@@ -41,7 +41,7 @@ const CoinData = ({data}) => {
                             data: determineTimeFormat(),
                             backgroundColor: "rgba(255, 255, 255,0)",
                             borderColor: "rgba(0,0,0,0.9)",
-                            pointRadius: 0,
+                            pointRadius: 1,
                         },
 
                     ],

@@ -13,40 +13,40 @@ const Database = require('./database/Database');
 const firestore_db = new Database().getInstance();
 const average = require('./notification/AverageSentiment')
 const app = require('./app');
-let port = process.env.PORT || 8000
-const sslServer = https.createServer(
+let port = process.env.PORT || 3443
+// const sslServer = https.createServer(
+//     {
+//         key: fs.readFileSync(path.join(__dirname, 'SSL', 'key.pem')),
+//         cert: fs.readFileSync(path.join(__dirname, 'SSL', 'cert.pem')),
+//     },
+//     app
+// )
+// sslServer.listen(port, () => console.log('Secure server running on port '+port))
+ http.createServer(app);
+
+ app.listen(port, () => console.log('Secure server running on port '+port));
+cron.schedule('*/60 * * * *',  async() => {
+    console.log('analysing every hour')
+    const cryptos =await analysis.get_Doc_id('Twitter');
+    for(let crypto of cryptos)
     {
-        key: fs.readFileSync(path.join(__dirname, 'SSL', 'key.pem')),
-        cert: fs.readFileSync(path.join(__dirname, 'SSL', 'cert.pem')),
-    },
-    app
-)
-sslServer.listen(3443, () => console.log('Secure server running on port 3443'))
-// http.createServer(app);
-//
-// app.listen(port);
-// cron.schedule('*/60 * * * *',  async() => {
-//     console.log('analysing every hour')
-//     const cryptos =await analysis.get_Doc_id('Twitter');
-//     for(let crypto of cryptos)
-//     {
-//         let data = await  analysis.sentimentAnalysis(crypto,'Twitter').then(data=>{
-//               }).catch(err=>{return err})
-//
-//     }
-//     for(let crypto of cryptos)
-//     {
-//         let data = await average.Analyse_Average('Twitter',crypto ).then(async(dt)=>{
-//             let msgType = new notificationType(dt,crypto );
-//                             const nothing= crypto  + ' average sentiment did not change!';
-//                             let results = msgType.Results();
-//                             if(results !==nothing ){
-//                                 await notification.followers(crypto,results);
-//                             }
-//         }).catch(err=>{return err})
-//
-//     }
-//     console.log('Messaging done!')
-//
-//
-// });
+        let data = await  analysis.sentimentAnalysis(crypto,'Twitter').then(data=>{
+              }).catch(err=>{return err})
+
+    }
+    for(let crypto of cryptos)
+    {
+        let data = await average.Analyse_Average('Twitter',crypto ).then(async(dt)=>{
+            let msgType = new notificationType(dt,crypto );
+                            const nothing= crypto  + ' average sentiment did not change!';
+                            let results = msgType.Results();
+                            if(results !==nothing ){
+                                await notification.followers(crypto,results);
+                            }
+        }).catch(err=>{return err})
+
+    }
+    console.log('Messaging done!')
+
+
+});

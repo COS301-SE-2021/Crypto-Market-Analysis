@@ -1,4 +1,4 @@
-const Twitter = require('../social_media_sites/Twitter');
+const Twitter = require('../functions/Twitter');
 const twitter = new Twitter();
 const { FakeFirestore } = require('firestore-jest-mock');
 const { mockCollection, mockDoc } = require('firestore-jest-mock/mocks/firestore');

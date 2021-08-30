@@ -100,26 +100,29 @@ export default function Sidebar(props) {
           }
           setShowSweetAlert(false)
         }}></SweetAlert>
-        <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"
-        >
-          <div className="md:flex-col md:items-stretch md:min-h-full md:flex-wrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
-            {/* Toggler */}
 
-            <div>
-              <div style={{
-                position:"static",
-                display:"flex",
-                justifyContent:"space-between",
-                margin:"10px 0px",
-                borderBottom: "1px solid grey"
-              }}>
-                <div>
+      <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"
+      >
+        <div className="md:flex-col md:items-stretch md:min-h-full md:flex-wrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
+          {/* Toggler */}
+
+          <div>
+            <div style={{
+              // position:"static",
+              // display:"flex",
+              // justifyContent:"space-between",
+              // margin:"0px 0px",
+              borderBottom: "1px solid grey",
+              textAlign:"center"
+            }}>
+                {/* <div>
+
                   <Avatar style={{width: "20px", height: "20px", borderRadius: "80px" }} className="aV" src='https://static.vecteezy.com/system/resources/previews/002/318/271/non_2x/user-profile-icon-free-vector.jpg'
                   />
-                </div>
+                </div> */}
 
-                <div style={{display:"flex",justifyContent:"space-around", width: "-50%", position:"static"}}>
-                  <p className={"w"}>{cryptoReq.email}</p>
+                <div >
+                  <p className={"md:block text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm font-bold px-0"}>{cryptoReq.email}</p>
                 </div>
 
               </div>
@@ -137,10 +140,10 @@ export default function Sidebar(props) {
             </button>
             {/* Brand */}
             <Link
-                className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold  p-4 px-0"
+                // className="md:block text-left text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold  px-0"
                 to="/"
             >
-              Cryptosis
+              <img className="mt-3" src="/cryptosis2-t.png"/>
             </Link>
             {/* User */}
             <ul className="md:hidden items-center flex flex-wrap list-none">
@@ -223,6 +226,7 @@ export default function Sidebar(props) {
                     Dashboard
                   </Link>
                 </li>
+
                 <li className="items-center">
                   <Link
                       className={
@@ -233,14 +237,18 @@ export default function Sidebar(props) {
                       }
                       to="/Notification"
                   >
-                    <a href="" className="notification">
-                      <i className="fas fa-envelope fa-lg"></i>
-                      <span className="badge rounded-pill badge-notification bg-danger">{props.unread || status}</span>
-                    </a>
-                    {" "}
+                      <i className={"fas fa-bell mr-2 text-sm "+ (window.location.href.indexOf("/profile") !== -1
+                              ? "opacity-75"
+                              : "text-blueGray-300")
+                        }></i>
+                    
                     Notification
+                    <a href="" className="notification">
+                      <span className="badge rounded-pill badge-notification bg-danger">{status}</span>
+                    </a>
                   </Link>
                 </li>
+
                 <li className="items-center">
                   <Link
                       className={
@@ -252,6 +260,14 @@ export default function Sidebar(props) {
                       to="/profile"
                       onClick={changeLocation}
                   >
+
+                    <a href="" className="notification">
+                      <i className="fas fa-envelope fa-lg"></i>
+                      <span className="badge rounded-pill badge-notification bg-danger">{props.unread || status}</span>
+                    </a>
+                    {" "}
+                    Notification
+
                     <i
                         className={
                           "fas fa-user mr-2 text-sm " +
@@ -261,47 +277,71 @@ export default function Sidebar(props) {
                         }
                     />{" "}
                     Profile
+
                   </Link>
                 </li>
                 <li className="items-center">
-                  {user === null ? <Link
-                          className={
-                            "text-xs uppercase py-3 font-bold block " +
-                            (window.location.href.indexOf("/login") !== -1
-                                ? "text-lightBlue-500 hover:text-lightBlue-600"
-                                : "text-blueGray-700 hover:text-blueGray-500")
-                          }
-                          to="/login"
-                          onClick={()=> {
-                            setLogin(true)
-                            changeLocation()
-                          }}
-                      >
+                  <Link
+                      className={
+                        "text-xs uppercase py-3 font-bold block " +
+                        (window.location.href.indexOf("/Predictions") !== -1
+                            ? "text-lightBlue-500 hover:text-lightBlue-600"
+                            : "text-blueGray-700 hover:text-blueGray-500")
+                      }
+                      to="/Predictions"
+                      onClick={changeLocation}
+                  >
+                    <i
+                        className={
+                          "fas fa-chart-line mr-2 text-sm " +
+                          (window.location.href.indexOf("/Predictions") !== -1
+                              ? "opacity-75"
+                              : "text-blueGray-300")
+                        }
+                    />{" "}
+                    Crypto Forecast
+                  </Link>
+                </li>
+                <li className="items-center">
 
-                        <i
-                            className={
-                              "fas fa-sign-out-alt mr-2 text-sm " +
-                              (window.location.href.indexOf("/login") !== -1
-                                  ? "opacity-75"
-                                  : "text-blueGray-300")
-                            }
-                        />{" "}
-                        Login
-                      </Link>
-                      :<Link onClick={()=> {
-                        localStorage.setItem("loggedOut",true)
-                        localStorage.clear()
-                        setShowSweetAlert(true)
-                      }}
-                             className={
-                               "text-xs uppercase py-3 font-bold block  " +
-                               (window.location.href.indexOf("/login") !== -1
-                                   ? "text-lightBlue-500 hover:text-lightBlue-600"
-                                   : "text-blueGray-700 hover:text-blueGray-500")
-                             }
+                {user === null ? <Link
+                  className={
+                    "text-xs uppercase py-3 font-bold block " +
+                    (window.location.href.indexOf("/login") !== -1
+                      ? "text-lightBlue-500 hover:text-lightBlue-600"
+                      : "text-blueGray-700 hover:text-blueGray-500")
+                  }
+                  to="/login"
+                  onClick={()=> {
+                    setLogin(true)
+                    changeLocation()
+                  }}
+                >
 
-
-                             to="/home"
+                  <i
+                    className={
+                      "fas fa-sign-out-alt mr-2 text-sm " +
+                      (window.location.href.indexOf("/login") !== -1
+                        ? "opacity-75"
+                        : "text-blueGray-300")
+                    }
+                  />{" "}
+                  Login
+                </Link> 
+                :<Link onClick={()=> {
+                      localStorage.setItem("loggedOut",true)
+                      localStorage.clear()
+                      setShowSweetAlert(true)
+                    }}
+                      className={
+                        "text-xs uppercase py-3 font-bold block  " +
+                        (window.location.href.indexOf("/login") !== -1
+                          ? "text-lightBlue-500 hover:text-lightBlue-600"
+                          : "text-blueGray-700 hover:text-blueGray-500")
+                      }
+                    
+                          
+                          to="/home"
 
                       >
                         <i
@@ -318,7 +358,7 @@ export default function Sidebar(props) {
               </ul>
 
               {/* Divider */}
-              <hr className="my-4 md:min-w-full" />
+              {/* <hr className="my-2 md:min-w-full" /> */}
               {/* Heading */}
               {/* <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
               Auth Layout Pages

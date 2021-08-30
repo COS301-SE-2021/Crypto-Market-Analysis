@@ -6,6 +6,8 @@ import styled from 'styled-components';
 import {Avatar, Tabs, AppBar, Tab} from "@material-ui/core"
 import EditIcon from "@material-ui/icons/Edit"
 import DeleteIcon from "@material-ui/icons/Delete"
+import Button from "@material-ui/core/Button"
+import Container from "@material-ui/core/Container"
 import axios from "axios";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import ModalComp from "../../components/Modal/Modal"
@@ -18,27 +20,27 @@ import { Star, } from "@material-ui/icons";
 import { SocialIcon } from 'react-social-icons';
 import ClipLoader from "react-spinners/ClipLoader"
 
-const Button = styled.button`
+/*const Button = styled.button`
 display: block;
 text-align: center;
-background-color: #d3d3d3;
+background-color: #FFFFF0;
 color:black;
 padding: 5px 15px;
 border-radius: 5px;
 outline: 5px;
 width: 150%;
-`
+variant:outlined;
+`*/
 
 const platformsList = [{name:"Twitter",id:"twitter"},
     {name:"Reddit",id:"reddit"},
-    {name:"Medium",id:"medium"},
-    {name:"Discord",id:"discord"}
+    {name:"4chan",id:null}
 ];
 
 const Profile = props =>
 {
 
-    const history = useHistory() 
+    const history = useHistory()
     let[socs,setSoc] =useState([]);
     let [platforms, setPlatforms] = useState(platformsList)
     const [selectedTab, setSelectedTab] = React.useState(0)
@@ -49,8 +51,9 @@ const Profile = props =>
     const modalText = "Are you sure you want to delete your account?"
     const [accDelete, setAccDelete] = useState(false)
     let [loading, setLoading] = useState(false);
-    
+
     const searchRef = useRef()
+
 
     const handleChange = (event, newValue) =>
     {
@@ -91,7 +94,7 @@ const Profile = props =>
             })
             .catch(err => {console.error(err);})
 
-        axios.post('http://localhost:8080/user/getUserSubreddits/',userReq)
+        axios.post('http://localhost:8080/reddit/getUserSubreddits/',userReq)
             .then(response => {
                 let subName = [];
                 for(const subred of response.data)
@@ -110,7 +113,7 @@ const Profile = props =>
 
     const handleFollowButton = (user,follows)=>{
 
-       
+
         let target =  document.getElementById('followBtn')
         let iconEL = document.createElement("i")
         iconEL.setAttribute("class","fab fa-twitter mr-2")
@@ -139,13 +142,13 @@ const Profile = props =>
         }
         target.append(newElement)
         cleanSpace()
-        
+
     }
 
     const followUser = ()=>{
 
         let user = {email: localStorage.getItem("emailSession"), screen_name: searchRef.current.value }
-        
+
         axios.post('http://localhost:8080/twitter/follow/',user)
         .then(response=>{
             console.log(response)
@@ -154,13 +157,13 @@ const Profile = props =>
             document.getElementById('followBtn').innerHTML = "<span></span>"
         })
         .catch(err => {console.error(err)})
-        
+
 
     }
     const unFollowUser = ()=>{
 
         let user = {email: localStorage.getItem("emailSession"), screen_name: searchRef.current.value }
-       
+
         axios.post('http://localhost:8080/twitter/unfollow/',user)
         .then(response=>{
             console.log(response)
@@ -169,20 +172,20 @@ const Profile = props =>
             document.getElementById('followBtn').innerHTML = "<span></span>"
         })
         .catch(err => {console.error(err)})
-        
+
 
     }
     const searchUsername = async (event) =>{
         document.getElementById('followBtn').innerHTML = "<span></span>"
-      
+
         setLoading(true)
         event.preventDefault()
 
-       
+
         let user = { screen_name: searchRef.current.value, email: localStorage.getItem("emailSession")}
         axios.post('http://localhost:8080/twitter/validateScreenName/',user)
         .then((response)=>{
-            
+
             if(response.data.data){
                 handleFollowButton(user.screen_name,false)
             }
@@ -202,7 +205,7 @@ const Profile = props =>
     }
 
     const select = (name) => {
-           
+
         platforms =  [...platforms.map((platform)=>{
             if(name === platform.id){
                 platform.selected = !platform.selected;
@@ -216,7 +219,7 @@ const Profile = props =>
                 */
                 if(platform.selected) {
 
-                  
+
                     axios.post('http://localhost:8080/user/followSocialMedia/',platformObj)
                         .then(response =>{
                             console.log(response)
@@ -227,7 +230,7 @@ const Profile = props =>
                 }
                 else{
 
-                    
+
                     axios.post('http://localhost:8080/user/unfollowSocialMedia/',platformObj)
                         .then(response =>{
                             console.log(response)
@@ -242,7 +245,7 @@ const Profile = props =>
             }
         })]
         setPlatforms(platforms)
-            
+
     }
 
     const deleteAccount = () =>{
@@ -251,14 +254,15 @@ const Profile = props =>
     }
 
     const onCancel =(e)=>{
-        setShow(false);    
+        setShow(false);
     }
     const OnContinue =()=>{
         setAccDelete(true)
         setAlertTitle("Account deleted")
         setShowSweetAlert(true)
-        
+
     }
+
 
     return(
 
@@ -271,7 +275,7 @@ const Profile = props =>
                     history.push("/")
                 // localStorage.clear()
                 }
-                
+
 
             }}></SweetAlert>
             <Sidebar />
@@ -279,16 +283,16 @@ const Profile = props =>
             <div className="md:ml-64">
                 <div className="container" >
 
-                    <div>
+                    <Container>
                         <div style={{
                             display:"flex",
                             justifyContent:"space-around",
-                            margin:"18px 0px",
+                            margin:"18px 1px",
                             borderBottom: "1px solid grey"
                         }}>
                             <div>
 
-                                <Avatar style={{width: "160px", height: "160px", borderRadius: "80px" }} className="aV" src='https://static.vecteezy.com/system/resources/previews/002/318/271/non_2x/user-profile-icon-free-vector.jpg'
+                                <Avatar variant={'rounded'} style={{width: "160px", height: "160px", borderRadius: "80px"}} className="aV" src='https://static.vecteezy.com/system/resources/previews/002/318/271/non_2x/user-profile-icon-free-vector.jpg'
                                 />
 
                             </div>
@@ -300,8 +304,8 @@ const Profile = props =>
 
 
                                 <div style={{display:"flex",justifyContent:"space-between", width: "108%"}}>
-                                    <h6>Follows {socs.length} cryptos</h6>
-                                    <h6>Follows {crypts.length} social media sites</h6>
+                                    <h6>Follows {socs.length} cryptocurrencies</h6>
+                                    <h6>Follows {crypts.length} social media platforms</h6>
                                 </div>
 
                                 <div style={{display:"flex", bottom: "-30px"}}>
@@ -326,32 +330,47 @@ const Profile = props =>
                                             }
                                         />{" "}
 
-                                        <Button>
-                                            <EditIcon />
+                                        <Button variant={'contained'} style={{
+                                            textAlign: "center",
+                                            backgroundColor: "#FFFFF0",
+                                            color:"black",
+                                            padding: "5px 15px",
+                                            borderRadius: "5px",
+                                            outline: "5px",
+                                            width: "100%"
+                                            }} startIcon={<EditIcon fontSize={'large'} />}>
+
                                             Update Profile Details
                                         </Button>
-                                        
+
                                     </Link>
                                     <div className="flex text-xs py-3 ml-3">
-                                        <Button onClick={deleteAccount}>
-                                            <DeleteIcon />
+                                        <Button variant={'contained'} style={{
+                                            textAlign: "center",
+                                            backgroundColor: "#FFFFF0",
+                                            color:"black",
+                                            padding: "5px 15px",
+                                            borderRadius: "5px",
+                                            outline: "5px",
+                                            width: "150%",
+                                            }} onClick={deleteAccount} startIcon={<DeleteIcon />}>
+
                                             Delete Account
                                         </Button>
                                     </div>
-                                    
-                                </div>
 
+                                </div>
 
                             </div>
                         </div>
-                    </div>
+                    </Container>
 
-                    <AppBar position={"static"}>
-                        <Tabs value={selectedTab} onChange={handleChange}>
-                            <Tab label="Cryptos Followed" />
-                            <Tab label="Platforms Followed"/>
-                            <Tab label="Follow users"/>
-                            <Tab label="Add social platforms"/>
+                    <AppBar position={"static"} color={'transparent'}>
+                        <Tabs centered={true} indicatorColor={'primary'} value={selectedTab} onChange={handleChange}>
+                            <Tab style={{color:"black"}} label="Cryptocurrencies Followed" />
+                            <Tab style={{color:"black"}} label="Social Media Platforms Followed"/>
+                            <Tab style={{color:"black"}} label="Follow users"/>
+                            <Tab style={{color:"black"}} label="Add social media platforms"/>
                             {/*<Tab label="Subreddits"/>*/}
                             {/*<Tab label="Subreddits Followed"/>*/}
                         </Tabs>
@@ -394,7 +413,7 @@ const Profile = props =>
                         <div id="searchContainer" className="container" >
                            <script sync src="https://platform.twitter.com/widgets.js%22%3E"></script>
                             <div className="row searchFilter" >
-                               
+
                                 <div className="col-sm-12" >
                                     <div className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold pt-4 pb-4 px-0">Search for a twitter user you want us to check out for you</div>
                                     <div className="input-group" >
@@ -405,19 +424,19 @@ const Profile = props =>
                                             </Form.Group>
                                             <Form.Group >
                                                 <Form.Control id="searchBtn" type="submit" className="btn btn-secondary btn-search" value="Search" />
-                                                
+
                                             </Form.Group>
                                         </Form>
-                                        
+
                                         </div>
                                         {loading ? <div className="ml-2 mt-2 text-center"><ClipLoader  loading={loading} size={15} /></div>:<></>}
                                         <div id="followBtn">
                                         <span></span>
                                     </div>
                                     </div>
-       
+
                                 </div>
-                                
+
                             </div>
                         </div>
                     }
@@ -427,14 +446,15 @@ const Profile = props =>
                             <div className="row mt-6">
                                 <div className="col-5 m-auto platform-container overflow-auto ">
                                         {
-                                            
+
                                             platforms.map((myPlatform) =>{
                                                 return(
                                                 <div key={myPlatform.id} className="cryptos-view">
                                                     <div className="crypt-row">
                                                         <div className="crypto">
                                                             {myPlatform.selected?<Star className="select-star" color="primary" onClick={()=>{select(myPlatform.id)}}/>:<Star className="select-star" color="action" onClick={()=>{select(myPlatform.id)}}/>}
-                                                            <SocialIcon network={myPlatform.id} style={{height:"40px",width:"40px"}}/>
+                                                            {myPlatform.id != null ?<SocialIcon network={myPlatform.id} style={{height:"40px",width:"40px"}}/>:
+                                                            <img src={"./4chanLogo.png"} alt="4chan" style={{height:"40px",width:"40px"}} />}
                                                             <h1 className="crypto-name" style={{marginLeft:"2em"}}>{myPlatform.name}</h1>
                                                         </div>
                                                     </div>

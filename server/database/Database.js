@@ -1,5 +1,5 @@
 const admin = require('firebase-admin');
-const serviceAccount = require('./firebase.json');
+const serviceAccount = require('./firebase.js');
 
 /** Initializes the database*/
 const initialize = () => {
@@ -68,15 +68,19 @@ class Database {
         return this.#db.collection(Social_Media);
     }
     async storeNotification(email,object){
-        if(typeof email !== 'undefined') {
-            console.log('something')
+        if(email && object) {
             const notification_object ={
                 notification:object
             }
-           try{await this.#db.collection('Users').doc(email).update(notification_object);
+           try{
+                await this.#db.collection('Users').doc(email).update(notification_object);
             }
-            catch (err){console.log('error saving to database')}
+            catch (err){
+                return Promise.reject(err);
+            }
         }
+        else
+            return Promise.reject(`Parameters are undefined`);
 
     }
     async setPushNotification(email,object){
@@ -122,17 +126,18 @@ class Database {
         else{
             try{
                 const doc = await this.#db.collection(collectionPath).doc(documentName).get(field);
-                const entries = await Object.entries(doc.data());
-                for(const entry of entries){
-                    if(entry[0] === field)
-                        return entry[1]
+                if(doc){
+                    const entries = await Object.entries(doc.data());
+                    for(const entry of entries){
+                        if(entry[0] === field)
+                            return entry[1]
+                    }
                 }
 
                 return null;
             }
             catch(e) {
-                console.error(`An error occurred while connecting to the database: \n${e}`);
-                return null
+                return null;
             }
         }
     }

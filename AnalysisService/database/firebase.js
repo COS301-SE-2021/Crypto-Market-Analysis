@@ -1,4 +1,3 @@
-console.log(process.env.TYPE)
 const config = {
     "type": process.env.TYPE,
     "project_id": process.env.PROJECT_ID,
@@ -11,4 +10,5 @@ const config = {
     "auth_provider_x509_cert_url": process.env.AUTH_PROVIDER_x509_CERT_URL,
     "client_x509_cert_url": process.env.CLIENT_x509_CERT_URL
 }
+
 module.exports = config;

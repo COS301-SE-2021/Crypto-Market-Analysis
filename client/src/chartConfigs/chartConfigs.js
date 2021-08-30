@@ -8,12 +8,16 @@ export const historyOptions ={
     animation:{
         duration: 2000
     },
-
-    maintainAspectRatio: false,
+    interaction: {
+        mode: 'y',
+        intersection: true,
+    },
+    maintainAspectRatio: true,
     responsive: true,
     scales: {
         xAxes: [
             {
+               stacked: true,
                 type: "time",
                 distribution: "linear",
 

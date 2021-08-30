@@ -101,7 +101,10 @@ export default function HeaderStats(props) {
       alert.setAttribute("id","server-alert")
       alert.style .cssText = "width:50%;margin:auto;text-align:center"
       alert.innerHTML = "Something went wrong, please try again later"
-      document.getElementById("cards-col").append(alert)
+      if(document.getElementById("cards-col")){
+        document.getElementById("cards-col").append(alert)
+      }
+      
     }
   }
   const changeLocation = (coinname, coinsymbol)=>{

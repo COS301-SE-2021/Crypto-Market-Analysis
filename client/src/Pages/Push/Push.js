@@ -15,10 +15,10 @@ class Push extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            elements: [  <Col class="col-md-6 offset-md-4">
-                <button  onClick={this.handleSubscribe}  type="button" className="btn btn-outline-warning">
-                    Subscribe<i className="fab fa-chrome"></i><i className="fab fa-firefox"></i></button>
-            </Col>]
+            elements: [ 
+                <button  onClick={this.handleSubscribe}  type="button" className="btn-cryptosis text-blueGray-600 mr-0 ml-2 whitespace-nowrap text-sm uppercase font-bold px-0">
+                    Subscribe</button>
+            ]
         }
         this.handleSubscribe = this.handleSubscribe.bind(this);
     }
@@ -118,7 +118,7 @@ class Push extends React.Component {
     render() {
         return (
             <>
-                <div className="md:ml-64">
+                <div className="d-inline">
                          {this.state.elements}
                 </div>
             </>

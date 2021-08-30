@@ -160,22 +160,153 @@ class Notifications extends React.Component {
             <><Sidebar />
             <div className="md:ml-64">
 
-                <Container fluid>
+                <Container className="mt-3" fluid>
 
                     <Card >
                         <Card.Header >
-                           <Card.Title as="h4" class="card text-center">NOTIFICATIONS</Card.Title>
-                            <Push/>
-                            <button  onClick={this.handleDeleteALL} type="button" className="btn btn-outline-warning"><i className="fas fa-trash-alt"></i>Clear Notification</button>
+                           {/* <Card.Title as="h4" class="card text-center">NOTIFICATIONS</Card.Title> */}
+                           
+                            <Push className="btn btn-cryptosis"/>
+                            <button  onClick={this.handleDeleteALL} type="button" className="btn-cryptosis text-blueGray-600 mr-0 mt-1 ml-2 text-sm uppercase font-bold px-0 float-right"><i className="fas fa-trash-alt"></i>&nbsp;Clear all Notifications</button>
+                            
                         </Card.Header>
                         <Card.Body >
-                            <Row>
+                            {/* <Row>
                                 <Col class="col-md-6 offset-md-4" className="card border-primary mb-3">
                                     {this.state.elem}
-
+                                    {console.log(this.state.elem)}
                                 </Col>
-                            </Row>
-
+                            </Row> */}
+                            
+                                <div className="row grid-15-gutter">
+                                    <div className="col-md-4">
+                                        <div className="card panel">
+                                            <div className="toast-header">
+                                                <strong className="mr-auto">Bitcoin</strong>
+                                                <small>friday 12.00.00</small>
+                                                <button type="button" className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div className="media-body">
+                                                Bitcoin average sentiment did not change!
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <div className="card panel">
+                                            <div className="toast-header">
+                                                <strong className="mr-auto">Bitcoin</strong>
+                                                <small>Time</small>
+                                                <button type="button" className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div className="media-body">
+                                                Bitcoin average sentiment did not change!
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <div className="card panel">
+                                            <div className="toast-header">
+                                                <strong className="mr-auto">Bitcoin</strong>
+                                                <small>Time</small>
+                                                <button type="button" className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div className="media-body">
+                                                Bitcoin average sentiment did not change!
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <div className="card panel">
+                                            <div className="toast-header">
+                                                <strong className="mr-auto">Bitcoin</strong>
+                                                <small>Time</small>
+                                                <button type="button" className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div className="media-body">
+                                                Bitcoin average sentiment did not change!
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <div className="card panel">
+                                            <div className="toast-header">
+                                                <strong className="mr-auto">Bitcoin</strong>
+                                                <small>Time</small>
+                                                <button type="button" className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div className="media-body">
+                                                Bitcoin average sentiment did not change!
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <div className="card panel">
+                                            <div className="toast-header">
+                                                <strong className="mr-auto">Bitcoin</strong>
+                                                <small>Time</small>
+                                                <button type="button" className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div className="media-body">
+                                                Bitcoin average sentiment did not change!
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <div className="card panel">
+                                            <div className="toast-header">
+                                                <strong className="mr-auto">Bitcoin</strong>
+                                                <small>Time</small>
+                                                <button type="button" className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div className="media-body">
+                                                Bitcoin average sentiment did not change!
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <div className="card panel">
+                                            <div className="toast-header">
+                                                <strong className="mr-auto">Bitcoin</strong>
+                                                <small>Time</small>
+                                                <button type="button" className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div className="media-body">
+                                                Bitcoin average sentiment did not change!
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <div className="card panel">
+                                            <div className="toast-header">
+                                                <strong className="mr-auto">Bitcoin</strong>
+                                                <small>Time</small>
+                                                <button type="button" className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div className="media-body">
+                                                Bitcoin average sentiment did not change!
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
                         </Card.Body>
                     </Card>
                 </Container>

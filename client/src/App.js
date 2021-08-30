@@ -12,6 +12,7 @@ import Push from "./Pages/Push/Push"
 import PrivateRoute from "./components/newRoute"
 import Notification from "./Pages/Notification/Notification"
 import DetailedInfo from "./Pages/DetailedInfo/DetailedInfo"
+import Chat from "./Pages/Chatroom/chatroom"
 import Subreddits from "./Pages/Subreddits/Subreddits"
 //import Predictions from "./Pages/Predictions/Predictions"
 import {BrowserRouter as Router , Switch} from "react-router-dom";
@@ -60,6 +61,7 @@ function App() {
                      <Route exact path="/home/DetailedInfo" component={DetailedInfo}></Route>
                      <Route exact path="/Subreddits" component={Subreddits}></Route>
                      <Route exact path="/Predictions" component={Predictions}></Route>
+                     <Route exact path="/Chat" component={Chat}></Route>
                  </section>
            </Switch>
           </AuthProvider>

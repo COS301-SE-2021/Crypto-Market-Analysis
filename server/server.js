@@ -1,4 +1,4 @@
-const http = require('http');
+const http = require('https');
 const app = require('./app');
 const cron = require('node-cron');
 const Reddit = require('./functions/Reddit');

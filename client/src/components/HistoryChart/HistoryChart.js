@@ -2,14 +2,7 @@ import React, {useEffect, useRef, useState} from 'react'
 import Chartjs from 'chart.js'
 import {historyOptions} from "../../chartConfigs/chartConfigs";
 import Button from "@material-ui/core/Button"
-
-//let React = require('react');
-//let Component = React.Component;
-import  CanvasJSReact from './canvasjs.react'
 import {ButtonGroup} from "@material-ui/core";
-//let CanvasJSReact = require('./canvasjs.react');
-let CanvasJS = CanvasJSReact.CanvasJS;
-let CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const HistoryChart = ({data}) => {
     const chartRef = useRef();
@@ -40,7 +33,7 @@ const HistoryChart = ({data}) => {
                 case "1y":
                     return year;
                 default:
-                    return "day";
+                    return day;
             }
         }catch(err){
             console.log(err)

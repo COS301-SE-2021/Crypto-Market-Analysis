@@ -54,7 +54,7 @@ const postReact = async (owner, react, postId,room)=>{
 const totalPosts = async (owner, room)=>{
     let num = 0;
     try{
-        const docs = await firestore_db.fetch(room).then((snapshot) => {return snapshot.docs;});
+        const docs = await firestore_db.fetch(owner).then((snapshot) => {return snapshot.docs;});
         for(const doc of docs)
             num++;
 

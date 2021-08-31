@@ -232,8 +232,6 @@ router.post("/fetchAnalysis", async (request, response) => {
         })
     }
 });
-const webpush = require("web-push");
-const Push_notification=require('./notification/push_notification')
 
 router.post("/subscribe", async (req, res) => {
     const web_push = new Push_notification();

@@ -6,7 +6,6 @@ const getAllChats = async (room, owner)=>{
     let allposts = [];
     try{
         const docs = await firestore_db.fetch(owner).then((snapshot) => {return snapshot.docs;});
-        console.log(docs)
         for(const doc of docs)
             allposts.push(doc.data());
 
@@ -48,6 +47,21 @@ const postReact = async (owner, react, postId,room)=>{
     {
         let num = await firestore_db.fetch(room, postId,"dislike")
         await firestore_db.save(room, postId,"dislike", ++num);
+    }
+    return {status: 'successful'};
+}
+
+const totalPosts = async (owner, room)=>{
+    let num = 0;
+    try{
+        const docs = await firestore_db.fetch(room).then((snapshot) => {return snapshot.docs;});
+        for(const doc of docs)
+            num++;
+
+        return {status: `Ok`, numberPosts: num};
+    }
+    catch(err){
+        return Promise.reject(new Error(err));
     }
     return {status: 'successful'};
 }

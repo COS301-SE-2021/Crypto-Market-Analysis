@@ -77,4 +77,24 @@ router.post("/postReact", async (request, response, next)=>{
         });
     }
 });
+
+router.post("/totalPosts", async (request, response, next)=>{
+    const owner = request.body.owner;
+    const room = request.body.room;
+
+    if(!owner){
+        let error = new Error(`Malformed request. Please check your parameters`);
+        error.status = 400;
+        return next(error);
+    }
+    else{
+        await chat.totalPosts(owner, room).then(data=>{
+            return response.status(200).json(data);
+        }).catch(err => {
+            let error = new Error(err);
+            error.status = 500;
+            return next(error);
+        });
+    }
+});
 module.exports = router

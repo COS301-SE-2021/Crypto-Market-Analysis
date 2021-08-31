@@ -236,9 +236,11 @@ const Profile = props =>
                 console.log(reject.response)
                 if(reject.response.data.error.message.includes("You are already following the selected screen name"))
                 {
-                    console.log("reject")
                     handleFollowButton(user.screen_name,true)
                 }
+                // else{
+
+                // }
             })
             .catch(err => {
                 
@@ -508,7 +510,7 @@ const Profile = props =>
                                             <div key={myPlatform.id} className="cryptos-view" >
                                                 <div className="crypt-row">
                                                     <div className="crypto" >
-                                                        {myPlatform.selected?<Star className="select-star" color="primary" onClick={()=>{select(myPlatform.id)}}/>:<Star className="select-star" color="action" onClick={()=>{select(myPlatform.id)}}/>}
+                                                        {myPlatform.selected?<Star className="select-star" style={{ color: "#03989e" }} onClick={()=>{select(myPlatform.id)}}/>:<Star className="select-star" color="action" onClick={()=>{select(myPlatform.id)}}/>}
                                                         {myPlatform.id != null ?<SocialIcon network={myPlatform.id} style={{height:"40px",width:"40px"}}/>:
                                                             <img src={"./4chanLogo.png"} alt="4chan" style={{height:"40px",width:"40px"}} />}
                                                         <h1 className="crypto-name" style={{marginLeft:"2em"}}>{myPlatform.name}</h1>

@@ -56,3 +56,17 @@
 /*.card:hover::before, .card:hover::after, .card:focus::before, .card:focus::after {*/
 /*    transform: scale3d(1, 1, 1);*/
 /*}*/
+
+.row.grid-15-gutter {
+    margin-left: -7.5px;
+    margin-right: -7.5px;
+}
+.row.grid-15-gutter [class*="col-"] {
+    padding-left: 7.5px;
+    padding-right: 7.5px;
+}
+.panel {
+    
+    padding: 10px;
+    margin-bottom: 15px;
+}

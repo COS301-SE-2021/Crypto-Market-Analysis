@@ -11,7 +11,14 @@ import axios from "axios";
 import './Note.css';
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Push from "../Push/Push";
+import Checkbox from '@material-ui/core/Checkbox';
+import DayPicker from 'react-day-picker';
+import 'react-day-picker/lib/style.css';
+
+const filterOptions = ['Read', 'Unread', 'Today']
 class Notifications extends React.Component {
+
+    
 
     constructor(props) {
         super(props)
@@ -21,6 +28,7 @@ class Notifications extends React.Component {
             emailRequest:{}
 
         }
+       
         this.handleDelete = this.handleDelete.bind(this);
         this.handleDeleteALL = this.handleDeleteALL.bind(this);
     }
@@ -162,7 +170,7 @@ class Notifications extends React.Component {
 
                 <Container className="mt-3" fluid>
 
-                    <Card >
+                    <Card  >
                         <Card.Header >
                            {/* <Card.Title as="h4" class="card text-center">NOTIFICATIONS</Card.Title> */}
                            
@@ -170,16 +178,36 @@ class Notifications extends React.Component {
                             <button  onClick={this.handleDeleteALL} type="button" className="btn-cryptosis text-blueGray-600 mr-0 mt-1 ml-2 text-sm uppercase font-bold px-0 float-right"><i className="fas fa-trash-alt"></i>&nbsp;Clear all Notifications</button>
                             
                         </Card.Header>
-                        <Card.Body >
+                        <Card.Body style={{height:"50%"}} >
                             {/* <Row>
                                 <Col class="col-md-6 offset-md-4" className="card border-primary mb-3">
                                     {this.state.elem}
                                     {console.log(this.state.elem)}
                                 </Col>
                             </Row> */}
-                            
-                                <div className="row grid-15-gutter">
-                                    <div className="col-md-4">
+                             {console.log("nazoo")}
+                             {console.log(this.state.elem)}
+                                <Row>
+                                    <div className="col-md-4" style={{borderRight:"1px solid #c1c1c1"}}>
+                                        <p className="text-blueGray-600 mr-0 mt-1 ml-2 text-sm uppercase font-bold px-0">Filter &amp; refine</p>
+                                            {
+                                                filterOptions.map(element => {
+                                                    return( <div>
+                                                            <Checkbox style={{ color: "#03989e", marginRight: 0 }} /> 
+                                                            {element}
+                                                            
+                                                            </div>
+                                                           
+                                                        )
+                                                })
+                                            }
+                                          <DayPickerInput onDayChange={this.handleDayChange} />  
+                                            
+                                        
+                                    </div>
+                                    <div className="col-md-8">
+                                    <div className="row grid-15-gutter">
+                                    <div className="col-md-6">
                                         <div className="card panel">
                                             <div className="toast-header">
                                                 <strong className="mr-auto">Bitcoin</strong>
@@ -193,7 +221,7 @@ class Notifications extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-md-4">
+                                    <div className="col-md-6">
                                         <div className="card panel">
                                             <div className="toast-header">
                                                 <strong className="mr-auto">Bitcoin</strong>
@@ -207,7 +235,7 @@ class Notifications extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-md-4">
+                                    <div className="col-md-6">
                                         <div className="card panel">
                                             <div className="toast-header">
                                                 <strong className="mr-auto">Bitcoin</strong>
@@ -221,91 +249,12 @@ class Notifications extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-md-4">
-                                        <div className="card panel">
-                                            <div className="toast-header">
-                                                <strong className="mr-auto">Bitcoin</strong>
-                                                <small>Time</small>
-                                                <button type="button" className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div className="media-body">
-                                                Bitcoin average sentiment did not change!
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4">
-                                        <div className="card panel">
-                                            <div className="toast-header">
-                                                <strong className="mr-auto">Bitcoin</strong>
-                                                <small>Time</small>
-                                                <button type="button" className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div className="media-body">
-                                                Bitcoin average sentiment did not change!
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4">
-                                        <div className="card panel">
-                                            <div className="toast-header">
-                                                <strong className="mr-auto">Bitcoin</strong>
-                                                <small>Time</small>
-                                                <button type="button" className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div className="media-body">
-                                                Bitcoin average sentiment did not change!
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4">
-                                        <div className="card panel">
-                                            <div className="toast-header">
-                                                <strong className="mr-auto">Bitcoin</strong>
-                                                <small>Time</small>
-                                                <button type="button" className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div className="media-body">
-                                                Bitcoin average sentiment did not change!
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4">
-                                        <div className="card panel">
-                                            <div className="toast-header">
-                                                <strong className="mr-auto">Bitcoin</strong>
-                                                <small>Time</small>
-                                                <button type="button" className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div className="media-body">
-                                                Bitcoin average sentiment did not change!
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4">
-                                        <div className="card panel">
-                                            <div className="toast-header">
-                                                <strong className="mr-auto">Bitcoin</strong>
-                                                <small>Time</small>
-                                                <button type="button" className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div className="media-body">
-                                                Bitcoin average sentiment did not change!
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
+                                
+                                    </div>
+                                </Row>
+                                
                                 
                         </Card.Body>
                     </Card>

@@ -397,7 +397,7 @@ const Profile = props =>
                         </div>
                     </Container>
 
-                    <AppBar position={"static"} color={'transparent'}>
+                    <AppBar position={"static"} color={'transparent'} style={{ borderRadius: "5px"}}>
                         <Tabs centered={true} indicatorColor={'primary'} value={selectedTab} onChange={handleChange}>
                             <Tab style={{color:"black"}} label="Cryptocurrencies Followed" />
                             <Tab style={{color:"black"}} label="Social Media Platforms Followed"/>

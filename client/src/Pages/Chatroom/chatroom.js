@@ -8,18 +8,29 @@ import Posts from "../Posts/Posts";
 import { Link, useHistory } from "react-router-dom"
 
 function Chatroom() {
+
+    let [numposts,setnumposts] = useState([]);
     const board = "Altcoins";
     const unblockHandle = useRef()
    //    const history = useHistory();
 
     // let [predictions,setPredictions] = useState([]);
     //
-    // useEffect(async () => {
-    //     axios.post('http://localhost:8080/chat/getCoinPredictions/',userReq)
-    //         .then(async(response) =>{
-    //         })
-    //         .catch(err => {console.error(err)})
-    // },[]);
+    let request = {
+        owner: localStorage.getItem("emailSession"),
+        room: board
+    }
+
+    useEffect(async () => {
+        axios.post('http://localhost:8080/chat/totalPosts/',request)
+            .then(async(response) =>{
+                let numberPosts = 0;
+                console.log(response.data.numberPosts);
+                numberPosts = response.data.numberPosts;
+                setnumposts(numberPosts);
+            })
+            .catch(err => {console.error(err)})
+    },[]);
 
    // const Editnavigate = function (e, board) {
    //     this.props.history.push( {pathname: "/Posts",
@@ -62,7 +73,7 @@ function Chatroom() {
                                                 <div className="forum-icon">
                                                     <i className="fa fa-star"></i>
                                                 </div>
-                                                <a href="/Posts/" >Staff
+                                                <a href="/Posts/" >General
                                                     Discussion</a>
 
 
@@ -75,7 +86,8 @@ function Chatroom() {
 
                                             <div className="col-md-1 forum-info">
                             <span className="views-number">
-                                572
+                                {/*572*/}
+                                {numposts}
                             </span>
                                                 <div>
                                                     <small>Posts</small>

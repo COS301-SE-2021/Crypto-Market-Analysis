@@ -15,6 +15,7 @@ import "./Profile.css";
 import Subreddits from "../Subreddits/Subreddits";
 import Reddits from "../../components/Reddits/Reddits";
 import SweetAlert from 'react-bootstrap-sweetalert'
+import swal from 'sweetalert';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Star, } from "@material-ui/icons";
 import { SocialIcon } from 'react-social-icons';
@@ -53,6 +54,7 @@ const Profile = props =>
     const modalText = "Are you sure you want to delete your account?"
     const [accDelete, setAccDelete] = useState(false)
     let [loading, setLoading] = useState(false);
+    let [refresher,setRefresher]= useState(false)
 
     const searchRef = useRef()
 
@@ -182,9 +184,13 @@ const Profile = props =>
         axios.post('http://localhost:8080/twitter/follow/',user)
             .then(response=>{
                 console.log(response)
-                setAlertTitle("User added to our watch list")
-                setShowSweetAlert(true)
+                swal("User addedto your watchlist", {
+                    icon: "success",
+                    buttons: false,
+                    timer: 3000,
+                  });
                 document.getElementById('followBtn').innerHTML = "<span></span>"
+                
             })
             .catch(err => {console.error(err)})
 
@@ -197,9 +203,13 @@ const Profile = props =>
         axios.post('http://localhost:8080/twitter/unfollow/',user)
             .then(response=>{
                 console.log(response)
-                setAlertTitle("User removed from our watch list")
-                setShowSweetAlert(true)
+                swal("User removed from your watchlist", {
+                    icon: "success",
+                    buttons: false,
+                    timer: 3000,
+                  });
                 document.getElementById('followBtn').innerHTML = "<span></span>"
+                
             })
             .catch(err => {console.error(err)})
 
@@ -223,13 +233,15 @@ const Profile = props =>
                     handleFollowButton(null,false)
                 }
             },(reject)=>{
-                console.log(reject)
+                console.log(reject.response)
                 if(reject.response.data.error.message.includes("You are already following the selected screen name"))
                 {
+                    console.log("reject")
                     handleFollowButton(user.screen_name,true)
                 }
             })
             .catch(err => {
+                
                 console.error(err)
             })
     }
@@ -253,8 +265,14 @@ const Profile = props =>
                     axios.post('http://localhost:8080/user/followSocialMedia/',platformObj)
                         .then(response =>{
                             console.log(response)
-                            setAlertTitle("Social media added")
-                            setShowSweetAlert(true)
+                            swal("Social media added", {
+                                icon: "success",
+                                buttons: false,
+                                timer: 3000,
+                              }).then(()=>{
+                                setRefresher(!refresher)
+                              })
+
                         })
                         .catch(err => {console.error(err);})
                 }
@@ -264,8 +282,13 @@ const Profile = props =>
                     axios.post('http://localhost:8080/user/unfollowSocialMedia/',platformObj)
                         .then(response =>{
                             console.log(response)
-                            setAlertTitle("Social media removed")
-                            setShowSweetAlert(true)
+                            swal("Social media removed", {
+                                icon: "success",
+                                buttons: false,
+                                timer: 3000,
+                              }).then(()=>{
+                                setRefresher(!refresher)
+                              })
                         })
                         .catch(err => {console.error(err);})
                 }

@@ -1,12 +1,16 @@
 import "bootstrap/dist/css/bootstrap.css";
 import './chat.css';
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import axios from "axios";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Posts from "../Posts/Posts";
-
+//import {Link} from "@material-ui/core";
+import { Link, useHistory } from "react-router-dom"
 
 function Chatroom() {
+    const board = "Altcoins";
+    const unblockHandle = useRef()
+   //    const history = useHistory();
 
     // let [predictions,setPredictions] = useState([]);
     //
@@ -17,6 +21,15 @@ function Chatroom() {
     //         .catch(err => {console.error(err)})
     // },[]);
 
+   // const Editnavigate = function (e, board) {
+   //     this.props.history.push( {pathname: "/Posts",
+   //          state: { value:board }});
+   //  }
+
+    // const Editnavigate = (e, board) => {
+    //     history.push( {pathname: "/Posts",
+    //         state: { value:board }});
+    // }
     return(
 
         <>
@@ -49,8 +62,12 @@ function Chatroom() {
                                                 <div className="forum-icon">
                                                     <i className="fa fa-star"></i>
                                                 </div>
-                                                <a href="/Posts" className="forum-item-title">Staff
+                                                <a href="/Posts/" >Staff
                                                     Discussion</a>
+
+
+
+
                                                 <div className="forum-sub-title">This forum is for private, staff member
                                                     only discussions, usually pertaining to the community itself.
                                                 </div>

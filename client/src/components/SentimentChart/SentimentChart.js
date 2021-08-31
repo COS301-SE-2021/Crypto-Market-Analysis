@@ -29,7 +29,7 @@ const SentimentChart = ({data}) => {
                                 response.data
                             });
 
-                        let l = [60000000, 120000000, 240000000, 480000000, 760000000, 1520000000];
+                        let l = [60000000, 120000000, 240000000, 480000000, 760000000];
                         //for(let i =0; i < averagesList[0].AVG.data.length; i++)
                         //{
 
@@ -42,8 +42,7 @@ const SentimentChart = ({data}) => {
                                             datasets: [
                                                 {
                                                     label: detail.name + " sentiment",
-                                                    //data: [averagesList[0].AVG.data[0], averagesList[0].AVG.data[1], averagesList[0].AVG.data[2], averagesList[0].AVG.data[3],averagesList[0].AVG.data[4]],
-                                                    data: [1,2,3,7,-5,-3],
+                                                    data: [averagesList[0].AVG.data[0], averagesList[0].AVG.data[1], averagesList[0].AVG.data[2], averagesList[0].AVG.data[3],averagesList[0].AVG.data[4]],
                                                     backgroundColor: "rgba(255, 255, 255,0)",
                                                     borderColor: "black",
                                                     pointRadius: 1,

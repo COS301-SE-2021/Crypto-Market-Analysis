@@ -12,7 +12,7 @@ import axios from "axios";
 // import UserDropdown from "components/Dropdowns/UserDropdown.js";
 
 
-export default function Sidebar() {
+export default function Sidebar(props) {
 
   const unblockHandle = useRef()
   const history = useHistory()
@@ -86,11 +86,9 @@ export default function Sidebar() {
     history.push('/login')
   }
 
-  return (
-  
+  return (  
     <>
       <ModalComp show={show} cancel={onCancel} continue={OnContinue} />
-     
       <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"
       >
         <div className="md:flex-col md:items-stretch md:min-h-full md:flex-wrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
@@ -206,6 +204,7 @@ export default function Sidebar() {
                     Dashboard
                   </Link>
                 </li>
+
                 <li className="items-center">
                   <Link
                       className={
@@ -228,6 +227,7 @@ export default function Sidebar() {
                     </a>
                   </Link>
                 </li>
+
                 <li className="items-center">
                   <Link
                       className={
@@ -239,6 +239,14 @@ export default function Sidebar() {
                       to="/profile"
                       onClick={changeLocation}
                   >
+
+                    <a href="" className="notification">
+                      <i className="fas fa-envelope fa-lg"></i>
+                      <span className="badge rounded-pill badge-notification bg-danger">{props.unread || status}</span>
+                    </a>
+                    {" "}
+                    Notification
+
                     <i
                         className={
                           "fas fa-user mr-2 text-sm " +
@@ -248,6 +256,7 @@ export default function Sidebar() {
                         }
                     />{" "}
                     Profile
+
                   </Link>
                 </li>
                 <li className="items-center">
@@ -273,6 +282,7 @@ export default function Sidebar() {
                   </Link>
                 </li>
                 <li className="items-center">
+
                 {user === null ? <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +

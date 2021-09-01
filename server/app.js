@@ -9,6 +9,8 @@ const redditRoute = require('./routes/reddit');
 const chanRoute = require('./routes/chan');
 const sentimentRoute = require('./routes/sentiment');
 
+
+
 app.use(morgan("dev"));
 app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({ extended: false }));

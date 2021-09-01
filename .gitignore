@@ -6,5 +6,6 @@
 /client/node_modules/
 /.idea/
 /AnalysisService/node_modules
-/AnalysisService/.env/
-/server/database/firebase.js/
+/AnalysisService/coverage
+/AnalysisService/.env
+

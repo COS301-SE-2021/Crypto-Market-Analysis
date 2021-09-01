@@ -129,19 +129,12 @@ export default function AllCryptos(props)
                                 crypto_name: crypto.name,
                             }
                            
-<<<<<<< HEAD
                             axios.post('/user/followCrypto/',cryptoToAdd).then(()=>{
-                                setAlertTitle("Coin added")
-                                setShowSweetAlert(true)
-                                
-=======
-                            axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd).then(()=>{
                                 swal("Coin was added to watchlist", {
                                     icon: "success",
                                     buttons: false,
                                     timer: 3000,
                                   });
->>>>>>> b10a3f0bc5d1e14af95c385143513136d0a502ed
                             })
                             .catch(err => {console.error(err);})
                             
@@ -152,19 +145,12 @@ export default function AllCryptos(props)
                                 symbol: crypto.symbol,
                             }
                             
-<<<<<<< HEAD
-                            axios.post('/user/unfollowCrypto/',cryptoToRemove).then(()=>{
-                                setAlertTitle("Coin removed")
-                                setShowSweetAlert(true)
-                                
-=======
-                            axios.post('http://localhost:8080/user/unfollowCrypto/',cryptoToRemove).then(()=>{
+                            axios.post('user/unfollowCrypto/',cryptoToRemove).then(()=>{
                                 swal("Coin was removed from your watchlist", {
                                     icon: "success",
                                     buttons: false,
                                     timer: 3000,
                                   });
->>>>>>> b10a3f0bc5d1e14af95c385143513136d0a502ed
                             })
                                 .catch(err => {console.error(JSON.stringify(err));})
 

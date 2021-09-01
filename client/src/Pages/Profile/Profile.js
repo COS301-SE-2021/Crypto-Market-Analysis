@@ -180,21 +180,10 @@ const Profile = props =>
     const followUser = ()=>{
 
         let user = {email: localStorage.getItem("emailSession"), screen_name: searchRef.current.value }
-
-<<<<<<< HEAD
         axios.post('/twitter/follow/',user)
-        .then(response=>{
-            console.log(response)
-            setAlertTitle("User added to our watch list")
-            setShowSweetAlert(true)
-            document.getElementById('followBtn').innerHTML = "<span></span>"
-        })
-        .catch(err => {console.error(err)})
-=======
-        axios.post('http://localhost:8080/twitter/follow/',user)
             .then(response=>{
                 console.log(response)
-                swal("User addedto your watchlist", {
+                swal("User added to your watchlist", {
                     icon: "success",
                     buttons: false,
                     timer: 3000,
@@ -203,7 +192,6 @@ const Profile = props =>
                 
             })
             .catch(err => {console.error(err)})
->>>>>>> b10a3f0bc5d1e14af95c385143513136d0a502ed
 
 
     }
@@ -211,17 +199,7 @@ const Profile = props =>
 
         let user = {email: localStorage.getItem("emailSession"), screen_name: searchRef.current.value }
 
-<<<<<<< HEAD
         axios.post('/twitter/unfollow/',user)
-        .then(response=>{
-            console.log(response)
-            setAlertTitle("User removed from our watch list")
-            setShowSweetAlert(true)
-            document.getElementById('followBtn').innerHTML = "<span></span>"
-        })
-        .catch(err => {console.error(err)})
-=======
-        axios.post('http://localhost:8080/twitter/unfollow/',user)
             .then(response=>{
                 console.log(response)
                 swal("User removed from your watchlist", {
@@ -233,7 +211,6 @@ const Profile = props =>
                 
             })
             .catch(err => {console.error(err)})
->>>>>>> b10a3f0bc5d1e14af95c385143513136d0a502ed
 
 
     }
@@ -245,14 +222,9 @@ const Profile = props =>
 
 
         let user = { screen_name: searchRef.current.value, email: localStorage.getItem("emailSession")}
-<<<<<<< HEAD
-        axios.post('/twitter/validateScreenName/',user)
-        .then((response)=>{
-=======
-        axios.post('http://localhost:8080/twitter/validateScreenName/',user)
-            .then((response)=>{
->>>>>>> b10a3f0bc5d1e14af95c385143513136d0a502ed
 
+        axios.post('/twitter/validateScreenName/',user)
+            .then((response)=>{
                 if(response.data.data){
                     handleFollowButton(user.screen_name,false)
                 }

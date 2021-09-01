@@ -69,6 +69,38 @@ function Posts() {
 
     },[]);
 
+    function reactPost (react,postId){
+        // e.preventDefault();
+        let reqObj = {};
+        if (react === "like")
+        {
+            reqObj = {
+                owner : localStorage.getItem("emailSession"),
+                react : "like",
+                postId : postId,
+                room : "Altcoins"
+            }
+        }
+        else if (react === "dislike")
+        {
+            reqObj = {
+                owner : localStorage.getItem("emailSession"),
+                react : "dislike",
+                postId : postId,
+                room : "Altcoins"
+            }
+        }
+        axios.post('http://localhost:8080/chat/postReact/',reqObj)
+            .then(response => {
+                console.log(response);
+                window.location.reload();
+            })
+            .catch(err => {console.error(err);})
+        setTimeout(()=>{
+        },10000)
+
+    }
+
     return(
 
         <>
@@ -121,14 +153,15 @@ function Posts() {
                                         <ul className="list-inline d-sm-flex my-0">
                                             <li className="list-inline-item g-mr-20">
                                                 <a className="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
-                                                   href="#!">
+                                                   href="#!" onClick={function(){reactPost("like",post.postId)}}>
+
                                                     <i className="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i>
                                                     {post.like}
                                                 </a>
                                             </li>
                                             <li className="list-inline-item g-mr-20">
                                                 <a className="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
-                                                   href="#!" >
+                                                   href="#!" onClick={function(){reactPost("dislike",post.postId)}}>
                                                     <i className="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3"></i>
                                                     {post.dislike}
                                                 </a>

@@ -1,18 +1,16 @@
 export const historyOptions ={
+
     lineHeightAnnotation: {
         always: true,
         hover: false,
-        lineWeight: 1.5
+        lineWeight: 1.5,
     },
 
-    animation:{
-        duration: 2000
-    },
     interaction: {
         mode: 'y',
         intersection: true,
     },
-    maintainAspectRatio: true,
+    maintainAspectRatio: false,
     responsive: true,
     scales: {
         xAxes: [
@@ -20,7 +18,9 @@ export const historyOptions ={
                stacked: true,
                 type: "time",
                 distribution: "linear",
-
+                gridLines:{
+                    drawOnChartArea:false
+                },
             }
         ],
         yAxes: [{
@@ -29,7 +29,10 @@ export const historyOptions ={
                 {
                     return 'R' + value.toLocaleString();
                 }
-            }
+            },
+            gridLines:{
+                drawOnChartArea:false
+            },
         }]
     }
 }

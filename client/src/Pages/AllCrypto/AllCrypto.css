@@ -17,6 +17,7 @@
 .coin-container {
   display: flex;
   justify-content: center;
+  color:black;
 }
 
 .coin-row {

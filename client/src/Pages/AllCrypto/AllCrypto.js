@@ -1,8 +1,8 @@
 import "bootstrap/dist/css/bootstrap.css";
 import React, { useState, useEffect } from 'react';
-import { useHistory } from "react-router-dom"
-import SweetAlert from 'react-bootstrap-sweetalert'
-import ClipLoader from "react-spinners/ClipLoader"
+import { useHistory } from "react-router-dom";
+import swal from 'sweetalert';
+import ClipLoader from "react-spinners/ClipLoader";
 import axios from "axios";
 import { Star, } from "@material-ui/icons";
 
@@ -16,8 +16,6 @@ export default function AllCryptos(props)
     let [cryptos, setCryptos] = useState([]);
     const [searchCrypto, setSearchCrypto] = useState("");
     const [show, setShow] = useState(false)
-    const [showSweetAlert, setShowSweetAlert] = useState(false)
-    const [alertTitle,setAlertTitle] = useState("")
     let [loading, setLoading] = useState(true);
     const history = useHistory()
    
@@ -74,8 +72,25 @@ export default function AllCryptos(props)
             setLoading(false)
         
         })
-        .catch(err => {console.error(err);})
+        .catch(err => {
+            console.error(err)
+            setLoading(false)
+            showServerAlert()
+            
+          })
     }
+
+    const showServerAlert = ()=>{
+
+        if(!document.getElementById("server-alert")){
+          let alert = document.createElement("div")
+          alert.setAttribute("class","alert alert-info")
+          alert.setAttribute("id","server-alert")
+          alert.style .cssText = "width:50%;margin:auto;text-align:center"
+          alert.innerHTML = "Something went wrong, please try again later"
+          document.getElementById("response-alert").innerHTML = alert
+        }
+      }
 
     const onCancel =(e)=>{
         setShow(false);    
@@ -114,12 +129,21 @@ export default function AllCryptos(props)
                                 crypto_name: crypto.name,
                             }
                            
+<<<<<<< HEAD
                             axios.post('/user/followCrypto/',cryptoToAdd).then(()=>{
                                 setAlertTitle("Coin added")
                                 setShowSweetAlert(true)
                                 
+=======
+                            axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd).then(()=>{
+                                swal("Coin was added to watchlist", {
+                                    icon: "success",
+                                    buttons: false,
+                                    timer: 3000,
+                                  });
+>>>>>>> b10a3f0bc5d1e14af95c385143513136d0a502ed
                             })
-                                .catch(err => {console.error(err);})
+                            .catch(err => {console.error(err);})
                             
                         }
                         else{
@@ -128,10 +152,19 @@ export default function AllCryptos(props)
                                 symbol: crypto.symbol,
                             }
                             
+<<<<<<< HEAD
                             axios.post('/user/unfollowCrypto/',cryptoToRemove).then(()=>{
                                 setAlertTitle("Coin removed")
                                 setShowSweetAlert(true)
                                 
+=======
+                            axios.post('http://localhost:8080/user/unfollowCrypto/',cryptoToRemove).then(()=>{
+                                swal("Coin was removed from your watchlist", {
+                                    icon: "success",
+                                    buttons: false,
+                                    timer: 3000,
+                                  });
+>>>>>>> b10a3f0bc5d1e14af95c385143513136d0a502ed
                             })
                                 .catch(err => {console.error(JSON.stringify(err));})
 
@@ -157,11 +190,12 @@ export default function AllCryptos(props)
 
         return crypto.name.toLowerCase().includes(searchCrypto.toLowerCase()) ||  crypto.symbol.toLowerCase().includes(searchCrypto.toLowerCase())
     })
-    
+    const func = ()=>{
+        console.log("FUCN")
+    }
     return(
         <>       
         <ModalComp show={show} cancel={onCancel} continue={OnContinue} />
-        <SweetAlert show={showSweetAlert} success title={alertTitle} onConfirm={()=>{setShowSweetAlert(false)}}></SweetAlert>
          <div className="container">
             <div className="row"> 
                 <div className="crypto-search">
@@ -170,7 +204,7 @@ export default function AllCryptos(props)
                 </div>
                 <div className=" overflow-auto block crypto-wrapper" style={{height:"600px",margin:"auto"}}>
                     {loading ? <ClipLoader loading={loading} size={150} />:
-                    searchedCryptos.length < 1 ? <p className="text-center">Oops :( <br/>We don't have that coin</p>
+                    searchedCryptos.length < 1 ? <div id="response-alert"><p className="text-center">Oops :( <br/>We don't have that coin</p></div>
                     :<>
                         {searchedCryptos.map((myCrypto,index) =>{
                             
@@ -181,7 +215,7 @@ export default function AllCryptos(props)
                                         <div className='coin-row'>
                                                 <div className='coin'>
                                                    
-                                                    {myCrypto.selected?<Star className="select-star" color="primary" onClick={()=>{select(myCrypto.symbol,"cryptos")}}/>:<Star className="select-star" color="action" onClick={()=>{select(myCrypto.symbol, "cryptos")}}/>}
+                                                    {myCrypto.selected?<Star className="select-star" style={{ color: "#03989e" }} onClick={()=>{select(myCrypto.symbol,"cryptos")}}/>:<Star className="select-star" color="action" onClick={()=>{select(myCrypto.symbol, "cryptos")}}/>}
                                                     <img src={myCrypto.image} alt='crypto' />
                                                     <h1>{myCrypto.name}</h1>
                                                     <p className='coin-symbol'>{myCrypto.symbol}</p>

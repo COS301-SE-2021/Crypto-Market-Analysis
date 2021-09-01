@@ -27,8 +27,8 @@ export default function ModalComp(props) {
             
             </Modal.Body>
             <Modal.Footer className="justify-center" >
-                <Button onClick={props.cancel} className="btn btn-danger">Cancel</Button>
-                <Button onClick={props.continue} className="btn btn-success">{props.text != null ? <>Delete</> : <>Login</>}</Button>
+                <button onClick={props.cancel} className="btn text-xs uppercase" style={{backgroundColor:"#03989e",fontWeight:"bold"}}>Cancel</button>
+                <button onClick={props.continue} className="btn text-xs uppercase" style={{backgroundColor:"#03989e",fontWeight:"bold"}}>{props.text != null ? <>Delete</> : <>Login</>}</button>
             </Modal.Footer>
         </Modal>
         </>

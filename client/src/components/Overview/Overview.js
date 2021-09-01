@@ -13,10 +13,12 @@ export default function Overview({coin_name}) {
     let [coin, setCoin] = useState({});
     let [coinData, setCoinData] = useState({});
     let [marketData, setMarketData] = useState({});
+    let [sentimentData, setSentimentData] = useState({});
     let [time, setTime] = useState(Date.now());
     let [loading, setLoading] = useState(true);
     let [graphLoader, setGraphLoader] = useState(true);
     const [selectedTab, setSelectedTab] = React.useState(0);
+    let [isLoading, setIsLoading] = useState(false);
 
     const handleChange = (event, newValue) => {
         setSelectedTab(newValue);
@@ -26,7 +28,7 @@ export default function Overview({coin_name}) {
         return data.map(el => {
             return {
                 t: el[0],
-                y: el[1]
+                y: el[1].toFixed(2)
             }
 
         })
@@ -52,56 +54,50 @@ export default function Overview({coin_name}) {
 
 
         const fetchData = async () => {
-            const [day] = await Promise.all([coinGecko.get("/coins/" + coin_name + "/market_chart/", {
-                params: {
-                    vs_currency: "zar",
-                    days: "1",
-                    interval: "weekly"
-                },
-            })]);
-
-            const [week] = await Promise.all([coinGecko.get("/coins/" + coin_name + "/market_chart/", {
-                params: {
-                    vs_currency: "zar",
-                    days: "7",
-                    interval: "monthly"
-                },
-            })]);
-
-
-            const [fourteenDays] = await Promise.all([coinGecko.get("/coins/" + coin_name + "/market_chart/", {
-                params: {
-                    vs_currency: "zar",
-                    days: "14",
-                    interval: "weekly"
-                },
-            })]);
-
-            const [month] = await Promise.all([coinGecko.get("/coins/" + coin_name + "/market_chart/", {
-                params: {
-                    vs_currency: "zar",
-                    days: "30",
-                    interval: "weekly"
-                },
-            })]);
-
-            const [threeMonths] = await Promise.all([coinGecko.get("/coins/" + coin_name + "/market_chart/", {
-                params: {
-                    vs_currency: "zar",
-                    days: "90",
-                    interval: "weekly"
-                },
-            })]);
-
-            const [year] = await Promise.all([coinGecko.get("/coins/" + coin_name + "/market_chart/", {
-                params: {
-                    vs_currency: "zar",
-                    days: "365",
-                    interval: "monthly"
-                },
-            })]);
-
-            const [detail] = await Promise.all([
+            setIsLoading(true);
+            const [day, week, fourteenDays, month, threeMonths,year, detail] = await Promise.all([
+                coinGecko.get("/coins/" + coin_name + "/market_chart/", {
+                    params: {
+                        vs_currency: "zar",
+                        days: "1",
+                        interval: "weekly"
+                    },
+                }),
+                coinGecko.get("/coins/" + coin_name + "/market_chart/", {
+                    params: {
+                        vs_currency: "zar",
+                        days: "7",
+                        interval: "monthly"
+                    },
+                }),
+                coinGecko.get("/coins/" + coin_name + "/market_chart/", {
+                    params: {
+                        vs_currency: "zar",
+                        days: "14",
+                        interval: "weekly"
+                    },
+                }),
+                coinGecko.get("/coins/" + coin_name + "/market_chart/", {
+                    params: {
+                        vs_currency: "zar",
+                        days: "30",
+                        interval: "weekly"
+                    },
+                }),
+                coinGecko.get("/coins/" + coin_name + "/market_chart/", {
+                    params: {
+                        vs_currency: "zar",
+                        days: "90",
+                        interval: "weekly"
+                    },
+                }),
+                coinGecko.get("/coins/" + coin_name + "/market_chart/", {
+                    params: {
+                        vs_currency: "zar",
+                        days: "365",
+                        interval: "monthly"
+                    },
+                }),
                 coinGecko.get("/coins/markets/", {
                     params: {
                         vs_currency: "zar",
@@ -111,6 +107,17 @@ export default function Overview({coin_name}) {
                 }),
             ]);
 
+            //const {week} = await Promise.all([]);
+
+            //const {fourteenDays} = await Promise.all([]);
+
+            //const {month} = await Promise.all([]);
+
+            //const {threeMonths} = await Promise.all([]);
+
+            //const {year} = await Promise.all([]);
+
+            //const [detail] = await Promise.all([]);
 
             detail.data.forEach(data => {
                 if (coin_name.toLowerCase() === data.id) {
@@ -127,7 +134,6 @@ export default function Overview({coin_name}) {
                 }
             })
 
-
             detail.data.forEach(data => {
                 if (coin_name.toLowerCase() === data.id) {
                     setMarketData({
@@ -141,10 +147,24 @@ export default function Overview({coin_name}) {
                     })
                 }
             })
+
+            detail.data.forEach(data => {
+                if (coin_name.toLowerCase() === data.id) {
+                    setSentimentData({
+                        detail: data,
+                    })
+                }
+            })
+            setIsLoading(false);
+        }
+        if(isLoading)
+        {
+            return <div>Loading....</div>;
         }
         await fetchData();
 
-    }, [time])
+    }, [])
+
 
 
     return (
@@ -206,18 +226,18 @@ export default function Overview({coin_name}) {
                                     {coin.name} ({coin.symbol}) Chart
                                 </h2>
                             </div>
-                            <AppBar position={"static"}>
-                                <Tabs value={selectedTab} onChange={handleChange}>
-                                    <Tab label="Price">
+                            <AppBar position={"static"} color={'transparent'} style={{ borderRadius: "5px"}}>
+                                <Tabs centered={true} indicatorColor={'primary'} value={selectedTab} onChange={handleChange}>
+                                    <Tab style={{color:"black"}} label="Price">
 
 
                                     </Tab>
 
-                                    <Tab label={"Market Cap"}>
+                                    <Tab style={{color:"black"}} label={"Market Cap"}>
 
                                     </Tab>
 
-                                    <Tab label="Sentimental Analysis">
+                                    <Tab style={{color:"black"}} label="Sentimental Analysis">
 
                                     </Tab>
                                 </Tabs>
@@ -240,7 +260,7 @@ export default function Overview({coin_name}) {
 
                                 {
                                     selectedTab === 2 &&
-                                    <SentimentChart data={marketData}/>
+                                    <SentimentChart data={sentimentData}/>
                                 }
                             </>}
                         </div>

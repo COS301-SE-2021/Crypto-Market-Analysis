@@ -38,7 +38,12 @@ export default function HeaderStats(props) {
         })
         getCoins(selectedCryptos)
       })
-      .catch(err => {console.error(err);})
+      .catch(err => {
+        console.error(err)
+        setLoading(false)
+        showServerAlert()
+        
+      })
     }
     else{ /* else if user is not logged in, use default(Top 10) crypto coins */
       axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=10&page=1&sparkline=false')
@@ -50,6 +55,12 @@ export default function HeaderStats(props) {
               crypto_names.push(crypto.name);
 
             getCoins(crypto_names)
+          })
+          .catch(err => {
+            console.error(err)
+            setLoading(false)
+            showServerAlert()
+            
           })
     }
 
@@ -75,9 +86,27 @@ export default function HeaderStats(props) {
             setCryptos(userCryptoList)
             setLoading(false)
         })
-        .catch(err => {console.error(err);})
+        .catch(err => {
+          console.error(err)
+          setLoading(false)
+          showServerAlert()
+          
+        })
   }
+  const showServerAlert = ()=>{
 
+    if(!document.getElementById("server-alert")){
+      let alert = document.createElement("div")
+      alert.setAttribute("class","alert alert-info")
+      alert.setAttribute("id","server-alert")
+      alert.style .cssText = "width:50%;margin:auto;text-align:center"
+      alert.innerHTML = "Something went wrong, please try again later"
+      if(document.getElementById("cards-col")){
+        document.getElementById("cards-col").append(alert)
+      }
+      
+    }
+  }
   const changeLocation = (coinname, coinsymbol)=>{
       
     unblockHandle.current = history.block(() => {
@@ -123,9 +152,9 @@ export default function HeaderStats(props) {
             
             <div className="container" style={{width:'90%',margin:'auto'}}>
               <div className="row">
-                <div className="col-12">
-                {loading ? <div className="mx-auto mt-8 text-center"><ClipLoader  loading={loading} size={150} /></div>:
-                <Carousel cols={3} rows={2} gap={8} >
+                <div id="cards-col" className="col-12">
+                {loading ? <div className="mx-auto mt-8 text-center"><ClipLoader  loading={loading} size={150} /></div>:<></>}
+                {cryptos && cryptos.length > 0 ? <Carousel cols={3} rows={2} gap={8} >
                    {cryptos.map((coin) => {
                       return (
                         <Carousel.Item key={coin.id}>
@@ -146,7 +175,7 @@ export default function HeaderStats(props) {
                       )
                   })
                 }
-                </Carousel>
+                </Carousel>:<></>
                 }
                 </div>
               </div>

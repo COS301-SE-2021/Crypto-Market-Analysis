@@ -25,7 +25,7 @@ class Push extends React.Component {
             email: localStorage.getItem("emailSession"),
             object: {}
         }
-        axios.post('http://localhost:8080/user/storePush/',PushReq)
+        axios.post('/user/storePush/',PushReq)
             .then(response => {
                 this.setState({alert: true});
                 const notification_Arrays = [];
@@ -42,11 +42,11 @@ class Push extends React.Component {
         let  PushReq = {
             email: localStorage.getItem("emailSession")
         }
-        axios.post('http://localhost:8080/user/sendMail',PushReq)
+        axios.post('/user/sendMail',PushReq)
             .then(response => {
                 console.log(response);
             })
-        axios.post('http://localhost:8080/user/GETPush/',PushReq)
+        axios.post('/user/GETPush/',PushReq)
             .then(response => {
                     const notification_Arrays = [];
                     notification_Arrays.push(<Col class="col-md-6 offset-md-4">
@@ -85,13 +85,13 @@ class Push extends React.Component {
                 email: localStorage.getItem("emailSession"),
                 object: subscription
             }
-            axios.post('http://localhost:8080/user/subscribe/',PushReq)
+            axios.post('/user/subscribe/',PushReq)
                 .then(response => {
                     console.log(response)
 
                 })
                 .catch(err => {console.error(err);})
-            axios.post('http://localhost:8080/user/storePush/',PushReq)
+            axios.post('/user/storePush/',PushReq)
                 .then(response => {
                     console.log(response)
 
@@ -121,7 +121,7 @@ class Push extends React.Component {
         let  PushReq = {
             email: localStorage.getItem("emailSession")
         }
-        axios.post('http://localhost:8080/user/GETPush/',PushReq)
+        axios.post('/user/GETPush/',PushReq)
             .then(response => {
                 if(Object.keys(response.data).length === 0)
                 {

@@ -32,7 +32,7 @@ export default function AllCryptos(props)
             /*
             Request to get cryptocurrencies followed by the user
             */
-            axios.post('http://localhost:8080/user/getUserCryptos/',userReq)
+            axios.post('/user/getUserCryptos/',userReq)
             .then(async(response) =>{
                 /*
                 Set default cryptos if data is not set else
@@ -114,7 +114,7 @@ export default function AllCryptos(props)
                                 crypto_name: crypto.name,
                             }
                            
-                            axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd).then(()=>{
+                            axios.post('/user/followCrypto/',cryptoToAdd).then(()=>{
                                 setAlertTitle("Coin added")
                                 setShowSweetAlert(true)
                                 
@@ -128,7 +128,7 @@ export default function AllCryptos(props)
                                 symbol: crypto.symbol,
                             }
                             
-                            axios.post('http://localhost:8080/user/unfollowCrypto/',cryptoToRemove).then(()=>{
+                            axios.post('/user/unfollowCrypto/',cryptoToRemove).then(()=>{
                                 setAlertTitle("Coin removed")
                                 setShowSweetAlert(true)
                                 

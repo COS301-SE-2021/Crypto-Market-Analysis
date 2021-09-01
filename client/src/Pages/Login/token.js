@@ -28,7 +28,7 @@ class token extends Component{
         }
 
         axios
-            .post('http://localhost:8080/user/verify/',token)
+            .post('/user/verify/',token)
             .then(() =>{window.location = '/home';} )
             .catch(err =>{
                 console.error(err);

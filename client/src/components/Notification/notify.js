@@ -33,7 +33,7 @@ class Notifications extends React.Component {
         let  emailReq = {
             email: localStorage.getItem("emailSession")
         }
-        axios.post('http://localhost:8080/user/getNotificationObject/',emailReq)
+        axios.post('/user/getNotificationObject/',emailReq)
             .then(response => {
 
                 console.log('showing the response')

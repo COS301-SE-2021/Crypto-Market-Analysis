@@ -67,7 +67,7 @@ const Profile = props =>
     }
     useEffect(async () => {
 
-        axios.post('http://localhost:8080/user/getUserCryptos/',userReq)
+        axios.post('/user/getUserCryptos/',userReq)
             .then( response => {
                 let soc = [];
                 for(const crypto of response.data)
@@ -76,7 +76,7 @@ const Profile = props =>
             })
             .catch(err => {console.error(err);})
 
-        axios.post('http://localhost:8080/user/fetchUserSocialMedia/',userReq)
+        axios.post('/user/fetchUserSocialMedia/',userReq)
             .then(response => {
                 console.log(response)
                 let socialName = [];
@@ -94,7 +94,7 @@ const Profile = props =>
             })
             .catch(err => {console.error(err);})
 
-        axios.post('http://localhost:8080/reddit/getUserSubreddits/',userReq)
+        axios.post('/reddit/getUserSubreddits/',userReq)
             .then(response => {
                 let subName = [];
                 for(const subred of response.data)
@@ -149,7 +149,7 @@ const Profile = props =>
 
         let user = {email: localStorage.getItem("emailSession"), screen_name: searchRef.current.value }
 
-        axios.post('http://localhost:8080/twitter/follow/',user)
+        axios.post('/twitter/follow/',user)
         .then(response=>{
             console.log(response)
             setAlertTitle("User added to our watch list")
@@ -164,7 +164,7 @@ const Profile = props =>
 
         let user = {email: localStorage.getItem("emailSession"), screen_name: searchRef.current.value }
 
-        axios.post('http://localhost:8080/twitter/unfollow/',user)
+        axios.post('/twitter/unfollow/',user)
         .then(response=>{
             console.log(response)
             setAlertTitle("User removed from our watch list")
@@ -183,7 +183,7 @@ const Profile = props =>
 
 
         let user = { screen_name: searchRef.current.value, email: localStorage.getItem("emailSession")}
-        axios.post('http://localhost:8080/twitter/validateScreenName/',user)
+        axios.post('/twitter/validateScreenName/',user)
         .then((response)=>{
 
             if(response.data.data){
@@ -220,7 +220,7 @@ const Profile = props =>
                 if(platform.selected) {
 
 
-                    axios.post('http://localhost:8080/user/followSocialMedia/',platformObj)
+                    axios.post('/user/followSocialMedia/',platformObj)
                         .then(response =>{
                             console.log(response)
                             setAlertTitle("Social media added")
@@ -231,7 +231,7 @@ const Profile = props =>
                 else{
 
 
-                    axios.post('http://localhost:8080/user/unfollowSocialMedia/',platformObj)
+                    axios.post('/user/unfollowSocialMedia/',platformObj)
                         .then(response =>{
                             console.log(response)
                             setAlertTitle("Social media removed")

@@ -58,6 +58,7 @@
     "typescript": "^4.3.2",
     "web-vitals": "^1.0.1"
   },
+  "proxy": "http://localhost:8080",
   "scripts": {
     "start": "env-cmd -f .env.development.local react-scripts start",
     "build:staging": "env-cmd -f .env.development.local react-scripts build",

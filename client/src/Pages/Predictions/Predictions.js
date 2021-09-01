@@ -17,7 +17,7 @@ function Predictions() {
         console.log("use effect")
         let userReq = { email: localStorage.getItem("emailSession") }
         let allcoins = await CoinGeckoClient.coins.all();
-        axios.post('http://localhost:8080/user/getCoinPredictions/',userReq)
+        axios.post('/user/getCoinPredictions/',userReq)
             .then(async(response) =>{
                 console.log("getCoinPredictions")
                 for(let y=0;y<allcoins.data.length;y++)

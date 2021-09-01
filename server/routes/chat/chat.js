@@ -37,7 +37,8 @@ router.post("/postMessage", async (request, response, next)=>{
     const time = request.body.time;
     const like = 0;
     const dislike = 0;
-    const sentiment = 0;
+    const sentiment = request.body.sentiment;
+    console.log(request.body.sentiment);
 
     if(!owner){
         let error = new Error(`Malformed request. Please check your parameters`);

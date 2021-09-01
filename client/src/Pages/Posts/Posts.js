@@ -16,10 +16,44 @@ function Posts() {
     const body = useRef();
     const time = new Date().toLocaleString();
 
+    let sentiment;
+
+    //request for reply button press
+    // let request = {
+    //      parentID: parent.id
+    //     sentiment: sentiment,
+    //     owner: "bhekindhlovu7@gmail.com",
+    //     room: "Altcoins",
+    //     title: title.current.value,
+    //     body: body.current.value,
+    //     time: time
+    // };
+
+    //have to make it synchronous and await sentiment axios post
     function handleSubmit(e) {
         e.preventDefault()
 
+
+        let sentimenttext = title.current.value + " " + body.current.value;
+        let sentreq = {
+            article: sentimenttext
+        }
+
+        axios.post('https://analysis-services-api.herokuapp.com/ArticleAnalytics',sentreq)
+            .then(response => {
+                sentiment = response.data;
+            })
+            .catch(err => {console.error(err);})
+        setTimeout(()=>{
+        },10000)
+
+        console.log("+++++sentiment+++++++");
+        console.log(sentiment);
+        console.log("+++++sentiment+++++++");
+        sentiment = "positive";
+
         let request = {
+            sentiment: sentiment,
             owner: "bhekindhlovu7@gmail.com",
             room: "Altcoins",
             title: title.current.value,
@@ -93,7 +127,7 @@ function Posts() {
         axios.post('http://localhost:8080/chat/postReact/',reqObj)
             .then(response => {
                 console.log(response);
-                window.location.reload();
+                // window.location.reload();
             })
             .catch(err => {console.error(err);})
         setTimeout(()=>{
@@ -173,6 +207,7 @@ function Posts() {
                                                     Reply
                                                 </a>
                                             </li>
+                                            <p>{post.sentiment}</p>
                                         </ul>
                                     </div>
                             </div>

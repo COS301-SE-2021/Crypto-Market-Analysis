@@ -26,11 +26,11 @@ class Push extends React.Component {
         let  PushReq = {
             email: localStorage.getItem("emailSession")
         }
-        axios.post('http://localhost:8080/user/sendMail',PushReq)
+        axios.post('/user/sendMail',PushReq)
             .then(response => {
                 console.log(response);
             })
-        axios.post('http://localhost:8080/user/GETPush/',PushReq)
+        axios.post('/user/GETPush/',PushReq)
             .then(response => {
                 console.log(response.data)
                 if(Object.keys(response.data).length !== 0)
@@ -81,13 +81,13 @@ class Push extends React.Component {
                 email: localStorage.getItem("emailSession"),
                 object: subscription
             }
-            axios.post('http://localhost:8080/user/subscribe/',PushReq)
+            axios.post('/user/subscribe/',PushReq)
                 .then(response => {
                     console.log(response)
 
                 })
                 .catch(err => {console.error(err);})
-            axios.post('http://localhost:8080/user/storePush/',PushReq)
+            axios.post('/user/storePush/',PushReq)
                 .then(response => {
                     console.log(response)
 

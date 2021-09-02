@@ -16,7 +16,7 @@ export default function Tweets({coin_name}){
   }
 
     useEffect(async () => {
-      axios.post('http://localhost:8080/twitter/getTweetIDs',tweetsReq)
+      axios.post('/twitter/getTweetIDs',tweetsReq)
       .then(async(response) => {
         setTweets(response.data.data);
         setErrorResponse(null);

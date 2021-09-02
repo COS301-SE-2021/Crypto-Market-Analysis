@@ -67,6 +67,7 @@
     "eject": "react-scripts eject",
     "build:tailwind": "tailwind build src/assets/styles/index.css -o src/assets/styles/tailwind.css"
   },
+  "proxy": "http://cryptosis-server.herokuapp.com",
   "eslintConfig": {
     "extends": [
       "react-app",

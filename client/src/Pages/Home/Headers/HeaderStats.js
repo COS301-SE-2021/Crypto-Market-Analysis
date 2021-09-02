@@ -30,7 +30,7 @@ export default function HeaderStats(props) {
       /*
       The post request get cryptocurrencies and social media platforms the user follows
       */
-      axios.post('http://localhost:8080/user/getUserCryptos/', requestObj)
+      axios.post('user/getUserCryptos/', requestObj)
       .then(async(response) => {
 
         await response.data.map((coin)=>{

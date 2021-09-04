@@ -8,13 +8,18 @@ const twitterRoute = require('./routes/twitter');
 const redditRoute = require('./routes/reddit');
 const chanRoute = require('./routes/chan');
 const sentimentRoute = require('./routes/sentiment');
-const helmet = require("helmet");
+const helmet = require('helmet');
+const cors = require ('cors');
+const session = require('express-session');
+
 
 app.use(helmet());
+app.use(cors());
 app.use(morgan("dev"));
 app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(session({secret: 'mySecret', resave: false, saveUninitialized: false}));
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header(

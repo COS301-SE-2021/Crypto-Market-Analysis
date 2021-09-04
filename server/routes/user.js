@@ -6,6 +6,10 @@ const firestore_db = new Database().getInstance();
 const webpush = require("web-push");
 const Push_notification=require('./notification/push_notification')
 const emailObject = require('nodemailer');
+const csrf = require('csurf');
+
+const csrfProtection = csrf();
+router.use(csrfProtection);
 
 /** This function adds a social media site to the users account
  * @param {object} request A request object with the email and symbol.

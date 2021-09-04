@@ -33,6 +33,61 @@ const getPush=async(email)=>{
     return mydata;
 }
 
+const getAnalysis=async(Social_Media,Cryptocurrency)=>{
+    let metadata={};
+    return new Promise(function (resolve, reject) {
+        firestore_db.fetchAnalysisScore(Social_Media).onSnapshot(async (documents) => {
+            documents.forEach((doc) => {
+
+                if (doc.id === Cryptocurrency) {
+                    resolve(doc.data());
+
+                }
+
+            })
+        })
+    })
+}
+
+/** Gets all the reddit posts from the database.
+ * @return  {object} Containing an array of posts if it was successful or a rejected Promise.
+* */
+
+//
+// const getRedditPost = async (email)=>{
+//     // const citiesRef = db.collection('cities');
+//     // const coastalCities = await citiesRef.where('regions', 'array-contains-any',
+//     //     ['west_coast', 'east_coast']).get();
+//     let posts = [];
+//     try{
+//         const docs = await firestore_db.fetch(`reddit_info`).then(snapshot => {return snapshot.docs});
+//         for(const doc of docs)
+//             posts.push(doc("CryptoCurrencies").data().posts);
+//         return {status: `Ok`, posts: posts};
+//     }
+//     catch(err){
+//         return Promise.reject(new Error(err));
+//     }
+// }
+
+/*
+const citiesRef = db.collection('cities');
+const coastalCities = await citiesRef.where('regions', 'array-contains-any',
+    ['west_coast', 'east_coast']).get();
+ */
+const getRedditPost = async (email)=>{
+    let subs = await getUserSubreddits(email);
+    let posts = [];
+    try{
+        const docs = await firestore_db.fetch(`reddit_info`).then(snapshot => {return snapshot.docs});
+        for(const doc of docs)
+            posts.push(doc.data().posts);
+        return {status: `Ok`, posts: posts};
+    }
+    catch(err){
+        return Promise.reject(new Error(err));
+    }
+}
 const getUserCrypto = async (email_address)=>{
     try{
         return await user_object.getCryptoName(email_address);
@@ -120,5 +175,5 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
 
-module.exports = { getCoinPredictions, fetchUserSocialMedia, getPush,setPush,setNotification,saveToDB,getNotification, getUserCrypto,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia}
+module.exports = {getCoinPredictions,getAnalysis,getPush,setPush,setNotification,saveToDB,getNotification,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia}
 

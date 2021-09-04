@@ -64,6 +64,9 @@ class Database {
         //         return data.data().subing;
         //     });
     }
+    fetchAnalysisScore(Social_Media){
+        return this.#db.collection(Social_Media);
+    }
     async storeNotification(email,object){
         if(email && object) {
             const notification_object ={

@@ -8,7 +8,9 @@ const twitterRoute = require('./routes/twitter');
 const redditRoute = require('./routes/reddit');
 const chanRoute = require('./routes/chan');
 const sentimentRoute = require('./routes/sentiment');
+const helmet = require("helmet");
 
+app.use(helmet());
 app.use(morgan("dev"));
 app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({ extended: false }));

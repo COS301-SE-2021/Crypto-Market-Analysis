@@ -6,6 +6,31 @@ const uniqid = require('uniqid');
 
 
 
+router.post("/postReply", async (request, response, next)=>{
+    const postId = request.body.postId;
+    const owner = request.body.owner;
+    const room = request.body.room;
+    const body = request.body.body;
+    const time = request.body.time;
+
+
+    if(!owner){
+        let error = new Error(`Malformed request. Please check your parameters`);
+        error.status = 400;
+        return next(error);
+    }
+    else{
+        await chat.postReply(postId,owner,room,time,body).then(data=>{
+            return response.status(200).json(data);
+        }).catch(err => {
+            let error = new Error(err);
+            error.status = 500;
+            return next(error);
+        });
+    }
+});
+
+
 
 router.post("/getAllChats", async (request, response, next)=>{
     const owner = request.body.owner;

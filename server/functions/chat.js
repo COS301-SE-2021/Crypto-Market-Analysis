@@ -66,5 +66,27 @@ const totalPosts = async (owner, room)=>{
     return {status: 'successful'};
 }
 
-module.exports = { postMessage, getAllChats, postReact, totalPosts}
+const postReply = async (postId,owner,room,time,body)=>{
+    let Object = {
+        owner: owner,
+        room: room,
+        time: time,
+        body: body
+    }
+
+    let existing = await firestore_db.fetch(room, postId,`replies`)
+    if(Array.isArray(existing)) {
+       existing.push(Object)
+        await firestore_db.save(room, postId,"replies",existing);
+    }else{
+        let arr = [];
+        arr.push(existing)
+        arr.push(Object)
+        await firestore_db.save(room, postId,"replies",arr);
+    }
+    return {status: 'successful'};
+
+}
+
+module.exports = { postMessage, getAllChats, postReact, totalPosts, postReply}
 

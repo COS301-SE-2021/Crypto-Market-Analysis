@@ -93,6 +93,8 @@ class Database {
             return Promise.reject(`Parameters are undefined`);
 
     }
+
+
     async setPushNotification(email,object){
             console.log('something')
             const notification_object ={

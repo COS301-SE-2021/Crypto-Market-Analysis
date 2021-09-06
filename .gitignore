@@ -1,7 +1,10 @@
-/client/.env
-/server/.env
+/client/.env/
+/server/.env/
 /client/.idea/
 /server/.idea/
 /server/node_modules/
 /client/node_modules/
 /.idea/
+/AnalysisService/node_modules
+/AnalysisService/coverage
+/AnalysisService/.env

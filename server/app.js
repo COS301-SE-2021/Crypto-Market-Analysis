@@ -1,22 +1,14 @@
+const dotenv = require(`dotenv`).config();
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
-const dotenv = require('dotenv');
-dotenv.config();
 const userRoutes = require('./routes/user');
-let MONGODB_URI = "mongodb+srv://codex:"+process.env.MongoPassword+"@codex.z7mgz.mongodb.net/Codex?retryWrites=true&w=majority";
-try {
-    mongoose.connect(MONGODB_URI, {
-        useNewUrlParser: true,
-        useCreateIndex: true,
-        useUnifiedTopology: true
-    }).then(() => {});
-}
-catch(error) {
-    console.error(`Failed to connect to Database: ${error}`);
-}
+const twitterRoute = require('./routes/twitter');
+const redditRoute = require('./routes/reddit');
+const chanRoute = require('./routes/chan');
+const sentimentRoute = require('./routes/sentiment');
+
 app.use(morgan("dev"));
 app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -36,6 +28,10 @@ app.use((req, res, next) => {
 
 // Routes which should handle requests
 app.use("/user", userRoutes);
+app.use("/twitter", twitterRoute);
+app.use("/reddit", redditRoute);
+app.use("/chan", chanRoute);
+app.use("/sentiment", sentimentRoute);
 
 app.use((req, res, next) => {
     const error = new Error("Not found");

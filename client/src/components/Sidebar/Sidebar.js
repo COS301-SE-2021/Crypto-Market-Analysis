@@ -240,12 +240,7 @@ export default function Sidebar(props) {
                       onClick={changeLocation}
                   >
 
-                    <a href="" className="notification">
-                      <i className="fas fa-envelope fa-lg"></i>
-                      <span className="badge rounded-pill badge-notification bg-danger">{props.unread || status}</span>
-                    </a>
-                    {" "}
-                    Notification
+
 
                     <i
                         className={

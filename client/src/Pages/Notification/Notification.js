@@ -17,10 +17,10 @@ import DayPickerInput from 'react-day-picker/DayPickerInput';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 
-const filterOptions = ['Read', 'Unread', 'Today']
+const filterOptions = ['Read', 'Unread', 'Newest', 'Latest']
 class Notifications extends React.Component {
 
-    
+
 
     constructor(props) {
         super(props)
@@ -30,15 +30,22 @@ class Notifications extends React.Component {
             emailRequest:{},
             clear: false,
             _delete: false,
-             unread:0
+             unread:0,
+            read_checked: false,
+            unread_checked: false,
+
 
         }
-       
+        this.dateFrom = Date.now();
+        this.dateTo = Date.now();
+        this.handleSelect = this.handleSelect.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.handleDeleteALL = this.handleDeleteALL.bind(this);
     }
 
-
+    handleSelect = (e) =>{
+    console.log(e.target.value);
+    }
     handleDelete= async (e)=> {
         let object = this.state.notificationObject;
 
@@ -224,7 +231,7 @@ class Notifications extends React.Component {
                                             {
                                                 filterOptions.map(element => {
                                                     return( <div>
-                                                            <Checkbox style={{ color: "#03989e", marginRight: 0 }} /> 
+                                                            <Checkbox value={element} onChange={this.handleSelect} style={{ color: "#03989e", marginRight: 0 }} />
                                                             {element}
                                                             
                                                             </div>
@@ -232,7 +239,7 @@ class Notifications extends React.Component {
                                                         )
                                                 })
                                             }
-                                          <DayPickerInput onDayChange={this.handleDayChange} />  
+                                          <div><DayPickerInput onDayChange={this.handleDayChange} /> </div> - <div><DayPickerInput onDayChange={this.handleDayChange} /></div>
                                             
                                         
                                     </div>

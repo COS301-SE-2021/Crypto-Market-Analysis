@@ -23,6 +23,7 @@
     "fs": "^0.0.1-security",
     "http": "^0.0.1-security",
     "https": "^1.0.0",
+    "jest": "^27.1.0",
     "morgan": "^1.10.0",
     "natural": "^5.0.5",
     "node-cron": "^3.0.0",

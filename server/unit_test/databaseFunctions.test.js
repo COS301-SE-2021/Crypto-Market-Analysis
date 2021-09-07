@@ -1,30 +1,65 @@
 const { mockFirebase } = require('firestore-jest-mock');
+const Database = require('../database/Database');
 
 // Create a fake Firestore with a `users` and `posts` collection
 mockFirebase({
     database: {
         users: [
-            { id: 'abc123', name: 'Homer Simpson' },
-            { id: 'abc456', name: 'Lisa Simpson' },
+            { id: 'mojohnnylerato@gmail.com', crypto: ['eth','ada','usdt'] },
         ],
-        posts: [{ id: '123abc', title: 'Really cool title' }],
+        Twitter: [{ id: 'Bitcoin', Analysis_score: [0,3,4,5,6,1,2,3] }],
     },
 });
-const { mockCollection } = require('firestore-jest-mock/mocks/firestore');
+const { mockCollection, mockDoc } = require('firestore-jest-mock/mocks/firestore');
+const firebase = require('firebase');
+const db = firebase.firestore();
+const firestore_db = new Database(db).getInstance(db);
+test('testing fetchNotification', () => {
 
-test('testing stuff', () => {
-    const firebase = require('firebase'); // or import firebase from 'firebase';
-    const db = firebase.firestore();
-    const getNotification =async (data)=>{
-        return data
-            .collection('users')
-            .get()
-    }
-    getNotification(db).then(userDocs => {
-        // Assert that a collection ID was referenced
-        expect(mockCollection).toHaveBeenCalledWith('users');
+    firestore_db.fetchNotification('mojohnnylerato@gmail.com').then(userDocs => {
+        expect(mockCollection).toHaveBeenCalledWith('Users');
+        expect(mockDoc).toHaveBeenCalledWith('mojohnnylerato@gmail.com');
 
-        // Write other assertions here
     });
 
+});
+test('testing fetchAnalysisScore', () => {
+    firestore_db.fetchAnalysisScore('Twitter').then(userDocs => {
+        expect(mockCollection).toHaveBeenCalledWith('Twitter');
+    });
+});
+test('testing fetchPushNotification', () => {
+    firestore_db.fetchPushNotification('testing@gmail.com').then(userDocs => {
+        expect(mockCollection).toHaveBeenCalledWith('Subscribers');
+        expect(mockDoc).toHaveBeenCalledWith('testing@gmail.com');
+
+    });
+});
+test('testing storeNotification', () => {
+    firestore_db.storeNotification('testing@gmail.com',{}).then(userDocs => {
+        expect(mockCollection).toHaveBeenCalledWith('Users');
+        expect(mockDoc).toHaveBeenCalledWith('testing@gmail.com');
+
+    });
+});
+test('testing setPushNotification', () => {
+    firestore_db.setPushNotification('testing@gmail.com',{}).then(userDocs => {
+        expect(mockCollection).toHaveBeenCalledWith('Users');
+        expect(mockDoc).toHaveBeenCalledWith('testing@gmail.com');
+
+    });
+});
+test('testing fetch', () => {
+    firestore_db.fetch('4chan_info','biz').then(userDocs => {
+        expect(mockCollection).toHaveBeenCalledWith('4chan_info');
+        expect(mockDoc).toHaveBeenCalledWith('biz');
+
+    });
+});
+test('testing delete', () => {
+    firestore_db.delete('Users','codexemail@gmail.com','name',{}) .then(userDocs => {
+        expect(mockCollection).toHaveBeenCalledWith('Users');
+        expect(mockDoc).toHaveBeenCalledWith('codexemail@gmail.com');
+
+    });
 });

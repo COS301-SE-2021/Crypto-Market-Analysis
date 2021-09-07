@@ -35,7 +35,6 @@
     "extract-emoji": "^1.0.2",
     "firebase": "^8.6.5",
     "firebase-admin": "^9.9.0",
-    "firestore-jest-mock": "^0.14.0",
     "firestore-schema-validator": "^0.8.0",
     "instagram-scraping": "^1.0.13",
     "jest": "^27.0.6",
@@ -59,6 +58,7 @@
   "devDependencies": {
     "apos-to-lex-form": "^1.0.5",
     "chai": "^4.3.4",
+    "firebase-mock": "^2.3.2",
     "firestore-jest-mock": "^0.14.0",
     "mocha": "^8.4.0",
     "natural": "^5.0.3",

@@ -3,8 +3,6 @@ const router = express.Router();
 const userFunctions =require('./userFunctions')
 const Database = require('../database/Database');
 const firestore_db = new Database().getInstance();
-const webpush = require("web-push");
-const Push_notification=require('./notification/push_notification')
 const emailObject = require('nodemailer');
 
 /** This function adds a social media site to the users account

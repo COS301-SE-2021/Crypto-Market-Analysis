@@ -1,3 +1,4 @@
+require("dotenv").config();
 const { mockFirebase } = require('firestore-jest-mock');
 const Database = require('../database/Database');
 
@@ -13,7 +14,7 @@ mockFirebase({
 const { mockCollection, mockDoc } = require('firestore-jest-mock/mocks/firestore');
 const firebase = require('firebase');
 const db = firebase.firestore();
-const firestore_db = new Database(db).getInstance(db);
+const firestore_db = new Database(db,true).getInstance(db);
 test('testing fetchNotification', () => {
 
     firestore_db.fetchNotification('mojohnnylerato@gmail.com').then(userDocs => {

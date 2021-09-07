@@ -71,6 +71,7 @@ class NeuralNetwork {
     }
 
     train= async (coin) =>  {
+        console.log(coin);
         await axios.get('https://min-api.cryptocompare.com/data/v2/histohour?fsym='+coin+'&tsym=USD&limit=19&api_key=7d4a73a2b7a6fd2e5d57acd8c019cb82178961644e25b7caad3239d04e79da4b')
             .then(function (response) {
                 trainingData = [];
@@ -112,7 +113,9 @@ class NeuralNetwork {
                 }
             })
             .catch(function (error) {
-                console.log(error);
+                console.error("failed to load historical data for " + coin)
+                return Promise.reject(error);
+                // console.log(error);
             })
             .then(function () {
                 const scaledData = trainingData.map(scaleDown);
@@ -124,11 +127,9 @@ class NeuralNetwork {
                     scaledData.slice(15, 20),
                 ];
 
-//console.log(trainingData);
+
 
                 const net = new brain.recurrent.LSTMTimeStep({
-                    //we have open close high and low so its 4 for input and output
-                    //Hidden layers are the layers that lie between the input and output layer of a neural network.
                     inputSize: 4,
                     HiddenLayers: [8,8],
                     outputSize: 4
@@ -138,8 +139,9 @@ class NeuralNetwork {
                 net.train(trainingDatas, {
                     learningRate: 0.005,
                     errorThresh: 0.0000000000002,
+                    MaxIterations: 50
 
-                    log: (stats) => console.log(stats)
+                   // log: (stats) => console.log(stats)
                 });
 
                 console.log(coin+" Price Forecast")
@@ -148,23 +150,11 @@ class NeuralNetwork {
                     trainingDatas[0][1],
                 ], 1).map(scaleUp)
 
-                // console.log(store[0])
+
                 console.log(store[0].open)
                 console.log(store[0].high)
                 console.log(store[0].low)
                 console.log(store[0].close)
-                //)
-
-                // console.log(net.forecast([
-                //     trainingDatas[0][0],
-                //     trainingDatas[0][1],
-                // ], 1).map(scaleUp));
-
-                // open: response.data.Data.Data[i].open,
-                //     high: response.data.Data.Data[i].high,
-                //     low: response.data.Data.Data[i].low,
-                //     close: response.data.Data.Data[i].close
-
 
 
 
@@ -179,18 +169,11 @@ class NeuralNetwork {
             );
 
         try{
-            let zero = 0;
-            let average = store[0].open + store[0].close + store[0].high + store[0].low/4;
-            // await this.#firestore_db.save('CryptoPricePrediction',coin,'open',zero);
-            // // this.#firestore_db.save('CryptoPricePrediction',coin,'high',zero);
-            // // this.#firestore_db.save('CryptoPricePrediction',coin,'low',zero);
-            // // this.#firestore_db.save('CryptoPricePrediction',coin,'close',zero);
             await this.#firestore_db.save('CryptoPricePrediction',coin,'open',store[0].open);
             await this.#firestore_db.save('CryptoPricePrediction',coin,'high',store[0].high);
             await this.#firestore_db.save('CryptoPricePrediction',coin,'low',store[0].low);
             await this.#firestore_db.save('CryptoPricePrediction',coin,'close',store[0].close);
             await this.#firestore_db.save('CryptoPricePrediction',coin,'coin', coin);
-            await this.#firestore_db.save('CryptoPricePrediction',coin,'average', average);
         }
         catch (error){
             return Promise.reject(error);
@@ -200,41 +183,33 @@ class NeuralNetwork {
     }
 
 }
+module.exports = NeuralNetwork;
 
 
 
 
+// let network = new NeuralNetwork();
 
-let network = new NeuralNetwork();
-// let AllCoins = network.allCoins().then(function (response) {
-//      for(let p=0;p<response.length;p++)
-//      {
-//          network.train(response[p]).then(function (store) {
-//
-// });
-//      }
-// });
-
-network.train("btc").then(function (store) {
-    network.train("eth").then(function (store) {
-        network.train("usdt").then(function (store) {
-            network.train("bnb").then(function (store) {
-                network.train("ada").then(function (store) {
-                    network.train("xrp").then(function (store) {
-                        network.train("doge").then(function (store) {
-                            network.train("usdc").then(function (store) {
-                                network.train("dot").then(function (store) {
-                                    network.train("uni").then(function (store) {
-                                    });
-                                });
-                            });
-                        });
-                    });
-                });
-            });
-        });
-    });
-})
+// network.train("btc").then(function (store) {
+//     network.train("eth").then(function (store) {
+//         network.train("usdt").then(function (store) {
+//             network.train("bnb").then(function (store) {
+//                 network.train("ada").then(function (store) {
+//                     network.train("xrp").then(function (store) {
+//                         network.train("doge").then(function (store) {
+//                             network.train("usdc").then(function (store) {
+//                                 network.train("dot").then(function (store) {
+//                                     network.train("uni").then(function (store) {
+//                                     });
+//                                 });
+//                             });
+//                         });
+//                     });
+//                 });
+//             });
+//         });
+//     });
+// })
 
 
 

@@ -6,6 +6,7 @@ const spellCorrector = new SpellCorrector();
 const a = require('extract-emoji');
 const emojiUnicode = require("emoji-unicode")
 const name = require("emoji-name-map");
+require("dotenv").config();
 const Database = require('./database/Database');
 const firestore_db = new Database().getInstance();
 

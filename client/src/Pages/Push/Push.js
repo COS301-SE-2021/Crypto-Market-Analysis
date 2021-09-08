@@ -30,10 +30,10 @@ class Push extends React.Component {
             .then(response => {
                 this.setState({alert: true});
                 const notification_Arrays = [];
-                notification_Arrays.push(<Col class="col-md-6 offset-md-4">
-                    <button  onClick={this.handleSubscribe}  type="button" className="btn btn-outline-warning">
+                notification_Arrays.push(
+                    <button  onClick={this.handleSubscribe}  type="button" className="btn-cryptosis text-blueGray-600 mr-0 ml-2 whitespace-nowrap text-sm uppercase font-bold px-0">
                         Subscribe</button>
-                </Col>);
+                );
                 this.setState({elements: notification_Arrays});
 
             })
@@ -50,10 +50,10 @@ class Push extends React.Component {
         axios.post('/user/GETPush/',PushReq)
             .then(response => {
                     const notification_Arrays = [];
-                    notification_Arrays.push(<Col class="col-md-6 offset-md-4">
-                        <button  onClick={this.handleunSubscribe}  type="button" className="btn btn-outline-warning">
+                    notification_Arrays.push(
+                        <button  onClick={this.handleunSubscribe}  type="button" className="btn-cryptosis text-blueGray-600 mr-0 ml-2 whitespace-nowrap text-sm uppercase font-bold px-0">
                             unSubscribe</button>
-                    </Col>);
+                   );
                     this.setState({elements: notification_Arrays});
 
             })
@@ -127,18 +127,18 @@ class Push extends React.Component {
                 if(Object.keys(response.data).length === 0)
                 {
                     const notification_Arrays = [];
-                    notification_Arrays.push(<Col class="col-md-6 offset-md-4">
-                        <button  onClick={this.handleSubscribe}  type="button" className="btn btn-outline-warning">
+                    notification_Arrays.push(
+                        <button  onClick={this.handleSubscribe}  type="button" className="btn-cryptosis text-blueGray-600 mr-0 ml-2 whitespace-nowrap text-sm uppercase font-bold px-0">
                             Subscribe</button>
-                    </Col>);
+                    );
                     this.setState({elements: notification_Arrays});
                 }
                 else {
                     const notification_Arrays = [];
-                    notification_Arrays.push(<Col class="col-md-6 offset-md-4">
-                        <button  onClick={this.handleunSubscribe}  type="button" className="btn btn-outline-warning">
+                    notification_Arrays.push(
+                        <button  onClick={this.handleunSubscribe}  type="button" className="btn-cryptosis text-blueGray-600 mr-0 ml-2 whitespace-nowrap text-sm uppercase font-bold px-0">
                             unSubscribe</button>
-                    </Col>);
+                   );
                     this.setState({elements: notification_Arrays});
                 }
 

@@ -19,7 +19,7 @@ export default function Signup() {
             setLoading(true)
             await login(emailRef.current.value, passwordRef.current.value)
             localStorage.setItem('emailSession',emailRef.current.value);
-            history.push("/home")
+            history.push("/")
         } catch {
             setError("Failed to login!")
         }

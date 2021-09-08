@@ -190,7 +190,7 @@ export default function Sidebar(props) {
                             ? "text-lightBlue-500 hover:text-lightBlue-600"
                             : "text-blueGray-700 hover:text-blueGray-500")
                       }
-                      to="/home"
+                      to="/"
                       onClick={changeLocation}
                   >
                     <i
@@ -309,9 +309,7 @@ export default function Sidebar(props) {
                         icon: "success",
                         buttons: false,
                         timer: 3000,
-                      }).then(()=>{
-                        history.push("/")
-                      });
+                      })
                     }}
                       className={
                         "text-xs uppercase py-3 font-bold block  " +
@@ -321,7 +319,7 @@ export default function Sidebar(props) {
                       }
                     
                           
-                          to="/home"
+                          to="/"
 
                       >
                         <i

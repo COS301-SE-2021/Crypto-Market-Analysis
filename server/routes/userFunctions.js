@@ -65,6 +65,19 @@ const getCoinPredictions = async (email)=>{
     console.log(fourChanPosts)
     return {status: `Ok`, posts_array: fourChanPosts};
 
+    // let fourChanPosts = [];
+    //
+    // try{
+    //     const docs = await firestore_db.fetch(`CryptoPricePrediction`).then((snapshot) => {return snapshot.docs;});
+    //     for(const doc of docs)
+    //         fourChanPosts.push(doc.data());
+    //
+    //     return {status: `Ok`, posts_array: fourChanPosts};
+    // }
+    // catch(err){
+    //     return Promise.reject(new Error(err));
+    // }
+
 
 }
 

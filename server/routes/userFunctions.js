@@ -130,9 +130,9 @@ const followCrypto = async (email_address,symbol,crypto_name, coin_id)=>{
     }
 }
 
-const unfollowCrypto = async (email_address, symbol) => {
+const unfollowCrypto = async (email_address, symbol, coin_id) => {
     try{
-        return await user_object.removeCrypto(email_address, symbol);
+        return await user_object.removeCrypto(email_address, symbol, coin_id);
     }
     catch (error){
         return Promise.reject(error);

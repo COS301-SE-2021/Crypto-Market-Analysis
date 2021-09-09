@@ -183,14 +183,14 @@ class User_Hash_Table {
             return Promise.reject(`Parameters are undefined`);
     }
 
-    async removeCrypto(email, symbol){
+    async removeCrypto(email, symbol, coin_id){
         if(!this.#initialized){
             await this.#init;
             this.#initialized = true;
         }
 
         //Check if the parameters are defined
-        if(email && symbol){
+        if(email && symbol, coin_id){
             //Check if the email exists
             if(await this.searchUser(email)){
                 try{
@@ -200,10 +200,14 @@ class User_Hash_Table {
                             const name = this.#users[email][`cryptocurrencies`][symbol];
                             //Remove the crypto from the object
                             delete this.#users[email][`cryptocurrencies`][symbol];
+                            //Remove the coin_id from the object
+                            delete this.#users[coin_id];
                             //Remove the crypto symbol from the database
                             await firestore_db.delete(`Users`, email, `crypto`, symbol);
                             //Remove the crypto name from the database
                             await firestore_db.delete(`Users`, email, `crypto_name`, name);
+                            //Remove the coin_id from the database
+                            await firestore_db.delete(`Users`, email, `coin_id`, coin_id);
                             return Promise.resolve(true);
                     }
                     else

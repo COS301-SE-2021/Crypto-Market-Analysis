@@ -5,6 +5,10 @@ const firestore_db = new Database().getInstance();
 const reddit =require('../functions/Reddit');
 const redditScrapper = new reddit();
 
+const register = async email => {
+    await user_object.insertUser(email);
+}
+
 const getNotification=async(email)=>{
     const fields = await firestore_db.fetchNotification(email).then(data=>{
         return data;

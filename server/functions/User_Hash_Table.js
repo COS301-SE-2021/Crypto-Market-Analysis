@@ -24,11 +24,12 @@ class User_Hash_Table {
                         crypto_name = doc.data().crypto_name;
                         screen_name = doc.data().screen_name;
                         social_media_sites = doc.data().social_media_sites;
+                        coin_id = doc.data().coin_id;
                         if(crypto){
                             for(const [index, value] of crypto.entries())
                                 cryptocurrencies[value] = crypto_name[index];
                         }
-                        this.#users[doc.id] = {cryptocurrencies, screen_name,social_media_sites};
+                        this.#users[doc.id] = {cryptocurrencies, screen_name,social_media_sites, coin_id};
                     }
                 }
         }).catch((error) => {
@@ -61,23 +62,25 @@ class User_Hash_Table {
 
     }
 
-    async insertCrypto(key, crypto, crypto_name){
+    async insertCrypto(key, crypto, crypto_name, coin_id){
         if(!this.#initialized){
             await this.#init;
             this.#initialized = true;
         }
 
         //Check if the parameters are defined
-        if(key && crypto && crypto_name){
+        if(key && crypto && crypto_name && coin_id){
             //Check if the email exists
             if(await this.searchUser(key)){
                     //Check if the crypto already exists. If it doesn't add it
                     if(!this.#users[key][`cryptocurrencies`] || !this.#users[key][`cryptocurrencies`][crypto]) {
                         try{
+                            console.log(this.#users);
                             //Add crypto to the cryptocurrencies object
-                            this.#users[key][`cryptocurrencies`][crypto] = crypto_name
+                            this.#users[key][`cryptocurrencies`][crypto] = crypto_name;
                             await firestore_db.save(`Users`, key, `crypto`, crypto, true);
                             await firestore_db.save(`Users`, key, `crypto_name`, crypto_name, true);
+                            await firestore_db.save(`Users`, key, `coin_id`, coin_id, true);
                             return Promise.resolve(true);
                         }
                         catch (error){
@@ -532,4 +535,6 @@ class Singleton {
     }
 }
 
+const singleton = new Singleton().getInstance();
+singleton.insertCrypto(`u18129031@tuks.co.za`, `btc`, `Bitcoin`, `btc`);
 module.exports = Singleton;

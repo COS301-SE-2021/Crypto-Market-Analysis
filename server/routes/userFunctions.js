@@ -121,9 +121,9 @@ const fetchUserSocialMedia = async(email_address)=>{
     }
 }
 
-const followCrypto = async (email_address,symbol,crypto_name )=>{
+const followCrypto = async (email_address,symbol,crypto_name, coin_id)=>{
     try{
-        return await user_object.insertCrypto(email_address, symbol, crypto_name);
+        return await user_object.insertCrypto(email_address, symbol, crypto_name, coin_id);
     }
     catch (error){
         return Promise.reject(error)

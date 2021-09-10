@@ -197,11 +197,12 @@ function Posts() {
                                                 </a>
                                             </li>
                                             <li className="list-inline-item ml-auto">
-                                                <a className="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
-                                                   href="#!" onClick={()=>setShow(!show)}>
-                                                    <i className="fa fa-reply g-pos-rel g-top-1 g-mr-3"></i>
-                                                    Reply
-                                                </a>
+                                                <Link
+                                                    to={{
+                                                        pathname: "/Comments",
+                                                        state: { postId:post.postId}
+                                                    }}
+                                                >Reply</Link>
                                             </li>
                                             {/*<p>{post.sentiment}</p>*/}
 

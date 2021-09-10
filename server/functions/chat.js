@@ -2,6 +2,15 @@ const Database = require('../database/Database');
 const firestore_db = new Database().getInstance();
 
 
+const returnPost = async (email, postId)=>{
+    let replies = await firestore_db.fetch("Altcoins", postId,`replies`)
+    let temp = [];
+    for(let i of replies)
+        i && temp.push(i); // copy each non-empty value to the 'temp' array
+    replies = temp;
+    return {status: `Ok`, posts_array: replies};
+}
+
 const getAllChats = async (room, owner)=>{
     let allposts = [];
     try{
@@ -88,5 +97,5 @@ const postReply = async (postId,owner,room,time,body)=>{
 
 }
 
-module.exports = { postMessage, getAllChats, postReact, totalPosts, postReply}
+module.exports = { postMessage, getAllChats, postReact, totalPosts, postReply,returnPost}
 

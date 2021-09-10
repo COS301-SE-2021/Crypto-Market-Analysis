@@ -13,6 +13,7 @@ import PrivateRoute from "./components/newRoute"
 import Notification from "./Pages/Notification/Notification"
 import DetailedInfo from "./Pages/DetailedInfo/DetailedInfo"
 import Chat from "./Pages/Chatroom/chatroom"
+import Comments from "./Pages/Comments/Comments"
 import Posts from "./Pages/Posts/Posts"
 import Subreddits from "./Pages/Subreddits/Subreddits"
 //import Predictions from "./Pages/Predictions/Predictions"
@@ -64,6 +65,7 @@ function App() {
                      <Route exact path="/Predictions" component={Predictions}></Route>
                      <Route exact path="/Chat" component={Chat}></Route>
                      <Route exact path="/Posts" component={Posts}></Route>
+                     <Route exact path="/Comments" component={Comments}></Route>
                  </section>
            </Switch>
           </AuthProvider>

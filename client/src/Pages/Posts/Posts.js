@@ -22,30 +22,7 @@ function Posts() {
 
     let sentiment;
 
-    function handleSubmitReply(postIds) {
-        //e.preventDefault()
-        let postId = postIds;
-        let owner = "bhekindhlovu7@gmail.com";
-        let room = "Altcoins";
-        let replybody = "replybody.current.value";
-        let replytimes = new Date().toLocaleString();
 
-        let obj = {
-           postId:postId,
-            owner:owner,
-           room:room,
-           body:replybody,
-           time:replytimes
-        }
-
-        axios.post('http://localhost:8080/chat/postReply',obj)
-            .then(response => {
-                console.log("reply posted")
-            })
-            .catch(err => {console.error(err);})
-        setTimeout(()=>{
-        },10000)
-    }
 
     //have to make it synchronous and await sentiment axios post
     function handleSubmit(e) {
@@ -191,6 +168,7 @@ function Posts() {
                     return(
 
                 <div className="container">
+
                     <div className="row">
                         <div className="col-md-8">
                             <div className="media g-mb-30 media-comment">
@@ -233,35 +211,10 @@ function Posts() {
 
                         </div>
                     </div>
-                    {show?<Form >
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Control type="email" placeholder="add a public reply"
-                                          // ref={replybody}
-                                          // required
-                            />
-                        </Form.Group>
-                        <Button variant="primary" type="submit"
-                                onClick={handleSubmitReply(post.postId)}
-                        >
-                            <Link to="/Posts">Post</Link>
-                        </Button>
-                        {
-                            post.replies.map((reply) =>{
-
-                                return(<li>{reply.body}</li>)})
-
-                        }
-                    </Form>:null}
                 </div>
 
                 )
 
-                    // {
-                    //     post.replies.map((reply) =>{
-                    //
-                    //         return(<li>{reply}</li>)})
-                    //
-                    // }
                 })
             }
 

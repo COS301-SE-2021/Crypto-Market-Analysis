@@ -8,26 +8,44 @@ import { Link, useHistory } from "react-router-dom"
 
 
 function Posts() {
-
+    const [show,setShow] = useState(false)
     let [posts,setposts] = useState([]);
 
     const history = useHistory()
     const title = useRef();
     const body = useRef();
+    const replybody = useRef();
     const time = new Date().toLocaleString();
+
+
+
 
     let sentiment;
 
-    //request for reply button press
-    // let request = {
-    //      parentID: parent.id
-    //     sentiment: sentiment,
-    //     owner: "bhekindhlovu7@gmail.com",
-    //     room: "Altcoins",
-    //     title: title.current.value,
-    //     body: body.current.value,
-    //     time: time
-    // };
+    function handleSubmitReply(postIds) {
+        //e.preventDefault()
+        let postId = postIds;
+        let owner = "bhekindhlovu7@gmail.com";
+        let room = "Altcoins";
+        let replybody = "replybody.current.value";
+        let replytimes = new Date().toLocaleString();
+
+        let obj = {
+           postId:postId,
+            owner:owner,
+           room:room,
+           body:replybody,
+           time:replytimes
+        }
+
+        axios.post('http://localhost:8080/chat/postReply',obj)
+            .then(response => {
+                console.log("reply posted")
+            })
+            .catch(err => {console.error(err);})
+        setTimeout(()=>{
+        },10000)
+    }
 
     //have to make it synchronous and await sentiment axios post
     function handleSubmit(e) {
@@ -202,12 +220,12 @@ function Posts() {
                                             </li>
                                             <li className="list-inline-item ml-auto">
                                                 <a className="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
-                                                   href="#!">
+                                                   href="#!" onClick={()=>setShow(!show)}>
                                                     <i className="fa fa-reply g-pos-rel g-top-1 g-mr-3"></i>
                                                     Reply
                                                 </a>
                                             </li>
-                                            <p>{post.sentiment}</p>
+                                            {/*<p>{post.sentiment}</p>*/}
 
                                         </ul>
                                     </div>
@@ -215,12 +233,17 @@ function Posts() {
 
                         </div>
                     </div>
-                    <Form>
+                    {show?<Form >
                         <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Control type="email" placeholder="add a public reply" />
+                            <Form.Control type="email" placeholder="add a public reply"
+                                          // ref={replybody}
+                                          // required
+                            />
                         </Form.Group>
-                        <Button variant="primary" type="submit">
-                            Submit
+                        <Button variant="primary" type="submit"
+                                onClick={handleSubmitReply(post.postId)}
+                        >
+                            <Link to="/Posts">Post</Link>
                         </Button>
                         {
                             post.replies.map((reply) =>{
@@ -228,7 +251,7 @@ function Posts() {
                                 return(<li>{reply.body}</li>)})
 
                         }
-                    </Form>
+                    </Form>:null}
                 </div>
 
                 )

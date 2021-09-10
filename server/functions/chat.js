@@ -3,7 +3,7 @@ const firestore_db = new Database().getInstance();
 
 
 const returnPost = async (email, postId)=>{
-    let replies = await firestore_db.fetch("Altcoins", postId,`replies`)
+    let replies = await firestore_db.fetch("Altcoins", postId,`replies`);
     let temp = [];
     for(let i of replies)
         i && temp.push(i); // copy each non-empty value to the 'temp' array
@@ -13,7 +13,7 @@ const returnPost = async (email, postId)=>{
 
 const getPost = async (email, postId)=>{
     let getPost = await firestore_db.fetch("Altcoins", postId)
-    return {status: `Ok`, posts_array: getPost};
+    return {status: `Ok`, posts_array: getPost.data()};
 }
 
 const getAllChats = async (room, owner)=>{

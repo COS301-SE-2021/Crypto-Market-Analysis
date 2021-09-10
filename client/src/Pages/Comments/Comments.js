@@ -6,6 +6,7 @@ import {Button, Card, Form} from "react-bootstrap";
 
 function Comments() {
     let [posts,setposts] = useState([]);
+    let [post,setpost] = useState([]);
     let data = useLocation();
     let postId = data.state.postId;
     let email = "bhekindhlovu7@gmail";
@@ -28,6 +29,17 @@ function Comments() {
                 console.log(posts_)
 
                 setposts(posts_);
+            })
+            .catch(err => {console.error(err);})
+        setTimeout(()=>{
+        },10000)
+
+        axios.post('http://localhost:8080/chat/getPost/',obj)
+            .then(response => {
+                console.log("response.data")
+                console.log(response.data.posts_array)
+                console.log("response.data")
+                setpost(response.data.posts_array)
             })
             .catch(err => {console.error(err);})
         setTimeout(()=>{
@@ -65,6 +77,45 @@ function Comments() {
     return(
 
         <>
+            <div className="container">
+
+                <div className="row">
+                    <div className="col-md-8">
+                        <div className="media g-mb-30 media-comment">
+                            <div className="media-body u-shadow-v18 g-bg-secondary g-pa-30">
+                                <div className="g-mb-15">
+                                    <h5 className="h5 g-color-gray-dark-v1 mb-0">{post.title}</h5>
+                                    <span className="g-color-gray-dark-v4 g-font-size-12">{post.time}</span>
+                                </div>
+
+                                <p>{post.body}</p>
+
+                                <ul className="list-inline d-sm-flex my-0">
+                                    <li className="list-inline-item g-mr-20">
+                                        <a className="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
+                                           href="#!" >
+
+                                            <i className="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i>
+                                            {post.like}
+                                        </a>
+                                    </li>
+                                    <li className="list-inline-item g-mr-20">
+                                        <a className="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
+                                           href="#!" >
+                                            <i className="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3"></i>
+                                            {post.dislike}
+                                        </a>
+                                    </li>
+
+                                    {/*<p>{post.sentiment}</p>*/}
+
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
             <Card>
                 <Card.Body>
                     <h2 className="text-center mb-4">Create Form</h2>

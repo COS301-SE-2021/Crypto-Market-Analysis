@@ -47,9 +47,9 @@ function Posts() {
         setTimeout(()=>{
         },10000)
 
-        console.log("+++++sentiment+++++++");
-        console.log(sentiment);
-        console.log("+++++sentiment+++++++");
+        // console.log("+++++sentiment+++++++");
+        // console.log(sentiment);
+        // console.log("+++++sentiment+++++++");
         sentiment = "positive";
 
         let request = {
@@ -208,14 +208,37 @@ function Posts() {
                                                 </a>
                                             </li>
                                             <p>{post.sentiment}</p>
+
                                         </ul>
                                     </div>
                             </div>
+
                         </div>
                     </div>
+                    <Form>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Control type="email" placeholder="add a public reply" />
+                        </Form.Group>
+                        <Button variant="primary" type="submit">
+                            Submit
+                        </Button>
+                        {
+                            post.replies.map((reply) =>{
+
+                                return(<li>{reply.body}</li>)})
+
+                        }
+                    </Form>
                 </div>
 
                 )
+
+                    // {
+                    //     post.replies.map((reply) =>{
+                    //
+                    //         return(<li>{reply}</li>)})
+                    //
+                    // }
                 })
             }
 

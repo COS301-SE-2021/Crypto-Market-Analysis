@@ -11,6 +11,11 @@ const returnPost = async (email, postId)=>{
     return {status: `Ok`, posts_array: replies};
 }
 
+const getPost = async (email, postId)=>{
+    let getPost = await firestore_db.fetch("Altcoins", postId)
+    return {status: `Ok`, posts_array: getPost};
+}
+
 const getAllChats = async (room, owner)=>{
     let allposts = [];
     try{
@@ -97,5 +102,5 @@ const postReply = async (postId,owner,room,time,body)=>{
 
 }
 
-module.exports = { postMessage, getAllChats, postReact, totalPosts, postReply,returnPost}
+module.exports = { postMessage, getAllChats, postReact, totalPosts, postReply,returnPost, getPost}
 

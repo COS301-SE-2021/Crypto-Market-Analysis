@@ -65,8 +65,11 @@
     padding-left: 7.5px;
     padding-right: 7.5px;
 }
-.panel {
+.panel-read, .panel-unread {
     
     padding: 10px;
     margin-bottom: 15px;
+}
+.panel-unread{
+    border: 1px solid #676565;
 }

@@ -22,17 +22,7 @@ import { SocialIcon } from 'react-social-icons';
 import ClipLoader from "react-spinners/ClipLoader"
 import coinGecko from "../../components/apis/CoinGecko"
 
-/*const Button = styled.button`
-display: block;
-text-align: center;
-background-color: #FFFFF0;
-color:black;
-padding: 5px 15px;
-border-radius: 5px;
-outline: 5px;
-width: 150%;
-variant:outlined;
-`*/
+
 
 const platformsList = [{name:"Twitter",id:"twitter"},
     {name:"Reddit",id:"reddit"},

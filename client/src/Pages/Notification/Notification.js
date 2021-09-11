@@ -16,6 +16,7 @@ import SweetAlert from 'sweetalert-react';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
+import moment from 'moment';
 
 const filterOptions = ['Read', 'Unread', 'Newest', 'Latest']
 class Notifications extends React.Component {
@@ -33,8 +34,9 @@ class Notifications extends React.Component {
              unread:0,
             read_checked: false,
             unread_checked: false,
-
-
+            newest_checked: false,
+            latest_checked: false,
+            notificationsList:[]
         }
         this.dateFrom = Date.now();
         this.dateTo = Date.now();
@@ -44,7 +46,34 @@ class Notifications extends React.Component {
     }
 
     handleSelect = (e) =>{
-    console.log(e.target.value);
+       
+        if(e.target.value === "Read"){
+            let filter_read = []
+            this.setState({read_checked:!this.state.read_checked})
+            if(this.state.read_checked){
+                
+                this.state.notificationsList.forEach(element => {
+                    if(element.read)
+                    {
+                        filter_read.push(element)
+                    }
+                });
+            }
+
+            console.log(filter_read)
+        }
+        else if(e.target.value === "Unread"){
+            this.state.unread_checked = !this.state.unread_checked
+           
+          }
+        else if(e.target.value === "Newest"){
+            this.state.newest_checked = !this.state.newest_checked
+
+        }
+        else if(e.target.value === "Latest"){
+            this.state.latest_checked = !this.state.latest_checked
+            
+        }
     }
     handleDelete= async (e)=> {
         let object = this.state.notificationObject;
@@ -114,7 +143,11 @@ class Notifications extends React.Component {
             ppo=ppo+1;
             if(value.Read===false && value.Read!=='undefined')
             {
-                counter= counter+1;
+                counter= counter+1; 
+                let notifObj = {'content':value.Email,'time':key,'read':value.Read}
+                this.state.notificationsList.push(notifObj)
+                console.log("DONE")
+               
             }
             if(ppo === Object.entries(object_response).length){
                 this.setState({unread: counter});
@@ -223,8 +256,9 @@ class Notifications extends React.Component {
                                     {console.log(this.state.elem)}
                                 </Col>
                             </Row> */}
-                             {console.log("nazoo")}
+                             {console.log("notifications")}
                              {console.log(this.state.elem)}
+                             {console.log(this.state.notificationsList)}
                                 <Row>
                                     <div className="col-md-4" style={{borderRight:"1px solid #c1c1c1"}}>
                                         <p className="text-blueGray-600 mr-0 mt-1 ml-2 text-sm uppercase font-bold px-0">Filter &amp; refine</p>
@@ -239,57 +273,39 @@ class Notifications extends React.Component {
                                                         )
                                                 })
                                             }
-                                          <div><DayPickerInput onDayChange={this.handleDayChange} /> </div> - <div><DayPickerInput onDayChange={this.handleDayChange} /></div>
+
+                                            <p>From</p>
+                                            <DayPickerInput style={{width:"30%"}} onDayChange={this.handleDayChange} /> 
+
+                                            <p>To</p>
+                                            <DayPickerInput style={{width:"30%"}} onDayChange={this.handleDayChange} />
                                             
                                         
                                     </div>
                                     <div className="col-md-8">
-                                    <div className="row grid-15-gutter">
-                                    <div className="col-md-6">
-                                        <div className="card panel">
-                                            <div className="toast-header">
-                                                <strong className="mr-auto">Bitcoin</strong>
-                                                <small>friday 12.00.00</small>
-                                                <button type="button" className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div className="media-body">
-                                                Bitcoin average sentiment did not change!
-                                            </div>
+                                        <div className="row grid-15-gutter">
+                                            {
+                                                this.state.notificationsList.map(obj=>{
+                                                    
+                                                    return(
+                                                        <div className="col-md-6">
+                                                            <div className="card panel">
+                                                                <div className="toast-header">
+                                                                    <strong className="mr-auto">Bitcoin</strong>
+                                                                    <small>{moment(obj.time).format('DD/MM/YYYY HH:mm')}</small>
+                                                                    <button type="button" className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div className="media-body">
+                                                                    {obj.content}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                })
+                                            }
                                         </div>
-                                    </div>
-                                    <div className="col-md-6">
-                                        <div className="card panel">
-                                            <div className="toast-header">
-                                                <strong className="mr-auto">Bitcoin</strong>
-                                                <small>Time</small>
-                                                <button type="button" className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div className="media-body">
-                                                Bitcoin average sentiment did not change!
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6">
-                                        <div className="card panel">
-                                            <div className="toast-header">
-                                                <strong className="mr-auto">Bitcoin</strong>
-                                                <small>Time</small>
-                                                <button type="button" className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div className="media-body">
-                                                Bitcoin average sentiment did not change!
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                                
                                     </div>
                                 </Row>     
                         </Card.Body>

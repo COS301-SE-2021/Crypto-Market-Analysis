@@ -558,7 +558,4 @@ class Singleton {
     }
 }
 
-const singleton = new Singleton().getInstance();
-singleton.removeCrypto(`u18129031@tuks.co.za`, `ada`, `ada`).then(() => {})
-singleton.getCoinIds(`u18129031@tuks.co.za`).then(res => console.log(res));
 module.exports = Singleton;

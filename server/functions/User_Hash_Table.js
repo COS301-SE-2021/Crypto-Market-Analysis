@@ -18,17 +18,19 @@ class User_Hash_Table {
                     let crypto_name;
                     let screen_name = [];
                     let social_media_sites = [];
+                    let coin_id = [];
                     for (const doc of docs){
                         cryptocurrencies = {};
                         crypto = doc.data().crypto;
                         crypto_name = doc.data().crypto_name;
                         screen_name = doc.data().screen_name;
                         social_media_sites = doc.data().social_media_sites;
+                        coin_id = doc.data().coin_id;
                         if(crypto){
                             for(const [index, value] of crypto.entries())
                                 cryptocurrencies[value] = crypto_name[index];
                         }
-                        this.#users[doc.id] = {cryptocurrencies, screen_name,social_media_sites};
+                        this.#users[doc.id] = {cryptocurrencies, screen_name,social_media_sites, coin_id};
                     }
                 }
         }).catch((error) => {
@@ -61,23 +63,26 @@ class User_Hash_Table {
 
     }
 
-    async insertCrypto(key, crypto, crypto_name){
+    async insertCrypto(key, crypto, crypto_name, coin_id){
         if(!this.#initialized){
             await this.#init;
             this.#initialized = true;
         }
 
         //Check if the parameters are defined
-        if(key && crypto && crypto_name){
+        if(key && crypto && crypto_name && coin_id){
             //Check if the email exists
             if(await this.searchUser(key)){
                     //Check if the crypto already exists. If it doesn't add it
                     if(!this.#users[key][`cryptocurrencies`] || !this.#users[key][`cryptocurrencies`][crypto]) {
                         try{
                             //Add crypto to the cryptocurrencies object
-                            this.#users[key][`cryptocurrencies`][crypto] = crypto_name
+                            this.#users[key][`cryptocurrencies`][crypto] = crypto_name;
+                            if(this.#users[key][`coin_id`])
+                                this.#users[key][`coin_id`].push(coin_id);
                             await firestore_db.save(`Users`, key, `crypto`, crypto, true);
                             await firestore_db.save(`Users`, key, `crypto_name`, crypto_name, true);
+                            await firestore_db.save(`Users`, key, `coin_id`, coin_id, true);
                             return Promise.resolve(true);
                         }
                         catch (error){
@@ -180,14 +185,14 @@ class User_Hash_Table {
             return Promise.reject(`Parameters are undefined`);
     }
 
-    async removeCrypto(email, symbol){
+    async removeCrypto(email, symbol, coin_id){
         if(!this.#initialized){
             await this.#init;
             this.#initialized = true;
         }
 
         //Check if the parameters are defined
-        if(email && symbol){
+        if(email && symbol, coin_id){
             //Check if the email exists
             if(await this.searchUser(email)){
                 try{
@@ -197,10 +202,21 @@ class User_Hash_Table {
                             const name = this.#users[email][`cryptocurrencies`][symbol];
                             //Remove the crypto from the object
                             delete this.#users[email][`cryptocurrencies`][symbol];
+                            //Get the array from the selected email
+                            let coin_id_array = this.#users[email][`coin_id`];
+                            //Get the index of the coin id in the array
+                            let index = coin_id_array.indexOf(coin_id);
+                            //Check if the coin id is present in the array
+                            if (index > -1)
+                                //Remove the coin id from the array
+                                coin_id_array.splice(index, 1);
+
                             //Remove the crypto symbol from the database
                             await firestore_db.delete(`Users`, email, `crypto`, symbol);
                             //Remove the crypto name from the database
                             await firestore_db.delete(`Users`, email, `crypto_name`, name);
+                            //Remove the coin_id from the database
+                            await firestore_db.delete(`Users`, email, `coin_id`, coin_id);
                             return Promise.resolve(true);
                     }
                     else
@@ -323,6 +339,16 @@ class User_Hash_Table {
         if(key)
             return this.#users[key];
 
+    }
+
+    async getCoinIds(key){
+        if(!this.#initialized){
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        if(key)
+            return this.#users[key][`coin_id`];
     }
 
     async getCrypto(key){
@@ -532,4 +558,7 @@ class Singleton {
     }
 }
 
+const singleton = new Singleton().getInstance();
+singleton.removeCrypto(`u18129031@tuks.co.za`, `ada`, `ada`).then(() => {})
+singleton.getCoinIds(`u18129031@tuks.co.za`).then(res => console.log(res));
 module.exports = Singleton;

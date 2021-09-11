@@ -12,6 +12,24 @@ const {check, validationResult} = require('express-validator');
 const csrfProtection = csrf();
 router.use(csrfProtection);
 
+router.post("/register", async (request, response, next)=>{
+
+    if(!request.body.email){
+        let error = new Error(`Malformed request. Please check your parameters`);
+        error.status = 400;
+        return next(error);
+    }
+    else{
+        await userFunctions.register(request.body.email).then(data=>{
+            return response.status(200).json(data);
+        }).catch(err => {
+            let error = new Error(err);
+            error.status = 500;
+            return next(error);
+        });
+    }
+});
+
 /** This function adds a social media site to the users account
  * @param {object} request A request object with the email and symbol.
  * @param {object} response A response object which will return the status code.
@@ -19,13 +37,13 @@ router.use(csrfProtection);
  * */
 router.post("/followCrypto", async (request, response, next)=>{
 
-    if(!request.body.email || !request.body.symbol || !request.body.crypto_name){
+    if(!request.body.email || !request.body.symbol || !request.body.crypto_name || !request.body.coin_id){
         let error = new Error(`Malformed request. Please check your parameters`);
         error.status = 400;
         return next(error);
     }
     else{
-        await userFunctions.followCrypto(request.body.email,request.body.symbol,request.body.crypto_name).then(data=>{
+        await userFunctions.followCrypto(request.body.email,request.body.symbol,request.body.crypto_name, request.body.coin_id).then(data=>{
             return response.status(200).json(data);
         }).catch(err => {
             let error = new Error(err);
@@ -37,19 +55,36 @@ router.post("/followCrypto", async (request, response, next)=>{
 
 router.post("/unfollowCrypto", async (request, response, next)=>{
 
-    if(!request.body.email || !request.body.symbol){
+    if(!request.body.email || !request.body.symbol || !request.body.coin_id){
         let error = new Error(`Malformed request. Please check your parameters`);
         error.status = 400;
         return next(error);
     }
     else{
-        await userFunctions.unfollowCrypto(request.body.email,request.body.symbol).then(data => {
+        await userFunctions.unfollowCrypto(request.body.email,request.body.symbol, request.body.coin_id).then(data => {
             return response.status(200).json(data);
         }).catch(err=>{
             let error = new Error(err);
             error.status = 500;
             return next(error);
         });
+    }
+});
+
+router.post("/getCoinIDs", async (request, response, next) => {
+    if(!request.body.email || !request.body.symbol || !request.body.coin_id){
+        let error = new Error(`Malformed request. Please check your parameters`);
+        error.status = 400;
+        return next(error);
+    }
+    else{
+        await userFunctions.getCoinIds(request.body.email).then(data => {
+            return response.status(200).json(data);
+        }).catch(err => {
+            let error = new Error(err);
+            error.status = 500;
+            return next(error);
+        })
     }
 });
 

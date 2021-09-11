@@ -161,6 +161,15 @@ const unfollowSocialMedia = async (email_address, social_media) => {
     }
 }
 
+const getCoinIDs = async email_address => {
+    try{
+        return await user_object.getCoinIds(email_address);
+    }
+    catch (error) {
+        return Promise.reject(error);
+    }
+}
+
 const saveToDB = async (arr, socialmedia , crypto)=> {
     let mini=Math.min.apply(Math, arr)
     let maxi = Math.max.apply(Math, arr)

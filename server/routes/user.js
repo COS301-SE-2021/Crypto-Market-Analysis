@@ -71,6 +71,23 @@ router.post("/unfollowCrypto", async (request, response, next)=>{
     }
 });
 
+router.post("/getCoinIDs", async (request, response, next) => {
+    if(!request.body.email || !request.body.symbol || !request.body.coin_id){
+        let error = new Error(`Malformed request. Please check your parameters`);
+        error.status = 400;
+        return next(error);
+    }
+    else{
+        await userFunctions.getCoinIds(request.body.email).then(data => {
+            return response.status(200).json(data);
+        }).catch(err => {
+            let error = new Error(err);
+            error.status = 500;
+            return next(error);
+        })
+    }
+});
+
 /** This function gets the cryptos a user is following
  * @param {object} request A request object with the email and symbol.
  * @param {object} response A response object which will return the status code.

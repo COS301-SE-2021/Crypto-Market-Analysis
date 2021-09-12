@@ -243,23 +243,6 @@ router.post("/GETPush", async (request,response)=>{
 
 });
 
-/** This function gets the social media a user is following
- * @param {object} request A request object with the email and symbol.
- * @param {object} response A response object which will return the status code.
- * @return          A status code stating if the request was successful.
- * */
-router.post("/fetchUserSocialMedia", async (request, response) => {
-    if(request.body.email === null) {
-        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
-    }
-    else{
-        userFunctions.fetchUserSocialMedia(request.body.email).then(data=>{
-            return response.status(200).json(data);
-        }).catch(err=>{
-            return response(401).json({status:`error`, error: err})
-        })
-    }
-});
 router.post("/fetchAnalysis", async (request, response) => {
     if(request.body.socialmedia === null || request.body.crypto===null ) {
         return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});

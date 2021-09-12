@@ -121,7 +121,7 @@ describe(`POST /user/getCoinIDs`, () => {
     });
 });
 
-describe(`POST /user/getUserCrypto`, () => {
+describe(`POST /user/getUserCryptos`, () => {
     jest.setTimeout(100000);
     test(`when parameters are correct`, async () => {
         const response = await request(app).post(`/user/getUserCryptos`).send({email: `codexteam4@gmail.com`});

@@ -3,6 +3,7 @@ import Posts from "../Posts/Posts";
 import axios from "axios";
 import React, {useEffect, useRef, useState} from "react";
 import {Button, Card, Form} from "react-bootstrap";
+import Sidebar from "../../components/Sidebar/Sidebar";
 
 function Comments() {
     let [posts,setposts] = useState([]);
@@ -77,7 +78,9 @@ function Comments() {
     return(
 
         <>
-            <div className="container">
+        <Sidebar />
+            <div className="md:ml-64">
+            <div className="container" style={{height:"500px"}}>
 
                 <div className="row">
                     <div className="col-md-8">
@@ -87,9 +90,9 @@ function Comments() {
                                     <h5 className="h5 g-color-gray-dark-v1 mb-0">{post.title}</h5>
                                     <span className="g-color-gray-dark-v4 g-font-size-12">{post.time}</span>
                                 </div>
-
+                                <hr/>
                                 <p>{post.body}</p>
-
+                                <hr/>
                                 <ul className="list-inline d-sm-flex my-0">
                                     <li className="list-inline-item g-mr-20">
                                         <a className="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
@@ -115,8 +118,8 @@ function Comments() {
 
                     </div>
                 </div>
-            </div>
-            <Card>
+            
+            {/* <Card>
                 <Card.Body>
                     <h2 className="text-center mb-4">Create Form</h2>
                     <Form onSubmit={handleSubmit}>
@@ -135,7 +138,9 @@ function Comments() {
                         </Button>
                     </Form>
                 </Card.Body>
-            </Card>
+            </Card> */}
+          
+
             {
                 posts.map((post) =>{
 
@@ -144,6 +149,11 @@ function Comments() {
                         <div className="container">
 
                             <div className="row">
+                                <div className="col-md-0 ml-5 p-2" style={{width:"5%",borderLeft:"1px solid #03989e"}}>
+                                    <div className="media g-mb-30 media-comment" style={{backgroundColor:"#03989e",width:"10%",height:"80%",marginTop:"70%", float:"right"}}>
+                                        
+                                    </div>
+                                </div>
                                 <div className="col-md-8">
                                     <div className="media g-mb-30 media-comment">
                                         <div className="media-body u-shadow-v18 g-bg-secondary g-pa-30">
@@ -151,7 +161,9 @@ function Comments() {
                                                 <h5 className="h5 g-color-gray-dark-v1 mb-0">{post.owner}</h5>
                                                 <span className="g-color-gray-dark-v4 g-font-size-12">{post.time}</span>
                                             </div>
+                                            <hr/>
                                             <p>{post.body}</p>
+                                            <hr/>
                                         </div>
                                     </div>
 
@@ -163,6 +175,8 @@ function Comments() {
 
                 })
             }
+            </div>
+            </div>
 
         </>
     )

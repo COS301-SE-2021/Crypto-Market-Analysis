@@ -44,19 +44,24 @@ function Chatroom() {
     return(
 
         <>
+        <Sidebar />
+            <div className="md:ml-64">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="wrapper wrapper-content animated fadeInRight">
 
-                                <div className="ibox-content m-b-sm border-bottom">
-                                    <div className="p-xs">
-                                        <div className="pull-left m-r-md">
-                                            <i className="fa fa-globe text-navy mid-icon"></i>
+                                <div className="ibox-content m-b-sm border-bottom" style={{backgroundColor:"rgba(0,0,0,0)"}}>
+                                    <div className="flex p-xs">  
+                                        <i className="fa fa-globe text-navy mid-icon"></i>
+                                        <div>
+                                        <h2 className="mr-0 ml-3 inline-block whitespace-nowrap uppercase font-bold">Welcome to the Cryptosis forum</h2>
+                                        <p className="p-xs mr-0 ml-3 whitespace-nowrap uppercase font-bold">Feel free to choose a Cryptocurrency topic you're interested in.</p>
+       
                                         </div>
-                                        <h2>Welcome to the Cryptosis forum</h2>
-                                        <span>Feel free to choose a Cryptocurrency topic you're interested in.</span>
+                                             
                                     </div>
+                                    
                                 </div>
 
                                 <div className="ibox-content forum-container">
@@ -101,7 +106,7 @@ function Chatroom() {
                         </div>
                     </div>
                 </div>
-
+            </div>
         </>
     )
 

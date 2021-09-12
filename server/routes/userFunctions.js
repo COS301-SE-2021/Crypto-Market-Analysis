@@ -6,7 +6,7 @@ const reddit =require('../functions/Reddit');
 const redditScrapper = new reddit();
 
 const register = async email => {
-    await user_object.insertUser(email);
+    return await user_object.insertUser(email);
 }
 
 const getNotification=async(email)=>{
@@ -188,5 +188,5 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
 
-module.exports = {getCoinPredictions,getAnalysis,getPush,setPush,setNotification,saveToDB,getNotification,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia}
+module.exports = {getCoinPredictions,getAnalysis,getPush,setPush,setNotification,saveToDB,getNotification,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, register}
 

@@ -44,8 +44,10 @@ class User_Hash_Table {
             this.#initialized = true;
         }
 
-        if(key)
+        if(key){
             this.#users[key] = {};
+            return true;
+        }
         else
             return Promise.reject(`Parameter is not defined`);
     }

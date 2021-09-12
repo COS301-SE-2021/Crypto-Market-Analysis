@@ -1,6 +1,15 @@
 const request = require('supertest');
 const app = require("../app");
 
+describe(`POST /user/register`, () => {
+    test(`when parameters are correct`, async () => {
+        const response = await request(app).post(`/user/register`).send({email: `test@gmail.com`});
+        expect(response.status).toBe(200);
+        expect(response.body).toBeDefined();
+        expect(response.body).toBeTruthy();
+    });
+});
+
 describe(`POST /user/followCrypto`, () => {
     jest.setTimeout(100000);
     test(`when parameters are correct`, async () => {

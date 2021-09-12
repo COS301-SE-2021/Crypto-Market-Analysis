@@ -5,6 +5,7 @@ import axios from "axios";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { Form, Button, Card, Container, Modal } from "react-bootstrap"
 import { Link, useHistory } from "react-router-dom"
+import Carousel from "react-grid-carousel"
 
 
 function Posts() {
@@ -26,7 +27,7 @@ function Posts() {
     //have to make it synchronous and await sentiment axios post
     function handleSubmit(e) {
         e.preventDefault()
-
+        console.log("Submit post")
 
         let sentimenttext = title.current.value + " " + body.current.value;
         let sentreq = {
@@ -183,63 +184,70 @@ function Posts() {
                 </Container>
                 
                 
+                <Carousel cols={3} rows={2} gap={8} >
+                    {
+                        posts.map((post,index) =>{
 
-            {
-                posts.map((post) =>{
+                            return(
+                                <Carousel.Item key={index}>
+                                {/* <div className="container"> */}
 
-                    return(
+                                    {/* <div className="row"> */}
+                                        {/* <div className="col-md-4"> */}
+                                            <div className="media g-mb-30 media-comment w-full lg:w-12/12 xl:w-12/12">
+                                                    <div className="media-body u-shadow-v18 g-bg-secondary g-pa-30">
+                                                        <div className="g-mb-15">
+                                                            <h5 className="h5 g-color-gray-dark-v1 mb-0 whitespace-nowrap">{post.title}</h5>
+                                                            <span className="g-color-gray-dark-v4 g-font-size-12">{post.time}</span>
+                                                        </div>
+                                                        <hr/>
 
-                <div className="container">
+                                                        <p>{post.body.length > 35 ? post.body.substring(0,34) + "..." : post.body }</p>
+                                                        <hr/>
 
-                    <div className="row">
-                        <div className="col-md-8">
-                            <div className="media g-mb-30 media-comment">
-                                    <div className="media-body u-shadow-v18 g-bg-secondary g-pa-30">
-                                        <div className="g-mb-15">
-                                            <h5 className="h5 g-color-gray-dark-v1 mb-0">{post.title}</h5>
-                                            <span className="g-color-gray-dark-v4 g-font-size-12">{post.time}</span>
-                                        </div>
+                                                        <ul className="list-inline d-sm-flex my-0">
+                                                            <li className="list-inline-item g-mr-20 mr-3">
+                                                                <a className="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
+                                                                href="#!" onClick={function(){reactPost("like",post.postId)}}>
+                                                                    <i className="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3 mr-1"></i>
+                                                                  
+                                                                    {post.like}
+                                                                </a>
+                                                            </li>
+                                                            <li className="list-inline-item g-mr-20">
+                                                                <a className="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
+                                                                href="#!" onClick={function(){reactPost("dislike",post.postId)}}>
+                                                                    <i className="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3 mr-1 mt-1"></i>
+                                                                   
+                                                                    {post.dislike}
+                                                                </a>
+                                                            </li>
+                                                            
+                                                            <li className="list-inline-item ml-auto">
+                                                                <Link
+                                                                    to={{
+                                                                        pathname: "/Comments",
+                                                                        state: { postId:post.postId}
+                                                                    }}
+                                                                    // style={{color:"black"}}
+                                                                    className="text-blueGray-600 inline-block text-md font-bold"
+                                                                > <i className="fa fa-chevron-right fa-lg" aria-hidden="true"></i></Link>
+                                                            </li>
+                                                            {/*<p>{post.sentiment}</p>*/}
 
-                                        <p>{post.body}</p>
+                                                        </ul>
+                                                    </div>
+                                            </div>
 
-                                        <ul className="list-inline d-sm-flex my-0">
-                                            <li className="list-inline-item g-mr-20">
-                                                <a className="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
-                                                   href="#!" onClick={function(){reactPost("like",post.postId)}}>
+                                        {/* </div> */}
+                                    {/* </div> */}
+                                {/* </div> */}
+                            </Carousel.Item>                                       
+                        )
 
-                                                    <i className="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i>
-                                                    {post.like}
-                                                </a>
-                                            </li>
-                                            <li className="list-inline-item g-mr-20">
-                                                <a className="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
-                                                   href="#!" onClick={function(){reactPost("dislike",post.postId)}}>
-                                                    <i className="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3"></i>
-                                                    {post.dislike}
-                                                </a>
-                                            </li>
-                                            <li className="list-inline-item ml-auto">
-                                                <Link
-                                                    to={{
-                                                        pathname: "/Comments",
-                                                        state: { postId:post.postId}
-                                                    }}
-                                                >Reply</Link>
-                                            </li>
-                                            {/*<p>{post.sentiment}</p>*/}
-
-                                        </ul>
-                                    </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                )
-
-                })
-            }
+                        })
+                    }
+                </Carousel>
            </div>
         </>
     )

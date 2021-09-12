@@ -3,7 +3,7 @@ import './Posts.css';
 import React, {useState, useEffect, useRef} from 'react';
 import axios from "axios";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import { Form, Button, Card, Container } from "react-bootstrap"
+import { Form, Button, Card, Container, Modal } from "react-bootstrap"
 import { Link, useHistory } from "react-router-dom"
 
 
@@ -16,7 +16,6 @@ function Posts() {
     const body = useRef();
     const replybody = useRef();
     const time = new Date().toLocaleString();
-
 
 
 
@@ -132,49 +131,58 @@ function Posts() {
 
     return(
 
-        <> 
+        <>
+        <Modal show={show} >
+            <Modal.Header>
+                <span className="uppercase font-bold ">New Post</span>
+                <i className="fas fa-times cursor-pointer text-blueGray-700" onClick={()=>{setShow(false)}}></i>
+            </Modal.Header>
+            <Modal.Body >
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group id="title">
+                        <div style={{width:"70%",margin:"auto"}}>
+                            <Form.Label className="label">Post title</Form.Label>
+                        </div>
+                        <Form.Control
+                            ref={title}
+                            required
+                            style={{width:"70%",margin:"auto"}}
+                        />
+                    </Form.Group>
+                    <Form.Group id="body">
+                        <div style={{width:"70%",margin:"auto"}}>
+                            <Form.Label className="label">Post content</Form.Label>
+                        </div>
+                        <Form.Control
+                            as="textarea" 
+                            rows={3}
+                            ref={body}
+                            required
+                            style={{width:"70%",margin:"auto"}}
+                        />
+                    </Form.Group>
+                    <Form.Group className="text-center">
+                        <Button style={{width:"70%",margin:"auto"}} type="submit">
+                            <Link to="/Posts" style={{color:"white"}}>Post</Link>
+                        </Button>
+                    </Form.Group>
+                </Form>
+            </Modal.Body>
+        </Modal>
         <Sidebar />
             <div className="md:ml-64">
                 <Container fluid>
                     <Card.Header style={{backgroundColor:"rgba(0,0,0,0)"}}>
                     <div className="forum-title">
-                        <h3>General subjects forum</h3>
+                        <h3 className="mr-0 whitespace-nowrap text-lg font-bold px-0">General subjects forum</h3>
                     </div>
                     </Card.Header>
-                </Container>
-                <div className="row">
-                    <div className="col-md-5 mx-auto p-0 mt-2">
-                        <Card>
-                            <Card.Body>
-                                <h2 className="text-center mb-4">Create Form</h2>
-                                <Form onSubmit={handleSubmit}>
-
-                                    <Form.Group id="title">
-                                        <Form.Label>title</Form.Label>
-                                        <Form.Control
-                                            ref={title}
-                                            required
-                                        />
-                                    </Form.Group>
-
-                                    <Form.Group id="body">
-                                        <Form.Label>body</Form.Label>
-                                        
-                                        <Form.Control
-                                            ref={body}
-                                            required
-                                        />
-                                    </Form.Group>
-
-
-                                    <Button className="w-100" type="submit">
-                                        <Link to="/Posts">Post</Link>
-                                    </Button>
-                                </Form>
-                            </Card.Body>
-                        </Card>
+                    <div className="mx-auto text-center">
+                        <i className="fas fa-plus-circle fa-5x mx-auto mt-3 cursor-pointer" style={{color:"#03989e"}} onClick={()=>{setShow(true)}}></i>
                     </div>
-                </div>
+                </Container>
+                
+                
 
             {
                 posts.map((post) =>{

@@ -302,7 +302,7 @@ export default function Sidebar() {
                       >
                           <i
                               className={
-                                  "fas fa-chart-line mr-2 text-sm " +
+                                  "fas fa-comment mr-2 text-sm " +
                                   (window.location.href.indexOf("/Chat") !== -1
                                       ? "opacity-75"
                                       : "text-blueGray-300")

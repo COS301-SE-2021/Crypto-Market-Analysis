@@ -53,7 +53,7 @@ function Chatroom() {
 
                                 <div className="ibox-content m-b-sm border-bottom" style={{backgroundColor:"rgba(0,0,0,0)"}}>
                                     <div className="flex p-xs">  
-                                        <i className="fa fa-globe text-navy mid-icon"></i>
+                                        <i className="fa fa-globe text-navy mid-icon" style={{color:"#03989e"}}></i>
                                         <div>
                                         <h2 className="mr-0 ml-3 inline-block whitespace-nowrap uppercase font-bold">Welcome to the Cryptosis forum</h2>
                                         <p className="p-xs mr-0 ml-3 whitespace-nowrap uppercase font-bold">Feel free to choose a Cryptocurrency topic you're interested in.</p>
@@ -76,7 +76,7 @@ function Chatroom() {
                                         <div className="row">
                                             <div className="col-md-9">
                                                 <div className="forum-icon">
-                                                    <i className="fa fa-star"></i>
+                                                    <i className="fa fa-star" ></i>
                                                 </div>
                                                 <a href="/Posts/" >General
                                                     Discussion</a>

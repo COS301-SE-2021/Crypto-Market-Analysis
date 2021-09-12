@@ -3,7 +3,7 @@ import './Posts.css';
 import React, {useState, useEffect, useRef} from 'react';
 import axios from "axios";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import { Form, Button, Card, Alert } from "react-bootstrap"
+import { Form, Button, Card, Container } from "react-bootstrap"
 import { Link, useHistory } from "react-router-dom"
 
 
@@ -132,35 +132,49 @@ function Posts() {
 
     return(
 
-        <>
-            <Card>
-                <Card.Body>
-                    <h2 className="text-center mb-4">Create Form</h2>
-                    <Form onSubmit={handleSubmit}>
+        <> 
+        <Sidebar />
+            <div className="md:ml-64">
+                <Container fluid>
+                    <Card.Header style={{backgroundColor:"rgba(0,0,0,0)"}}>
+                    <div className="forum-title">
+                        <h3>General subjects forum</h3>
+                    </div>
+                    </Card.Header>
+                </Container>
+                <div className="row">
+                    <div className="col-md-5 mx-auto p-0 mt-2">
+                        <Card>
+                            <Card.Body>
+                                <h2 className="text-center mb-4">Create Form</h2>
+                                <Form onSubmit={handleSubmit}>
 
-                        <Form.Group id="title">
-                            <Form.Label>title</Form.Label>
-                            <Form.Control
-                                ref={title}
-                                required
-                            />
-                        </Form.Group>
+                                    <Form.Group id="title">
+                                        <Form.Label>title</Form.Label>
+                                        <Form.Control
+                                            ref={title}
+                                            required
+                                        />
+                                    </Form.Group>
 
-                        <Form.Group id="body">
-                            <Form.Label>body</Form.Label>
-                            <Form.Control
-                                ref={body}
-                                required
-                            />
-                        </Form.Group>
+                                    <Form.Group id="body">
+                                        <Form.Label>body</Form.Label>
+                                        
+                                        <Form.Control
+                                            ref={body}
+                                            required
+                                        />
+                                    </Form.Group>
 
 
-                        <Button className="w-100" type="submit">
-                            <Link to="/Posts">Post</Link>
-                        </Button>
-                    </Form>
-                </Card.Body>
-            </Card>
+                                    <Button className="w-100" type="submit">
+                                        <Link to="/Posts">Post</Link>
+                                    </Button>
+                                </Form>
+                            </Card.Body>
+                        </Card>
+                    </div>
+                </div>
 
             {
                 posts.map((post) =>{
@@ -218,7 +232,7 @@ function Posts() {
 
                 })
             }
-
+           </div>
         </>
     )
 

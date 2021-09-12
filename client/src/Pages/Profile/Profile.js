@@ -94,32 +94,7 @@ const Profile = props =>
             })
             .catch(err => {console.error(err);})
 
-        /*const fetchData = async () => {
-            const [detail] = await Promise.all([
-                coinGecko.get("/coins/markets/", {
-                    params: {
-                        vs_currency: "zar",
-                        days: "365",
-                        interval: "weekly"
-                    },
-                }),
-            ]);
-            detail.data.forEach(data => {
-                //if (coin_name.toLowerCase() === data.id) {
-                    setMarketData({
-                        detail: data,
-                    });
-                    //setGraphLoader(false)
-                //}
-            })
 
-            for(let i =0; i<detail.data.length;i++)
-            {
-                console.log(detail.data[i].name);
-            }
-
-        //}
-        //await fetchData();*/
 
     },[])
 
@@ -223,9 +198,7 @@ const Profile = props =>
                 {
                     handleFollowButton(user.screen_name,true)
                 }
-                // else{
 
-                // }
             })
             .catch(err => {
                 
@@ -317,7 +290,7 @@ const Profile = props =>
                 }
 
 
-            }}></SweetAlert>
+            }}/>
             <Sidebar />
             <script sync src="https://platform.twitter.com/widgets.js%22%3E"></script>
             <div className="md:ml-64">

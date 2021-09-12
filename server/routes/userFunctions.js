@@ -5,6 +5,10 @@ const firestore_db = new Database().getInstance();
 const reddit =require('../functions/Reddit');
 const redditScrapper = new reddit();
 
+const register = async email => {
+    await user_object.insertUser(email);
+}
+
 const getNotification=async(email)=>{
     const fields = await firestore_db.fetchNotification(email).then(data=>{
         return data;
@@ -121,18 +125,18 @@ const fetchUserSocialMedia = async(email_address)=>{
     }
 }
 
-const followCrypto = async (email_address,symbol,crypto_name )=>{
+const followCrypto = async (email_address,symbol,crypto_name, coin_id)=>{
     try{
-        return await user_object.insertCrypto(email_address, symbol, crypto_name);
+        return await user_object.insertCrypto(email_address, symbol, crypto_name, coin_id);
     }
     catch (error){
         return Promise.reject(error)
     }
 }
 
-const unfollowCrypto = async (email_address, symbol) => {
+const unfollowCrypto = async (email_address, symbol, coin_id) => {
     try{
-        return await user_object.removeCrypto(email_address, symbol);
+        return await user_object.removeCrypto(email_address, symbol, coin_id);
     }
     catch (error){
         return Promise.reject(error);
@@ -153,6 +157,15 @@ const unfollowSocialMedia = async (email_address, social_media) => {
         return await user_object.removeSocialMediaSite(email_address, social_media);
     }
     catch (error){
+        return Promise.reject(error);
+    }
+}
+
+const getCoinIDs = async email_address => {
+    try{
+        return await user_object.getCoinIds(email_address);
+    }
+    catch (error) {
         return Promise.reject(error);
     }
 }

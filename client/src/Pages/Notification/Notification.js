@@ -18,7 +18,9 @@ import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import moment from 'moment';
 
-const filterOptions = ['Read', 'Unread', 'Newest', 'Latest']
+const filterOptions = ['Read', 'Unread', 'Latest', 'Oldest']
+
+let filtered = []
 class Notifications extends React.Component {
 
 
@@ -35,44 +37,147 @@ class Notifications extends React.Component {
             read_checked: false,
             unread_checked: false,
             newest_checked: false,
-            latest_checked: false,
-            notificationsList:[]
+            oldest_checked: false,
+            og_list : [{content: 'Bitcoin average sentiment did not change!', time: 'Fri Aug 27 2021 13:49:02 GMT+0200 (South Africa Standard Time)', read: false},
+            {content: 'Cardano average sentiment did not change!', time: 'Fri Aug 27 2021 13:50:03 GMT+0200 (South Africa Standard Time)', read: false},
+            {content: 'Tether average sentiment did not change!', time: 'Fri Aug 27 2021 13:43:04 GMT+0200 (South Africa Standard Time)', read: true},
+            {content: 'ethereum average sentiment did not change!', time: 'Fri Aug 27 2021 13:55:05 GMT+0200 (South Africa Standard Time)', read: false},
+            {content: 'litecoin average sentiment did not change!', time: 'Fri Aug 27 2021 13:13:06 GMT+0200 (South Africa Standard Time)', read: true},
+            
+            ],
+            list:[],
+            temp_list:[]
         }
+        this.state.list = this.state.og_list;
         this.dateFrom = Date.now();
         this.dateTo = Date.now();
+        this.handleLatestCheck = this.handleLatestCheck.bind(this)
+        this.handleOldestCheck = this.handleOldestCheck.bind(this)
         this.handleSelect = this.handleSelect.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.handleDeleteALL = this.handleDeleteALL.bind(this);
     }
+    // handleReadCheck = () =>{
+    //     if(this.state.list.length > 0)
 
+    //     this.state.read_checked = !this.state.read_checked
+    //     let filtered = []
+    //     if(this.state.read_checked){
+            
+    //         filtered = this.state.list.filter(element=>{
+    //             return element.read 
+    //         })
+    //         if(filtered.length > 0){
+    //             this.setState({list:filtered})
+    //         }
+            
+    //     }
+    // }
     handleSelect = (e) =>{
        
         if(e.target.value === "Read"){
-            let filter_read = []
-            this.setState({read_checked:!this.state.read_checked})
+            console.log("FILTER BY READ")
+           
+            console.log(this.state.list)
+    
+            this.state.read_checked = !this.state.read_checked
+            let filtered = []
             if(this.state.read_checked){
-                
-                this.state.notificationsList.forEach(element => {
-                    if(element.read)
-                    {
-                        filter_read.push(element)
-                    }
-                });
-            }
+               
+                filtered = this.state.og_list.filter(element=>{
+                    return element.read 
+                })
+                console.log("filtered")
+                console.log(filtered)
+                if(this.state.temp_list.length > 0){
 
-            console.log(filter_read)
+                    console.log("temp has something")
+                    console.log(this.state.temp_list)
+                    filtered.push(...this.state.temp_list)
+                    this.setState({list:filtered}) //add to the list not replace
+                    
+                }
+                else{
+                    this.setState({list:filtered,temp_list:filtered})
+                }
+            }
+            else{
+                console.log("uncheck read")
+                console.log("list")
+                console.log(this.state.list)
+                filtered = this.state.list.filter(element=>{
+                    return !element.read 
+                })
+                console.log("list new filtered")
+                console.log(filtered)
+                if(filtered.length > 1){
+                    this.setState({list:filtered,temp_list:filtered})
+                }
+                else{
+                    this.setState({list:this.state.og_list,temp_list:[]})
+                }
+            }
+            
         }
         else if(e.target.value === "Unread"){
             this.state.unread_checked = !this.state.unread_checked
+            let filtered = []
+            if(this.state.unread_checked){
+               
+                filtered = this.state.og_list.filter(element=>{
+                    return !element.read 
+                })
+                if(this.state.temp_list.length > 0){
+                    filtered.push(...this.state.temp_list)
+                    this.setState({list:filtered})
+                }
+                else{
+                    this.setState({list:filtered,temp_list:filtered})
+                }
+            }
+            else{
+                filtered = this.state.list.filter(element=>{
+                    return element.read 
+                })
+                if(filtered.length > 1){
+                    this.setState({list:filtered,temp_list:filtered})
+                }
+                else{
+                    this.setState({list:this.state.og_list,temp_list:[]})
+                }
+
+            }
            
           }
-        else if(e.target.value === "Newest"){
+        else if(e.target.value === "Latest"){
             this.state.newest_checked = !this.state.newest_checked
+            this.handleLatestCheck()
 
         }
-        else if(e.target.value === "Latest"){
-            this.state.latest_checked = !this.state.latest_checked
-            
+        else if(e.target.value === "Oldest"){
+            this.state.oldest_checked = !this.state.oldest_checked
+            this.handleOldestCheck()
+        }
+        
+    }
+    handleLatestCheck = () =>{
+        console.log("handle latest")
+        console.log(this.state.list)
+            if(this.state.newest_checked){
+                console.log("handle latest true")
+                this.setState({list: this.state.list.sort((a,b)=>{
+                    return new Date(moment(b.time).toDate()).getTime() - new Date(moment(a.time).toDate()).getTime() 
+                    })
+                })
+            }
+    }
+    handleOldestCheck = () =>{
+        
+        if(this.state.oldest_checked){
+            this.setState({list: this.state.list.sort((a,b)=>{
+                return new Date(moment(a.time).toDate()).getTime() - new Date(moment(b.time).toDate()).getTime() 
+                })
+            })
         }
     }
     handleDelete= async (e)=> {
@@ -243,22 +348,15 @@ class Notifications extends React.Component {
 
                     <Card  >
                         <Card.Header >
-                           {/* <Card.Title as="h4" class="card text-center">NOTIFICATIONS</Card.Title> */}
+                           
                            
                             <Push className="btn btn-cryptosis"/>
                             <button  onClick={this.handleDeleteALL} type="button" className="btn-cryptosis text-blueGray-600 mr-0 mt-1 ml-2 text-sm uppercase font-bold px-0 float-right"><i className="fas fa-trash-alt"></i>&nbsp;Clear all Notifications</button>
                             
                         </Card.Header>
                         <Card.Body style={{height:"50%"}} >
-                            {/* <Row>
-                                <Col class="col-md-6 offset-md-4" className="card border-primary mb-3">
-                                    {this.state.elem}
-                                    {console.log(this.state.elem)}
-                                </Col>
-                            </Row> */}
-                             {console.log("notifications")}
-                             {console.log(this.state.elem)}
-                             {console.log(this.state.notificationsList)}
+                          
+                            
                                 <Row>
                                     <div className="col-md-4" style={{borderRight:"1px solid #c1c1c1"}}>
                                         <p className="text-blueGray-600 mr-0 mt-1 ml-2 text-sm uppercase font-bold px-0">Filter &amp; refine</p>
@@ -266,7 +364,7 @@ class Notifications extends React.Component {
                                                 filterOptions.map(element => {
                                                     return( <div>
                                                             <Checkbox value={element} onChange={this.handleSelect} style={{ color: "#03989e", marginRight: 0 }} />
-                                                            {element}
+                                                            <span className="text-blueGray-600 mr-0 mt-1 ml-2 text-md  px-0">View <strong>{element}</strong> notifications</span>
                                                             
                                                             </div>
                                                            
@@ -274,22 +372,23 @@ class Notifications extends React.Component {
                                                 })
                                             }
 
-                                            <p>From</p>
+                                            {/* <p>From</p>
                                             <DayPickerInput style={{width:"30%"}} onDayChange={this.handleDayChange} /> 
 
                                             <p>To</p>
                                             <DayPickerInput style={{width:"30%"}} onDayChange={this.handleDayChange} />
-                                            
+                                             */}
                                         
                                     </div>
                                     <div className="col-md-8">
                                         <div className="row grid-15-gutter">
                                             {
-                                                this.state.notificationsList.map(obj=>{
+                                                this.state.list.map(obj=>{
                                                     
                                                     return(
                                                         <div className="col-md-6">
-                                                            <div className="card panel">
+                                                            {obj.read ?
+                                                            <div className="card panel-read">
                                                                 <div className="toast-header">
                                                                     <strong className="mr-auto">Bitcoin</strong>
                                                                     <small>{moment(obj.time).format('DD/MM/YYYY HH:mm')}</small>
@@ -300,7 +399,19 @@ class Notifications extends React.Component {
                                                                 <div className="media-body">
                                                                     {obj.content}
                                                                 </div>
-                                                            </div>
+                                                            </div>:
+                                                            <div className="card panel-unread">
+                                                                <div className="toast-header">
+                                                                    <strong className="mr-auto">Bitcoin</strong>
+                                                                    <small>{moment(obj.time).format('DD/MM/YYYY HH:mm')}</small>
+                                                                    <button type="button" className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div className="media-body">
+                                                                    {obj.content}
+                                                                </div>
+                                                            </div>}
                                                         </div>
                                                     )
                                                 })

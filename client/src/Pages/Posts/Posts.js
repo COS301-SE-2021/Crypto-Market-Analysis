@@ -119,12 +119,11 @@ function Posts() {
                 room : "Altcoins"
             }
         }
-        axios.post('http://localhost:8080/chat/postReact/',reqObj)
-            .then(response => {
-                console.log(response);
-                // window.location.reload();
-            })
-            .catch(err => {console.error(err);})
+        // axios.post('http://localhost:8080/chat/postReact/',reqObj)
+        //     .then(response => {
+        //         console.log(response);
+        //     })
+        //     .catch(err => {console.error(err);})
         setTimeout(()=>{
         },10000)
 
@@ -207,12 +206,12 @@ function Posts() {
 
                                                         <ul className="list-inline d-sm-flex my-0">
                                                             <li className="list-inline-item g-mr-20 mr-3">
-                                                                <a className="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
-                                                                href="#!" onClick={function(){reactPost("like",post.postId)}}>
-                                                                    <i className="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3 mr-1"></i>
+                                                                {/* <a className="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
+                                                                href="#!" > */}
+                                                                    <i className="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3 mr-1" onClick={function(event){reactPost("like",post.postId)}}></i>
                                                                   
                                                                     {post.like}
-                                                                </a>
+                                                                {/* </a> */}
                                                             </li>
                                                             <li className="list-inline-item g-mr-20">
                                                                 <a className="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"

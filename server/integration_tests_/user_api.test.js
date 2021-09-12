@@ -8,6 +8,11 @@ describe(`POST /user/register`, () => {
         expect(response.body).toBeDefined();
         expect(response.body).toBeTruthy();
     });
+    test(`when email already exists`, async () => {
+        const response = await request(app).post(`/user/register`).send({email: `codexteam4@gmail.com`});
+        expect(response.error.status).toBe(500);
+        expect(response.error.text).toEqual(`{"error":{"message":"User already exists"}}`);
+    });
 });
 
 describe(`POST /user/followCrypto`, () => {

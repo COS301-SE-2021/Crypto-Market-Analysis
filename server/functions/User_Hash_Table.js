@@ -45,8 +45,13 @@ class User_Hash_Table {
         }
 
         if(key){
-            this.#users[key] = {};
-            return true;
+            if(!this.#users[key]){
+                this.#users[key] = {};
+                return true;
+            }
+            else
+                return Promise.reject(`User already exists`);
+
         }
         else
             return Promise.reject(`Parameter is not defined`);

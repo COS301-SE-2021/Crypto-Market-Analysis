@@ -354,8 +354,12 @@ class User_Hash_Table {
             this.#initialized = true;
         }
 
-        if(key)
-            return this.#users[key][`coin_id`];
+        if(key){
+            if(this.#users[key])
+                return this.#users[key][`coin_id`];
+            else
+                return Promise.reject(`User does not exist`);
+        }
     }
 
     async getCrypto(key){

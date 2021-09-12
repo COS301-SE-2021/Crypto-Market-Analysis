@@ -95,6 +95,32 @@ describe(`POST /user/unfollowCrypto`, () => {
     });
 });
 
+describe(`POST /user/getCoinIDs`, () => {
+    jest.setTimeout(100000);
+    test(`when parameters are correct`, async () => {
+        const response = await request(app).post(`/user/getCoinIDs`).send({email: `codexteam4@gmail.com`});
+        expect(response.status).toBe(200);
+        expect(response.body).toBeDefined();
+        expect(response.body).toEqual(expect.any(Array));
+    });
+    test(`when email is not valid`, async () => {
+        const response = await request(app).post(`/user/getCoinIDs`).send({email: `fake@notvalid.com`});
+        expect(response.error.status).toBe(500);
+        expect(response.error.text).toEqual(`{"error":{"message":"User does not exist"}}`);
+    });
+    test(`when parameters are missing`, async () => {
+        const body_data = [
+            {}
+        ]
+
+        for(const body of body_data){
+            const response = await request(app).post(`/user/getCoinIDs`).send(body);
+            expect(response.error.status).toBe(400);
+            expect(response.error.text).toEqual(`{"error":{"message":"Malformed request. Please check your parameters"}}`);
+        }
+    });
+});
+
 describe(`POST /user/getUserCrypto`, () => {
     jest.setTimeout(100000);
     test(`when parameters are correct`, async () => {

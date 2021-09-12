@@ -72,13 +72,13 @@ router.post("/unfollowCrypto", async (request, response, next)=>{
 });
 
 router.post("/getCoinIDs", async (request, response, next) => {
-    if(!request.body.email || !request.body.symbol || !request.body.coin_id){
+    if(!request.body.email){
         let error = new Error(`Malformed request. Please check your parameters`);
         error.status = 400;
         return next(error);
     }
     else{
-        await userFunctions.getCoinIds(request.body.email).then(data => {
+        await userFunctions.getCoinIDs(request.body.email).then(data => {
             return response.status(200).json(data);
         }).catch(err => {
             let error = new Error(err);

@@ -124,3 +124,24 @@ describe(`POST /twitter/unfollow`, () => {
         }
     });
 });
+
+describe(`POST /twitter/getTweetIDs`, () => {
+    test(`when parameters are correct`, async () => {
+        const response = await request(app).post(`/twitter/getTweetIDs`).send({email: `codexteam4@gmail.com`, crypto_name: `Bitcoin`});
+        expect(response.status).toBe(200);
+        expect(response.body.data).toBeDefined();
+    });
+    test(`when parameters are missing`, async () => {
+        const body_data = [
+            {crypto_name: "Bitcoin"},
+            {email: "test@test.com"},
+            {}
+        ]
+
+        for(const body of body_data){
+            const response = await request(app).post(`/twitter/getTweetIDs`).send(body);
+            expect(response.error.status).toBe(400);
+            expect(response.error.text).toEqual(`{"error":{"message":"Malformed request. Please check your parameters"}}`);
+        }
+    });
+});

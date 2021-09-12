@@ -20,19 +20,15 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Star, } from "@material-ui/icons";
 import { SocialIcon } from 'react-social-icons';
 import ClipLoader from "react-spinners/ClipLoader"
-import coinGecko from "../../components/apis/CoinGecko"
-
-
 
 const platformsList = [{name:"Twitter",id:"twitter"},
-    {name:"Reddit",id:"reddit"},
+    {nme:"Reddit",id:"reddit"},
     {name:"4Chan",id:null}
 ];
 
 const Profile = props =>
 {
 
-    let [marketData, setMarketData] = useState({});
     const history = useHistory()
     let[socs,setSoc] =useState([]);
     let [platforms, setPlatforms] = useState(platformsList)

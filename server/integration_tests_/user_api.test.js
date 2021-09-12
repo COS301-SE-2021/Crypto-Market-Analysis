@@ -13,6 +13,17 @@ describe(`POST /user/register`, () => {
         expect(response.error.status).toBe(500);
         expect(response.error.text).toEqual(`{"error":{"message":"User already exists"}}`);
     });
+    test(`when parameters are missing`, async () => {
+        const body_data = [
+            {}
+        ]
+
+        for(const body of body_data){
+            const response = await request(app).post(`/user/register`).send(body);
+            expect(response.error.status).toBe(400);
+            expect(response.error.text).toEqual(`{"error":{"message":"Malformed request. Please check your parameters"}}`);
+        }
+    });
 });
 
 describe(`POST /user/followCrypto`, () => {

@@ -10,7 +10,7 @@ const register = async email => {
 }
 
 const deleteUserAccount = async (email) => {
-    await firestore_db.deleteUser(email);
+    return await firestore_db.deleteUser(email);
 }
 
 const getNotification=async(email)=>{

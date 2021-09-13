@@ -31,7 +31,7 @@ export default function DetailedInfo(props) {
             .catch(err => {console.error(err);})
     },[])
     return(
-        <>
+        <React.Fragment>
         <Sidebar />
             <div className="md:ml-64" >
                 <div className="container" >
@@ -60,6 +60,6 @@ export default function DetailedInfo(props) {
                     </Tabs>
                 </div>
             </div>
-        </>
+        </React.Fragment>
       )
 }

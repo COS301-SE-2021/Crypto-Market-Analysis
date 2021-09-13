@@ -332,7 +332,7 @@ class Notifications extends React.Component {
 
     render() {
         return (
-            <>
+            <React.Fragment>
                 <SweetAlert show={this.state.clear} success title={"Successfully cleared all notifications"} onConfirm={()=>{
                     this.setState({clear: false});
                 }}></SweetAlert>
@@ -436,7 +436,7 @@ class Notifications extends React.Component {
                 {/*            </Card>*/}
                 {/*    </div>*/}
                 {/*</div>*/}
-            </>
+            </React.Fragment>
         );
     }
 }

@@ -8,7 +8,6 @@ const SentimentChart = ({data}) => {
     const chartRef = useRef();
     const [timeFormat, setTimeFormat] = useState("2m");
     const {detail} = data;
-    let chartInstance;
     Chartjs.defaults.global.events = ['click'];
 
     useEffect(async () => {
@@ -35,7 +34,7 @@ const SentimentChart = ({data}) => {
 
                                 if (chartRef && chartRef.current) {
 
-                                    chartInstance = new Chartjs(chartRef.current, {
+                                    let chartInstance = new Chartjs(chartRef.current, {
                                         type: 'line',
                                         data: {
                                             labels: l,

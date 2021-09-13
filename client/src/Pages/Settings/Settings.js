@@ -181,7 +181,7 @@ function QuickView()
     }
 
     return(
-        <>
+        <React.Fragment>
         <Sidebar/>
         <div className="container-fluid">
             <div className="row mt-10">
@@ -235,7 +235,7 @@ function QuickView()
                 </div>
             </div>
         </div>
-        </>
+        </React.Fragment>
     );
 }
 export default QuickView;

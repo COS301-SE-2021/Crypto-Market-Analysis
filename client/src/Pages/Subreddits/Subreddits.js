@@ -106,7 +106,7 @@ function Subreddits()
     }
 
     return(
-        <>
+        <React.Fragment>
 
             <div className="container-fluid">
                 <div className="row mt-10">
@@ -138,7 +138,7 @@ function Subreddits()
 
                 </div>
             </div>
-        </>
+        </React.Fragment>
     );
 }
 export default Subreddits;

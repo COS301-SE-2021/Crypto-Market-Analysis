@@ -168,10 +168,10 @@ export default function Overview({coin_name}) {
 
 
     return (
-        <>
+        <React.Fragment>
             {loading ?
-                <div className="mx-auto mt-16 text-center"><ClipLoader loading={loading} size={150}/></div> : <></>}
-            {coin.id ? <>
+                <div className="mx-auto mt-16 text-center"><ClipLoader loading={loading} size={150}/></div> : <React.Fragment></React.Fragment>}
+            {coin.id ? <React.Fragment>
                 <div className="container mt-16 mb-12">
                     <div className="row">
                         <div className="col-12">
@@ -244,7 +244,7 @@ export default function Overview({coin_name}) {
                             </AppBar>
                             {graphLoader ? <div className="mx-auto mt-16 text-center"><ClipLoader loading={graphLoader}
                                                                                                   size={150}/>
-                            </div> : <>
+                            </div> : <React.Fragment>
                                 {
 
                                     selectedTab === 0 &&
@@ -262,7 +262,7 @@ export default function Overview({coin_name}) {
                                     selectedTab === 2 &&
                                     <SentimentChart data={sentimentData}/>
                                 }
-                            </>}
+                            </React.Fragment>}
                         </div>
 
                         <div className="col-4 my-5">
@@ -321,8 +321,8 @@ export default function Overview({coin_name}) {
                             className="uppercase font-bold">Last updated at : </span> {new Date(coin.market_data.last_updated).toString()}
                     </div>
                 </div>
-            </> : <></>}
-        </>
+            </React.Fragment> : <React.Fragment></React.Fragment>}
+        </React.Fragment>
     )
 }
 Overview.defaultProps = {

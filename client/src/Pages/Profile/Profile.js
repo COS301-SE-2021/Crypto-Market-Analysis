@@ -261,21 +261,27 @@ const Profile = props =>
 
     }
 
-    const deleteAccount = () =>{
+    const deleteAccount = (email) =>{
         //use userReq object and call a delete endpoint
-        axios.post('/user/deleteUserAccount/',userReq)
-            .then(response =>{
-                console.log(response)
-                swal("User" + response.data + "deleted", {
-                    icon: "success",
-                    buttons: false,
-                    timer: 3000,
-                }).then(()=>{
-                    setRefresher(!refresher)
-                })
+        email = {email: localStorage.getItem("emailSession")}
+        if (email !=='undefined') {
+            axios.post('/user/deleteUserAccount/', email)
+                .then(response => {
+                    console.log(response)
+                    swal("User" + response.data + "deleted", {
+                        icon: "success",
+                        buttons: false,
+                        timer: 3000,
+                    })
 
-            })
-            .catch(err => {console.error(err);})
+                })
+                .catch(err => {
+                    console.error(err);
+                })
+        }
+        else {
+            console.log("sad");
+        }
         setShow(true)
     }
 
@@ -285,21 +291,22 @@ const Profile = props =>
     const OnContinue =()=>{
         setAccDelete(true)
         setAlertTitle("Account deleted")
-
         setShowSweetAlert(true)
+
+        //history.push("/login")
 
     }
 
 
     return(
 
-        <>
+        <React.Fragment>
             <ModalComp show={show} text={modalText} cancel={onCancel} continue={OnContinue} />
             <SweetAlert show={showSweetAlert} success title={alertTitle} onConfirm={()=>{
                 setShowSweetAlert(false)
                 if(accDelete)
                 {
-                    history.push("/")
+                    history.push("/login")
                     // localStorage.clear()
                 }
 
@@ -382,7 +389,7 @@ const Profile = props =>
                                             borderRadius: "5px",
                                             outline: "5px",
                                             width: "150%",
-                                        }} onClick={deleteAccount} startIcon={<DeleteIcon />}>
+                                        }} onClick={() => {deleteAccount(userReq)}} startIcon={<DeleteIcon />}>
 
                                             Delete Account
                                         </Button>
@@ -459,7 +466,7 @@ const Profile = props =>
                                             </Form>
 
                                         </div>
-                                        {loading ? <div className="ml-2 mt-2 text-center"><ClipLoader  loading={loading} size={15} /></div>:<></>}
+                                        {loading ? <div className="ml-2 mt-2 text-center"><ClipLoader  loading={loading} size={15} /></div>:<React.Fragment></React.Fragment>}
                                         <div id="followBtn">
                                             <span></span>
                                         </div>
@@ -516,7 +523,7 @@ const Profile = props =>
                     {/*}*/}
                 </div>
             </div>
-        </>
+        </React.Fragment>
     );
 }
 export default Profile;

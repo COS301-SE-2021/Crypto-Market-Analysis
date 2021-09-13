@@ -147,11 +147,11 @@ class Push extends React.Component {
     }
     render() {
         return (
-            <>
+            <React.Fragment>
                 <div className="d-inline">
                          {this.state.elements}
                 </div>
-            </>
+            </React.Fragment>
         );
     }
 }

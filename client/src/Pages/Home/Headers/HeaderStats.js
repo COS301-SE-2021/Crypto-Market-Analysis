@@ -147,13 +147,13 @@ export default function HeaderStats(props) {
   }
 
   return (
-    <>
+    <React.Fragment>
             <ModalComp show={show} cancel={onCancel} continue={OnContinue} />
             
             <div className="container" style={{width:'90%',margin:'auto'}}>
               <div className="row">
                 <div id="cards-col" className="col-12">
-                {loading ? <div className="mx-auto mt-8 text-center"><ClipLoader  loading={loading} size={150} /></div>:<></>}
+                {loading ? <div className="mx-auto mt-8 text-center"><ClipLoader  loading={loading} size={150} /></div>:<React.Fragment></React.Fragment>}
                 {cryptos && cryptos.length > 0 ? <Carousel cols={3} rows={2} gap={8} >
                    {cryptos.map((coin) => {
                       return (
@@ -175,11 +175,11 @@ export default function HeaderStats(props) {
                       )
                   })
                 }
-                </Carousel>:<></>
+                </Carousel>:<React.Fragment></React.Fragment>
                 }
                 </div>
               </div>
             </div>
-    </>
+    </React.Fragment>
   );
 }

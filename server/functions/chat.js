@@ -54,11 +54,41 @@ const postMessage = async (postId,owner,title,body,time,like,dislike,sentiment,r
 const postReact = async (owner, react, postId,room)=>{
     if(react === "like")
     {
+        let existing = await firestore_db.fetch("Users", owner,`likedposts`)
+        if(Array.isArray(existing)) {
+            if(existing.includes(postId))
+            {
+                return {status: 'already liked this post'};
+            }
+            existing.push(postId)
+            await firestore_db.save("Users", owner,"likedposts", existing);
+        }else{
+            let arr = [];
+            arr.push(existing)
+            arr.push(postId)
+            await firestore_db.save("Users", owner,"likedposts",arr);
+        }
+
         let num = await firestore_db.fetch(room, postId,"like")
         await firestore_db.save(room, postId,"like", ++num);
     }
     else if(react === "dislike")
     {
+        let existing = await firestore_db.fetch("Users", owner,`dislikedposts`)
+        if(Array.isArray(existing)) {
+            if(existing.includes(postId))
+            {
+                return {status: 'already disliked this post'};
+            }
+            existing.push(postId)
+            await firestore_db.save("Users", owner,"dislikedposts", existing);
+        }else{
+            let arr = [];
+            arr.push(existing)
+            arr.push(postId)
+            await firestore_db.save("Users", owner,"dislikedposts",arr);
+        }
+
         let num = await firestore_db.fetch(room, postId,"dislike")
         await firestore_db.save(room, postId,"dislike", ++num);
     }
@@ -102,5 +132,35 @@ const postReply = async (postId,owner,room,time,body)=>{
 
 }
 
-module.exports = { postMessage, getAllChats, postReact, totalPosts, postReply,returnPost, getPost}
+const getUserLikedPosts = async (email)=>{
+    let likereplies = await firestore_db.fetch("Users", email,`likedposts`);
+    let temp = [];
+    if(Array.isArray(likereplies))
+    {
+        for(let i of likereplies)
+            i && temp.push(i); // copy each non-empty value to the 'temp' array
+        likereplies = temp;
+        return {status: `Ok`, likedposts_array: likereplies};
+    }else{
+        return {status: `Ok` , message: "user doesnt like any posts"}
+    }
+}
+
+const getUserDislikedPosts = async (email)=>{
+
+    let dislikereplies = await firestore_db.fetch("Users", email,`dislikedposts`);
+    if(Array.isArray(dislikereplies))
+    {
+        let temp2 = [];
+        for(let i of dislikereplies)
+            i && temp2.push(i); // copy each non-empty value to the 'temp' array
+        dislikereplies = temp2;
+        return {status: `Ok`, dislikedposts_array: dislikereplies};
+    }else{
+        return {status: `Ok` , message: "user doesnt dislike any posts"}
+    }
+
+}
+
+module.exports = { postMessage, getAllChats, postReact, totalPosts, postReply,returnPost, getPost, getUserDislikedPosts,  getUserLikedPosts}
 

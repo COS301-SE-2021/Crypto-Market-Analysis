@@ -20,32 +20,36 @@ function Posts() {
 
 
 
-    let sentiment;
+    // let sentiment;
 
 
 
     //have to make it synchronous and await sentiment axios post
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault()
         console.log("Submit post")
 
         let sentimenttext = title.current.value + " " + body.current.value;
-        let sentreq = {
-            article: sentimenttext
+
+
+        const analysisOptions = {
+            method: 'POST',
+            url: 'http://localhost:8000/ArticleAnalytics',
+            data: {
+                article: sentimenttext,
+            }
         }
 
-        axios.post('https://analysis-services-api.herokuapp.com/ArticleAnalytics',sentreq)
-            .then(response => {
-                sentiment = response.data;
-            })
-            .catch(err => {console.error(err);})
-        setTimeout(()=>{
-        },10000)
+        // await axios.request(analysisOptions)
+        //     .then(res => {
+        //         console.log("++++++++++++++++++++++++++")
+        //         console.log(res);
+        //         console.log("++++++++++++++++++++++++++")
+        //
+        //     })
 
-        // console.log("+++++sentiment+++++++");
-        // console.log(sentiment);
-        // console.log("+++++sentiment+++++++");
-        sentiment = "positive";
+
+        let sentiment = "positive";
 
         let request = {
             sentiment: sentiment,
@@ -56,15 +60,17 @@ function Posts() {
             time: time
         };
 
-        axios.post('http://localhost:8080/chat/postMessage/',request)
+        axios.post('http://localhost:8080/chat/postMessage/', request)
             .then(response => {
                 console.log(response);
                 // history.push("/");
                 window.location.reload();
             })
-            .catch(err => {console.error(err);})
-        setTimeout(()=>{
-        },10000)
+            .catch(err => {
+                console.error(err);
+            })
+        setTimeout(() => {
+        }, 10000)
 
     }
 
@@ -232,7 +238,10 @@ function Posts() {
                                                                     className="text-blueGray-600 inline-block text-md font-bold"
                                                                 > <i className="fa fa-chevron-right fa-lg" aria-hidden="true"></i></Link>
                                                             </li>
-                                                            {/*<p>{post.sentiment}</p>*/}
+                                                            {/*<li>*/}
+                                                            {/*    <p>{post.sentiment}</p>*/}
+                                                            {/*</li>*/}
+
 
                                                         </ul>
                                                     </div>

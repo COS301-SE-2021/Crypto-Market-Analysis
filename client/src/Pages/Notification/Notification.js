@@ -13,6 +13,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import Push from "../Push/Push";
 import Checkbox from '@material-ui/core/Checkbox';
 import SweetAlert from 'sweetalert-react';
+import swal from 'sweetalert';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
@@ -186,7 +187,8 @@ class Notifications extends React.Component {
         }
 
         axios.post('/user/setNotificationObject/',emailReq)
-            .then(response => {
+            .then(() => {
+                
             })
         this.setState({_delete: true});
         this.setState({notificationObject: object});
@@ -206,9 +208,14 @@ class Notifications extends React.Component {
         }
 
         axios.post('/user/setNotificationObject/',emailReq)
-            .then(response => {
+            .then(() => {
+                swal("Successfully cleared all notifications", {
+                    icon: "success",
+                    buttons: false,
+                    timer: 3000,
+                  });
             })
-        this.setState({clear: true});
+        // this.setState({clear: true});
         this.setState({notificationObject: object});
         const objectdata= {};
         this.setState({elem: []});
@@ -326,13 +333,13 @@ class Notifications extends React.Component {
     render() {
         return (
             <>
-                <SweetAlert show={this.state.clear} success title={"Successfully cleared all notifications"} onConfirm={()=>{
+                {/* <SweetAlert show={this.state.clear} success title={"Successfully cleared all notifications"} onConfirm={()=>{
                     this.setState({clear: false});
-                }}></SweetAlert>
+                }}></SweetAlert> */}
 
-                <SweetAlert show={this.state._delete} success title={"Successfully deleted a message"} onConfirm={()=>{
+                {/* <SweetAlert show={this.state._delete} success title={"Successfully deleted a message"} onConfirm={()=>{
                     this.setState({_delete: false});
-                }}></SweetAlert>
+                }}></SweetAlert> */}
                 <Sidebar unread={this.state.unread}/>
 
             <div className="md:ml-64">

@@ -127,7 +127,7 @@ function Posts() {
         axios.post('http://localhost:8080/chat/postReact/',reqObj)
             .then(response => {
                 console.log(response);
-                window.reload();
+                history.push("/Posts");
             })
             .catch(err => {console.error(err);})
         setTimeout(()=>{

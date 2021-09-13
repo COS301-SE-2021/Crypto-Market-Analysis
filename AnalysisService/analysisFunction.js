@@ -180,7 +180,7 @@ const get_Doc_by_User_id =async(cryptocurrency)=>{
         let i=1;
        firestore_db.getUsers('Users').onSnapshot((documents) => {
             documents.forEach(async (doc) => {
-                if (doc.data().crypto_name.includes(cryptocurrency)) {
+                if (typeof doc.data().crypto_name !== "undefined" && doc.data().crypto_name.includes(cryptocurrency)) {
                     arrayofdocuments.push(doc.data());
                 }
                 if(i === documents._size )

@@ -9,8 +9,8 @@ const emailObject = require('nodemailer');
 const csrf = require('csurf');
 const {check, validationResult} = require('express-validator');
 
-const csrfProtection = csrf();
-router.use(csrfProtection);
+// const csrfProtection = csrf();
+// router.use(csrfProtection);
 
 /** This function adds a social media site to the users account
  * @param {object} request A request object with the email and symbol.

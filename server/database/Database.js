@@ -51,6 +51,28 @@ class Database {
         if(email !== 'undefined')
             return this.#db.collection('Users').doc(email).get();
     }
+    async deleteUser(email){
+        if(email !== 'undefined')
+        {
+             admin.auth().getUserByEmail(email)
+                .then( (useRecord) => {
+
+                    const uid = useRecord.uid;
+                    return admin.auth().deleteUser(uid)
+                })
+                .then( () => {
+                    console.log("Success")
+                })
+                .catch( error => {
+                    console.log("fetching user data", error);
+                })
+            this.#db.collection('Users').doc(email).delete();
+            return true;
+        }
+         return false;
+
+    }
+
     async fetchPushNotification(email){
         try{
             return this.#db.collection('Subscribers').doc(email).get();

@@ -8,11 +8,13 @@ const Push_notification=require('./notification/push_notification')
 const emailObject = require('nodemailer');
 const csrf = require('csurf');
 const {check, validationResult} = require('express-validator');
+const cookieParser = require('cookie-parser')
 
-const csrfProtection = csrf();
-router.use(csrfProtection);
+//const csrfProtection = csrf({cookie: true});
+//router.use(csrfProtection);
+//router.use(cookieParser());
 
-router.post("/register", async (request, response, next)=>{
+router.post("/register" , async (request, response, next)=>{
 
     if(!request.body.email){
         let error = new Error(`Malformed request. Please check your parameters`);
@@ -22,6 +24,7 @@ router.post("/register", async (request, response, next)=>{
     else{
         await userFunctions.register(request.body.email).then(data=>{
             return response.status(200).json(data);
+
         }).catch(err => {
             let error = new Error(err);
             error.status = 500;
@@ -101,6 +104,23 @@ router.post("/getUserCryptos", async (request, response, next) => {
     }
     else {
         userFunctions.getUserCrypto(request.body.email).then(data=>{
+            return response.status(200).json(data);
+        }).catch(err=>{
+            let error = new Error(err);
+            error.status = 500;
+            return next(error);
+        })
+    }
+});
+
+router.post("/deleteUserAccount", async( request, response, next) => {
+    if(!request.body.email){
+        let error = new Error(`Malformed request. Please check your parameters`);
+        error.status = 400;
+        return next(error);
+    }
+    else {
+        userFunctions.deleteUserAccount(request.body.email).then(data=>{
             return response.status(200).json(data);
         }).catch(err=>{
             let error = new Error(err);

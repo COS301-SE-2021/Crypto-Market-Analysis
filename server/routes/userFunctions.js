@@ -9,6 +9,10 @@ const register = async email => {
     return await user_object.insertUser(email);
 }
 
+const deleteUserAccount = async (email) => {
+    await firestore_db.deleteUser(email);
+}
+
 const getNotification=async(email)=>{
     const fields = await firestore_db.fetchNotification(email).then(data=>{
         return data;
@@ -92,6 +96,7 @@ const getRedditPost = async (email)=>{
         return Promise.reject(new Error(err));
     }
 }
+
 const getUserCrypto = async (email_address)=>{
     try{
         return await user_object.getCryptoName(email_address);
@@ -188,5 +193,5 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
 
-module.exports = {getCoinPredictions,getAnalysis,getPush,setPush,setNotification,saveToDB,getNotification,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, register, getCoinIDs}
+module.exports = {getCoinPredictions, deleteUserAccount,getAnalysis,getPush,setPush,setNotification,saveToDB,getNotification,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, register, getCoinIDs}
 

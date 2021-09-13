@@ -156,7 +156,7 @@ const Profile = props =>
 
 
     }
-    const unFollowUser = ()=>{
+    const unFollowUser = () =>{
 
         let user = {email: localStorage.getItem("emailSession"), screen_name: searchRef.current.value }
 
@@ -263,6 +263,19 @@ const Profile = props =>
 
     const deleteAccount = () =>{
         //use userReq object and call a delete endpoint
+        axios.post('/user/deleteUserAccount/',userReq)
+            .then(response =>{
+                console.log(response)
+                swal("User" + response.data + "deleted", {
+                    icon: "success",
+                    buttons: false,
+                    timer: 3000,
+                }).then(()=>{
+                    setRefresher(!refresher)
+                })
+
+            })
+            .catch(err => {console.error(err);})
         setShow(true)
     }
 
@@ -272,6 +285,7 @@ const Profile = props =>
     const OnContinue =()=>{
         setAccDelete(true)
         setAlertTitle("Account deleted")
+
         setShowSweetAlert(true)
 
     }

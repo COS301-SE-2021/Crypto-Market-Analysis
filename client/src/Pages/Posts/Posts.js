@@ -53,7 +53,7 @@ function Posts() {
 
         let request = {
             sentiment: sentiment,
-            owner: "bhekindhlovu7@gmail.com",
+            owner: localStorage.getItem("emailSession"),
             room: "Altcoins",
             title: title.current.value,
             body: body.current.value,
@@ -74,13 +74,16 @@ function Posts() {
 
     }
 
-    //must get room from prop but its default for now
-    //must get email from session
+
+
     useEffect( () => {
         let  Req = {
-            owner: "bhekindhlovu7@gmail.com",
+            owner: localStorage.getItem("emailSession"),
             room: "Altcoins"
         }
+
+        // getUserDislikedPost
+        // getUserLikedPosts
 
         axios.post('http://localhost:8080/chat/getAllChats/',Req)
             .then(response => {
@@ -89,13 +92,9 @@ function Posts() {
                 let posts_ = [];
                 for(let j = 0; j<response.data.posts_array.length; j++)
                 {
-
                         posts_.push(response.data.posts_array[j])
-
-
                 }
-                console.log(posts_)
-
+                //console.log(posts_)
                 setposts(posts_);
             })
             .catch(err => {console.error(err);})
@@ -125,11 +124,12 @@ function Posts() {
                 room : "Altcoins"
             }
         }
-        // axios.post('http://localhost:8080/chat/postReact/',reqObj)
-        //     .then(response => {
-        //         console.log(response);
-        //     })
-        //     .catch(err => {console.error(err);})
+        axios.post('http://localhost:8080/chat/postReact/',reqObj)
+            .then(response => {
+                console.log(response);
+                window.reload();
+            })
+            .catch(err => {console.error(err);})
         setTimeout(()=>{
         },10000)
 

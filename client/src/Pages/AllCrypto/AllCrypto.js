@@ -17,6 +17,7 @@ export default function AllCryptos(props)
     const [searchCrypto, setSearchCrypto] = useState("");
     const [show, setShow] = useState(false)
     let [loading, setLoading] = useState(true);
+    let [refresh,setRefresh] = useState(false)
     const history = useHistory()
    
 
@@ -60,16 +61,20 @@ export default function AllCryptos(props)
         axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=250&page=1&sparkline=false')
         .then(async (response_data) => {
             
-            await response_data.data.map((coin)=>{
+            return await Promise.all( response_data.data.map((coin)=>{
                 
             coinsList.forEach(element => {
                     if(element === coin.name){
+                       
                         coin.selected = true;
                     }
                 })
+            })).then(()=>{
+               
+                setCryptos(response_data.data)
+                setLoading(false)
             })
-            setCryptos(response_data.data)
-            setLoading(false)
+            
         
         })
         .catch(err => {
@@ -135,6 +140,7 @@ export default function AllCryptos(props)
                                     buttons: false,
                                     timer: 3000,
                                   });
+                                  setRefresh(!refresh)
                             })
                             .catch(err => {console.error(err);})
                             
@@ -151,6 +157,7 @@ export default function AllCryptos(props)
                                     buttons: false,
                                     timer: 3000,
                                   });
+                                  setRefresh(!refresh)
                             })
                                 .catch(err => {console.error(JSON.stringify(err));})
 
@@ -176,9 +183,7 @@ export default function AllCryptos(props)
 
         return crypto.name.toLowerCase().includes(searchCrypto.toLowerCase()) ||  crypto.symbol.toLowerCase().includes(searchCrypto.toLowerCase())
     })
-    const func = ()=>{
-        console.log("FUCN")
-    }
+  
     return(
         <>       
         <ModalComp show={show} cancel={onCancel} continue={OnContinue} />
@@ -200,7 +205,6 @@ export default function AllCryptos(props)
 
                                         <div className='coin-row'>
                                                 <div className='coin'>
-                                                   
                                                     {myCrypto.selected?<Star className="select-star" style={{ color: "#03989e" }} onClick={()=>{select(myCrypto.symbol,"cryptos")}}/>:<Star className="select-star" color="action" onClick={()=>{select(myCrypto.symbol, "cryptos")}}/>}
                                                     <img src={myCrypto.image} alt='crypto' />
                                                     <h1>{myCrypto.name}</h1>

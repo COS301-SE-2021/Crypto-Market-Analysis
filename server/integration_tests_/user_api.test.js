@@ -29,29 +29,30 @@ describe(`POST /user/register`, () => {
 describe(`POST /user/followCrypto`, () => {
     jest.setTimeout(100000);
     test(`when parameters are correct`, async () => {
-        const response = await request(app).post(`/user/followCrypto`).send({email: `codexteam4@gmail.com`, crypto_name: `Dogecoin`, symbol: `doge`});
+        const response = await request(app).post(`/user/followCrypto`).send({email: `codexteam4@gmail.com`, crypto_name: `Bitcoin`, symbol: `btc`, coin_id: `btc`});
         expect(response.status).toBe(200);
         expect(response.body).toBeDefined();
         expect(response.body).toBeTruthy();
     });
     test(`when email is not valid`, async () => {
-        const response = await request(app).post(`/user/followCrypto`).send({email: `fake@notvalid.com`, crypto_name: `Ethereum`, symbol: `eth`});
+        const response = await request(app).post(`/user/followCrypto`).send({email: `fake@notvalid.com`, crypto_name: `Ethereum`, symbol: `eth`, coin_id: `eth`});
         expect(response.error.status).toBe(500);
         expect(response.error.text).toEqual(`{"error":{"message":"Invalid email entered"}}`);
     });
     test(`when crypto already exists`, async () => {
-        const response = await request(app).post(`/user/followCrypto`).send({email: `codexteam4@gmail.com`, crypto_name: `Bitcoin`, symbol: `btc`});
+        const response = await request(app).post(`/user/followCrypto`).send({email: `codexteam4@gmail.com`, crypto_name: `Bitcoin`, symbol: `btc`, coin_id: `btc`});
         expect(response.error.status).toBe(500);
         expect(response.error.text).toEqual(`{"error":{"message":"You are already following this crypto"}}`);
     });
     test(`when parameters are missing`, async () => {
         const body_data = [
-            {email: "test@test.com", crypto_name: "Ethereum"},
-            {email: "test@test.com", symbol: `eth`},
-            {crypto_name: `Ethereum`, symbol: `eth`},
-            {email: "test@test.com"},
-            {crypto_name: `Ethereum`},
-            {symbol: `eth`},
+            {email: "test@test.com", crypto_name: "Ethereum", coin_id: `eth`},
+            {email: "test@test.com", symbol: `eth`, coin_id: `eth`},
+            {crypto_name: `Ethereum`, symbol: `eth`, coin_id: `eth`},
+            {email: "test@test.com", crypto_name: "Ethereum", symbol: `eth`},
+            {email: "test@test.com", coin_id: `eth`},
+            {crypto_name: `Ethereum`, coin_id: `eth`},
+            {symbol: `eth`, coin_id: `eth`},
             {}
         ]
 
@@ -65,25 +66,29 @@ describe(`POST /user/followCrypto`, () => {
 
 describe(`POST /user/unfollowCrypto`, () => {
     test(`when parameters are correct`, async () => {
-        const response = await request(app).post(`/user/unfollowCrypto`).send({email: `codexteam4@gmail.com`, symbol: `eth`});
+        const response = await request(app).post(`/user/unfollowCrypto`).send({email: `codexteam4@gmail.com`, symbol: `btc`, coin_id: `btc`});
         expect(response.status).toBe(200);
         expect(response.body).toBeDefined();
         expect(response.body).toBeTruthy();
     });
     test(`when email is not valid`, async () => {
-        const response = await request(app).post(`/user/unfollowCrypto`).send({email: `fake@notvalid.com`, symbol: `eth`});
+        const response = await request(app).post(`/user/unfollowCrypto`).send({email: `fake@notvalid.com`, symbol: `eth`, coin_id: `btc`});
         expect(response.error.status).toBe(500);
         expect(response.error.text).toEqual(`{"error":{"message":"Invalid email entered"}}`);
     });
     test(`when symbol is not valid`, async () => {
-        const response = await request(app).post(`/user/unfollowCrypto`).send({email: `codexteam4@gmail.com`, symbol: `adst`});
+        const response = await request(app).post(`/user/unfollowCrypto`).send({email: `codexteam4@gmail.com`, symbol: `adst`, coin_id: `adst`});
         expect(response.error.status).toBe(500);
         expect(response.error.text).toEqual(`{"error":{"message":"User is not following the selected crypto"}}`);
     });
     test(`when parameters are missing`, async () => {
         const body_data = [
-            {symbol: "eth"},
-            {email: "test@test.com"},
+            {symbol: `eth`, coin_id: `eth`},
+            {email: `test@test.com`, symbol: `eth`},
+            {email: `test@test.com`, coin_id: `eth`},
+            {email: `test@test.com`},
+            {symbol: `eth`},
+            {coin_id: `eth`},
             {}
         ]
 
@@ -293,6 +298,8 @@ describe(`POST /user/getNotificationObject`, () => {
         }
     });
 });
+
+
 
 
 

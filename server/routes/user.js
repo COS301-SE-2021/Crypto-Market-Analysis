@@ -33,6 +33,25 @@ router.post("/register" , async (request, response, next)=>{
     }
 });
 
+router.post("/delete" , async (request, response, next)=>{
+
+    if(!request.body.email){
+        let error = new Error(`Malformed request. Please check your parameters`);
+        error.status = 400;
+        return next(error);
+    }
+    else{
+        await userFunctions.delete(request.body.email).then(data=>{
+            return response.status(200).json(data);
+        }).catch(err => {
+            let error = new Error(err);
+            error.status = 500;
+            return next(error);
+        });
+    }
+});
+
+
 /** This function adds a social media site to the users account
  * @param {object} request A request object with the email and symbol.
  * @param {object} response A response object which will return the status code.

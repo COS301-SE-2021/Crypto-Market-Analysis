@@ -168,5 +168,16 @@ const getUserDislikedPosts = async (email)=>{
 
 }
 
-module.exports = { postMessage, getAllChats, postReact, totalPosts, postReply,returnPost, getPost, getUserDislikedPosts,  getUserLikedPosts}
+const deletePost = async (postId, email)=>{
+    try{
+        await firestore_db.removePost(postId)
+    }
+    catch(err){
+        return {status: `Ok` , message: "post deletion fail"}
+        return Promise.reject(new Error(err));
+    }
+    return {status: `Ok` , message: "post deleted successfully deleted"}
+}
+
+module.exports = { deletePost, postMessage, getAllChats, postReact, totalPosts, postReply,returnPost, getPost, getUserDislikedPosts,  getUserLikedPosts}
 

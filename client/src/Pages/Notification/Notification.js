@@ -192,7 +192,7 @@ class Notifications extends React.Component {
 
         }
 
-        axios.post('/user/setNotificationObject/',emailReq)
+        axios.post('http://localhost:8080/user/setNotificationObject/',emailReq)
             .then(response => {
             })
         this.setState({_delete: true});
@@ -212,7 +212,7 @@ class Notifications extends React.Component {
 
         }
 
-        axios.post('/user/setNotificationObject/',emailReq)
+        axios.post('http://localhost:8080/user/setNotificationObject/',emailReq)
             .then(response => {
             })
         this.setState({clear: true});
@@ -233,7 +233,7 @@ class Notifications extends React.Component {
 
         }
 
-        axios.post('/user/setNotificationObject/',ObjectReq)
+        axios.post('http://localhost:8080/user/setNotificationObject/',ObjectReq)
             .then(response => {
             })
 
@@ -320,7 +320,7 @@ class Notifications extends React.Component {
             email: localStorage.getItem("emailSession")
         }
 
-        axios.post('/user/getNotificationObject/',emailReq)
+        axios.post('http://localhost:8080/user/getNotificationObject/',emailReq)
             .then(response => {
 
                 this.generateData(response.data)

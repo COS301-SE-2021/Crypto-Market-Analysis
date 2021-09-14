@@ -9,7 +9,7 @@ import {AppBar, Tab, Tabs} from "@material-ui/core";
 import ClipLoader from "react-spinners/ClipLoader"
 import SentimentChart from "../SentimentChart/SentimentChart"
 
-export default function Overview({coin_name}) {
+export default function Overview({coin_name,coin_id}) {
     let [coin, setCoin] = useState({});
     let [coinData, setCoinData] = useState({});
     let [marketData, setMarketData] = useState({});
@@ -43,7 +43,7 @@ export default function Overview({coin_name}) {
         }, 30000)
 
         coin_name = coin_name.toLowerCase();
-        axios.get('https://api.coingecko.com/api/v3/coins/' + coin_name)
+        axios.get('https://api.coingecko.com/api/v3/coins/' + coin_id)
             .then(async (response) => {
                 setCoin(response.data)
                 setLoading(false)

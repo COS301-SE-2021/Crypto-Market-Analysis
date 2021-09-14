@@ -30,7 +30,7 @@ function QuickView()
         /*
         Request to get cryptocurrencies followed by the user
         */
-          axios.post('/user/getUserCryptos/',userReq)
+          axios.post('http://localhost:8080/user/getUserCryptos/',userReq)
               .then(async(response) =>{
                 /*
                     Set default cryptos if data is not set else
@@ -72,7 +72,7 @@ function QuickView()
         /*
         Request to get social media platforms followed by the user
         */
-            axios.post('/user/fetchUserSocialMedia/',userReq)
+            axios.post('http://localhost:8080/user/fetchUserSocialMedia/',userReq)
               .then(async(response) =>{
                  /*
                     Set default platform if data is not set else
@@ -133,7 +133,7 @@ function QuickView()
                             symbol: crypto.symbol,
                             crypto_name: crypto.name,
                         }
-                        axios.post('/user/followCrypto/',cryptoToAdd)
+                        axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd)
                             .then(response => console.log(response))
                             .catch(err => {console.error(err);})
                     }
@@ -143,7 +143,7 @@ function QuickView()
                               symbol: crypto.symbol,
                               crypto_name: crypto.name,
                           }
-                          axios.post('/user/followCrypto/',cryptoToRemove)
+                          axios.post('http://localhost:8080/user/followCrypto/',cryptoToRemove)
                               .then(response => console.log(response))
                               .catch(err => {console.error(err);})
                     }
@@ -166,7 +166,7 @@ function QuickView()
                         email: localStorage.getItem("emailSession"),
                         social_media_sites: platform.name
                     }
-                    axios.post('/user/followSocialMedia/',cryptoToAdd)
+                    axios.post('http://localhost:8080/user/followSocialMedia/',cryptoToAdd)
                         .then(response => console.log(response))
                         .catch(err => {console.error(err);})
                 }

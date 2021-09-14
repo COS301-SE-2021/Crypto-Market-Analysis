@@ -57,7 +57,7 @@ const Profile = props =>
     }
     useEffect(async () => {
 
-        axios.post('/user/getUserCryptos/',userReq)
+        axios.post('http://localhost:8080/user/getUserCryptos/',userReq)
             .then( response => {
                 let soc = [];
                 for(const crypto of response.data)
@@ -67,7 +67,7 @@ const Profile = props =>
             })
             .catch(err => {console.error(err);})
 
-        axios.post('/user/fetchUserSocialMedia/',userReq)
+        axios.post('http://localhost:8080/user/fetchUserSocialMedia/',userReq)
             .then(response => {
                 console.log(response)
                 let socialName = [];
@@ -222,7 +222,7 @@ const Profile = props =>
                 if(platform.selected) {
 
 
-                    axios.post('/user/followSocialMedia/',platformObj)
+                    axios.post('http://localhost:8080/user/followSocialMedia/',platformObj)
                         .then(response =>{
                             console.log(response)
                             swal("Social media added", {
@@ -239,7 +239,7 @@ const Profile = props =>
                 else{
 
 
-                    axios.post('/user/unfollowSocialMedia/',platformObj)
+                    axios.post('http://localhost:8080/user/unfollowSocialMedia/',platformObj)
                         .then(response =>{
                             console.log(response)
                             swal("Social media removed", {
@@ -265,7 +265,7 @@ const Profile = props =>
         //use userReq object and call a delete endpoint
         email = {email: localStorage.getItem("emailSession")}
         if (email !=='undefined') {
-            axios.post('/user/deleteUserAccount/', email)
+            axios.post('http://localhost:8080/user/deleteUserAccount/', email)
                 .then(response => {
                     console.log(response)
                     swal("User" + response.data + "deleted", {

@@ -25,7 +25,7 @@ function Subreddits()
         /*
         Request to get subreddits followed by the user
         */
-        axios.post('/user/getUserSubreddits/',userReq)
+        axios.post('http://localhost:8080/user/getUserSubreddits/',userReq)
             .then(async(response) =>{
                 /*
                    Set default platform if data is not set else
@@ -93,7 +93,7 @@ function Subreddits()
                         email: localStorage.getItem("emailSession"),
                         social_media_sites: platform.name
                     }
-                    axios.post('/user/followSubreddit/',cryptoToAdd)
+                    axios.post('http://localhost:8080/user/followSubreddit/',cryptoToAdd)
                         .then(response => console.log(response))
                         .catch(err => {console.error(err);})
                 }

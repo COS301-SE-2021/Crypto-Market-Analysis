@@ -30,7 +30,7 @@ export default function HeaderStats(props) {
       /*
       The post request get cryptocurrencies and social media platforms the user follows
       */
-      axios.post('/user/getUserCryptos/', requestObj)
+      axios.post('http://localhost:8080/user/getUserCryptos/', requestObj)
       .then(async(response) => {
 
         await response.data.map((coin)=>{
@@ -159,7 +159,7 @@ export default function HeaderStats(props) {
                       return (
                         <Carousel.Item key={coin.id}>
                           <div className="w-full lg:w-12/12 xl:w-12/12 px-4 mt-5">
-                              <Link to={{pathname:"/home/DetailedInfo", state:{coin_name:coin.name, coin_symbol:coin.symbol}}} onClick={()=>{changeLocation(coin.name, coin.symbol)}}>
+                              <Link to={{pathname:"/home/DetailedInfo", state:{coin_name:coin.name, coin_symbol:coin.symbol, coin_id:coin.id}}} onClick={()=>{changeLocation(coin.name, coin.symbol)}}>
                                   <CardStats
                                       statSubtitle={coin.name}
                                       statTitle={coin.current_price}

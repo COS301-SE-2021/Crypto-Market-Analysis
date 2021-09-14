@@ -20,7 +20,7 @@ export default function AllCryptos(props)
     const history = useHistory()
 
 
-    useEffect(async () => {
+    useEffect( () => {
         let selectedCryptos = []
 
         let  userReq = {
@@ -57,13 +57,16 @@ export default function AllCryptos(props)
         follows and mark it as selected
     */
     function getCoins(coinsList){
+        console.log("GETCOINS")
         axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=250&page=1&sparkline=false')
             .then(async (response_data) => {
 
                 await response_data.data.map((coin)=>{
 
                     coinsList.forEach(element => {
+                        
                         if(element === coin.name){
+                            console.log("MATCh")
                             coin.selected = true;
                         }
                     })
@@ -127,7 +130,7 @@ export default function AllCryptos(props)
                             email: localStorage.getItem("emailSession"),
                             symbol: crypto.symbol,
                             crypto_name: crypto.name,
-                            coin_id: crypto.coin_id,
+                            coin_id: crypto.id,
                         }
 
                         axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd).then(()=>{
@@ -144,6 +147,7 @@ export default function AllCryptos(props)
                         let  cryptoToRemove = {
                             email: localStorage.getItem("emailSession"),
                             symbol: crypto.symbol,
+                            coin_id: crypto.id,
                         }
 
                         axios.post('http://localhost:8080/user/unfollowCrypto/',cryptoToRemove).then(()=>{

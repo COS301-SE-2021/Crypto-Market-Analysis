@@ -14,6 +14,7 @@ import axios from "axios";
 export default function DetailedInfo(props) {
     const coin_name = props.location.state.coin_name;
     const coin_symbol = props.location.state.coin_symbol;
+    const coin_id = props.location.state.coin_id;
     let[socials, setSocials] = useState([]);
     useEffect(async () => {
         let  userReq = {
@@ -37,7 +38,7 @@ export default function DetailedInfo(props) {
                 <div className="container" >
                     <Tabs defaultActiveKey="Overview" transition={false}>
                         <Tab eventKey="Overview" title="Overview">
-                            <Overview coin_name={coin_name}/>
+                            <Overview coin_name={coin_name} coin_id={coin_id}/>
                         </Tab>
                         {socials.includes("Twitter")?
                             <Tab eventKey="Twitter" title="Twitter">

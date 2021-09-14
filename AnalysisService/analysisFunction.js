@@ -86,6 +86,35 @@ const saveOld = async(SocialMedia , cryptocurrency)=>{
         })
     });
 }
+const saveAverageChange = async(SocialMedia , cryptocurrency)=>{
+    return  new Promise(function (resolve, reject) {
+        (async () => {
+            await firestore_db.getUsers(SocialMedia).onSnapshot((documents) => {
+                documents.forEach((doc) => {
+                    let averages={};
+                    let myObj={};
+                    let date = String(new Date());
+                    if (typeof doc.id !== "undefined" && doc.id === cryptocurrency) {
+                        if (typeof doc.data().AverageChange !== "undefined") {
+                            myObj =doc.data().AverageChange;
+
+                        }
+                        if(typeof doc.data().Average !=="undefined"  ) {
+
+                            averages[date] = {"Average": doc.data().Average, 'Time': date};
+                            let objectAverage = Object.assign({}, myObj, averages);
+                            const averagesChanges = {
+                                AverageChange: objectAverage
+                            }
+                            firestore_db.saveData(SocialMedia, cryptocurrency, averagesChanges)
+                        }
+                    }
+                })
+                resolve('Finished saving averages');
+            });
+        })()
+    })
+}
 const saveToDB = async (axis,arr, socialmedia , crypto)=> {
     let mini=Math.min.apply(Math, arr)
     let maxi = Math.max.apply(Math, arr)
@@ -212,5 +241,5 @@ const analyseArticle =async(Article)=>{
         })
     })
 }
-module.exports = {get_Doc_by_User_id,get_Doc_id,analyseArticle,splits,convertion,analysewords,spellingc,saveToDB,sentimentAnalysis}
+module.exports = {saveAverageChange,get_Doc_by_User_id,get_Doc_id,analyseArticle,splits,convertion,analysewords,spellingc,saveToDB,sentimentAnalysis}
 

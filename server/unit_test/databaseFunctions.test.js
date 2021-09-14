@@ -9,6 +9,17 @@ mockFirebase({
             { id: 'mojohnnylerato@gmail.com', crypto: ['eth','ada','usdt'] },
         ],
         Twitter: [{ id: 'Bitcoin', Analysis_score: [0,3,4,5,6,1,2,3] }],
+        Users: [
+            {
+                id: 'testdb@gmail.com',
+                Twitter: {
+                    Bitcoin: [
+                        { Average: 12, Min: 0, Max: 4, AnalysisArr:[1,2,3,4,5] },
+                        { post: 'this is a tweet about bitcoin' },
+                    ],
+                },
+            },
+        ],
     },
 });
 const { mockCollection, mockDoc } = require('firestore-jest-mock/mocks/firestore');
@@ -64,3 +75,11 @@ test('testing delete', () => {
 
     });
 });
+test('testing save', () => {
+        firestore_db.save('Users','codexemail@gmail.com','Crypto_Name',{},false);
+        expect(mockCollection).toHaveBeenCalledWith('Users');
+        expect(mockDoc).toHaveBeenCalledWith('codexemail@gmail.com');
+
+});
+
+

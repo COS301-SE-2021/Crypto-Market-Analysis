@@ -26,7 +26,7 @@ let port = process.env.PORT || 3443
 
  app.listen(port, () => console.log('Secure server running on port '+port));
 
-cron.schedule('*/1 * * * *', async () => {
+cron.schedule('*/59 * * * *', async () => {
     console.log('analysing every hour')
     const cryptos =await analysis.get_Doc_id('Twitter');
     for(let crypto of cryptos)

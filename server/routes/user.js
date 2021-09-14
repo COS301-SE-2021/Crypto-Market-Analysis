@@ -251,20 +251,16 @@ router.post("/storePush", async (request,response)=>{
      await userFunctions.setPush(request.body.email,request.body.object).then(data=>{
          return response.status(200).json("subs stored");
      })
-
-
 });
 
 router.post("/GETPush", async (request,response)=>{
     await userFunctions.getPush(request.body.email).then(data=>{
         return response.status(200).json(data);
     })
-
-
 });
 
 router.post("/fetchAnalysis", async (request, response) => {
-    if(request.body.socialmedia === null || request.body.crypto===null ) {
+    if(!request.body.socialmedia || !request.body.crypto) {
         return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
     }
     else{
@@ -289,22 +285,22 @@ router.post("/subscribe", async (req, res) => {
 });
 
 router.post("/sendMail", async (req, res) => {
-    const sender =await emailObject.createTransport({
+    const sender = await emailObject.createTransport({
         service: 'gmail',
         auth: {
-            user: process.env.EMAIL_USERNAME || 'codexteam4@gmail.com',
-            pass: process.env.EMAIL_PASSWORD || 'PNeux9E^peM6s:z;'
+            user: process.env.EMAIL_USERNAME,
+            pass: process.env.EMAIL_PASSWORD
         }
     });
     const receiver = {
         from: 'CryptoMarketAnalysis@sites.co.za',//'codexteam4@gmail.com',
         to: req.body.email,
         subject: 'Subscribed!',
-        text: "You have subscribed to receive push notification and Email",
+        text: "You have subscribed to receive push notifications!",
         html: "<body style=\" background-color: black;text-align: center;color: white;font-family: Arial, Helvetica, sans-serif; \">\n" +
             "\n" +
             "<h1>Subscription</h1>\n" +
-            "<p>You have subscribed to receive push notification Alert</p>\n" +
+            "<p>You have subscribed to receive email alerts!</p>\n" +
             "<p></p>\n" +
             "<img src=\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiMQS1-LtJdXdKYhcC1WJ9pQjE9SOksrUc7IynK7z1ybmLsRx6Rmj4OIvRxtyYXj5PSGU&usqp=CAU\" alt=\"Avatar\" style=\"width:200px\">\n" +
             "\n" +

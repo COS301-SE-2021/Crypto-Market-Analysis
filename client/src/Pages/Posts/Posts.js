@@ -11,6 +11,8 @@ import Carousel from "react-grid-carousel"
 function Posts() {
     const [show,setShow] = useState(false)
     let [posts,setposts] = useState([]);
+    let [likedPosts,setLikedPosts] = useState([]);
+    let [dislikedPosts,setDislikedPosts] = useState([]);
 
     const history = useHistory()
     const title = useRef();
@@ -77,14 +79,29 @@ function Posts() {
 
 
     useEffect( () => {
+        let liked = []
+        let disliked = []
         let  Req = {
             owner: localStorage.getItem("emailSession"),
             room: "Altcoins"
         }
 
-        // getUserDislikedPost
-        // getUserLikedPosts
-
+        let  ReqObj = {
+            email: localStorage.getItem("emailSession")
+        }
+        axios.post('http://localhost:8080/chat/getUserLikedPosts/',ReqObj)
+        .then(response => {
+            liked = response.data.likedposts_array
+            setLikedPosts(response.data.likedposts_array)
+           
+        })
+        axios.post('http://localhost:8080/chat/getUserDislikedPosts/',ReqObj)
+        .then(response => {
+            
+            disliked = response.data.dislikedposts_array
+            setDislikedPosts(response.data.dislikedposts_array)
+        })
+        
         axios.post('http://localhost:8080/chat/getAllChats/',Req)
             .then(response => {
 
@@ -94,7 +111,24 @@ function Posts() {
                 {
                         posts_.push(response.data.posts_array[j])
                 }
-                //console.log(posts_)
+               
+                posts_.forEach(element => {
+                    liked.forEach(likedPost=>{
+                        if(likedPost === element.postId){
+                            
+                            element.liked = true;
+                        }
+                    })
+
+                    disliked.forEach(dislikedPost=>{
+                        if(dislikedPost === element.postId){
+                            
+                            element.disliked = true;
+                        }
+                    })
+                   
+                })
+                console.log(posts_)
                 setposts(posts_);
             })
             .catch(err => {console.error(err);})
@@ -134,6 +168,7 @@ function Posts() {
         },10000)
 
     }
+    
 
     return(
 
@@ -200,32 +235,35 @@ function Posts() {
                                     {/* <div className="row"> */}
                                         {/* <div className="col-md-4"> */}
                                             <div className="media g-mb-30 media-comment w-full lg:w-12/12 xl:w-12/12">
-                                                    <div className="media-body u-shadow-v18 g-bg-secondary g-pa-30">
+                                                 
+                                                    <div className="media-body u-shadow-v18 g-bg-secondary g-pa-30 pt-0">
+                                                       
                                                         <div className="g-mb-15">
                                                             <h5 className="h5 g-color-gray-dark-v1 mb-0 whitespace-nowrap">{post.title}</h5>
                                                             <span className="g-color-gray-dark-v4 g-font-size-12">{post.time}</span>
                                                         </div>
                                                         <hr/>
 
-                                                        <p>{post.body.length > 35 ? post.body.substring(0,34) + "..." : post.body }</p>
+                                                        <p>{post.body.length > 25 ? post.body.substring(0,24) + "..." : post.body }</p>
                                                         <hr/>
 
                                                         <ul className="list-inline d-sm-flex my-0">
                                                             <li className="list-inline-item g-mr-20 mr-3">
-                                                                {/* <a className="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
-                                                                href="#!" > */}
-                                                                    <i className="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3 mr-1" onClick={function(event){reactPost("like",post.postId)}}></i>
-                                                                  
-                                                                    {post.like}
-                                                                {/* </a> */}
+                                                               
+                                                                {post.liked ? <i className="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3 mr-1" style={{color:"#03989e"}} onClick={function(event){reactPost("like",post.postId)}}></i>:
+                                                                            <i className="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3 mr-1" onClick={function(event){reactPost("like",post.postId)}}></i>
+                                                                } 
+                                                                {post.like}
+                                                              
                                                             </li>
                                                             <li className="list-inline-item g-mr-20">
-                                                                <a className="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
-                                                                href="#!" onClick={function(){reactPost("dislike",post.postId)}}>
-                                                                    <i className="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3 mr-1 mt-1"></i>
+                                                                
+                                                                {post.disliked ? <i className="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3 mr-1 mt-1" style={{color:"#03989e"}} onClick={function(){reactPost("dislike",post.postId)}}></i>:
+                                                                    <i className="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3 mr-1 mt-1" onClick={function(){reactPost("dislike",post.postId)}}></i>
+                                                                }
                                                                    
-                                                                    {post.dislike}
-                                                                </a>
+                                                                {post.dislike}
+                                                               
                                                             </li>
                                                             
                                                             <li className="list-inline-item ml-auto">

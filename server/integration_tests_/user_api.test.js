@@ -302,12 +302,12 @@ describe(`POST /user/getNotificationObject`, () => {
 describe(`POST /user/sendMail`, () => {
     test(`when parameters are correct`, async () => {
         const response = await request(app).post(`/user/sendMail`).send({email: `codexteam4@gmail.com`});
-        expect(response.status).toBe(201);
+        expect(response.status).toBe(200);
     });
-    test(`when email already exists`, async () => {
-        const response = await request(app).post(`/user/register`).send({email: `codexteam4@gmail.com`});
-        expect(response.error.status).toBe(500);
-        expect(response.error.text).toEqual(`{"error":{"message":"User already exists"}}`);
+    test(`when email is incorrect`, async () => {
+        const response = await request(app).post(`/user/sendMail`).send({email: `fake@not.com`});
+        console.log(response);
+        expect(response.error.status).toBe(200);
     });
     test(`when parameters are missing`, async () => {
         const body_data = [
@@ -315,7 +315,7 @@ describe(`POST /user/sendMail`, () => {
         ]
 
         for(const body of body_data){
-            const response = await request(app).post(`/user/register`).send(body);
+            const response = await request(app).post(`/user/sendMail`).send(body);
             expect(response.error.status).toBe(400);
             expect(response.error.text).toEqual(`{"error":{"message":"Malformed request. Please check your parameters"}}`);
         }

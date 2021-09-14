@@ -168,7 +168,9 @@ function Posts() {
         },10000)
 
     }
-    
+    function removePost(postid){
+        console.log("REMOVE POST BUTTON CLICKED - " + postid)
+    }
 
     return(
 
@@ -237,7 +239,9 @@ function Posts() {
                                             <div className="media g-mb-30 media-comment w-full lg:w-12/12 xl:w-12/12">
                                                  
                                                     <div className="media-body u-shadow-v18 g-bg-secondary g-pa-30 pt-0">
-                                                       
+                                                        <button type="button" onClick={()=>{removePost(post.postId)}} className="ml-2 close" >
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
                                                         <div className="g-mb-15">
                                                             <h5 className="h5 g-color-gray-dark-v1 mb-0 whitespace-nowrap">{post.title}</h5>
                                                             <span className="g-color-gray-dark-v4 g-font-size-12">{post.time}</span>

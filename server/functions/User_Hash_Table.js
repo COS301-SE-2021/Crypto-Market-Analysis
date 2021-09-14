@@ -130,7 +130,7 @@ class User_Hash_Table {
                         try{
                             //Add the social media site to the array of social media and add it to the database
                             social_media_sites_array.push(social_media);
-                            firestore_db.save(`Users`, key, `social_media_sites`, social_media, true);
+                            await firestore_db.save(`Users`, key, `social_media_sites`, social_media, true);
                             return Promise.resolve(true);
                         }
                         catch (error){

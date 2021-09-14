@@ -170,7 +170,7 @@ describe(`POST /user/followSocialMedia`, () => {
         expect(response.error.text).toEqual(`{"error":{"message":"Invalid site entered"}}`);
     });
     test(`when social media site already exists`, async () => {
-        const response = await request(app).post(`/user/followSocialMedia`).send({email: `codexteam4@gmail.com`, social_media_sites: `Twitter`});
+        const response = await request(app).post(`/user/followSocialMedia`).send({email: `codexteam4@gmail.com`, social_media_sites: `Reddit`});
         expect(response.error.status).toBe(500);
         expect(response.error.text).toEqual(`{"error":{"message":"You are already following this site"}}`);
     });
@@ -191,13 +191,13 @@ describe(`POST /user/followSocialMedia`, () => {
 
 describe(`POST /user/unfollowSocialMedia`, () => {
     test(`when parameters are correct`, async () => {
-        const response = await request(app).post(`/user/unfollowSocialMedia`).send({email: `codexteam4@gmail.com`, social_media_sites: `Twitter`});
+        const response = await request(app).post(`/user/unfollowSocialMedia`).send({email: `codexteam4@gmail.com`, social_media_sites: `Reddit`});
         expect(response.status).toBe(200);
         expect(response.body).toBeDefined();
         expect(response.body).toBeTruthy();
     });
     test(`when email is not valid`, async () => {
-        const response = await request(app).post(`/user/unfollowSocialMedia`).send({email: `fake@notvalid.com`, social_media_sites: `Twitter`});
+        const response = await request(app).post(`/user/unfollowSocialMedia`).send({email: `fake@notvalid.com`, social_media_sites: `Reddit`});
         expect(response.error.status).toBe(500);
         expect(response.error.text).toEqual(`{"error":{"message":"Invalid email entered"}}`);
     });

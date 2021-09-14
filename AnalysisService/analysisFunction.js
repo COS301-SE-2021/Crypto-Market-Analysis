@@ -116,7 +116,6 @@ const saveAverageChange = async(SocialMedia , cryptocurrency)=>{
         })()
     })
 }
-saveAverageChange('Twitter','XRP').then(data=>console.log(data));
 const saveToDB = async (axis,arr, socialmedia , crypto)=> {
     let mini=Math.min.apply(Math, arr)
     let maxi = Math.max.apply(Math, arr)

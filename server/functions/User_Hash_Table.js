@@ -123,7 +123,7 @@ class User_Hash_Table {
                     //If the screen name array doesn't exist create it
                     if(!social_media_sites_array) {
                         this.#users[key][`social_media_sites`] = [];
-                        social_media_sites_array = this.#users[key].social_media_site;
+                        social_media_sites_array = this.#users[key].social_media_sites;
                     }
                     //Check if the social media already exists in the array. If it doesn't add it
                     if(social_media_sites_array.indexOf(social_media) === -1) {

@@ -39,15 +39,16 @@ export default function AllCryptos(props)
                     await response.data.map((coin)=>{
                         selectedCryptos.push(coin)
                     })
-
+                    getCoins(selectedCryptos)
                 })
                 .catch(err => {console.error(err);})
         }
         else{
 
             selectedCryptos = coins
+            getCoins(selectedCryptos)
         }
-        getCoins(selectedCryptos)
+        
 
 
     },[props.logged]);
@@ -57,7 +58,7 @@ export default function AllCryptos(props)
         follows and mark it as selected
     */
     function getCoins(coinsList){
-        console.log("GETCOINS")
+       
         axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=250&page=1&sparkline=false')
             .then(async (response_data) => {
 
@@ -66,7 +67,7 @@ export default function AllCryptos(props)
                     coinsList.forEach(element => {
                         
                         if(element === coin.name){
-                            console.log("MATCh")
+                          
                             coin.selected = true;
                         }
                     })

@@ -25,8 +25,8 @@ let port = process.env.PORT || 3443
  http.createServer(app);
 
  app.listen(port, () => console.log('Secure server running on port '+port));
-
 cron.schedule('*/59 * * * *', async () => {
+
     console.log('analysing every hour')
     const cryptos =await analysis.get_Doc_id('Twitter');
     for(let crypto of cryptos)
@@ -39,18 +39,18 @@ cron.schedule('*/59 * * * *', async () => {
         }).catch(err=>{return err});
 
     }
-    // for(let crypto of cryptos)
-    // {
-    //     let data = await average.Analyse_Average('Twitter',crypto ).then(async(dt)=>{
-    //         let msgType = new notificationType(dt,crypto );
-    //                         const nothing= crypto  + ' average sentiment did not change!';
-    //                         let results = msgType.Results();
-    //                         if(results !==nothing ){
-    //                             await notification.followers(crypto,results);
-    //                         }
-    //     }).catch(err=>{return err})
-    //
-    // }
+    for(let crypto of cryptos)
+    {
+        let data = await average.Analyse_Average('Twitter',crypto ).then(async(dt)=>{
+            let msgType = new notificationType(dt,crypto );
+                            const nothing= crypto  + ' average sentiment did not change!';
+                            let results = msgType.Results();
+                            if(results !==nothing ){
+                                await notification.followers(crypto,results);
+                            }
+        }).catch(err=>{return err})
+
+    }
     console.log('Messaging done!')
 
 

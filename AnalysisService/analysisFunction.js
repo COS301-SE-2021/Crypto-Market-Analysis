@@ -107,6 +107,7 @@ const saveAverageChange = async(SocialMedia , cryptocurrency)=>{
                                 AverageChange: objectAverage
                             }
                             firestore_db.saveData(SocialMedia, cryptocurrency, averagesChanges)
+                            resolve('saved successful!');
                         }
                     }
                 })
@@ -115,6 +116,7 @@ const saveAverageChange = async(SocialMedia , cryptocurrency)=>{
         })()
     })
 }
+saveAverageChange('Twitter','XRP').then(data=>console.log(data));
 const saveToDB = async (axis,arr, socialmedia , crypto)=> {
     let mini=Math.min.apply(Math, arr)
     let maxi = Math.max.apply(Math, arr)

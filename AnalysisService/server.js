@@ -27,14 +27,15 @@ let port = process.env.PORT || 3443
  app.listen(port, () => console.log('Secure server running on port '+port));
 
 cron.schedule('*/59 * * * *', async () => {
-    // console.log('analysing every hour')
-    // const cryptos =await analysis.get_Doc_id('Twitter');
-    // for(let crypto of cryptos)
-    // {
-    //     let data = await  analysis.sentimentAnalysis(crypto,'Twitter').then(data=>{
-    //           }).catch(err=>{return err})
-    //
-    // }
+    console.log('analysing every hour')
+    const cryptos =await analysis.get_Doc_id('Twitter');
+    for(let crypto of cryptos)
+    {
+        let data = await  analysis.sentimentAnalysis(crypto,'Twitter').then(data=>{
+              }).catch(err=>{return err})
+        let changeEveryHour = await analysis.saveAverageChange('Twitter',crypto);
+
+    }
     // for(let crypto of cryptos)
     // {
     //     let data = await average.Analyse_Average('Twitter',crypto ).then(async(dt)=>{
@@ -47,7 +48,7 @@ cron.schedule('*/59 * * * *', async () => {
     //     }).catch(err=>{return err})
     //
     // }
-    // console.log('Messaging done!')
+    console.log('Messaging done!')
 
 
 });

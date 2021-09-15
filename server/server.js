@@ -15,35 +15,36 @@ http.createServer(app).listen(app.get(`port`), app.get(`host`), () => {
 
 
 
-
 cron.schedule('*/10 * * * *', () => {
     twitter.getAllNamesTimeline().then()
 
     let network = new NeuralNetwork();
-network.allCoins().then(coins => {
+    network.allCoins().then(coins => {
 
-    coins.unshift("ioe")
-    console.log(coins);
-    getPostsSync(coins).then(r => {});
-});
+        coins.unshift("ioe")
+        console.log(coins);
+        getPostsSync(coins).then(r => {});
+    });
 
-const getPostsSync = async (allCoins) => {
-    for (const coin of allCoins) {
-        try{
-            await network.train(coin)
-        }catch (e) {
-            console.log(e)
+    const getPostsSync = async (allCoins) => {
+        for (const coin of allCoins) {
+            try{
+                await network.train(coin)
+            }catch (e) {
+                console.log(e)
+            }
         }
-    }
-};
+    };
 
-//     let reddits = new Reddit();
-//     reddits.scrapeSubreddit("CryptoCurrencies").then();
-//     reddits.scrapeSubreddit("SatoshiStreetBets").then();
-//     reddits.scrapeSubreddit("Crypto_Currency_News").then();
-//     reddits.scrapeSubreddit("CryptoCurrencyTrading").then();
-//     reddits.scrapeSubreddit("Cryptomarkets").then();
-//     reddits.scrapeSubreddit2("Bitcoin").then();
-//     reddits.scrapeSubreddit2("Ethereum").then();
+
+
+    let reddits = new Reddit();
+    reddits.scrapeSubreddit("CryptoCurrencies").then();
+    reddits.scrapeSubreddit("SatoshiStreetBets").then();
+    reddits.scrapeSubreddit("Crypto_Currency_News").then();
+    reddits.scrapeSubreddit("CryptoCurrencyTrading").then();
+    reddits.scrapeSubreddit("Cryptomarkets").then();
+    reddits.scrapeSubreddit2("Bitcoin").then();
+    reddits.scrapeSubreddit2("Ethereum").then();
 });
 

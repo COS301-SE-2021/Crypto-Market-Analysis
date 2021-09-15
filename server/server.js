@@ -9,15 +9,16 @@ app.set(`host`, process.env.HOST || `127.0.0.1`);
 http.createServer(app).listen(app.get(`port`), app.get(`host`), () => {
     console.log(`Express app listening on ${app.get(`host`)}:${app.get(`port`)}`);
 });
+
 cron.schedule('*/10 * * * *', () => {
     twitter.getAllNamesTimeline().then()
-//     let reddits = new Reddit();
-//     reddits.scrapeSubreddit("CryptoCurrencies").then();
-//     reddits.scrapeSubreddit("SatoshiStreetBets").then();
-//     reddits.scrapeSubreddit("Crypto_Currency_News").then();
-//     reddits.scrapeSubreddit("CryptoCurrencyTrading").then();
-//     reddits.scrapeSubreddit("Cryptomarkets").then();
-//     reddits.scrapeSubreddit2("Bitcoin").then();
-//     reddits.scrapeSubreddit2("Ethereum").then();
+    let reddits = new Reddit();
+    reddits.completeScrape("CryptoCurrencies").then();
+    reddits.completeScrape("SatoshiStreetBets").then();
+    reddits.completeScrape("Crypto_Currency_News").then();
+    reddits.completeScrape("CryptoCurrencyTrading").then();
+    reddits.completeScrape("Cryptomarkets").then();
+    reddits.completeScrape("Bitcoin").then();
+    reddits.completeScrape("Ethereum").then();
 });
 

@@ -19,8 +19,9 @@ export default function Signup() {
             setLoading(true)
             await login(emailRef.current.value, passwordRef.current.value)
             localStorage.setItem('emailSession',emailRef.current.value);
-            history.push("/home")
-        } catch {
+            history.push("/")
+        } catch(err)
+        {
             setError("Failed to login!")
         }
 
@@ -28,6 +29,7 @@ export default function Signup() {
     }
 
     return (
+        <React.Fragment>
         <div className="content-cover">
             <div className="row" >
                 <div className="col-md-12 mx-auto p-0" >
@@ -72,5 +74,6 @@ export default function Signup() {
                 
             </div>
         </div>
+            </React.Fragment>
     )
 }

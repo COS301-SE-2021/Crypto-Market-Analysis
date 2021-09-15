@@ -21,7 +21,7 @@ import {BrowserRouter as Router , Switch} from "react-router-dom";
 import { AuthProvider } from "./Auth/Auth"
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
-import { useEffect } from 'react';
+import React,{ useEffect } from 'react';
 import Predictions from "./Pages/Predictions/Predictions";
 
 function App() {
@@ -45,7 +45,6 @@ function App() {
     },[])
 
   return (
-      <Router>
           <AuthProvider>
            <Switch>
                  <section className="header">
@@ -69,8 +68,6 @@ function App() {
                  </section>
            </Switch>
           </AuthProvider>
-      </Router>
-
   );
 }
 

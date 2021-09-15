@@ -3,6 +3,7 @@ import { Form, Button, Alert } from "react-bootstrap"
 import { useAuth } from "../../Auth/Auth"
 import { Link, useHistory } from "react-router-dom"
 import { db } from '../../firebase'
+import axios from "axios";
 export default function Signup() {
     const emailRef = useRef()
     const passwordRef = useRef()
@@ -16,7 +17,7 @@ export default function Signup() {
         e.preventDefault()
 
         if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-            return setError("Password Not the same!")
+            return setError("Passwords do not match!")
         }
 
         try {
@@ -25,8 +26,10 @@ export default function Signup() {
             await signup(emailRef.current.value, passwordRef.current.value);
             const docRef = await db.collection(`Users`).doc(emailRef.current.value);
             docRef.set({user_id: emailRef.current.value});
-            localStorage.setItem('emailSession',emailRef.current.value);
-            history.push("/home")
+            axios.post(`http://localhost:8080/user/register`, {email: emailRef.current.value}).then(() => {
+                localStorage.setItem('emailSession',emailRef.current.value);
+                history.push("/home")
+            })
         } catch(error) {
             console.error(`An error occurred while trying to register the user: ${error}`);
             setError("Email address already exists. Please enter a different email and try again!");

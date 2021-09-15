@@ -12,23 +12,23 @@ http.createServer(app).listen(app.get(`port`), app.get(`host`), () => {
 });
 
 
-// let network = new NeuralNetwork();
-// network.allCoins().then(coins => {
-//
-//     coins.unshift("ioe")
-//     console.log(coins);
-//     getPostsSync(coins).then(r => {});
-// });
-//
-// const getPostsSync = async (allCoins) => {
-//     for (const coin of allCoins) {
-//         try{
-//             await network.train(coin)
-//         }catch (e) {
-//             console.log(e)
-//         }
-//     }
-// };
+let network = new NeuralNetwork();
+network.allCoins().then(coins => {
+
+    coins.unshift("ioe")
+    console.log(coins);
+    getPostsSync(coins).then(r => {});
+});
+
+const getPostsSync = async (allCoins) => {
+    for (const coin of allCoins) {
+        try{
+            await network.train(coin)
+        }catch (e) {
+            console.log(e)
+        }
+    }
+};
 
 
 

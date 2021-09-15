@@ -1,4 +1,13 @@
-for(let j=-3; j<0; j++)
+const sentiment = require('wink-sentiment');
+let response = sentiment("love");
+if(response.score<0)
 {
-    console.log(j+"")
+    sent = "negative";
 }
+else if(response.score>0)
+{
+    sent = "positive";
+}else{
+    sent = "neutral";
+}
+    console.log("wink sentiment is " + sent);

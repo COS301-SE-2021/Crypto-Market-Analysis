@@ -34,11 +34,11 @@ function Posts() {
         let sentimenttext = title.current.value + " " + body.current.value;
 
 
-        let sentonj = {
-                article: sentimenttext
-        }
-
-        let sentiment = "positive"
+        // let sentonj = {
+        //         article: sentimenttext
+        // }
+        //
+        // let sentiment = "positive"
         //to sloow must move to server
 
        // await axios.post('https://analysis-services-api.herokuapp.com/ArticleAnalytics', sentonj)
@@ -59,7 +59,7 @@ function Posts() {
 
 
         let request = {
-            sentiment: sentiment,
+            sentiment: sentimenttext,
             owner: localStorage.getItem("emailSession"),
             room: "Altcoins",
             title: title.current.value,
@@ -290,6 +290,11 @@ function Posts() {
                                                                
                                                             </li>
                                                             
+
+                                                            <li className="ml-5">
+                                                                <p>{post.sentiment}</p>
+                                                            </li>
+
                                                             <li className="list-inline-item ml-auto">
                                                                 <Link
                                                                     to={{
@@ -300,10 +305,6 @@ function Posts() {
                                                                     className="text-blueGray-600 inline-block text-md font-bold"
                                                                 > <i className="fa fa-chevron-right fa-lg" aria-hidden="true"></i></Link>
                                                             </li>
-                                                            {/*<li>*/}
-                                                            {/*    <p>{post.sentiment}</p>*/}
-                                                            {/*</li>*/}
-
 
                                                         </ul>
                                                     </div>

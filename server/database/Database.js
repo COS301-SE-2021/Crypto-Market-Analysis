@@ -1,6 +1,7 @@
 const admin = require('firebase-admin');
 const serviceAccount = require('./firebase.js');
 
+
 /** Initializes the database*/
 const initialize = () => {
     admin.initializeApp({
@@ -63,7 +64,14 @@ class Database {
             sentiment:  post.sentiment
         });
     }
-
+    async removePost(postId)
+    {
+        this.#db.collection("Altcoins").doc(postId).delete().then(() => {
+           // console.log("Document successfully deleted!");
+        }).catch((error) => {
+            console.error("Error removing document: ", error);
+        });
+    }
     async fetchPushNotification(email){
         try{
             return this.#db.collection('Subscribers').doc(email).get();
@@ -153,6 +161,8 @@ class Database {
             }
         }
     }
+
+
 
     async delete(collectionPath, documentPath, field, fieldData){
         //Delete a specific value from a field. Only works when the field is an array or object

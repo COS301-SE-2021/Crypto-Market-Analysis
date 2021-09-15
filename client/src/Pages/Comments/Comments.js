@@ -2,15 +2,16 @@ import {Link, useLocation} from "react-router-dom";
 import Posts from "../Posts/Posts";
 import axios from "axios";
 import React, {useEffect, useRef, useState} from "react";
-import {Button, Card, Form} from "react-bootstrap";
+import {Button, Card, Form, Modal} from "react-bootstrap";
 import Sidebar from "../../components/Sidebar/Sidebar";
 
 function Comments() {
+    const [show,setShow] = useState(false)
     let [posts,setposts] = useState([]);
     let [post,setpost] = useState([]);
     let data = useLocation();
     let postId = data.state.postId;
-    let email = "bhekindhlovu7@gmail";
+    let email = localStorage.getItem("emailSession");
     const body = useRef();
 
     let obj ={
@@ -113,12 +114,44 @@ function Comments() {
                                     {/*<p>{post.sentiment}</p>*/}
 
                                 </ul>
+                                <button type="button" onClick={()=>{setShow(true)}} className="ml-2 close" >
+                                    <span className="mr-0 whitespace-nowrap text-lg uppercase font-bold px-0" aria-hidden="true">Reply</span>
+                                </button>
                             </div>
                         </div>
 
                     </div>
                 </div>
-            
+                <Modal show={show} >
+            <Modal.Header>
+                <span className="uppercase font-bold ">Reply</span>
+                <i className="fas fa-times cursor-pointer text-blueGray-700" onClick={()=>{setShow(false)}}></i>
+            </Modal.Header>
+            <Modal.Body >
+                    <Form onSubmit={handleSubmit}>
+
+                        <Form.Group id="body">
+                            <div style={{width:"70%",margin:"auto"}}>
+                                <Form.Label>Reply</Form.Label>
+                            </div>
+                            <Form.Control
+                                as="textarea" 
+                                rows={3}
+                                ref={body}
+                                required
+                                style={{width:"70%",margin:"auto"}}
+                            />
+                        </Form.Group>
+
+                        <Form.Group className="text-center">
+                            <Button style={{width:"70%",margin:"auto"}} type="submit">
+                                <Link to="/Comments" style={{color:"white"}}>Post reply</Link>
+                            </Button>
+                        </Form.Group>
+                       
+                    </Form>
+            </Modal.Body>
+        </Modal>
             {/* <Card>
                 <Card.Body>
                     <h2 className="text-center mb-4">Create Form</h2>

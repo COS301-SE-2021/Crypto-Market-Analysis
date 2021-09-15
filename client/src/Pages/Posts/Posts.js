@@ -11,6 +11,8 @@ import Carousel from "react-grid-carousel"
 function Posts() {
     const [show,setShow] = useState(false)
     let [posts,setposts] = useState([]);
+    let [likedPosts,setLikedPosts] = useState([]);
+    let [dislikedPosts,setDislikedPosts] = useState([]);
 
     const history = useHistory()
     const title = useRef();
@@ -18,64 +20,89 @@ function Posts() {
     const replybody = useRef();
     const time = new Date().toLocaleString();
 
+    const user = localStorage.getItem("emailSession");
 
-
-    let sentiment;
+    // let sentiment;
 
 
 
     //have to make it synchronous and await sentiment axios post
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault()
         console.log("Submit post")
 
         let sentimenttext = title.current.value + " " + body.current.value;
-        let sentreq = {
-            article: sentimenttext
+
+
+        const analysisOptions = {
+            method: 'POST',
+            url: 'http://localhost:8000/ArticleAnalytics',
+            data: {
+                article: sentimenttext,
+            }
         }
 
-        axios.post('https://analysis-services-api.herokuapp.com/ArticleAnalytics',sentreq)
-            .then(response => {
-                sentiment = response.data;
-            })
-            .catch(err => {console.error(err);})
-        setTimeout(()=>{
-        },10000)
+        // await axios.request(analysisOptions)
+        //     .then(res => {
+        //         console.log("++++++++++++++++++++++++++")
+        //         console.log(res);
+        //         console.log("++++++++++++++++++++++++++")
+        //
+        //     })
 
-        // console.log("+++++sentiment+++++++");
-        // console.log(sentiment);
-        // console.log("+++++sentiment+++++++");
-        sentiment = "positive";
+
+        let sentiment = "positive";
 
         let request = {
             sentiment: sentiment,
-            owner: "bhekindhlovu7@gmail.com",
+            owner: localStorage.getItem("emailSession"),
             room: "Altcoins",
             title: title.current.value,
             body: body.current.value,
             time: time
         };
 
-        axios.post('http://localhost:8080/chat/postMessage/',request)
+        axios.post('http://localhost:8080/chat/postMessage/', request)
             .then(response => {
                 console.log(response);
                 // history.push("/");
                 window.location.reload();
             })
-            .catch(err => {console.error(err);})
-        setTimeout(()=>{
-        },10000)
+            .catch(err => {
+                console.error(err);
+            })
+        setTimeout(() => {
+        }, 10000)
 
     }
 
-    //must get room from prop but its default for now
-    //must get email from session
+
+
     useEffect( () => {
+        let liked = []
+        let disliked = []
         let  Req = {
-            owner: "bhekindhlovu7@gmail.com",
+            owner: localStorage.getItem("emailSession"),
             room: "Altcoins"
         }
 
+        let  ReqObj = {
+            email: localStorage.getItem("emailSession")
+        }
+        axios.post('http://localhost:8080/chat/getUserLikedPosts/',ReqObj)
+        .then(response => {
+            liked = response.data.likedposts_array
+            setLikedPosts(response.data.likedposts_array)
+           
+        })
+        axios.post('http://localhost:8080/chat/getUserDislikedPosts/',ReqObj)
+        .then(response => {
+                disliked = response.data.dislikedposts_array
+                setDislikedPosts(response.data.dislikedposts_array)
+
+
+        })
+        
         axios.post('http://localhost:8080/chat/getAllChats/',Req)
             .then(response => {
 
@@ -83,13 +110,26 @@ function Posts() {
                 let posts_ = [];
                 for(let j = 0; j<response.data.posts_array.length; j++)
                 {
-
                         posts_.push(response.data.posts_array[j])
-
-
                 }
-                console.log(posts_)
+               
+                posts_.forEach(element => {
+                    liked.forEach(likedPost=>{
+                        if(likedPost === element.postId){
+                            
+                            element.liked = true;
+                        }
+                    })
 
+                    disliked.forEach(dislikedPost=>{
+                        if(dislikedPost === element.postId){
+                            
+                            element.disliked = true;
+                        }
+                    })
+                   
+                })
+                console.log(posts_)
                 setposts(posts_);
             })
             .catch(err => {console.error(err);})
@@ -119,14 +159,30 @@ function Posts() {
                 room : "Altcoins"
             }
         }
-        // axios.post('http://localhost:8080/chat/postReact/',reqObj)
-        //     .then(response => {
-        //         console.log(response);
-        //     })
-        //     .catch(err => {console.error(err);})
+        axios.post('http://localhost:8080/chat/postReact/',reqObj)
+            .then(response => {
+                console.log(response);
+                window.location.reload();
+            })
+            .catch(err => {console.error(err);})
         setTimeout(()=>{
         },10000)
 
+    }
+    function removePost(postid){
+        console.log("REMOVE POST BUTTON CLICKED - " + postid)
+        let reqObj = {
+            email: user,
+            postId : postid
+        }
+        axios.post('http://localhost:8080/chat/deletePost/',reqObj)
+            .then(response => {
+                console.log(response);
+                window.location.reload();
+            })
+            .catch(err => {console.error(err);})
+        setTimeout(()=>{
+        },10000)
     }
 
     return(
@@ -194,32 +250,37 @@ function Posts() {
                                     {/* <div className="row"> */}
                                         {/* <div className="col-md-4"> */}
                                             <div className="media g-mb-30 media-comment w-full lg:w-12/12 xl:w-12/12">
-                                                    <div className="media-body u-shadow-v18 g-bg-secondary g-pa-30">
+                                                 
+                                                    <div className="media-body u-shadow-v18 g-bg-secondary g-pa-30 pt-0">
+                                                        <button type="button" onClick={()=>{removePost(post.postId)}} className="ml-2 close" >
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
                                                         <div className="g-mb-15">
                                                             <h5 className="h5 g-color-gray-dark-v1 mb-0 whitespace-nowrap">{post.title}</h5>
                                                             <span className="g-color-gray-dark-v4 g-font-size-12">{post.time}</span>
                                                         </div>
                                                         <hr/>
 
-                                                        <p>{post.body.length > 35 ? post.body.substring(0,34) + "..." : post.body }</p>
+                                                        <p>{post.body.length > 25 ? post.body.substring(0,24) + "..." : post.body }</p>
                                                         <hr/>
 
                                                         <ul className="list-inline d-sm-flex my-0">
                                                             <li className="list-inline-item g-mr-20 mr-3">
-                                                                {/* <a className="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
-                                                                href="#!" > */}
-                                                                    <i className="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3 mr-1" onClick={function(event){reactPost("like",post.postId)}}></i>
-                                                                  
-                                                                    {post.like}
-                                                                {/* </a> */}
+                                                               
+                                                                {post.liked ? <i className="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3 mr-1" style={{color:"#03989e"}} onClick={function(event){reactPost("like",post.postId)}}></i>:
+                                                                            <i className="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3 mr-1" onClick={function(event){reactPost("like",post.postId)}}></i>
+                                                                } 
+                                                                {post.like}
+                                                              
                                                             </li>
                                                             <li className="list-inline-item g-mr-20">
-                                                                <a className="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"
-                                                                href="#!" onClick={function(){reactPost("dislike",post.postId)}}>
-                                                                    <i className="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3 mr-1 mt-1"></i>
+                                                                
+                                                                {post.disliked ? <i className="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3 mr-1 mt-1" style={{color:"#03989e"}} onClick={function(){reactPost("dislike",post.postId)}}></i>:
+                                                                    <i className="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3 mr-1 mt-1" onClick={function(){reactPost("dislike",post.postId)}}></i>
+                                                                }
                                                                    
-                                                                    {post.dislike}
-                                                                </a>
+                                                                {post.dislike}
+                                                               
                                                             </li>
                                                             
                                                             <li className="list-inline-item ml-auto">
@@ -232,7 +293,10 @@ function Posts() {
                                                                     className="text-blueGray-600 inline-block text-md font-bold"
                                                                 > <i className="fa fa-chevron-right fa-lg" aria-hidden="true"></i></Link>
                                                             </li>
-                                                            {/*<p>{post.sentiment}</p>*/}
+                                                            {/*<li>*/}
+                                                            {/*    <p>{post.sentiment}</p>*/}
+                                                            {/*</li>*/}
+
 
                                                         </ul>
                                                     </div>

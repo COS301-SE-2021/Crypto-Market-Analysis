@@ -60,7 +60,8 @@
     "tweet-scraper": "^1.0.1",
     "twit": "^2.2.11",
     "uniqid": "^5.4.0",
-    "web-push": "^3.4.5"
+    "web-push": "^3.4.5",
+    "wink-sentiment": "^5.0.2"
   },
   "devDependencies": {
     "apos-to-lex-form": "^1.0.5",

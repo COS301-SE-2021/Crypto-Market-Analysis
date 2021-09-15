@@ -1,6 +1,6 @@
 const Database = require('../database/Database');
 const firestore_db = new Database().getInstance();
-
+const sentiment = require('wink-sentiment');
 
 const returnPost = async (email, postId)=>{
     let replies = await firestore_db.fetch("Altcoins", postId,`replies`);
@@ -30,7 +30,21 @@ const getAllChats = async (room, owner)=>{
     }
 }
 
-const postMessage = async (postId,owner,title,body,time,like,dislike,sentiment,room)=> {
+const postMessage = async (postId,owner,title,body,time,like,dislike,sentiments,room)=> {
+    let response = sentiment(sentiments);
+    let sent
+    if(response.score<0)
+    {
+        sent = "negative";
+    }
+    else if(response.score>0)
+    {
+        sent = "positive";
+    }else{
+        sent = "neutral";
+    }
+    console.log("wink sentiment is " + sent);
+
     try{
 
         await firestore_db.save(room, postId,`postId` , postId);
@@ -40,7 +54,7 @@ const postMessage = async (postId,owner,title,body,time,like,dislike,sentiment,r
         await firestore_db.save(room, postId, `time`, time);
         await firestore_db.save(room, postId, `like`, like);
         await firestore_db.save(room, postId, `dislike`, dislike);
-        await firestore_db.save(room, postId, `sentiment`, sentiment);
+        await firestore_db.save(room, postId, `sentiment`, sent);
         await firestore_db.save(room, postId, `room`, room);
 
         return {status: `Ok`};

@@ -34,21 +34,20 @@ function Posts() {
         let sentimenttext = title.current.value + " " + body.current.value;
 
 
-        const analysisOptions = {
-            method: 'POST',
-            url: 'http://localhost:8000/ArticleAnalytics',
-            data: {
-                article: sentimenttext,
-            }
+        let sentonj = {
+                article: sentimenttext
         }
 
-        // await axios.request(analysisOptions)
-        //     .then(res => {
-        //         console.log("++++++++++++++++++++++++++")
-        //         console.log(res);
-        //         console.log("++++++++++++++++++++++++++")
-        //
-        //     })
+        axios.post('https://analysis-services-api.herokuapp.com/ArticleAnalytics', sentonj)
+            .then(response => {
+                console.log(response.data);
+                // history.push("/");
+            })
+            .catch(err => {
+                console.error(err);
+            })
+        setTimeout(() => {
+        }, 10000)
 
 
         let sentiment = "positive";
@@ -187,7 +186,9 @@ function Posts() {
 
     return(
 
-        <>
+        <React.Fragment>
+
+
         <Modal show={show} >
             <Modal.Header>
                 <span className="uppercase font-bold ">New Post</span>
@@ -312,8 +313,8 @@ function Posts() {
                     }
                 </Carousel>
            </div>
-        </>
-    )
+        </React.Fragment>
+    );
 
 }
 

@@ -78,7 +78,7 @@ function Comments() {
 
     return(
 
-        <>
+        <React.Fragment>
         <Sidebar />
             <div className="md:ml-64">
             <div className="container" style={{height:"500px"}}>
@@ -211,7 +211,7 @@ function Comments() {
             </div>
             </div>
 
-        </>
+            </React.Fragment>
     )
 }
 export default Comments;

@@ -43,7 +43,7 @@ function Chatroom() {
     // }
     return(
 
-        <>
+        <React.Fragment>
         <Sidebar />
             <div className="md:ml-64">
                 <div className="container">
@@ -107,7 +107,7 @@ function Chatroom() {
                     </div>
                 </div>
             </div>
-        </>
+            </React.Fragment>
     )
 
 }

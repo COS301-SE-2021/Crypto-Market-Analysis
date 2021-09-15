@@ -84,10 +84,8 @@ const postReact = async (owner, react, postId,room)=>{
             if(existing.includes(postId))
             {
                 existing = existing.filter(item => item !== postId)
+                await firestore_db.save("Users", owner,`dislikedposts`,existing)
                 let number = await firestore_db.fetch(room, postId,"dislike")
-                {
-                    await firestore_db.save(room, postId,"dislike", number);
-                }
                 await firestore_db.save(room, postId,"dislike", --number);
                 return {status: 'already disliked this post'};
             }

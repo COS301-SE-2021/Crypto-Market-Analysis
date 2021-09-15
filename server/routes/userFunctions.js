@@ -112,17 +112,41 @@ const getUserCrypto = async (email_address)=>{
 
 const getCoinPredictions = async (email)=>{
     let fourChanPosts = [];
-
-    try{
-        const docs = await firestore_db.fetch(`CryptoPricePrediction`).then((snapshot) => {return snapshot.docs;});
-        for(const doc of docs)
-            fourChanPosts.push(doc.data());
-
-        return {status: `Ok`, posts_array: fourChanPosts};
+    let cryptos = []
+    try {
+        cryptos = await firestore_db.fetch("Users",email,"crypto");
     }
-    catch(err){
-        return Promise.reject(new Error(err));
+    catch (error){
+        return Promise.reject(error);
     }
+    console.log(cryptos);
+
+    let docs = []
+    for(let i=0; i<cryptos.length; i++)
+    {
+        docs.push(await firestore_db.fetch(`CryptoPricePrediction`,cryptos[i]));
+    }
+    // console.log(docs);
+    for(docs of docs)
+        fourChanPosts.push(docs.data());
+
+    console.log(fourChanPosts)
+    return {status: `Ok`, posts_array: fourChanPosts};
+
+    // let fourChanPosts = [];
+    //
+    // try{
+    //     const docs = await firestore_db.fetch(`CryptoPricePrediction`).then((snapshot) => {return snapshot.docs;});
+    //     for(const doc of docs)
+    //         fourChanPosts.push(doc.data());
+    //
+    //     return {status: `Ok`, posts_array: fourChanPosts};
+    // }
+    // catch(err){
+    //     return Promise.reject(new Error(err));
+    // }
+
+
 }
 
 const fetchUserSocialMedia = async(email_address)=>{

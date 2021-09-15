@@ -30,7 +30,7 @@ export default function Sidebar(props) {
       email: localStorage.getItem("emailSession")
     }
     // this.setState({emailRequest: response.data});
-    axios.post('/user/getNotificationObject/',emailReq)
+    axios.post('http://localhost:8080/user/getNotificationObject/',emailReq)
         .then(response => {
           let i = 0;
           let counter = 0;
@@ -87,7 +87,7 @@ export default function Sidebar(props) {
   }
 
   return (  
-    <>
+    <React.Fragment>
       <ModalComp show={show} cancel={onCancel} continue={OnContinue} />
       <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"
       >
@@ -522,6 +522,6 @@ export default function Sidebar(props) {
             </div>
           </div>
         </nav>
-      </>
+      </React.Fragment>
   );
 }

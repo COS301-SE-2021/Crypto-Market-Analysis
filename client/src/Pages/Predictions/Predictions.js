@@ -17,7 +17,7 @@ function Predictions() {
         console.log("use effect")
         let userReq = { email: localStorage.getItem("emailSession") }
         let allcoins = await CoinGeckoClient.coins.all();
-        axios.post('/user/getCoinPredictions/',userReq)
+        axios.post('http://localhost:8080/user/getCoinPredictions/',userReq)
             .then(async(response) =>{
                 console.log("getCoinPredictions")
                 for(let y=0;y<allcoins.data.length;y++)
@@ -68,7 +68,7 @@ function Predictions() {
     },[]);
 
     return(
-        <>
+        <React.Fragment>
             <Sidebar />
             <div className="container" style={{marginLeft:'300px'}} >
                 <div className="row">
@@ -114,7 +114,7 @@ function Predictions() {
                     </div>
                 </div>
             </div>
-        </>
+        </React.Fragment>
     )
 
 

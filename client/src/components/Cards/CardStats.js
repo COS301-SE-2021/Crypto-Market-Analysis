@@ -11,7 +11,7 @@ export default function CardStats({
   statCoinImage
 }) {
   return (
-    <>
+    <React.Fragment>
       <div data-testid="crypto-card" className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-md">
         <div className="flex-auto p-4">
           <div className="flex flex-wrap">
@@ -44,7 +44,7 @@ export default function CardStats({
           </p>
         </div>
       </div>
-    </>
+    </React.Fragment>
   );
 }
 

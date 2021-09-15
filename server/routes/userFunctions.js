@@ -5,6 +5,14 @@ const firestore_db = new Database().getInstance();
 const reddit =require('../functions/Reddit');
 const redditScrapper = new reddit();
 
+const register = async email => {
+    return await user_object.insertUser(email);
+}
+
+const deleteUserAccount = async (email) => {
+    return await firestore_db.deleteUser(email);
+}
+
 const getNotification=async(email)=>{
     const fields = await firestore_db.fetchNotification(email).then(data=>{
         return data;
@@ -88,6 +96,7 @@ const getRedditPost = async (email)=>{
         return Promise.reject(new Error(err));
     }
 }
+
 const getUserCrypto = async (email_address)=>{
     try{
         return await user_object.getCryptoName(email_address);
@@ -121,18 +130,18 @@ const fetchUserSocialMedia = async(email_address)=>{
     }
 }
 
-const followCrypto = async (email_address,symbol,crypto_name )=>{
+const followCrypto = async (email_address,symbol,crypto_name, coin_id)=>{
     try{
-        return await user_object.insertCrypto(email_address, symbol, crypto_name);
+        return await user_object.insertCrypto(email_address, symbol, crypto_name, coin_id);
     }
     catch (error){
         return Promise.reject(error)
     }
 }
 
-const unfollowCrypto = async (email_address, symbol) => {
+const unfollowCrypto = async (email_address, symbol, coin_id) => {
     try{
-        return await user_object.removeCrypto(email_address, symbol);
+        return await user_object.removeCrypto(email_address, symbol, coin_id);
     }
     catch (error){
         return Promise.reject(error);
@@ -157,6 +166,15 @@ const unfollowSocialMedia = async (email_address, social_media) => {
     }
 }
 
+const getCoinIDs = async email_address => {
+    try{
+        return await user_object.getCoinIds(email_address);
+    }
+    catch (error) {
+        return Promise.reject(error);
+    }
+}
+
 const saveToDB = async (arr, socialmedia , crypto)=> {
     let mini=Math.min.apply(Math, arr)
     let maxi = Math.max.apply(Math, arr)
@@ -175,5 +193,5 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
 
-module.exports = {getCoinPredictions,getAnalysis,getPush,setPush,setNotification,saveToDB,getNotification,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia}
+module.exports = {getCoinPredictions, deleteUserAccount,getAnalysis,getPush,setPush,setNotification,saveToDB,getNotification,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, register, getCoinIDs}
 

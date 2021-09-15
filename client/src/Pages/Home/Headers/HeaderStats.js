@@ -30,7 +30,7 @@ export default function HeaderStats(props) {
       /*
       The post request get cryptocurrencies and social media platforms the user follows
       */
-      axios.post('/user/getUserCryptos/', requestObj)
+      axios.post('http://localhost:8080/user/getUserCryptos/', requestObj)
       .then(async(response) => {
 
         await response.data.map((coin)=>{
@@ -147,19 +147,19 @@ export default function HeaderStats(props) {
   }
 
   return (
-    <>
+    <React.Fragment>
             <ModalComp show={show} cancel={onCancel} continue={OnContinue} />
             
             <div className="container" style={{width:'90%',margin:'auto'}}>
               <div className="row">
                 <div id="cards-col" className="col-12">
-                {loading ? <div className="mx-auto mt-8 text-center"><ClipLoader  loading={loading} size={150} /></div>:<></>}
+                {loading ? <div className="mx-auto mt-8 text-center"><ClipLoader  loading={loading} size={150} /></div>:<React.Fragment></React.Fragment>}
                 {cryptos && cryptos.length > 0 ? <Carousel cols={3} rows={2} gap={8} >
                    {cryptos.map((coin) => {
                       return (
                         <Carousel.Item key={coin.id}>
                           <div className="w-full lg:w-12/12 xl:w-12/12 px-4 mt-5">
-                              <Link to={{pathname:"/home/DetailedInfo", state:{coin_name:coin.name, coin_symbol:coin.symbol}}} onClick={()=>{changeLocation(coin.name, coin.symbol)}}>
+                              <Link to={{pathname:"/home/DetailedInfo", state:{coin_name:coin.name, coin_symbol:coin.symbol, coin_id:coin.id}}} onClick={()=>{changeLocation(coin.name, coin.symbol)}}>
                                   <CardStats
                                       statSubtitle={coin.name}
                                       statTitle={coin.current_price}
@@ -175,11 +175,11 @@ export default function HeaderStats(props) {
                       )
                   })
                 }
-                </Carousel>:<></>
+                </Carousel>:<React.Fragment></React.Fragment>
                 }
                 </div>
               </div>
             </div>
-    </>
+    </React.Fragment>
   );
 }

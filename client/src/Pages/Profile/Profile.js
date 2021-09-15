@@ -20,19 +20,15 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Star, } from "@material-ui/icons";
 import { SocialIcon } from 'react-social-icons';
 import ClipLoader from "react-spinners/ClipLoader"
-import coinGecko from "../../components/apis/CoinGecko"
-
-
 
 const platformsList = [{name:"Twitter",id:"twitter"},
-    {name:"Reddit",id:"reddit"},
+    {nme:"Reddit",id:"reddit"},
     {name:"4Chan",id:null}
 ];
 
 const Profile = props =>
 {
 
-    let [marketData, setMarketData] = useState({});
     const history = useHistory()
     let[socs,setSoc] =useState([]);
     let [platforms, setPlatforms] = useState(platformsList)
@@ -61,7 +57,7 @@ const Profile = props =>
     }
     useEffect(async () => {
 
-        axios.post('/user/getUserCryptos/',userReq)
+        axios.post('http://localhost:8080/user/getUserCryptos/',userReq)
             .then( response => {
                 let soc = [];
                 for(const crypto of response.data)
@@ -71,7 +67,7 @@ const Profile = props =>
             })
             .catch(err => {console.error(err);})
 
-        axios.post('/user/fetchUserSocialMedia/',userReq)
+        axios.post('http://localhost:8080/user/fetchUserSocialMedia/',userReq)
             .then(response => {
                 console.log(response)
                 let socialName = [];
@@ -98,32 +94,7 @@ const Profile = props =>
             })
             .catch(err => {console.error(err);})
 
-        /*const fetchData = async () => {
-            const [detail] = await Promise.all([
-                coinGecko.get("/coins/markets/", {
-                    params: {
-                        vs_currency: "zar",
-                        days: "365",
-                        interval: "weekly"
-                    },
-                }),
-            ]);
-            detail.data.forEach(data => {
-                //if (coin_name.toLowerCase() === data.id) {
-                    setMarketData({
-                        detail: data,
-                    });
-                    //setGraphLoader(false)
-                //}
-            })
 
-            for(let i =0; i<detail.data.length;i++)
-            {
-                console.log(detail.data[i].name);
-            }
-
-        //}
-        //await fetchData();*/
 
     },[])
 
@@ -185,7 +156,7 @@ const Profile = props =>
 
 
     }
-    const unFollowUser = ()=>{
+    const unFollowUser = () =>{
 
         let user = {email: localStorage.getItem("emailSession"), screen_name: searchRef.current.value }
 
@@ -227,9 +198,7 @@ const Profile = props =>
                 {
                     handleFollowButton(user.screen_name,true)
                 }
-                // else{
 
-                // }
             })
             .catch(err => {
                 
@@ -253,7 +222,7 @@ const Profile = props =>
                 if(platform.selected) {
 
 
-                    axios.post('/user/followSocialMedia/',platformObj)
+                    axios.post('http://localhost:8080/user/followSocialMedia/',platformObj)
                         .then(response =>{
                             console.log(response)
                             swal("Social media added", {
@@ -270,7 +239,7 @@ const Profile = props =>
                 else{
 
 
-                    axios.post('/user/unfollowSocialMedia/',platformObj)
+                    axios.post('http://localhost:8080/user/unfollowSocialMedia/',platformObj)
                         .then(response =>{
                             console.log(response)
                             swal("Social media removed", {
@@ -292,8 +261,27 @@ const Profile = props =>
 
     }
 
-    const deleteAccount = () =>{
+    const deleteAccount = (email) =>{
         //use userReq object and call a delete endpoint
+        email = {email: localStorage.getItem("emailSession")}
+        if (email !=='undefined') {
+            axios.post('http://localhost:8080/user/deleteUserAccount/', email)
+                .then(response => {
+                    console.log(response)
+                    swal("User" + response.data + "deleted", {
+                        icon: "success",
+                        buttons: false,
+                        timer: 3000,
+                    })
+
+                })
+                .catch(err => {
+                    console.error(err);
+                })
+        }
+        else {
+            console.log("sad");
+        }
         setShow(true)
     }
 
@@ -305,23 +293,25 @@ const Profile = props =>
         setAlertTitle("Account deleted")
         setShowSweetAlert(true)
 
+        //history.push("/login")
+
     }
 
 
     return(
 
-        <>
+        <React.Fragment>
             <ModalComp show={show} text={modalText} cancel={onCancel} continue={OnContinue} />
             <SweetAlert show={showSweetAlert} success title={alertTitle} onConfirm={()=>{
                 setShowSweetAlert(false)
                 if(accDelete)
                 {
-                    history.push("/")
+                    history.push("/login")
                     // localStorage.clear()
                 }
 
 
-            }}></SweetAlert>
+            }}/>
             <Sidebar />
             <script sync src="https://platform.twitter.com/widgets.js%22%3E"></script>
             <div className="md:ml-64">
@@ -399,7 +389,7 @@ const Profile = props =>
                                             borderRadius: "5px",
                                             outline: "5px",
                                             width: "150%",
-                                        }} onClick={deleteAccount} startIcon={<DeleteIcon />}>
+                                        }} onClick={() => {deleteAccount(userReq)}} startIcon={<DeleteIcon />}>
 
                                             Delete Account
                                         </Button>
@@ -476,7 +466,7 @@ const Profile = props =>
                                             </Form>
 
                                         </div>
-                                        {loading ? <div className="ml-2 mt-2 text-center"><ClipLoader  loading={loading} size={15} /></div>:<></>}
+                                        {loading ? <div className="ml-2 mt-2 text-center"><ClipLoader  loading={loading} size={15} /></div>:<React.Fragment></React.Fragment>}
                                         <div id="followBtn">
                                             <span></span>
                                         </div>
@@ -533,7 +523,7 @@ const Profile = props =>
                     {/*}*/}
                 </div>
             </div>
-        </>
+        </React.Fragment>
     );
 }
 export default Profile;

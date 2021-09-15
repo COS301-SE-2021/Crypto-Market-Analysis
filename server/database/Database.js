@@ -25,17 +25,17 @@ class Database {
      * @param {any} fieldsData The data of the updated field
      * @param merge
      * */
-    save(collectionPath, documentName, field, fieldsData, merge = false){
+    async save(collectionPath, documentName, field, fieldsData, merge = false){
         let data = {[field]: fieldsData}
 
         if(merge){
             try{
-                this.fetch(collectionPath, documentName, field).then(oldField => {
+                await this.fetch(collectionPath, documentName, field).then(async oldField => {
                     if(!oldField)
                         oldField = [];
                     oldField.push(fieldsData);
                     data = {[field]: oldField};
-                    this.#db.collection(collectionPath).doc(documentName).set(data, {merge:true}).then();
+                    await this.#db.collection(collectionPath).doc(documentName).set(data, {merge:true}).then();
                 }).catch(error => {
                     return Promise.reject(error);
                 })
@@ -51,6 +51,28 @@ class Database {
         if(email !== 'undefined')
             return this.#db.collection('Users').doc(email).get();
     }
+    async deleteUser(email){
+        if(email !== 'undefined')
+        {
+             admin.auth().getUserByEmail(email)
+                .then( (useRecord) => {
+
+                    const uid = useRecord.uid;
+                    return admin.auth().deleteUser(uid)
+                })
+                .then( () => {
+                    console.log("Success")
+                })
+                .catch( error => {
+                    console.log("fetching user data", error);
+                })
+            this.#db.collection('Users').doc(email).delete();
+            return true;
+        }
+         return false;
+
+    }
+
     async fetchPushNotification(email){
         try{
             return this.#db.collection('Subscribers').doc(email).get();

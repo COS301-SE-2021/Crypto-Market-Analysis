@@ -50,7 +50,7 @@ export default function Reddits(){
 
 
     return(
-        <>
+        <React.Fragment>
             {/*<div>*/}
             {/*    <form>*/}
             {/*        <input type="search" className="form-control rounded" placeholder="Search..."*/}
@@ -105,6 +105,6 @@ export default function Reddits(){
                 {/*    </div>*/}
                 {/*</div>*/}
 
-        </>
+        </React.Fragment>
     )
         }

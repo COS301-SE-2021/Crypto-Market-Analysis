@@ -32,7 +32,7 @@ export default function FourChan(){
 
     },[]);
     return(
-        <>
+        <React.Fragment>
             {/*<div style={{marginTop:"3%"}} >*/}
 
             {/*    <div className="container card-wrapper" >*/}
@@ -112,6 +112,6 @@ export default function FourChan(){
             {/*    </div>*/}
             {/*</div>*/}
 
-        </>
+        </React.Fragment>
     )
 }

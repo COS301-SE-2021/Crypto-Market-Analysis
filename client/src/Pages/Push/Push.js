@@ -26,7 +26,7 @@ class Push extends React.Component {
             email: localStorage.getItem("emailSession"),
             object: {}
         }
-        axios.post('/user/storePush/',PushReq)
+        axios.post('http://localhost:8080/user/storePush/',PushReq)
             .then(response => {
                 this.setState({alert: true});
                 const notification_Arrays = [];
@@ -43,11 +43,11 @@ class Push extends React.Component {
         let  PushReq = {
             email: localStorage.getItem("emailSession")
         }
-        axios.post('/user/sendMail',PushReq)
+        axios.post('http://localhost:8080/user/sendMail',PushReq)
             .then(response => {
                 console.log(response);
             })
-        axios.post('/user/GETPush/',PushReq)
+        axios.post('http://localhost:8080/user/GETPush/',PushReq)
             .then(response => {
                     const notification_Arrays = [];
                     notification_Arrays.push(
@@ -86,13 +86,13 @@ class Push extends React.Component {
                 email: localStorage.getItem("emailSession"),
                 object: subscription
             }
-            axios.post('/user/subscribe/',PushReq)
+            axios.post('http://localhost:8080/user/subscribe/',PushReq)
                 .then(response => {
                     console.log(response)
 
                 })
                 .catch(err => {console.error(err);})
-            axios.post('/user/storePush/',PushReq)
+            axios.post('http://localhost:8080/user/storePush/',PushReq)
                 .then(response => {
                     console.log(response)
 
@@ -122,7 +122,7 @@ class Push extends React.Component {
         let  PushReq = {
             email: localStorage.getItem("emailSession")
         }
-        axios.post('/user/GETPush/',PushReq)
+        axios.post('http://localhost:8080/user/GETPush/',PushReq)
             .then(response => {
                 if(Object.keys(response.data).length === 0)
                 {
@@ -147,11 +147,11 @@ class Push extends React.Component {
     }
     render() {
         return (
-            <>
+            <React.Fragment>
                 <div className="d-inline">
                          {this.state.elements}
                 </div>
-            </>
+            </React.Fragment>
         );
     }
 }

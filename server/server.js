@@ -12,7 +12,7 @@ http.createServer(app).listen(port, () => {
 });
 
 
-cron.schedule('*/10 * * * *', () => {
+cron.schedule('*/1000 * * * *', () => {
     console.log(`Running cron schedule`);
     twitter.getAllNamesTimeline().then()
     let network = new NeuralNetwork();

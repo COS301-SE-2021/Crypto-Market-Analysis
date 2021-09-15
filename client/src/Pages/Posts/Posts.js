@@ -38,21 +38,25 @@ function Posts() {
                 article: sentimenttext
         }
 
-        // axios.post('https://analysis-services-api.herokuapp.com/ArticleAnalytics', sentonj)
-        //     .then(response => {
-        //         console.log("testtttttttttt")
-        //         console.log(response.data);
-        //         console.log("testtttttttttt")
-        //         // history.push("/");
-        //     })
-        //     .catch(err => {
-        //         console.error(err);
-        //     })
-        // setTimeout(() => {
-        // }, 10000)
+        let sentiment = "positive"
+        //to sloow must move to server
+
+       // await axios.post('https://analysis-services-api.herokuapp.com/ArticleAnalytics', sentonj)
+       //      .then(response => {
+       //          console.log("testtttttttttt")
+       //          console.log(response.data);
+       //          console.log("testtttttttttt")
+       //          sentiment = response.data;
+       //          // history.push("/");
+       //      })
+       //      .catch(err => {
+       //          console.error(err);
+       //      })
+       //  setTimeout(() => {
+       //  }, 10000)
 
 
-        let sentiment = "positive";
+
 
         let request = {
             sentiment: sentiment,

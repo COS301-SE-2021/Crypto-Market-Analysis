@@ -58,7 +58,9 @@ const postReact = async (owner, react, postId,room)=>{
         if(Array.isArray(existing)) {
             if(existing.includes(postId))
             {
+                //if a user is already liked a post we will update the liked array and unlike operation
                 existing = existing.filter(item => item !== postId)
+                await firestore_db.save("Users", owner,`likedposts`,existing)
                 let number = await firestore_db.fetch(room, postId,"like")
                 await firestore_db.save(room, postId,"like", --number);
                 return {status: 'already liked this post'};
@@ -83,6 +85,9 @@ const postReact = async (owner, react, postId,room)=>{
             {
                 existing = existing.filter(item => item !== postId)
                 let number = await firestore_db.fetch(room, postId,"dislike")
+                {
+                    await firestore_db.save(room, postId,"dislike", number);
+                }
                 await firestore_db.save(room, postId,"dislike", --number);
                 return {status: 'already disliked this post'};
             }
@@ -139,6 +144,7 @@ const postReply = async (postId,owner,room,time,body)=>{
 }
 
 const getUserLikedPosts = async (email)=>{
+    let emptarray = [];
     let likereplies = await firestore_db.fetch("Users", email,`likedposts`);
     let temp = [];
     if(Array.isArray(likereplies))
@@ -148,12 +154,12 @@ const getUserLikedPosts = async (email)=>{
         likereplies = temp;
         return {status: `Ok`, likedposts_array: likereplies};
     }else{
-        return {status: `Ok` , message: "user doesnt like any posts"}
+        return {status: `Ok` , likedposts_array: emptarray}
     }
 }
 
 const getUserDislikedPosts = async (email)=>{
-
+    let emptarray = [];
     let dislikereplies = await firestore_db.fetch("Users", email,`dislikedposts`);
     if(Array.isArray(dislikereplies))
     {
@@ -163,7 +169,7 @@ const getUserDislikedPosts = async (email)=>{
         dislikereplies = temp2;
         return {status: `Ok`, dislikedposts_array: dislikereplies};
     }else{
-        return {status: `Ok` , message: "user doesnt dislike any posts"}
+        return {status: `Ok` , dislikedposts_array: emptarray}
     }
 
 }

@@ -29,7 +29,7 @@ describe(`POST /user/register`, () => {
 describe(`POST /user/followCrypto`, () => {
     jest.setTimeout(100000);
     test(`when parameters are correct`, async () => {
-        const response = await request(app).post(`/user/followCrypto`).send({email: `codexteam4@gmail.com`, crypto_name: `Bitcoin`, symbol: `btc`, coin_id: `btc`});
+        const response = await request(app).post(`/user/followCrypto`).send({email: `codexteam4@gmail.com`, crypto_name: `Ethereum`, symbol: `eth`, coin_id: `ethereum`});
         expect(response.status).toBe(200);
         expect(response.body).toBeDefined();
         expect(response.body).toBeTruthy();
@@ -66,7 +66,7 @@ describe(`POST /user/followCrypto`, () => {
 
 describe(`POST /user/unfollowCrypto`, () => {
     test(`when parameters are correct`, async () => {
-        const response = await request(app).post(`/user/unfollowCrypto`).send({email: `codexteam4@gmail.com`, symbol: `btc`, coin_id: `btc`});
+        const response = await request(app).post(`/user/unfollowCrypto`).send({email: `codexteam4@gmail.com`, symbol: `eth`, coin_id: `ethereum`});
         expect(response.status).toBe(200);
         expect(response.body).toBeDefined();
         expect(response.body).toBeTruthy();
@@ -307,7 +307,7 @@ describe(`POST /user/sendMail`, () => {
     test(`when email is incorrect`, async () => {
         const response = await request(app).post(`/user/sendMail`).send({email: `fake@not.com`});
         console.log(response);
-        expect(response.error.status).toBe(200);
+        expect(response.status).toBe(200);
     });
     test(`when parameters are missing`, async () => {
         const body_data = [

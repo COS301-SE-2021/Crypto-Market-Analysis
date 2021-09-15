@@ -10,6 +10,7 @@ http.createServer(app).listen(port, () => {
     console.log(`Express app listening on port ${port}`);
 });
 cron.schedule('*/10 * * * *', () => {
+    console.log(`Running cron schedule`);
     twitter.getAllNamesTimeline().then()
 //     let reddits = new Reddit();
 //     reddits.scrapeSubreddit("CryptoCurrencies").then();

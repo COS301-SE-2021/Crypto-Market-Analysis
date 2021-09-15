@@ -68,7 +68,7 @@ describe(`POST /twitter/validateScreenName`, () => {
 
 describe(`POST /twitter/follow`, () => {
     test(`when parameters are correct`, async () => {
-        const response = await request(app).post(`/twitter/follow`).send({email: `codexteam4@gmail.com`, screen_name: `michael_saylor`});
+        const response = await request(app).post(`/twitter/follow`).send({email: `codexteam4@gmail.com`, screen_name: `elonmusk`});
         expect(response.status).toBe(200);
         expect(response.body.message).toBeDefined();
         expect(response.body.message).toBe(`Screen name successfully added`);

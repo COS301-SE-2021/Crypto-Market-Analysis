@@ -175,7 +175,7 @@ class User_Hash_Table {
                     try{
                         //Add the screen name to the array of screen names and add it to the database
                         screen_name_array.push(screen_name);
-                        firestore_db.save(`Users`, key, `screen_name`, screen_name, true);
+                        await firestore_db.save(`Users`, key, `screen_name`, screen_name, true);
                         return Promise.resolve(true);
                     }
                     catch (error){

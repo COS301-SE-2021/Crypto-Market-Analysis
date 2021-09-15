@@ -1,7 +1,6 @@
 const request = require("supertest");
 const app = require("../app");
 
-
 describe('POST /', () => {
     test('invalid default route. returns 404 not found error', async () => {
         const response = await request(app).post(`/`).send({});

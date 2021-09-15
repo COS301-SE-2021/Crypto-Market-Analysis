@@ -11,7 +11,7 @@ function Comments() {
     let [post,setpost] = useState([]);
     let data = useLocation();
     let postId = data.state.postId;
-    let email = "bhekindhlovu7@gmail";
+    let email = localStorage.getItem("emailSession");
     const body = useRef();
 
     let obj ={

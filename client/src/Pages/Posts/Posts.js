@@ -20,7 +20,7 @@ function Posts() {
     const replybody = useRef();
     const time = new Date().toLocaleString();
 
-
+    const user = localStorage.getItem("emailSession");
 
     // let sentiment;
 
@@ -97,9 +97,10 @@ function Posts() {
         })
         axios.post('http://localhost:8080/chat/getUserDislikedPosts/',ReqObj)
         .then(response => {
-            
-            disliked = response.data.dislikedposts_array
-            setDislikedPosts(response.data.dislikedposts_array)
+                disliked = response.data.dislikedposts_array
+                setDislikedPosts(response.data.dislikedposts_array)
+
+
         })
         
         axios.post('http://localhost:8080/chat/getAllChats/',Req)
@@ -161,7 +162,7 @@ function Posts() {
         axios.post('http://localhost:8080/chat/postReact/',reqObj)
             .then(response => {
                 console.log(response);
-                history.push("/Posts");
+                window.location.reload();
             })
             .catch(err => {console.error(err);})
         setTimeout(()=>{
@@ -170,6 +171,18 @@ function Posts() {
     }
     function removePost(postid){
         console.log("REMOVE POST BUTTON CLICKED - " + postid)
+        let reqObj = {
+            email: user,
+            postId : postid
+        }
+        axios.post('http://localhost:8080/chat/deletePost/',reqObj)
+            .then(response => {
+                console.log(response);
+                window.location.reload();
+            })
+            .catch(err => {console.error(err);})
+        setTimeout(()=>{
+        },10000)
     }
 
     return(

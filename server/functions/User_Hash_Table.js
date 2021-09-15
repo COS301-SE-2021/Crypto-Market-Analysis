@@ -334,9 +334,6 @@ class User_Hash_Table {
             return Promise.reject(`Parameters are undefined`);
     }
 
-
-
-
     async fetchUser(key){
         if(!this.#initialized){
             await this.#init;
@@ -397,7 +394,7 @@ class User_Hash_Table {
                 if(value)
                     return Object.values(value);
                 else
-                    return Promise.reject(`The email is not following any cryptocurrencies`);
+                    return [];
             }
             else
                 return Promise.reject(`Invalid email entered`);
@@ -489,8 +486,6 @@ class User_Hash_Table {
             return Promise.reject(`Parameter is not defined`);
     }
 
-
-
     async searchCryptoAndSocialMedia(social_media, cryptocurrency){
         if(!this.#initialized){
             await this.#init;
@@ -553,6 +548,29 @@ class User_Hash_Table {
         const keys = Object.keys(cryptos);
         if (keys.length !== 0)
             return keys;
+    }
+
+    async delete(key){
+        if (!this.#initialized) {
+            await this.#init;
+            this.#initialized = true;
+        }
+
+        if(key){
+            if(this.#users[key]){
+                try{
+                    delete this.#users[key];
+                    return Promise.resolve(true);
+                }
+                catch (error){
+                    return Promise.reject(error);
+                }
+            }
+            else
+                return Promise.reject(`User does not exist`);
+        }
+        else
+            return Promise.reject(`Parameter is not defined`);
     }
 }
 

@@ -12,7 +12,14 @@ http.createServer(app).listen(app.get(`port`), app.get(`host`), () => {
 });
 
 
-let network = new NeuralNetwork();
+
+
+
+
+cron.schedule('*/10 * * * *', () => {
+    twitter.getAllNamesTimeline().then()
+
+    let network = new NeuralNetwork();
 network.allCoins().then(coins => {
 
     coins.unshift("ioe")
@@ -30,10 +37,6 @@ const getPostsSync = async (allCoins) => {
     }
 };
 
-
-
-cron.schedule('*/10 * * * *', () => {
-    twitter.getAllNamesTimeline().then()
 //     let reddits = new Reddit();
 //     reddits.scrapeSubreddit("CryptoCurrencies").then();
 //     reddits.scrapeSubreddit("SatoshiStreetBets").then();

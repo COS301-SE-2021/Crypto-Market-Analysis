@@ -116,7 +116,7 @@ const totalPosts = async (owner, room)=>{
     catch(err){
         return Promise.reject(new Error(err));
     }
-    return {status: 'successful'};
+
 }
 
 const postReply = async (postId,owner,room,time,body)=>{
@@ -177,7 +177,6 @@ const deletePost = async (postId, email)=>{
         await firestore_db.removePost(postId)
     }
     catch(err){
-        return {status: `Ok` , message: "post deletion fail"}
         return Promise.reject(new Error(err));
     }
     return {status: `Ok` , message: "post deleted successfully deleted"}

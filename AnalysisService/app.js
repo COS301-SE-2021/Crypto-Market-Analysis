@@ -3,6 +3,7 @@ const app = express();
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const userRoutes = require('./routes/analytics');
+const cors =require('cors')
 
 app.use(morgan("dev"));
 app.use('/uploads', express.static('uploads'));
@@ -21,7 +22,7 @@ app.use((req, res, next) => {
     }
     next();
 })
-
+app.use((cors));
 app.use("/", userRoutes);
 app.use((req, res, next) => {
     const error = new Error("Error code");

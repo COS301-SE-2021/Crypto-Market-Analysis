@@ -2,7 +2,6 @@ import React, {useEffect, useState, useRef} from 'react'
 import { Link, useHistory } from "react-router-dom";
 import { Form  } from "react-bootstrap"
 import 'bootstrap/dist/css/bootstrap.min.css';
-import styled from 'styled-components';
 import {Avatar, Tabs, AppBar, Tab} from "@material-ui/core"
 import EditIcon from "@material-ui/icons/Edit"
 import DeleteIcon from "@material-ui/icons/Delete"
@@ -12,8 +11,6 @@ import axios from "axios";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import ModalComp from "../../components/Modal/Modal"
 import "./Profile.css";
-import Subreddits from "../Subreddits/Subreddits";
-import Reddits from "../../components/Reddits/Reddits";
 import SweetAlert from 'react-bootstrap-sweetalert'
 import swal from 'sweetalert';
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -22,18 +19,16 @@ import { SocialIcon } from 'react-social-icons';
 import ClipLoader from "react-spinners/ClipLoader"
 
 const platformsList = [{name:"Twitter",id:"twitter"},
-    {nme:"Reddit",id:"reddit"},
-    {name:"4Chan",id:null}
+    {name:"Reddit",id:"reddit"},
+    {name:"4chan",id:null}
 ];
 
 const Profile = props =>
 {
-
     const history = useHistory()
     let[socs,setSoc] =useState([]);
     let [platforms, setPlatforms] = useState(platformsList)
     const [selectedTab, setSelectedTab] = React.useState(0)
-    const [userToSearch, setUserToSearch] = useState({})
     const [showSweetAlert, setShowSweetAlert] = useState(false)
     const [alertTitle,setAlertTitle] = useState("")
     const [show, setShow] = useState(false)
@@ -41,9 +36,7 @@ const Profile = props =>
     const [accDelete, setAccDelete] = useState(false)
     let [loading, setLoading] = useState(false);
     let [refresher,setRefresher]= useState(false)
-
     const searchRef = useRef()
-
 
     const handleChange = (event, newValue) =>
     {
@@ -85,7 +78,7 @@ const Profile = props =>
             })
             .catch(err => {console.error(err);})
 
-        axios.post('/reddit/getUserSubreddits/',userReq)
+        axios.post('http://localhost:8080/reddit/getUserSubreddits/',userReq)
             .then(response => {
                 let subName = [];
                 for(const subred of response.data)
@@ -105,8 +98,6 @@ const Profile = props =>
     }
 
     const handleFollowButton = (user,follows)=>{
-
-
         let target =  document.getElementById('followBtn')
         let iconEL = document.createElement("i")
         iconEL.setAttribute("class","fab fa-twitter mr-2")
@@ -138,10 +129,10 @@ const Profile = props =>
 
     }
 
-    const followUser = ()=>{
+    const followUser = () => {
 
         let user = {email: localStorage.getItem("emailSession"), screen_name: searchRef.current.value }
-        axios.post('/twitter/follow/',user)
+        axios.post('http://localhost:8080/twitter/follow/',user)
             .then(response=>{
                 console.log(response)
                 swal("User added to your watchlist", {
@@ -153,14 +144,12 @@ const Profile = props =>
                 
             })
             .catch(err => {console.error(err)})
-
-
     }
     const unFollowUser = () =>{
 
         let user = {email: localStorage.getItem("emailSession"), screen_name: searchRef.current.value }
 
-        axios.post('/twitter/unfollow/',user)
+        axios.post('http://localhost:8080/twitter/unfollow/',user)
             .then(response=>{
                 console.log(response)
                 swal("User removed from your watchlist", {
@@ -171,20 +160,19 @@ const Profile = props =>
                 document.getElementById('followBtn').innerHTML = "<span></span>"
                 
             })
-            .catch(err => {console.error(err)})
-
-
+            .catch(err => {
+                console.error(err)
+            });
     }
-    const searchUsername = async (event) =>{
+    const searchUsername = async (event) => {
         document.getElementById('followBtn').innerHTML = "<span></span>"
 
         setLoading(true)
         event.preventDefault()
 
-
         let user = { screen_name: searchRef.current.value, email: localStorage.getItem("emailSession")}
 
-        axios.post('/twitter/validateScreenName/',user)
+        axios.post('http://localhost:8080/twitter/validateScreenName/',user)
             .then((response)=>{
                 if(response.data.data){
                     handleFollowButton(user.screen_name,false)
@@ -192,16 +180,14 @@ const Profile = props =>
                 else{
                     handleFollowButton(null,false)
                 }
-            },(reject)=>{
+            },(reject) => {
                 console.log(reject.response)
                 if(reject.response.data.error.message.includes("You are already following the selected screen name"))
                 {
                     handleFollowButton(user.screen_name,true)
                 }
-
             })
             .catch(err => {
-                
                 console.error(err)
             })
     }
@@ -221,7 +207,6 @@ const Profile = props =>
                 */
                 if(platform.selected) {
 
-
                     axios.post('http://localhost:8080/user/followSocialMedia/',platformObj)
                         .then(response =>{
                             console.log(response)
@@ -232,12 +217,10 @@ const Profile = props =>
                               }).then(()=>{
                                 setRefresher(!refresher)
                               })
-
                         })
                         .catch(err => {console.error(err);})
                 }
                 else{
-
 
                     axios.post('http://localhost:8080/user/unfollowSocialMedia/',platformObj)
                         .then(response =>{
@@ -250,7 +233,9 @@ const Profile = props =>
                                 setRefresher(!refresher)
                               })
                         })
-                        .catch(err => {console.error(err);})
+                        .catch(err => {
+                            console.error(err);
+                        });
                 }
             }
             return {
@@ -258,21 +243,15 @@ const Profile = props =>
             }
         })]
         setPlatforms(platforms)
-
     }
 
     const deleteAccount = (email) =>{
-        //use userReq object and call a delete endpoint
+
         email = {email: localStorage.getItem("emailSession")}
         if (email !=='undefined') {
             axios.post('http://localhost:8080/user/deleteUserAccount/', email)
                 .then(response => {
                     console.log(response)
-                    swal("User" + response.data + "deleted", {
-                        icon: "success",
-                        buttons: false,
-                        timer: 3000,
-                    })
 
                 })
                 .catch(err => {
@@ -280,7 +259,7 @@ const Profile = props =>
                 })
         }
         else {
-            console.log("sad");
+            console.log("Email is not defined");
         }
         setShow(true)
     }
@@ -292,11 +271,8 @@ const Profile = props =>
         setAccDelete(true)
         setAlertTitle("Account deleted")
         setShowSweetAlert(true)
-
-        //history.push("/login")
-
+        history.push("/login")
     }
-
 
     return(
 
@@ -468,7 +444,7 @@ const Profile = props =>
                                         </div>
                                         {loading ? <div className="ml-2 mt-2 text-center"><ClipLoader  loading={loading} size={15} /></div>:<React.Fragment></React.Fragment>}
                                         <div id="followBtn">
-                                            <span></span>
+                                            <span/>
                                         </div>
                                     </div>
 

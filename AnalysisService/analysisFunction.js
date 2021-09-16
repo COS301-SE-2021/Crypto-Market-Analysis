@@ -222,6 +222,7 @@ const get_Doc_by_User_id =async(cryptocurrency)=>{
 
     })
 }
+
 const sentiment = require( 'wink-sentiment' );
 const analyseArticle =async(Article)=>{
     return  new Promise(function (resolve, reject) {

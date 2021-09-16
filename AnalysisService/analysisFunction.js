@@ -6,6 +6,7 @@ const spellCorrector = new SpellCorrector();
 const a = require('extract-emoji');
 const emojiUnicode = require("emoji-unicode")
 const name = require("emoji-name-map");
+require("dotenv").config();
 const Database = require('./database/Database');
 const firestore_db = new Database().getInstance();
 spellCorrector.loadDictionary();
@@ -83,6 +84,36 @@ const saveOld = async(SocialMedia , cryptocurrency)=>{
             }
         })
     });
+}
+const saveAverageChange = async(SocialMedia , cryptocurrency)=>{
+    return  new Promise(function (resolve, reject) {
+        (async () => {
+            await firestore_db.getUsers(SocialMedia).onSnapshot((documents) => {
+                documents.forEach((doc) => {
+                    let averages={};
+                    let myObj={};
+                    let date = String(new Date());
+                    if (typeof doc.id !== "undefined" && doc.id === cryptocurrency) {
+                        if (typeof doc.data().AverageChange !== "undefined") {
+                            myObj =doc.data().AverageChange;
+
+                        }
+                        if(typeof doc.data().Average !=="undefined"  ) {
+
+                            averages[date] = {"Average": doc.data().Average, 'Time': date};
+                            let objectAverage = Object.assign({}, myObj, averages);
+                            const averagesChanges = {
+                                AverageChange: objectAverage
+                            }
+                            firestore_db.saveData(SocialMedia, cryptocurrency, averagesChanges)
+                            resolve('saved successful!');
+                        }
+                    }
+                })
+                resolve('Finished saving averages');
+            });
+        })()
+    })
 }
 const saveToDB = async (axis,arr, socialmedia , crypto)=> {
     let mini=Math.min.apply(Math, arr)
@@ -178,7 +209,7 @@ const get_Doc_by_User_id =async(cryptocurrency)=>{
         let i=1;
        firestore_db.getUsers('Users').onSnapshot((documents) => {
             documents.forEach(async (doc) => {
-                if (doc.data().crypto_name.includes(cryptocurrency)) {
+                if (typeof doc.data().crypto_name !== "undefined" && doc.data().crypto_name.includes(cryptocurrency)) {
                     arrayofdocuments.push(doc.data());
                 }
                 if(i === documents._size )
@@ -210,5 +241,5 @@ const analyseArticle =async(Article)=>{
         })
     })
 }
-module.exports = {get_Doc_by_User_id,get_Doc_id,analyseArticle,splits,convertion,analysewords,spellingc,saveToDB,sentimentAnalysis}
+module.exports = {saveAverageChange,get_Doc_by_User_id,get_Doc_id,analyseArticle,splits,convertion,analysewords,spellingc,saveToDB,sentimentAnalysis}
 

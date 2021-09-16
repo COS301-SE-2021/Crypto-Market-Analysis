@@ -43,44 +43,67 @@ export default function UpdateProfile() {
 
     return (
         <React.Fragment>
-            <Card>
-                <Card.Body>
-                    <h2 className="text-center mb-4">Update Profile</h2>
-                    {error && <Alert variant="danger">{error}</Alert>}
-                    <Form onSubmit={handleSubmit}>
-                        <Form.Group id="email">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control
-                                type="email"
-                                ref={email}
-                                required
-                                defaultValue={currentUser.email}
-                            />
-                        </Form.Group>
-                        <Form.Group id="password">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control
-                                type="password"
-                                ref={password}
-                                placeholder="Do not enter to keep same"
-                            />
-                        </Form.Group>
-                        <Form.Group id="password-confirm">
-                            <Form.Label>Password Confirmation</Form.Label>
-                            <Form.Control
-                                type="password"
-                                ref={passwordConfirm}
-                                placeholder="Do not enter to keep same"
-                            />
-                        </Form.Group>
-                        <Button disabled={loading} className="w-100" type="submit">
-                            <Link to="/Profile">Update</Link>
-                        </Button>
-                    </Form>
-                </Card.Body>
-            </Card>
-            <div className="w-100 text-center mt-2">
-                <Link to="/Profile">Abort</Link>
+            <div className="row">
+               
+                <div className="col-md-4 mx-auto mt-5 p-0">
+                    <div className="card shadow-lg">
+                        <div className="card-header ">
+                            Update Profile
+                            <Link to="/Profile" className="float-right text-blueGray-700"><i class="fas fa-times"></i></Link>
+                        </div>
+                        <div className="card-body">
+                            {error && <Alert variant="danger">{error}</Alert>}
+                            <Form onSubmit={handleSubmit}>
+                                <Form.Group id="email">
+                                    <div style={{width:"70%",margin:"auto"}}>
+                                        <Form.Label className="label">Email</Form.Label>
+                                    </div>
+                                    <Form.Control
+                                        type="email"
+                                        ref={email}
+                                        required
+                                        defaultValue={currentUser.email}
+                                        style={{width:"70%",margin:"auto"}}
+                                    />
+                                </Form.Group>
+                                <Form.Group id="password">
+                                    <div style={{width:"70%",margin:"auto"}}>
+                                        <Form.Label className="label">Password</Form.Label>
+                                    </div>
+                                    <Form.Control
+                                        type="password"
+                                        ref={password}
+                                        style={{width:"70%",margin:"auto"}}
+                                    />
+                                    <div className="text-right" style={{width:"70%",margin:"auto"}}>
+                                        <span className="label">Do not enter to keep same</span>
+                                    </div>
+                                </Form.Group>
+                                <Form.Group id="password-confirm">
+                                    <div style={{width:"70%",margin:"auto"}}>
+                                        <Form.Label className="label">Password Confirmation</Form.Label>
+                                    </div>
+                                    <Form.Control
+                                        type="password"
+                                        ref={passwordConfirm}
+                                        style={{width:"70%",margin:"auto"}}
+                                    />
+                                    <div className="text-right" style={{width:"70%",margin:"auto"}}>
+                                        <span className="label">Do not enter to keep same</span>
+                                    </div>
+                                </Form.Group>
+                                <Form.Group className="text-center">
+                                    <Button disabled={loading} style={{width:"70%",margin:"auto"}} type="submit">
+                                    <Link to="/Profile" style={{color:"white"}}>Update</Link>
+                                    </Button>
+                                </Form.Group>
+                            </Form>
+                        
+                        </div>
+                    </div>
+                    
+                </div>
+                
             </div>
         </React.Fragment>
     )

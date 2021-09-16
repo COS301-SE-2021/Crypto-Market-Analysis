@@ -19,8 +19,8 @@ import { SocialIcon } from 'react-social-icons';
 import ClipLoader from "react-spinners/ClipLoader"
 
 const platformsList = [{name:"Twitter",id:"twitter"},
-    {nme:"Reddit",id:"reddit"},
-    {name:"4Chan",id:null}
+    {name:"Reddit",id:"reddit"},
+    {name:"4chan",id:null}
 ];
 
 const Profile = props =>

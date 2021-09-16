@@ -1,3 +1,4 @@
+require("dotenv").config();
 const admin = require('firebase-admin');
 const serviceAccount = require('./firebase.js');
 
@@ -14,9 +15,17 @@ class Database {
     #db;
 
     /** Starts the database */
-    constructor() {
-        initialize();
-        this.#db = admin.firestore();
+    constructor(firestore_database,flag) {
+
+        if(flag === true)
+        {
+            this.#db =firestore_database;
+        }
+        else
+        {
+            initialize();
+            this.#db=admin.firestore();
+        }
     }
 
     /** Sets the fields in the collection name provided.
@@ -109,7 +118,7 @@ class Database {
         //         return data.data().subing;
         //     });
     }
-    fetchAnalysisScore(Social_Media){
+    async fetchAnalysisScore(Social_Media){
         return this.#db.collection(Social_Media);
     }
     async storeNotification(email,object){
@@ -131,7 +140,6 @@ class Database {
 
 
     async setPushNotification(email,object){
-            console.log('something')
             const notification_object ={
                 subs:object
             }
@@ -235,9 +243,9 @@ class Database {
 
 class Singleton {
 
-    constructor() {
+    constructor(firestore_database,flag) {
         if (!Singleton.instance) {
-            Singleton.instance = new Database();
+            Singleton.instance = new Database(firestore_database,flag);
         }
     }
 

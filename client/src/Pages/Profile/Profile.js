@@ -2,7 +2,6 @@ import React, {useEffect, useState, useRef} from 'react'
 import { Link, useHistory } from "react-router-dom";
 import { Form  } from "react-bootstrap"
 import 'bootstrap/dist/css/bootstrap.min.css';
-import styled from 'styled-components';
 import {Avatar, Tabs, AppBar, Tab} from "@material-ui/core"
 import EditIcon from "@material-ui/icons/Edit"
 import DeleteIcon from "@material-ui/icons/Delete"
@@ -12,8 +11,6 @@ import axios from "axios";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import ModalComp from "../../components/Modal/Modal"
 import "./Profile.css";
-import Subreddits from "../Subreddits/Subreddits";
-import Reddits from "../../components/Reddits/Reddits";
 import SweetAlert from 'react-bootstrap-sweetalert'
 import swal from 'sweetalert';
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -32,7 +29,6 @@ const Profile = props =>
     let[socs,setSoc] =useState([]);
     let [platforms, setPlatforms] = useState(platformsList)
     const [selectedTab, setSelectedTab] = React.useState(0)
-    const [userToSearch, setUserToSearch] = useState({})
     const [showSweetAlert, setShowSweetAlert] = useState(false)
     const [alertTitle,setAlertTitle] = useState("")
     const [show, setShow] = useState(false)
@@ -256,11 +252,7 @@ const Profile = props =>
             axios.post('http://localhost:8080/user/deleteUserAccount/', email)
                 .then(response => {
                     console.log(response)
-                    swal("User deleted", {
-                        icon: "success",
-                        buttons: false,
-                        timer: 3000,
-                    })
+
                 })
                 .catch(err => {
                     console.error(err);
@@ -279,7 +271,7 @@ const Profile = props =>
         setAccDelete(true)
         setAlertTitle("Account deleted")
         setShowSweetAlert(true)
-        //history.push("/login")
+        history.push("/login")
     }
 
     return(

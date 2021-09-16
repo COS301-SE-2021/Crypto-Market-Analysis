@@ -55,6 +55,7 @@ export default function HeaderStats(props) {
               crypto_names.push(crypto.name);
 
             getCoins(crypto_names)
+            
           })
           .catch(err => {
             console.error(err)
@@ -85,6 +86,7 @@ export default function HeaderStats(props) {
             })
             setCryptos(userCryptoList)
             setLoading(false)
+            removeServerAlert()
         })
         .catch(err => {
           console.error(err)
@@ -105,6 +107,11 @@ export default function HeaderStats(props) {
         document.getElementById("cards-col").append(alert)
       }
       
+    }
+  }
+  const removeServerAlert = ()=>{
+    if(document.getElementById("server-alert")){
+      document.getElementById("server-alert").remove()
     }
   }
   const changeLocation = (coinname, coinsymbol)=>{

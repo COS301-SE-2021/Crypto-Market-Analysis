@@ -17,6 +17,7 @@ export default function AllCryptos(props)
     const [searchCrypto, setSearchCrypto] = useState("");
     const [show, setShow] = useState(false)
     let [loading, setLoading] = useState(true);
+    let [refresh,setRefresh] = useState(false)
     const history = useHistory()
 
 
@@ -60,28 +61,30 @@ export default function AllCryptos(props)
     function getCoins(coinsList){
        
         axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=250&page=1&sparkline=false')
-            .then(async (response_data) => {
-
-                await response_data.data.map((coin)=>{
-
-                    coinsList.forEach(element => {
-                        
-                        if(element === coin.name){
-                          
-                            coin.selected = true;
-                        }
-                    })
+        .then(async (response_data) => {
+            
+            return await Promise.all( response_data.data.map((coin)=>{
+                
+            coinsList.forEach(element => {
+                    if(element === coin.name){
+                       
+                        coin.selected = true;
+                    }
                 })
+            })).then(()=>{
+               
                 setCryptos(response_data.data)
                 setLoading(false)
-
             })
-            .catch(err => {
-                console.error(err)
-                setLoading(false)
-                showServerAlert()
-
-            })
+            
+        
+        })
+        .catch(err => {
+            console.error(err)
+            setLoading(false)
+            showServerAlert()
+            
+          })
     }
 
     const showServerAlert = ()=>{
@@ -129,10 +132,37 @@ export default function AllCryptos(props)
 
                         let  cryptoToAdd = {
                             email: localStorage.getItem("emailSession"),
-                            symbol: crypto.symbol,
-                            crypto_name: crypto.name,
-                            coin_id: crypto.id,
+                                symbol: crypto.symbol,
+                                crypto_name: crypto.name,
+                                coin_id: crypto.id,
+                            }
+                           
+                            axios.post('/user/followCrypto/',cryptoToAdd).then(()=>{
+                                swal("Coin was added to watchlist", {
+                                    icon: "success",
+                                    buttons: false,
+                                    timer: 3000,
+                                  });
+                                  setRefresh(!refresh)
+                            })
+                            .catch(err => {console.error(err);})
+                            
                         }
+                        else{
+                            let  cryptoToRemove = {
+                                email: localStorage.getItem("emailSession"),
+                                symbol: crypto.symbol,
+                            }
+                            
+                            axios.post('user/unfollowCrypto/',cryptoToRemove).then(()=>{
+                                swal("Coin was removed from your watchlist", {
+                                    icon: "success",
+                                    buttons: false,
+                                    timer: 3000,
+                                  });
+                                  setRefresh(!refresh)
+                            })
+                                .catch(err => {console.error(JSON.stringify(err));})
 
                         axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd).then(()=>{
                             swal("Coin was added to watchlist", {
@@ -182,61 +212,45 @@ export default function AllCryptos(props)
 
         return crypto.name.toLowerCase().includes(searchCrypto.toLowerCase()) ||  crypto.symbol.toLowerCase().includes(searchCrypto.toLowerCase())
     })
-    const func = ()=>{
-        console.log("FUCN")
-    }
-
-        return (
-            <React.Fragment>
-                <ModalComp show={show} cancel={onCancel} continue={OnContinue}/>
-                <div className="container">
-                    <div className="row">
-                        <div className="crypto-search">
-                            <input type="search" className="form-control rounded" placeholder="Search..."
-                                   onChange={searchCoin}/>
-                        </div>
-                        <div className=" overflow-auto block crypto-wrapper" style={{height: "600px", margin: "auto"}}>
-                            {loading ? <ClipLoader loading={loading} size={150}/> :
-                                searchedCryptos.length < 1 ?
-                                    <div id="response-alert"><p className="text-center">Oops :( <br/>We don't have that
-                                        coin</p></div>
-                                    : <React.Fragment>
-                                        {searchedCryptos.map((myCrypto, index) => {
-
-                                            return (
-                                                <div key={index} className='coin-container'>
+    return(
+        <>       
+        <ModalComp show={show} cancel={onCancel} continue={OnContinue} />
+         <div className="container">
+            <div className="row"> 
+                <div className="crypto-search">
+                    <input type="search" className="form-control rounded" placeholder="Search..."
+                                onChange={searchCoin}/>
+                </div>
+                <div className=" overflow-auto block crypto-wrapper" style={{height:"600px",margin:"auto"}}>
+                    {loading ? <ClipLoader loading={loading} size={150} />:
+                    searchedCryptos.length < 1 ? <div id="response-alert"><p className="text-center">Oops :( <br/>We don't have that coin</p></div>
+                    :<>
+                        {searchedCryptos.map((myCrypto,index) =>{
+                            
+                            return(
+                                <div key={index} className='coin-container'>
 
 
-                                                    <div className='coin-row'>
-                                                        <div className='coin'>
+                                        <div className='coin-row'>
+                                                <div className='coin'>
+                                                    {myCrypto.selected?<Star className="select-star" style={{ color: "#03989e" }} onClick={()=>{select(myCrypto.symbol,"cryptos")}}/>:<Star className="select-star" color="action" onClick={()=>{select(myCrypto.symbol, "cryptos")}}/>}
+                                                    <img src={myCrypto.image} alt='crypto' />
+                                                    <h1>{myCrypto.name}</h1>
+                                                    <p className='coin-symbol'>{myCrypto.symbol}</p>
+                                                </div>
+                                                <div className='coin-data'>
+                                                    <p className='coin-price'>R{myCrypto.current_price}</p>
+                                                    <p className='coin-volume'>R{myCrypto.total_volume.toLocaleString()}</p>
 
-                                                            {myCrypto.selected ?
-                                                                <Star className="select-star" style={{color: "#03989e"}}
-                                                                      onClick={() => {
-                                                                          select(myCrypto.symbol, "cryptos")
-                                                                      }}/> : <Star className="select-star" color="action"
-                                                                                   onClick={() => {
-                                                                                       select(myCrypto.symbol, "cryptos")
-                                                                                   }}/>}
-                                                            <img src={myCrypto.image} alt='crypto'/>
-                                                            <h1>{myCrypto.name}</h1>
-                                                            <p className='coin-symbol'>{myCrypto.symbol}</p>
-                                                        </div>
-                                                        <div className='coin-data'>
-                                                            <p className='coin-price'>R{myCrypto.current_price}</p>
-                                                            <p className='coin-volume'>R{myCrypto.total_volume.toLocaleString()}</p>
+                                                    {myCrypto.price_change_percentage_24h < 0 ? (
+                                                        <p className='coin-percent red'>{myCrypto.price_change_percentage_24h.toFixed(2)}%</p>
+                                                    ) : (
+                                                        <p className='coin-percent green'>{myCrypto.price_change_percentage_24h.toFixed(2)}%</p>
+                                                    )}
 
-                                                            {myCrypto.price_change_percentage_24h < 0 ? (
-                                                                <p className='coin-percent red'>{myCrypto.price_change_percentage_24h.toFixed(2)}%</p>
-                                                            ) : (
-                                                                <p className='coin-percent green'>{myCrypto.price_change_percentage_24h.toFixed(2)}%</p>
-                                                            )}
-
-                                                            <p className='coin-marketcap'>
-                                                                Mkt Cap: R{myCrypto.market_cap.toLocaleString()}
-                                                            </p>
-                                                        </div>
-                                                    </div>
+                                                    <p className='coin-marketcap'>
+                                                        Mkt Cap: R{myCrypto.market_cap.toLocaleString()}
+                                                    </p>
                                                 </div>
                                             )
                                         })

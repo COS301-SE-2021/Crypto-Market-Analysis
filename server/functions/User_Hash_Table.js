@@ -47,6 +47,10 @@ class User_Hash_Table {
         if(key){
             if(!this.#users[key]){
                 this.#users[key] = {};
+                this.#users[key][`cryptocurrencies`] = {};
+                this.#users[key][`screen_name`] = [];
+                this.#users[key][`social_media_sites`] = [];
+                this.#users[key][`coin_id`] = [];
                 return true;
             }
             else

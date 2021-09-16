@@ -13,6 +13,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import Push from "../Push/Push";
 import Checkbox from '@material-ui/core/Checkbox';
 import SweetAlert from 'sweetalert-react';
+import swal from 'sweetalert';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';

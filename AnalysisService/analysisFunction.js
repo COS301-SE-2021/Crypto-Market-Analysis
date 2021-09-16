@@ -9,7 +9,6 @@ const name = require("emoji-name-map");
 require("dotenv").config();
 const Database = require('./database/Database');
 const firestore_db = new Database().getInstance();
-
 spellCorrector.loadDictionary();
 const extract_emoji = async (post)=>{
     const arr = a.extractEmoji(post);

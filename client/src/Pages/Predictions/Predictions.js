@@ -68,7 +68,7 @@ function Predictions() {
     },[]);
 
     return(
-        <>
+        <React.Fragment>
             <Sidebar />
             <div className="container" style={{marginLeft:'300px'}} >
                 <div className="row">
@@ -114,7 +114,7 @@ function Predictions() {
                     </div>
                 </div>
             </div>
-        </>
+        </React.Fragment>
     )
 
 

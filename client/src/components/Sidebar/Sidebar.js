@@ -2,12 +2,7 @@
 import React, { useState, useRef, useEffect}  from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
-import {Avatar} from "@material-ui/core";
-
-import SweetAlert from 'react-bootstrap-sweetalert'
-
-import EditIcon from "@material-ui/icons/Edit";
-
+import swal from 'sweetalert';
 import ModalComp from "../Modal/Modal"
 import "./Sidebar.css"
 import db from "../../firebase";
@@ -23,9 +18,7 @@ export default function Sidebar(props) {
   const history = useHistory()
   const [collapseShow, setCollapseShow] = React.useState("hidden")
   const [show, setShow] = useState(false)
-  const [showSweetAlert, setShowSweetAlert] = useState(false)
   const [status, setStatus] = useState(0)
-  let   [login, setLogin] = useState(false)
   const  user = localStorage.getItem("emailSession")
   let  cryptoReq = {
     email: localStorage.getItem("emailSession")
@@ -61,7 +54,7 @@ export default function Sidebar(props) {
   const changeLocation = ()=>{
 
     unblockHandle.current = history.block(() => {
-      if(user || login){
+      if(user){
         OnContinue();
         return true;
       }
@@ -84,23 +77,18 @@ export default function Sidebar(props) {
 
   const OnContinue =()=>{
 
-    if (unblockHandle) {
+    if (unblockHandle && unblockHandle.current instanceof Function) {
       unblockHandle.current()
+    }
+    else{
+      unblockHandle.current = ()=>{return true}
     }
     history.push('/login')
   }
 
-  return (
-
-      <>
-        <ModalComp show={show} cancel={onCancel} continue={OnContinue} />
-        <SweetAlert show={showSweetAlert} success title={"Logout successful"} onConfirm={()=>{
-          if(localStorage.getItem("loggedOut")){
-            history.push("/")
-          }
-          setShowSweetAlert(false)
-        }}></SweetAlert>
-
+  return (  
+    <React.Fragment>
+      <ModalComp show={show} cancel={onCancel} continue={OnContinue} />
       <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"
       >
         <div className="md:flex-col md:items-stretch md:min-h-full md:flex-wrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
@@ -108,23 +96,13 @@ export default function Sidebar(props) {
 
           <div>
             <div style={{
-              // position:"static",
-              // display:"flex",
-              // justifyContent:"space-between",
-              // margin:"0px 0px",
+              
               borderBottom: "1px solid grey",
               textAlign:"center"
             }}>
-                {/* <div>
-
-                  <Avatar style={{width: "20px", height: "20px", borderRadius: "80px" }} className="aV" src='https://static.vecteezy.com/system/resources/previews/002/318/271/non_2x/user-profile-icon-free-vector.jpg'
-                  />
-                </div> */}
-
                 <div >
                   <p className={"md:block text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm font-bold px-0"}>{cryptoReq.email}</p>
                 </div>
-
               </div>
             </div>
 
@@ -212,7 +190,7 @@ export default function Sidebar(props) {
                             ? "text-lightBlue-500 hover:text-lightBlue-600"
                             : "text-blueGray-700 hover:text-blueGray-500")
                       }
-                      to="/home"
+                      to="/"
                       onClick={changeLocation}
                   >
                     <i
@@ -236,8 +214,9 @@ export default function Sidebar(props) {
                             : "text-blueGray-700 hover:text-blueGray-500")
                       }
                       to="/Notification"
+                      onClick={changeLocation}
                   >
-                      <i className={"fas fa-bell mr-2 text-sm "+ (window.location.href.indexOf("/profile") !== -1
+                      <i className={"fas fa-bell mr-2 text-sm "+ (window.location.href.indexOf("/Notification") !== -1
                               ? "opacity-75"
                               : "text-blueGray-300")
                         }></i>
@@ -261,12 +240,7 @@ export default function Sidebar(props) {
                       onClick={changeLocation}
                   >
 
-                    <a href="" className="notification">
-                      <i className="fas fa-envelope fa-lg"></i>
-                      <span className="badge rounded-pill badge-notification bg-danger">{props.unread || status}</span>
-                    </a>
-                    {" "}
-                    Notification
+
 
                     <i
                         className={
@@ -302,6 +276,28 @@ export default function Sidebar(props) {
                     Crypto Forecast
                   </Link>
                 </li>
+                  <li className="items-center">
+                      <Link
+                          className={
+                              "text-xs uppercase py-3 font-bold block " +
+                              (window.location.href.indexOf("/Chat") !== -1
+                                  ? "text-lightBlue-500 hover:text-lightBlue-600"
+                                  : "text-blueGray-700 hover:text-blueGray-500")
+                          }
+                          to="/Chat"
+                          onClick={changeLocation}
+                      >
+                          <i
+                              className={
+                                  "fas fa-comment mr-2 text-sm " +
+                                  (window.location.href.indexOf("/Chat") !== -1
+                                      ? "opacity-75"
+                                      : "text-blueGray-300")
+                              }
+                          />{" "}
+                          Crypto Forum
+                      </Link>
+                  </li>
                 <li className="items-center">
 
                 {user === null ? <Link
@@ -311,10 +307,10 @@ export default function Sidebar(props) {
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="/login"
+                  // to="/login"
                   onClick={()=> {
-                    setLogin(true)
-                    changeLocation()
+                    
+                   OnContinue()
                   }}
                 >
 
@@ -331,7 +327,11 @@ export default function Sidebar(props) {
                 :<Link onClick={()=> {
                       localStorage.setItem("loggedOut",true)
                       localStorage.clear()
-                      setShowSweetAlert(true)
+                      swal("Logout successful", {
+                        icon: "success",
+                        buttons: false,
+                        timer: 3000,
+                      })
                     }}
                       className={
                         "text-xs uppercase py-3 font-bold block  " +
@@ -341,7 +341,7 @@ export default function Sidebar(props) {
                       }
                     
                           
-                          to="/home"
+                          to="/"
 
                       >
                         <i
@@ -544,6 +544,6 @@ export default function Sidebar(props) {
             </div>
           </div>
         </nav>
-      </>
+      </React.Fragment>
   );
 }

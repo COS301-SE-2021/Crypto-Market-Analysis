@@ -34,7 +34,7 @@ export default function Reddit({coin_name}){
 
 
     return(
-        <>
+        <React.Fragment>
             {
                 reddits.map((post) =>{
 
@@ -54,7 +54,7 @@ export default function Reddit({coin_name}){
 
                 })
             }
-        </>
+        </React.Fragment>
     )
 }
 Reddit.defaultProps = {

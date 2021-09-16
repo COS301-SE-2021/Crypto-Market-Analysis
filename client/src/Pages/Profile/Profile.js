@@ -2,7 +2,6 @@ import React, {useEffect, useState, useRef} from 'react'
 import { Link, useHistory } from "react-router-dom";
 import { Form  } from "react-bootstrap"
 import 'bootstrap/dist/css/bootstrap.min.css';
-import styled from 'styled-components';
 import {Avatar, Tabs, AppBar, Tab} from "@material-ui/core"
 import EditIcon from "@material-ui/icons/Edit"
 import DeleteIcon from "@material-ui/icons/Delete"
@@ -12,48 +11,32 @@ import axios from "axios";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import ModalComp from "../../components/Modal/Modal"
 import "./Profile.css";
-import Subreddits from "../Subreddits/Subreddits";
-import Reddits from "../../components/Reddits/Reddits";
 import SweetAlert from 'react-bootstrap-sweetalert'
+import swal from 'sweetalert';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Star, } from "@material-ui/icons";
 import { SocialIcon } from 'react-social-icons';
 import ClipLoader from "react-spinners/ClipLoader"
 
-/*const Button = styled.button`
-display: block;
-text-align: center;
-background-color: #FFFFF0;
-color:black;
-padding: 5px 15px;
-border-radius: 5px;
-outline: 5px;
-width: 150%;
-variant:outlined;
-`*/
-
 const platformsList = [{name:"Twitter",id:"twitter"},
-    {name:"Reddit",id:"reddit"},
-    {name:"4chan",id:null}
+    {nme:"Reddit",id:"reddit"},
+    {name:"4Chan",id:null}
 ];
 
 const Profile = props =>
 {
-
     const history = useHistory()
     let[socs,setSoc] =useState([]);
     let [platforms, setPlatforms] = useState(platformsList)
     const [selectedTab, setSelectedTab] = React.useState(0)
-    const [userToSearch, setUserToSearch] = useState({})
     const [showSweetAlert, setShowSweetAlert] = useState(false)
     const [alertTitle,setAlertTitle] = useState("")
     const [show, setShow] = useState(false)
     const modalText = "Are you sure you want to delete your account?"
     const [accDelete, setAccDelete] = useState(false)
     let [loading, setLoading] = useState(false);
-
+    let [refresher,setRefresher]= useState(false)
     const searchRef = useRef()
-
 
     const handleChange = (event, newValue) =>
     {
@@ -73,6 +56,7 @@ const Profile = props =>
                 for(const crypto of response.data)
                     soc.push({socName: crypto});
                 setSoc(soc);
+
             })
             .catch(err => {console.error(err);})
 
@@ -103,6 +87,8 @@ const Profile = props =>
             })
             .catch(err => {console.error(err);})
 
+
+
     },[])
 
     const cleanSpace = () =>{
@@ -112,8 +98,6 @@ const Profile = props =>
     }
 
     const handleFollowButton = (user,follows)=>{
-
-
         let target =  document.getElementById('followBtn')
         let iconEL = document.createElement("i")
         iconEL.setAttribute("class","fab fa-twitter mr-2")
@@ -145,63 +129,67 @@ const Profile = props =>
 
     }
 
-    const followUser = ()=>{
+    const followUser = () => {
 
         let user = {email: localStorage.getItem("emailSession"), screen_name: searchRef.current.value }
-
         axios.post('http://localhost:8080/twitter/follow/',user)
-        .then(response=>{
-            console.log(response)
-            setAlertTitle("User added to our watch list")
-            setShowSweetAlert(true)
-            document.getElementById('followBtn').innerHTML = "<span></span>"
-        })
-        .catch(err => {console.error(err)})
-
-
+            .then(response=>{
+                console.log(response)
+                swal("User added to your watchlist", {
+                    icon: "success",
+                    buttons: false,
+                    timer: 3000,
+                  });
+                document.getElementById('followBtn').innerHTML = "<span></span>"
+                
+            })
+            .catch(err => {console.error(err)})
     }
-    const unFollowUser = ()=>{
+    const unFollowUser = () =>{
 
         let user = {email: localStorage.getItem("emailSession"), screen_name: searchRef.current.value }
 
         axios.post('http://localhost:8080/twitter/unfollow/',user)
-        .then(response=>{
-            console.log(response)
-            setAlertTitle("User removed from our watch list")
-            setShowSweetAlert(true)
-            document.getElementById('followBtn').innerHTML = "<span></span>"
-        })
-        .catch(err => {console.error(err)})
-
-
+            .then(response=>{
+                console.log(response)
+                swal("User removed from your watchlist", {
+                    icon: "success",
+                    buttons: false,
+                    timer: 3000,
+                  });
+                document.getElementById('followBtn').innerHTML = "<span></span>"
+                
+            })
+            .catch(err => {
+                console.error(err)
+            });
     }
-    const searchUsername = async (event) =>{
+    const searchUsername = async (event) => {
         document.getElementById('followBtn').innerHTML = "<span></span>"
 
         setLoading(true)
         event.preventDefault()
 
-
         let user = { screen_name: searchRef.current.value, email: localStorage.getItem("emailSession")}
-        axios.post('http://localhost:8080/twitter/validateScreenName/',user)
-        .then((response)=>{
 
-            if(response.data.data){
-                handleFollowButton(user.screen_name,false)
-            }
-            else{
-                handleFollowButton(null,false)
-            }
-        },(reject)=>{
-            console.log(reject)
-            if(reject.response.data.error.message.includes("You are already following the selected screen name"))
-            {
-                handleFollowButton(user.screen_name,true)
-            }
-        })
-        .catch(err => {
-            console.error(err)
-        })
+        axios.post('http://localhost:8080/twitter/validateScreenName/',user)
+            .then((response)=>{
+                if(response.data.data){
+                    handleFollowButton(user.screen_name,false)
+                }
+                else{
+                    handleFollowButton(null,false)
+                }
+            },(reject) => {
+                console.log(reject.response)
+                if(reject.response.data.error.message.includes("You are already following the selected screen name"))
+                {
+                    handleFollowButton(user.screen_name,true)
+                }
+            })
+            .catch(err => {
+                console.error(err)
+            })
     }
 
     const select = (name) => {
@@ -219,25 +207,35 @@ const Profile = props =>
                 */
                 if(platform.selected) {
 
-
                     axios.post('http://localhost:8080/user/followSocialMedia/',platformObj)
                         .then(response =>{
                             console.log(response)
-                            setAlertTitle("Social media added")
-                            setShowSweetAlert(true)
+                            swal("Social media added", {
+                                icon: "success",
+                                buttons: false,
+                                timer: 3000,
+                              }).then(()=>{
+                                setRefresher(!refresher)
+                              })
                         })
                         .catch(err => {console.error(err);})
                 }
                 else{
 
-
                     axios.post('http://localhost:8080/user/unfollowSocialMedia/',platformObj)
                         .then(response =>{
                             console.log(response)
-                            setAlertTitle("Social media removed")
-                            setShowSweetAlert(true)
+                            swal("Social media removed", {
+                                icon: "success",
+                                buttons: false,
+                                timer: 3000,
+                              }).then(()=>{
+                                setRefresher(!refresher)
+                              })
                         })
-                        .catch(err => {console.error(err);})
+                        .catch(err => {
+                            console.error(err);
+                        });
                 }
             }
             return {
@@ -245,11 +243,24 @@ const Profile = props =>
             }
         })]
         setPlatforms(platforms)
-
     }
 
-    const deleteAccount = () =>{
-        //use userReq object and call a delete endpoint
+    const deleteAccount = (email) =>{
+
+        email = {email: localStorage.getItem("emailSession")}
+        if (email !=='undefined') {
+            axios.post('http://localhost:8080/user/deleteUserAccount/', email)
+                .then(response => {
+                    console.log(response)
+
+                })
+                .catch(err => {
+                    console.error(err);
+                })
+        }
+        else {
+            console.log("Email is not defined");
+        }
         setShow(true)
     }
 
@@ -260,35 +271,36 @@ const Profile = props =>
         setAccDelete(true)
         setAlertTitle("Account deleted")
         setShowSweetAlert(true)
-
+        history.push("/login")
     }
-
 
     return(
 
-        <>
+        <React.Fragment>
             <ModalComp show={show} text={modalText} cancel={onCancel} continue={OnContinue} />
             <SweetAlert show={showSweetAlert} success title={alertTitle} onConfirm={()=>{
-                 setShowSweetAlert(false)
+                setShowSweetAlert(false)
                 if(accDelete)
                 {
-                    history.push("/")
-                // localStorage.clear()
+                    history.push("/login")
+                    // localStorage.clear()
                 }
 
 
-            }}></SweetAlert>
+            }}/>
             <Sidebar />
             <script sync src="https://platform.twitter.com/widgets.js%22%3E"></script>
             <div className="md:ml-64">
                 <div className="container" >
 
                     <Container>
-                        <div style={{
+                        <div className="row pb-5 pt-3" style={{
                             display:"flex",
                             justifyContent:"space-around",
                             margin:"18px 1px",
-                            borderBottom: "1px solid grey"
+                            borderBottom: "1px solid grey",
+                            backgroundColor:"#cbd5e1",
+                            borderRadius: "8px"
                         }}>
                             <div>
 
@@ -332,13 +344,13 @@ const Profile = props =>
 
                                         <Button variant={'contained'} style={{
                                             textAlign: "center",
-                                            backgroundColor: "#FFFFF0",
-                                            color:"black",
+                                            backgroundColor: "#58667e",
+                                            color:"#FFFFF0",
                                             padding: "5px 15px",
                                             borderRadius: "5px",
                                             outline: "5px",
                                             width: "100%"
-                                            }} startIcon={<EditIcon fontSize={'large'} />}>
+                                        }} startIcon={<EditIcon fontSize={'large'} />}>
 
                                             Update Profile Details
                                         </Button>
@@ -347,13 +359,13 @@ const Profile = props =>
                                     <div className="flex text-xs py-3 ml-3">
                                         <Button variant={'contained'} style={{
                                             textAlign: "center",
-                                            backgroundColor: "#FFFFF0",
-                                            color:"black",
+                                            backgroundColor: "#58667e",
+                                            color:"#FFFFF0",
                                             padding: "5px 15px",
                                             borderRadius: "5px",
                                             outline: "5px",
                                             width: "150%",
-                                            }} onClick={deleteAccount} startIcon={<DeleteIcon />}>
+                                        }} onClick={() => {deleteAccount(userReq)}} startIcon={<DeleteIcon />}>
 
                                             Delete Account
                                         </Button>
@@ -365,7 +377,7 @@ const Profile = props =>
                         </div>
                     </Container>
 
-                    <AppBar position={"static"} color={'transparent'}>
+                    <AppBar position={"static"} color={'transparent'} style={{ borderRadius: "5px"}}>
                         <Tabs centered={true} indicatorColor={'primary'} value={selectedTab} onChange={handleChange}>
                             <Tab style={{color:"black"}} label="Cryptocurrencies Followed" />
                             <Tab style={{color:"black"}} label="Social Media Platforms Followed"/>
@@ -382,8 +394,9 @@ const Profile = props =>
                             {
                                 socs.map((Soc, index) =>{
                                     return(
-                                        <div>
-                                            <li className="list-group-item" key={index}>{Soc.socName}</li>
+
+                                        <div >
+                                            <li className="list-group-item" key={index} style={{backgroundColor:"#cbd5e1"}}>{Soc.socName}</li>
                                         </div>
                                     )
                                 })
@@ -400,7 +413,7 @@ const Profile = props =>
                                     crypts.map((Soc, index) =>{
                                         return(
                                             <div>
-                                                <li className="list-group-item" key={index}>{Soc.socMediaName}</li>
+                                                <li className="list-group-item" key={index} style={{backgroundColor:"#cbd5e1"}}>{Soc.socMediaName}</li>
                                             </div>
                                         )
                                     })
@@ -410,29 +423,29 @@ const Profile = props =>
                     }
                     {
                         selectedTab === 2 &&
-                        <div id="searchContainer" className="container" >
-                           <script sync src="https://platform.twitter.com/widgets.js%22%3E"></script>
+                        <div id="searchContainer" className="container"  style={{backgroundColor:"transparent", borderRadius:"8px"}}>
+                            <script sync src="https://platform.twitter.com/widgets.js%22%3E"></script>
                             <div className="row searchFilter" >
 
                                 <div className="col-sm-12" >
                                     <div className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold pt-4 pb-4 px-0">Search for a twitter user you want us to check out for you</div>
                                     <div className="input-group" >
                                         <div className="input-group-btn" >
-                                        <Form onSubmit={searchUsername}>
-                                            <Form.Group >
-                                                <Form.Control type="text" ref={searchRef} required />
-                                            </Form.Group>
-                                            <Form.Group >
-                                                <Form.Control id="searchBtn" type="submit" className="btn btn-secondary btn-search" value="Search" />
+                                            <Form onSubmit={searchUsername}>
+                                                <Form.Group >
+                                                    <Form.Control type="text" ref={searchRef} required />
+                                                </Form.Group>
+                                                <Form.Group >
+                                                    <Form.Control id="searchBtn" type="submit" className="btn btn-secondary btn-search" value="Search" />
 
-                                            </Form.Group>
-                                        </Form>
+                                                </Form.Group>
+                                            </Form>
 
                                         </div>
-                                        {loading ? <div className="ml-2 mt-2 text-center"><ClipLoader  loading={loading} size={15} /></div>:<></>}
+                                        {loading ? <div className="ml-2 mt-2 text-center"><ClipLoader  loading={loading} size={15} /></div>:<React.Fragment></React.Fragment>}
                                         <div id="followBtn">
-                                        <span></span>
-                                    </div>
+                                            <span/>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -441,30 +454,30 @@ const Profile = props =>
                         </div>
                     }
                     {    selectedTab === 3 &&
-                        <div className="container-fluid">
-                            <div className="md:block text-center text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0">Select social media platforms you want to follow</div>
-                            <div className="row mt-6">
-                                <div className="col-5 m-auto platform-container overflow-auto ">
-                                        {
+                    <div className="container-fluid" >
+                        <div className="md:block text-center text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0">Select social media platforms you want to follow</div>
+                        <div className="row mt-6" >
+                            <div className="col-5 m-auto platform-container overflow-auto " style={{backgroundColor:"#cbd5e1"}}>
+                                {
 
-                                            platforms.map((myPlatform) =>{
-                                                return(
-                                                <div key={myPlatform.id} className="cryptos-view">
-                                                    <div className="crypt-row">
-                                                        <div className="crypto">
-                                                            {myPlatform.selected?<Star className="select-star" color="primary" onClick={()=>{select(myPlatform.id)}}/>:<Star className="select-star" color="action" onClick={()=>{select(myPlatform.id)}}/>}
-                                                            {myPlatform.id != null ?<SocialIcon network={myPlatform.id} style={{height:"40px",width:"40px"}}/>:
+                                    platforms.map((myPlatform) =>{
+                                        return(
+                                            <div key={myPlatform.id} className="cryptos-view" >
+                                                <div className="crypt-row">
+                                                    <div className="crypto" >
+                                                        {myPlatform.selected?<Star className="select-star" style={{ color: "#03989e" }} onClick={()=>{select(myPlatform.id)}}/>:<Star className="select-star" color="action" onClick={()=>{select(myPlatform.id)}}/>}
+                                                        {myPlatform.id != null ?<SocialIcon network={myPlatform.id} style={{height:"40px",width:"40px"}}/>:
                                                             <img src={"./4chanLogo.png"} alt="4chan" style={{height:"40px",width:"40px"}} />}
-                                                            <h1 className="crypto-name" style={{marginLeft:"2em"}}>{myPlatform.name}</h1>
-                                                        </div>
+                                                        <h1 className="crypto-name" style={{marginLeft:"2em"}}>{myPlatform.name}</h1>
                                                     </div>
                                                 </div>
-                                            )
-                                        })
-                                    }
-                                </div>
+                                            </div>
+                                        )
+                                    })
+                                }
                             </div>
                         </div>
+                    </div>
                     }
                     {/*{*/}
                     {/*    selectedTab === 4 &&*/}
@@ -486,7 +499,7 @@ const Profile = props =>
                     {/*}*/}
                 </div>
             </div>
-        </>
+        </React.Fragment>
     );
 }
 export default Profile;

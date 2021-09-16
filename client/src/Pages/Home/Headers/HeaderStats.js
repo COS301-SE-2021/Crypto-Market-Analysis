@@ -30,7 +30,7 @@ export default function HeaderStats(props) {
       /*
       The post request get cryptocurrencies and social media platforms the user follows
       */
-      axios.post('user/getUserCryptos/', requestObj)
+      axios.post('http://localhost:8080/user/getUserCryptos/', requestObj)
       .then(async(response) => {
 
         await response.data.map((coin)=>{
@@ -38,7 +38,12 @@ export default function HeaderStats(props) {
         })
         getCoins(selectedCryptos)
       })
-      .catch(err => {console.error(err);})
+      .catch(err => {
+        console.error(err)
+        setLoading(false)
+        showServerAlert()
+        
+      })
     }
     else{ /* else if user is not logged in, use default(Top 10) crypto coins */
       axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=10&page=1&sparkline=false')
@@ -50,6 +55,12 @@ export default function HeaderStats(props) {
               crypto_names.push(crypto.name);
 
             getCoins(crypto_names)
+          })
+          .catch(err => {
+            console.error(err)
+            setLoading(false)
+            showServerAlert()
+            
           })
     }
 
@@ -75,9 +86,27 @@ export default function HeaderStats(props) {
             setCryptos(userCryptoList)
             setLoading(false)
         })
-        .catch(err => {console.error(err);})
+        .catch(err => {
+          console.error(err)
+          setLoading(false)
+          showServerAlert()
+          
+        })
   }
+  const showServerAlert = ()=>{
 
+    if(!document.getElementById("server-alert")){
+      let alert = document.createElement("div")
+      alert.setAttribute("class","alert alert-info")
+      alert.setAttribute("id","server-alert")
+      alert.style .cssText = "width:50%;margin:auto;text-align:center"
+      alert.innerHTML = "Something went wrong, please try again later"
+      if(document.getElementById("cards-col")){
+        document.getElementById("cards-col").append(alert)
+      }
+      
+    }
+  }
   const changeLocation = (coinname, coinsymbol)=>{
       
     unblockHandle.current = history.block(() => {
@@ -118,19 +147,19 @@ export default function HeaderStats(props) {
   }
 
   return (
-    <>
+    <React.Fragment>
             <ModalComp show={show} cancel={onCancel} continue={OnContinue} />
             
             <div className="container" style={{width:'90%',margin:'auto'}}>
               <div className="row">
-                <div className="col-12">
-                {loading ? <div className="mx-auto mt-8 text-center"><ClipLoader  loading={loading} size={150} /></div>:
-                <Carousel cols={3} rows={2} gap={8} >
+                <div id="cards-col" className="col-12">
+                {loading ? <div className="mx-auto mt-8 text-center"><ClipLoader  loading={loading} size={150} /></div>:<React.Fragment></React.Fragment>}
+                {cryptos && cryptos.length > 0 ? <Carousel cols={3} rows={2} gap={8} >
                    {cryptos.map((coin) => {
                       return (
                         <Carousel.Item key={coin.id}>
                           <div className="w-full lg:w-12/12 xl:w-12/12 px-4 mt-5">
-                              <Link to={{pathname:"/home/DetailedInfo", state:{coin_name:coin.name, coin_symbol:coin.symbol}}} onClick={()=>{changeLocation(coin.name, coin.symbol)}}>
+                              <Link to={{pathname:"/home/DetailedInfo", state:{coin_name:coin.name, coin_symbol:coin.symbol, coin_id:coin.id}}} onClick={()=>{changeLocation(coin.name, coin.symbol)}}>
                                   <CardStats
                                       statSubtitle={coin.name}
                                       statTitle={coin.current_price}
@@ -146,11 +175,11 @@ export default function HeaderStats(props) {
                       )
                   })
                 }
-                </Carousel>
+                </Carousel>:<React.Fragment></React.Fragment>
                 }
                 </div>
               </div>
             </div>
-    </>
+    </React.Fragment>
   );
 }

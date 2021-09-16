@@ -1,9 +1,9 @@
 import './Predictions.scss';
 import "bootstrap/dist/css/bootstrap.css";
-import Sidebar from "../../components/Sidebar/Sidebar"
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader"
+import Sidebar from "../../components/Sidebar/Sidebar";
 const CoinGecko = require('coingecko-api');
 const CoinGeckoClient = new CoinGecko();
 
@@ -17,7 +17,7 @@ function Predictions() {
         console.log("use effect")
         let userReq = { email: localStorage.getItem("emailSession") }
         let allcoins = await CoinGeckoClient.coins.all();
-        axios.post('/user/getCoinPredictions/',userReq)
+        axios.post('http://localhost:8080/user/getCoinPredictions/',userReq)
             .then(async(response) =>{
                 console.log("getCoinPredictions")
                 for(let y=0;y<allcoins.data.length;y++)
@@ -68,10 +68,9 @@ function Predictions() {
     },[]);
 
     return(
-        <>
+        <React.Fragment>
             <Sidebar />
             <div className="container" style={{marginLeft:'300px'}} >
-
                 <div className="row">
                     <div className="col-md-12">
 
@@ -115,7 +114,7 @@ function Predictions() {
                     </div>
                 </div>
             </div>
-        </>
+        </React.Fragment>
     )
 
 

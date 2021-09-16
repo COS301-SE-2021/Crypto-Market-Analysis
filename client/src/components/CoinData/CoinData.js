@@ -1,11 +1,13 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {historyOptions} from "../../chartConfigs/chartConfigs";
 import Chartjs from 'chart.js'
+import {ButtonGroup} from "@material-ui/core";
+import Button from "@material-ui/core/Button";
 
-const CoinData = ({data}) => {
+const CoinData = ({ data }) => {
     const chartRefs = useRef();
     const {day, week, year, fourteenDays, month, threeMonths, detail} = data;
-    const [timeFormat, setTimeFormat] = useState("24h");
+    const [timeFormat, setTimeFormat] = useState("");
     let chartInstance;
 
     const determineTimeFormat = () => {
@@ -27,6 +29,8 @@ const CoinData = ({data}) => {
         }
     }
 
+    Chartjs.defaults.global.events = ['click'];
+
     useEffect(() => {
 
 
@@ -39,9 +43,11 @@ const CoinData = ({data}) => {
                         {
                             label: detail.name + " market cap",
                             data: determineTimeFormat(),
-                            backgroundColor: "rgba(255, 255, 255,0)",
-                            borderColor: "rgba(0,0,0,0.9)",
-                            pointRadius: 0,
+                            backgroundColor: "transparent",
+                            borderColor: "black",
+                            pointRadius: 1,
+                            borderWidth: 0.8,
+                            pointHoverRadius: 16,
                         },
 
                     ],
@@ -63,12 +69,44 @@ const CoinData = ({data}) => {
             </div>
 
             <div className="chart-button mt-1">
-                <button onClick={() => setTimeFormat("24h")} className="btn btn-outline-secondary btn-sm">24h</button>
-                <button onClick={() => setTimeFormat("7d")} className="btn btn-outline-secondary btn-sm mx-1">7d</button>
-                <button onClick={() => setTimeFormat("14d")} className="btn btn-outline-secondary btn-sm mx-1">14d</button>
-                <button onClick={() => setTimeFormat("30d")} className="btn btn-outline-secondary btn-sm mx-1">30d</button>
-                <button onClick={() => setTimeFormat("90d")} className="btn btn-outline-secondary btn-sm mx-1">90d</button>
-                <button onClick={() => setTimeFormat("1y")} className="btn btn-outline-secondary btn-sm">1y</button>
+                <ButtonGroup variant={"contained"} size={"large"} color={"default"} >
+                    <Button onClick={() => setTimeFormat("24h")} style={{
+                        textAlign: "center",
+                        color:"black",
+                        outline: "5px",
+                        width: "150%",
+                    }}>24h</Button>
+                    <Button onClick={() => setTimeFormat("7d")} style={{
+                        textAlign: "center",
+                        color:"black",
+                        outline: "5px",
+                        width: "150%",
+                    }}>7d</Button>
+                    <Button onClick={() => setTimeFormat("14d")} style={{
+                        textAlign: "center",
+                        color:"black",
+                        outline: "5px",
+                        width: "150%",
+                    }}>14d</Button>
+                    <Button onClick={() => setTimeFormat("30d")} style={{
+                        textAlign: "center",
+                        color:"black",
+                        outline: "5px",
+                        width: "150%",
+                    }}>30d</Button>
+                    <Button onClick={() => setTimeFormat("90d")} style={{
+                        textAlign: "center",
+                        color:"black",
+                        outline: "5px",
+                        width: "150%",
+                    }}>90d</Button>
+                    <Button onClick={() => setTimeFormat("1y")} style={{
+                        textAlign: "center",
+                        color:"black",
+                        outline: "5px",
+                        width: "150%",
+                    }}>1y</Button>
+                </ButtonGroup>
             </div>
 
         </div>

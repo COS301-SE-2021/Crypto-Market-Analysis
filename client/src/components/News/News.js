@@ -145,7 +145,7 @@ export default function News(props) {
 
                     const analysisOptions = {
                     	method: 'POST',
-			            url: 'http://localhost:8000/ArticleAnalytics',
+			            url: 'https://analysis-services-api.herokuapp.com/ArticleAnalytics',
 			            data: {
 			                article: article.snippet,
 			            }

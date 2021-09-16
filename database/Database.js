@@ -1,6 +1,7 @@
 const admin = require('firebase-admin');
 const serviceAccount = require('./firebase.js');
 
+
 /** Initializes the database*/
 const initialize = () => {
     admin.initializeApp({
@@ -25,17 +26,17 @@ class Database {
      * @param {any} fieldsData The data of the updated field
      * @param merge
      * */
-    save(collectionPath, documentName, field, fieldsData, merge = false){
+    async save(collectionPath, documentName, field, fieldsData, merge = false){
         let data = {[field]: fieldsData}
 
         if(merge){
             try{
-                this.fetch(collectionPath, documentName, field).then(oldField => {
+                await this.fetch(collectionPath, documentName, field).then(async oldField => {
                     if(!oldField)
                         oldField = [];
                     oldField.push(fieldsData);
                     data = {[field]: oldField};
-                    this.#db.collection(collectionPath).doc(documentName).set(data, {merge:true}).then();
+                    await this.#db.collection(collectionPath).doc(documentName).set(data, {merge:true}).then();
                 }).catch(error => {
                     return Promise.reject(error);
                 })
@@ -51,6 +52,50 @@ class Database {
         if(email !== 'undefined')
             return this.#db.collection('Users').doc(email).get();
     }
+
+    async savePost(post){
+        await this.#db.collection(post.room).add({
+            owner: post.owner,
+            title: post.title,
+            body:  post.body,
+            time:  post.time,
+            like:  post.like,
+            dislike:  post.dislike,
+            sentiment:  post.sentiment
+        });
+    }
+    async removePost(postId)
+    {
+        this.#db.collection("Altcoins").doc(postId).delete().then(() => {
+           // console.log("Document successfully deleted!");
+        }).catch((error) => {
+            console.error("Error removing document: ", error);
+        });
+    }
+
+    async deleteUser(email){
+        if(email !== 'undefined')
+        {
+             admin.auth().getUserByEmail(email)
+                .then( (useRecord) => {
+
+                    const uid = useRecord.uid;
+                    return admin.auth().deleteUser(uid)
+                })
+                .then( () => {
+                    console.log("Success")
+                })
+                .catch( error => {
+                    console.log("fetching user data", error);
+                })
+            this.#db.collection('Users').doc(email).delete();
+            return true;
+        }
+         return false;
+
+    }
+
+
     async fetchPushNotification(email){
         try{
             return this.#db.collection('Subscribers').doc(email).get();
@@ -63,6 +108,9 @@ class Database {
         //    // console.log(data.data().subing);
         //         return data.data().subing;
         //     });
+    }
+    fetchAnalysisScore(Social_Media){
+        return this.#db.collection(Social_Media);
     }
     async storeNotification(email,object){
         if(email && object) {
@@ -80,6 +128,8 @@ class Database {
             return Promise.reject(`Parameters are undefined`);
 
     }
+
+
     async setPushNotification(email,object){
             console.log('something')
             const notification_object ={
@@ -138,6 +188,8 @@ class Database {
             }
         }
     }
+
+
 
     async delete(collectionPath, documentPath, field, fieldData){
         //Delete a specific value from a field. Only works when the field is an array or object

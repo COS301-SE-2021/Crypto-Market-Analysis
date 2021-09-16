@@ -3,14 +3,33 @@ const router = express.Router();
 const userFunctions =require('./userFunctions')
 const Database = require('../database/Database');
 const firestore_db = new Database().getInstance();
-const webpush = require("web-push");
-const Push_notification=require('./notification/push_notification')
 const emailObject = require('nodemailer');
 const csrf = require('csurf');
 const {check, validationResult} = require('express-validator');
+const cookieParser = require('cookie-parser')
 
-// const csrfProtection = csrf();
-// router.use(csrfProtection);
+//const csrfProtection = csrf({cookie: true});
+//router.use(csrfProtection);
+//router.use(cookieParser());
+
+router.post("/register" , async (request, response, next)=>{
+
+    if(!request.body.email){
+        let error = new Error(`Malformed request. Please check your parameters`);
+        error.status = 400;
+        return next(error);
+    }
+    else{
+        await userFunctions.register(request.body.email).then(data=>{
+            return response.status(200).json(data);
+
+        }).catch(err => {
+            let error = new Error(err);
+            error.status = 500;
+            return next(error);
+        });
+    }
+});
 
 /** This function adds a social media site to the users account
  * @param {object} request A request object with the email and symbol.
@@ -19,13 +38,13 @@ const {check, validationResult} = require('express-validator');
  * */
 router.post("/followCrypto", async (request, response, next)=>{
 
-    if(!request.body.email || !request.body.symbol || !request.body.crypto_name){
+    if(!request.body.email || !request.body.symbol || !request.body.crypto_name || !request.body.coin_id){
         let error = new Error(`Malformed request. Please check your parameters`);
         error.status = 400;
         return next(error);
     }
     else{
-        await userFunctions.followCrypto(request.body.email,request.body.symbol,request.body.crypto_name).then(data=>{
+        await userFunctions.followCrypto(request.body.email,request.body.symbol,request.body.crypto_name, request.body.coin_id).then(data=>{
             return response.status(200).json(data);
         }).catch(err => {
             let error = new Error(err);
@@ -37,19 +56,36 @@ router.post("/followCrypto", async (request, response, next)=>{
 
 router.post("/unfollowCrypto", async (request, response, next)=>{
 
-    if(!request.body.email || !request.body.symbol){
+    if(!request.body.email || !request.body.symbol || !request.body.coin_id){
         let error = new Error(`Malformed request. Please check your parameters`);
         error.status = 400;
         return next(error);
     }
     else{
-        await userFunctions.unfollowCrypto(request.body.email,request.body.symbol).then(data => {
+        await userFunctions.unfollowCrypto(request.body.email,request.body.symbol, request.body.coin_id).then(data => {
             return response.status(200).json(data);
         }).catch(err=>{
             let error = new Error(err);
             error.status = 500;
             return next(error);
         });
+    }
+});
+
+router.post("/getCoinIDs", async (request, response, next) => {
+    if(!request.body.email){
+        let error = new Error(`Malformed request. Please check your parameters`);
+        error.status = 400;
+        return next(error);
+    }
+    else{
+        await userFunctions.getCoinIDs(request.body.email).then(data => {
+            return response.status(200).json(data);
+        }).catch(err => {
+            let error = new Error(err);
+            error.status = 500;
+            return next(error);
+        })
     }
 });
 
@@ -66,6 +102,23 @@ router.post("/getUserCryptos", async (request, response, next) => {
     }
     else {
         userFunctions.getUserCrypto(request.body.email).then(data=>{
+            return response.status(200).json(data);
+        }).catch(err=>{
+            let error = new Error(err);
+            error.status = 500;
+            return next(error);
+        })
+    }
+});
+
+router.post("/deleteUserAccount", async( request, response, next) => {
+    if(!request.body.email){
+        let error = new Error(`Malformed request. Please check your parameters`);
+        error.status = 400;
+        return next(error);
+    }
+    else {
+        userFunctions.deleteUserAccount(request.body.email).then(data=>{
             return response.status(200).json(data);
         }).catch(err=>{
             let error = new Error(err);
@@ -196,37 +249,16 @@ router.post("/storePush", async (request,response)=>{
      await userFunctions.setPush(request.body.email,request.body.object).then(data=>{
          return response.status(200).json("subs stored");
      })
-
-
 });
 
 router.post("/GETPush", async (request,response)=>{
     await userFunctions.getPush(request.body.email).then(data=>{
         return response.status(200).json(data);
     })
-
-
 });
 
-/** This function gets the social media a user is following
- * @param {object} request A request object with the email and symbol.
- * @param {object} response A response object which will return the status code.
- * @return          A status code stating if the request was successful.
- * */
-router.post("/fetchUserSocialMedia", async (request, response) => {
-    if(request.body.email === null) {
-        return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
-    }
-    else{
-        userFunctions.fetchUserSocialMedia(request.body.email).then(data=>{
-            return response.status(200).json(data);
-        }).catch(err=>{
-            return response(401).json({status:`error`, error: err})
-        })
-    }
-});
 router.post("/fetchAnalysis", async (request, response) => {
-    if(request.body.socialmedia === null || request.body.crypto===null ) {
+    if(!request.body.socialmedia || !request.body.crypto) {
         return response.status(401).json({status: `error`, error: `Malformed request. Please check your parameters`});
     }
     else{
@@ -250,36 +282,46 @@ router.post("/subscribe", async (req, res) => {
 
 });
 
-router.post("/sendMail", async (req, res) => {
-    const sender =await emailObject.createTransport({
-        service: 'gmail',
-        auth: {
-            user: process.env.EMAIL_USERNAME || 'codexteam4@gmail.com',
-            pass: process.env.EMAIL_PASSWORD || 'PNeux9E^peM6s:z;'
-        }
-    });
-    const receiver = {
-        from: 'CryptoMarketAnalysis@sites.co.za',//'codexteam4@gmail.com',
-        to: req.body.email,
-        subject: 'Subscribed!',
-        text: "You have subscribed to receive push notification and Email",
-        html: "<body style=\" background-color: black;text-align: center;color: white;font-family: Arial, Helvetica, sans-serif; \">\n" +
-            "\n" +
-            "<h1>Subscription</h1>\n" +
-            "<p>You have subscribed to receive push notification Alert</p>\n" +
-            "<p></p>\n" +
-            "<img src=\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiMQS1-LtJdXdKYhcC1WJ9pQjE9SOksrUc7IynK7z1ybmLsRx6Rmj4OIvRxtyYXj5PSGU&usqp=CAU\" alt=\"Avatar\" style=\"width:200px\">\n" +
-            "\n" +
-            "</body>",
-    };
-    await sender.sendMail(receiver, function(error, data) {
-        if (error) {
-            res.status(401).json(error+" Error Sending Email");
-        } else {
-            res.status(201).json('Email sent: ' + data.response);
-        }
-    })
-    res.status(201).json("Email has been sent!");
+router.post("/sendMail", async (req, res, next) => {
+    if(!req.body.email){
+        let error = new Error(`Malformed request. Please check your parameters`);
+        error.status = 400;
+        return next(error);
+    }
+    else {
+        const sender = await emailObject.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.EMAIL_USERNAME,
+                pass: process.env.EMAIL_PASSWORD
+            }
+        });
+        const receiver = {
+            from: 'CryptoMarketAnalysis@sites.co.za',//'codexteam4@gmail.com',
+            to: req.body.email,
+            subject: 'Subscribed!',
+            text: "You have subscribed to receive push notifications!",
+            html: "<body style=\" background-color: black;text-align: center;color: white;font-family: Arial, Helvetica, sans-serif; \">\n" +
+                "\n" +
+                "<h1>Subscription</h1>\n" +
+                "<p>You have subscribed to receive email alerts!</p>\n" +
+                "<p></p>\n" +
+                "<img src=\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiMQS1-LtJdXdKYhcC1WJ9pQjE9SOksrUc7IynK7z1ybmLsRx6Rmj4OIvRxtyYXj5PSGU&usqp=CAU\" alt=\"Avatar\" style=\"width:200px\">\n" +
+                "\n" +
+                "</body>",
+        };
+
+        await sender.sendMail(receiver, (err, data) => {
+            if (err) {
+                let error = new Error(`Something went wrong while trying to send the email: ${err}`);
+                error.status = 500;
+                return next(error);
+            } else {
+                res.status(200).json('Email sent: ' + data.response);
+            }
+        })
+        res.status(200).json("Email has been sent!");
+    }
 });
 
 module.exports = router

@@ -19,11 +19,11 @@ export default function AllCryptos(props)
     let [loading, setLoading] = useState(true);
     let [refresh,setRefresh] = useState(false)
     const history = useHistory()
-   
 
-    useEffect(async () => {
+
+    useEffect( () => {
         let selectedCryptos = []
-       
+
         let  userReq = {
             email: localStorage.getItem("emailSession"),
         }
@@ -31,33 +31,35 @@ export default function AllCryptos(props)
             /*
             Request to get cryptocurrencies followed by the user
             */
-            axios.post('/user/getUserCryptos/',userReq)
-            .then(async(response) =>{
-                /*
-                Set default cryptos if data is not set else
-                push cryptos to a list                  
-                */
-                await response.data.map((coin)=>{
-                    selectedCryptos.push(coin)
-                })  
-                
-            })
-            .catch(err => {console.error(err);})
+            axios.post('http://localhost:8080/user/getUserCryptos/',userReq)
+                .then(async(response) =>{
+                    /*
+                    Set default cryptos if data is not set else
+                    push cryptos to a list
+                    */
+                    await response.data.map((coin)=>{
+                        selectedCryptos.push(coin)
+                    })
+                    getCoins(selectedCryptos)
+                })
+                .catch(err => {console.error(err);})
         }
         else{
-            
-            selectedCryptos = coins
-        }
-        getCoins(selectedCryptos)
 
-      
+            selectedCryptos = coins
+            getCoins(selectedCryptos)
+        }
+        
+
+
     },[props.logged]);
 
     /*
-        Get a list of coins from Coingecko. For each crypto, check if it matches crypto a user 
-        follows and mark it as selected                  
+        Get a list of coins from Coingecko. For each crypto, check if it matches crypto a user
+        follows and mark it as selected
     */
-        function getCoins(coinsList){
+    function getCoins(coinsList){
+       
         axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=250&page=1&sparkline=false')
         .then(async (response_data) => {
             
@@ -88,27 +90,27 @@ export default function AllCryptos(props)
     const showServerAlert = ()=>{
 
         if(!document.getElementById("server-alert")){
-          let alert = document.createElement("div")
-          alert.setAttribute("class","alert alert-info")
-          alert.setAttribute("id","server-alert")
-          alert.style .cssText = "width:50%;margin:auto;text-align:center"
-          alert.innerHTML = "Something went wrong, please try again later"
-          document.getElementById("response-alert").innerHTML = alert
+            let alert = document.createElement("div")
+            alert.setAttribute("class","alert alert-info")
+            alert.setAttribute("id","server-alert")
+            alert.style .cssText = "width:50%;margin:auto;text-align:center"
+            alert.innerHTML = "Something went wrong, please try again later"
+            document.getElementById("response-alert").innerHTML = alert
         }
-      }
+    }
 
     const onCancel =(e)=>{
-        setShow(false);    
+        setShow(false);
     }
     const OnContinue =()=>{
         history.push('/login')
-      }
+    }
 
     const select = (name,type)=>{
 
         if(localStorage.getItem("emailSession") != null){
             selectFinalize(name,type)
-            
+
         }
         else{
             setShow(true)
@@ -116,22 +118,23 @@ export default function AllCryptos(props)
 
     }
     const selectFinalize = (name,type) => {
-        
-        
-            if(type == "cryptos"){
-                cryptos =  [...cryptos.map((crypto)=>{
-                    if(name == crypto.symbol){
-                        crypto.selected = !crypto.selected;
 
-                        /*
-                            if selected add to favourite list else remove it
-                        */
-                        if(crypto.selected) {
-                        
-                            let  cryptoToAdd = {
+
+        if(type === "cryptos"){
+            cryptos =  [...cryptos.map((crypto)=>{
+                if(name === crypto.symbol){
+                    crypto.selected = !crypto.selected;
+
+                    /*
+                        if selected add to favourite list else remove it
+                    */
+                    if(crypto.selected) {
+
+                        let  cryptoToAdd = {
                             email: localStorage.getItem("emailSession"),
                                 symbol: crypto.symbol,
                                 crypto_name: crypto.name,
+                                coin_id: crypto.id,
                             }
                            
                             axios.post('/user/followCrypto/',cryptoToAdd).then(()=>{
@@ -161,29 +164,54 @@ export default function AllCryptos(props)
                             })
                                 .catch(err => {console.error(JSON.stringify(err));})
 
+                        axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd).then(()=>{
+                            swal("Coin was added to watchlist", {
+                                icon: "success",
+                                buttons: false,
+                                timer: 3000,
+                            });
+                        })
+                            .catch(err => {console.error(err);})
+
+                    }
+                    else{
+                        let  cryptoToRemove = {
+                            email: localStorage.getItem("emailSession"),
+                            symbol: crypto.symbol,
+                            coin_id: crypto.id,
                         }
+
+                        axios.post('http://localhost:8080/user/unfollowCrypto/',cryptoToRemove).then(()=>{
+                            swal("Coin was removed from your watchlist", {
+                                icon: "success",
+                                buttons: false,
+                                timer: 3000,
+                            });
+                        })
+                            .catch(err => {console.error(JSON.stringify(err));})
+
                     }
-                    return {
-                        ...crypto
-                    }
-                })]
-                setCryptos(cryptos)
-            }
-            
-            let func = props.alert 
-                func() //alert observer in parent component to trigger change in headerstat
+                }
+                return {
+                    ...crypto
+                }
+            })]
+            setCryptos(cryptos)
+        }
+
+        let func = props.alert
+        func() //alert observer in parent component to trigger change in headerstat
     }
 
     //sets search to whats typed in the search input field
     const searchCoin = (event) => { setSearchCrypto(event.target.value) }
-   
+
 
     //filter list based on the search input
     const searchedCryptos = cryptos.filter((crypto)=>{
 
         return crypto.name.toLowerCase().includes(searchCrypto.toLowerCase()) ||  crypto.symbol.toLowerCase().includes(searchCrypto.toLowerCase())
     })
-  
     return(
         <>       
         <ModalComp show={show} cancel={onCancel} continue={OnContinue} />
@@ -224,15 +252,13 @@ export default function AllCryptos(props)
                                                         Mkt Cap: R{myCrypto.market_cap.toLocaleString()}
                                                     </p>
                                                 </div>
-                                        </div>
-                              </div>
-                            )
-                        })
-                    }
-                     </>}
+                                            )
+                                        })
+                                        }
+                                    </React.Fragment>}
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        </>
-    );
+            </React.Fragment>
+        );
 }

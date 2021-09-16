@@ -19,7 +19,7 @@ export default function UpdatePassword() {
             await resetPassword(emailRef.current.value)
             setMessage('Reset Message delivered to Email')
             //history.push("/login")
-        } catch {
+        } catch(err) {
             setError("Failed to reset password enter valid details!")
         }
 

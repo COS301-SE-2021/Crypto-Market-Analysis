@@ -30,7 +30,7 @@ export default function Sidebar(props) {
       email: localStorage.getItem("emailSession")
     }
     // this.setState({emailRequest: response.data});
-    axios.post('/user/getNotificationObject/',emailReq)
+    axios.post('http://localhost:8080/user/getNotificationObject/',emailReq)
         .then(response => {
           let i = 0;
           let counter = 0;
@@ -87,7 +87,7 @@ export default function Sidebar(props) {
   }
 
   return (  
-    <>
+    <React.Fragment>
       <ModalComp show={show} cancel={onCancel} continue={OnContinue} />
       <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"
       >
@@ -276,6 +276,28 @@ export default function Sidebar(props) {
                     Crypto Forecast
                   </Link>
                 </li>
+                  <li className="items-center">
+                      <Link
+                          className={
+                              "text-xs uppercase py-3 font-bold block " +
+                              (window.location.href.indexOf("/Chat") !== -1
+                                  ? "text-lightBlue-500 hover:text-lightBlue-600"
+                                  : "text-blueGray-700 hover:text-blueGray-500")
+                          }
+                          to="/Chat"
+                          onClick={changeLocation}
+                      >
+                          <i
+                              className={
+                                  "fas fa-comment mr-2 text-sm " +
+                                  (window.location.href.indexOf("/Chat") !== -1
+                                      ? "opacity-75"
+                                      : "text-blueGray-300")
+                              }
+                          />{" "}
+                          Crypto Forum
+                      </Link>
+                  </li>
                 <li className="items-center">
 
                 {user === null ? <Link
@@ -522,6 +544,6 @@ export default function Sidebar(props) {
             </div>
           </div>
         </nav>
-      </>
+      </React.Fragment>
   );
 }

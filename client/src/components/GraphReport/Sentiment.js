@@ -27,7 +27,7 @@ export default class ChartGraph extends React.Component {
             socialmedia: this.props.social,
             crypto: this.props.crypto
         }
-        axios.post('/user/fetchAnalysis/',objectRequest)
+        axios.post('http://localhost:8080/user/fetchAnalysis/',objectRequest)
             .then(response => {
                 let arr = response.data.Analysis_score;
                 arr = arr.map(function(each_element){

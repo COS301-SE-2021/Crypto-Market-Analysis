@@ -42,8 +42,7 @@ export default function UpdateProfile() {
     }
 
     return (
-        <>
-        
+        <React.Fragment>
             <div className="row">
                
                 <div className="col-md-4 mx-auto mt-5 p-0">
@@ -106,6 +105,6 @@ export default function UpdateProfile() {
                 </div>
                 
             </div>
-        </>
+        </React.Fragment>
     )
 }

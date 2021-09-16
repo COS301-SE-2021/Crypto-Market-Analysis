@@ -185,12 +185,12 @@ class Notifications extends React.Component {
             object: object
 
         }
-
-        axios.post('/user/setNotificationObject/',emailReq)
+        
+        axios.post('http://localhost:8080/user/setNotificationObject/',emailReq)
             .then(() => {
                 
             })
-        this.setState({_delete: true});
+        // this.setState({_delete: true});
         this.setState({notificationObject: object});
         const objectdata= this.state.notificationObject;
         this.generateData(objectdata);
@@ -207,7 +207,7 @@ class Notifications extends React.Component {
 
         }
 
-        axios.post('/user/setNotificationObject/',emailReq)
+        axios.post('http://localhost:8080/user/setNotificationObject/',emailReq)
             .then(() => {
                 swal("Successfully cleared all notifications", {
                     icon: "success",
@@ -233,7 +233,7 @@ class Notifications extends React.Component {
 
         }
 
-        axios.post('/user/setNotificationObject/',ObjectReq)
+        axios.post('http://localhost:8080/user/setNotificationObject/',ObjectReq)
             .then(response => {
             })
 
@@ -320,7 +320,7 @@ class Notifications extends React.Component {
             email: localStorage.getItem("emailSession")
         }
 
-        axios.post('/user/getNotificationObject/',emailReq)
+        axios.post('http://localhost:8080/user/getNotificationObject/',emailReq)
             .then(response => {
 
                 this.generateData(response.data)
@@ -332,14 +332,8 @@ class Notifications extends React.Component {
 
     render() {
         return (
-            <>
-                {/* <SweetAlert show={this.state.clear} success title={"Successfully cleared all notifications"} onConfirm={()=>{
-                    this.setState({clear: false});
-                }}></SweetAlert> */}
-
-                {/* <SweetAlert show={this.state._delete} success title={"Successfully deleted a message"} onConfirm={()=>{
-                    this.setState({_delete: false});
-                }}></SweetAlert> */}
+            <React.Fragment>
+            
                 <Sidebar unread={this.state.unread}/>
 
             <div className="md:ml-64">
@@ -436,7 +430,7 @@ class Notifications extends React.Component {
                 {/*            </Card>*/}
                 {/*    </div>*/}
                 {/*</div>*/}
-            </>
+            </React.Fragment>
         );
     }
 }

@@ -30,7 +30,7 @@ function Home(){
         }
     }
     return (
-        <>
+        <React.Fragment>
            
             <Sidebar />
             <div className="md:ml-64">
@@ -50,7 +50,7 @@ function Home(){
                     </div>
                 </div>
             </div>
-        </>
+        </React.Fragment>
     );
 }
 

@@ -12,7 +12,7 @@ export default function Reddit({coin_name}){
             coin: coin_name
         }
 
-        axios.post('/reddit/coinRedditPost/',cryptoReq)
+        axios.post('http://localhost:8080/reddit/coinRedditPost/',cryptoReq)
             .then(response => {
                 console.log("test begin with coin prop");
                 console.log(response.data[0]);
@@ -34,7 +34,7 @@ export default function Reddit({coin_name}){
 
 
     return(
-        <>
+        <React.Fragment>
             {
                 reddits.map((post) =>{
 
@@ -54,7 +54,7 @@ export default function Reddit({coin_name}){
 
                 })
             }
-        </>
+        </React.Fragment>
     )
 }
 Reddit.defaultProps = {

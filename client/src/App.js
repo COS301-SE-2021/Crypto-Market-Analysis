@@ -12,13 +12,16 @@ import Push from "./Pages/Push/Push"
 import PrivateRoute from "./components/newRoute"
 import Notification from "./Pages/Notification/Notification"
 import DetailedInfo from "./Pages/DetailedInfo/DetailedInfo"
+import Chat from "./Pages/Chatroom/chatroom"
+import Comments from "./Pages/Comments/Comments"
+import Posts from "./Pages/Posts/Posts"
 import Subreddits from "./Pages/Subreddits/Subreddits"
 //import Predictions from "./Pages/Predictions/Predictions"
 import {BrowserRouter as Router , Switch} from "react-router-dom";
 import { AuthProvider } from "./Auth/Auth"
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
-import { useEffect } from 'react';
+import React,{ useEffect } from 'react';
 import Predictions from "./Pages/Predictions/Predictions";
 
 function App() {
@@ -43,26 +46,27 @@ function App() {
 
   return (
           <AuthProvider>
-              <Router>
-                   <Switch>
-                         <section className="header">
-                             <Route exact path="/" component={Home}></Route>
-                             <Route exact path="/register" component={Register}></Route>
-                             <Route exact path="/Push" component={Push}></Route>
-                             <PrivateRoute exact path="/home" component={Home}></PrivateRoute>
-                             <Route exact path="/login" component={login}></Route>
-                             <Route exact path="/updatePassword" component={UpdatePassword}></Route>
-                             <Route exact path="/updateProfile" component={UpdateProfile}></Route>
-                             <Route exact path="/Settings" component={Settings}></Route>
-                             <Route exact path="/AllCrypto" component={AllCrypto}></Route>
-                             <Route exact path="/Profile" component={Profile}></Route>
-                             <Route exact path="/Notification" component={Notification}></Route>
-                             <Route exact path="/home/DetailedInfo" component={DetailedInfo}></Route>
-                             <Route exact path="/Subreddits" component={Subreddits}></Route>
-                             <Route exact path="/Predictions" component={Predictions}></Route>
-                         </section>
-                   </Switch>
-              </Router>
+           <Switch>
+                 <section className="header">
+                     <Route exact path="/" component={Home}></Route>
+                     <Route exact path="/register" component={Register}></Route>
+                     <Route exact path="/Push" component={Push}></Route>
+                     <PrivateRoute exact path="/home" component={Home}></PrivateRoute>
+                     <Route exact path="/login" component={login}></Route>
+                     <Route exact path="/updatePassword" component={UpdatePassword}></Route>
+                     <Route exact path="/updateProfile" component={UpdateProfile}></Route>
+                     <Route exact path="/Settings" component={Settings}></Route>
+                     <Route exact path="/AllCrypto" component={AllCrypto}></Route>
+                     <Route exact path="/Profile" component={Profile}></Route>
+                     <Route exact path="/Notification" component={Notification}></Route>
+                     <Route exact path="/home/DetailedInfo" component={DetailedInfo}></Route>
+                     <Route exact path="/Subreddits" component={Subreddits}></Route>
+                     <Route exact path="/Predictions" component={Predictions}></Route>
+                     <Route exact path="/Chat" component={Chat}></Route>
+                     <Route exact path="/Posts" component={Posts}></Route>
+                     <Route exact path="/Comments" component={Comments}></Route>
+                 </section>
+           </Switch>
           </AuthProvider>
   );
 }

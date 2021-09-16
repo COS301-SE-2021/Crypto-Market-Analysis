@@ -7,6 +7,7 @@ const userRoutes = require('./routes/user');
 const twitterRoute = require('./routes/twitter');
 const redditRoute = require('./routes/reddit');
 const chanRoute = require('./routes/chan');
+const chatRoute = require('./routes/chat/chat');
 const sentimentRoute = require('./routes/sentiment');
 const helmet = require('helmet');
 const cors = require ('cors');
@@ -38,6 +39,7 @@ app.use("/user", userRoutes);
 app.use("/twitter", twitterRoute);
 app.use("/reddit", redditRoute);
 app.use("/chan", chanRoute);
+app.use("/chat", chatRoute);
 app.use("/sentiment", sentimentRoute);
 
 app.use((req, res, next) => {

@@ -13,7 +13,7 @@ export default function FourChan(){
 
         }
 
-        axios.post('/chan/get4chanPost/',cryptoReq)
+        axios.post('http://localhost:8080/chan/get4chanPost/',cryptoReq)
             .then(response => {
                 let posts_4chan = [];
                 for(let j = 0; j<response.data.posts_array.length; j++)
@@ -32,7 +32,7 @@ export default function FourChan(){
 
     },[]);
     return(
-        <>
+        <React.Fragment>
             {/*<div style={{marginTop:"3%"}} >*/}
 
             {/*    <div className="container card-wrapper" >*/}
@@ -112,6 +112,6 @@ export default function FourChan(){
             {/*    </div>*/}
             {/*</div>*/}
 
-        </>
+        </React.Fragment>
     )
 }

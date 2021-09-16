@@ -68,7 +68,7 @@ describe(`POST /twitter/validateScreenName`, () => {
 
 describe(`POST /twitter/follow`, () => {
     test(`when parameters are correct`, async () => {
-        const response = await request(app).post(`/twitter/follow`).send({email: `codexteam4@gmail.com`, screen_name: `michael_saylor`});
+        const response = await request(app).post(`/twitter/follow`).send({email: `codexteam4@gmail.com`, screen_name: `elonmusk`});
         expect(response.status).toBe(200);
         expect(response.body.message).toBeDefined();
         expect(response.body.message).toBe(`Screen name successfully added`);
@@ -119,6 +119,27 @@ describe(`POST /twitter/unfollow`, () => {
 
         for(const body of body_data){
             const response = await request(app).post(`/twitter/unfollow`).send(body);
+            expect(response.error.status).toBe(400);
+            expect(response.error.text).toEqual(`{"error":{"message":"Malformed request. Please check your parameters"}}`);
+        }
+    });
+});
+
+describe(`POST /twitter/getTweetIDs`, () => {
+    test(`when parameters are correct`, async () => {
+        const response = await request(app).post(`/twitter/getTweetIDs`).send({email: `codexteam4@gmail.com`, crypto_name: `Bitcoin`});
+        expect(response.status).toBe(200);
+        expect(response.body.data).toBeDefined();
+    });
+    test(`when parameters are missing`, async () => {
+        const body_data = [
+            {crypto_name: "Bitcoin"},
+            {email: "test@test.com"},
+            {}
+        ]
+
+        for(const body of body_data){
+            const response = await request(app).post(`/twitter/getTweetIDs`).send(body);
             expect(response.error.status).toBe(400);
             expect(response.error.text).toEqual(`{"error":{"message":"Malformed request. Please check your parameters"}}`);
         }

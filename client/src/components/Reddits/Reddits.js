@@ -13,7 +13,7 @@ export default function Reddits(){
         email: localStorage.getItem("emailSession")
     }
 
-    axios.post('/reddit/getRedditPost/',cryptoReq)
+    axios.post('http://localhost:8080/reddit/getRedditPost/',cryptoReq)
         .then(response => {
             let posts_ = [];
             for(let j = 0; j<response.data.posts.length; j++)
@@ -50,7 +50,7 @@ export default function Reddits(){
 
 
     return(
-        <>
+        <React.Fragment>
             {/*<div>*/}
             {/*    <form>*/}
             {/*        <input type="search" className="form-control rounded" placeholder="Search..."*/}
@@ -105,6 +105,6 @@ export default function Reddits(){
                 {/*    </div>*/}
                 {/*</div>*/}
 
-        </>
+        </React.Fragment>
     )
         }

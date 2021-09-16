@@ -8,7 +8,6 @@ const SentimentChart = ({data}) => {
     const chartRef = useRef();
     const [timeFormat, setTimeFormat] = useState("2m");
     const {detail} = data;
-    let chartInstance;
     Chartjs.defaults.global.events = ['click'];
 
     useEffect(async () => {
@@ -20,7 +19,7 @@ const SentimentChart = ({data}) => {
                     crypto_name: detail.name,
                 }
 
-                axios.post('/sentiment/getAverages', requestObj)
+                axios.post('http://localhost:8000/sentiment/getAverages', requestObj)
                     .then(async (response) => {
 
                         let averagesList = [];
@@ -35,7 +34,7 @@ const SentimentChart = ({data}) => {
 
                                 if (chartRef && chartRef.current) {
 
-                                    chartInstance = new Chartjs(chartRef.current, {
+                                    let chartInstance = new Chartjs(chartRef.current, {
                                         type: 'line',
                                         data: {
                                             labels: l,

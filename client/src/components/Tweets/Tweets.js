@@ -16,7 +16,7 @@ export default function Tweets({coin_name}){
   }
 
     useEffect(async () => {
-      axios.post('/twitter/getTweetIDs',tweetsReq)
+      axios.post('http://localhost:8080/twitter/getTweetIDs',tweetsReq)
       .then(async(response) => {
         setTweets(response.data.data);
         setErrorResponse(null);
@@ -34,8 +34,8 @@ export default function Tweets({coin_name}){
     },[])
 
     return(
-        <>
-        {errorResponse ? <>
+        <React.Fragment>
+        {errorResponse ? <React.Fragment>
           <div className="container mt-16" >
             <div className="alert alert-warning alert-dismissible fade show m-auto text-center" style={{width:"70%"}}>
               {errorResponse.includes("The user is not following people on twitter")? <span>Oops, looks like you don't follow anyone on Twitter :(</span>
@@ -44,7 +44,7 @@ export default function Tweets({coin_name}){
             </div>
           </div>
         
-        </> :<></>}
+        </React.Fragment> :<React.Fragment></React.Fragment>}
          {loader ?
          <div className="mx-auto mt-16 text-center"><ClipLoader className="mx-auto mt-16" loading={loader} size={150} /> </div>
         : <div className="carousel-container container mt-8" >
@@ -60,7 +60,7 @@ export default function Tweets({coin_name}){
               }
             </Carousel>
         </div>}
-        </>
+        </React.Fragment>
     )
 }
 Tweets.defaultProps = {

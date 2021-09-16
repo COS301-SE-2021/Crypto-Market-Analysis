@@ -19,7 +19,7 @@ const SentimentChart = ({data}) => {
                     crypto_name: detail.name,
                 }
 
-                axios.post('/sentiment/getAverages', requestObj)
+                axios.post('http://localhost:8000/sentiment/getAverages', requestObj)
                     .then(async (response) => {
 
                         let averagesList = [];

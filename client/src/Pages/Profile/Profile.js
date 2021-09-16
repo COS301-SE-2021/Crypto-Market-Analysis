@@ -82,7 +82,7 @@ const Profile = props =>
             })
             .catch(err => {console.error(err);})
 
-        axios.post('/reddit/getUserSubreddits/',userReq)
+        axios.post('http://localhost:8080/reddit/getUserSubreddits/',userReq)
             .then(response => {
                 let subName = [];
                 for(const subred of response.data)
@@ -136,7 +136,7 @@ const Profile = props =>
     const followUser = () => {
 
         let user = {email: localStorage.getItem("emailSession"), screen_name: searchRef.current.value }
-        axios.post('/twitter/follow/',user)
+        axios.post('http://localhost:8080/twitter/follow/',user)
             .then(response=>{
                 console.log(response)
                 swal("User added to your watchlist", {
@@ -153,7 +153,7 @@ const Profile = props =>
 
         let user = {email: localStorage.getItem("emailSession"), screen_name: searchRef.current.value }
 
-        axios.post('/twitter/unfollow/',user)
+        axios.post('http://localhost:8080/twitter/unfollow/',user)
             .then(response=>{
                 console.log(response)
                 swal("User removed from your watchlist", {
@@ -176,7 +176,7 @@ const Profile = props =>
 
         let user = { screen_name: searchRef.current.value, email: localStorage.getItem("emailSession")}
 
-        axios.post('/twitter/validateScreenName/',user)
+        axios.post('http://localhost:8080/twitter/validateScreenName/',user)
             .then((response)=>{
                 if(response.data.data){
                     handleFollowButton(user.screen_name,false)
@@ -267,7 +267,7 @@ const Profile = props =>
                 })
         }
         else {
-            console.log("sad");
+            console.log("Email is not defined");
         }
         setShow(true)
     }

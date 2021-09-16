@@ -193,9 +193,10 @@ class Notifications extends React.Component {
         }
 
         axios.post('http://localhost:8080/user/setNotificationObject/',emailReq)
-            .then(response => {
+            .then(() => {
+                
             })
-        this.setState({_delete: true});
+        // this.setState({_delete: true});
         this.setState({notificationObject: object});
         const objectdata= this.state.notificationObject;
         this.generateData(objectdata);
@@ -213,9 +214,14 @@ class Notifications extends React.Component {
         }
 
         axios.post('http://localhost:8080/user/setNotificationObject/',emailReq)
-            .then(response => {
+            .then(() => {
+                swal("Successfully cleared all notifications", {
+                    icon: "success",
+                    buttons: false,
+                    timer: 3000,
+                  });
             })
-        this.setState({clear: true});
+        // this.setState({clear: true});
         this.setState({notificationObject: object});
         const objectdata= {};
         this.setState({elem: []});

@@ -222,23 +222,16 @@ const get_Doc_by_User_id =async(cryptocurrency)=>{
 
     })
 }
-
+const sentiment = require( 'wink-sentiment' );
 const analyseArticle =async(Article)=>{
     return  new Promise(function (resolve, reject) {
-        convertion(Article).then(comment => {
-            splits(comment).then(newWording => {
-                spellingc(newWording).then(filtered => {
-                    analysewords(filtered).then(analysis => {
+                      const analysis= sentiment(Article).score;
                         if (analysis > 0) {
                             resolve('positive') ;
                         } else if (analysis < 0) {
                             resolve('negative');
                         } else
                            resolve('neutral');
-                    })
-                })
-            })
-        })
     })
 }
 module.exports = {saveAverageChange,get_Doc_by_User_id,get_Doc_id,analyseArticle,splits,convertion,analysewords,spellingc,saveToDB,sentimentAnalysis}

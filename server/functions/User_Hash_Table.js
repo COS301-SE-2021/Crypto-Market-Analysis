@@ -1,7 +1,6 @@
 const Database = require('../database/Database');
 const firestore_db = new Database().getInstance();
 
-
 class User_Hash_Table {
     #users;
     #init;
@@ -165,7 +164,7 @@ class User_Hash_Table {
             //Check if the email exists
             if(await this.searchUser(key)){
                 //Get the twitter class instance
-                const Twitter = require(`server/functions/Twitter`);
+                const Twitter = require(`./Twitter`);
                 const twitter = new Twitter().getInstance();
                 //Get the screen names array containing the list of screen names all the users are following
                 let screen_name_array = this.#users[key].screen_name;
@@ -521,7 +520,9 @@ class User_Hash_Table {
             this.#initialized = true;
         }
 
-        const values = Object.values(this.#users[email].screen_name);
+        let values = null;
+        if(this.#users[email].screen_name)
+            values = Object.values(this.#users[email].screen_name);
         if(values && values.indexOf(screen_name) > -1)
             return true;
         return false;

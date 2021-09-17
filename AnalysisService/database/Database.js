@@ -1,3 +1,4 @@
+require("dotenv").config();
 const admin = require('firebase-admin');
 const serviceAccount = require('./firebase.js');
 
@@ -62,6 +63,16 @@ class Database {
     getField(collectionPath,documentName)
     {
         return this.#db.collection(collectionPath).doc(documentName).get();
+    }
+    saveRateChange(collection, document, object)
+    {
+        try{
+            this.#db.collection(collection).doc(document).set(object, {merge:true});
+        }
+        catch(e) {
+            console.error(`error occurred while saving rate change: \n${e}`);
+        }
+
     }
     fetch(collectionPath, documentName, field)
     {

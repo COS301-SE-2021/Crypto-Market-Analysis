@@ -5,19 +5,25 @@ class NotificationMessage {
         this.html='';
     }
     Results() {
-        if(this.AverageFeedback==='positive')
+
+        if(this.AverageFeedback.includes('positive'))
         {
-            this.html = this.cryptocurrency + ' sentiment has increased!';
+            let message = this.AverageFeedback;
+            let strArr = message.split(" ");
+            this.html = this.cryptocurrency + ' sentiment has increased by ('+ strArr[1]+'%)!';
         }
-        else if(this.AverageFeedback==='negative')
+        else if(this.AverageFeedback.includes('negative'))
         {
-            this.html = this.cryptocurrency + ' sentiment has decreased!';
+            let message = this.AverageFeedback;
+            let strArr = message.split(" ");
+            this.html = this.cryptocurrency + ' sentiment has decreased by ('+ strArr[1]+'%)!';
         }
-        else if(this.AverageFeedback==='nothing')
+        else
         {
             this.html =  this.cryptocurrency + ' average sentiment did not change!';
         }
         return this.html;
     }
 }
+
 module.exports =NotificationMessage ;

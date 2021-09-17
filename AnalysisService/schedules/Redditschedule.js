@@ -32,4 +32,4 @@ const reddit_schedule=async()=>{
         }
          process.exit(0);
 }
-reddit_schedule().then(data=>console.log(data));
+// reddit_schedule().then(data=>console.log(data));

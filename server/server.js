@@ -58,7 +58,7 @@ cron.schedule('*/10000 * * * *', () => {
     chans.crawlCatalogue().then(response => {
         let cryptos = ['bitcoin','ethereum','tether','binance','cardano','dogecoin','xrp','polkadot','litecoin','vechain','monero','btc','eth','usdt','bnb','ada','doge','ripple','chainlink','link','vet','xmr','shib'];
         let fin = []
-        console.log(response)
+        // console.log(response)
         for(let i=0;i<response.length;i++)
         {
 
@@ -77,7 +77,7 @@ cron.schedule('*/10000 * * * *', () => {
         let uniqueArray = fin.filter(function(item, pos) {
             return fin.indexOf(item) == pos;
         })
-        console.log(uniqueArray);
+        //console.log(uniqueArray);
         let empty = []
         chans.firestore_db.save('4chan_info','biz','posts',empty);
         chans.firestore_db.save('4chan_info','biz','posts',uniqueArray);

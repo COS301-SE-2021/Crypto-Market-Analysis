@@ -14,6 +14,7 @@
   "dependencies": {
     "apos-to-lex-form": "^1.0.5",
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "emoji-name-map": "^1.2.9",
     "emoji-unicode": "^2.0.1",

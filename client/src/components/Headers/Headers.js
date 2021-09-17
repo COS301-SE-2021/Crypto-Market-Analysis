@@ -4,6 +4,8 @@ import {AppBar, Collapse, CssBaseline, IconButton, Toolbar} from "@material-ui/c
 import SortIcon from '@material-ui/icons/Sort'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import {Link as Scroll} from 'react-scroll'
+import HomeIcon from '@material-ui/icons/Home'
+import {Link} from "react-router-dom";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -58,9 +60,12 @@ export default function Headers() {
                     <h1 className={classes.appbarTitle} style={{color: "white"}}>
                         CRYPTOSIS
                     </h1>
-                    <IconButton>
-                        <SortIcon className={classes.icon}/>
+                    <Link to="/home">
+                    <IconButton >
+                        <HomeIcon className={classes.icon}/>
+                       Go to Homepage
                     </IconButton>
+                    </Link>
                 </Toolbar>
             </AppBar>
 

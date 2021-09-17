@@ -24,7 +24,7 @@ const place = [
         description:
             "The 2nd main feature is crypto forums allow which allow users to interact amongst each other about any topic related to cryptos" +
             "and the market trends that may influence fluctuations in crypto prices",
-        imageUrl: {link},
+        imageUrl: 'https://images.unsplash.com/photo-1631689529205-1dcd9725e63f?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NjcwfHxjcnlwdG9jdXJyZW5jeSUyMGNoYXRyb29tc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
         time: 1500,
     },
     {

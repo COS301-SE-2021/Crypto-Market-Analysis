@@ -6,7 +6,7 @@ import image from "../../images/background.jpg"
 import Features from "../../components/Features/Features";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {Button} from "react-bootstrap";
-import DeleteIcon from "@material-ui/icons/Delete";
+import HomeIcon from "@material-ui/icons/Home";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -28,23 +28,7 @@ export default function LandingPage() {
             <Headers />
             <Features />
 
-            <div className={classes.container}>
-                <h3>
 
-                    <Button variant={'contained'} style={{
-                        textAlign: "center",
-                        backgroundColor: "#58667e",
-                        color:"#FFFFF0",
-                        padding: "5px 15px",
-                        borderRadius: "5px",
-                        outline: "5px",
-                        width: "50%",
-                    }} href={"/login"} startIcon={<DeleteIcon />}>
-                        Visit HomePage.
-                    </Button>
-
-                </h3>
-            </div>
 
         </div>
     )

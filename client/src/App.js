@@ -49,7 +49,8 @@ function App() {
           <AuthProvider>
            <Switch>
                  <section className="header">
-                     <Route exact path="/" component={Home}></Route>
+                     {/*<Route exact path="/" component={Home}></Route>*/}
+                     <Route exact path="/" component={LandingPage}></Route>
                      <Route exact path="/landing" component={LandingPage}></Route>
                      <Route exact path="/register" component={Register}></Route>
                      <Route exact path="/Push" component={Push}></Route>

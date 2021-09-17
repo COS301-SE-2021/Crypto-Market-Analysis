@@ -15,4 +15,4 @@ const twitter_schedule=async()=>{
     process.exit(0)
 
 }
-twitter_schedule().then(data=>console.log(data));
+//twitter_schedule().then(data=>console.log(data));

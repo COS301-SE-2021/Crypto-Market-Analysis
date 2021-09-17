@@ -19,8 +19,8 @@ import { SocialIcon } from 'react-social-icons';
 import ClipLoader from "react-spinners/ClipLoader"
 
 const platformsList = [{name:"Twitter",id:"twitter"},
-    {nme:"Reddit",id:"reddit"},
-    {name:"4Chan",id:null}
+    {name:"Reddit",id:"reddit"},
+    {name:"4chan",id:"4chan"}
 ];
 
 const Profile = props =>
@@ -89,7 +89,7 @@ const Profile = props =>
 
 
 
-    },[])
+    },[platforms])
 
     const cleanSpace = () =>{
         let target =  document.getElementById('followBtn')
@@ -465,7 +465,7 @@ const Profile = props =>
                                             <div key={myPlatform.id} className="cryptos-view" >
                                                 <div className="crypt-row">
                                                     <div className="crypto" >
-                                                        {myPlatform.selected?<Star className="select-star" style={{ color: "#03989e" }} onClick={()=>{select(myPlatform.id)}}/>:<Star className="select-star" color="action" onClick={()=>{select(myPlatform.id)}}/>}
+                                                        {myPlatform.selected?<Star className="select-star" style={{ color: "#03989e" }} onClick={()=>{select(myPlatform.id)}}/>: myPlatform.selected?<Star className="select-star" color="action" onClick={()=>{select(myPlatform.id)}}/>:<Star className="select-star" color="action" onClick={()=>{select(myPlatform.id)}}/>}
                                                         {myPlatform.id != null ?<SocialIcon network={myPlatform.id} style={{height:"40px",width:"40px"}}/>:
                                                             <img src={"./4chanLogo.png"} alt="4chan" style={{height:"40px",width:"40px"}} />}
                                                         <h1 className="crypto-name" style={{marginLeft:"2em"}}>{myPlatform.name}</h1>

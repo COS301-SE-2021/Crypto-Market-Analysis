@@ -19,6 +19,7 @@ import Subreddits from "./Pages/Subreddits/Subreddits"
 //import Predictions from "./Pages/Predictions/Predictions"
 import {BrowserRouter as Router , Switch} from "react-router-dom";
 import { AuthProvider } from "./Auth/Auth"
+import LandingPage from "./Pages/LandingPage/LandingPage"
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import React,{ useEffect } from 'react';
@@ -49,6 +50,7 @@ function App() {
            <Switch>
                  <section className="header">
                      <Route exact path="/" component={Home}></Route>
+                     <Route exact path="/landing" component={LandingPage}></Route>
                      <Route exact path="/register" component={Register}></Route>
                      <Route exact path="/Push" component={Push}></Route>
                      <PrivateRoute exact path="/home" component={Home}></PrivateRoute>

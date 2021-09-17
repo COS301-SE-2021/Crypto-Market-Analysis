@@ -1,18 +1,20 @@
 require("dotenv").config();
 const analysis = require('../analysisFunction');
-const twitter_schedule=async()=>{
-    const cryptos =await analysis.get_Doc_id('Twitter');
-    for(let crypto of cryptos)
-    {
-        let data = await  analysis.sentimentAnalysis(crypto,'Twitter').then(data=>{
-            return data;
-        }).catch(err=>{return err})
-        let changeEveryHour = await analysis.saveAverageChange('Twitter',crypto).then(change=>{
-            return change;
-        }).catch(err=>{return err});
-
+let i=1;
+const twitter_schedule=async ()=>{
+    const array_of_crypto =await analysis.get_Doc_id('Twitter');
+    for(let crypto of array_of_crypto) {
+        let data = await analysis.sentimentAnalysis(crypto, 'Twitter').then((data) => {
+        }).catch(err => {
+            return err
+        })
+        if(i === array_of_crypto.length)
+        {
+            process.exit(0);
+        }
+        i++;
     }
-    process.exit(0)
-
 }
-//twitter_schedule().then(data=>console.log(data));
+twitter_schedule().then(data=>
+    process.exit(0)
+);

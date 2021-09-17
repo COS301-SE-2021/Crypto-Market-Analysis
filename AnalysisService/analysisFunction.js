@@ -115,12 +115,12 @@ const saveAverageChange = async(SocialMedia , cryptocurrency)=>{
         })()
     })
 }
-const saveToDB = async (axis,arr, socialmedia , crypto)=> {
+const saveToDB = async (arr, socialmedia , crypto)=> {
     let mini=Math.min.apply(Math, arr)
     let maxi = Math.max.apply(Math, arr)
     const age = arr => arr.reduce((acc,v) => acc + v)
     let average = age(arr)
-    firestore_db.saveData(socialmedia,crypto,{xaxis:axis,Analysis_score: arr ,Min: mini,Max: maxi,Average: average})
+    firestore_db.saveData(socialmedia,crypto,{Analysis_score: arr ,Min: mini,Max: maxi,Average: average})
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
 //return analysis value
@@ -173,7 +173,7 @@ const sentimentAnalysis = async (cryptos,socialmedias)=>{
                                 i++;
                                 axis.push(i);
                                 if (i === Bigdata.length) {
-                                        saveToDB(axis,analysisArr, socialmedia, crypto).then(data => {
+                                        saveToDB(analysisArr, socialmedia, crypto).then(data => {
                                         resolve(data);
                                     }).catch(err=>{
                                         console.log(err+" :Error saving to database")

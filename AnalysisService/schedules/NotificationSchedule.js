@@ -4,6 +4,7 @@ const notification = require("../notification/notification");
 const notificationType =require('../notification/notificationType')
 const average = require('../notification/AverageSentiment')
 const Notification_schedule=async()=>{
+    let i=1;
     const cryptos =await analysis.get_Doc_id('Twitter');
     for(let crypto of cryptos)
     {
@@ -17,7 +18,15 @@ const Notification_schedule=async()=>{
         }).catch(err=>{return err})
 
     }
-    process.exit(0)
+    if(i === cryptos.length)
+    {
+        process.exit(0);
+    }
+    i++;
+
 
 }
-//Notification_schedule().then(data=>console.log(data));
+Notification_schedule().then(data=>{
+    process.exit(0)
+    console.log(data)
+});

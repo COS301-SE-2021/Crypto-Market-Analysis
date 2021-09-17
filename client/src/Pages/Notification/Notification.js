@@ -39,13 +39,7 @@ class Notifications extends React.Component {
             unread_checked: false,
             newest_checked: false,
             oldest_checked: false,
-            og_list : [{content: 'Bitcoin average sentiment did not change!', time: 'Fri Aug 27 2021 13:49:02 GMT+0200 (South Africa Standard Time)', read: false},
-            {content: 'Cardano average sentiment did not change!', time: 'Fri Aug 27 2021 13:50:03 GMT+0200 (South Africa Standard Time)', read: false},
-            {content: 'Tether average sentiment did not change!', time: 'Fri Aug 27 2021 13:43:04 GMT+0200 (South Africa Standard Time)', read: true},
-            {content: 'ethereum average sentiment did not change!', time: 'Fri Aug 27 2021 13:55:05 GMT+0200 (South Africa Standard Time)', read: false},
-            {content: 'litecoin average sentiment did not change!', time: 'Fri Aug 27 2021 13:13:06 GMT+0200 (South Africa Standard Time)', read: true},
-            
-            ],
+            og_list : [],
             list:[],
             temp_list:[]
         }
@@ -58,22 +52,7 @@ class Notifications extends React.Component {
         this.handleDelete = this.handleDelete.bind(this);
         this.handleDeleteALL = this.handleDeleteALL.bind(this);
     }
-    // handleReadCheck = () =>{
-    //     if(this.state.list.length > 0)
-
-    //     this.state.read_checked = !this.state.read_checked
-    //     let filtered = []
-    //     if(this.state.read_checked){
-            
-    //         filtered = this.state.list.filter(element=>{
-    //             return element.read 
-    //         })
-    //         if(filtered.length > 0){
-    //             this.setState({list:filtered})
-    //         }
-            
-    //     }
-    // }
+   
     handleSelect = (e) =>{
        
         if(e.target.value === "Read"){
@@ -155,10 +134,9 @@ class Notifications extends React.Component {
         
     }
     handleLatestCheck = () =>{
-        console.log("handle latest")
-        console.log(this.state.list)
+       
             if(this.state.newest_checked){
-                console.log("handle latest true")
+                
                 this.setState({list: this.state.list.sort((a,b)=>{
                     return new Date(moment(b.time).toDate()).getTime() - new Date(moment(a.time).toDate()).getTime() 
                     })
@@ -250,7 +228,8 @@ class Notifications extends React.Component {
             {
                 counter= counter+1; 
                 let notifObj = {'content':value.Email,'time':key,'read':value.Read}
-                this.state.notificationsList.push(notifObj)
+                this.state.og_list.push(notifObj)
+                this.state.list.push(notifObj)
              
                
             }

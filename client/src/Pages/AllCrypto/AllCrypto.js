@@ -75,6 +75,7 @@ export default function AllCryptos(props)
                
                 setCryptos(response_data.data)
                 setLoading(false)
+                removeServerAlert()
             })
             
         
@@ -97,7 +98,14 @@ export default function AllCryptos(props)
             alert.innerHTML = "Something went wrong, please try again later"
             document.getElementById("response-alert").innerHTML = alert
         }
+
     }
+
+     const removeServerAlert = ()=>{
+    if(document.getElementById("server-alert")){
+      document.getElementById("server-alert").remove()
+    }
+  }
 
     const onCancel =(e)=>{
         setShow(false);
@@ -134,7 +142,7 @@ export default function AllCryptos(props)
                             email: localStorage.getItem("emailSession"),
                                 symbol: crypto.symbol,
                                 crypto_name: crypto.name,
-                                coin_id: crypto.id,
+                                coin_id: crypto.id
                             }
                            
                             axios.post('/user/followCrypto/',cryptoToAdd).then(()=>{
@@ -147,50 +155,25 @@ export default function AllCryptos(props)
                             })
                             .catch(err => {console.error(err);})
                             
-                        }
-                        else{
-                            let  cryptoToRemove = {
-                                email: localStorage.getItem("emailSession"),
-                                symbol: crypto.symbol,
-                            }
-                            
-                            axios.post('user/unfollowCrypto/',cryptoToRemove).then(()=>{
-                                swal("Coin was removed from your watchlist", {
-                                    icon: "success",
-                                    buttons: false,
-                                    timer: 3000,
-                                  });
-                                  setRefresh(!refresh)
-                            })
-                                .catch(err => {console.error(JSON.stringify(err));})
-
-                        axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd).then(()=>{
-                            swal("Coin was added to watchlist", {
-                                icon: "success",
-                                buttons: false,
-                                timer: 3000,
-                            });
-                        })
-                            .catch(err => {console.error(err);})
-
                     }
                     else{
                         let  cryptoToRemove = {
                             email: localStorage.getItem("emailSession"),
                             symbol: crypto.symbol,
-                            coin_id: crypto.id,
+                            coin_id: crypto.id
                         }
-
-                        axios.post('http://localhost:8080/user/unfollowCrypto/',cryptoToRemove).then(()=>{
+                        
+                        axios.post('user/unfollowCrypto/',cryptoToRemove).then(()=>{
                             swal("Coin was removed from your watchlist", {
                                 icon: "success",
                                 buttons: false,
                                 timer: 3000,
-                            });
+                                });
+                                setRefresh(!refresh)
                         })
                             .catch(err => {console.error(JSON.stringify(err));})
-
                     }
+                    
                 }
                 return {
                     ...crypto
@@ -213,52 +196,55 @@ export default function AllCryptos(props)
         return crypto.name.toLowerCase().includes(searchCrypto.toLowerCase()) ||  crypto.symbol.toLowerCase().includes(searchCrypto.toLowerCase())
     })
     return(
-        <>       
-        <ModalComp show={show} cancel={onCancel} continue={OnContinue} />
-         <div className="container">
-            <div className="row"> 
-                <div className="crypto-search">
-                    <input type="search" className="form-control rounded" placeholder="Search..."
-                                onChange={searchCoin}/>
-                </div>
-                <div className=" overflow-auto block crypto-wrapper" style={{height:"600px",margin:"auto"}}>
-                    {loading ? <ClipLoader loading={loading} size={150} />:
-                    searchedCryptos.length < 1 ? <div id="response-alert"><p className="text-center">Oops :( <br/>We don't have that coin</p></div>
-                    :<>
-                        {searchedCryptos.map((myCrypto,index) =>{
-                            
-                            return(
-                                <div key={index} className='coin-container'>
+        <React.Fragment>       
+            <ModalComp show={show} cancel={onCancel} continue={OnContinue} />
+            <div className="container">
+                <div className="row"> 
+                    <div className="crypto-search">
+                        <input type="search" className="form-control rounded" placeholder="Search..."
+                                    onChange={searchCoin}/>
+                    </div>
+                    <div className=" overflow-auto block crypto-wrapper" style={{height:"600px",margin:"auto"}}>
+                        {loading ? <ClipLoader loading={loading} size={150} />:
+                        searchedCryptos.length < 1 ? <div id="response-alert"><p className="text-center">Oops :( <br/>We don't have that coin</p></div>
+                        :<React.Fragment>
+                            {searchedCryptos.map((myCrypto,index) =>{
+                                
+                                return(
+                                    <React.Fragment>
+                                        <div key={index} className='coin-container'>
+                                            <div className='coin-row'>
+                                                    <div className='coin'>
+                                                        {myCrypto.selected?<Star className="select-star" style={{ color: "#03989e" }} onClick={()=>{select(myCrypto.symbol,"cryptos")}}/>:<Star className="select-star" color="action" onClick={()=>{select(myCrypto.symbol, "cryptos")}}/>}
+                                                        <img src={myCrypto.image} alt='crypto' />
+                                                        <h1>{myCrypto.name}</h1>
+                                                        <p className='coin-symbol'>{myCrypto.symbol}</p>
+                                                    </div>
+                                                    <div className='coin-data'>
+                                                        <p className='coin-price'>R{myCrypto.current_price}</p>
+                                                        <p className='coin-volume'>R{myCrypto.total_volume.toLocaleString()}</p>
 
+                                                        {myCrypto.price_change_percentage_24h < 0 ? (
+                                                            <p className='coin-percent red'>{myCrypto.price_change_percentage_24h.toFixed(2)}%</p>
+                                                        ) : (
+                                                            <p className='coin-percent green'>{myCrypto.price_change_percentage_24h.toFixed(2)}%</p>
+                                                        )}
 
-                                        <div className='coin-row'>
-                                                <div className='coin'>
-                                                    {myCrypto.selected?<Star className="select-star" style={{ color: "#03989e" }} onClick={()=>{select(myCrypto.symbol,"cryptos")}}/>:<Star className="select-star" color="action" onClick={()=>{select(myCrypto.symbol, "cryptos")}}/>}
-                                                    <img src={myCrypto.image} alt='crypto' />
-                                                    <h1>{myCrypto.name}</h1>
-                                                    <p className='coin-symbol'>{myCrypto.symbol}</p>
-                                                </div>
-                                                <div className='coin-data'>
-                                                    <p className='coin-price'>R{myCrypto.current_price}</p>
-                                                    <p className='coin-volume'>R{myCrypto.total_volume.toLocaleString()}</p>
-
-                                                    {myCrypto.price_change_percentage_24h < 0 ? (
-                                                        <p className='coin-percent red'>{myCrypto.price_change_percentage_24h.toFixed(2)}%</p>
-                                                    ) : (
-                                                        <p className='coin-percent green'>{myCrypto.price_change_percentage_24h.toFixed(2)}%</p>
-                                                    )}
-
-                                                    <p className='coin-marketcap'>
-                                                        Mkt Cap: R{myCrypto.market_cap.toLocaleString()}
-                                                    </p>
-                                                </div>
-                                            )
-                                        })
-                                        }
-                                    </React.Fragment>}
-                        </div>
+                                                        <p className='coin-marketcap'>
+                                                            Mkt Cap: R{myCrypto.market_cap.toLocaleString()}
+                                                        </p>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </React.Fragment>
+                                    )}
+                                )
+                            }
+                        </React.Fragment>
+                        }
                     </div>
                 </div>
-            </React.Fragment>
+            </div>
+        </React.Fragment>
         );
 }

@@ -20,4 +20,4 @@ const Notification_schedule=async()=>{
     process.exit(0)
 
 }
-Notification_schedule().then(data=>console.log(data));
+//Notification_schedule().then(data=>console.log(data));

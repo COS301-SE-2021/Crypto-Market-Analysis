@@ -173,7 +173,7 @@ const sentimentAnalysis = async (cryptos,socialmedias)=>{
                                 i++;
                                 axis.push(i);
                                 if (i === Bigdata.length) {
-                                    saveToDB(axis,analysisArr, socialmedia, crypto).then(data => {
+                                        saveToDB(axis,analysisArr, socialmedia, crypto).then(data => {
                                         resolve(data);
                                     }).catch(err=>{
                                         console.log(err+" :Error saving to database")

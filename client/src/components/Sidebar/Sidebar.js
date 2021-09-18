@@ -341,7 +341,7 @@ export default function Sidebar(props) {
                       }
                     
                           
-                          to="/"
+                          to="/login"
 
                       >
                         <i

@@ -424,9 +424,9 @@ const Profile = props =>
                                     <div className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold pt-4 pb-4 px-0">Search for a twitter user you want us to check out for you</div>
                                     <div className="input-group" >
 
-                                        <div className={"d-flex flex-row text-primary"}>
-                                            <div className={"py-2 fa fa-at"} >
-                                            </div>
+
+
+                                        <div className={"py-2 fa fa-at d-flex flex-row text-primary "} >
                                         </div>
 
                                             <div className="input-group-btn" >

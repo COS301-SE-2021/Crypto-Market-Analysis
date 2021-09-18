@@ -101,7 +101,7 @@ export default function HeaderStats(props) {
       alert.setAttribute("class","alert alert-info")
       alert.setAttribute("id","server-alert")
       alert.style .cssText = "width:50%;margin:auto;text-align:center"
-      alert.innerHTML = "Something went wrong, please try again later"
+      alert.innerHTML = "Something went wrong, please try again later. If the problem persists change your connection and try again!"
       if(document.getElementById("cards-col")){
         document.getElementById("cards-col").append(alert)
       }

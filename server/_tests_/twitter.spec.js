@@ -97,21 +97,5 @@ describe('Database', () => {
     });
 
 })
-// describe('Testing Twitter functions', () => {
-//     test('Testing getUsersID exception',  () => {
-//         expect(twitter.getUsersID(null)).rejects.toThrow('null value');
-//     });
-//     test('Testing filterData exception',  () => {
-//         expect(twitter.filterData(null)).rejects.toThrow('null value');
-//     });
-//     test('Testing getUserTimeline exception',  () => {
-//       /*  twitter.getUserTimeline('mojohnnylerato@gmail.com',['elonmusk']).then(data=>{
-//            console.log(data);
-//         })*/
-//         twitter.getUsersID(['elonmusk']).then(data=>{
-//             console.log(data);
-//         })
-//
-//     });
-// })
+
 

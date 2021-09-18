@@ -48,7 +48,6 @@ export default function HeaderStats(props) {
     else{ /* else if user is not logged in, use default(Top 10) crypto coins */
       axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=10&page=1&sparkline=false')
           .then(async response => {
-            console.log(response)
             let crypto_names = [];
 
             for(const crypto of response.data)

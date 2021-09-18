@@ -145,7 +145,7 @@ export default function AllCryptos(props)
                                 coin_id: crypto.id
                             }
                            
-                            axios.post('/user/followCrypto/',cryptoToAdd).then(()=>{
+                            axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd).then(()=>{
                                 swal("Coin was added to watchlist", {
                                     icon: "success",
                                     buttons: false,

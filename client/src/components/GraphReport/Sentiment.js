@@ -22,7 +22,6 @@ export default class ChartGraph extends React.Component {
         }
     }
     componentDidMount() {
-        console.log(this.props.crypto);
         let  objectRequest = {
             socialmedia: this.props.social,
             crypto: this.props.crypto

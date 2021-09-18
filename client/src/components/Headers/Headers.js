@@ -61,10 +61,10 @@ export default function Headers() {
                         CRYPTOSIS
                     </h1>
                     <Link to="/home">
-                    <IconButton >
-                        <HomeIcon className={classes.icon}/>
-                       Go to Homepage
-                    </IconButton>
+                        <IconButton >
+                            <HomeIcon className={classes.icon}/>
+                           Go to Homepage
+                        </IconButton>
                     </Link>
                 </Toolbar>
             </AppBar>

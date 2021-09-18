@@ -18,6 +18,7 @@ import { Star, } from "@material-ui/icons";
 import { SocialIcon } from 'react-social-icons';
 import ClipLoader from "react-spinners/ClipLoader"
 
+
 const platformsList = [{name:"Twitter",id:"twitter"},
     {name:"Reddit",id:"reddit"},
     {name:"4chan",id:"4chan"}
@@ -425,29 +426,35 @@ const Profile = props =>
                         selectedTab === 2 &&
                         <div id="searchContainer" className="container"  style={{backgroundColor:"transparent", borderRadius:"8px"}}>
                             <script sync src="https://platform.twitter.com/widgets.js%22%3E"></script>
-                            <div className="row searchFilter" >
+                            <div className="row searchFilter " >
 
                                 <div className="col-sm-12" >
                                     <div className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold pt-4 pb-4 px-0">Search for a twitter user you want us to check out for you</div>
                                     <div className="input-group" >
-                                        <div className="input-group-btn" >
-                                            <Form onSubmit={searchUsername}>
-                                                <Form.Group >
-                                                    <Form.Control type="text" ref={searchRef} required />
-                                                </Form.Group>
-                                                <Form.Group >
-                                                    <Form.Control id="searchBtn" type="submit" className="btn btn-secondary btn-search" value="Search" />
 
-                                                </Form.Group>
-                                            </Form>
+                                        <div className={"d-flex flex-row text-primary"}>
+                                            <div className={"py-2 fa fa-at"} >
+                                            </div>
+                                        </div>
 
-                                        </div>
-                                        {loading ? <div className="ml-2 mt-2 text-center"><ClipLoader  loading={loading} size={15} /></div>:<React.Fragment></React.Fragment>}
-                                        <div id="followBtn">
-                                            <span/>
-                                        </div>
+                                            <div className="input-group-btn" >
+                                                <Form onSubmit={searchUsername}>
+                                                    <Form.Group >
+                                                            <Form.Control type="text" ref={searchRef} required />
+                                                    </Form.Group >
+
+                                                    <Form.Group >
+                                                        <Form.Control id="searchBtn" type="submit" className="btn btn-secondary btn-search" value="Search" />
+                                                    </Form.Group>
+                                                </Form>
+
+                                            </div>
+                                            {loading ? <div className="ml-2 mt-2 text-center"><ClipLoader  loading={loading} size={15} /></div>:<React.Fragment></React.Fragment>}
+                                            <div id="followBtn">
+                                                <span/>
+                                            </div>
+
                                     </div>
-
                                 </div>
 
                             </div>

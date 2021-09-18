@@ -81,6 +81,9 @@ function Comments() {
         <React.Fragment>
         <Sidebar />
             <div className="md:ml-64">
+            
+                <Link to="/Posts" style={{color:"black"}}> <i class="fa fa-chevron-circle-left fa-2x ml-5" aria-hidden="true"></i></Link>
+            
             <div className="container" style={{height:"500px"}}>
 
                 <div className="row">

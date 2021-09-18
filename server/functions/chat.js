@@ -43,7 +43,6 @@ const postMessage = async (postId,owner,title,body,time,like,dislike,sentiments,
     }else{
         sent = "neutral";
     }
-    console.log("wink sentiment is " + sent);
 
     try{
 

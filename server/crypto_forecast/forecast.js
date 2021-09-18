@@ -63,7 +63,6 @@ class NeuralNetwork {
                 let flat = arr.flat();
                 let unique = flat.filter((item, i, ar) => ar.indexOf(item) === i);
                 // arr = flat
-                //console.log(flat);
                 return unique;
             }).catch((error) => {
                 console.error(error);
@@ -72,7 +71,6 @@ class NeuralNetwork {
     }
 
     train= async (coin) =>  {
-        console.log(coin);
         await axios.get('https://min-api.cryptocompare.com/data/v2/histohour?fsym='+coin+'&tsym=USD&limit=19&api_key='+apiKey)
             .then(function (response) {
                 trainingData = [];
@@ -82,7 +80,6 @@ class NeuralNetwork {
                 highMin = Infinity;
                 arr = [];
                 store= 0;
-                //console.log(response.data);
                 for(let i=0; i<response.data.Data.Data.length;i++)
                 {
                     if (response.data.Data.Data[i].open < openMin)
@@ -116,7 +113,6 @@ class NeuralNetwork {
             .catch(function (error) {
                 console.error("failed to load historical data for " + coin)
                 return Promise.reject(error);
-                // console.log(error);
             })
             .then(function () {
                 const scaledData = trainingData.map(scaleDown);
@@ -141,26 +137,12 @@ class NeuralNetwork {
                     learningRate: 0.005,
                     errorThresh: 0.0000000000002,
                     MaxIterations: 50
-
-                   // log: (stats) => console.log(stats)
                 });
 
-                console.log(coin+" Price Forecast")
                 store = net.forecast([
                     trainingDatas[0][0],
                     trainingDatas[0][1],
                 ], 1).map(scaleUp)
-
-
-                console.log(store[0].open)
-                console.log(store[0].high)
-                console.log(store[0].low)
-                console.log(store[0].close)
-
-
-
-                console.log("Current "+coin+" Price")
-                console.log(trainingData[19])
             }).finally(function () {
 
 

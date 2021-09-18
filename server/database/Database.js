@@ -76,7 +76,6 @@ class Database {
     async removePost(postId)
     {
         this.#db.collection("Altcoins").doc(postId).delete().then(() => {
-           // console.log("Document successfully deleted!");
         }).catch((error) => {
             console.error("Error removing document: ", error);
         });
@@ -92,10 +91,9 @@ class Database {
                     return admin.auth().deleteUser(uid)
                 })
                 .then( () => {
-                    console.log("Success")
+                    
                 })
                 .catch( error => {
-                    console.log("fetching user data", error);
                 })
             this.#db.collection('Users').doc(email).delete();
             return true;
@@ -113,8 +111,6 @@ class Database {
             return {'not subscribed':'email'};
         }
         // .then(data=>{
-        //     // console.log('showing data')
-        //    // console.log(data.data().subing);
         //         return data.data().subing;
         //     });
     }
@@ -145,7 +141,7 @@ class Database {
             }
             try{await this.#db.collection('Subscribers').doc(email).set(notification_object);
             }
-            catch (err){console.log('error saving to database')}
+            catch (err){console.log('Error saving to database')}
 
 
     }

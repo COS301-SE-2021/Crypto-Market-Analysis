@@ -32,14 +32,12 @@ function Subreddits()
                    push platform to a list
                  */
 
-                console.log(response.data);
                 //test
                 if(response.data != null)
                 {
                     selectedPlatforms = []
                     await response.data.map((site)=>{
                         selectedPlatforms.push(site)
-                        console.log(selectedPlatforms)
                     })
                 }
                 //sonarcloud
@@ -74,10 +72,6 @@ function Subreddits()
     })
 
     const select = (name,type) => {
-        console.log("testing")
-        console.log(name);
-        console.log(type);
-        console.log("testing")
         if(type === "platforms")
         {
             platforms =  [...platforms.map((platform)=>{
@@ -94,7 +88,7 @@ function Subreddits()
                         social_media_sites: platform.name
                     }
                     axios.post('http://localhost:8080/user/followSubreddit/',cryptoToAdd)
-                        .then(response => console.log(response))
+                        .then()
                         .catch(err => {console.error(err);})
                 }
                 return {

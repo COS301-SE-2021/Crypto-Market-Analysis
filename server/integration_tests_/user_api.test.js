@@ -306,7 +306,6 @@ describe(`POST /user/sendMail`, () => {
     });
     test(`when email is incorrect`, async () => {
         const response = await request(app).post(`/user/sendMail`).send({email: `fake@not.com`});
-        console.log(response);
         expect(response.status).toBe(200);
     });
     test(`when parameters are missing`, async () => {

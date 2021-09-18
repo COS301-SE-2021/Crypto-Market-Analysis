@@ -63,7 +63,6 @@ const Profile = props =>
 
         axios.post('http://localhost:8080/user/fetchUserSocialMedia/',userReq)
             .then(response => {
-                console.log(response)
                 let socialName = [];
                 for(const platform of response.data)
                     socialName.push({socMediaName: platform});
@@ -94,7 +93,6 @@ const Profile = props =>
 
     const cleanSpace = () =>{
         let target =  document.getElementById('followBtn')
-        console.log(target.children.length)
         if(target.children.length >= 2){ target.removeChild(target.childNodes[0]) }
     }
 
@@ -135,7 +133,7 @@ const Profile = props =>
         let user = {email: localStorage.getItem("emailSession"), screen_name: searchRef.current.value }
         axios.post('http://localhost:8080/twitter/follow/',user)
             .then(response=>{
-                console.log(response)
+
                 swal("User added to your watchlist", {
                     icon: "success",
                     buttons: false,
@@ -152,7 +150,6 @@ const Profile = props =>
 
         axios.post('http://localhost:8080/twitter/unfollow/',user)
             .then(response=>{
-                console.log(response)
                 swal("User removed from your watchlist", {
                     icon: "success",
                     buttons: false,
@@ -182,7 +179,6 @@ const Profile = props =>
                     handleFollowButton(null,false)
                 }
             },(reject) => {
-                console.log(reject.response)
                 if(reject.response.data.error.message.includes("You are already following the selected screen name"))
                 {
                     handleFollowButton(user.screen_name,true)
@@ -210,7 +206,6 @@ const Profile = props =>
 
                     axios.post('http://localhost:8080/user/followSocialMedia/',platformObj)
                         .then(response =>{
-                            console.log(response)
                             swal("Social media added", {
                                 icon: "success",
                                 buttons: false,
@@ -225,7 +220,6 @@ const Profile = props =>
 
                     axios.post('http://localhost:8080/user/unfollowSocialMedia/',platformObj)
                         .then(response =>{
-                            console.log(response)
                             swal("Social media removed", {
                                 icon: "success",
                                 buttons: false,
@@ -252,8 +246,6 @@ const Profile = props =>
         if (email !=='undefined') {
             axios.post('http://localhost:8080/user/deleteUserAccount/', email)
                 .then(response => {
-                    console.log(response)
-
                 })
                 .catch(err => {
                     console.error(err);

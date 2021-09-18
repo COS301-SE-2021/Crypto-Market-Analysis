@@ -36,7 +36,6 @@ class chan {
     }
 
     crawlCatalogue = async() => {
-        console.log("Starting crawl process for /" + board + "/");
         const nightmare = new Nightmare({ show: false });
         try {
             let threadArray = [];
@@ -52,7 +51,6 @@ class chan {
                 })
                 .end()
                 .then(threads => {
-                    console.log('Found ' + threads.length + ' threads. Mapping to objects...');
                     let formatted = threads.map(item => {
                         let $ = cheerio.load(item.content);
                         let data =
@@ -70,7 +68,6 @@ class chan {
                 });
             return threads;
         } catch(err) {
-            console.log(err);
         }
     }
 }
@@ -79,7 +76,6 @@ class chan {
 // chans.crawlCatalogue().then(response => {
 //     let cryptos = ['bitcoin','ethereum','tether','binance','cardano','dogecoin','xrp','polkadot','litecoin','vechain','monero','btc','eth','usdt','bnb','ada','doge','ripple','chainlink','link','vet','xmr','shib'];
 //     let fin = []
-//     console.log(response)
 //     for(let i=0;i<response.length;i++)
 //     {
 //
@@ -98,7 +94,6 @@ class chan {
 //     let uniqueArray = fin.filter(function(item, pos) {
 //         return fin.indexOf(item) == pos;
 //     })
-//     console.log(uniqueArray);
 //
 //     chans.firestore_db.save('4chan_info','biz','posts',empty);
 //     chans.firestore_db.save('4chan_info','biz','posts',uniqueArray);

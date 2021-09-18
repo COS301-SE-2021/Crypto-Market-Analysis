@@ -119,18 +119,15 @@ const getCoinPredictions = async (email)=>{
     // catch (error){
     //     return Promise.reject(error);
     // }
-    // console.log(cryptos);
     //
     // let docs = []
     // for(let i=0; i<cryptos.length; i++)
     // {
     //     docs.push(await firestore_db.fetch(`CryptoPricePrediction`,cryptos[i]));
     // }
-    // // console.log(docs);
     // for(docs of docs)
     //     fourChanPosts.push(docs.data());
     //
-    // console.log(fourChanPosts)
     // return {status: `Ok`, posts_array: fourChanPosts};
 
     let fourChanPosts = [];

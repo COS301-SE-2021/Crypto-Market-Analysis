@@ -218,8 +218,6 @@ class Notifications extends React.Component {
     }
 
     generateData(object_response){
-        console.log(Object.keys(object_response).length);
-
         let ppo = 0;
         let counter = 0;
         for (const [key, value] of Object.entries(object_response)) {
@@ -365,7 +363,7 @@ class Notifications extends React.Component {
                                                                 <div className="toast-header">
                                                                     <strong className="mr-auto uppercase">{obj.content.split(" ")[0]}</strong>
                                                                     <small>{moment(obj.time).format('DD/MM/YYYY HH:mm')}</small>
-                                                                    <button type="button" onClick={this.handleDelete} className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                                                    <button type="button" onClick={this.handleDelete} value={obj.time} className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                     </button>
                                                                 </div>

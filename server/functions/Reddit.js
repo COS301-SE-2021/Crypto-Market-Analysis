@@ -63,7 +63,6 @@ class Reddit {
 
             );
         });
-        // console.log(Data)
         this.#firestore_db.save('reddit_info',Subreddit,'posts',empty);
         this.#firestore_db.save('reddit_info',Subreddit,'posts',Data);
         // this.#firestore_db.save('reddit_data',Subreddit,'posts',Data);
@@ -85,7 +84,6 @@ class Reddit {
                 }
                 const flat = arr.flat();
                 let unique = flat.filter((item, i, ar) => ar.indexOf(item) === i);
-               // console.log(unique);
             }).catch((error) => {
                 console.error(error);
             });
@@ -121,7 +119,6 @@ class Reddit {
         {
             Data.push(notfound);
         }
-       // console.log(Data);
         return Data;
     }
 }

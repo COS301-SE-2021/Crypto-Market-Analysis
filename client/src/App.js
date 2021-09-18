@@ -49,12 +49,13 @@ function App() {
         <AuthProvider>
             <Switch>
                 <section className="header">
-                    <Route exact path="/" component={Home}/>
-                    {/* <Route exact path="/" component={LandingPage}></Route>*/}
-                    <Route exact path="/landing" component={LandingPage}/>
+                    {/* <Route exact path="/" component={Home}/>*/}
+                     <Route exact path="/" component={LandingPage}></Route>
+                    <Route exact path="/home" component={Home}/>
                     <Route exact path="/register" component={Register}/>
                     <Route exact path="/Push" component={Push}/>
-                    <PrivateRoute exact path="/home" component={Home}/>
+                    {/*<PrivateRoute exact path="/home" component={Home}/>*/}
+                    <PrivateRoute exact path="/landing" component={LandingPage}/>
                     <Route exact path="/login" component={login}/>
                     <Route exact path="/updatePassword" component={UpdatePassword}/>
                     <Route exact path="/updateProfile" component={UpdateProfile}/>

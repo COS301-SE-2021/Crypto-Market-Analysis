@@ -119,7 +119,7 @@ export default function Sidebar(props) {
             {/* Brand */}
             <Link
                 // className="md:block text-left text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold  px-0"
-                to="/"
+                to="/home"
             >
               <img className="mt-3" src="/cryptosis2-t.png"/>
             </Link>
@@ -146,9 +146,9 @@ export default function Sidebar(props) {
                   <div className="w-6/12">
                     <Link
                         className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-                        to="/"
+                        to="/home"
                     >
-                      Notus React
+                      Menu
                     </Link>
                   </div>
                   <div className="w-6/12 flex justify-end">
@@ -190,7 +190,7 @@ export default function Sidebar(props) {
                             ? "text-lightBlue-500 hover:text-lightBlue-600"
                             : "text-blueGray-700 hover:text-blueGray-500")
                       }
-                      to="/"
+                      to="/home"
                       onClick={changeLocation}
                   >
                     <i
@@ -341,7 +341,7 @@ export default function Sidebar(props) {
                       }
                     
                           
-                          to="/"
+                          to="/login"
 
                       >
                         <i

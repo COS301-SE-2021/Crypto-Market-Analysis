@@ -20,12 +20,6 @@ class Notifications extends React.Component {
         this.handleDelete = this.handleDelete.bind(this);
     }
 
-    handleDelete= async (e)=> {
-        console.log('you pressed delete!')
-    }
-    handleView= async (e)=> {
-        console.log('you pressed view!')
-    }
     componentDidMount(){
         this.state = {
             elem: [<div>People</div>]
@@ -36,15 +30,11 @@ class Notifications extends React.Component {
         axios.post('http://localhost:8080/user/getNotificationObject/',emailReq)
             .then(response => {
 
-                console.log('showing the response')
                 const objectOfNotificationdata= response.data;
                 const notification_Array = [];
-                console.log(Object.keys(objectOfNotificationdata).length)
                 let i=0;
                 for (const [key, value] of Object.entries(objectOfNotificationdata)) {
                     i=i+1;
-                    console.log(value.Read)
-                    //console.log(`${key}: ${value.Email}`);
                     if(value.Read===true){
                         notification_Array.push( <Alert variant="info">
                             <Link  onClick={()=>this.handleView(key)} value={key}
@@ -69,7 +59,6 @@ class Notifications extends React.Component {
                         </Alert>)
                     }
                     else if(value.Read===false){
-                        console.log('i am here');
                         notification_Array.push( <Alert variant="info">
                             <Link  onClick={()=>this.handleView(key)} value={key}
                                    className={
@@ -93,10 +82,7 @@ class Notifications extends React.Component {
                         </Alert>)
                     }
                     if(i === Object.keys(objectOfNotificationdata).length){
-                        console.log('setting state');
-
                         this.state.elem.push(notification_Array);
-                        console.log( this.state.elem);
                     }
                 }
             })

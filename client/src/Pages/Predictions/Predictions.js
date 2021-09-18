@@ -14,12 +14,10 @@ function Predictions() {
     let PredictionsCoins = [];
     let [loading, setLoading] = useState(true);
     useEffect(async () => {
-        console.log("use effect")
         let userReq = { email: localStorage.getItem("emailSession") }
         let allcoins = await CoinGeckoClient.coins.all();
         axios.post('http://localhost:8080/user/getCoinPredictions/',userReq)
             .then(async(response) =>{
-                console.log("getCoinPredictions")
                 for(let y=0;y<allcoins.data.length;y++)
                 {
                     for(let x=0;x<response.data.posts_array.length;x++)
@@ -32,7 +30,6 @@ function Predictions() {
                             let name = allcoins.data[y].name;
                             await axios.get('https://min-api.cryptocompare.com/data/price?fsym=' + val + '&tsyms=USD&api_key=7d4a73a2b7a6fd2e5d57acd8c019cb82178961644e25b7caad3239d04e79da4b')
                                 .then(async(price) =>{
-                                    console.log("price")
                                     let obj = {
                                         picture: picture,
                                         name: name,
@@ -58,9 +55,6 @@ function Predictions() {
                         resArr.push({name: item.name, symbol: item.symbol, price: item.price, open: item.open, close: item.close, low: item.low});
                     }
                 });
-                console.log("test");
-                console.log(resArr);
-                console.log("test");
                 setPredictions(resArr);
                 setLoading(false)
             })

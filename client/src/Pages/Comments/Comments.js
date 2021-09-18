@@ -28,8 +28,6 @@ function Comments() {
                 {
                     posts_.push(response.data.posts_array[j])
                 }
-                console.log(posts_)
-
                 setposts(posts_);
             })
             .catch(err => {console.error(err);})
@@ -38,9 +36,6 @@ function Comments() {
 
         axios.post('http://localhost:8080/chat/getPost/',obj)
             .then(response => {
-                console.log("response.data")
-                console.log(response.data.posts_array)
-                console.log("response.data")
                 setpost(response.data.posts_array)
             })
             .catch(err => {console.error(err);})
@@ -65,8 +60,6 @@ function Comments() {
 
         axios.post('http://localhost:8080/chat/postReply/',request)
             .then(response => {
-                console.log(response);
-                // history.push("/");
                 window.location.reload();
             })
             .catch(err => {console.error(err);})
@@ -81,6 +74,9 @@ function Comments() {
         <React.Fragment>
         <Sidebar />
             <div className="md:ml-64">
+            
+                <Link to="/Posts" style={{color:"black"}}> <i class="fa fa-chevron-circle-left fa-2x ml-5" aria-hidden="true"></i></Link>
+            
             <div className="container" style={{height:"500px"}}>
 
                 <div className="row">

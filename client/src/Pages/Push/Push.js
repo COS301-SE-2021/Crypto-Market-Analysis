@@ -45,7 +45,6 @@ class Push extends React.Component {
         }
         axios.post('http://localhost:8080/user/sendMail',PushReq)
             .then(response => {
-                console.log(response);
             })
         axios.post('http://localhost:8080/user/GETPush/',PushReq)
             .then(response => {
@@ -65,41 +64,31 @@ class Push extends React.Component {
         }
         async function send() {
             // Register Service Worker
-            console.log("Registering service worker...");
             //registerServiceWorker();
             const register = await navigator.serviceWorker.register("sw.js", {
                 scope: "/"
             });
-            console.log("Service Worker Registered...");
-
-            console.log("Registering Push...");
             const subscription = await register.pushManager.subscribe({
                 userVisibleOnly: true,
                 applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
             });
-            console.log("Push Registered...");
 
             // Send Push Notification
-            console.log("Sending Push...");
-            console.log(subscription)
             let  PushReq = {
                 email: localStorage.getItem("emailSession"),
                 object: subscription
             }
             axios.post('http://localhost:8080/user/subscribe/',PushReq)
                 .then(response => {
-                    console.log(response)
 
                 })
                 .catch(err => {console.error(err);})
             axios.post('http://localhost:8080/user/storePush/',PushReq)
                 .then(response => {
-                    console.log(response)
 
                 })
                 .catch(err => {console.error(err);})
 
-            console.log("Push Sent...");
         }
 
             function urlBase64ToUint8Array(base64String) {

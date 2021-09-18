@@ -30,7 +30,6 @@ function Posts() {
     //have to make it synchronous and await sentiment axios post
     async function handleSubmit(e) {
         e.preventDefault()
-        console.log("Submit post")
 
         let sentimenttext = title.current.value + " " + body.current.value;
 
@@ -44,9 +43,6 @@ function Posts() {
 
        // await axios.post('https://analysis-services-api.herokuapp.com/ArticleAnalytics', sentonj)
        //      .then(response => {
-       //          console.log("testtttttttttt")
-       //          console.log(response.data);
-       //          console.log("testtttttttttt")
        //          sentiment = response.data;
        //          // history.push("/");
        //      })
@@ -84,7 +80,6 @@ function Posts() {
 
 
     useEffect( () => {
-        console.log("USEEFFECT")
         let liked = []
         let disliked = []
         let  Req = {
@@ -133,7 +128,6 @@ function Posts() {
                     })
                    
                 })
-                console.log(posts_)
                 setposts(posts_);
             })
             .catch(err => {console.error(err);})

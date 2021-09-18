@@ -63,7 +63,6 @@ const Profile = props =>
 
         axios.post('http://localhost:8080/user/fetchUserSocialMedia/',userReq)
             .then(response => {
-                console.log(response)
                 let socialName = [];
                 for(const platform of response.data)
                     socialName.push({socMediaName: platform});
@@ -79,22 +78,10 @@ const Profile = props =>
             })
             .catch(err => {console.error(err);})
 
-        axios.post('http://localhost:8080/reddit/getUserSubreddits/',userReq)
-            .then(response => {
-                let subName = [];
-                for(const subred of response.data)
-                    subName.push({subredditName: subred});
-                setSubs(subName);
-            })
-            .catch(err => {console.error(err);})
-
-
-
     },[platforms])
 
     const cleanSpace = () =>{
         let target =  document.getElementById('followBtn')
-        console.log(target.children.length)
         if(target.children.length >= 2){ target.removeChild(target.childNodes[0]) }
     }
 
@@ -135,7 +122,7 @@ const Profile = props =>
         let user = {email: localStorage.getItem("emailSession"), screen_name: searchRef.current.value }
         axios.post('http://localhost:8080/twitter/follow/',user)
             .then(response=>{
-                console.log(response)
+
                 swal("User added to your watchlist", {
                     icon: "success",
                     buttons: false,
@@ -152,7 +139,6 @@ const Profile = props =>
 
         axios.post('http://localhost:8080/twitter/unfollow/',user)
             .then(response=>{
-                console.log(response)
                 swal("User removed from your watchlist", {
                     icon: "success",
                     buttons: false,
@@ -182,7 +168,6 @@ const Profile = props =>
                     handleFollowButton(null,false)
                 }
             },(reject) => {
-                console.log(reject.response)
                 if(reject.response.data.error.message.includes("You are already following the selected screen name"))
                 {
                     handleFollowButton(user.screen_name,true)
@@ -210,7 +195,6 @@ const Profile = props =>
 
                     axios.post('http://localhost:8080/user/followSocialMedia/',platformObj)
                         .then(response =>{
-                            console.log(response)
                             swal("Social media added", {
                                 icon: "success",
                                 buttons: false,
@@ -225,7 +209,6 @@ const Profile = props =>
 
                     axios.post('http://localhost:8080/user/unfollowSocialMedia/',platformObj)
                         .then(response =>{
-                            console.log(response)
                             swal("Social media removed", {
                                 icon: "success",
                                 buttons: false,
@@ -252,8 +235,6 @@ const Profile = props =>
         if (email !=='undefined') {
             axios.post('http://localhost:8080/user/deleteUserAccount/', email)
                 .then(response => {
-                    console.log(response)
-
                 })
                 .catch(err => {
                     console.error(err);
@@ -432,9 +413,9 @@ const Profile = props =>
                                     <div className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold pt-4 pb-4 px-0">Search for a twitter user you want us to check out for you</div>
                                     <div className="input-group" >
 
-                                        <div className={"d-flex flex-row text-primary"}>
-                                            <div className={"py-2 fa fa-at"} >
-                                            </div>
+
+
+                                        <div className={"py-2 fa fa-at d-flex flex-row text-primary "} >
                                         </div>
 
                                             <div className="input-group-btn" >

@@ -154,6 +154,7 @@ export default function News(props) {
 
                     await axios.request(analysisOptions)
                     .then(res => {
+                        
                         const sentiment = res.data;
                         let icon_element = null;
 
@@ -186,17 +187,21 @@ export default function News(props) {
                                               </a>`;
                         newRow++;
                         news_articles += article_card.outerHTML;
+                       
                     });
+
                 }
+               
                 news_element.innerHTML = news_articles;
+               
             }
             else{
                 news_parent_element.innerHTML = "";
                 news_parent_element.innerHTML = `<div class={'text-blueGray-600 inline-block text-sm uppercase font-bold'}>There's no news to display at the moment. Check again later</div>`;
                 news_parent_element.style.cssText = `margin:auto; margin-top:1em; width:50% ;`
             }
-            setLoading(false);
-
+            
+        setLoading(false);
         }).catch(error => {
             console.error(`An error occurred while trying to retrieve the news articles: ${error}`);
             news_parent_element.innerHTML = "";
@@ -215,12 +220,13 @@ export default function News(props) {
          
             <div id={`news`} className={`row`}>
                 <Dropdown/>
-                {loading ?
+                {/* {loading ?
                     <div className="row col-12">
                         <div className="mx-auto mt-16 text-center"><ClipLoader loading={loading} size={150}/></div>
-                    </div> :
+                    </div> : */}
                     <div id={`news-articles`} className={`row mt-3 ml-5 col-12`}>
-                    </div>}
+                   
+                    </div>
             </div>
        
        </React.Fragment>

@@ -20,7 +20,7 @@ export default function DetailedInfo(props) {
         let  userReq = {
             email: localStorage.getItem("emailSession")
         }
-        axios.post('/user/fetchUserSocialMedia/',userReq)
+        axios.post('http://localhost:8080/user/fetchUserSocialMedia/',userReq)
             .then(response => {
                 console.log(response.data)
                 setSocials(response.data)

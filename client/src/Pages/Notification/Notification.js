@@ -218,8 +218,6 @@ class Notifications extends React.Component {
     }
 
     generateData(object_response){
-        console.log(Object.keys(object_response).length);
-
         let ppo = 0;
         let counter = 0;
         for (const [key, value] of Object.entries(object_response)) {

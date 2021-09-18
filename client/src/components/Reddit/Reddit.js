@@ -14,9 +14,6 @@ export default function Reddit({coin_name}){
 
         axios.post('http://localhost:8080/reddit/coinRedditPost/',cryptoReq)
             .then(response => {
-                console.log("test begin with coin prop");
-                console.log(response.data[0]);
-                console.log("test begin with coin prop");
                 let posts_ = [];
                 for(let j = 0; j<response.data.length; j++)
                 {

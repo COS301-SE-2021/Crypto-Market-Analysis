@@ -24,9 +24,6 @@ export default function Reddits(){
                 }
 
             }
-            console.log("test begin");
-            console.log(posts_)
-            console.log("test begin");
             setReddits(posts_);
         })
         .catch(err => {console.error(err);})

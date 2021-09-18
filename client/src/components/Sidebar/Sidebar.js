@@ -190,7 +190,7 @@ export default function Sidebar(props) {
                             ? "text-lightBlue-500 hover:text-lightBlue-600"
                             : "text-blueGray-700 hover:text-blueGray-500")
                       }
-                      to="/"
+                      to="/home"
                       onClick={changeLocation}
                   >
                     <i
@@ -341,7 +341,7 @@ export default function Sidebar(props) {
                       }
                     
                           
-                          to="/"
+                          to="/login"
 
                       >
                         <i

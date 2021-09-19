@@ -223,7 +223,7 @@ export default function Sidebar(props) {
                     
                     Notification
                     <a href="" className="notification">
-                      <span className="badge rounded-pill badge-notification bg-danger">{status}</span>
+                      <span className="badge rounded-pill badge-notification bg-danger">{props.unread || status }</span>
                     </a>
                   </Link>
                 </li>

@@ -13,6 +13,11 @@ const helmet = require('helmet');
 const cors = require ('cors');
 const session = require('express-session');
 
+const {
+    NODE_ENV = 'development',
+} = process.env
+
+const IN_PROD = NODE_ENV === 'production'
 
 app.use(helmet());
 app.use(cors({
@@ -22,7 +27,18 @@ app.use(morgan("dev"));
 app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(session({secret: 'mySecret', resave: false, saveUninitialized: false}));
+app.use(session({
+
+    cookie:{
+        sameSite: true,
+        secure: IN_PROD
+    },
+    secret: 'mySecret',
+    resave: false,
+    saveUninitialized: false
+}));
+
+
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header(

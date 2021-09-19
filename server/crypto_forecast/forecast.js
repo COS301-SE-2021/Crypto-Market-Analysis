@@ -71,7 +71,7 @@ class NeuralNetwork {
     }
 
     train= async (coin) =>  {
-        await axios.get('https://min-api.cryptocompare.com/data/v2/histohour?fsym='+coin+'&tsym=USD&limit=19&api_key='+apiKey)
+        await axios.get('https://min-api.cryptocompare.com/data/v2/histohour?fsym='+coin+'&tsym=ZAR&limit=19&api_key='+apiKey)
             .then(function (response) {
                 trainingData = [];
                 openMin = Infinity;

@@ -28,13 +28,13 @@ function Predictions() {
                             let symbol = allcoins.data[y].symbol;
                             let picture = allcoins.data[y].image.small;
                             let name = allcoins.data[y].name;
-                            await axios.get('https://min-api.cryptocompare.com/data/price?fsym=' + val + '&tsyms=USD&api_key=7d4a73a2b7a6fd2e5d57acd8c019cb82178961644e25b7caad3239d04e79da4b')
+                            await axios.get('https://min-api.cryptocompare.com/data/price?fsym=' + val + '&tsyms=ZAR&api_key=7d4a73a2b7a6fd2e5d57acd8c019cb82178961644e25b7caad3239d04e79da4b')
                                 .then(async(price) =>{
                                     let obj = {
                                         picture: picture,
                                         name: name,
                                         symbol: symbol,
-                                        price: price.data.USD,
+                                        price: price.data.ZAR,
                                         open: response.data.posts_array[x].open,
                                         close: response.data.posts_array[x].close,
                                         low: response.data.posts_array[x].low,

@@ -14,8 +14,9 @@ import Push from "../Push/Push";
 import Checkbox from '@material-ui/core/Checkbox';
 import SweetAlert from 'sweetalert-react';
 import swal from 'sweetalert';
-import DayPickerInput from 'react-day-picker/DayPickerInput';
-import DayPicker from 'react-day-picker';
+import Hyperlink from 'react-native-hyperlink';
+import { Text } from "react-native";
+import { Markup } from 'react-render-markup';
 import 'react-day-picker/lib/style.css';
 import moment from 'moment';
 
@@ -42,7 +43,8 @@ class Notifications extends React.Component {
             oldest_checked: false,
             og_list : [],
             list:[],
-            temp_list:[]
+            temp_list:[],
+            ids:[]
         }
         // this.state.list = this.state.og_list;
         this.dateFrom = Date.now();
@@ -51,7 +53,9 @@ class Notifications extends React.Component {
         this.handleOldestCheck = this.handleOldestCheck.bind(this)
         this.handleSelect = this.handleSelect.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
+        this.handleView = this.handleView.bind(this);
         this.handleDeleteALL = this.handleDeleteALL.bind(this);
+        this.generateID = this.generateID.bind(this);
     }
    
     handleSelect = (e) =>{
@@ -203,7 +207,50 @@ class Notifications extends React.Component {
         this.generateData(objectdata);
 
     }
+ 
+    generateID=  (email, crypto_name)=>{
+     
+        let array = []
+        let coin_ids = []
+        let  requestObj = { email: localStorage.getItem("emailSession") }
+         axios.post('http://localhost:8080/user/getUserCryptos/', requestObj)
+        .then(async(response) => {
+            
+            for(const crypto of response.data)
+            array.push(crypto);
+
+            axios.post('http://localhost:8080/user/getCoinIDs/', requestObj)
+            .then(async(response) => {
+            
+                coin_ids = response.data
+                let index=0;
+               
+                for (let crypto of array)
+                {
+                    crypto_name.toLowerCase();
+                    crypto.toLowerCase();
+                   
+                    if(crypto === crypto_name)
+                    { 
+                      
+                        return coin_ids[index];
+                    }
+                }
+            }).catch(err => {
+                console.error(err)
+            })
+           
+         
+        }).catch(err => {
+            console.error(err)
+        })
+
+          
+       
+        
+    }
     handleView= async (e)=> {
+        console.log(e)
         let viewObject = this.state.notificationObject;
         if(viewObject[e].Read!=='undefined'){
             viewObject[e].Read =true;
@@ -213,7 +260,7 @@ class Notifications extends React.Component {
             object: viewObject
 
         }
-
+        
         axios.post('http://localhost:8080/user/setNotificationObject/',ObjectReq)
             .then(response => {
             })
@@ -226,7 +273,7 @@ class Notifications extends React.Component {
         this.setState({og_list:[]})
         for (const [key, value] of Object.entries(object_response)) {
             ppo=ppo+1;
-            if(value.Read===false && value.Read!=='undefined')
+            if(value.Read!=='undefined')
             {
                 counter= counter+1; 
                 let notifObj = {'content':value.Email,'time':key,'read':value.Read}
@@ -361,35 +408,42 @@ class Notifications extends React.Component {
                                         <div className="row grid-15-gutter">
                                             {
                                                 this.state.list.map((obj,index)=>{
-                                                   
+                                                    console.log(obj)
                                                     return(
                                                         <div className="col-md-6" key={index}>
                                                             {obj.read ?
+                                                            <Link   to={{pathname:"/home/DetailedInfo", state:{coin_name:obj.content.split(" ")[0], coin_symbol:"btc", coin_id:"bitcoin"}}} onClick={()=>{this.handleView(obj.time)}}>
                                                             <div className="card panel-read">
                                                                 <div className="toast-header">
-                                                                    <strong className="mr-auto uppercase">{obj.content.split(" ")[0]}</strong>
+                                                                    <span className= "text-blueGray-700 mr-auto uppercase font-bold">{obj.content.split(" ")[0]}</span>
                                                                     <small>{moment(obj.time).format('DD/MM/YYYY HH:mm')}</small>
-                                                                    
                                                                     <button type="button" onClick={()=>{this.handleDelete(obj.time)}} value={obj.time} className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                     </button>
                                                                 </div>
                                                                 <div className="media-body">
-                                                                    {obj.content}
+                                                                    <Hyperlink linkDefault={true}>
+                                                                        <Text>{obj.content}</Text>
+                                                                    </Hyperlink>
                                                                 </div> 
-                                                            </div>:
+                                                            </div>
+                                                            </Link>:
+                                                            <Link   to={{pathname:"/home/DetailedInfo", state:{coin_name:obj.content.split(" ")[0], coin_symbol:"btc", coin_id:"bitcoin"}}} onClick={()=>{this.handleView(obj.time)}}>
                                                             <div className="card panel-unread">
                                                                 <div className="toast-header">
-                                                                    <strong className="mr-auto uppercase">{obj.content.split(" ")[0]}</strong>
+                                                                    <span className= "text-blueGray-700 mr-auto uppercase font-bold">{obj.content.split(" ")[0]}</span>
                                                                     <small>{moment(obj.time).format('DD/MM/YYYY HH:mm')}</small>
                                                                     <button type="button" onClick={()=>{this.handleDelete(obj.time)}} value={obj.time} className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                     </button>
                                                                 </div>
                                                                 <div className="media-body">
-                                                                    {obj.content}
+                                                                    <Hyperlink linkDefault={true}>
+                                                                        <Text>{obj.content}</Text>
+                                                                    </Hyperlink>
                                                                 </div>
-                                                            </div>}
+                                                            </div>
+                                                            </Link>}
                                                         </div>
                                                     )
                                                 })

@@ -20,6 +20,10 @@ export default function Signup() {
             return setError("Passwords do not match!")
         }
 
+        if((passwordRef.current.value).length < 6 || (passwordConfirmRef.current.value).length < 6){
+            return setError("Password should be at least 6 characters");
+        }
+
         try {
             setError("")
             setLoading(true)
@@ -32,7 +36,12 @@ export default function Signup() {
             })
         } catch(error) {
             console.error(`An error occurred while trying to register the user: ${error}`);
-            setError("Email address already exists. Please enter a different email and try again!");
+            if(error.message === "Password should be at least 6 characters"){
+                setError("Password should be at least 6 characters");
+            }
+            else{
+                setError("Email address already exists. Please enter a different email and try again!");
+            }
         }
 
         setLoading(false)

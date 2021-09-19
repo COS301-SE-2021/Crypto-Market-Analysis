@@ -78,17 +78,6 @@ const Profile = props =>
             })
             .catch(err => {console.error(err);})
 
-        axios.post('http://localhost:8080/reddit/getUserSubreddits/',userReq)
-            .then(response => {
-                let subName = [];
-                for(const subred of response.data)
-                    subName.push({subredditName: subred});
-                setSubs(subName);
-            })
-            .catch(err => {console.error(err);})
-
-
-
     },[platforms])
 
     const cleanSpace = () =>{

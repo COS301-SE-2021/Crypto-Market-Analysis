@@ -22,7 +22,6 @@ export default function DetailedInfo(props) {
         }
         axios.post('http://localhost:8080/user/fetchUserSocialMedia/',userReq)
             .then(response => {
-                console.log(response.data)
                 setSocials(response.data)
                 
             })

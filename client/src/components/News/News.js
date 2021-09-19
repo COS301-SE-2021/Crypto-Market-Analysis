@@ -7,6 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader";
+import "bootstrap/dist/css/bootstrap.css";
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -153,6 +154,7 @@ export default function News(props) {
 
                     await axios.request(analysisOptions)
                     .then(res => {
+                        
                         const sentiment = res.data;
                         let icon_element = null;
 
@@ -185,22 +187,26 @@ export default function News(props) {
                                               </a>`;
                         newRow++;
                         news_articles += article_card.outerHTML;
+                       
                     });
+
                 }
+               
                 news_element.innerHTML = news_articles;
+               
             }
             else{
                 news_parent_element.innerHTML = "";
-                news_parent_element.innerHTML = `<h1 className={'display-4'}>There's no news to display at the moment. Check again later</h1>`;
-                news_parent_element.style.cssText = `margin: 0; position: absolute; top: 50%; -ms-transform: translateY(-50%); transform: translateY(-50%);`
+                news_parent_element.innerHTML = `<div class={'text-blueGray-600 inline-block text-sm uppercase font-bold'}>There's no news to display at the moment. Check again later</div>`;
+                news_parent_element.style.cssText = `margin:auto; margin-top:1em; width:50% ;`
             }
-            setLoading(false);
-
+            
+        setLoading(false);
         }).catch(error => {
             console.error(`An error occurred while trying to retrieve the news articles: ${error}`);
             news_parent_element.innerHTML = "";
-            news_parent_element.innerHTML = `<h1 className={'display-4'}>Cannot get news articles at this moment. Please try again later</h1>`;
-            news_parent_element.style.cssText = `margin: 0; position: absolute; top: 50%; -ms-transform: translateY(-50%); transform: translateY(-50%);`
+            news_parent_element.innerHTML = `<div class={'text-blueGray-600 inline-block text-sm uppercase font-bold'}>Cannot get news articles at this moment. Please try again later</div>`;
+            news_parent_element.style.cssText = `margin:auto; margin-top:1em; width:50% ;`
         });
 
         return() => {
@@ -210,11 +216,19 @@ export default function News(props) {
     }, []);
 
     return (
-        <div id={`news`} className={`row`}>
-            <Dropdown/>
-            <div id={`news-articles`} className={`row mt-3 ml-5 col-12`}>
-
+        <React.Fragment>
+         
+            <div id={`news`} className={`row`}>
+                <Dropdown/>
+                {/* {loading ?
+                    <div className="row col-12">
+                        <div className="mx-auto mt-16 text-center"><ClipLoader loading={loading} size={150}/></div>
+                    </div> : */}
+                    <div id={`news-articles`} className={`row mt-3 ml-5 col-12`}>
+                   
+                    </div>
             </div>
-        </div>
+       
+       </React.Fragment>
     )
 }

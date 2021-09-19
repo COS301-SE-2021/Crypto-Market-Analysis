@@ -25,7 +25,6 @@ function Chatroom() {
         axios.post('http://localhost:8080/chat/totalPosts/',request)
             .then(async(response) =>{
                 let numberPosts = 0;
-                console.log(response.data.numberPosts);
                 numberPosts = response.data.numberPosts;
                 setnumposts(numberPosts);
             })

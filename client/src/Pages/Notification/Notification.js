@@ -34,6 +34,7 @@ class Notifications extends React.Component {
             emailRequest:{},
             clear: false,
             _delete: false,
+            refresh: false,
              unread:0,
             read_checked: false,
             unread_checked: false,
@@ -43,7 +44,7 @@ class Notifications extends React.Component {
             list:[],
             temp_list:[]
         }
-        this.state.list = this.state.og_list;
+        // this.state.list = this.state.og_list;
         this.dateFrom = Date.now();
         this.dateTo = Date.now();
         this.handleLatestCheck = this.handleLatestCheck.bind(this)
@@ -152,26 +153,28 @@ class Notifications extends React.Component {
             })
         }
     }
-    handleDelete= async (e)=> {
+    handleDelete = (e)=> {
+       
         let object = this.state.notificationObject;
-
-
-        delete object[e.target.value];
+      
+        delete object[e];
 
         let  emailReq = {
             email: localStorage.getItem("emailSession"),
             object: object
-
         }
         
         axios.post('http://localhost:8080/user/setNotificationObject/',emailReq)
             .then(() => {
-                
+              
+                this.setState({refresh: !this.state.refresh});
+                this.setState({notificationObject: object});
+                const objectdata= this.state.notificationObject;
+                this.generateData(objectdata);
+                // this.setState({list: object});
             })
-        // this.setState({_delete: true});
-        this.setState({notificationObject: object});
-        const objectdata= this.state.notificationObject;
-        this.generateData(objectdata);
+        
+        
 
     }
     handleDeleteALL= async (e)=> {
@@ -220,6 +223,7 @@ class Notifications extends React.Component {
     generateData(object_response){
         let ppo = 0;
         let counter = 0;
+        this.setState({og_list:[]})
         for (const [key, value] of Object.entries(object_response)) {
             ppo=ppo+1;
             if(value.Read===false && value.Read!=='undefined')
@@ -227,14 +231,16 @@ class Notifications extends React.Component {
                 counter= counter+1; 
                 let notifObj = {'content':value.Email,'time':key,'read':value.Read}
                 this.state.og_list.push(notifObj)
-                this.state.list.push(notifObj)
-             
+                // this.state.list.push(notifObj)
+               
                
             }
             if(ppo === Object.entries(object_response).length){
                 this.setState({unread: counter});
+                this.setState({list:this.state.og_list})
             }
         }
+       
         this.setState({notificationObject: object_response});
         const objectOfNotificationdata= this.state.notificationObject;
         const notification_Array = [];
@@ -354,16 +360,17 @@ class Notifications extends React.Component {
                                     <div className="col-md-8">
                                         <div className="row grid-15-gutter">
                                             {
-                                                this.state.list.map(obj=>{
-                                                    
+                                                this.state.list.map((obj,index)=>{
+                                                   
                                                     return(
-                                                        <div className="col-md-6">
+                                                        <div className="col-md-6" key={index}>
                                                             {obj.read ?
                                                             <div className="card panel-read">
                                                                 <div className="toast-header">
                                                                     <strong className="mr-auto uppercase">{obj.content.split(" ")[0]}</strong>
                                                                     <small>{moment(obj.time).format('DD/MM/YYYY HH:mm')}</small>
-                                                                    <button type="button" onClick={this.handleDelete} value={obj.time} className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                                                    
+                                                                    <button type="button" onClick={()=>{this.handleDelete}} value={obj.time} className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                     </button>
                                                                 </div>
@@ -375,7 +382,7 @@ class Notifications extends React.Component {
                                                                 <div className="toast-header">
                                                                     <strong className="mr-auto uppercase">{obj.content.split(" ")[0]}</strong>
                                                                     <small>{moment(obj.time).format('DD/MM/YYYY HH:mm')}</small>
-                                                                    <button type="button" className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                                                    <button type="button" onClick={()=>{this.handleDelete(obj.time)}} value={obj.time} className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                     </button>
                                                                 </div>

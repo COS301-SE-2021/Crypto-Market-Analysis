@@ -1,23 +1,46 @@
 const Reddit = require('../functions/Reddit');
 const Twitter = require(`../functions/Twitter`);
 const chan = require("../functions/chan");
+const NeuralNetwork = require("../crypto_forecast/forecast");
 const twitter = new Twitter().getInstance();
 let reddits = new Reddit();
 const scrape=async ()=>{
     twitter.getAllNamesTimeline().then()
-    reddits.completeScrape("CryptoCurrencies").then();
-    reddits.completeScrape("Bitcoin").then();
-    reddits.completeScrape("Ethereum").then();
-    reddits.completeScrape("Algorand").then();
-    reddits.completeScrape("Cardano").then();
-    reddits.completeScrape("Dogecoin").then();
-    reddits.completeScrape("Tether").then();
-    reddits.completeScrape("Uniswap").then();
-    reddits.completeScrape("XRP").then();
-    reddits.completeScrape("SatoshiStreetBets").then();
-    reddits.completeScrape("Crypto_Currency_News").then();
-    reddits.completeScrape("CryptoCurrencyTrading").then();
-    reddits.completeScrape("Cryptomarkets").then();
+    let network = new NeuralNetwork();
+    network.train("btc").then(function (store) {
+        network.train("eth").then(function (store) {
+            network.train("usdt").then(function (store) {
+                network.train("bnb").then(function (store) {
+                    network.train("ada").then(function (store) {
+                        network.train("xrp").then(function (store) {
+                            network.train("doge").then(function (store) {
+                                network.train("usdc").then(function (store) {
+                                    network.train("dot").then(function (store) {
+                                        network.train("uni").then(function (store) {
+                                            let reddits = new Reddit();
+                                            reddits.completeScrape("CryptoCurrencies").then();
+                                            reddits.completeScrape("Bitcoin").then();
+                                            reddits.completeScrape("Ethereum").then();
+                                            reddits.completeScrape("Algorand").then();
+                                            reddits.completeScrape("Cardano").then();
+                                            reddits.completeScrape("Dogecoin").then();
+                                            reddits.completeScrape("Tether").then();
+                                            reddits.completeScrape("Uniswap").then();
+                                            reddits.completeScrape("XRP").then();
+                                            reddits.completeScrape("SatoshiStreetBets").then();
+                                            reddits.completeScrape("Crypto_Currency_News").then();
+                                            reddits.completeScrape("CryptoCurrencyTrading").then();
+                                            reddits.completeScrape("Cryptomarkets").then();
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    })
     let chans = new chan()
     chans.crawlCatalogue().then(response => {
         let cryptos = ['bitcoin','ethereum','tether','binance','cardano','dogecoin','xrp','polkadot','litecoin','vechain','monero','btc','eth','usdt','bnb','ada','doge','ripple','chainlink','link','vet','xmr','shib'];
@@ -44,9 +67,9 @@ const scrape=async ()=>{
         chans.firestore_db.save('4chan_info','biz','posts',empty);
         chans.firestore_db.save('4chan_info','biz','posts',uniqueArray);
     }).catch(e => console.log(e));
-    process.exit(0);
+
 }
 
 scrape().then(data=>{
-
+        process.exit(0);
 })

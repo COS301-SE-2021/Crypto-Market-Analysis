@@ -12,17 +12,24 @@ const getAverages = async (email, crypto_name) => {
             if(social_media_sites){
                 for(const platform of social_media_sites){
                     try{
-                        let average = await firestore_database.fetch(platform, crypto_name, `Average_Change`);
+
+                        let average = await firestore_database.fetch(platform, crypto_name, `AverageChange`);
 
                         if(average) {
-                            if(averages.length > 0){
-                                for(const [index,element] of average.entries()) {
-                                    if(averages[index])
-                                        averages[index] = Math.round(((element + averages[index]) / 2) * 100) / 100;
-                                }
+
+                            let i=0;
+                            for (const [key, value] of Object.entries(average)) {
+                                averages.push(value.Average.toFixed(2));
                             }
-                            else
-                                averages = averages.concat(average);
+                            //console.log(averages)
+                            // if(averages.length > 0){
+                            //     for(const [index,element] of average.entries()) {
+                            //         if(averages[index])
+                            //             averages[index] = Math.round(((element.Average + averages[index]) / 2) * 100) / 100;
+                            //     }
+                            // }
+                            // else
+                            //     averages = averages.concat(average);
                         }
                     }
                     catch (error) {

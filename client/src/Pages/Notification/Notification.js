@@ -370,7 +370,7 @@ class Notifications extends React.Component {
                                                                     <strong className="mr-auto uppercase">{obj.content.split(" ")[0]}</strong>
                                                                     <small>{moment(obj.time).format('DD/MM/YYYY HH:mm')}</small>
                                                                     
-                                                                    <button type="button" onClick={()=>{this.handleDelete}} value={obj.time} className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                                                    <button type="button" onClick={()=>{this.handleDelete(obj.time)}} value={obj.time} className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                     </button>
                                                                 </div>

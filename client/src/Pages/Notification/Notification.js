@@ -14,8 +14,8 @@ import Push from "../Push/Push";
 import Checkbox from '@material-ui/core/Checkbox';
 import SweetAlert from 'sweetalert-react';
 import swal from 'sweetalert';
-import Hyperlink from 'react-native-hyperlink';
-import { Text } from "react-native";
+/*import Hyperlink from 'react-native-hyperlink';*/
+/*import { Text } from "react-native";*/
 import { Markup } from 'react-render-markup';
 import 'react-day-picker/lib/style.css';
 import moment from 'moment';
@@ -422,9 +422,7 @@ class Notifications extends React.Component {
                                                                     </button>
                                                                 </div>
                                                                 <div className="media-body">
-                                                                    <Hyperlink linkDefault={true}>
-                                                                        <Text>{obj.content}</Text>
-                                                                    </Hyperlink>
+                                                                        {obj.content}
                                                                 </div> 
                                                             </div>
                                                             </Link>:
@@ -438,9 +436,7 @@ class Notifications extends React.Component {
                                                                     </button>
                                                                 </div>
                                                                 <div className="media-body">
-                                                                    <Hyperlink linkDefault={true}>
-                                                                        <Text>{obj.content}</Text>
-                                                                    </Hyperlink>
+                                                                    {obj.content}
                                                                 </div>
                                                             </div>
                                                             </Link>}

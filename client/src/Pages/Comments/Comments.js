@@ -5,12 +5,13 @@ import React, {useEffect, useRef, useState} from "react";
 import {Button, Card, Form, Modal} from "react-bootstrap";
 import Sidebar from "../../components/Sidebar/Sidebar";
 
-function Comments() {
+function Comments(props) {
+    let [refresh,setRefresh] = useState(false);
     const [show,setShow] = useState(false)
     let [posts,setposts] = useState([]);
     let [post,setpost] = useState([]);
     let data = useLocation();
-    let postId = data.state.postId;
+    let postId = props.location.state.postId;
     let email = localStorage.getItem("emailSession");
     const body = useRef();
 
@@ -41,7 +42,7 @@ function Comments() {
             .catch(err => {console.error(err);})
         setTimeout(()=>{
         },10000)
-    },[]);
+    },[refresh]);
 
 
     function handleSubmit(e) {
@@ -60,7 +61,8 @@ function Comments() {
 
         axios.post('http://localhost:8080/chat/postReply/',request)
             .then(response => {
-                window.location.reload();
+                setShow(false);
+                setRefresh(!refresh);
             })
             .catch(err => {console.error(err);})
         setTimeout(()=>{
@@ -141,7 +143,7 @@ function Comments() {
 
                         <Form.Group className="text-center">
                             <Button style={{width:"70%",margin:"auto"}} type="submit">
-                                <Link to="/Comments" style={{color:"white"}}>Post reply</Link>
+                                Post reply
                             </Button>
                         </Form.Group>
                        

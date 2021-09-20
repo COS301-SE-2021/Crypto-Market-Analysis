@@ -13,6 +13,7 @@ function Posts() {
     let [posts,setposts] = useState([]);
     let [likedPosts,setLikedPosts] = useState([]);
     let [dislikedPosts,setDislikedPosts] = useState([]);
+    let [refresh,setRefresh] = useState(false);
 
     const history = useHistory()
     const title = useRef();
@@ -29,7 +30,6 @@ function Posts() {
     //have to make it synchronous and await sentiment axios post
     async function handleSubmit(e) {
         e.preventDefault()
-        console.log("Submit post")
 
         let sentimenttext = title.current.value + " " + body.current.value;
 
@@ -43,9 +43,6 @@ function Posts() {
 
        // await axios.post('https://analysis-services-api.herokuapp.com/ArticleAnalytics', sentonj)
        //      .then(response => {
-       //          console.log("testtttttttttt")
-       //          console.log(response.data);
-       //          console.log("testtttttttttt")
        //          sentiment = response.data;
        //          // history.push("/");
        //      })
@@ -68,10 +65,9 @@ function Posts() {
         };
 
         axios.post('http://localhost:8080/chat/postMessage/', request)
-            .then(response => {
-                console.log(response);
-                // history.push("/");
-                window.location.reload();
+            .then(() => {
+                setShow(false)
+                setRefresh(!refresh)
             })
             .catch(err => {
                 console.error(err);
@@ -104,8 +100,6 @@ function Posts() {
         .then(response => {
                 disliked = response.data.dislikedposts_array
                 setDislikedPosts(response.data.dislikedposts_array)
-
-
         })
         
         axios.post('http://localhost:8080/chat/getAllChats/',Req)
@@ -134,14 +128,13 @@ function Posts() {
                     })
                    
                 })
-                console.log(posts_)
                 setposts(posts_);
             })
             .catch(err => {console.error(err);})
         setTimeout(()=>{
         },10000)
 
-    },[]);
+    },[refresh]);
 
     function reactPost (react,postId){
         // e.preventDefault();
@@ -165,9 +158,8 @@ function Posts() {
             }
         }
         axios.post('http://localhost:8080/chat/postReact/',reqObj)
-            .then(response => {
-                console.log(response);
-                window.location.reload();
+            .then(() => {
+                setRefresh(!refresh)
             })
             .catch(err => {console.error(err);})
         setTimeout(()=>{
@@ -175,15 +167,13 @@ function Posts() {
 
     }
     function removePost(postid){
-        console.log("REMOVE POST BUTTON CLICKED - " + postid)
         let reqObj = {
             email: user,
             postId : postid
         }
         axios.post('http://localhost:8080/chat/deletePost/',reqObj)
-            .then(response => {
-                console.log(response);
-                window.location.reload();
+            .then(() => {
+                setRefresh(!refresh)
             })
             .catch(err => {console.error(err);})
         setTimeout(()=>{
@@ -197,7 +187,7 @@ function Posts() {
 
         <Modal show={show} >
             <Modal.Header>
-                <span className="uppercase font-bold ">New Post</span>
+                <span className="uppercase font-bold">New Post</span>
                 <i className="fas fa-times cursor-pointer text-blueGray-700" onClick={()=>{setShow(false)}}></i>
             </Modal.Header>
             <Modal.Body >
@@ -226,7 +216,7 @@ function Posts() {
                     </Form.Group>
                     <Form.Group className="text-center">
                         <Button style={{width:"70%",margin:"auto"}} type="submit">
-                            <Link to="/Posts" style={{color:"white"}}>Post</Link>
+                            Post
                         </Button>
                     </Form.Group>
                 </Form>
@@ -259,9 +249,10 @@ function Posts() {
                                             <div className="media g-mb-30 media-comment w-full lg:w-12/12 xl:w-12/12">
                                                  
                                                     <div className="media-body u-shadow-v18 g-bg-secondary g-pa-30 pt-0">
-                                                        <button type="button" onClick={()=>{removePost(post.postId)}} className="ml-2 close" >
+                                                        {post.owner === user ? <button type="button" onClick={()=>{removePost(post.postId)}} className="ml-2 close" >
                                                             <span aria-hidden="true">&times;</span>
-                                                        </button>
+                                                        </button> : <React.Fragment></React.Fragment> }
+                                                        
                                                         <div className="g-mb-15">
                                                             <h5 className="h5 g-color-gray-dark-v1 mb-0 whitespace-nowrap">{post.title}</h5>
                                                             <span className="g-color-gray-dark-v4 g-font-size-12">{post.time}</span>
@@ -292,7 +283,7 @@ function Posts() {
                                                             
 
                                                             <li className="ml-5">
-                                                                <p>{post.sentiment}</p>
+                                                                <p className="text-blueGray-600 inline-block text-sm uppercase font-bold">{post.sentiment}</p>
                                                             </li>
 
                                                             <li className="list-inline-item ml-auto">

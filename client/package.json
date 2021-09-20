@@ -30,6 +30,7 @@
     "mdb": "^0.1.0",
     "mdbreact": "^5.0.2",
     "moment": "^2.29.1",
+    "node-sass": "^4.14.1",
     "npm-merge-driver": "^2.3.6",
     "react-apexcharts": "^1.3.9",
     "react-bootstrap-sweetalert": "^5.2.0",
@@ -46,7 +47,7 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-script-tag": "^1.1.2",
-    "react-scripts": "^1.1.5",
+    "react-scripts": "2.1.8",
     "react-social-icons": "^5.4.1",
     "react-spinners": "^0.11.0",
     "react-success-popup": "^1.1.2",
@@ -64,6 +65,7 @@
   },
   "scripts": {
     "start": "env-cmd -f .env.development.local react-scripts start",
+    "build": "react-scripts build",
     "build:staging": "env-cmd -f .env.development.local react-scripts build",
     "build:production": "env-cmd -f .env.production.local react-scripts build",
     "test": "react-scripts test",
@@ -79,7 +81,6 @@
   "browserslist": {
     "production": [
       ">0.2%",
-      "not dead",
       "not op_mini all"
     ],
     "development": [

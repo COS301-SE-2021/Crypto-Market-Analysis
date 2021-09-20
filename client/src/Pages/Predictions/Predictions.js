@@ -14,12 +14,10 @@ function Predictions() {
     let PredictionsCoins = [];
     let [loading, setLoading] = useState(true);
     useEffect(async () => {
-        console.log("use effect")
         let userReq = { email: localStorage.getItem("emailSession") }
         let allcoins = await CoinGeckoClient.coins.all();
         axios.post('http://localhost:8080/user/getCoinPredictions/',userReq)
             .then(async(response) =>{
-                console.log("getCoinPredictions")
                 for(let y=0;y<allcoins.data.length;y++)
                 {
                     for(let x=0;x<response.data.posts_array.length;x++)
@@ -30,14 +28,13 @@ function Predictions() {
                             let symbol = allcoins.data[y].symbol;
                             let picture = allcoins.data[y].image.small;
                             let name = allcoins.data[y].name;
-                            await axios.get('https://min-api.cryptocompare.com/data/price?fsym=' + val + '&tsyms=USD&api_key=7d4a73a2b7a6fd2e5d57acd8c019cb82178961644e25b7caad3239d04e79da4b')
+                            await axios.get('https://min-api.cryptocompare.com/data/price?fsym=' + val + '&tsyms=ZAR&api_key=7d4a73a2b7a6fd2e5d57acd8c019cb82178961644e25b7caad3239d04e79da4b')
                                 .then(async(price) =>{
-                                    console.log("price")
                                     let obj = {
                                         picture: picture,
                                         name: name,
                                         symbol: symbol,
-                                        price: price.data.USD,
+                                        price: price.data.ZAR,
                                         open: response.data.posts_array[x].open,
                                         close: response.data.posts_array[x].close,
                                         low: response.data.posts_array[x].low,
@@ -58,9 +55,6 @@ function Predictions() {
                         resArr.push({name: item.name, symbol: item.symbol, price: item.price, open: item.open, close: item.close, low: item.low});
                     }
                 });
-                console.log("test");
-                console.log(resArr);
-                console.log("test");
                 setPredictions(resArr);
                 setLoading(false)
             })
@@ -74,7 +68,7 @@ function Predictions() {
                 <div className="row">
                     <div className="col-md-12">
 
-                        {loading ? <div className="mx-auto mt-8 text-center"><ClipLoader loading={loading} size={150} /></div>:
+                        {loading ? <div className="mt-8 text-center" style={{marginTop:"15em", marginRight:"10em"}}><ClipLoader loading={loading} size={150} /></div>:
 
                             <table className="table crypto-table">
                                 {/*<h1>Predictions for the next hour based on historical prices</h1>*/}

@@ -48,13 +48,13 @@ export default function HeaderStats(props) {
     else{ /* else if user is not logged in, use default(Top 10) crypto coins */
       axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=10&page=1&sparkline=false')
           .then(async response => {
-            console.log(response)
             let crypto_names = [];
 
             for(const crypto of response.data)
               crypto_names.push(crypto.name);
 
             getCoins(crypto_names)
+            
           })
           .catch(err => {
             console.error(err)
@@ -85,6 +85,7 @@ export default function HeaderStats(props) {
             })
             setCryptos(userCryptoList)
             setLoading(false)
+            removeServerAlert()
         })
         .catch(err => {
           console.error(err)
@@ -100,11 +101,16 @@ export default function HeaderStats(props) {
       alert.setAttribute("class","alert alert-info")
       alert.setAttribute("id","server-alert")
       alert.style .cssText = "width:50%;margin:auto;text-align:center"
-      alert.innerHTML = "Something went wrong, please try again later"
+      alert.innerHTML = "Something went wrong, please try again later. If the problem persists change your connection and try again!"
       if(document.getElementById("cards-col")){
         document.getElementById("cards-col").append(alert)
       }
       
+    }
+  }
+  const removeServerAlert = ()=>{
+    if(document.getElementById("server-alert")){
+      document.getElementById("server-alert").remove()
     }
   }
   const changeLocation = (coinname, coinsymbol)=>{

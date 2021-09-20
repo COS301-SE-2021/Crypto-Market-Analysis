@@ -13,6 +13,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import Push from "../Push/Push";
 import Checkbox from '@material-ui/core/Checkbox';
 import SweetAlert from 'sweetalert-react';
+import swal from 'sweetalert';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
@@ -33,22 +34,17 @@ class Notifications extends React.Component {
             emailRequest:{},
             clear: false,
             _delete: false,
+            refresh: false,
              unread:0,
             read_checked: false,
             unread_checked: false,
             newest_checked: false,
             oldest_checked: false,
-            og_list : [{content: 'Bitcoin average sentiment did not change!', time: 'Fri Aug 27 2021 13:49:02 GMT+0200 (South Africa Standard Time)', read: false},
-            {content: 'Cardano average sentiment did not change!', time: 'Fri Aug 27 2021 13:50:03 GMT+0200 (South Africa Standard Time)', read: false},
-            {content: 'Tether average sentiment did not change!', time: 'Fri Aug 27 2021 13:43:04 GMT+0200 (South Africa Standard Time)', read: true},
-            {content: 'ethereum average sentiment did not change!', time: 'Fri Aug 27 2021 13:55:05 GMT+0200 (South Africa Standard Time)', read: false},
-            {content: 'litecoin average sentiment did not change!', time: 'Fri Aug 27 2021 13:13:06 GMT+0200 (South Africa Standard Time)', read: true},
-            
-            ],
+            og_list : [],
             list:[],
             temp_list:[]
         }
-        this.state.list = this.state.og_list;
+        // this.state.list = this.state.og_list;
         this.dateFrom = Date.now();
         this.dateTo = Date.now();
         this.handleLatestCheck = this.handleLatestCheck.bind(this)
@@ -57,28 +53,11 @@ class Notifications extends React.Component {
         this.handleDelete = this.handleDelete.bind(this);
         this.handleDeleteALL = this.handleDeleteALL.bind(this);
     }
-    // handleReadCheck = () =>{
-    //     if(this.state.list.length > 0)
-
-    //     this.state.read_checked = !this.state.read_checked
-    //     let filtered = []
-    //     if(this.state.read_checked){
-            
-    //         filtered = this.state.list.filter(element=>{
-    //             return element.read 
-    //         })
-    //         if(filtered.length > 0){
-    //             this.setState({list:filtered})
-    //         }
-            
-    //     }
-    // }
+   
     handleSelect = (e) =>{
        
         if(e.target.value === "Read"){
-            console.log("FILTER BY READ")
-           
-            console.log(this.state.list)
+         
     
             this.state.read_checked = !this.state.read_checked
             let filtered = []
@@ -87,12 +66,10 @@ class Notifications extends React.Component {
                 filtered = this.state.og_list.filter(element=>{
                     return element.read 
                 })
-                console.log("filtered")
-                console.log(filtered)
+               
                 if(this.state.temp_list.length > 0){
 
-                    console.log("temp has something")
-                    console.log(this.state.temp_list)
+                  
                     filtered.push(...this.state.temp_list)
                     this.setState({list:filtered}) //add to the list not replace
                     
@@ -102,14 +79,11 @@ class Notifications extends React.Component {
                 }
             }
             else{
-                console.log("uncheck read")
-                console.log("list")
-                console.log(this.state.list)
+              
                 filtered = this.state.list.filter(element=>{
                     return !element.read 
                 })
-                console.log("list new filtered")
-                console.log(filtered)
+              
                 if(filtered.length > 1){
                     this.setState({list:filtered,temp_list:filtered})
                 }
@@ -161,10 +135,9 @@ class Notifications extends React.Component {
         
     }
     handleLatestCheck = () =>{
-        console.log("handle latest")
-        console.log(this.state.list)
+       
             if(this.state.newest_checked){
-                console.log("handle latest true")
+                
                 this.setState({list: this.state.list.sort((a,b)=>{
                     return new Date(moment(b.time).toDate()).getTime() - new Date(moment(a.time).toDate()).getTime() 
                     })
@@ -180,25 +153,28 @@ class Notifications extends React.Component {
             })
         }
     }
-    handleDelete= async (e)=> {
+    handleDelete = (e)=> {
+       
         let object = this.state.notificationObject;
-
-
-        delete object[e.target.value];
+      
+        delete object[e];
 
         let  emailReq = {
             email: localStorage.getItem("emailSession"),
             object: object
-
         }
-
+        
         axios.post('http://localhost:8080/user/setNotificationObject/',emailReq)
-            .then(response => {
+            .then(() => {
+              
+                this.setState({refresh: !this.state.refresh});
+                this.setState({notificationObject: object});
+                const objectdata= this.state.notificationObject;
+                this.generateData(objectdata);
+                // this.setState({list: object});
             })
-        this.setState({_delete: true});
-        this.setState({notificationObject: object});
-        const objectdata= this.state.notificationObject;
-        this.generateData(objectdata);
+        
+        
 
     }
     handleDeleteALL= async (e)=> {
@@ -213,9 +189,14 @@ class Notifications extends React.Component {
         }
 
         axios.post('http://localhost:8080/user/setNotificationObject/',emailReq)
-            .then(response => {
+            .then(() => {
+                swal("Successfully cleared all notifications", {
+                    icon: "success",
+                    buttons: false,
+                    timer: 3000,
+                  });
             })
-        this.setState({clear: true});
+        // this.setState({clear: true});
         this.setState({notificationObject: object});
         const objectdata= {};
         this.setState({elem: []});
@@ -240,24 +221,26 @@ class Notifications extends React.Component {
     }
 
     generateData(object_response){
-        console.log(Object.keys(object_response).length);
-
         let ppo = 0;
         let counter = 0;
+        this.setState({og_list:[]})
         for (const [key, value] of Object.entries(object_response)) {
             ppo=ppo+1;
             if(value.Read===false && value.Read!=='undefined')
             {
                 counter= counter+1; 
                 let notifObj = {'content':value.Email,'time':key,'read':value.Read}
-                this.state.notificationsList.push(notifObj)
-                console.log("DONE")
+                this.state.og_list.push(notifObj)
+                // this.state.list.push(notifObj)
+               
                
             }
             if(ppo === Object.entries(object_response).length){
                 this.setState({unread: counter});
+                this.setState({list:this.state.og_list})
             }
         }
+       
         this.setState({notificationObject: object_response});
         const objectOfNotificationdata= this.state.notificationObject;
         const notification_Array = [];
@@ -333,13 +316,7 @@ class Notifications extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <SweetAlert show={this.state.clear} success title={"Successfully cleared all notifications"} onConfirm={()=>{
-                    this.setState({clear: false});
-                }}></SweetAlert>
-
-                <SweetAlert show={this.state._delete} success title={"Successfully deleted a message"} onConfirm={()=>{
-                    this.setState({_delete: false});
-                }}></SweetAlert>
+            
                 <Sidebar unread={this.state.unread}/>
 
             <div className="md:ml-64">
@@ -383,28 +360,29 @@ class Notifications extends React.Component {
                                     <div className="col-md-8">
                                         <div className="row grid-15-gutter">
                                             {
-                                                this.state.list.map(obj=>{
-                                                    
+                                                this.state.list.map((obj,index)=>{
+                                                   
                                                     return(
-                                                        <div className="col-md-6">
+                                                        <div className="col-md-6" key={index}>
                                                             {obj.read ?
                                                             <div className="card panel-read">
                                                                 <div className="toast-header">
-                                                                    <strong className="mr-auto">Bitcoin</strong>
+                                                                    <strong className="mr-auto uppercase">{obj.content.split(" ")[0]}</strong>
                                                                     <small>{moment(obj.time).format('DD/MM/YYYY HH:mm')}</small>
-                                                                    <button type="button" className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                                                    
+                                                                    <button type="button" onClick={()=>{this.handleDelete(obj.time)}}  className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                     </button>
                                                                 </div>
                                                                 <div className="media-body">
                                                                     {obj.content}
-                                                                </div>
+                                                                </div> 
                                                             </div>:
                                                             <div className="card panel-unread">
                                                                 <div className="toast-header">
-                                                                    <strong className="mr-auto">Bitcoin</strong>
+                                                                    <strong className="mr-auto uppercase">{obj.content.split(" ")[0]}</strong>
                                                                     <small>{moment(obj.time).format('DD/MM/YYYY HH:mm')}</small>
-                                                                    <button type="button" className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                                                    <button type="button" onClick={()=>{this.handleDelete(obj.time)}}  className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                     </button>
                                                                 </div>

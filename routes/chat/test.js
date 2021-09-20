@@ -10,4 +10,3 @@ else if(response.score>0)
 }else{
     sent = "neutral";
 }
-    console.log("wink sentiment is " + sent);

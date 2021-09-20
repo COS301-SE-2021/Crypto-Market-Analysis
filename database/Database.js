@@ -1,3 +1,4 @@
+require("dotenv").config();
 const admin = require('firebase-admin');
 const serviceAccount = require('./firebase.js');
 
@@ -14,9 +15,17 @@ class Database {
     #db;
 
     /** Starts the database */
-    constructor() {
-        initialize();
-        this.#db = admin.firestore();
+    constructor(firestore_database,flag) {
+
+        if(flag === true)
+        {
+            this.#db =firestore_database;
+        }
+        else
+        {
+            initialize();
+            this.#db=admin.firestore();
+        }
     }
 
     /** Sets the fields in the collection name provided.
@@ -67,7 +76,6 @@ class Database {
     async removePost(postId)
     {
         this.#db.collection("Altcoins").doc(postId).delete().then(() => {
-           // console.log("Document successfully deleted!");
         }).catch((error) => {
             console.error("Error removing document: ", error);
         });
@@ -83,10 +91,9 @@ class Database {
                     return admin.auth().deleteUser(uid)
                 })
                 .then( () => {
-                    console.log("Success")
+                    
                 })
                 .catch( error => {
-                    console.log("fetching user data", error);
                 })
             this.#db.collection('Users').doc(email).delete();
             return true;
@@ -104,12 +111,10 @@ class Database {
             return {'not subscribed':'email'};
         }
         // .then(data=>{
-        //     // console.log('showing data')
-        //    // console.log(data.data().subing);
         //         return data.data().subing;
         //     });
     }
-    fetchAnalysisScore(Social_Media){
+    async fetchAnalysisScore(Social_Media){
         return this.#db.collection(Social_Media);
     }
     async storeNotification(email,object){
@@ -131,13 +136,12 @@ class Database {
 
 
     async setPushNotification(email,object){
-            console.log('something')
             const notification_object ={
                 subs:object
             }
             try{await this.#db.collection('Subscribers').doc(email).set(notification_object);
             }
-            catch (err){console.log('error saving to database')}
+            catch (err){console.log('Error saving to database')}
 
 
     }
@@ -235,9 +239,9 @@ class Database {
 
 class Singleton {
 
-    constructor() {
+    constructor(firestore_database,flag) {
         if (!Singleton.instance) {
-            Singleton.instance = new Database();
+            Singleton.instance = new Database(firestore_database,flag);
         }
     }
 

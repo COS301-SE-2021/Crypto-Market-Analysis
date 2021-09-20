@@ -6,6 +6,7 @@ const spellCorrector = new SpellCorrector();
 const a = require('extract-emoji');
 const emojiUnicode = require("emoji-unicode")
 const name = require("emoji-name-map");
+require("dotenv").config();
 const Database = require('./database/Database');
 const firestore_db = new Database().getInstance();
 spellCorrector.loadDictionary();
@@ -84,12 +85,42 @@ const saveOld = async(SocialMedia , cryptocurrency)=>{
         })
     });
 }
-const saveToDB = async (axis,arr, socialmedia , crypto)=> {
+const saveAverageChange = async(SocialMedia , cryptocurrency)=>{
+    return  new Promise(function (resolve, reject) {
+        (async () => {
+            await firestore_db.getUsers(SocialMedia).onSnapshot((documents) => {
+                documents.forEach((doc) => {
+                    let averages={};
+                    let myObj={};
+                    let date = String(new Date());
+                    if (typeof doc.id !== "undefined" && doc.id === cryptocurrency) {
+                        if (typeof doc.data().AverageChange !== "undefined") {
+                            myObj =doc.data().AverageChange;
+
+                        }
+                        if(typeof doc.data().Average !=="undefined"  ) {
+
+                            averages[date] = {"Average": doc.data().Average, 'Time': date};
+                            let objectAverage = Object.assign({}, myObj, averages);
+                            const averagesChanges = {
+                                AverageChange: objectAverage
+                            }
+                            firestore_db.saveData(SocialMedia, cryptocurrency, averagesChanges)
+                            resolve('saved successful!');
+                        }
+                    }
+                })
+                resolve('Finished saving averages');
+            });
+        })()
+    })
+}
+const saveToDB = async (arr, socialmedia , crypto)=> {
     let mini=Math.min.apply(Math, arr)
     let maxi = Math.max.apply(Math, arr)
     const age = arr => arr.reduce((acc,v) => acc + v)
     let average = age(arr)
-    firestore_db.saveData(socialmedia,crypto,{xaxis:axis,Analysis_score: arr ,Min: mini,Max: maxi,Average: average})
+    firestore_db.saveData(socialmedia,crypto,{Analysis_score: arr ,Min: mini,Max: maxi,Average: average})
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
 //return analysis value
@@ -142,7 +173,7 @@ const sentimentAnalysis = async (cryptos,socialmedias)=>{
                                 i++;
                                 axis.push(i);
                                 if (i === Bigdata.length) {
-                                    saveToDB(axis,analysisArr, socialmedia, crypto).then(data => {
+                                        saveToDB(analysisArr, socialmedia, crypto).then(data => {
                                         resolve(data);
                                     }).catch(err=>{
                                         console.log(err+" :Error saving to database")
@@ -178,7 +209,7 @@ const get_Doc_by_User_id =async(cryptocurrency)=>{
         let i=1;
        firestore_db.getUsers('Users').onSnapshot((documents) => {
             documents.forEach(async (doc) => {
-                if (doc.data().crypto_name.includes(cryptocurrency)) {
+                if (typeof doc.data().crypto_name !== "undefined" && doc.data().crypto_name.includes(cryptocurrency)) {
                     arrayofdocuments.push(doc.data());
                 }
                 if(i === documents._size )
@@ -192,23 +223,17 @@ const get_Doc_by_User_id =async(cryptocurrency)=>{
     })
 }
 
+const sentiment = require( 'wink-sentiment' );
 const analyseArticle =async(Article)=>{
     return  new Promise(function (resolve, reject) {
-        convertion(Article).then(comment => {
-            splits(comment).then(newWording => {
-                spellingc(newWording).then(filtered => {
-                    analysewords(filtered).then(analysis => {
+                      const analysis= sentiment(Article).score;
                         if (analysis > 0) {
                             resolve('positive') ;
                         } else if (analysis < 0) {
                             resolve('negative');
                         } else
                            resolve('neutral');
-                    })
-                })
-            })
-        })
     })
 }
-module.exports = {get_Doc_by_User_id,get_Doc_id,analyseArticle,splits,convertion,analysewords,spellingc,saveToDB,sentimentAnalysis}
+module.exports = {saveAverageChange,get_Doc_by_User_id,get_Doc_id,analyseArticle,splits,convertion,analysewords,spellingc,saveToDB,sentimentAnalysis}
 

@@ -2,7 +2,6 @@ import React, {useEffect, useState, useRef} from 'react'
 import { Link, useHistory } from "react-router-dom";
 import { Form  } from "react-bootstrap"
 import 'bootstrap/dist/css/bootstrap.min.css';
-import styled from 'styled-components';
 import {Avatar, Tabs, AppBar, Tab} from "@material-ui/core"
 import EditIcon from "@material-ui/icons/Edit"
 import DeleteIcon from "@material-ui/icons/Delete"
@@ -12,8 +11,6 @@ import axios from "axios";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import ModalComp from "../../components/Modal/Modal"
 import "./Profile.css";
-import Subreddits from "../Subreddits/Subreddits";
-import Reddits from "../../components/Reddits/Reddits";
 import SweetAlert from 'react-bootstrap-sweetalert'
 import swal from 'sweetalert';
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -21,9 +18,10 @@ import { Star, } from "@material-ui/icons";
 import { SocialIcon } from 'react-social-icons';
 import ClipLoader from "react-spinners/ClipLoader"
 
+
 const platformsList = [{name:"Twitter",id:"twitter"},
-    {nme:"Reddit",id:"reddit"},
-    {name:"4Chan",id:null}
+    {name:"Reddit",id:"reddit"},
+    {name:"4chan",id:"4chan"}
 ];
 
 const Profile = props =>
@@ -32,7 +30,6 @@ const Profile = props =>
     let[socs,setSoc] =useState([]);
     let [platforms, setPlatforms] = useState(platformsList)
     const [selectedTab, setSelectedTab] = React.useState(0)
-    const [userToSearch, setUserToSearch] = useState({})
     const [showSweetAlert, setShowSweetAlert] = useState(false)
     const [alertTitle,setAlertTitle] = useState("")
     const [show, setShow] = useState(false)
@@ -66,7 +63,6 @@ const Profile = props =>
 
         axios.post('http://localhost:8080/user/fetchUserSocialMedia/',userReq)
             .then(response => {
-                console.log(response)
                 let socialName = [];
                 for(const platform of response.data)
                     socialName.push({socMediaName: platform});
@@ -82,22 +78,10 @@ const Profile = props =>
             })
             .catch(err => {console.error(err);})
 
-        axios.post('http://localhost:8080/reddit/getUserSubreddits/',userReq)
-            .then(response => {
-                let subName = [];
-                for(const subred of response.data)
-                    subName.push({subredditName: subred});
-                setSubs(subName);
-            })
-            .catch(err => {console.error(err);})
-
-
-
-    },[])
+    },[platforms])
 
     const cleanSpace = () =>{
         let target =  document.getElementById('followBtn')
-        console.log(target.children.length)
         if(target.children.length >= 2){ target.removeChild(target.childNodes[0]) }
     }
 
@@ -138,7 +122,7 @@ const Profile = props =>
         let user = {email: localStorage.getItem("emailSession"), screen_name: searchRef.current.value }
         axios.post('http://localhost:8080/twitter/follow/',user)
             .then(response=>{
-                console.log(response)
+
                 swal("User added to your watchlist", {
                     icon: "success",
                     buttons: false,
@@ -155,7 +139,6 @@ const Profile = props =>
 
         axios.post('http://localhost:8080/twitter/unfollow/',user)
             .then(response=>{
-                console.log(response)
                 swal("User removed from your watchlist", {
                     icon: "success",
                     buttons: false,
@@ -185,7 +168,6 @@ const Profile = props =>
                     handleFollowButton(null,false)
                 }
             },(reject) => {
-                console.log(reject.response)
                 if(reject.response.data.error.message.includes("You are already following the selected screen name"))
                 {
                     handleFollowButton(user.screen_name,true)
@@ -213,7 +195,6 @@ const Profile = props =>
 
                     axios.post('http://localhost:8080/user/followSocialMedia/',platformObj)
                         .then(response =>{
-                            console.log(response)
                             swal("Social media added", {
                                 icon: "success",
                                 buttons: false,
@@ -228,7 +209,6 @@ const Profile = props =>
 
                     axios.post('http://localhost:8080/user/unfollowSocialMedia/',platformObj)
                         .then(response =>{
-                            console.log(response)
                             swal("Social media removed", {
                                 icon: "success",
                                 buttons: false,
@@ -255,12 +235,6 @@ const Profile = props =>
         if (email !=='undefined') {
             axios.post('http://localhost:8080/user/deleteUserAccount/', email)
                 .then(response => {
-                    console.log(response)
-                    swal("User deleted", {
-                        icon: "success",
-                        buttons: false,
-                        timer: 3000,
-                    })
                 })
                 .catch(err => {
                     console.error(err);
@@ -279,7 +253,7 @@ const Profile = props =>
         setAccDelete(true)
         setAlertTitle("Account deleted")
         setShowSweetAlert(true)
-        //history.push("/login")
+        history.push("/login")
     }
 
     return(
@@ -433,29 +407,35 @@ const Profile = props =>
                         selectedTab === 2 &&
                         <div id="searchContainer" className="container"  style={{backgroundColor:"transparent", borderRadius:"8px"}}>
                             <script sync src="https://platform.twitter.com/widgets.js%22%3E"></script>
-                            <div className="row searchFilter" >
+                            <div className="row searchFilter " >
 
                                 <div className="col-sm-12" >
                                     <div className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold pt-4 pb-4 px-0">Search for a twitter user you want us to check out for you</div>
                                     <div className="input-group" >
-                                        <div className="input-group-btn" >
-                                            <Form onSubmit={searchUsername}>
-                                                <Form.Group >
-                                                    <Form.Control type="text" ref={searchRef} required />
-                                                </Form.Group>
-                                                <Form.Group >
-                                                    <Form.Control id="searchBtn" type="submit" className="btn btn-secondary btn-search" value="Search" />
 
-                                                </Form.Group>
-                                            </Form>
 
+
+                                        <div className={"py-2 fa fa-at d-flex flex-row text-primary "} >
                                         </div>
-                                        {loading ? <div className="ml-2 mt-2 text-center"><ClipLoader  loading={loading} size={15} /></div>:<React.Fragment></React.Fragment>}
-                                        <div id="followBtn">
-                                            <span/>
-                                        </div>
+
+                                            <div className="input-group-btn" >
+                                                <Form onSubmit={searchUsername}>
+                                                    <Form.Group >
+                                                            <Form.Control type="text" ref={searchRef} required />
+                                                    </Form.Group >
+
+                                                    <Form.Group >
+                                                        <Form.Control id="searchBtn" type="submit" className="btn btn-secondary btn-search" value="Search" />
+                                                    </Form.Group>
+                                                </Form>
+
+                                            </div>
+                                            {loading ? <div className="ml-2 mt-2 text-center"><ClipLoader  loading={loading} size={15} /></div>:<React.Fragment></React.Fragment>}
+                                            <div id="followBtn">
+                                                <span/>
+                                            </div>
+
                                     </div>
-
                                 </div>
 
                             </div>
@@ -473,7 +453,7 @@ const Profile = props =>
                                             <div key={myPlatform.id} className="cryptos-view" >
                                                 <div className="crypt-row">
                                                     <div className="crypto" >
-                                                        {myPlatform.selected?<Star className="select-star" style={{ color: "#03989e" }} onClick={()=>{select(myPlatform.id)}}/>:<Star className="select-star" color="action" onClick={()=>{select(myPlatform.id)}}/>}
+                                                        {myPlatform.selected?<Star className="select-star" style={{ color: "#03989e" }} onClick={()=>{select(myPlatform.id)}}/>: myPlatform.selected?<Star className="select-star" color="action" onClick={()=>{select(myPlatform.id)}}/>:<Star className="select-star" color="action" onClick={()=>{select(myPlatform.id)}}/>}
                                                         {myPlatform.id != null ?<SocialIcon network={myPlatform.id} style={{height:"40px",width:"40px"}}/>:
                                                             <img src={"./4chanLogo.png"} alt="4chan" style={{height:"40px",width:"40px"}} />}
                                                         <h1 className="crypto-name" style={{marginLeft:"2em"}}>{myPlatform.name}</h1>

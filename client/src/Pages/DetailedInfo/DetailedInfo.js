@@ -22,12 +22,8 @@ export default function DetailedInfo(props) {
         }
         axios.post('http://localhost:8080/user/fetchUserSocialMedia/',userReq)
             .then(response => {
-                console.log(response)
-                let socialName = [];
-                for(const platform of response.data)
-                    socialName.push({socMediaName: platform});
-
-                    setSocials(socialName)
+                setSocials(response.data)
+                
             })
             .catch(err => {console.error(err);})
     },[])

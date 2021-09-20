@@ -2,6 +2,8 @@ import React, { useRef, useState } from "react"
 import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../../Auth/Auth"
 import { Link, useHistory } from "react-router-dom"
+import Buttons from "@material-ui/core/Button"
+
 export default function UpdatePassword() {
     const emailRef = useRef()
     const passwordRef = useRef()
@@ -27,7 +29,8 @@ export default function UpdatePassword() {
     }
 
     return (
-        <body id="body">
+        <div className="content-cover">
+
         <div className="row">
             <div className="col-md-4 mx-auto p-0 mt-5">
                 <div className="card shadow-lg">
@@ -36,30 +39,35 @@ export default function UpdatePassword() {
                         {error && <Alert variant="danger">{error}</Alert>}
                         {message && <Alert variant="success">{message}</Alert>}
                         <Form onSubmit={handleSubmit}>
-                        
+
                             <Form.Group id="email">
                                 <div style={{width:"70%",margin:"auto"}}>
                                     <Form.Label className="label">Email</Form.Label>
                                 </div>
                                 <Form.Control type="email" ref={emailRef} style={{width:"70%",margin:"auto"}} required />
                             </Form.Group>
-                            
+
                             <Form.Group className="text-center">
                                 <Button disabled={loading} style={{width:"70%",margin:"auto"}} type="submit">
                                 Reset Password
                                 </Button>
+
                             </Form.Group>
-                            <div className="mt-2 new" style={{width:"70%",margin:"auto"}}>
-                            <Link to="/login" className="label">Login!</Link>
-                            </div>
+
                         </Form>
-                       
+
+                        <div className="w-100 text-center mt-2">
+                            <Button href={"/login"} disabled={loading} style={{width:"70%", position:"relative"}}>
+                                Go back to the Login page
+                            </Button>
+                        </div>
+
                     </div>
                 </div>
-                
+
             </div>
         </div>
-        </body>
-        
+
+        </div>
     )
 }

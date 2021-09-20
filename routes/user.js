@@ -3,16 +3,10 @@ const router = express.Router();
 const userFunctions =require('./userFunctions')
 const Database = require('../database/Database');
 const firestore_db = new Database().getInstance();
-const webpush = require("web-push");
-const Push_notification=require('./notification/push_notification')
 const emailObject = require('nodemailer');
-const csrf = require('csurf');
-const {check, validationResult} = require('express-validator');
-const cookieParser = require('cookie-parser')
 
-//const csrfProtection = csrf({cookie: true});
-//router.use(csrfProtection);
-//router.use(cookieParser());
+
+
 
 router.post("/register" , async (request, response, next)=>{
 

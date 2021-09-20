@@ -2,6 +2,8 @@ import React, { useRef, useState } from "react"
 import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../../Auth/Auth"
 import { Link, useHistory } from "react-router-dom"
+import Buttons from "@material-ui/core/Button"
+
 export default function UpdatePassword() {
     const emailRef = useRef()
     const passwordRef = useRef()
@@ -19,7 +21,7 @@ export default function UpdatePassword() {
             await resetPassword(emailRef.current.value)
             setMessage('Reset Message delivered to Email')
             //history.push("/login")
-        } catch {
+        } catch(err) {
             setError("Failed to reset password enter valid details!")
         }
 
@@ -27,26 +29,45 @@ export default function UpdatePassword() {
     }
 
     return (
-        <>
-            <Card>
-                <Card.Body>
-                    <h2 className="text-center mb-4">Reset Password</h2>
-                    {error && <Alert variant="danger">{error}</Alert>}
-                    {message && <Alert variant="success">{message}</Alert>}
-                    <Form onSubmit={handleSubmit}>
-                        <Form.Group id="email">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control type="email" ref={emailRef} required />
-                        </Form.Group>
-                        <Button disabled={loading} className="w-100" type="submit">
-                            Reset Password
-                        </Button>
-                    </Form>
-                </Card.Body>
-            </Card>
-            <div className="w-100 text-center mt-2">
-                <Link to="/login">Login!</Link>
+        <div className="content-cover">
+
+        <div className="row">
+            <div className="col-md-4 mx-auto p-0 mt-5">
+                <div className="card shadow-lg">
+                    <div className="card-header text-center">Reset Password</div>
+                    <div className="card-body">
+                        {error && <Alert variant="danger">{error}</Alert>}
+                        {message && <Alert variant="success">{message}</Alert>}
+                        <Form onSubmit={handleSubmit}>
+
+                            <Form.Group id="email">
+                                <div style={{width:"70%",margin:"auto"}}>
+                                    <Form.Label className="label">Email</Form.Label>
+                                </div>
+                                <Form.Control type="email" ref={emailRef} style={{width:"70%",margin:"auto"}} required />
+                            </Form.Group>
+
+                            <Form.Group className="text-center">
+                                <Button disabled={loading} style={{width:"70%",margin:"auto"}} type="submit">
+                                Reset Password
+                                </Button>
+
+                            </Form.Group>
+
+                        </Form>
+
+                        <div className="w-100 text-center mt-2">
+                            <Button href={"/login"} disabled={loading} style={{width:"70%", position:"relative"}}>
+                                Go back to the Login page
+                            </Button>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
-        </>
+        </div>
+
+        </div>
     )
 }

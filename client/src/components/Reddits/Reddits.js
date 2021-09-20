@@ -24,9 +24,6 @@ export default function Reddits(){
                 }
 
             }
-            console.log("test begin");
-            console.log(posts_)
-            console.log("test begin");
             setReddits(posts_);
         })
         .catch(err => {console.error(err);})
@@ -50,7 +47,7 @@ export default function Reddits(){
 
 
     return(
-        <>
+        <React.Fragment>
             {/*<div>*/}
             {/*    <form>*/}
             {/*        <input type="search" className="form-control rounded" placeholder="Search..."*/}
@@ -105,6 +102,6 @@ export default function Reddits(){
                 {/*    </div>*/}
                 {/*</div>*/}
 
-        </>
+        </React.Fragment>
     )
         }

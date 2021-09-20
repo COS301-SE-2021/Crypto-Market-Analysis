@@ -83,7 +83,6 @@ function QuickView()
                         selectedPlatforms = []
                         await response.data.SocialMediaName[0].map((site)=>{
                             selectedPlatforms.push(site)
-                            console.log(selectedPlatforms)
                         })
                     }
             
@@ -118,7 +117,6 @@ function QuickView()
     })
 
     const select = (name,type) => {
-        console.log(cryptos)
         if(type == "cryptos"){
             cryptos =  [...cryptos.map((crypto)=>{
                 if(name === crypto.symbol){
@@ -134,7 +132,7 @@ function QuickView()
                             crypto_name: crypto.name,
                         }
                         axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd)
-                            .then(response => console.log(response))
+                            .then()
                             .catch(err => {console.error(err);})
                     }
                     else{
@@ -144,7 +142,7 @@ function QuickView()
                               crypto_name: crypto.name,
                           }
                           axios.post('http://localhost:8080/user/followCrypto/',cryptoToRemove)
-                              .then(response => console.log(response))
+                              .then()
                               .catch(err => {console.error(err);})
                     }
                 }
@@ -167,7 +165,7 @@ function QuickView()
                         social_media_sites: platform.name
                     }
                     axios.post('http://localhost:8080/user/followSocialMedia/',cryptoToAdd)
-                        .then(response => console.log(response))
+                        .then()
                         .catch(err => {console.error(err);})
                 }
                 return {
@@ -181,7 +179,7 @@ function QuickView()
     }
 
     return(
-        <>
+        <React.Fragment>
         <Sidebar/>
         <div className="container-fluid">
             <div className="row mt-10">
@@ -235,7 +233,7 @@ function QuickView()
                 </div>
             </div>
         </div>
-        </>
+        </React.Fragment>
     );
 }
 export default QuickView;

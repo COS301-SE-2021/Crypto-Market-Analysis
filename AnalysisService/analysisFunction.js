@@ -6,11 +6,9 @@ const spellCorrector = new SpellCorrector();
 const a = require('extract-emoji');
 const emojiUnicode = require("emoji-unicode")
 const name = require("emoji-name-map");
+require("dotenv").config();
 const Database = require('./database/Database');
 const firestore_db = new Database().getInstance();
-
-var sentiment = require('node-sentiment');
-
 spellCorrector.loadDictionary();
 const extract_emoji = async (post)=>{
     const arr = a.extractEmoji(post);
@@ -87,6 +85,36 @@ const saveOld = async(SocialMedia , cryptocurrency)=>{
         })
     });
 }
+const saveAverageChange = async(SocialMedia , cryptocurrency)=>{
+    return  new Promise(function (resolve, reject) {
+        (async () => {
+            await firestore_db.getUsers(SocialMedia).onSnapshot((documents) => {
+                documents.forEach((doc) => {
+                    let averages={};
+                    let myObj={};
+                    let date = String(new Date());
+                    if (typeof doc.id !== "undefined" && doc.id === cryptocurrency) {
+                        if (typeof doc.data().AverageChange !== "undefined") {
+                            myObj =doc.data().AverageChange;
+
+                        }
+                        if(typeof doc.data().Average !=="undefined"  ) {
+
+                            averages[date] = {"Average": doc.data().Average, 'Time': date};
+                            let objectAverage = Object.assign({}, myObj, averages);
+                            const averagesChanges = {
+                                AverageChange: objectAverage
+                            }
+                            firestore_db.saveData(SocialMedia, cryptocurrency, averagesChanges)
+                            resolve('saved successful!');
+                        }
+                    }
+                })
+                resolve('Finished saving averages');
+            });
+        })()
+    })
+}
 const saveToDB = async (arr, socialmedia , crypto)=> {
     let mini=Math.min.apply(Math, arr)
     let maxi = Math.max.apply(Math, arr)
@@ -129,6 +157,7 @@ const sentimentAnalysis = async (cryptos,socialmedias)=>{
             reject(`Internal server error`);
         }
         const analysisArr = [];
+        const axis = [];
         let i = 0;
         try {
             await Bigdata.forEach(element =>
@@ -139,10 +168,12 @@ const sentimentAnalysis = async (cryptos,socialmedias)=>{
                                 if (isNaN(analysis)) {
                                     analysis = 0;
                                 }
-                                analysisArr.push(analysis * 10);
+                                analysisArr.push(analysis);
+
                                 i++;
+                                axis.push(i);
                                 if (i === Bigdata.length) {
-                                    saveToDB(analysisArr, socialmedia, crypto).then(data => {
+                                        saveToDB(analysisArr, socialmedia, crypto).then(data => {
                                         resolve(data);
                                     }).catch(err=>{
                                         console.log(err+" :Error saving to database")
@@ -158,23 +189,51 @@ const sentimentAnalysis = async (cryptos,socialmedias)=>{
         }
     })
 }
+const get_Doc_id =async(Social_media)=>{
+
+    let arrayofdocuments = [];
+    return  new Promise(function (resolve, reject) {
+        firestore_db.getUsers(Social_media).onSnapshot(async (documents) => {
+            await documents.forEach((doc) => {
+                if (typeof doc.id !== "undefined") {
+                    arrayofdocuments.push(doc.id);
+                }
+            })
+            resolve(arrayofdocuments)
+        });
+    })
+}
+const get_Doc_by_User_id =async(cryptocurrency)=>{
+    let arrayofdocuments = [];
+    return  new Promise( function (resolve, reject) {
+        let i=1;
+       firestore_db.getUsers('Users').onSnapshot((documents) => {
+            documents.forEach(async (doc) => {
+                if (typeof doc.data().crypto_name !== "undefined" && doc.data().crypto_name.includes(cryptocurrency)) {
+                    arrayofdocuments.push(doc.data());
+                }
+                if(i === documents._size )
+                {
+                    resolve(arrayofdocuments);
+                }
+                 i++;
+            })
+        })
+
+    })
+}
+
+const sentiment = require( 'wink-sentiment' );
 const analyseArticle =async(Article)=>{
     return  new Promise(function (resolve, reject) {
-        convertion(Article).then(comment => {
-            splits(comment).then(newWording => {
-                spellingc(newWording).then(filtered => {
-                    analysewords(filtered).then(analysis => {
+                      const analysis= sentiment(Article).score;
                         if (analysis > 0) {
                             resolve('positive') ;
                         } else if (analysis < 0) {
                             resolve('negative');
                         } else
                            resolve('neutral');
-                    })
-                })
-            })
-        })
     })
 }
-module.exports = {analyseArticle,splits,convertion,analysewords,spellingc,saveToDB,sentimentAnalysis}
+module.exports = {saveAverageChange,get_Doc_by_User_id,get_Doc_id,analyseArticle,splits,convertion,analysewords,spellingc,saveToDB,sentimentAnalysis}
 

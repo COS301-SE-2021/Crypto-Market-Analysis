@@ -12,60 +12,67 @@ import Push from "./Pages/Push/Push"
 import PrivateRoute from "./components/newRoute"
 import Notification from "./Pages/Notification/Notification"
 import DetailedInfo from "./Pages/DetailedInfo/DetailedInfo"
+import Chat from "./Pages/Chatroom/chatroom"
+import Comments from "./Pages/Comments/Comments"
+import Posts from "./Pages/Posts/Posts"
 import Subreddits from "./Pages/Subreddits/Subreddits"
 //import Predictions from "./Pages/Predictions/Predictions"
 import {BrowserRouter as Router , Switch} from "react-router-dom";
 import { AuthProvider } from "./Auth/Auth"
+import LandingPage from "./Pages/LandingPage/LandingPage"
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
-import { useEffect } from 'react';
+import React,{ useEffect } from 'react';
 import Predictions from "./Pages/Predictions/Predictions";
 
 function App() {
     useEffect(async ()=>{
         window.twttr = await (function(d, s, id) {
             let js, fjs = d.getElementsByTagName(s)[0],
-            t = window.twttr || {};
+                t = window.twttr || {};
             if (d.getElementById(id)) return t;
             js = d.createElement(s);
             js.id = id;
             js.src = "https://platform.twitter.com/widgets.js";
             fjs.parentNode.insertBefore(js, fjs);
-        
+
             t._e = [];
             t.ready = function(f) {
-            t._e.push(f)
+                t._e.push(f)
             };
-        
+
             return t;
         }(document, "script", "twitter-wjs"))
     },[])
 
-  return (
-      <Router>
-          <AuthProvider>
-           <Switch>
-                 <section className="header">
-                     <Route exact path="/" component={Home}></Route>
-                     <Route exact path="/register" component={Register}></Route>
-                     <Route exact path="/Push" component={Push}></Route>
-                     <PrivateRoute exact path="/home" component={Home}></PrivateRoute>
-                     <Route exact path="/login" component={login}></Route>
-                     <Route exact path="/updatePassword" component={UpdatePassword}></Route>
-                     <Route exact path="/updateProfile" component={UpdateProfile}></Route>
-                     <Route exact path="/Settings" component={Settings}></Route>
-                     <Route exact path="/AllCrypto" component={AllCrypto}></Route>
-                     <Route exact path="/Profile" component={Profile}></Route>
-                     <Route exact path="/Notification" component={Notification}></Route>
-                     <Route exact path="/home/DetailedInfo" component={DetailedInfo}></Route>
-                     <Route exact path="/Subreddits" component={Subreddits}></Route>
-                     <Route exact path="/Predictions" component={Predictions}></Route>
-                 </section>
-           </Switch>
-          </AuthProvider>
-      </Router>
-
-  );
+    return (
+        <AuthProvider>
+            <Switch>
+                <section className="header">
+                    {/* <Route exact path="/" component={Home}/>*/}
+                     <Route exact path="/" component={LandingPage}></Route>
+                    <Route exact path="/home" component={Home}/>
+                    <Route exact path="/register" component={Register}/>
+                    <Route exact path="/Push" component={Push}/>
+                    {/*<PrivateRoute exact path="/home" component={Home}/>*/}
+                    <PrivateRoute exact path="/landing" component={LandingPage}/>
+                    <Route exact path="/login" component={login}/>
+                    <Route exact path="/updatePassword" component={UpdatePassword}/>
+                    <Route exact path="/updateProfile" component={UpdateProfile}/>
+                    <Route exact path="/Settings" component={Settings}/>
+                    <Route exact path="/AllCrypto" component={AllCrypto}/>
+                    <Route exact path="/Profile" component={Profile}/>
+                    <Route exact path="/Notification" component={Notification}/>
+                    <Route exact path="/home/DetailedInfo" component={DetailedInfo}/>
+                    <Route exact path="/Subreddits" component={Subreddits}/>
+                    <Route exact path="/Predictions" component={Predictions}/>
+                    <Route exact path="/Chat" component={Chat}/>
+                    <Route exact path="/Posts" component={Posts}/>
+                    <Route exact path="/Comments" component={Comments}/>
+                </section>
+            </Switch>
+        </AuthProvider>
+    );
 }
 
 export default App;

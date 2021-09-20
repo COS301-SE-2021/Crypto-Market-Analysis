@@ -1,4 +1,5 @@
 import React from "react";
+import SweetAlert from 'react-bootstrap-sweetalert'
 import {
     Alert,
     Card,
@@ -6,21 +7,37 @@ import {
     Row,
     Col,Toast
 } from "react-bootstrap";
-import {Link} from "react-router-dom";
 import axios from "axios";
-import Sidebar from "../../components/Sidebar/Sidebar";
-import {db} from "../../firebase"
 class Push extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            elements: [  <Col class="col-md-6 offset-md-4">
-                <button  onClick={this.handleSubscribe}  type="button" className="btn btn-outline-warning">
-                    Subscribe<i className="fab fa-chrome"></i><i className="fab fa-firefox"></i></button>
-            </Col>]
+            elements: [ 
+                <button  onClick={this.handleSubscribe}  type="button" className="btn-cryptosis text-blueGray-600 mr-0 ml-2 whitespace-nowrap text-sm uppercase font-bold px-0">
+                    Subscribe</button>
+            ]
         }
         this.handleSubscribe = this.handleSubscribe.bind(this);
+        this.handleunSubscribe = this.handleunSubscribe.bind(this);
+    }
+    handleunSubscribe= async (e)=>{
+        let  PushReq = {
+            email: localStorage.getItem("emailSession"),
+            object: {}
+        }
+        axios.post('http://localhost:8080/user/storePush/',PushReq)
+            .then(response => {
+                this.setState({alert: true});
+                const notification_Arrays = [];
+                notification_Arrays.push(
+                    <button  onClick={this.handleSubscribe}  type="button" className="btn-cryptosis text-blueGray-600 mr-0 ml-2 whitespace-nowrap text-sm uppercase font-bold px-0">
+                        Subscribe</button>
+                );
+                this.setState({elements: notification_Arrays});
+
+            })
+            .catch(err => {console.error(err);})
     }
     handleSubscribe= async (e)=> {
         let  PushReq = {
@@ -28,28 +45,15 @@ class Push extends React.Component {
         }
         axios.post('http://localhost:8080/user/sendMail',PushReq)
             .then(response => {
-                console.log(response);
             })
         axios.post('http://localhost:8080/user/GETPush/',PushReq)
             .then(response => {
-                console.log(response.data)
-                if(Object.keys(response.data).length !== 0)
-                {
                     const notification_Arrays = [];
-                    notification_Arrays.push(<Col class="col-md-6 offset-md-4">
-                        <button  onClick={this.handleSubscribe}  type="button" className="btn btn-outline-warning">
-                            Subscribed</button>
-                    </Col>);
+                    notification_Arrays.push(
+                        <button  onClick={this.handleunSubscribe}  type="button" className="btn-cryptosis text-blueGray-600 mr-0 ml-2 whitespace-nowrap text-sm uppercase font-bold px-0">
+                            unSubscribe</button>
+                   );
                     this.setState({elements: notification_Arrays});
-                }
-                else{
-                    const notificationpush= [];
-                    notificationpush.push(<Col class="col-md-6 offset-md-4">
-                        <button  onClick={this.handleSubscribe}  type="button" className="btn btn-outline-warning">
-                            Subscribe</button>
-                    </Col>);
-                    this.setState({elements: notificationpush});
-                }
 
             })
             .catch(err => {console.error(err);})
@@ -60,43 +64,34 @@ class Push extends React.Component {
         }
         async function send() {
             // Register Service Worker
-            console.log("Registering service worker...");
             //registerServiceWorker();
             const register = await navigator.serviceWorker.register("sw.js", {
                 scope: "/"
             });
-            console.log("Service Worker Registered...");
-
-            console.log("Registering Push...");
             const subscription = await register.pushManager.subscribe({
                 userVisibleOnly: true,
                 applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
             });
-            console.log("Push Registered...");
 
             // Send Push Notification
-            console.log("Sending Push...");
-            console.log(subscription)
             let  PushReq = {
                 email: localStorage.getItem("emailSession"),
                 object: subscription
             }
             axios.post('http://localhost:8080/user/subscribe/',PushReq)
                 .then(response => {
-                    console.log(response)
 
                 })
                 .catch(err => {console.error(err);})
             axios.post('http://localhost:8080/user/storePush/',PushReq)
                 .then(response => {
-                    console.log(response)
 
                 })
                 .catch(err => {console.error(err);})
 
-            console.log("Push Sent...");
         }
-        function urlBase64ToUint8Array(base64String) {
+
+            function urlBase64ToUint8Array(base64String) {
             const padding = "=".repeat((4 - base64String.length % 4) % 4);
             const base64 = (base64String + padding)
                 .replace(/\-/g, "+")
@@ -113,15 +108,39 @@ class Push extends React.Component {
 
     }
     componentDidMount(){
+        let  PushReq = {
+            email: localStorage.getItem("emailSession")
+        }
+        axios.post('http://localhost:8080/user/GETPush/',PushReq)
+            .then(response => {
+                if(Object.keys(response.data).length === 0)
+                {
+                    const notification_Arrays = [];
+                    notification_Arrays.push(
+                        <button  onClick={this.handleSubscribe}  type="button" className="btn-cryptosis text-blueGray-600 mr-0 ml-2 whitespace-nowrap text-sm uppercase font-bold px-0">
+                            Subscribe</button>
+                    );
+                    this.setState({elements: notification_Arrays});
+                }
+                else {
+                    const notification_Arrays = [];
+                    notification_Arrays.push(
+                        <button  onClick={this.handleunSubscribe}  type="button" className="btn-cryptosis text-blueGray-600 mr-0 ml-2 whitespace-nowrap text-sm uppercase font-bold px-0">
+                            unSubscribe</button>
+                   );
+                    this.setState({elements: notification_Arrays});
+                }
 
+            })
+            .catch(err => {console.error(err);})
     }
     render() {
         return (
-            <>
-                <div className="md:ml-64">
+            <React.Fragment>
+                <div className="d-inline">
                          {this.state.elements}
                 </div>
-            </>
+            </React.Fragment>
         );
     }
 }

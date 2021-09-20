@@ -29,22 +29,24 @@ export default function Tweets({coin_name}){
           
       },res=>{
         
-        setErrorResponse(res.response.data.error)
+        setErrorResponse(res.response.data.error.message)
+        setLoader(false)
       })
     },[])
 
     return(
-        <>
-        {errorResponse ? <>
+        <React.Fragment>
+        {errorResponse ? <React.Fragment>
           <div className="container mt-16" >
             <div className="alert alert-warning alert-dismissible fade show m-auto text-center" style={{width:"70%"}}>
               {errorResponse.includes("The user is not following people on twitter")? <span>Oops, looks like you don't follow anyone on Twitter :(</span>
               :errorResponse.includes("No tweets to display")? <span>Oops, looks like we don't have any tweets to display :(</span>
+              :errorResponse.includes("screen_names is not iterable")?<span>Oops, looks like you don't follow anyone on Twitter :(</span>
               :<span>Oops, looks like you don't follow the selected coin :(, choose a coin you follow to see what people are saying about it on twitter</span>}
             </div>
           </div>
         
-        </> :<></>}
+        </React.Fragment> :<React.Fragment></React.Fragment>}
          {loader ?
          <div className="mx-auto mt-16 text-center"><ClipLoader className="mx-auto mt-16" loading={loader} size={150} /> </div>
         : <div className="carousel-container container mt-8" >
@@ -60,7 +62,7 @@ export default function Tweets({coin_name}){
               }
             </Carousel>
         </div>}
-        </>
+        </React.Fragment>
     )
 }
 Tweets.defaultProps = {

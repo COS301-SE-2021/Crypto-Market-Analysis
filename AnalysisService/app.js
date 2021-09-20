@@ -3,11 +3,13 @@ const app = express();
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const userRoutes = require('./routes/analytics');
+const cors =require('cors')
 
 app.use(morgan("dev"));
 app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header(
@@ -20,10 +22,10 @@ app.use((req, res, next) => {
     }
     next();
 })
-
+app.use((cors));
 app.use("/", userRoutes);
 app.use((req, res, next) => {
-    const error = new Error("Not found");
+    const error = new Error("Error code");
     error.status = 404;
     next(error);
 });

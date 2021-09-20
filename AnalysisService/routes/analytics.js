@@ -15,4 +15,5 @@ router.post("/ArticleAnalytics", async (request,response)=>{
         })
     }
 });
+router.get('/', (req, res) => { res.send('AnalysisService started running you can start making request') });
 module.exports = router

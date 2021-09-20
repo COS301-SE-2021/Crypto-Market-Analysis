@@ -32,6 +32,7 @@ is and inform the user if it is about to change.
 - [Architecture Document](https://drive.google.com/file/d/1G4JMxFtHQXFOVpyDLLiS2qN9oRh5VzBz/view?usp=sharing)
 - [Coding Standard](https://drive.google.com/file/d/1hhakp7iTLAtutc2fM7ygObbTxdInYFAt/view?usp=sharing)
 - [Technical Installation Guide](https://drive.google.com/file/d/1ZxoTLOlXS5Wg35bwQpnEBOG5eHfzUZ9i/view?usp=sharing)
+- [Testing Policy](https://drive.google.com/file/d/1I9Uqq9OPWIjYP7_pyapgqmpGMx57sitC/view?usp=sharing)
 ## Demo Videos
 - [Demo 1](https://drive.google.com/file/d/10VWnXqI9cWJKdfY-M69qh-IMqVguGrGT/view?usp=sharing)
 - [Demo 2](https://drive.google.com/file/d/1fskbcnS5MpdyLPBwvptz5oRf9zCwOB7f/view?usp=sharing)

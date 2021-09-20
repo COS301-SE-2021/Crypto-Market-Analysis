@@ -68,7 +68,7 @@ function Predictions() {
                 <div className="row">
                     <div className="col-md-12">
 
-                        {loading ? <div className="mt-8 text-center" style={{marginTop:"15em", marginRight:"10em"}}><ClipLoader loading={loading} size={150} /></div>:
+                        {loading ? <div className="mx-auto mt-8 text-center"><ClipLoader loading={loading} size={150} /></div>:
 
                             <table className="table crypto-table">
                                 {/*<h1>Predictions for the next hour based on historical prices</h1>*/}

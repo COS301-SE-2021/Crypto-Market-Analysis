@@ -163,7 +163,7 @@ export default function AllCryptos(props)
                             coin_id: crypto.id
                         }
                         
-                        axios.post('http://localhost:8080/user/unfollowCrypto/',cryptoToRemove).then(()=>{
+                        axios.post('user/unfollowCrypto/',cryptoToRemove).then(()=>{
                             swal("Coin was removed from your watchlist", {
                                 icon: "success",
                                 buttons: false,

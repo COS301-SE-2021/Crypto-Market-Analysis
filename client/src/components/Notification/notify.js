@@ -27,7 +27,7 @@ class Notifications extends React.Component {
         let  emailReq = {
             email: localStorage.getItem("emailSession")
         }
-        axios.post('http://localhost:8080/user/getNotificationObject/',emailReq)
+        axios.post('https://cryptosis-server.herokuapp.com/user/getNotificationObject/',emailReq)
             .then(response => {
 
                 const objectOfNotificationdata= response.data;

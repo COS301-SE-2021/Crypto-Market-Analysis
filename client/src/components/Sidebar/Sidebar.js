@@ -30,7 +30,7 @@ export default function Sidebar(props) {
       email: localStorage.getItem("emailSession")
     }
     // this.setState({emailRequest: response.data});
-    axios.post('http://localhost:8080/user/getNotificationObject/',emailReq)
+    axios.post('https://cryptosis-server.herokuapp.com/user/getNotificationObject/',emailReq)
         .then(response => {
           let i = 0;
           let counter = 0;

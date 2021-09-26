@@ -168,7 +168,7 @@ class Notifications extends React.Component {
             object: object
         }
         
-        axios.post('http://localhost:8080/user/setNotificationObject/',emailReq)
+        axios.post('https://cryptosis-server.herokuapp.com/user/setNotificationObject/',emailReq)
             .then(() => {
               
                 this.setState({refresh: !this.state.refresh});
@@ -192,7 +192,7 @@ class Notifications extends React.Component {
 
         }
 
-        axios.post('http://localhost:8080/user/setNotificationObject/',emailReq)
+        axios.post('https://cryptosis-server.herokuapp.com/user/setNotificationObject/',emailReq)
             .then(() => {
                 swal("Successfully cleared all notifications", {
                     icon: "success",
@@ -213,13 +213,13 @@ class Notifications extends React.Component {
         let array = []
         let coin_ids = []
         let  requestObj = { email: localStorage.getItem("emailSession") }
-         axios.post('http://localhost:8080/user/getUserCryptos/', requestObj)
+         axios.post('https://cryptosis-server.herokuapp.com/user/getUserCryptos/', requestObj)
         .then(async(response) => {
             
             for(const crypto of response.data)
             array.push(crypto);
 
-            axios.post('http://localhost:8080/user/getCoinIDs/', requestObj)
+            axios.post('https://cryptosis-server.herokuapp.com/user/getCoinIDs/', requestObj)
             .then(async(response) => {
             
                 coin_ids = response.data
@@ -261,7 +261,7 @@ class Notifications extends React.Component {
 
         }
         
-        axios.post('http://localhost:8080/user/setNotificationObject/',ObjectReq)
+        axios.post('https://cryptosis-server.herokuapp.com/user/setNotificationObject/',ObjectReq)
             .then(response => {
             })
 
@@ -350,7 +350,7 @@ class Notifications extends React.Component {
             email: localStorage.getItem("emailSession")
         }
 
-        axios.post('http://localhost:8080/user/getNotificationObject/',emailReq)
+        axios.post('https://cryptosis-server.herokuapp.com/user/getNotificationObject/',emailReq)
             .then(response => {
 
                 this.generateData(response.data)

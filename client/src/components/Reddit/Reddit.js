@@ -12,7 +12,7 @@ export default function Reddit({coin_name}){
             coin: coin_name
         }
 
-        axios.post('http://localhost:8080/reddit/coinRedditPost/',cryptoReq)
+        axios.post('https://cryptosis-server.herokuapp.com/reddit/coinRedditPost/',cryptoReq)
             .then(response => {
                 let posts_ = [];
                 for(let j = 0; j<response.data.length; j++)

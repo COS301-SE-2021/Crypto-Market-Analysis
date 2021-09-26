@@ -30,7 +30,7 @@ export default function Signup() {
             await signup(emailRef.current.value, passwordRef.current.value);
             const docRef = await db.collection(`Users`).doc(emailRef.current.value);
             docRef.set({user_id: emailRef.current.value});
-            axios.post(`http://localhost:8080/user/register`, {email: emailRef.current.value}).then(() => {
+            axios.post(`https://cryptosis-server.herokuapp.com/user/register`, {email: emailRef.current.value}).then(() => {
                 localStorage.setItem('emailSession',emailRef.current.value);
                 history.push("/home")
             })

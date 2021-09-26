@@ -21,7 +21,7 @@ function Comments() {
 
 
     useEffect( () => {
-        axios.post('http://localhost:8080/chat/returnPost/',obj)
+        axios.post('https://cryptosis-server.herokuapp.com/chat/returnPost/',obj)
             .then(response => {
                 let posts_ = [];
                 for(let j = 0; j<response.data.posts_array.length; j++)
@@ -34,7 +34,7 @@ function Comments() {
         setTimeout(()=>{
         },10000)
 
-        axios.post('http://localhost:8080/chat/getPost/',obj)
+        axios.post('https://cryptosis-server.herokuapp.com/chat/getPost/',obj)
             .then(response => {
                 setpost(response.data.posts_array)
             })
@@ -58,7 +58,7 @@ function Comments() {
             time: time
         };
 
-        axios.post('http://localhost:8080/chat/postReply/',request)
+        axios.post('https://cryptosis-server.herokuapp.com/chat/postReply/',request)
             .then(response => {
                 window.location.reload();
             })

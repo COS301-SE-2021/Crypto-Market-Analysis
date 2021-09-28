@@ -320,6 +320,7 @@ router.post("/sendMail", async (req, res, next) => {
     }
 });
 /** This function saves portfolio details to the db
+ *@param request object example
  eg {
     "email":"mojohnnylerato@gmail.com",
     "coin_id": "bitcoin",
@@ -332,6 +333,7 @@ router.post("/portfolioSave", async (request,response, next)=>{
 
 });
 /** This function returns portfolio of purchased crypto
+ *  *@param request object example
  eg {
     "email":"mojohnnylerato@gmail.com",
     "coin_id": "bitcoin",

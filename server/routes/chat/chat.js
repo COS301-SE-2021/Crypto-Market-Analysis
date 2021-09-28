@@ -24,6 +24,45 @@ router.post("/returnPost", async (request, response, next)=>{
     }
 });
 
+router.post("/returnTagPost", async (request, response, next)=>{
+    const email = request.body.email;
+    const tag = request.body.tag;
+
+    if(!email || !tag){
+        let error = new Error(`Malformed request. Please check your parameters`);
+        error.status = 400;
+        return next(error);
+    }
+    else{
+        await chat.returnTagPost(email, tag).then(data=>{
+            return response.status(200).json(data);
+        }).catch(err => {
+            let error = new Error(err);
+            error.status = 500;
+            return next(error);
+        });
+    }
+});
+
+router.post("/getAllTags", async (request, response, next)=>{
+    const email = request.body.email;
+
+    if(!email){
+        let error = new Error(`Malformed request. Please check your parameters`);
+        error.status = 400;
+        return next(error);
+    }
+    else{
+        await chat.getAllTags(email).then(data=>{
+            return response.status(200).json(data);
+        }).catch(err => {
+            let error = new Error(err);
+            error.status = 500;
+            return next(error);
+        });
+    }
+});
+
 router.post("/getPost", async (request, response, next)=>{
     const email = request.body.email;
     const postId = request.body.postId;

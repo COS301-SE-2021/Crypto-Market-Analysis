@@ -322,8 +322,11 @@ router.post("/sendMail", async (req, res, next) => {
 router.post("/portfolio", async (request,response, next)=>{
     const url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=ZAR&ids="+ request.body.coin_id+"&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=1h";
     const obj = await  userFunctions.getPrices(url);
-
-    response.status(200).json(obj);
+    const data = await userFunctions.predictedObject(request.body.email, request.body.symbol)
+    const num =5;
+    const currentValue = obj.map(a => a.current_price) * num;
+    const predictedValue = data.map(a => a.close) * num;
+    response.status(200).json({crypto_data :obj , current_price: currentValue , predicted_price: predictedValue});
 
 });
 module.exports = router

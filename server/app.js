@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const userRoutes = require('./routes/user');
 const twitterRoute = require('./routes/twitter');
 const redditRoute = require('./routes/reddit');
+const portfolio = require('./routes/portfolio');
 const chanRoute = require('./routes/chan');
 const chatRoute = require('./routes/chat/chat');
 const sentimentRoute = require('./routes/sentiment');
@@ -59,6 +60,7 @@ app.use("/reddit", redditRoute);
 app.use("/chan", chanRoute);
 app.use("/chat", chatRoute);
 app.use("/sentiment", sentimentRoute);
+app.use("/portfolio", portfolio);
 
 app.use((req, res, next) => {
     const error = new Error("Not found");

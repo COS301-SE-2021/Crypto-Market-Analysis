@@ -3,8 +3,8 @@ const User_Hash_Table = require(`../functions/User_Hash_Table`);
 const user_object = new User_Hash_Table().getInstance();
 const firestore_db = new Database().getInstance();
 const reddit =require('../functions/Reddit');
+const https = require("https");
 const redditScrapper = new reddit();
-
 const register = async email => {
     return await user_object.insertUser(email);
 }
@@ -44,7 +44,22 @@ const getPush=async(email)=>{
     });
     return mydata;
 }
-
+const getPrices = async (url)=>{
+    return new Promise(function (resolve, reject) {
+        https.get(url, res => {
+            let data = '';
+            res.on('data', chunk => {
+                data += chunk;
+            });
+            res.on('end', () => {
+                data = JSON.parse(data);
+                resolve(data);
+            })
+        }).on('error', err => {
+            reject(err.message);
+        })
+    })
+}
 const getAnalysis=async(Social_Media,Cryptocurrency)=>{
     let metadata={};
     return new Promise(function (resolve, reject) {
@@ -218,6 +233,6 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
 
-module.exports = {getCoinPredictions, deleteUserAccount,getAnalysis,getPush,setPush,setNotification,saveToDB,getNotification,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, register, getCoinIDs}
+module.exports = {getPrices,getCoinPredictions, deleteUserAccount,getAnalysis,getPush,setPush,setNotification,saveToDB,getNotification,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, register, getCoinIDs}
 
 

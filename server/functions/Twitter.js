@@ -365,7 +365,9 @@ class Twitter {
         //Stores the id of each tweet
         const ids = [];
         for(const name of screen_names) {
-            keys = Object.keys(this.#twitter_users[name]);
+            if(this.#twitter_users[name])
+                keys = Object.keys(this.#twitter_users[name]);
+
             //Check if the key is the selected cryptocurrency
             for(const key of keys){
                 if(key === crypto_name){

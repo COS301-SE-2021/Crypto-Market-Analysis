@@ -4,6 +4,8 @@ const userFunctions =require('./userFunctions')
 const Database = require('../database/Database');
 const firestore_db = new Database().getInstance();
 const emailObject = require('nodemailer');
+const {success} = require("concurrently/src/defaults");
+const {ca} = require("stopword");
 
 
 
@@ -319,5 +321,52 @@ router.post("/sendMail", async (req, res, next) => {
         res.status(200).json("Email has been sent!");
     }
 });
+/** This function saves portfolio details to the db
+ *@param request object example
+ eg {
+    "email":"mojohnnylerato@gmail.com",
+    "coin_id": "bitcoin",
+    "symbol": "btc",
+    "purchase": 4
 
+}
+ * */
+router.post("/portfolioSave", async (request,response, next)=>{
+        try{
+            const data = userFunctions.portfolioSave(request.body.email, request.body.purchase, request.body.symbol, request.body.coin_id);
+            response.status(200).json("successfully saved to database");
+        }
+        catch (err){
+            response.status(401).json("error saving to database");
+        }
+
+});
+/** This function returns portfolio of purchased crypto
+ *  *@param request object example
+ eg {
+    "email":"mojohnnylerato@gmail.com",
+    "coin_id": "bitcoin",
+    "symbol": "btc",
+    "purchase": 4
+
+}
+ * */
+router.post("/portfolio", async (request,response, next)=>{
+    const url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=ZAR&ids="+ request.body.coin_id+"&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=1h";
+    const obj = await  userFunctions.getPrices(url);
+    const data = await userFunctions.predictedObject(request.body.email, request.body.symbol)
+    const currentValue = obj.map(a => a.current_price) * request.body.purchase;
+    const predictedValue = data.map(a => a.close) * request.body.purchase;
+    response.status(200).json({crypto_data :obj , current_price: currentValue , predicted_price: predictedValue});
+});
+router.post("/getportfolio", async (request,response, next)=>{
+   try{
+       const obj= await userFunctions.getPortforlio(request.body.email, request.body.coin_id);
+       response.status(200).json(obj);
+   }
+  catch (err){
+      response.status(400).json("error while fetching portfolio");
+  }
+
+});
 module.exports = router

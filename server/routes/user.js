@@ -4,6 +4,8 @@ const userFunctions =require('./userFunctions')
 const Database = require('../database/Database');
 const firestore_db = new Database().getInstance();
 const emailObject = require('nodemailer');
+const {success} = require("concurrently/src/defaults");
+const {ca} = require("stopword");
 
 
 
@@ -330,6 +332,13 @@ router.post("/sendMail", async (req, res, next) => {
 }
  * */
 router.post("/portfolioSave", async (request,response, next)=>{
+        try{
+            const data = userFunctions.portfolioSave(request.body.email, request.body.purchase, request.body.symbol, request.body.coin_id);
+            response.status(200).json("successfully saved to database");
+        }
+        catch (err){
+            response.status(401).json("error saving to database");
+        }
 
 });
 /** This function returns portfolio of purchased crypto
@@ -349,5 +358,15 @@ router.post("/portfolio", async (request,response, next)=>{
     const currentValue = obj.map(a => a.current_price) * request.body.purchase;
     const predictedValue = data.map(a => a.close) * request.body.purchase;
     response.status(200).json({crypto_data :obj , current_price: currentValue , predicted_price: predictedValue});
+});
+router.post("/getportfolio", async (request,response, next)=>{
+   try{
+       const obj= await userFunctions.getPortforlio(request.body.email, request.body.coin_id);
+       response.status(200).json(obj);
+   }
+  catch (err){
+      response.status(400).json("error while fetching portfolio");
+  }
+
 });
 module.exports = router

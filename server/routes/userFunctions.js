@@ -223,8 +223,34 @@ const getCoinIDs = async email_address => {
         return Promise.reject(error);
     }
 }
+const getPortforlio =async (email,crypto_ID)=>{
+    return new Promise(async function (resolve, reject) {
+        await firestore_db.getUsers("Users").onSnapshot((documents) => {
+            documents.forEach((doc) => {
+                if (typeof doc.id !== "undefined" && doc.id === email) {
+                    if(typeof doc.data().portfolio!== "undefined"){
+                        resolve(doc.data().portfolio)
+                    }
+                    else{
+                        reject("error")
+                    }
+                }
+            })
+        });
+    })
+}
 const portfolioSave =async (email, num_of_crypto, symbol, id)=>{
-
+    let myObj = {};
+    let newObj = {};
+    newObj[id] = {Buy: num_of_crypto, crypto_id: id, crypto_symbol:symbol};
+    let cmyObj = Object.assign({}, myObj, newObj);
+    const portfolioObj= {
+        portfolio: cmyObj
+    }
+    try {
+        firestore_db.saveData('Users', email, portfolioObj)
+    }
+    catch (er){return err}
 
 }
 const saveToDB = async (arr, socialmedia , crypto)=> {
@@ -246,6 +272,6 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
 }
 
 
-module.exports = {predictedObject, getPrices,getCoinPredictions, deleteUserAccount,getAnalysis,getPush,setPush,setNotification,saveToDB,getNotification,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, register, getCoinIDs}
+module.exports = {getPortforlio, portfolioSave, predictedObject, getPrices,getCoinPredictions, deleteUserAccount,getAnalysis,getPush,setPush,setNotification,saveToDB,getNotification,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, register, getCoinIDs}
 
 

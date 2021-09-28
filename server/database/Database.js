@@ -61,6 +61,22 @@ class Database {
         if(email !== 'undefined')
             return this.#db.collection('Users').doc(email).get();
     }
+    async fetchPortfolio(email){
+        if(email !== 'undefined')
+            return this.#db.collection('Users');
+    }
+    getUsers(collectionPath){
+        return this.#db.collection(collectionPath);
+    }
+    saveData(collectionPath,documentName,object)
+    {
+        try{
+            this.#db.collection(collectionPath).doc(documentName).set(object, {merge:true});
+        }
+        catch(e) {
+            console.error(`An error occurred while connecting to the database: \n${e}`);
+        }
+    }
 
     async savePost(post){
         await this.#db.collection(post.room).add({

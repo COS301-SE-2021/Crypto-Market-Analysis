@@ -223,7 +223,10 @@ const getCoinIDs = async email_address => {
         return Promise.reject(error);
     }
 }
+const portfolioSave =async (email, num_of_crypto, symbol, id)=>{
 
+
+}
 const saveToDB = async (arr, socialmedia , crypto)=> {
     let mini=Math.min.apply(Math, arr)
     let maxi = Math.max.apply(Math, arr)

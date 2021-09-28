@@ -319,14 +319,33 @@ router.post("/sendMail", async (req, res, next) => {
         res.status(200).json("Email has been sent!");
     }
 });
+/** This function saves portfolio details to the db
+ eg {
+    "email":"mojohnnylerato@gmail.com",
+    "coin_id": "bitcoin",
+    "symbol": "btc",
+    "purchase": 4
+
+}
+ * */
+router.post("/portfolioSave", async (request,response, next)=>{
+
+});
+/** This function returns portfolio of purchased crypto
+ eg {
+    "email":"mojohnnylerato@gmail.com",
+    "coin_id": "bitcoin",
+    "symbol": "btc",
+    "purchase": 4
+
+}
+ * */
 router.post("/portfolio", async (request,response, next)=>{
     const url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=ZAR&ids="+ request.body.coin_id+"&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=1h";
     const obj = await  userFunctions.getPrices(url);
     const data = await userFunctions.predictedObject(request.body.email, request.body.symbol)
-    const num =5;
-    const currentValue = obj.map(a => a.current_price) * num;
-    const predictedValue = data.map(a => a.close) * num;
+    const currentValue = obj.map(a => a.current_price) * request.body.purchase;
+    const predictedValue = data.map(a => a.close) * request.body.purchase;
     response.status(200).json({crypto_data :obj , current_price: currentValue , predicted_price: predictedValue});
-
 });
 module.exports = router

@@ -60,6 +60,15 @@ const getPrices = async (url)=>{
         })
     })
 }
+const predictedObject = async (email,symbol)=>{
+    return new Promise(async function (resolve, reject) {
+        const data = await getCoinPredictions(email);
+        const result = data.posts_array.filter(obj => {
+            return obj.coin === symbol
+        })
+        resolve(result);
+    })
+}
 const getAnalysis=async(Social_Media,Cryptocurrency)=>{
     let metadata={};
     return new Promise(function (resolve, reject) {
@@ -233,6 +242,7 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
 
-module.exports = {getPrices,getCoinPredictions, deleteUserAccount,getAnalysis,getPush,setPush,setNotification,saveToDB,getNotification,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, register, getCoinIDs}
+
+module.exports = {predictedObject, getPrices,getCoinPredictions, deleteUserAccount,getAnalysis,getPush,setPush,setNotification,saveToDB,getNotification,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, register, getCoinIDs}
 
 

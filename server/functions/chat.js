@@ -271,5 +271,9 @@ const returnTagPost = async (email, tag)=>{
     }
 }
 
-module.exports = { getAllTags,returnTagPost,deletePost, postMessage, getAllChats, postReact, totalPosts, postReply,returnPost, getPost, getUserDislikedPosts,  getUserLikedPosts}
+const getPostsInfo = async email => {
+    return "Success";
+}
+
+module.exports = { getAllTags,returnTagPost,deletePost, postMessage, getAllChats, postReact, totalPosts, postReply,returnPost, getPost, getUserDislikedPosts,  getUserLikedPosts, getPostsInfo}
 

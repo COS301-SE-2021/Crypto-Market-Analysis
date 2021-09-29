@@ -20,7 +20,7 @@ export default function PortfolioModal() {
             outline: "5px",
             width: "40%",
         }} onClick={toggleModal} className={'btn-modal'}>
-           Click to create your portfolio
+           Create portfolio
         </Button>
 
             <div className= "modal">

@@ -7,9 +7,26 @@ import {
     ScrollView,
 } from "react-native";
 import axios from "axios";
+import Button from "@material-ui/core/Button";
+import {makeStyles} from "@material-ui/core/styles";
+import image from "../../images/background.jpg";
+import Box from "@material-ui/core/Box"
+
+const useStyles = makeStyles((theme) => ({
+    box: {
+        height: 150,
+        display: "flex",
+        padding:8,
+    },
+    centerBox:{
+        justifyContent:'flex-end',
+        alignItems:"flex-end"
+    },
+}));
+
 
 const Portfolio = () => {
-
+    const classes = useStyles();
     let [coinData, setCoinData] = useState([])
     useEffect( () => {
         axios.get('https://api.coingecko.com/api/v3/coins/')
@@ -22,7 +39,21 @@ const Portfolio = () => {
             })
     },[]);
     return(
+
         <SafeAreaView style={{flex: 1, backgroundColor:"white"}}>
+            <Box component={"span"} className={`${classes.centerBox} ${classes.box}`}>
+                <Button variant={'contained'} style={{
+                    textAlign: "center",
+                    backgroundColor: "blue",
+                    color:"#FFFFF0",
+                    padding: "5px 15px",
+                    borderRadius: "5px",
+                    outline: "5px",
+                    width: "40%",
+                }} className={'btn-modal'}>
+                    Add transaction
+                </Button>
+            </Box>
             <ScrollView style={{flex:1}}>
                 <View style={{paddingTop:50,paddingHorizontal: 20, marginBottom:40}}>
                     <Text style={{color: "#5d616f", fontSize:14, fontWeight: "500"}}>

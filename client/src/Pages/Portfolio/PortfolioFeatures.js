@@ -4,7 +4,7 @@ import {CssBaseline} from "@material-ui/core";
 import Headers from "../../components/Headers/Headers";
 import image from "../../images/background.jpg"
 import ImageCard from "../../components/ImageCard/ImageCard";
-import place from "../../static/pages"
+import places from "../../static/portfolioPages"
 import useWindowPosition from "../../hook/useWindowPosition";
 
 const useStyles = makeStyles((theme) => ({
@@ -31,13 +31,12 @@ export default function PortfolioFeatures() {
     return(
         <div>
             <div className={classes.root} id={"to-place-to-visit"}>
-                <ImageCard place={place[0]} checked={checked}/>
-                <ImageCard place={place[3]} checked={checked}/>
+                <ImageCard place={places[0]} checked={checked}/>
             </div>
 
             <div className={classes.roots} id={"to-place-to-visit"}>
-                <ImageCard place={place[2]} checked={checked}/>
-                <ImageCard place={place[1]} checked={checked}/>
+                <ImageCard place={places[2]} checked={checked}/>
+                <ImageCard place={places[1]} checked={checked}/>
             </div>
         </div>
 

@@ -271,7 +271,25 @@ const returnTagPost = async (email, tag)=>{
 }
 
 const getPostsInfo = async email => {
-    
+    let posts = [];
+    try{
+        const snapshots = await firestore_db.fetch(`Altcoins`);
+        const docs = snapshots.docs;
+        for(const doc of docs){
+            let post = {};
+            if(doc.data().owner === email){
+                post.body = doc.data().body;
+                post.room = doc.data().room;
+                post.time = doc.data().time;
+                post.title = doc.data().title;
+                posts.push(post);
+            }
+        }
+        return posts;
+    }
+    catch(error){
+        return Promise.reject(error);
+    }
 }
 
 module.exports = { getAllTags,returnTagPost,deletePost, postMessage, getAllChats, postReact, totalPosts, postReply,returnPost, getPost, getUserDislikedPosts,  getUserLikedPosts, getPostsInfo}

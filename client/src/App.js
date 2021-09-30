@@ -16,6 +16,7 @@ import Chat from "./Pages/Chatroom/chatroom"
 import Comments from "./Pages/Comments/Comments"
 import Posts from "./Pages/Posts/Posts"
 import Subreddits from "./Pages/Subreddits/Subreddits"
+import Tag from "./Pages/Tag/Tag"
 //import Predictions from "./Pages/Predictions/Predictions"
 import {BrowserRouter as Router , Switch} from "react-router-dom";
 import { AuthProvider } from "./Auth/Auth"
@@ -69,6 +70,7 @@ function App() {
                     <Route exact path="/Subreddits" component={Subreddits}/>
                     <Route exact path="/Predictions" component={Predictions}/>
                     <Route exact path="/Chat" component={Chat}/>
+                    <Route exact path="/Tag" component={Tag}/>
                     <Route exact path="/Posts" component={Posts}/>
                     <Route exact path="/Comments" component={Comments}/>
                     <Route exact path="/Portfolio" component={Portfolio}/>

@@ -239,7 +239,7 @@ const getAllTags = async (email)=>{
 
         tags = flatten(tags);
 
-        return {status: `Ok`, alltags: tags};
+        return {status: `Ok`, posts_array: tags};
     }
     catch(err){
         return Promise.reject(new Error(err));
@@ -263,7 +263,7 @@ const returnTagPost = async (email, tag)=>{
         }
         alltagposts = flatten(alltagposts);
 
-        return {status: `Ok`, alltagposts: alltagposts};
+        return {status: `Ok`, posts_array: alltagposts};
     }
     catch(err){
         return Promise.reject(new Error(err));

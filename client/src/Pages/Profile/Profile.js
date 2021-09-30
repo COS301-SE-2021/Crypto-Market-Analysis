@@ -51,7 +51,7 @@ const Profile = props =>
     }
     useEffect(async () => {
 
-        axios.post('http://localhost:8080/user/getUserCryptos/',userReq)
+        axios.post('https://cryptosis-server.herokuapp.com/user/getUserCryptos/',userReq)
             .then( response => {
                 let soc = [];
                 for(const crypto of response.data)
@@ -61,7 +61,7 @@ const Profile = props =>
             })
             .catch(err => {console.error(err);})
 
-        axios.post('http://localhost:8080/user/fetchUserSocialMedia/',userReq)
+        axios.post('https://cryptosis-server.herokuapp.com/user/fetchUserSocialMedia/',userReq)
             .then(response => {
                 let socialName = [];
                 for(const platform of response.data)
@@ -120,7 +120,7 @@ const Profile = props =>
     const followUser = () => {
 
         let user = {email: localStorage.getItem("emailSession"), screen_name: searchRef.current.value }
-        axios.post('http://localhost:8080/twitter/follow/',user)
+        axios.post('https://cryptosis-server.herokuapp.com/twitter/follow/',user)
             .then(response=>{
 
                 swal("User added to your watchlist", {
@@ -137,7 +137,7 @@ const Profile = props =>
 
         let user = {email: localStorage.getItem("emailSession"), screen_name: searchRef.current.value }
 
-        axios.post('http://localhost:8080/twitter/unfollow/',user)
+        axios.post('https://cryptosis-server.herokuapp.com/twitter/unfollow/',user)
             .then(response=>{
                 swal("User removed from your watchlist", {
                     icon: "success",
@@ -159,7 +159,7 @@ const Profile = props =>
 
         let user = { screen_name: searchRef.current.value, email: localStorage.getItem("emailSession")}
 
-        axios.post('http://localhost:8080/twitter/validateScreenName/',user)
+        axios.post('https://cryptosis-server.herokuapp.com/twitter/validateScreenName/',user)
             .then((response)=>{
                 if(response.data.data){
                     handleFollowButton(user.screen_name,false)
@@ -193,7 +193,7 @@ const Profile = props =>
                 */
                 if(platform.selected) {
 
-                    axios.post('http://localhost:8080/user/followSocialMedia/',platformObj)
+                    axios.post('https://cryptosis-server.herokuapp.com/user/followSocialMedia/',platformObj)
                         .then(response =>{
                             swal("Social media added", {
                                 icon: "success",
@@ -207,7 +207,7 @@ const Profile = props =>
                 }
                 else{
 
-                    axios.post('http://localhost:8080/user/unfollowSocialMedia/',platformObj)
+                    axios.post('https://cryptosis-server.herokuapp.com/user/unfollowSocialMedia/',platformObj)
                         .then(response =>{
                             swal("Social media removed", {
                                 icon: "success",
@@ -233,7 +233,7 @@ const Profile = props =>
 
         email = {email: localStorage.getItem("emailSession")}
         if (email !=='undefined') {
-            axios.post('http://localhost:8080/user/deleteUserAccount/', email)
+            axios.post('https://cryptosis-server.herokuapp.com/user/deleteUserAccount/', email)
                 .then(response => {
                 })
                 .catch(err => {

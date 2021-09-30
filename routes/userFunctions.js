@@ -3,8 +3,8 @@ const User_Hash_Table = require(`../functions/User_Hash_Table`);
 const user_object = new User_Hash_Table().getInstance();
 const firestore_db = new Database().getInstance();
 const reddit =require('../functions/Reddit');
+const https = require("https");
 const redditScrapper = new reddit();
-
 const register = async email => {
     return await user_object.insertUser(email);
 }
@@ -44,7 +44,31 @@ const getPush=async(email)=>{
     });
     return mydata;
 }
-
+const getPrices = async (url)=>{
+    return new Promise(function (resolve, reject) {
+        https.get(url, res => {
+            let data = '';
+            res.on('data', chunk => {
+                data += chunk;
+            });
+            res.on('end', () => {
+                data = JSON.parse(data);
+                resolve(data);
+            })
+        }).on('error', err => {
+            reject(err.message);
+        })
+    })
+}
+const predictedObject = async (email,symbol)=>{
+    return new Promise(async function (resolve, reject) {
+        const data = await getCoinPredictions(email);
+        const result = data.posts_array.filter(obj => {
+            return obj.coin === symbol
+        })
+        resolve(result);
+    })
+}
 const getAnalysis=async(Social_Media,Cryptocurrency)=>{
     let metadata={};
     return new Promise(function (resolve, reject) {
@@ -199,7 +223,36 @@ const getCoinIDs = async email_address => {
         return Promise.reject(error);
     }
 }
+const getPortforlio =async (email,crypto_ID)=>{
+    return new Promise(async function (resolve, reject) {
+        await firestore_db.getUsers("Users").onSnapshot((documents) => {
+            documents.forEach((doc) => {
+                if (typeof doc.id !== "undefined" && doc.id === email) {
+                    if(typeof doc.data().portfolio!== "undefined"){
+                        resolve(doc.data().portfolio)
+                    }
+                    else{
+                        reject("error")
+                    }
+                }
+            })
+        });
+    })
+}
+const portfolioSave =async (email, num_of_crypto, symbol, id)=>{
+    let myObj = {};
+    let newObj = {};
+    newObj[id] = {Buy: num_of_crypto, crypto_id: id, crypto_symbol:symbol};
+    let cmyObj = Object.assign({}, myObj, newObj);
+    const portfolioObj= {
+        portfolio: cmyObj
+    }
+    try {
+        firestore_db.saveData('Users', email, portfolioObj)
+    }
+    catch (er){return err}
 
+}
 const saveToDB = async (arr, socialmedia , crypto)=> {
     let mini=Math.min.apply(Math, arr)
     let maxi = Math.max.apply(Math, arr)
@@ -218,6 +271,7 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
     return {Analysis_score: arr ,Min: mini,Max: maxi,Average: average};
 }
 
-module.exports = {getCoinPredictions, deleteUserAccount,getAnalysis,getPush,setPush,setNotification,saveToDB,getNotification,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, register, getCoinIDs}
+
+module.exports = {getPortforlio, portfolioSave, predictedObject, getPrices,getCoinPredictions, deleteUserAccount,getAnalysis,getPush,setPush,setNotification,saveToDB,getNotification,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, register, getCoinIDs}
 
 

@@ -20,7 +20,7 @@ export default function DetailedInfo(props) {
         let  userReq = {
             email: localStorage.getItem("emailSession")
         }
-        axios.post('http://localhost:8080/user/fetchUserSocialMedia/',userReq)
+        axios.post('https://cryptosis-server.herokuapp.com/user/fetchUserSocialMedia/',userReq)
             .then(response => {
                 setSocials(response.data)
                 

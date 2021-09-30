@@ -22,7 +22,7 @@ function Chatroom() {
     }
 
     useEffect(async () => {
-        axios.post('http://localhost:8080/chat/totalPosts/',request)
+        axios.post('https://cryptosis-server.herokuapp.com/chat/totalPosts/',request)
             .then(async(response) =>{
                 let numberPosts = 0;
                 numberPosts = response.data.numberPosts;

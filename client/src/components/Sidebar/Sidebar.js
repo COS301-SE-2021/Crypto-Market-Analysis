@@ -30,7 +30,7 @@ export default function Sidebar(props) {
       email: localStorage.getItem("emailSession")
     }
     // this.setState({emailRequest: response.data});
-    axios.post('http://localhost:8080/user/getNotificationObject/',emailReq)
+    axios.post('https://cryptosis-server.herokuapp.com/user/getNotificationObject/',emailReq)
         .then(response => {
           let i = 0;
           let counter = 0;
@@ -204,6 +204,29 @@ export default function Sidebar(props) {
                     Dashboard
                   </Link>
                 </li>
+
+                  <li className="items-center">
+                      <Link
+                          className={
+                              "text-xs uppercase py-3 font-bold block " +
+                              (window.location.href.indexOf("/home") !== -1
+                                  ? "text-lightBlue-500 hover:text-lightBlue-600"
+                                  : "text-blueGray-700 hover:text-blueGray-500")
+                          }
+                          to="/Portfolio"
+                          onClick={changeLocation}
+                      >
+                          <i
+                              className={
+                                  "fas fa-tv mr-2 text-sm " +
+                                  (window.location.href.indexOf("/Portfolio") !== -1
+                                      ? "opacity-75"
+                                      : "text-blueGray-300")
+                              }
+                          />{" "}
+                          Portfolio
+                      </Link>
+                  </li>
 
                 <li className="items-center">
                   <Link

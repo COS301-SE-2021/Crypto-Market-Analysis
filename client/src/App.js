@@ -20,10 +20,12 @@ import Subreddits from "./Pages/Subreddits/Subreddits"
 import {BrowserRouter as Router , Switch} from "react-router-dom";
 import { AuthProvider } from "./Auth/Auth"
 import LandingPage from "./Pages/LandingPage/LandingPage"
+import Portfolio from "./Pages/Portfolio/Portfolio"
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import React,{ useEffect } from 'react';
 import Predictions from "./Pages/Predictions/Predictions";
+import PortfolioLanding from "./Pages/Portfolio/PortfolioLanding";
 
 function App() {
     useEffect(async ()=>{
@@ -69,6 +71,8 @@ function App() {
                     <Route exact path="/Chat" component={Chat}/>
                     <Route exact path="/Posts" component={Posts}/>
                     <Route exact path="/Comments" component={Comments}/>
+                    <Route exact path="/Portfolio" component={Portfolio}/>
+                    <Route exact path="/PortfolioLanding" component={PortfolioLanding}/>
                 </section>
             </Switch>
         </AuthProvider>

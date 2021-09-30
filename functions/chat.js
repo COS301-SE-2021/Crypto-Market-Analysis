@@ -1,6 +1,25 @@
 const Database = require('../database/Database');
 const firestore_db = new Database().getInstance();
 const sentiment = require('wink-sentiment');
+const keyword_extractor = require("keyword-extractor");
+
+function keywords(sentence) {
+    res = keyword_extractor.extract(sentence,{
+        language:"english",
+        remove_digits: true,
+        return_changed_case:true,
+        remove_duplicates: false
+    });
+   console.log(res)
+    return res;
+    // return keyword_extractor.extract(sentence,{
+    //     language:"english",
+    //     remove_digits: true,
+    //     return_changed_case:true,
+    //     remove_duplicates: false
+    // });
+
+}
 
 const returnPost = async (email, postId)=>{
     let replies = await firestore_db.fetch("Altcoins", postId,`replies`);
@@ -31,6 +50,7 @@ const getAllChats = async (room, owner)=>{
 }
 
 const postMessage = async (postId,owner,title,body,time,like,dislike,sentiments,room)=> {
+    let tags = keywords(body);
     let response = sentiment(sentiments);
     let sent
     if(response.score<0)
@@ -55,7 +75,8 @@ const postMessage = async (postId,owner,title,body,time,like,dislike,sentiments,
         await firestore_db.save(room, postId, `dislike`, dislike);
         await firestore_db.save(room, postId, `sentiment`, sent);
         await firestore_db.save(room, postId, `room`, room);
-
+        await firestore_db.save(room, postId, `tags`, tags);
+        console.log("the tags"+tags)
         return {status: `Ok`};
 
     }
@@ -195,5 +216,63 @@ const deletePost = async (postId, email)=>{
     return {status: `Ok` , message: "post deleted successfully deleted"}
 }
 
-module.exports = { deletePost, postMessage, getAllChats, postReact, totalPosts, postReply,returnPost, getPost, getUserDislikedPosts,  getUserLikedPosts}
+function flatten(ary) {
+    let ret = [];
+    for(let i = 0; i < ary.length; i++) {
+        if(Array.isArray(ary[i])) {
+            ret = ret.concat(flatten(ary[i]));
+        } else {
+            ret.push(ary[i]);
+        }
+    }
+    return ret;
+}
+
+const getAllTags = async (email)=>{
+    let tags = [];
+    try{
+        const docs = await firestore_db.fetch("Altcoins").then((snapshot) => {return snapshot.docs;});
+        for(const doc of docs)
+        {
+            tags.push(doc.data().tags)
+        }
+
+        tags = flatten(tags);
+
+        return {status: `Ok`, alltags: tags};
+    }
+    catch(err){
+        return Promise.reject(new Error(err));
+    }
+}
+
+const returnTagPost = async (email, tag)=>{
+    let alltagposts = [];
+    try{
+        const docs = await firestore_db.fetch("Altcoins").then((snapshot) => {return snapshot.docs;});
+        for(const doc of docs)
+        {
+            if (typeof doc.data().tags !== 'undefined')
+            {
+                if (doc.data().tags.includes(tag))
+                {
+                    alltagposts.push(doc.data());
+                }
+            }
+
+        }
+        alltagposts = flatten(alltagposts);
+
+        return {status: `Ok`, alltagposts: alltagposts};
+    }
+    catch(err){
+        return Promise.reject(new Error(err));
+    }
+}
+
+const getPostsInfo = async email => {
+    
+}
+
+module.exports = { getAllTags,returnTagPost,deletePost, postMessage, getAllChats, postReact, totalPosts, postReply,returnPost, getPost, getUserDislikedPosts,  getUserLikedPosts, getPostsInfo}
 

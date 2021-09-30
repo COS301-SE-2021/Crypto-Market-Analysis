@@ -14,8 +14,8 @@ import Push from "../Push/Push";
 import Checkbox from '@material-ui/core/Checkbox';
 import SweetAlert from 'sweetalert-react';
 import swal from 'sweetalert';
-/*import Hyperlink from 'react-native-hyperlink';*/
-/*import { Text } from "react-native";*/
+import Hyperlink from 'react-native-hyperlink';
+import { Text } from "react-native";
 import { Markup } from 'react-render-markup';
 import 'react-day-picker/lib/style.css';
 import moment from 'moment';
@@ -168,7 +168,7 @@ class Notifications extends React.Component {
             object: object
         }
         
-        axios.post('http://localhost:8080/user/setNotificationObject/',emailReq)
+        axios.post('https://cryptosis-server.herokuapp.com/user/setNotificationObject/',emailReq)
             .then(() => {
               
                 this.setState({refresh: !this.state.refresh});
@@ -192,7 +192,7 @@ class Notifications extends React.Component {
 
         }
 
-        axios.post('http://localhost:8080/user/setNotificationObject/',emailReq)
+        axios.post('https://cryptosis-server.herokuapp.com/user/setNotificationObject/',emailReq)
             .then(() => {
                 swal("Successfully cleared all notifications", {
                     icon: "success",
@@ -213,13 +213,13 @@ class Notifications extends React.Component {
         let array = []
         let coin_ids = []
         let  requestObj = { email: localStorage.getItem("emailSession") }
-         axios.post('http://localhost:8080/user/getUserCryptos/', requestObj)
+         axios.post('https://cryptosis-server.herokuapp.com/user/getUserCryptos/', requestObj)
         .then(async(response) => {
             
             for(const crypto of response.data)
             array.push(crypto);
 
-            axios.post('http://localhost:8080/user/getCoinIDs/', requestObj)
+            axios.post('https://cryptosis-server.herokuapp.com/user/getCoinIDs/', requestObj)
             .then(async(response) => {
             
                 coin_ids = response.data
@@ -261,7 +261,7 @@ class Notifications extends React.Component {
 
         }
         
-        axios.post('http://localhost:8080/user/setNotificationObject/',ObjectReq)
+        axios.post('https://cryptosis-server.herokuapp.com/user/setNotificationObject/',ObjectReq)
             .then(response => {
             })
 
@@ -350,7 +350,7 @@ class Notifications extends React.Component {
             email: localStorage.getItem("emailSession")
         }
 
-        axios.post('http://localhost:8080/user/getNotificationObject/',emailReq)
+        axios.post('https://cryptosis-server.herokuapp.com/user/getNotificationObject/',emailReq)
             .then(response => {
 
                 this.generateData(response.data)
@@ -422,7 +422,9 @@ class Notifications extends React.Component {
                                                                     </button>
                                                                 </div>
                                                                 <div className="media-body">
-                                                                        {obj.content}
+                                                                    <Hyperlink linkDefault={true}>
+                                                                        <Text>{obj.content}</Text>
+                                                                    </Hyperlink>
                                                                 </div> 
                                                             </div>
                                                             </Link>:
@@ -436,7 +438,9 @@ class Notifications extends React.Component {
                                                                     </button>
                                                                 </div>
                                                                 <div className="media-body">
-                                                                    {obj.content}
+                                                                    <Hyperlink linkDefault={true}>
+                                                                        <Text>{obj.content}</Text>
+                                                                    </Hyperlink>
                                                                 </div>
                                                             </div>
                                                             </Link>}

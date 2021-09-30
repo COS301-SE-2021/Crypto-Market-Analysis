@@ -30,7 +30,7 @@ function QuickView()
         /*
         Request to get cryptocurrencies followed by the user
         */
-          axios.post('http://localhost:8080/user/getUserCryptos/',userReq)
+          axios.post('https://cryptosis-server.herokuapp.com/user/getUserCryptos/',userReq)
               .then(async(response) =>{
                 /*
                     Set default cryptos if data is not set else
@@ -72,7 +72,7 @@ function QuickView()
         /*
         Request to get social media platforms followed by the user
         */
-            axios.post('http://localhost:8080/user/fetchUserSocialMedia/',userReq)
+            axios.post('https://cryptosis-server.herokuapp.com/user/fetchUserSocialMedia/',userReq)
               .then(async(response) =>{
                  /*
                     Set default platform if data is not set else
@@ -131,7 +131,7 @@ function QuickView()
                             symbol: crypto.symbol,
                             crypto_name: crypto.name,
                         }
-                        axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd)
+                        axios.post('https://cryptosis-server.herokuapp.com/user/followCrypto/',cryptoToAdd)
                             .then()
                             .catch(err => {console.error(err);})
                     }
@@ -141,7 +141,7 @@ function QuickView()
                               symbol: crypto.symbol,
                               crypto_name: crypto.name,
                           }
-                          axios.post('http://localhost:8080/user/followCrypto/',cryptoToRemove)
+                          axios.post('https://cryptosis-server.herokuapp.com/user/followCrypto/',cryptoToRemove)
                               .then()
                               .catch(err => {console.error(err);})
                     }
@@ -164,7 +164,7 @@ function QuickView()
                         email: localStorage.getItem("emailSession"),
                         social_media_sites: platform.name
                     }
-                    axios.post('http://localhost:8080/user/followSocialMedia/',cryptoToAdd)
+                    axios.post('https://cryptosis-server.herokuapp.com/user/followSocialMedia/',cryptoToAdd)
                         .then()
                         .catch(err => {console.error(err);})
                 }

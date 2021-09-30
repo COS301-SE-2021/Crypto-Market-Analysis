@@ -2,7 +2,6 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "homepage": ".",
   "dependencies": {
     "@babel/preset-env": "^7.14.4",
     "@babel/preset-react": "^7.13.13",
@@ -33,6 +32,7 @@
     "node-sass": "^4.14.1",
     "npm-merge-driver": "^2.3.6",
     "react-apexcharts": "^1.3.9",
+    "react-art": "^17.0.2",
     "react-bootstrap-sweetalert": "^5.2.0",
     "react-d3-speedometer": "^1.0.1",
     "react-day-picker": "^7.4.10",
@@ -41,11 +41,15 @@
     "react-icons": "^4.2.0",
     "react-load-script": "0.0.6",
     "react-multi-carousel": "^2.6.3",
+    "react-native": "^0.65.1",
+    "react-native-hyperlink": "0.0.19",
+    "react-native-web": "^0.17.1",
     "react-notification-alert": "^0.0.13",
     "react-notification-timeline": "^0.0.1",
     "react-render-markup": "^3.4.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
+    "react-router-native": "^5.2.1",
     "react-script-tag": "^1.1.2",
     "react-scripts": "2.1.8",
     "react-social-icons": "^5.4.1",
@@ -64,7 +68,7 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "env-cmd -f .env.development.local react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "build:staging": "env-cmd -f .env.development.local react-scripts build",
     "build:production": "env-cmd -f .env.production.local react-scripts build",
@@ -93,11 +97,15 @@
     "@react-icons/all-files": "^4.1.0",
     "@testing-library/react": "^11.2.7",
     "autoprefixer": "^10.2.6",
+    "node-pre-gyp": "^0.17.0",
     "postcss-cli": "^8.3.1",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.1",
     "react-test-render": "^1.1.2",
     "styled-components": "^5.3.0",
     "tailwindcss": "^2.1.4"
+  },
+  "optionalDependencies": {
+    "fsevents": "2.3.2"
   }
 }

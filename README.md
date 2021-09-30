@@ -24,11 +24,10 @@ tag e.g., Bitcoin to the moon. This will allow the application to understand wha
 is and inform the user if it is about to change.
 
 ## Documentation
-- [User Manual](https://drive.google.com/file/d/1_AqY62d0dyGfTa6fod8QRe3099rYuNga/view?usp=sharing)
+- [User Manual](https://drive.google.com/file/d/1GpqVFPmwLarBonLwjkJ1Q7X5yyx_Hu2H/view?usp=sharing)
 - [SRS Document Version 1](https://drive.google.com/file/d/1pY_mQmYjqIm7jmzyNq_VxGB_UZh5Rlom/view?usp=sharing)
 - [SRS Document Version 2](https://drive.google.com/file/d/17TvDLoYiGK0mdSYBkV_ICNdrCxuS7wZz/view?usp=sharing)
 - [SRS Document Version 3](https://drive.google.com/file/d/1rv-3MnSJHkgcU5abny-xSlFOZaqpNnc4/view?usp=sharing)
-- [SRS Document Version 4](https://drive.google.com/file/d/1YWjAKHNTt8MpVHp0PfOIvIXKlx3DQLI_/view?usp=sharing)
 - [Architecture Document](https://drive.google.com/file/d/1G4JMxFtHQXFOVpyDLLiS2qN9oRh5VzBz/view?usp=sharing)
 - [Coding Standard](https://drive.google.com/file/d/1hhakp7iTLAtutc2fM7ygObbTxdInYFAt/view?usp=sharing)
 - [Technical Installation Guide](https://drive.google.com/file/d/1ZxoTLOlXS5Wg35bwQpnEBOG5eHfzUZ9i/view?usp=sharing)

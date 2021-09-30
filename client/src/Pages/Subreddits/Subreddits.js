@@ -25,7 +25,7 @@ function Subreddits()
         /*
         Request to get subreddits followed by the user
         */
-        axios.post('http://localhost:8080/user/getUserSubreddits/',userReq)
+        axios.post('https://cryptosis-server.herokuapp.com/user/getUserSubreddits/',userReq)
             .then(async(response) =>{
                 /*
                    Set default platform if data is not set else
@@ -87,7 +87,7 @@ function Subreddits()
                         email: localStorage.getItem("emailSession"),
                         social_media_sites: platform.name
                     }
-                    axios.post('http://localhost:8080/user/followSubreddit/',cryptoToAdd)
+                    axios.post('https://cryptosis-server.herokuapp.com/user/followSubreddit/',cryptoToAdd)
                         .then()
                         .catch(err => {console.error(err);})
                 }

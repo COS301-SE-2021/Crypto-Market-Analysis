@@ -5,13 +5,12 @@ import React, {useEffect, useRef, useState} from "react";
 import {Button, Card, Form, Modal} from "react-bootstrap";
 import Sidebar from "../../components/Sidebar/Sidebar";
 
-function Comments(props) {
-    let [refresh,setRefresh] = useState(false);
+function Comments() {
     const [show,setShow] = useState(false)
     let [posts,setposts] = useState([]);
     let [post,setpost] = useState([]);
     let data = useLocation();
-    let postId = props.location.state.postId;
+    let postId = data.state.postId;
     let email = localStorage.getItem("emailSession");
     const body = useRef();
 
@@ -22,7 +21,7 @@ function Comments(props) {
 
 
     useEffect( () => {
-        axios.post('http://localhost:8080/chat/returnPost/',obj)
+        axios.post('https://cryptosis-server.herokuapp.com/chat/returnPost/',obj)
             .then(response => {
                 let posts_ = [];
                 for(let j = 0; j<response.data.posts_array.length; j++)
@@ -35,14 +34,14 @@ function Comments(props) {
         setTimeout(()=>{
         },10000)
 
-        axios.post('http://localhost:8080/chat/getPost/',obj)
+        axios.post('https://cryptosis-server.herokuapp.com/chat/getPost/',obj)
             .then(response => {
                 setpost(response.data.posts_array)
             })
             .catch(err => {console.error(err);})
         setTimeout(()=>{
         },10000)
-    },[refresh]);
+    },[]);
 
 
     function handleSubmit(e) {
@@ -59,10 +58,9 @@ function Comments(props) {
             time: time
         };
 
-        axios.post('http://localhost:8080/chat/postReply/',request)
+        axios.post('https://cryptosis-server.herokuapp.com/chat/postReply/',request)
             .then(response => {
-                setShow(false);
-                setRefresh(!refresh);
+                window.location.reload();
             })
             .catch(err => {console.error(err);})
         setTimeout(()=>{
@@ -143,7 +141,7 @@ function Comments(props) {
 
                         <Form.Group className="text-center">
                             <Button style={{width:"70%",margin:"auto"}} type="submit">
-                                Post reply
+                                <Link to="/Comments" style={{color:"white"}}>Post reply</Link>
                             </Button>
                         </Form.Group>
                        

@@ -31,7 +31,7 @@ export default function AllCryptos(props)
             /*
             Request to get cryptocurrencies followed by the user
             */
-            axios.post('http://localhost:8080/user/getUserCryptos/',userReq)
+            axios.post('https://cryptosis-server.herokuapp.com/user/getUserCryptos/',userReq)
                 .then(async(response) =>{
                     /*
                     Set default cryptos if data is not set else
@@ -145,7 +145,7 @@ export default function AllCryptos(props)
                                 coin_id: crypto.id
                             }
                            
-                            axios.post('http://localhost:8080/user/followCrypto/',cryptoToAdd).then(()=>{
+                            axios.post('https://cryptosis-server.herokuapp.com/user/followCrypto/',cryptoToAdd).then(()=>{
                                 swal("Coin was added to watchlist", {
                                     icon: "success",
                                     buttons: false,

@@ -263,7 +263,6 @@ const returnTagPost = async (email, tag)=>{
         }
         alltagposts = flatten(alltagposts);
 
-        console.log(alltagposts);
         return {status: `Ok`, alltagposts: alltagposts};
     }
     catch(err){
@@ -272,7 +271,7 @@ const returnTagPost = async (email, tag)=>{
 }
 
 const getPostsInfo = async email => {
-    return "Success";
+    
 }
 
 module.exports = { getAllTags,returnTagPost,deletePost, postMessage, getAllChats, postReact, totalPosts, postReply,returnPost, getPost, getUserDislikedPosts,  getUserLikedPosts, getPostsInfo}

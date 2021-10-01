@@ -297,6 +297,23 @@ function Posts() {
                                                                 > <i className="fa fa-chevron-right fa-lg" aria-hidden="true"></i></Link>
                                                             </li>
 
+                                                            {/*//tags field name: tags */}
+                                                            {/*posts.tags((post,index) =>{*/}
+                                                            {/*return(*/}
+                                                                    <li className="list-inline-item ml-auto">
+                                                                        <Link
+                                                                            to={{
+                                                                                pathname: "/Tag",
+                                                                                state: { postId: "bitcoin"}
+                                                                            }}
+                                                                            // style={{color:"black"}}
+                                                                            className="text-blueGray-600 inline-block text-md font-bold"
+                                                                        > Tag</Link>
+                                                                    </li>
+                                                            // )}
+                                                            {/*map the tags in this link tag above*/}
+
+
                                                         </ul>
                                                     </div>
                                             </div>

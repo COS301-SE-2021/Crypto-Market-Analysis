@@ -239,7 +239,7 @@ const getAllTags = async (email)=>{
 
         tags = flatten(tags);
 
-        return {status: `Ok`, alltags: tags};
+        return {status: `Ok`, posts_array: tags};
     }
     catch(err){
         return Promise.reject(new Error(err));
@@ -263,13 +263,34 @@ const returnTagPost = async (email, tag)=>{
         }
         alltagposts = flatten(alltagposts);
 
-        console.log(alltagposts);
-        return {status: `Ok`, alltagposts: alltagposts};
+        return {status: `Ok`, posts_array: alltagposts};
     }
     catch(err){
         return Promise.reject(new Error(err));
     }
 }
 
-module.exports = { getAllTags,returnTagPost,deletePost, postMessage, getAllChats, postReact, totalPosts, postReply,returnPost, getPost, getUserDislikedPosts,  getUserLikedPosts}
+const getPostsInfo = async email => {
+    let posts = [];
+    try{
+        const snapshots = await firestore_db.fetch(`Altcoins`);
+        const docs = snapshots.docs;
+        for(const doc of docs){
+            let post = {};
+            if(doc.data().owner === email){
+                post.body = doc.data().body;
+                post.room = doc.data().room;
+                post.time = doc.data().time;
+                post.title = doc.data().title;
+                posts.push(post);
+            }
+        }
+        return posts;
+    }
+    catch(error){
+        return Promise.reject(error);
+    }
+}
+
+module.exports = { getAllTags,returnTagPost,deletePost, postMessage, getAllChats, postReact, totalPosts, postReply,returnPost, getPost, getUserDislikedPosts,  getUserLikedPosts, getPostsInfo}
 

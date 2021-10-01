@@ -352,12 +352,17 @@ router.post("/portfolioSave", async (request,response, next)=>{
 }
  * */
 router.post("/portfolio", async (request,response, next)=>{
-    const url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=ZAR&ids="+ request.body.coin_id+"&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=1h";
-    const obj = await  userFunctions.getPrices(url);
-    const data = await userFunctions.predictedObject(request.body.email, request.body.symbol)
-    const currentValue = obj.map(a => a.current_price) * request.body.purchase;
-    const predictedValue = data.map(a => a.close) * request.body.purchase;
-    response.status(200).json({crypto_data :obj , current_price: currentValue , predicted_price: predictedValue});
+   try {
+       const url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=ZAR&ids=" + request.body.coin_id + "&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=1h";
+       const obj = await userFunctions.getPrices(url);
+       const data = await userFunctions.predictedObject(request.body.email, request.body.symbol)
+       const currentValue = obj.map(a => a.current_price) * request.body.purchase;
+       const predictedValue = data.map(a => a.close) * request.body.purchase;
+       response.status(200).json({crypto_data: obj, current_price: currentValue, predicted_price: predictedValue});
+   }
+   catch(err){
+       response.status(400).json("error while creating portfolio");
+   }
 });
 router.post("/getportfolio", async (request,response, next)=>{
    try{

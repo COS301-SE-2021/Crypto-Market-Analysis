@@ -75,7 +75,19 @@ export default function PortfolioHeader() {
                         Keep track of the market price changes, your losses, your gains and portfolio valuation here.
                     </h5>
 
-                    <PortfolioModal />
+                    <Button variant={'contained'} style={{
+                        textAlign: "center",
+                        backgroundColor: "blue",
+                        color:"#FFFFF0",
+                        padding: "5px 15px",
+                        borderRadius: "5px",
+                        outline: "5px",
+                        width: "40%",
+                    }} href={"/Portfolio"} className={'btn-modal'}>
+                        Create portfolio
+                    </Button>
+
+
 
                 </div>
             </Collapse>

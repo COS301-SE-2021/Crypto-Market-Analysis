@@ -11,16 +11,22 @@ import Button from "@material-ui/core/Button";
 import {makeStyles} from "@material-ui/core/styles";
 import image from "../../images/background.jpg";
 import Box from "@material-ui/core/Box"
+import AddIcon from "@material-ui/icons/Add";
+import PortfolioModal from "./PortfolioModal"
 
 const useStyles = makeStyles((theme) => ({
     box: {
-        height: 150,
-        display: "flex",
-        padding:8,
+        height: 80,
+        display: "inline-flex",
+        padding:1,
     },
     centerBox:{
+        display: "inline-flex",
         justifyContent:'flex-end',
-        alignItems:"flex-end"
+        alignItems:"flex-end",
+        paddingTop:100,
+        paddingBottom: 0,
+        paddingRight: 20
     },
 }));
 
@@ -28,7 +34,8 @@ const useStyles = makeStyles((theme) => ({
 const Portfolio = () => {
     const classes = useStyles();
     let [coinData, setCoinData] = useState([])
-    useEffect( () => {
+    const [openModal, setOpenModal] = useState(false);
+    /*useEffect( () => {
         axios.get('https://api.coingecko.com/api/v3/coins/')
             .then( response => {
                 setCoinData(response.data);
@@ -37,25 +44,27 @@ const Portfolio = () => {
             .catch( error => {
                 console.log(error);
             })
-    },[]);
+    },[]);*/
     return(
 
         <SafeAreaView style={{flex: 1, backgroundColor:"white"}}>
-            <Box component={"span"} className={`${classes.centerBox} ${classes.box}`}>
+            <Box component={"span"} className={`${classes.centerBox} `}>
                 <Button variant={'contained'} style={{
                     textAlign: "center",
                     backgroundColor: "blue",
                     color:"#FFFFF0",
-                    padding: "5px 15px",
-                    borderRadius: "5px",
-                    outline: "5px",
-                    width: "40%",
-                }} className={'btn-modal'}>
+                    padding: "5px 5px",
+                    borderRadius: "8px",
+                    outline: "1px",
+                    width: "10%",
+                }} className={'btn-modal'} startIcon={<AddIcon />} onClick={() => {
+                    setOpenModal(true)
+                }}>
                     Add transaction
                 </Button>
             </Box>
             <ScrollView style={{flex:1}}>
-                <View style={{paddingTop:50,paddingHorizontal: 20, marginBottom:40}}>
+                <View style={{paddingTop:0,paddingHorizontal: 20, marginBottom:40}}>
                     <Text style={{color: "#5d616f", fontSize:14, fontWeight: "500"}}>
                        Your Current Portfolio Balance
                     </Text>
@@ -70,10 +79,15 @@ const Portfolio = () => {
                         R0.00
                     </Text>
 
-                    {coinData.map((coin) =>(
+                    {/*{coinData.map((coin) =>(*/}
 
-                      <View key={coin.id}>
+                      <View >
+
                           <View style={{paddingTop:25, flexDirection:"row", justifyContent:"space-between",alignItems:"center"}}>
+                              <p style={{alignItems:"center"}}>You currently have no currency in your Portfolio. Click Add transaction to add one.</p>
+                          </View>
+
+                          {/*<View style={{paddingTop:25, flexDirection:"row", justifyContent:"space-between",alignItems:"center"}}>
                             <View>
                                 <Image
                                     source={{uri:coin.image.large}}
@@ -132,13 +146,14 @@ const Portfolio = () => {
 
 
 
-                          </View>
+                          </View>*/}
 
                       </View>
-                    ))}
+                    {/*))}*/}
 
                 </View>
             </ScrollView>
+            {openModal && <PortfolioModal closeModal={setOpenModal} />}
         </SafeAreaView>
     )
 }

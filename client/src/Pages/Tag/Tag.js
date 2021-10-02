@@ -53,7 +53,7 @@ function Tag() {
             time: time
         };
 
-        axios.post('https://cryptosis-server.herokuapp.com/chat/postMessage/', request)
+        axios.post('http://localhost:8080/chat/postMessage/', request)
             .then(() => {
                 setShow(false)
                 setRefresh(!refresh)
@@ -79,13 +79,13 @@ function Tag() {
         let  ReqObj = {
             email: localStorage.getItem("emailSession")
         }
-        axios.post('https://cryptosis-server.herokuapp.com/chat/getUserLikedPosts/',ReqObj)
+        axios.post('http://localhost:8080/chat/chat/getUserLikedPosts/',ReqObj)
             .then(response => {
                 liked = response.data.likedposts_array
                 setLikedPosts(response.data.likedposts_array)
 
             })
-        axios.post('https://cryptosis-server.herokuapp.com/chat/getUserDislikedPosts/',ReqObj)
+        axios.post('http://localhost:8080/chat/getUserDislikedPosts/',ReqObj)
             .then(response => {
                 disliked = response.data.dislikedposts_array
                 setDislikedPosts(response.data.dislikedposts_array)
@@ -148,7 +148,7 @@ function Tag() {
                 room : "Altcoins"
             }
         }
-        axios.post('https://cryptosis-server.herokuapp.com/chat/postReact/',reqObj)
+        axios.post('http://localhost:8080/chat/postReact/',reqObj)
             .then(() => {
                 setRefresh(!refresh)
             })
@@ -162,7 +162,7 @@ function Tag() {
             email: user,
             postId : postid
         }
-        axios.post('https://cryptosis-server.herokuapp.com/chat/deletePost/',reqObj)
+        axios.post('http://localhost:8080/chat/deletePost/',reqObj)
             .then(() => {
                 setRefresh(!refresh)
             })

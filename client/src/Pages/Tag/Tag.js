@@ -218,7 +218,11 @@ function Tag() {
                 <Container fluid>
                     <Card.Header style={{backgroundColor:"rgba(0,0,0,0)"}}>
                         <div className="forum-title">
-                            <h3 className="mr-0 whitespace-nowrap text-lg font-bold px-0">General subjects forum</h3>
+                            <div className="display-flex">
+                                <i onClick={()=>{history.goBack()}} className="back-icon fa fa-chevron-circle-left fa-1x mr-2" aria-hidden="true"></i>
+                                <span className="display-inline-block mr-0 whitespace-nowrap text-xl font-bold px-0">Results for Tag: {tag}</span>
+                            </div>
+                            
                         </div>
                     </Card.Header>
                     <div className="mx-auto text-center">
@@ -258,7 +262,7 @@ function Tag() {
                                                             {   post.tags &&
                                                                 post.tags.map(tag=>{
                                                                     return(
-                                                                        <div className="col-4 px-2">
+                                                                        <div className="col-4 px-2 mb-2">
                                                                             <div className="text-center tag-container">
                                                                                 <Link
                                                                                     to={{
@@ -314,16 +318,7 @@ function Tag() {
 
                                                 {/*//tags field name: tags */}
 
-                                                <li className="list-inline-item ml-auto">
-                                                    <Link
-                                                        to={{
-                                                            pathname: "/Comments",
-                                                            state: { postId:post.postId}
-                                                        }}
-                                                        // style={{color:"black"}}
-                                                        className="text-blueGray-600 inline-block text-md font-bold"
-                                                    > Tag</Link>
-                                                </li>
+                                                
                                                
                                                 {/*map the tags in this link tag above*/}
 

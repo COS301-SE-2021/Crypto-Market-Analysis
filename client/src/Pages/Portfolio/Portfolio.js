@@ -44,7 +44,7 @@ const Portfolio = () => {
     let [cryptos, setCryptos] = useState([]);
     const [showModal, setShowModal] = useState(false)
     const [show, setShow] = useState(false)
-    /*useEffect( () => {
+    useEffect( () => {
         axios.get('https://api.coingecko.com/api/v3/coins/')
             .then( response => {
                 setCoinData(response.data);
@@ -54,7 +54,7 @@ const Portfolio = () => {
                 console.log(error);
             })
 
-    },[]);*/
+    },[]);
 
     /*
       Get a list of coins from Coingecko. For each crypto, check if it matches crypto a user
@@ -76,7 +76,7 @@ const Portfolio = () => {
 
             })
     }
-    getCoins();
+    // getCoins();
     //sets search to whats typed in the search input field
     const searchCoin = (event) => { setSearchCrypto(event.target.value) }
 
@@ -160,7 +160,7 @@ const Portfolio = () => {
 
         <SafeAreaView style={{flex: 1, backgroundColor:"white"}}>
             <PortfolioModal onHide={onCancel} show={show} text={returnModalText()} cancel={onCancel} continue={OnContinue} />
-            {/*<PortfolioModal onHide={onCancel} show={show} text={returnOtherModalText()} cancel={onCancel} />*/}
+            <PortfolioModal onHide={onCancel} show={show} text={returnOtherModalText()} cancel={onCancel} />
             <Box component={"span"} className={`${classes.centerBox} `}>
                 <Button variant={'contained'} style={{
                     textAlign: "center",
@@ -193,7 +193,7 @@ const Portfolio = () => {
                         R0.00
                     </Text>
 
-                    {/*{coinData.map((coin) =>(*/}
+                    {coinData.map((coin) =>(
 
                       <View >
 
@@ -201,7 +201,7 @@ const Portfolio = () => {
                               <p style={{alignItems:"center"}}>You currently have no currency in your Portfolio. Click Add transaction to add one.</p>
                           </View>
 
-                          {/*<View style={{paddingTop:25, flexDirection:"row", justifyContent:"space-between",alignItems:"center"}}>
+                          <View style={{paddingTop:25, flexDirection:"row", justifyContent:"space-between",alignItems:"center"}}>
                             <View>
                                 <Image
                                     source={{uri:coin.image.large}}
@@ -260,10 +260,10 @@ const Portfolio = () => {
 
 
 
-                          </View>*/}
+                          </View>
 
                       </View>
-                    {/*))}*/}
+                    ))}
 
                 </View>
             </ScrollView>

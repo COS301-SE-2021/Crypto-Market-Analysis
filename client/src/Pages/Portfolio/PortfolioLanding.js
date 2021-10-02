@@ -27,8 +27,8 @@ export default function PortfolioLanding() {
     const classes = useStyles();
     return(
         <div className={classes.root}>
-            <CssBaseline />
-            <PortfolioHeader />
+            {/*<CssBaseline />*/}
+            {/*<PortfolioHeader />*/}
             <PortfolioFeatures />
 
 

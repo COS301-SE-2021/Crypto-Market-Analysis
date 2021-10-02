@@ -45,25 +45,25 @@ export default function PortfolioModal (props) {
        follows and mark it as selected
    */
 
-    function getCoins(coinsList){
-        axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=250&page=1&sparkline=false')
-            .then(async (response_data) => {
-
-                console.log(response_data.data);
-
-
-                    setCryptos(response_data.data)
-                    setLoading(false)
-
-
-            })
-            .catch(err => {
-                console.error(err)
-                setLoading(false)
-
-            })
-    }
-    getCoins();
+    // function getCoins(coinsList){
+    //     axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=250&page=1&sparkline=false')
+    //         .then(async (response_data) => {
+    //
+    //             console.log(response_data.data);
+    //
+    //
+    //                 setCryptos(response_data.data)
+    //                 setLoading(false)
+    //
+    //
+    //         })
+    //         .catch(err => {
+    //             console.error(err)
+    //             setLoading(false)
+    //
+    //         })
+    // }
+    // getCoins();
     //sets search to whats typed in the search input field
     const searchCoin = (event) => { setSearchCrypto(event.target.value) }
 

@@ -3,7 +3,7 @@ import { Form, Button, Alert,Row,Col ,InputGroup} from "react-bootstrap"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import axios from "axios";
-
+import Sidebar from "../../components/Sidebar/Sidebar";
 
 class Testing extends React.Component {
     constructor(props) {
@@ -11,7 +11,8 @@ class Testing extends React.Component {
         this.state = {
             id: "",
             symbol: "",
-            buy: ""
+            buy: "",
+            elem:[]
         }
         this.handleAddInvestment = this.handleAddInvestment.bind(this);
     }
@@ -20,6 +21,7 @@ class Testing extends React.Component {
         console.log(this.state.id)
         console.log(this.state.buy)
         console.log(this.state.symbol)
+        console.log(localStorage.getItem("emailSession"))
         let  portfolio_Req = {
             email: localStorage.getItem("emailSession"),
             coin_id: this.state.id,
@@ -27,18 +29,76 @@ class Testing extends React.Component {
             purchase:this.state.buy
         }
 
-        axios.post('https://localhost:8080/portfolioSave',portfolio_Req)
-            .then(() => {
+        axios.post('http://localhost:8080/user/portfolioSave',portfolio_Req)
+            .then((data) => {
+                console.log(data);
+            })
+    }
+    componentDidMount(){
+        let  portfolio_Req = {
+            email: localStorage.getItem("emailSession"),
+            coin_id: ""
+        }
+
+        axios.post('http://localhost:8080/user/getportfolio',portfolio_Req)
+            .then((response) => {
+                console.log(response.data);
+                const arrOfElements = [];
+                let index = 1;
+                for (const [key, value] of Object.entries(response.data)) {
+                    let portfoliofetch = {
+                        email:localStorage.getItem("emailSession"),
+                        coin_id: key,
+                        symbol: value.crypto_symbol,
+                        purchase: value.Buy
+
+                    }
+                    axios.post('http://localhost:8080/user/portfolio',portfoliofetch )
+                        .then((last_response) => {
+                                    console.log(last_response.data)
+                                     console.log(last_response.data.current_price)
+                                    console.log(last_response.data.crypto_data.image)
+                            console.log(last_response.data.crypto_data.map(a => a.image))
+                            arrOfElements.push(<tr>
+                                <th scope="row"><img src={last_response.data.crypto_data.map(a => a.image)} alt="Logo" /></th>
+                                <td>
+                                    <button
+                                        className="bg-primary hover:bg-primary-dark text-white font-light py-1 px-2 rounded-full">
+                                        {key}
+                                    </button>
+                                </td>
+
+                                <td>{value.Buy}</td>
+                                <td>{Math.round(last_response.data.current_price)}</td>
+                                <td>{Math.round(last_response.data.predicted_price)}</td>
+                                <td>
+                                    <span className="text-green-500"><i className="fas fa-arrow-up"></i>5%</span>
+                                </td>
+                            </tr>)
+                            this.setState({elem: arrOfElements});
+
+                        })
+                      console.log(Object.entries(response.data).length)
+                    console.log(index)
+                     index=index+1;
+                    if(index === Object.entries(response.data).length){
+
+                    }
+                }
+
+
 
             })
+
+
     }
     render() {
 
         return (
 
             <div className="maincontainer">
-
-
+                <Sidebar />
+                <div className="md:ml-64">
                 <div className="container py-5">
 
 
@@ -68,7 +128,6 @@ class Testing extends React.Component {
                                                 ID <span className="text-primary ml-1">*</span>
                                             </Form.Label>
                                             <InputGroup>
-                                              {/*<InputGroup.Text>@ID</InputGroup.Text>*/}
                                               <Form.Control id="inlineFormInputName" value={this.state.id} onChange={e => this.setState({ id: e.target.value })} placeholder="Enter cryto ID" />
                                             </InputGroup>
                                         </Col>
@@ -77,7 +136,6 @@ class Testing extends React.Component {
                                                 Symbol<span className="text-primary ml-1">*</span>
                                             </Form.Label>
                                             <InputGroup>
-                                                {/*<InputGroup.Text>@Symbol</InputGroup.Text>*/}
                                                 <Form.Control id="inlineFormInputGroupUsername" value={this.state.symbol} onChange={e => this.setState({ symbol: e.target.value })} placeholder="Enter the symbol" />
                                             </InputGroup>
                                         </Col>
@@ -86,7 +144,6 @@ class Testing extends React.Component {
                                                 Buy<span className="text-primary ml-1">*</span>
                                             </Form.Label>
                                             <InputGroup>
-                                                {/*<InputGroup.Text>@Amount</InputGroup.Text>*/}
                                                 <Form.Control id="inlineFormInputGroupUsername" value={this.state.buy} onChange={e => this.setState({ buy: e.target.value })} placeholder="Enter Investment Amount" />
                                             </InputGroup>
                                         </Col>
@@ -99,6 +156,24 @@ class Testing extends React.Component {
                             </div>
                         </div>
                     </div>
+                </div>
+                <div className="table-responsive">
+                <table className="table text-grey-darkest">
+                    <thead className="bg-grey-dark text-black text-normal">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Cryptocurrency</th>
+                        <th scope="col">Value</th>
+                        <th scope="col">current</th>
+                        <th scope="col">Predicted</th>
+                        <th scope="col">Change</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {this.state.elem}
+                    </tbody>
+                </table>
+                </div>
                 </div>
             </div>
 

@@ -251,6 +251,30 @@ function Tag() {
                                             <p>{post.body.length > 25 ? post.body.substring(0,24) + "..." : post.body }</p>
                                             <hr/>
 
+                                            <div className="mb-3">
+                                                            <div className="row">
+                                                            {   post.tags &&
+                                                                post.tags.map(tag=>{
+                                                                    return(
+                                                                        <div className="col-4 px-2">
+                                                                            <div className="text-center tag-container">
+                                                                                <Link
+                                                                                    to={{
+                                                                                        pathname: "/Tag",
+                                                                                        state: { postId: {tag}}
+                                                                                    }}
+                                                                                   
+                                                                                    className="inline-block text-md font-bold" 
+                                                                                    style={{color:"#fafafa"}}
+                                                                                > {tag}</Link>
+                                                                            </div>
+                                                                        </div>
+                                                                    )
+                                                                })
+                                                            }
+                                                            </div>
+                                                        </div>
+
                                             <ul className="list-inline d-sm-flex my-0">
                                                 <li className="list-inline-item g-mr-20 mr-3">
 
@@ -298,7 +322,7 @@ function Tag() {
                                                         className="text-blueGray-600 inline-block text-md font-bold"
                                                     > Tag</Link>
                                                 </li>
-                                                // )}
+                                               
                                                 {/*map the tags in this link tag above*/}
 
 

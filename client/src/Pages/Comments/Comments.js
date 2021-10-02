@@ -1,11 +1,12 @@
-import {Link, useLocation} from "react-router-dom";
+import {Link, useLocation, useHistory} from "react-router-dom";
 import Posts from "../Posts/Posts";
 import axios from "axios";
 import React, {useEffect, useRef, useState} from "react";
-import {Button, Card, Form, Modal} from "react-bootstrap";
+import {Button, Card, Form, Container, Modal} from "react-bootstrap";
 import Sidebar from "../../components/Sidebar/Sidebar";
 
 function Comments() {
+    const history = useHistory()
     const [show,setShow] = useState(false)
     let [posts,setposts] = useState([]);
     let [post,setpost] = useState([]);
@@ -74,9 +75,17 @@ function Comments() {
         <React.Fragment>
         <Sidebar />
             <div className="md:ml-64">
-            
-                <Link to="/Posts" style={{color:"black"}}> <i class="fa fa-chevron-circle-left fa-2x ml-5" aria-hidden="true"></i></Link>
-            
+                <Container fluid>
+                    <Card.Header style={{backgroundColor:"rgba(0,0,0,0)"}}>
+                        <div className="forum-title">
+                            <div className="display-flex">
+                                <i onClick={()=>{history.goBack()}} className="back-icon fa fa-chevron-circle-left fa-1x mr-2" aria-hidden="true"></i>
+                                <span className="display-inline-block mr-0 whitespace-nowrap text-xl font-bold px-0">Post</span>
+                            </div>
+                        </div>
+                    </Card.Header>
+                </Container>
+               
             <div className="container" style={{height:"500px"}}>
 
                 <div className="row">
@@ -90,6 +99,29 @@ function Comments() {
                                 <hr/>
                                 <p>{post.body}</p>
                                 <hr/>
+                                <div className="mb-3">
+                                    <div className="row">
+                                    {   post.tags &&
+                                        post.tags.map(tag=>{
+                                            return(
+                                                <div className="col-4 px-2 mb-2">
+                                                    <div className="text-center tag-container">
+                                                        <Link
+                                                            to={{
+                                                                pathname: "/Tag",
+                                                                state: { postId: {tag}}
+                                                            }}
+                                                            
+                                                            className="inline-block text-md font-bold" 
+                                                            style={{color:"#fafafa"}}
+                                                        > {tag}</Link>
+                                                    </div>
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                    </div>
+                                </div>
                                 <ul className="list-inline d-sm-flex my-0">
                                     <li className="list-inline-item g-mr-20">
                                         <a className="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover"

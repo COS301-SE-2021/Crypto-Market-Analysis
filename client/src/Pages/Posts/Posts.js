@@ -108,10 +108,12 @@ function Posts() {
                
                 let posts_ = [];
                 for(let j = 0; j<response.data.posts_array.length; j++)
-                {
-                        posts_.push(response.data.posts_array[j])
+                {               
+                    if(response.data.posts_array[j].tags && response.data.posts_array[j].tags.length > 6){
+                        response.data.posts_array[j].tags = response.data.posts_array[j].tags.slice(0,6)
+                    }
+                    posts_.push(response.data.posts_array[j])
                 }
-               
                 posts_.forEach(element => {
                     liked.forEach(likedPost=>{
                         if(likedPost === element.postId){
@@ -267,7 +269,7 @@ function Posts() {
                                                             {   post.tags &&
                                                                 post.tags.map(tag=>{
                                                                     return(
-                                                                        <div className="col-4 px-2">
+                                                                        <div className="col-4 px-2 mb-2">
                                                                             <div className="text-center tag-container">
                                                                                 <Link
                                                                                     to={{

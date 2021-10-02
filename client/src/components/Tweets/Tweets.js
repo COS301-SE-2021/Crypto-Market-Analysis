@@ -42,6 +42,8 @@ export default function Tweets({coin_name}){
               {errorResponse.includes("The user is not following people on twitter")? <span>Oops, looks like you don't follow anyone on Twitter :(</span>
               :errorResponse.includes("No tweets to display")? <span>Oops, looks like we don't have any tweets to display :(</span>
               :errorResponse.includes("screen_names is not iterable")?<span>Oops, looks like you don't follow anyone on Twitter :(</span>
+              :errorResponse.includes("Email is invalid")?<span>Something went wrong, please try again later :(</span>
+              :errorResponse.includes("Parameters are not defined")?<span>Something went wrong, please try again later :(</span>
               :<span>Oops, looks like you don't follow the selected coin :(, choose a coin you follow to see what people are saying about it on twitter</span>}
             </div>
           </div>

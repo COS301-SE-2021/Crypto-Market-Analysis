@@ -412,10 +412,12 @@ class Notifications extends React.Component {
                                                     return(
                                                         <div className="col-md-6" key={index}>
                                                             {obj.read ?
-                                                            <Link   to={{pathname:"/home/DetailedInfo", state:{coin_name:obj.content.split(" ")[0], coin_symbol:"btc", coin_id:"bitcoin"}}} onClick={()=>{this.handleView(obj.time)}}>
+                                                            
                                                             <div className="card panel-read">
                                                                 <div className="toast-header">
-                                                                    <span className= "text-blueGray-700 mr-auto uppercase font-bold">{obj.content.split(" ")[0]}</span>
+                                                                    <Link to={{pathname:"/home/DetailedInfo", state:{coin_name:obj.content.split(" ")[0], coin_symbol:"btc", coin_id:"bitcoin"}}} onClick={()=>{this.handleView(obj.time)}}>
+                                                                        <span className= "text-blueGray-700 mr-auto uppercase font-bold">{obj.content.split(" ")[0]}</span>
+                                                                    </Link>
                                                                     <small>{moment(obj.time).format('DD/MM/YYYY HH:mm')}</small>
                                                                     <button type="button" onClick={()=>{this.handleDelete(obj.time)}} value={obj.time} className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
@@ -427,11 +429,12 @@ class Notifications extends React.Component {
                                                                     </Hyperlink>
                                                                 </div> 
                                                             </div>
-                                                            </Link>:
-                                                            <Link   to={{pathname:"/home/DetailedInfo", state:{coin_name:obj.content.split(" ")[0], coin_symbol:"btc", coin_id:"bitcoin"}}} onClick={()=>{this.handleView(obj.time)}}>
+                                                           :
                                                             <div className="card panel-unread">
                                                                 <div className="toast-header">
-                                                                    <span className= "text-blueGray-700 mr-auto uppercase font-bold">{obj.content.split(" ")[0]}</span>
+                                                                    <Link to={{pathname:"/home/DetailedInfo", state:{coin_name:obj.content.split(" ")[0], coin_symbol:"btc", coin_id:"bitcoin"}}} onClick={()=>{this.handleView(obj.time)}}>
+                                                                        <span className= "text-blueGray-700 mr-auto uppercase font-bold">{obj.content.split(" ")[0]}</span>
+                                                                    </Link>
                                                                     <small>{moment(obj.time).format('DD/MM/YYYY HH:mm')}</small>
                                                                     <button type="button" onClick={()=>{this.handleDelete(obj.time)}} value={obj.time} className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
@@ -443,7 +446,7 @@ class Notifications extends React.Component {
                                                                     </Hyperlink>
                                                                 </div>
                                                             </div>
-                                                            </Link>}
+                                                            }
                                                         </div>
                                                     )
                                                 })

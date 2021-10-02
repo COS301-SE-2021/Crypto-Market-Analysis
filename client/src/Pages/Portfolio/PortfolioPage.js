@@ -32,6 +32,7 @@ class Testing extends React.Component {
         axios.post('http://localhost:8080/user/portfolioSave',portfolio_Req)
             .then((data) => {
                 console.log(data);
+                this.setState({symbol: this.state.symbol});
             })
     }
     componentDidMount(){

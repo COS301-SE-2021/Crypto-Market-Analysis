@@ -11,14 +11,18 @@ import {
 } from "react-native";
 import ClipLoader from "react-spinners/ClipLoader";
 import {Star} from "@material-ui/icons";
+import {Modal} from "react-bootstrap";
 
 
-const PortfolioModal = ({closeModal}) => {
+export default function PortfolioModal (props) {
 
     let [loading, setLoading] = useState(true);
     let [coinData, setCoinData] = useState([])
     const [searchCrypto, setSearchCrypto] = useState("");
     let [cryptos, setCryptos] = useState([]);
+    let [show, setShow] = useState(props.show);
+
+
 
     useEffect( () => {
         axios.get('https://api.coingecko.com/api/v3/coins/')
@@ -29,7 +33,11 @@ const PortfolioModal = ({closeModal}) => {
             .catch( error => {
                 console.log(error);
             })
-    },[]);
+
+            setShow(props.show)
+
+
+    },[props.show]);
 
     /*
        Get a list of coins from Coingecko. For each crypto, check if it matches crypto a user
@@ -69,7 +77,7 @@ const PortfolioModal = ({closeModal}) => {
 
         <React.Fragment>
 
-            <div className={"modalBackground"}>
+            {/* <div className={"modalBackground"}>
                 <div className={"modalContainer"}>
                     <div className={"titleCloseBtn"}>
                         <Button variant={'contained'} style={{
@@ -123,9 +131,9 @@ const PortfolioModal = ({closeModal}) => {
                                 </div>
                             </div>
 </div>
-                        </div>*/}
+                        </div>
                             <p>List of cryptos will show here</p>
-                            
+
                         </div>
 
                     <div className={"footer"}>
@@ -146,10 +154,34 @@ const PortfolioModal = ({closeModal}) => {
                             width: "30%"}} onClick={() => closeModal(false)} id={"cancelBtn"}> Confirm </Button>
                     </div>
                 </div>
-            </div>
+            </div>*/}
+
+            <Modal size="lg"
+                   aria-labelledby="contained-modal-title-vcenter"
+                   centered onHide show={show} style={{textAlign:"center"}}>
+                <Modal.Header closeButton>
+                    <Modal.Title>
+                        Select Crypto to add:
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body >
+
+                    {
+                        props.text != null ? <React.Fragment>
+                            <p>{props.text}</p>
+                        </React.Fragment>:<React.Fragment>
+                            <h4>Oops</h4>
+                            <p>Looks like you're not logged in. Please log in to access to more features</p>
+                        </React.Fragment>
+                    }
+
+                </Modal.Body>
+                <Modal.Footer className="justify-center" >
+                    <button onClick={props.cancel} className="btn text-xs uppercase" style={{backgroundColor:"#03989e",fontWeight:"bold"}}>Cancel</button>
+                    <button onClick={props.continue} className="btn text-xs uppercase" style={{backgroundColor:"#03989e",fontWeight:"bold"}}>{props.text != null ? <React.Fragment>Add</React.Fragment> : <React.Fragment>Login</React.Fragment>}</button>
+                </Modal.Footer>
+            </Modal>
 
         </React.Fragment>
     )
 }
-
-export default PortfolioModal;

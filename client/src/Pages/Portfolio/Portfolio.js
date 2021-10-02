@@ -13,6 +13,10 @@ import image from "../../images/background.jpg";
 import Box from "@material-ui/core/Box"
 import AddIcon from "@material-ui/icons/Add";
 import PortfolioModal from "./PortfolioModal"
+import ClipLoader from "react-spinners/ClipLoader";
+import TextField from "@material-ui/core/TextField";
+import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
+import {IconButton} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     box: {
@@ -35,6 +39,11 @@ const Portfolio = () => {
     const classes = useStyles();
     let [coinData, setCoinData] = useState([])
     const [openModal, setOpenModal] = useState(false);
+    let [loading, setLoading] = useState(true);
+    const [searchCrypto, setSearchCrypto] = useState("");
+    let [cryptos, setCryptos] = useState([]);
+    const [showModal, setShowModal] = useState(false)
+    const [show, setShow] = useState(false)
     /*useEffect( () => {
         axios.get('https://api.coingecko.com/api/v3/coins/')
             .then( response => {
@@ -44,10 +53,114 @@ const Portfolio = () => {
             .catch( error => {
                 console.log(error);
             })
+
     },[]);*/
+
+    /*
+      Get a list of coins from Coingecko. For each crypto, check if it matches crypto a user
+      follows and mark it as selected
+  */
+    function getCoins(coinsList){
+        axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=250&page=1&sparkline=false')
+            .then(async (response_data) => {
+
+                console.log(response_data.data);
+
+                setCryptos(response_data.data)
+                setLoading(false)
+
+            })
+            .catch(err => {
+                console.error(err)
+                setLoading(false)
+
+            })
+    }
+    getCoins();
+    //sets search to whats typed in the search input field
+    const searchCoin = (event) => { setSearchCrypto(event.target.value) }
+
+
+    //filter list based on the search input
+    const searchedCryptos = cryptos.filter((crypto)=>{
+
+        return crypto.name.toLowerCase().includes(searchCrypto.toLowerCase()) ||  crypto.symbol.toLowerCase().includes(searchCrypto.toLowerCase())
+    })
+
+    const returnModalText = () =>{
+        return  (
+
+            <div>
+
+                <div className="crypto-search">
+                    <input type="search" className="form-control rounded" placeholder="Search..."
+                           onChange={searchCoin} />
+                </div>
+
+                <div className="container">
+
+                            <div className="row">
+                                <div className=" overflow-auto block crypto-wrapper" style={{height:"600px",margin:"auto"}}>
+                                    {loading ? <ClipLoader loading={loading} size={150} />:
+                                        searchedCryptos.length < 1 ? <div id="response-alert"><p className="text-center">Oops :( <br/>We don't have that coin</p></div>
+                                            :<React.Fragment>
+                                                {searchedCryptos.map((myCrypto,index) =>{
+
+                                                    return(
+                                                        <React.Fragment>
+                                                            <div style={{flexDirection:"row", justifyContent:"space-between",alignItems:"center"}} key={index} className="body">
+                                                                <div className='coin-row'>
+                                                                    <div className='coin'>
+                                                                        <img src={myCrypto.image} alt='crypto' />
+                                                                        <h1>{myCrypto.name}</h1>
+                                                                        <h1 className='coin-symbol'>{myCrypto.symbol}</h1>
+                                                                        <IconButton color={"transparent"}>
+                                                                            <KeyboardArrowRightIcon />
+                                                                        </IconButton>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </React.Fragment>
+                                                    )}
+                                                )
+                                                }
+                                            </React.Fragment>
+                                    }
+                                </div>
+                            </div>
+                </div>
+            </div>
+    )
+    };
+
+    const returnOtherModalText = () =>{
+
+        return  (
+
+            <div>
+                <form noValidate autoComplete={"off"}>
+                    <TextField
+                        label={"Quantity"} variant={"outlined"} color={"secondary"} value={"0.00"}
+                    />
+                </form>
+
+            </div>
+        )
+    };
+
+    const onCancel =(e)=>{
+        setShow(false);
+    }
+    const OnContinue =()=>{
+        setShowModal(true)
+    }
+
     return(
 
         <SafeAreaView style={{flex: 1, backgroundColor:"white"}}>
+            <PortfolioModal onHide={onCancel} show={show} text={returnModalText()} cancel={onCancel} continue={OnContinue} />
+            {/*<PortfolioModal onHide={onCancel} show={show} text={returnOtherModalText()} cancel={onCancel} />*/}
             <Box component={"span"} className={`${classes.centerBox} `}>
                 <Button variant={'contained'} style={{
                     textAlign: "center",
@@ -56,9 +169,10 @@ const Portfolio = () => {
                     padding: "5px 5px",
                     borderRadius: "8px",
                     outline: "1px",
-                    width: "10%",
+                    width: "30%",
+                    fontSize:10
                 }} className={'btn-modal'} startIcon={<AddIcon />} onClick={() => {
-                    setOpenModal(true)
+                    setShow(true)
                 }}>
                     Add transaction
                 </Button>
@@ -153,7 +267,7 @@ const Portfolio = () => {
 
                 </View>
             </ScrollView>
-            {openModal && <PortfolioModal closeModal={setOpenModal} />}
+
         </SafeAreaView>
     )
 }

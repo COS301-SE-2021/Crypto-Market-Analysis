@@ -12,6 +12,7 @@ class Testing extends React.Component {
             id: "",
             symbol: "",
             buy: "",
+            sentiment:"",
             elem:[],
             change: '',
             response:{}
@@ -162,6 +163,11 @@ class Testing extends React.Component {
                                             <InputGroup>
                                                 <Form.Control id="inlineFormInputGroupUsername" value={this.state.buy} onChange={e => this.setState({ buy: e.target.value })} placeholder="Enter Investment Amount" />
                                             </InputGroup>
+                                        </Col>
+                                        <Col lg="auto" className="my-1">
+                                            <label htmlFor="exampleFormControlTextarea1" className="form-label">Sentiment</label>
+                                            <textarea className="form-control" id="exampleFormControlTextarea1" placeholder="Enter a short opinion/feelings about this cryptocurrency" value={this.state.sentiment} onChange={e => this.setState({ sentiment: e.target.value })}
+                                                      rows="5"></textarea>
                                         </Col>
                                         <Col xs="auto" className="my-1">
                                             <Button type="submit" onClick={this.handleAddInvestment} data-dismiss="modal" aria-hidden="true" >Submit</Button>

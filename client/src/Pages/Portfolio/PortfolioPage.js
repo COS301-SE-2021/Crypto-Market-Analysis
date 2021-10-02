@@ -12,9 +12,56 @@ class Testing extends React.Component {
             id: "",
             symbol: "",
             buy: "",
-            elem:[]
+            elem:[],
+            response:{}
         }
         this.handleAddInvestment = this.handleAddInvestment.bind(this);
+        this.generateInvestment = this.generateInvestment.bind(this);
+    }
+    generateInvestment= (response) => {
+        const arrOfElements = [];
+        let index = 1;
+        for (const [key, value] of Object.entries(response.data)) {
+            let portfoliofetch = {
+                email:localStorage.getItem("emailSession"),
+                coin_id: key,
+                symbol: value.crypto_symbol,
+                purchase: value.Buy
+
+            }
+            axios.post('http://localhost:8080/user/portfolio',portfoliofetch )
+                .then((last_response) => {
+                    console.log(last_response.data)
+                    console.log(last_response.data.current_price)
+                    console.log(last_response.data.crypto_data.image)
+                    console.log(last_response.data.crypto_data.map(a => a.image))
+                    arrOfElements.push(<tr>
+                        <th scope="row"><img src={last_response.data.crypto_data.map(a => a.image)} alt="Logo" /></th>
+                        <td>
+                            <button
+                                className="bg-primary hover:bg-primary-dark text-white font-light py-1 px-2 rounded-full">
+                                {key}
+                            </button>
+                        </td>
+
+                        <td>{value.Buy}</td>
+                        <td>{Math.round(last_response.data.current_price)}</td>
+                        <td>{Math.round(last_response.data.predicted_price)}</td>
+                        <td>
+                            <span className="text-green-500"><i className="fas fa-arrow-up"></i>5%</span>
+                        </td>
+                    </tr>)
+                    this.setState({elem: arrOfElements});
+
+                })
+            console.log(Object.entries(response.data).length)
+            console.log(index)
+            index=index+1;
+            if(index === Object.entries(response.data).length){
+
+            }
+        }
+
     }
     handleAddInvestment= (e) =>{
         e.preventDefault()
@@ -31,9 +78,20 @@ class Testing extends React.Component {
 
         axios.post('http://localhost:8080/user/portfolioSave',portfolio_Req)
             .then((data) => {
-                console.log(data);
-                this.setState({symbol: this.state.symbol});
+                portfolio_Req = {
+                    email: localStorage.getItem("emailSession"),
+                    coin_id: ""
+                }
+
+                axios.post('http://localhost:8080/user/getportfolio',portfolio_Req)
+                    .then((response) => {
+                        //console.log(response.data);
+                        this.generateInvestment(response);
+
+
+                    })
             })
+
     }
     componentDidMount(){
         let  portfolio_Req = {
@@ -43,50 +101,8 @@ class Testing extends React.Component {
 
         axios.post('http://localhost:8080/user/getportfolio',portfolio_Req)
             .then((response) => {
-                console.log(response.data);
-                const arrOfElements = [];
-                let index = 1;
-                for (const [key, value] of Object.entries(response.data)) {
-                    let portfoliofetch = {
-                        email:localStorage.getItem("emailSession"),
-                        coin_id: key,
-                        symbol: value.crypto_symbol,
-                        purchase: value.Buy
-
-                    }
-                    axios.post('http://localhost:8080/user/portfolio',portfoliofetch )
-                        .then((last_response) => {
-                                    console.log(last_response.data)
-                                     console.log(last_response.data.current_price)
-                                    console.log(last_response.data.crypto_data.image)
-                            console.log(last_response.data.crypto_data.map(a => a.image))
-                            arrOfElements.push(<tr>
-                                <th scope="row"><img src={last_response.data.crypto_data.map(a => a.image)} alt="Logo" /></th>
-                                <td>
-                                    <button
-                                        className="bg-primary hover:bg-primary-dark text-white font-light py-1 px-2 rounded-full">
-                                        {key}
-                                    </button>
-                                </td>
-
-                                <td>{value.Buy}</td>
-                                <td>{Math.round(last_response.data.current_price)}</td>
-                                <td>{Math.round(last_response.data.predicted_price)}</td>
-                                <td>
-                                    <span className="text-green-500"><i className="fas fa-arrow-up"></i>5%</span>
-                                </td>
-                            </tr>)
-                            this.setState({elem: arrOfElements});
-
-                        })
-                      console.log(Object.entries(response.data).length)
-                    console.log(index)
-                     index=index+1;
-                    if(index === Object.entries(response.data).length){
-
-                    }
-                }
-
+                //console.log(response.data);
+                     this.generateInvestment(response);
 
 
             })
@@ -149,7 +165,7 @@ class Testing extends React.Component {
                                             </InputGroup>
                                         </Col>
                                         <Col xs="auto" className="my-1">
-                                            <Button type="submit" onClick={this.handleAddInvestment}>Submit</Button>
+                                            <Button type="submit" onClick={this.handleAddInvestment} data-dismiss="modal" aria-hidden="true" >Submit</Button>
                                         </Col>
                                     </Row>
 

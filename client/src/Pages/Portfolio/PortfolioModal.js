@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import "./Modal.css"
+import Sidebar from "../../components/Sidebar/Sidebar";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 import {
@@ -76,6 +77,7 @@ export default function PortfolioModal (props) {
     return(
 
         <React.Fragment>
+            <Sidebar/>
 
             {/* <div className={"modalBackground"}>
                 <div className={"modalContainer"}>

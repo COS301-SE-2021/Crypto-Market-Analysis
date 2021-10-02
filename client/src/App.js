@@ -22,7 +22,7 @@ import {BrowserRouter as Router , Switch} from "react-router-dom";
 import { AuthProvider } from "./Auth/Auth"
 import LandingPage from "./Pages/LandingPage/LandingPage"
 import Portfolio from "./Pages/Portfolio/Portfolio"
-
+import Testing from "./Pages/Portfolio/PortfolioPage"
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import React,{ useEffect } from 'react';
 import Predictions from "./Pages/Predictions/Predictions";
@@ -74,6 +74,7 @@ function App() {
                     <Route exact path="/Posts" component={Posts}/>
                     <Route exact path="/Comments" component={Comments}/>
                     <Route exact path="/Portfolio" component={Portfolio}/>
+                    <Route exact path="/testing" component={Testing}/>
                     <Route exact path="/PortfolioLanding" component={PortfolioLanding}/>
                 </section>
             </Switch>

@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import axios from "axios";
 import Sidebar from "../../components/Sidebar/Sidebar";
-
+import {Link} from "react-router-dom";
 class Testing extends React.Component {
     constructor(props) {
         super(props)
@@ -13,10 +13,11 @@ class Testing extends React.Component {
             symbol: "",
             buy: "",
             elem:[],
+            change: '',
             response:{}
         }
         this.handleAddInvestment = this.handleAddInvestment.bind(this);
-        this.generateInvestment = this.generateInvestment.bind(this);
+        this. generateInvestment= this. generateInvestment.bind(this);
     }
     generateInvestment= (response) => {
         const arrOfElements = [];
@@ -31,17 +32,14 @@ class Testing extends React.Component {
             }
             axios.post('http://localhost:8080/user/portfolio',portfoliofetch )
                 .then((last_response) => {
-                    console.log(last_response.data)
-                    console.log(last_response.data.current_price)
-                    console.log(last_response.data.crypto_data.image)
-                    console.log(last_response.data.crypto_data.map(a => a.image))
+                    console.log(last_response.data.crypto_data)
                     arrOfElements.push(<tr>
                         <th scope="row"><img src={last_response.data.crypto_data.map(a => a.image)} alt="Logo" /></th>
                         <td>
-                            <button
+                            <Link to={{pathname:"/home/DetailedInfo", state:{coin_name:key, coin_symbol:value.crypto_symbol, coin_id:key}}}> <button
                                 className="bg-primary hover:bg-primary-dark text-white font-light py-1 px-2 rounded-full">
-                                {key}
-                            </button>
+                                 {key}
+                            </button></Link>
                         </td>
 
                         <td>{value.Buy}</td>
@@ -84,9 +82,10 @@ class Testing extends React.Component {
                 }
 
                 axios.post('http://localhost:8080/user/getportfolio',portfolio_Req)
-                    .then((response) => {
+                    .then((responseobj) => {
                         //console.log(response.data);
-                        this.generateInvestment(response);
+                        this.setState({response: responseobj});
+                        this.generateInvestment(responseobj);
 
 
                     })

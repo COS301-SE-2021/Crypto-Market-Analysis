@@ -46,3 +46,11 @@ body{
 .media-comment {
     margin-top:20px
 }
+.tag-container{
+    background-color: #03989e;
+    border-radius: 0.4em;
+}
+.tag-container:hover
+{
+    background-color: #00c2cb;
+}

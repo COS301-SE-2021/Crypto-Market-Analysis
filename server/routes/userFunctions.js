@@ -254,20 +254,16 @@ const portfolioSave =async (email, num_of_crypto, symbol, id)=>{
 
 }
 const portfolioDelete=async (email, id)=>{
-    await getPortforlio(email,'').then(data=>{
-        return data;
-    })
-    // let myObj = {};
-    // let newObj = {};
-    // newObj[id] = {Buy: num_of_crypto, crypto_id: id, crypto_symbol:symbol};
-    // let cmyObj = Object.assign({}, myObj, newObj);
-    // const portfolioObj= {
-    //     portfolio: cmyObj
-    // }
-    // try {
-    //     firestore_db.saveData('Users', email, portfolioObj)
-    // }
-    // catch (er){return err}
+    try{
+        let object = await getPortforlio(email, '');
+        delete object[id];
+        await firestore_db.deltePortfolio(email, object);
+        return object;
+
+    }
+    catch (err){
+        return err;
+    }
 
 }
 const saveToDB = async (arr, socialmedia , crypto)=> {

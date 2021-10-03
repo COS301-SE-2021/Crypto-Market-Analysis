@@ -72,7 +72,7 @@ class Testing extends React.Component {
             }
             axios.post('http://localhost:8080/user/portfolio',portfoliofetch )
                 .then((last_response) => {
-                    console.log(last_response.data.crypto_data)
+
                     arrOfElements.push(
                         <tr>
                             <th scope="row">
@@ -88,7 +88,7 @@ class Testing extends React.Component {
                             <td>R{Math.round(last_response.data.current_price)}</td>
                             <td>R{Math.round(last_response.data.predicted_price)}</td>
                             <td>
-                                <span className="text-green-500"><i className="fas fa-arrow-up"></i>5%</span>
+                                <span className="text-green-500"><i className="fas fa-arrow-up"></i> {value.sentiment}</span>
                             </td>
                             <td> <DeleteIcon  onClick={()=>this.handleDelete(key)}/> </td>
                         </tr>
@@ -96,12 +96,6 @@ class Testing extends React.Component {
                     this.setState({elem: arrOfElements});
 
                 })
-            console.log(Object.entries(response.data).length)
-            console.log(index)
-            index=index+1;
-            if(index === Object.entries(response.data).length){
-
-            }
         }
 
     }
@@ -118,15 +112,12 @@ class Testing extends React.Component {
     }
     handleAddInvestment= (e) =>{
         e.preventDefault()
-        console.log(this.state.id)
-        console.log(this.state.buy)
-        console.log(this.state.symbol)
-        console.log(localStorage.getItem("emailSession"))
         let  portfolio_Req = {
             email: localStorage.getItem("emailSession"),
             coin_id: this.state.id,
             symbol:this.state.symbol,
             purchase:this.state.buy,
+            sentiment:this.state.sentiment
 
         }
 
@@ -139,8 +130,8 @@ class Testing extends React.Component {
 
                 axios.post('http://localhost:8080/user/getportfolio',portfolio_Req)
                     .then((responseobj) => {
-                        this.setState({response: responseobj});
-                        this.generateInvestment(responseobj);
+                        //this.setState({response: responseobj});
+                         this.generateInvestment(responseobj);
 
 
                     })
@@ -148,6 +139,7 @@ class Testing extends React.Component {
 
     }
     componentDidMount(){
+
         let  portfolio_Req = {
             email: localStorage.getItem("emailSession"),
             coin_id: ""

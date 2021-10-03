@@ -239,10 +239,10 @@ const getPortforlio =async (email,crypto_ID)=>{
         });
     })
 }
-const portfolioSave =async (email, num_of_crypto, symbol, id)=>{
+const portfolioSave =async (email, num_of_crypto, symbol, id,sentiment)=>{
     let myObj = {};
     let newObj = {};
-    newObj[id] = {Buy: num_of_crypto, crypto_id: id, crypto_symbol:symbol};
+    newObj[id] = {Buy: num_of_crypto, crypto_id: id, crypto_symbol:symbol,sentiment:sentiment}
     let cmyObj = Object.assign({}, myObj, newObj);
     const portfolioObj= {
         portfolio: cmyObj

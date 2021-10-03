@@ -333,7 +333,7 @@ router.post("/sendMail", async (req, res, next) => {
  * */
 router.post("/portfolioSave", async (request,response, next)=>{
         try{
-            const data = userFunctions.portfolioSave(request.body.email, request.body.purchase, request.body.symbol, request.body.coin_id);
+            const data = userFunctions.portfolioSave(request.body.email, request.body.purchase, request.body.symbol, request.body.coin_id,request.body.sentiment);
             response.status(200).json("successfully saved to database");
         }
         catch (err){

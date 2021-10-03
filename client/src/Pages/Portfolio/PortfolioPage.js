@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Form, Button, Alert,Row,Col ,InputGroup} from "react-bootstrap"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import axios from "axios";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import {Link} from "react-router-dom";
-import {TextField} from "@material-ui/core";
+import {AppBar, TextField, Toolbar} from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import AddIcon from "@material-ui/icons/Add";
 import Buttons from "@material-ui/core/Button";
@@ -23,6 +23,8 @@ import {
     ScrollView,
 } from "react-native";
 import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 
 
 class Testing extends React.Component {
@@ -64,33 +66,42 @@ class Testing extends React.Component {
 
         const arrOfElements = [];
         let index = 1;
-        let analytics='';
+        let analytics = '';
         for (const [key, value] of Object.entries(response.data)) {
-            let  analyseReq= {
+            let analyseReq = {
                 article: value.sentiment || 'i have to see more of it'
             }
-            axios.post('https://analysis-services-api.herokuapp.com/ArticleAnalytics',analyseReq)
+            axios.post('https://analysis-services-api.herokuapp.com/ArticleAnalytics', analyseReq)
                 .then((response) => {
-                    analytics ='no sentiment for this cryptoCurrency';
+                    analytics = 'no sentiment for this cryptoCurrency';
                     let portfoliofetch = {
-                        email:localStorage.getItem("emailSession"),
+                        email: localStorage.getItem("emailSession"),
                         coin_id: key,
                         symbol: value.crypto_symbol,
                         purchase: value.Buy
 
                     }
-                    axios.post('http://localhost:8080/user/portfolio',portfoliofetch )
+                    axios.post('http://localhost:8080/user/portfolio', portfoliofetch)
                         .then((last_response) => {
 
 
                             arrOfElements.push(
                                 <tr>
                                     <th scope="row">
-                                        <img style={{width:30, height:30, borderRadius: 15,borderWidth:0.5, borderColor: "#ddd"}} src={last_response.data.crypto_data.map(a => a.image)} alt="Logo" />
+                                        <img style={{
+                                            width: 30,
+                                            height: 30,
+                                            borderRadius: 15,
+                                            borderWidth: 0.5,
+                                            borderColor: "#ddd"
+                                        }} src={last_response.data.crypto_data.map(a => a.image)} alt="Logo"/>
                                     </th>
                                     <td>
-                                        <Link style={{fontColor:"black"}} to={{pathname:"/home/DetailedInfo", state:{coin_name:key, coin_symbol:value.crypto_symbol, coin_id:key}}}>
-                                            <h4>{key} <LinkIcon /> </h4>
+                                        <Link style={{fontColor: "black"}} to={{
+                                            pathname: "/home/DetailedInfo",
+                                            state: {coin_name: key, coin_symbol: value.crypto_symbol, coin_id: key}
+                                        }}>
+                                            <h4>{key} <LinkIcon/></h4>
 
                                         </Link>
                                     </td>
@@ -99,31 +110,41 @@ class Testing extends React.Component {
                                     <td>R{Math.round(last_response.data.predicted_price)}</td>
                                     {response.data === 'positive' ? (
                                         <td>
-                                            <span style={{ color: 'green' }} className="text-green-500"><i className="fas fa-arrow-up"></i> {response.data|| analytics }</span>
+                                            <span style={{color: 'green'}} className="text-green-500"><i
+                                                className="fas fa-arrow-up"></i> {response.data || analytics}</span>
                                         </td>
-                                    ) : response.data === 'negative'?(
-                                        <td>
-                                            <span style={{ color: 'red' }} className="text-green-500"><i className="fas fa-arrow-down"></i> {response.data|| analytics }</span>
-                                        </td>
-                                    ):
+                                    ) : response.data === 'negative' ? (
+                                            <td>
+                                                <span style={{color: 'red'}} className="text-green-500"><i
+                                                    className="fas fa-arrow-down"></i> {response.data || analytics}</span>
+                                            </td>
+                                        ) :
                                         (
                                             <td>
-                                                <span style={{ color: 'blue' }} className="text-green-500"><i className="fas fa-arrows-alt-h"></i> {response.data|| analytics }</span>
+                                                <span style={{color: 'blue'}} className="text-green-500"><i
+                                                    className="fas fa-arrows-alt-h"></i> {response.data || analytics}</span>
                                             </td>
                                         )
 
                                     }
 
-                                    <td> <DeleteIcon  onClick={()=>this.handleDelete(key)}/> </td>
+                                    <td>
+                                        <Buttons onClick={() => this.handleDelete(key)}> <DeleteIcon /> </Buttons>
+                                    </td>
                                 </tr>
                             )
                             this.setState({elem: arrOfElements});
 
                         })
                 })
+            console.log(Object.entries(response.data).length)
+            console.log(index)
+            index = index + 1;
+            if (index === Object.entries(response.data).length) {
+
+            }
 
         }
-
     }
     handleDelete= (e) =>{
         let portfolio_Req_Delete = {
@@ -135,6 +156,8 @@ class Testing extends React.Component {
             .then((response) => {
                 this.generateInvestment(response);
             })
+
+
     }
     handleAddInvestment= (e) =>{
         e.preventDefault()
@@ -154,14 +177,12 @@ class Testing extends React.Component {
                     email: localStorage.getItem("emailSession"),
                     coin_id: this.state.id
                 }
-
+            })
                 axios.post('http://localhost:8080/user/getportfolio',portfolio_Req)
                     .then((responseobj) => {
                         //this.setState({response: responseobj});
                          this.generateInvestment(responseobj);
 
-
-                    })
             })
 
     }
@@ -178,6 +199,10 @@ class Testing extends React.Component {
                      this.generateInvestment(response);
             })
     }
+
+    portfolioDelete(){
+
+    }
     render() {
 
         return (
@@ -185,13 +210,23 @@ class Testing extends React.Component {
 <>
                 <Sidebar />
 
+
                 <div className="md:ml-64" style={{fontFamily:"Nunito"}}>
-                    <h1>Portfolio</h1>
+                    <AppBar style={{ background:"transparent",
+                        fontFamily: 'Nunito', width:"81.25%", textAlign:"center", position:"fixed", color:"black"}} elevation={1}>
+                        <Toolbar style={{ width:'50%',
+                            margin:'0 auto'} }>
+                            <Typography variant={"h4"} style={{textAlign:"center"}}>
+                                Portfolio
+                            </Typography>
+
+                        </Toolbar>
+                    </AppBar>
                             <div>
                                 <Box component={"span"} style={{display: "flex",
                                     justifyContent:'flex-end',
                                     alignItems:"flex-end",
-                                    paddingTop:20,
+                                    paddingTop:150,
                                     paddingBottom: 5,
                                     paddingRight: 20}}>
                                     <Buttons startIcon= {<AddIcon />} color={"primary"} variant={'contained'} style={{
@@ -207,8 +242,7 @@ class Testing extends React.Component {
                                     </Buttons>
                                 </Box>
 
-                                {/*<button className="btn btn-primary" type="button" data-target="#quoteForm" data-toggle="modal">Add Investment</button>*/}
-                            </div>
+                                 </div>
 
 
 
@@ -224,11 +258,8 @@ class Testing extends React.Component {
                                 <Form>
                                     <Row className="align-items-center">
                                         <Col sm={4} className="my-1">
-                                            {/* <Form.Label htmlFor="inlineFormInputName" visuallyHidden>
-                                                ID <span className="text-primary ml-1">*</span>
-                                            </Form.Label>*/}
+
                                             <InputGroup>
-                                                {/*<Form.Control id="inlineFormInputName" value={this.state.id} onChange={e => this.setState({ id: e.target.value })} placeholder="Enter cryto ID" />*/}
 
                                                 <TextField required label={"ID"} id="inlineFormInputName" value={this.state.id} onChange={e => this.setState({ id: e.target.value })} placeholder="Enter cryto ID">
 
@@ -236,23 +267,17 @@ class Testing extends React.Component {
                                             </InputGroup>
                                         </Col>
                                         <Col sm={4} className="my-1">
-                                            {/*<Form.Label htmlFor="inlineFormInputGroupUsername" visuallyHidden>
-                                                Symbol<span className="text-primary ml-1">*</span>
-                                            </Form.Label>*/}
+
                                             <InputGroup>
-                                                {/*<Form.Control id="inlineFormInputGroupUsername" value={this.state.symbol} onChange={e => this.setState({ symbol: e.target.value })} placeholder="Enter the symbol" />*/}
-                                                <TextField required label={"Symbol"} id="inlineFormInputGroupUsername" value={this.state.symbol} onChange={e => this.setState({ symbol: e.target.value })} placeholder="Enter the symbol">
+                                                 <TextField required label={"Symbol"} id="inlineFormInputGroupUsername" value={this.state.symbol} onChange={e => this.setState({ symbol: e.target.value })} placeholder="Enter the symbol">
 
                                                 </TextField>
                                             </InputGroup>
                                         </Col>
                                         <Col sm={3} className="my-1">
-                                            {/*<Form.Label htmlFor="inlineFormInputGroupUsername" visuallyHidden>
-                                                Buy<span className="text-primary ml-1">*</span>
-                                            </Form.Label>*/}
+
                                             <InputGroup>
-                                                {/*<Form.Control id="inlineFormInputGroupUsername" value={this.state.buy} onChange={e => this.setState({ buy: e.target.value })} placeholder="Enter Investment Amount" />*/}
-                                                <TextField required label={"Quantity"} id="inlineFormInputGroupUsername" value={this.state.buy} onChange={e => this.setState({ buy: e.target.value })} placeholder="Enter Investment Amount">
+                                               <TextField required label={"Buy"} id="inlineFormInputGroupUsername" value={this.state.buy} onChange={e => this.setState({ buy: e.target.value })} placeholder="Enter Investment Amount">
 
                                                 </TextField>
                                             </InputGroup>
@@ -260,6 +285,7 @@ class Testing extends React.Component {
 
 
                                         </Col>
+
                                         <Col lg="auto" className="my-1">
 
                                             <TextField multiline rows={"2"} margin={"normal"} label={"Sentiment"} className="form-control" id="exampleFormControlTextarea1" value={this.state.sentiment} onChange={e => this.setState({ sentiment: e.target.value })} >

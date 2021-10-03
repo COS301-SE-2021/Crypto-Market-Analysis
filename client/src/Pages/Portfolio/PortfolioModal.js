@@ -160,10 +160,10 @@ export default function PortfolioModal (props) {
 
             <Modal size="lg"
                    aria-labelledby="contained-modal-title-vcenter"
-                   centered onHide show={show} style={{textAlign:"center"}}>
+                   centered onHide={props.cancel} show={show} style={{textAlign:"center"}}>
                 <Modal.Header closeButton>
                     <Modal.Title>
-                        Select Crypto to add:
+                        Select coin:
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body >

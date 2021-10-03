@@ -73,9 +73,10 @@ function App() {
                     <Route exact path="/Tag" component={Tag}/>
                     <Route exact path="/Posts" component={Posts}/>
                     <Route exact path="/Comments" component={Comments}/>
-                    <Route exact path="/Portfolio" component={Testing}/>
-                    <Route exact path="/testing" component={Portfolio}/>
+                    <Route exact path="/Portfolios" component={Testing}/>
+                    <Route exact path="/testing" component={Testing}/>
                     <Route exact path="/PortfolioLanding" component={PortfolioLanding}/>
+                    <Route exact path="/portfolio" component={Portfolio}/>
                 </section>
             </Switch>
         </AuthProvider>

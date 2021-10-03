@@ -5,6 +5,7 @@ const firestore_db = new Database().getInstance();
 const reddit =require('../functions/Reddit');
 const https = require("https");
 const redditScrapper = new reddit();
+
 const register = async email => {
     return await user_object.insertUser(email);
 }

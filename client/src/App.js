@@ -74,7 +74,7 @@ function App() {
                     <Route exact path="/Posts" component={Posts}/>
                     <Route exact path="/Comments" component={Comments}/>
                     <Route exact path="/Portfolio" component={Testing}/>
-                    <Route exact path="/testing" component={Testing}/>
+                    <Route exact path="/testing" component={Portfolio}/>
                     <Route exact path="/PortfolioLanding" component={PortfolioLanding}/>
                 </section>
             </Switch>

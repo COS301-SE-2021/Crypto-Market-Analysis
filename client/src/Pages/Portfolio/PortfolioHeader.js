@@ -11,14 +11,16 @@ import PortfolioModal from "./PortfolioModal";
 const useStyles = makeStyles((theme) => ({
     root:{
         display:'flex',
-        justifyContent:'center',
-        alignItems:'center',
+        justifyContent:'flex-end',
+        alignItems:'flex-end',
         height:'100vh',
-        fontFamily:'Nunito'
+        fontFamily:'Nunito',
+        textAlign:"center"
     },
     appbar:{
         background:"black",
         fontFamily: 'Nunito',
+        width:"81.25%"
     },
     appbarTitle:{
         flexGrow: '1',
@@ -35,15 +37,18 @@ const useStyles = makeStyles((theme) => ({
         color: 'black'
     },
     container:{
-        textAlign:'center'
+        textAlign:'center',
+        width:"81.25%"
     },
     title:{
         color:'black',
-        fontSize: '4.5rem'
+        fontSize: '4.5rem',
+        textAlign:"center"
     },
     goDown:{
         color:'green',
         fontSize:'3em',
+        position:"inherit"
     }
 }));
 export default function PortfolioHeader() {
@@ -83,11 +88,17 @@ export default function PortfolioHeader() {
                         borderRadius: "5px",
                         outline: "5px",
                         width: "40%",
+                        top:"0px"
                     }} href={"/portfolio"} className={'btn-modal'}>
                         Create portfolio
                     </Button>
 
-
+                    <Scroll to={"to-place-to-visit"} smooth={true}>
+                        <IconButton style={{position:"absolute",display:"block", top:"100%", right:"33%"}}>
+                            <ExpandMoreIcon className={classes.goDown}>
+                            </ExpandMoreIcon>
+                        </IconButton>
+                    </Scroll>
 
                 </div>
             </Collapse>

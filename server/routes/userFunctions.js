@@ -253,6 +253,23 @@ const portfolioSave =async (email, num_of_crypto, symbol, id)=>{
     catch (er){return err}
 
 }
+const portfolioDelete=async (email, id)=>{
+    await getPortforlio(email,'').then(data=>{
+        return data;
+    })
+    // let myObj = {};
+    // let newObj = {};
+    // newObj[id] = {Buy: num_of_crypto, crypto_id: id, crypto_symbol:symbol};
+    // let cmyObj = Object.assign({}, myObj, newObj);
+    // const portfolioObj= {
+    //     portfolio: cmyObj
+    // }
+    // try {
+    //     firestore_db.saveData('Users', email, portfolioObj)
+    // }
+    // catch (er){return err}
+
+}
 const saveToDB = async (arr, socialmedia , crypto)=> {
     let mini=Math.min.apply(Math, arr)
     let maxi = Math.max.apply(Math, arr)
@@ -272,6 +289,6 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
 }
 
 
-module.exports = {getPortforlio, portfolioSave, predictedObject, getPrices,getCoinPredictions, deleteUserAccount,getAnalysis,getPush,setPush,setNotification,saveToDB,getNotification,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, register, getCoinIDs}
+module.exports = {portfolioDelete,getPortforlio, portfolioSave, predictedObject, getPrices,getCoinPredictions, deleteUserAccount,getAnalysis,getPush,setPush,setNotification,saveToDB,getNotification,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, register, getCoinIDs}
 
 

@@ -364,6 +364,14 @@ router.post("/portfolio", async (request,response, next)=>{
        response.status(400).json("error while creating portfolio");
    }
 });
+/** This function only takes an email and returns portfolio and empty coin id
+ *  *@param request object example
+ eg {
+    "email":"mojohnnylerato@gmail.com",
+    "coin_id": "" //keep the id empty for get portfolio
+
+}
+ * */
 router.post("/getportfolio", async (request,response, next)=>{
    try{
        const obj= await userFunctions.getPortforlio(request.body.email, request.body.coin_id);
@@ -372,6 +380,24 @@ router.post("/getportfolio", async (request,response, next)=>{
   catch (err){
       response.status(400).json("error while fetching portfolio");
   }
+
+});
+/** This function deletes portfolio of purchased crypto and returns new object
+ *  *@param request object example
+ eg {
+    "email":"mojohnnylerato@gmail.com",
+    "coin_id": "bitcoin"
+
+}
+ * */
+router.post("/deleteportfolio", async (request,response, next)=>{
+    try{
+        const obj= await userFunctions.getPortforlio(request.body.email, request.body.coin_id);
+        response.status(200).json(obj);
+    }
+    catch (err){
+        response.status(400).json("error while fetching portfolio");
+    }
 
 });
 module.exports = router

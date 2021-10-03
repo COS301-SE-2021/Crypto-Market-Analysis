@@ -207,11 +207,12 @@ class Testing extends React.Component {
 
         return (
 
-<>
+            <React.Fragment>
                 <Sidebar />
 
 
                 <div className="md:ml-64" style={{fontFamily:"Nunito"}}>
+                    <div className="container" >
                     <AppBar style={{ background:"transparent",
                         fontFamily: 'Nunito', width:"81.25%", textAlign:"center", position:"fixed", color:"black"}} elevation={1}>
                         <Toolbar style={{ width:'50%',
@@ -338,9 +339,9 @@ class Testing extends React.Component {
                     </ScrollView>
                         </SafeAreaView>
                 </div>
+                </div>
 
-
-</>
+            </React.Fragment>
 
         )
     };

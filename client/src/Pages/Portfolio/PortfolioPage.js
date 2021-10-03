@@ -5,7 +5,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import axios from "axios";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import {Link} from "react-router-dom";
-import {TextField} from "@material-ui/core";
+import {AppBar, TextField, Toolbar} from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import AddIcon from "@material-ui/icons/Add";
 import Buttons from "@material-ui/core/Button";
@@ -14,7 +14,8 @@ import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import SendIcon from "@material-ui/icons/Send"
 import DeleteIcon from "@material-ui/icons/Delete"
 import LinkIcon from "@material-ui/icons/Link"
-
+import {MuiPickersUtilsProvider, KeyboardDateTimePicker, KeyboardDatePicker} from "@material-ui/pickers"
+//import DateFnsUtils from "@date-io/date-fns"
 import {
     View,
     Text,
@@ -23,6 +24,8 @@ import {
     ScrollView,
 } from "react-native";
 import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 
 
 class Testing extends React.Component {
@@ -57,7 +60,17 @@ class Testing extends React.Component {
         }
         this.handleAddInvestment = this.handleAddInvestment.bind(this);
         this. generateInvestment= this. generateInvestment.bind(this);
+        this.handleDateChange= this.handleDateChange.bind(this);
+
+        this.state = { date: new Date("2021-10-03T12:00:00")}
     }
+
+
+
+         handleDateChange = (dates) => {
+            this.state.changeDate(dates)
+        }
+
     generateInvestment= (response) => {
         const arrOfElements = [];
         let index = 1;
@@ -157,13 +170,23 @@ class Testing extends React.Component {
 <>
                 <Sidebar />
 
+
                 <div className="md:ml-64" style={{fontFamily:"Nunito"}}>
-                    <h1>Portfolio</h1>
+                    <AppBar style={{ background:"transparent",
+                        fontFamily: 'Nunito', width:"81.25%", textAlign:"center", position:"fixed", color:"black"}} elevation={1}>
+                        <Toolbar style={{ width:'50%',
+                            margin:'0 auto'} }>
+                            <Typography variant={"h4"} style={{textAlign:"center"}}>
+                                Portfolio
+                            </Typography>
+
+                        </Toolbar>
+                    </AppBar>
                             <div>
                                 <Box component={"span"} style={{display: "flex",
                                     justifyContent:'flex-end',
                                     alignItems:"flex-end",
-                                    paddingTop:20,
+                                    paddingTop:150,
                                     paddingBottom: 5,
                                     paddingRight: 20}}>
                                     <Buttons startIcon= {<AddIcon />} color={"primary"} variant={'contained'} style={{
@@ -179,8 +202,7 @@ class Testing extends React.Component {
                                     </Buttons>
                                 </Box>
 
-                                {/*<button className="btn btn-primary" type="button" data-target="#quoteForm" data-toggle="modal">Add Investment</button>*/}
-                            </div>
+                                 </div>
 
 
 
@@ -196,11 +218,8 @@ class Testing extends React.Component {
                                 <Form>
                                     <Row className="align-items-center">
                                         <Col sm={4} className="my-1">
-                                            {/* <Form.Label htmlFor="inlineFormInputName" visuallyHidden>
-                                                ID <span className="text-primary ml-1">*</span>
-                                            </Form.Label>*/}
+
                                             <InputGroup>
-                                                {/*<Form.Control id="inlineFormInputName" value={this.state.id} onChange={e => this.setState({ id: e.target.value })} placeholder="Enter cryto ID" />*/}
 
                                                 <TextField required label={"ID"} id="inlineFormInputName" value={this.state.id} onChange={e => this.setState({ id: e.target.value })} placeholder="Enter cryto ID">
 
@@ -208,23 +227,17 @@ class Testing extends React.Component {
                                             </InputGroup>
                                         </Col>
                                         <Col sm={4} className="my-1">
-                                            {/*<Form.Label htmlFor="inlineFormInputGroupUsername" visuallyHidden>
-                                                Symbol<span className="text-primary ml-1">*</span>
-                                            </Form.Label>*/}
+
                                             <InputGroup>
-                                                {/*<Form.Control id="inlineFormInputGroupUsername" value={this.state.symbol} onChange={e => this.setState({ symbol: e.target.value })} placeholder="Enter the symbol" />*/}
-                                                <TextField required label={"Symbol"} id="inlineFormInputGroupUsername" value={this.state.symbol} onChange={e => this.setState({ symbol: e.target.value })} placeholder="Enter the symbol">
+                                                 <TextField required label={"Symbol"} id="inlineFormInputGroupUsername" value={this.state.symbol} onChange={e => this.setState({ symbol: e.target.value })} placeholder="Enter the symbol">
 
                                                 </TextField>
                                             </InputGroup>
                                         </Col>
                                         <Col sm={3} className="my-1">
-                                            {/*<Form.Label htmlFor="inlineFormInputGroupUsername" visuallyHidden>
-                                                Buy<span className="text-primary ml-1">*</span>
-                                            </Form.Label>*/}
+
                                             <InputGroup>
-                                                {/*<Form.Control id="inlineFormInputGroupUsername" value={this.state.buy} onChange={e => this.setState({ buy: e.target.value })} placeholder="Enter Investment Amount" />*/}
-                                                <TextField required label={"Buy"} id="inlineFormInputGroupUsername" value={this.state.buy} onChange={e => this.setState({ buy: e.target.value })} placeholder="Enter Investment Amount">
+                                               <TextField required label={"Buy"} id="inlineFormInputGroupUsername" value={this.state.buy} onChange={e => this.setState({ buy: e.target.value })} placeholder="Enter Investment Amount">
 
                                                 </TextField>
                                             </InputGroup>
@@ -232,6 +245,7 @@ class Testing extends React.Component {
 
 
                                         </Col>
+
                                         <Col lg="auto" className="my-1">
                                             <TextField multiline rows={"2"} margin={"normal"} label={"Sentiment"} className="form-control" id="exampleFormControlTextarea1" value={this.state.sentiment} onChange={e => this.setState({ sentiment: e.target.value })} >
 

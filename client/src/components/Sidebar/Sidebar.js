@@ -213,13 +213,13 @@ export default function Sidebar(props) {
                                   ? "text-lightBlue-500 hover:text-lightBlue-600"
                                   : "text-blueGray-700 hover:text-blueGray-500")
                           }
-                          to="/Portfolio"
+                          to="/PortfolioLanding"
                           onClick={changeLocation}
                       >
                           <i
                               className={
                                   "fas fa-tv mr-2 text-sm " +
-                                  (window.location.href.indexOf("/Portfolio") !== -1
+                                  (window.location.href.indexOf("/PortfolioLanding") !== -1
                                       ? "opacity-75"
                                       : "text-blueGray-300")
                               }

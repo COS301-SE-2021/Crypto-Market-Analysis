@@ -49,7 +49,7 @@ export default function Signup() {
 
     return (
         
-        <div className="content-cover">
+        <div className="content-cover" style={{fontFamily:"Nunito"}}>
         <div className="row">
             <div className="col-md-4 offset-md-1 p-0 mt-5" >
                 <img src={"/cryptosis-t.png"} alt="cryptosis logo" style={{float:"right"}} />

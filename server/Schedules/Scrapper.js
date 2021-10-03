@@ -1,10 +1,13 @@
+require("dotenv").config();
 const Reddit = require('../functions/Reddit');
 const Twitter = require(`../functions/Twitter`);
 const chan = require("../functions/chan");
 const NeuralNetwork = require("../crypto_forecast/forecast");
 const twitter = new Twitter().getInstance();
+
 let reddits = new Reddit();
 const scrape=async ()=>{
+    console.log('scrapper started')
     twitter.getAllNamesTimeline().then()
     let network = new NeuralNetwork();
     network.train("btc").then(function (store) {

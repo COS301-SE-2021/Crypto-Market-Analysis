@@ -14,8 +14,7 @@ import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import SendIcon from "@material-ui/icons/Send"
 import DeleteIcon from "@material-ui/icons/Delete"
 import LinkIcon from "@material-ui/icons/Link"
-import {MuiPickersUtilsProvider, KeyboardDateTimePicker, KeyboardDatePicker} from "@material-ui/pickers"
-//import DateFnsUtils from "@date-io/date-fns"
+
 import {
     View,
     Text,
@@ -39,7 +38,9 @@ class Testing extends React.Component {
             symbol: "",
             buy: "",
             sentiment:"",
+            sentiment_res:"",
             elem:[],
+            deleted:"",
             change: '',
             response:{}
         }
@@ -60,74 +61,114 @@ class Testing extends React.Component {
         }
         this.handleAddInvestment = this.handleAddInvestment.bind(this);
         this. generateInvestment= this. generateInvestment.bind(this);
-        this.handleDateChange= this.handleDateChange.bind(this);
-
-        this.state = { date: new Date("2021-10-03T12:00:00")}
     }
-
-
-
-         handleDateChange = (dates) => {
-            this.state.changeDate(dates)
-        }
-
     generateInvestment= (response) => {
+
         const arrOfElements = [];
         let index = 1;
+        let analytics = '';
         for (const [key, value] of Object.entries(response.data)) {
-            let portfoliofetch = {
-                email:localStorage.getItem("emailSession"),
-                coin_id: key,
-                symbol: value.crypto_symbol,
-                purchase: value.Buy
-
+            let analyseReq = {
+                article: value.sentiment || 'i have to see more of it'
             }
-            axios.post('http://localhost:8080/user/portfolio',portfoliofetch )
-                .then((last_response) => {
-                    console.log(last_response.data.crypto_data)
-                    arrOfElements.push(
-                        <tr>
-                            <th scope="row">
-                                <img style={{width:30, height:30, borderRadius: 15,borderWidth:0.5, borderColor: "#ddd"}} src={last_response.data.crypto_data.map(a => a.image)} alt="Logo" />
-                            </th>
-                            <td>
-                                <Link style={{fontColor:"black"}} to={{pathname:"/home/DetailedInfo", state:{coin_name:key, coin_symbol:value.crypto_symbol, coin_id:key}}}>
-                                    <h4>{key} <LinkIcon /> </h4>
+            axios.post('https://analysis-services-api.herokuapp.com/ArticleAnalytics', analyseReq)
+                .then((response) => {
+                    analytics = 'no sentiment for this cryptoCurrency';
+                    let portfoliofetch = {
+                        email: localStorage.getItem("emailSession"),
+                        coin_id: key,
+                        symbol: value.crypto_symbol,
+                        purchase: value.Buy
 
-                                </Link>
-                            </td>
-                            <td>{value.Buy}</td>
-                            <td>R{Math.round(last_response.data.current_price)}</td>
-                            <td>R{Math.round(last_response.data.predicted_price)}</td>
-                            <td>
-                                <span className="text-green-500"><i className="fas fa-arrow-up"></i>5%</span>
-                            </td>
-                            <td> <Buttons color={"transparent"}> <DeleteIcon /> </Buttons>  </td>
-                        </tr>
-                    )
-                    this.setState({elem: arrOfElements});
+                    }
+                    axios.post('http://localhost:8080/user/portfolio', portfoliofetch)
+                        .then((last_response) => {
 
+
+                            arrOfElements.push(
+                                <tr>
+                                    <th scope="row">
+                                        <img style={{
+                                            width: 30,
+                                            height: 30,
+                                            borderRadius: 15,
+                                            borderWidth: 0.5,
+                                            borderColor: "#ddd"
+                                        }} src={last_response.data.crypto_data.map(a => a.image)} alt="Logo"/>
+                                    </th>
+                                    <td>
+                                        <Link style={{fontColor: "black"}} to={{
+                                            pathname: "/home/DetailedInfo",
+                                            state: {coin_name: key, coin_symbol: value.crypto_symbol, coin_id: key}
+                                        }}>
+                                            <h4>{key} <LinkIcon/></h4>
+
+                                        </Link>
+                                    </td>
+                                    <td>{value.Buy}</td>
+                                    <td>R{Math.round(last_response.data.current_price)}</td>
+                                    <td>R{Math.round(last_response.data.predicted_price)}</td>
+                                    {response.data === 'positive' ? (
+                                        <td>
+                                            <span style={{color: 'green'}} className="text-green-500"><i
+                                                className="fas fa-arrow-up"></i> {response.data || analytics}</span>
+                                        </td>
+                                    ) : response.data === 'negative' ? (
+                                            <td>
+                                                <span style={{color: 'red'}} className="text-green-500"><i
+                                                    className="fas fa-arrow-down"></i> {response.data || analytics}</span>
+                                            </td>
+                                        ) :
+                                        (
+                                            <td>
+                                                <span style={{color: 'blue'}} className="text-green-500"><i
+                                                    className="fas fa-arrows-alt-h"></i> {response.data || analytics}</span>
+                                            </td>
+                                        )
+
+                                    }
+
+                                    <td>
+                                        <Buttons onClick={() => this.handleDelete(key)}> <DeleteIcon /> </Buttons>
+                                    </td>
+                                </tr>
+                            )
+                            this.setState({elem: arrOfElements});
+
+                        })
                 })
             console.log(Object.entries(response.data).length)
             console.log(index)
-            index=index+1;
-            if(index === Object.entries(response.data).length){
+            index = index + 1;
+            if (index === Object.entries(response.data).length) {
 
             }
+
         }
+    }
+    handleDelete= (e) =>{
+        let portfolio_Req_Delete = {
+            email:localStorage.getItem("emailSession"),
+            coin_id:e
+
+        }
+        axios.post('http://localhost:8080/user/deleteportfolio',portfolio_Req_Delete)
+            .then((response) => {
+                this.generateInvestment(response);
+            })
+
 
     }
     handleAddInvestment= (e) =>{
         e.preventDefault()
-        console.log(this.state.id)
-        console.log(this.state.buy)
-        console.log(this.state.symbol)
-        console.log(localStorage.getItem("emailSession"))
+
         let  portfolio_Req = {
             email: localStorage.getItem("emailSession"),
             coin_id: this.state.id,
             symbol:this.state.symbol,
-            purchase:this.state.buy
+            purchase:this.state.buy,
+            sentiment:this.state.sentiment || 'i have to see more of it'
+
         }
 
         axios.post('http://localhost:8080/user/portfolioSave',portfolio_Req)
@@ -136,18 +177,17 @@ class Testing extends React.Component {
                     email: localStorage.getItem("emailSession"),
                     coin_id: this.state.id
                 }
-
+            })
                 axios.post('http://localhost:8080/user/getportfolio',portfolio_Req)
                     .then((responseobj) => {
-                        this.setState({response: responseobj});
-                        this.generateInvestment(responseobj);
+                        //this.setState({response: responseobj});
+                         this.generateInvestment(responseobj);
 
-
-                    })
             })
 
     }
     componentDidMount(){
+
         let  portfolio_Req = {
             email: localStorage.getItem("emailSession"),
             coin_id: ""
@@ -155,7 +195,7 @@ class Testing extends React.Component {
 
         axios.post('http://localhost:8080/user/getportfolio',portfolio_Req)
             .then((response) => {
-                //console.log(response.data);
+
                      this.generateInvestment(response);
             })
     }
@@ -247,6 +287,7 @@ class Testing extends React.Component {
                                         </Col>
 
                                         <Col lg="auto" className="my-1">
+
                                             <TextField multiline rows={"2"} margin={"normal"} label={"Sentiment"} className="form-control" id="exampleFormControlTextarea1" value={this.state.sentiment} onChange={e => this.setState({ sentiment: e.target.value })} >
 
                                             </TextField>
@@ -282,10 +323,10 @@ class Testing extends React.Component {
                     <tr>
                         <th scope="col"></th>
                         <th scope="col">Name</th>
-                        <th scope="col">Buy</th>
+                        <th scope="col">Quantity</th>
                         <th scope="col">Current Value</th>
                         <th scope="col">Predicted Value</th>
-                        <th scope="col">Change %</th>
+                        <th scope="col">Sentiment </th>
                     </tr>
                     </thead>
                     <tbody>

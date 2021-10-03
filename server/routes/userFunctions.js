@@ -239,10 +239,10 @@ const getPortforlio =async (email,crypto_ID)=>{
         });
     })
 }
-const portfolioSave =async (email, num_of_crypto, symbol, id)=>{
+const portfolioSave =async (email, num_of_crypto, symbol, id,sentiment)=>{
     let myObj = {};
     let newObj = {};
-    newObj[id] = {Buy: num_of_crypto, crypto_id: id, crypto_symbol:symbol};
+    newObj[id] = {Buy: num_of_crypto, crypto_id: id, crypto_symbol:symbol,sentiment:sentiment}
     let cmyObj = Object.assign({}, myObj, newObj);
     const portfolioObj= {
         portfolio: cmyObj
@@ -251,6 +251,19 @@ const portfolioSave =async (email, num_of_crypto, symbol, id)=>{
         firestore_db.saveData('Users', email, portfolioObj)
     }
     catch (er){return err}
+
+}
+const portfolioDelete=async (email, id)=>{
+    try{
+        let object = await getPortforlio(email, '');
+        delete object[id];
+        await firestore_db.deltePortfolio(email, object);
+        return object;
+
+    }
+    catch (err){
+        return err;
+    }
 
 }
 const saveToDB = async (arr, socialmedia , crypto)=> {
@@ -272,6 +285,6 @@ const saveToDB = async (arr, socialmedia , crypto)=> {
 }
 
 
-module.exports = {getPortforlio, portfolioSave, predictedObject, getPrices,getCoinPredictions, deleteUserAccount,getAnalysis,getPush,setPush,setNotification,saveToDB,getNotification,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, register, getCoinIDs}
+module.exports = {portfolioDelete,getPortforlio, portfolioSave, predictedObject, getPrices,getCoinPredictions, deleteUserAccount,getAnalysis,getPush,setPush,setNotification,saveToDB,getNotification,getRedditPost,getUserCrypto,fetchUserSocialMedia,followCrypto, unfollowCrypto, followSocialMedia, unfollowSocialMedia, register, getCoinIDs}
 
 

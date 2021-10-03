@@ -264,10 +264,10 @@ class Testing extends React.Component {
                     <tr>
                         <th scope="col"></th>
                         <th scope="col">Name</th>
-                        <th scope="col">Buy</th>
-                        <th scope="col">Current Value</th>
-                        <th scope="col">Predicted Value</th>
-                        <th scope="col">Change %</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Current Value(R)</th>
+                        <th scope="col">Predicted Value(R)</th>
+                        <th scope="col">Sentiment </th>
                     </tr>
                     </thead>
                     <tbody>

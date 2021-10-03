@@ -233,7 +233,7 @@ class Testing extends React.Component {
                                             </Form.Label>*/}
                                             <InputGroup>
                                                 {/*<Form.Control id="inlineFormInputGroupUsername" value={this.state.buy} onChange={e => this.setState({ buy: e.target.value })} placeholder="Enter Investment Amount" />*/}
-                                                <TextField required label={"Buy"} id="inlineFormInputGroupUsername" value={this.state.buy} onChange={e => this.setState({ buy: e.target.value })} placeholder="Enter Investment Amount">
+                                                <TextField required label={"Quantity"} id="inlineFormInputGroupUsername" value={this.state.buy} onChange={e => this.setState({ buy: e.target.value })} placeholder="Enter Investment Amount">
 
                                                 </TextField>
                                             </InputGroup>

@@ -97,9 +97,23 @@ class Testing extends React.Component {
                                     <td>{value.Buy}</td>
                                     <td>R{Math.round(last_response.data.current_price)}</td>
                                     <td>R{Math.round(last_response.data.predicted_price)}</td>
-                                    <td>
-                                        <span className="text-green-500"><i className="fas fa-arrow-up"></i> {response.data|| analytics }</span>
-                                    </td>
+                                    {response.data === 'positive' ? (
+                                        <td>
+                                            <span style={{ color: 'green' }} className="text-green-500"><i className="fas fa-arrow-up"></i> {response.data|| analytics }</span>
+                                        </td>
+                                    ) : response.data === 'negative'?(
+                                        <td>
+                                            <span style={{ color: 'red' }} className="text-green-500"><i className="fas fa-arrow-down"></i> {response.data|| analytics }</span>
+                                        </td>
+                                    ):
+                                        (
+                                            <td>
+                                                <span style={{ color: 'blue' }} className="text-green-500"><i className="fas fa-arrows-alt-h"></i> {response.data|| analytics }</span>
+                                            </td>
+                                        )
+
+                                    }
+
                                     <td> <DeleteIcon  onClick={()=>this.handleDelete(key)}/> </td>
                                 </tr>
                             )

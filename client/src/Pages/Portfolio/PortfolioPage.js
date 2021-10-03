@@ -6,6 +6,7 @@ import axios from "axios";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import {Link} from "react-router-dom";
 import {AppBar, TextField, Toolbar} from "@material-ui/core";
+import Table from "./Portfolio"
 import Box from "@material-ui/core/Box";
 import AddIcon from "@material-ui/icons/Add";
 import Buttons from "@material-ui/core/Button";
@@ -110,7 +111,8 @@ class Testing extends React.Component {
                                     <td>R{Math.round(last_response.data.predicted_price)}</td>
                                     {response.data === 'positive' ? (
                                         <td>
-                                            <span style={{color: 'green'}} className="text-green-500"><i
+                                            <span style={{color: 'green'}} className="text-green-500">
+                                                <i
                                                 className="fas fa-arrow-up"></i> {response.data || analytics}</span>
                                         </td>
                                     ) : response.data === 'negative' ? (

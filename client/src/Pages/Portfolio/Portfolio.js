@@ -115,6 +115,8 @@ const Portfolio = () => {
                                                                         <h1>{myCrypto.name}</h1>
                                                                         <h1 className='coin-symbol'>{myCrypto.symbol}</h1>
 
+
+
                                                                             <Button  href={"/Portfolios"} color={"transparent"}>
                                                                                 <KeyboardArrowRightIcon />
                                                                             </Button>

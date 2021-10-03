@@ -64,7 +64,7 @@ function Predictions() {
     return(
         <React.Fragment>
             <Sidebar />
-            <div className="container" style={{marginLeft:'300px'}} >
+            <div className="container" style={{marginLeft:'300px', fontFamily: 'Nunito'}} >
                 <div className="row">
                     <div className="col-md-12">
 

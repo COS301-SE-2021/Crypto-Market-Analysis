@@ -10,6 +10,11 @@ import Box from "@material-ui/core/Box";
 import AddIcon from "@material-ui/icons/Add";
 import Buttons from "@material-ui/core/Button";
 import {makeStyles} from "@material-ui/core/styles";
+import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
+import SendIcon from "@material-ui/icons/Send"
+import DeleteIcon from "@material-ui/icons/Delete"
+import LinkIcon from "@material-ui/icons/Link"
+
 import {
     View,
     Text,
@@ -17,6 +22,7 @@ import {
     Image,
     ScrollView,
 } from "react-native";
+import Container from "@material-ui/core/Container";
 
 
 class Testing extends React.Component {
@@ -73,7 +79,8 @@ class Testing extends React.Component {
                             </th>
                             <td>
                                 <Link style={{fontColor:"black"}} to={{pathname:"/home/DetailedInfo", state:{coin_name:key, coin_symbol:value.crypto_symbol, coin_id:key}}}>
-                                    <h4>{key}</h4>
+                                    <h4>{key} <LinkIcon /> </h4>
+
                                 </Link>
                             </td>
                             <td>{value.Buy}</td>
@@ -82,6 +89,7 @@ class Testing extends React.Component {
                             <td>
                                 <span className="text-green-500"><i className="fas fa-arrow-up"></i>5%</span>
                             </td>
+                            <td> <DeleteIcon /> </td>
                         </tr>
                     )
                     this.setState({elem: arrOfElements});
@@ -145,7 +153,7 @@ class Testing extends React.Component {
 <>
                 <Sidebar />
 
-                <div className="md:ml-64">
+                <div className="md:ml-64" style={{fontFamily:"Nunito"}}>
                     <h1>Portfolio</h1>
                             <div>
                                 <Box component={"span"} style={{display: "flex",
@@ -154,9 +162,8 @@ class Testing extends React.Component {
                                     paddingTop:20,
                                     paddingBottom: 5,
                                     paddingRight: 20}}>
-                                    <Buttons startIcon= {<AddIcon />} variant={'contained'} style={{
+                                    <Buttons startIcon= {<AddIcon />} color={"primary"} variant={'contained'} style={{
                                         textAlign: "center",
-                                        backgroundColor: "blue",
                                         color:"#FFFFF0",
                                         padding: "5px 5px",
                                         borderRadius: "8px",
@@ -222,17 +229,25 @@ class Testing extends React.Component {
 
                                         </Col>
                                         <Col lg="auto" className="my-1">
-                                            {/*<label htmlFor="exampleFormControlTextarea1" className="form-label">Sentiment</label>*/}
-                                            {/*<textarea className="form-control" id="exampleFormControlTextarea1" placeholder="Enter a short opinion/feelings about this cryptocurrency" value={this.state.sentiment} onChange={e => this.setState({ sentiment: e.target.value })}
-                                                      rows="5"></textarea>*/}
-
-                                            <TextField label={"Sentiment"} className="form-control" id="exampleFormControlTextarea1" value={this.state.sentiment} onChange={e => this.setState({ sentiment: e.target.value })} >
+                                            <TextField multiline rows={"2"} margin={"normal"} label={"Sentiment"} className="form-control" id="exampleFormControlTextarea1" value={this.state.sentiment} onChange={e => this.setState({ sentiment: e.target.value })} >
 
                                             </TextField>
 
                                         </Col>
                                         <Col xs="auto" className="my-1">
-                                            <Button type="submit" onClick={this.handleAddInvestment} data-dismiss="modal" aria-hidden="true" >Submit</Button>
+                                            <Container>
+                                                <Box component={"span"} style={{
+                                                    display: "inline-flex",
+                                                    justifyContent:'center',
+                                                    alignItems:"center",
+                                                    paddingTop:50,
+                                                    paddingBottom: 5,
+                                                }}>
+                                                <Buttons startIcon= {<SendIcon />} endIcon={<KeyboardArrowRightIcon />} color={"primary"} variant={'contained'} style={{
+                                                    textAlign: "center",
+                                                }} type="submit" onClick={this.handleAddInvestment} data-dismiss="modal" aria-hidden="true" >Submit</Buttons>
+                                                </Box>
+                                                </Container>
                                         </Col>
                                     </Row>
 

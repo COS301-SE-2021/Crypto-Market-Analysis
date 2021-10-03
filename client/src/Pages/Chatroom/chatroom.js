@@ -44,7 +44,7 @@ function Chatroom() {
 
         <React.Fragment>
         <Sidebar />
-            <div className="md:ml-64">
+            <div className="md:ml-64" style={{fontFamily: 'Nunito'}}>
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12">

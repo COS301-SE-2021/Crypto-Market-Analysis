@@ -74,7 +74,7 @@ function Comments() {
 
         <React.Fragment>
         <Sidebar />
-            <div className="md:ml-64">
+            <div className="md:ml-64" style={{fontFamily: 'Nunito'}}>
                 <Container fluid>
                     <Card.Header style={{backgroundColor:"rgba(0,0,0,0)"}}>
                         <div className="forum-title">
@@ -150,7 +150,7 @@ function Comments() {
 
                     </div>
                 </div>
-                <Modal show={show} >
+                <Modal show={show} style={{fontFamily: 'Nunito'}} >
             <Modal.Header>
                 <span className="uppercase font-bold ">Reply</span>
                 <i className="fas fa-times cursor-pointer text-blueGray-700" onClick={()=>{setShow(false)}}></i>

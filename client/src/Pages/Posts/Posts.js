@@ -187,7 +187,7 @@ function Posts() {
         <React.Fragment>
 
 
-        <Modal show={show} >
+        <Modal show={show} style={{fontFamily: 'Nunito'}}>
             <Modal.Header>
                 <span className="uppercase font-bold">New Post</span>
                 <i className="fas fa-times cursor-pointer text-blueGray-700" onClick={()=>{setShow(false)}}></i>
@@ -225,7 +225,7 @@ function Posts() {
             </Modal.Body>
         </Modal>
         <Sidebar />
-            <div className="md:ml-64">
+            <div className="md:ml-64" style={{fontFamily: 'Nunito'}}>
                 <Container fluid>
                     <Card.Header style={{backgroundColor:"rgba(0,0,0,0)"}}>
                     <div className="forum-title">

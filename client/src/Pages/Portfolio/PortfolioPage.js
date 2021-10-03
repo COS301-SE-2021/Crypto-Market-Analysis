@@ -211,7 +211,7 @@ class Testing extends React.Component {
                             <Toolbar style={{ width:'50%',
                                 margin:'0 auto'} }>
                                 <Typography variant={"h4"} style={{textAlign:"center"}}>
-                                    Portfolio
+                                   Your Portfolio
                                 </Typography>
 
                             </Toolbar>
@@ -236,6 +236,17 @@ class Testing extends React.Component {
                                     Add transaction
                                 </Buttons>
 
+                            </Box>
+                        </div>
+
+                        <div>
+                            <Box component={"span"} style={{display: "flex",
+                                justifyContent:'flex-start',
+                                alignItems:"flex-start",
+                                paddingTop:50,
+                                paddingBottom: 5,
+                                paddingLeft: 20}}>
+                                   <h2>Your Assets</h2>
                             </Box>
                         </div>
 

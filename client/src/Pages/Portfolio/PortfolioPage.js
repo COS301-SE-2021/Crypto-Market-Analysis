@@ -177,11 +177,6 @@ class Testing extends React.Component {
 
                      this.generateInvestment(response);
             })
-        axios.post('https://analysis-services-api.herokuapp.com/ArticleAnalytics',portfolio_Req)
-            .then((response) => {
-                //console.log(response.data);
-                this.generateInvestment(response);
-            })
     }
     render() {
 

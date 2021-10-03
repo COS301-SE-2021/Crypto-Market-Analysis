@@ -37,6 +37,7 @@ class Testing extends React.Component {
             buy: "",
             sentiment:"",
             elem:[],
+            deleted:"",
             change: '',
             response:{}
         }
@@ -89,7 +90,7 @@ class Testing extends React.Component {
                             <td>
                                 <span className="text-green-500"><i className="fas fa-arrow-up"></i>5%</span>
                             </td>
-                            <td> <DeleteIcon /> </td>
+                            <td> <DeleteIcon  onClick={()=>this.handleDelete(key)}/> </td>
                         </tr>
                     )
                     this.setState({elem: arrOfElements});
@@ -104,6 +105,17 @@ class Testing extends React.Component {
         }
 
     }
+    handleDelete= (e) =>{
+        let portfolio_Req_Delete = {
+            email:localStorage.getItem("emailSession"),
+            coin_id:e
+
+        }
+        axios.post('http://localhost:8080/user/deleteportfolio',portfolio_Req_Delete)
+            .then((response) => {
+                this.generateInvestment(response);
+            })
+    }
     handleAddInvestment= (e) =>{
         e.preventDefault()
         console.log(this.state.id)
@@ -114,7 +126,8 @@ class Testing extends React.Component {
             email: localStorage.getItem("emailSession"),
             coin_id: this.state.id,
             symbol:this.state.symbol,
-            purchase:this.state.buy
+            purchase:this.state.buy,
+
         }
 
         axios.post('http://localhost:8080/user/portfolioSave',portfolio_Req)

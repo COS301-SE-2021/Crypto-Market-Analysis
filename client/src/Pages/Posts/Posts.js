@@ -235,6 +235,11 @@ function Posts() {
                     <div className="mx-auto text-center">
                         <i className="fas fa-plus-circle fa-5x mx-auto mt-3 cursor-pointer" style={{color:"#03989e"}} onClick={()=>{setShow(true)}}></i>
                     </div>
+
+                    <div className="w-full uppercase text-xs font-bold px-0 mt-4 text-center" style={{color:"#58667e"}}>
+                    <p>Click on a the arrow in the card to view more information</p>
+                    <p>Click on a the green tags to filter cards</p>
+                </div>
                 </Container>
                 
                 

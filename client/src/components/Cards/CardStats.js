@@ -41,6 +41,7 @@ export default function CardStats({
               {statPercent}% 
             </span>
             <span className="whitespace-nowrap">{statDescripiron}</span>
+            <i className="fa fa-chevron-right fa-lg float-right" aria-hidden="true"></i>
           </p>
         </div>
       </div>

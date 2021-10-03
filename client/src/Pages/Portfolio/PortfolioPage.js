@@ -5,8 +5,25 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import axios from "axios";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import {Link} from "react-router-dom";
+import {TextField} from "@material-ui/core";
+import Box from "@material-ui/core/Box";
+import AddIcon from "@material-ui/icons/Add";
+import Buttons from "@material-ui/core/Button";
+import {makeStyles} from "@material-ui/core/styles";
+import {
+    View,
+    Text,
+    SafeAreaView,
+    Image,
+    ScrollView,
+} from "react-native";
+
+
 class Testing extends React.Component {
+
     constructor(props) {
+
+
         super(props)
         this.state = {
             id: "",
@@ -16,6 +33,21 @@ class Testing extends React.Component {
             elem:[],
             change: '',
             response:{}
+        }
+        this.state = {
+            box: {
+                height: 80,
+                display: "inline-flex",
+                padding:1,
+            },
+            centerBox:{
+                display: "flex",
+                justifyContent:'flex-end',
+                alignItems:"flex-end",
+                paddingTop:100,
+                paddingBottom: 0,
+                paddingRight: 20
+            }
         }
         this.handleAddInvestment = this.handleAddInvestment.bind(this);
         this. generateInvestment= this. generateInvestment.bind(this);
@@ -34,22 +66,24 @@ class Testing extends React.Component {
             axios.post('http://localhost:8080/user/portfolio',portfoliofetch )
                 .then((last_response) => {
                     console.log(last_response.data.crypto_data)
-                    arrOfElements.push(<tr>
-                        <th scope="row"><img src={last_response.data.crypto_data.map(a => a.image)} alt="Logo" /></th>
-                        <td>
-                            <Link to={{pathname:"/home/DetailedInfo", state:{coin_name:key, coin_symbol:value.crypto_symbol, coin_id:key}}}> <button
-                                className="bg-primary hover:bg-primary-dark text-white font-light py-1 px-2 rounded-full">
-                                 {key}
-                            </button></Link>
-                        </td>
-
-                        <td>{value.Buy}</td>
-                        <td>{Math.round(last_response.data.current_price)}</td>
-                        <td>{Math.round(last_response.data.predicted_price)}</td>
-                        <td>
-                            <span className="text-green-500"><i className="fas fa-arrow-up"></i>5%</span>
-                        </td>
-                    </tr>)
+                    arrOfElements.push(
+                        <tr>
+                            <th scope="row">
+                                <img style={{width:30, height:30, borderRadius: 15,borderWidth:0.5, borderColor: "#ddd"}} src={last_response.data.crypto_data.map(a => a.image)} alt="Logo" />
+                            </th>
+                            <td>
+                                <Link style={{fontColor:"black"}} to={{pathname:"/home/DetailedInfo", state:{coin_name:key, coin_symbol:value.crypto_symbol, coin_id:key}}}>
+                                    <h4>{key}</h4>
+                                </Link>
+                            </td>
+                            <td>{value.Buy}</td>
+                            <td>R{Math.round(last_response.data.current_price)}</td>
+                            <td>R{Math.round(last_response.data.predicted_price)}</td>
+                            <td>
+                                <span className="text-green-500"><i className="fas fa-arrow-up"></i>5%</span>
+                            </td>
+                        </tr>
+                    )
                     this.setState({elem: arrOfElements});
 
                 })
@@ -79,12 +113,11 @@ class Testing extends React.Component {
             .then((data) => {
                 portfolio_Req = {
                     email: localStorage.getItem("emailSession"),
-                    coin_id: ""
+                    coin_id: this.state.id
                 }
 
                 axios.post('http://localhost:8080/user/getportfolio',portfolio_Req)
                     .then((responseobj) => {
-                        //console.log(response.data);
                         this.setState({response: responseobj});
                         this.generateInvestment(responseobj);
 
@@ -103,71 +136,100 @@ class Testing extends React.Component {
             .then((response) => {
                 //console.log(response.data);
                      this.generateInvestment(response);
-
-
             })
-
-
     }
     render() {
 
         return (
 
-            <div className="maincontainer">
+<>
                 <Sidebar />
+
                 <div className="md:ml-64">
-                <div className="container py-5">
+                    <h1>Portfolio</h1>
+                            <div>
+                                <Box component={"span"} style={{display: "flex",
+                                    justifyContent:'flex-end',
+                                    alignItems:"flex-end",
+                                    paddingTop:20,
+                                    paddingBottom: 5,
+                                    paddingRight: 20}}>
+                                    <Buttons startIcon= {<AddIcon />} variant={'contained'} style={{
+                                        textAlign: "center",
+                                        backgroundColor: "blue",
+                                        color:"#FFFFF0",
+                                        padding: "5px 5px",
+                                        borderRadius: "8px",
+                                        outline: "1px",
+                                        width: "20%",
+                                        fontSize:10,
+                                    }} data-target="#quoteForm" data-toggle="modal" >
+                                        Add transaction
+                                    </Buttons>
+                                </Box>
 
-
-                    <div className="py-5">
-                        <div className="row">
-
-                            <div className="col-lg-6 mb-5">
-                                <button className="btn btn-primary" type="button" data-target="#quoteForm" data-toggle="modal">Add Investment</button>
+                                {/*<button className="btn btn-primary" type="button" data-target="#quoteForm" data-toggle="modal">Add Investment</button>*/}
                             </div>
 
-                        </div>
-                    </div>
-                </div>
+
+
                 {/* GET a QUOTE MODAL */}
-                <div className="modal fade" id="quoteForm" tabindex="-1" role="dialog" aria-labelledby="quoteForm" aria-hidden="true">
+                <div className="modal fade" id="quoteForm" tabIndex="-1" role="dialog" aria-labelledby="quoteForm" aria-hidden="true">
                     <div className="modal-dialog modal-lg modal-dialog-centered" role="document">
                         <div className="modal-content p-md-3">
                             <div className="modal-header">
-                                <h4 className="modal-title">Track cryptocurrency <span class="text-primary">investment</span></h4>
+                                <h4 className="modal-title">Track cryptocurrency <span className="text-primary">investment</span></h4>
                                 <button className="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                             </div>
                             <div className="modal-body">
                                 <Form>
                                     <Row className="align-items-center">
                                         <Col sm={4} className="my-1">
-                                            <Form.Label htmlFor="inlineFormInputName" visuallyHidden>
+                                            {/* <Form.Label htmlFor="inlineFormInputName" visuallyHidden>
                                                 ID <span className="text-primary ml-1">*</span>
-                                            </Form.Label>
+                                            </Form.Label>*/}
                                             <InputGroup>
-                                              <Form.Control id="inlineFormInputName" value={this.state.id} onChange={e => this.setState({ id: e.target.value })} placeholder="Enter cryto ID" />
+                                                {/*<Form.Control id="inlineFormInputName" value={this.state.id} onChange={e => this.setState({ id: e.target.value })} placeholder="Enter cryto ID" />*/}
+
+                                                <TextField required label={"ID"} id="inlineFormInputName" value={this.state.id} onChange={e => this.setState({ id: e.target.value })} placeholder="Enter cryto ID">
+
+                                                </TextField>
                                             </InputGroup>
                                         </Col>
                                         <Col sm={4} className="my-1">
-                                            <Form.Label htmlFor="inlineFormInputGroupUsername" visuallyHidden>
+                                            {/*<Form.Label htmlFor="inlineFormInputGroupUsername" visuallyHidden>
                                                 Symbol<span className="text-primary ml-1">*</span>
-                                            </Form.Label>
+                                            </Form.Label>*/}
                                             <InputGroup>
-                                                <Form.Control id="inlineFormInputGroupUsername" value={this.state.symbol} onChange={e => this.setState({ symbol: e.target.value })} placeholder="Enter the symbol" />
+                                                {/*<Form.Control id="inlineFormInputGroupUsername" value={this.state.symbol} onChange={e => this.setState({ symbol: e.target.value })} placeholder="Enter the symbol" />*/}
+                                                <TextField required label={"Symbol"} id="inlineFormInputGroupUsername" value={this.state.symbol} onChange={e => this.setState({ symbol: e.target.value })} placeholder="Enter the symbol">
+
+                                                </TextField>
                                             </InputGroup>
                                         </Col>
                                         <Col sm={3} className="my-1">
-                                            <Form.Label htmlFor="inlineFormInputGroupUsername" visuallyHidden>
+                                            {/*<Form.Label htmlFor="inlineFormInputGroupUsername" visuallyHidden>
                                                 Buy<span className="text-primary ml-1">*</span>
-                                            </Form.Label>
+                                            </Form.Label>*/}
                                             <InputGroup>
-                                                <Form.Control id="inlineFormInputGroupUsername" value={this.state.buy} onChange={e => this.setState({ buy: e.target.value })} placeholder="Enter Investment Amount" />
+                                                {/*<Form.Control id="inlineFormInputGroupUsername" value={this.state.buy} onChange={e => this.setState({ buy: e.target.value })} placeholder="Enter Investment Amount" />*/}
+                                                <TextField required label={"Buy"} id="inlineFormInputGroupUsername" value={this.state.buy} onChange={e => this.setState({ buy: e.target.value })} placeholder="Enter Investment Amount">
+
+                                                </TextField>
                                             </InputGroup>
+
+
+
                                         </Col>
                                         <Col lg="auto" className="my-1">
-                                            <label htmlFor="exampleFormControlTextarea1" className="form-label">Sentiment</label>
-                                            <textarea className="form-control" id="exampleFormControlTextarea1" placeholder="Enter a short opinion/feelings about this cryptocurrency" value={this.state.sentiment} onChange={e => this.setState({ sentiment: e.target.value })}
-                                                      rows="5"></textarea>
+                                            {/*<label htmlFor="exampleFormControlTextarea1" className="form-label">Sentiment</label>*/}
+                                            {/*<textarea className="form-control" id="exampleFormControlTextarea1" placeholder="Enter a short opinion/feelings about this cryptocurrency" value={this.state.sentiment} onChange={e => this.setState({ sentiment: e.target.value })}
+                                                      rows="5"></textarea>*/}
+
+                                            <TextField label={"Sentiment"} className="form-control" id="exampleFormControlTextarea1" value={this.state.sentiment} onChange={e => this.setState({ sentiment: e.target.value })} >
+
+                                            </TextField>
+
                                         </Col>
                                         <Col xs="auto" className="my-1">
                                             <Button type="submit" onClick={this.handleAddInvestment} data-dismiss="modal" aria-hidden="true" >Submit</Button>
@@ -179,16 +241,18 @@ class Testing extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className="table-responsive">
-                <table className="table text-grey-darkest">
-                    <thead className="bg-grey-dark text-black text-normal">
+                    <SafeAreaView style={{flex: 1, backgroundColor:"white"}}>
+                    <ScrollView style={{flex:1}}>
+                    <div className="table-responsive">
+                <table className="table sort-table text-grey-darkest" style={{fontFamily: 'Nunito'}}>
+                    <thead className="bg-grey-dark text-black text-normal ">
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Cryptocurrency</th>
-                        <th scope="col">Value</th>
-                        <th scope="col">current</th>
-                        <th scope="col">Predicted</th>
-                        <th scope="col">Change</th>
+                        <th scope="col"></th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Buy</th>
+                        <th scope="col">Current Value</th>
+                        <th scope="col">Predicted Value</th>
+                        <th scope="col">Change %</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -196,9 +260,13 @@ class Testing extends React.Component {
                     </tbody>
                 </table>
                 </div>
-                </div>
-            </div>
 
+                    </ScrollView>
+                        </SafeAreaView>
+                </div>
+
+
+</>
 
         )
     };

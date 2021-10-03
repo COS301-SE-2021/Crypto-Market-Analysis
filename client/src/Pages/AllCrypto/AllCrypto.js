@@ -198,7 +198,7 @@ export default function AllCryptos(props)
     return(
         <React.Fragment>       
             <ModalComp show={show} cancel={onCancel} continue={OnContinue} />
-            <div className="container">
+            <div className="container" style={{fontFamily: 'Nunito'}}>
                 <div className="row"> 
                     <div className="crypto-search">
                         <input type="search" className="form-control rounded" placeholder="Search..."

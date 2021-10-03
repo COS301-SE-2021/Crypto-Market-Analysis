@@ -272,7 +272,7 @@ const Profile = props =>
             }}/>
             <Sidebar />
             <script sync src="https://platform.twitter.com/widgets.js%22%3E"></script>
-            <div className="md:ml-64">
+            <div className="md:ml-64" style={{fontFamily: 'Nunito'}}>
                 <div className="container" >
 
                     <Container>

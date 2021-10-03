@@ -33,7 +33,7 @@ function Home(){
         <React.Fragment>
            
             <Sidebar />
-            <div className="md:ml-64">
+            <div className="md:ml-64" style={{fontFamily: 'Nunito'}}>
                 <div className="container" >
                     <div className="row pb-5 pt-3" style={{backgroundColor:"rgba(203, 213, 225,0.7)"}}>
                         {

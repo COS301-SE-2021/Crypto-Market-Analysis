@@ -392,8 +392,9 @@ router.post("/getportfolio", async (request,response, next)=>{
  * */
 router.post("/deleteportfolio", async (request,response, next)=>{
     try{
-        const obj= await userFunctions.getPortforlio(request.body.email, request.body.coin_id);
+        const obj= await userFunctions.portfolioDelete(request.body.email, request.body.coin_id);
         response.status(200).json(obj);
+
     }
     catch (err){
         response.status(400).json("error while fetching portfolio");

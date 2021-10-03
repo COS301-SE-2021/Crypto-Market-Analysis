@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Form, Button, Alert,Row,Col ,InputGroup} from "react-bootstrap"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
@@ -89,7 +89,7 @@ class Testing extends React.Component {
                             <td>
                                 <span className="text-green-500"><i className="fas fa-arrow-up"></i>5%</span>
                             </td>
-                            <td> <DeleteIcon /> </td>
+                            <td> <Buttons color={"transparent"}> <DeleteIcon /> </Buttons>  </td>
                         </tr>
                     )
                     this.setState({elem: arrOfElements});
@@ -145,6 +145,10 @@ class Testing extends React.Component {
                 //console.log(response.data);
                      this.generateInvestment(response);
             })
+    }
+
+    portfolioDelete(){
+
     }
     render() {
 

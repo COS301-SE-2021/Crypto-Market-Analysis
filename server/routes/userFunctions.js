@@ -46,18 +46,21 @@ const getPush=async(email)=>{
 }
 const getPrices = async (url)=>{
     return new Promise(function (resolve, reject) {
-        https.get(url, res => {
-            let data = '';
-            res.on('data', chunk => {
-                data += chunk;
-            });
-            res.on('end', () => {
-                data = JSON.parse(data);
-                resolve(data);
+        try {
+            https.get(url, res => {
+                let data = '';
+                res.on('data', chunk => {
+                    data += chunk;
+                });
+                res.on('end', () => {
+                    data = JSON.parse(data);
+                    resolve(data);
+                })
+            }).on('error', err => {
+                reject(err.message);
             })
-        }).on('error', err => {
-            reject(err.message);
-        })
+        }
+        catch (err){return err}
     })
 }
 const predictedObject = async (email,symbol)=>{

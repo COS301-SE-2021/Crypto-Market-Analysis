@@ -205,7 +205,7 @@ class Notifications extends React.Component {
         const objectdata= {};
         this.setState({elem: []});
         this.generateData(objectdata);
-
+        window.location.reload(true);
     }
  
     generateID=  (email, crypto_name)=>{

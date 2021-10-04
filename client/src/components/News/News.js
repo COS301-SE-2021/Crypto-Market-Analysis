@@ -108,6 +108,7 @@ const Dropdown = () => {
 export default function News(props) {
     let [loading, setLoading] = useState(true);
     useEffect(() => {
+        
         let news_element = document.getElementById(`news-articles`);
         let news_parent_element = document.getElementById(`news`);
 
@@ -201,18 +202,19 @@ export default function News(props) {
                 news_parent_element.style.cssText = `margin:auto; margin-top:1em; width:50% ;`
             }
             
-        setLoading(false);
+        
         }).catch(error => {
             console.error(`An error occurred while trying to retrieve the news articles: ${error}`);
             news_parent_element.innerHTML = "";
             news_parent_element.innerHTML = `<div class={'text-blueGray-600 inline-block text-sm uppercase font-bold'}>Cannot get news articles at this moment. Please try again later</div>`;
             news_parent_element.style.cssText = `margin:auto; margin-top:1em; width:50% ;`
         });
-
+        setTimeout(()=>{
+        setLoading(false)},15000)
         return() => {
             news_parent_element.innerHTML = "";
         }
-
+        
     }, []);
 
     return (
@@ -220,10 +222,10 @@ export default function News(props) {
          
             <div id={`news`} className={`row`}>
                 <Dropdown/>
-                {/* {loading ?
+                {loading ?
                     <div className="row col-12">
                         <div className="mx-auto mt-16 text-center"><ClipLoader loading={loading} size={150}/></div>
-                    </div> : */}
+                    </div> : <React.Fragment> </React.Fragment>}
                     <div id={`news-articles`} className={`row mt-3 ml-5 col-12`}>
                    
                     </div>

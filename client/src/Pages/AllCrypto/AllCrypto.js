@@ -205,7 +205,7 @@ export default function AllCryptos(props)
                                     onChange={searchCoin}/>
                     </div>
                     
-                    <div className='coin-container'>
+                    {/* <div className='coin-container'>
                         <div className='coin-row'>
                                
                                 <div className='w-full flex ml-3' style={{justifyContent:"space-between"}}>
@@ -219,7 +219,7 @@ export default function AllCryptos(props)
                                     </p>
                                 </div>
                         </div>
-                    </div>
+                    </div> */}
                     <div className=" overflow-auto block crypto-wrapper" style={{height:"600px",margin:"auto"}}>
                         {loading ? <ClipLoader loading={loading} size={150} />:
                         searchedCryptos.length < 1 ? <div id="response-alert"><p className="text-center">Oops :( <br/>We don't have that coin</p></div>

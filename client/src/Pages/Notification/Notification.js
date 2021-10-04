@@ -270,6 +270,7 @@ class Notifications extends React.Component {
     generateData(object_response){
         let ppo = 0;
         let counter = 0;
+        let unreadNum = 0;
         this.setState({og_list:[]})
         for (const [key, value] of Object.entries(object_response)) {
             ppo=ppo+1;
@@ -317,6 +318,7 @@ class Notifications extends React.Component {
                 </Alert>)
             }
             else if(value.Read===false){
+                unreadNum =unreadNum+1;
                 notification_Array.push( <Alert variant="info">
 
                     <i className="far fa-bell"></i>
@@ -341,7 +343,7 @@ class Notifications extends React.Component {
                 </Alert>)
             }
             if(i=== Object.keys(objectOfNotificationdata).length){
-                this.setState({elem: notification_Array});
+                this.setState({elem: notification_Array,unread:unreadNum});
             }
         }
     }
@@ -416,7 +418,7 @@ class Notifications extends React.Component {
                                                             <div className="card panel-read">
                                                                 <div className="toast-header">
                                                                     <Link to={{pathname:"/home/DetailedInfo", state:{coin_name:obj.content.split(" ")[0], coin_symbol:"btc", coin_id:"bitcoin"}}} onClick={()=>{this.handleView(obj.time)}}>
-                                                                        <span className= "text-blueGray-700 mr-auto uppercase font-bold">{obj.content.split(" ")[0]}</span>
+                                                                        <span className= "text-blueGray-700 mr-auto uppercase font-bold">{obj.content.split(" ")[0]} &nbsp;</span>
                                                                     </Link>
                                                                     <small>{moment(obj.time).format('DD/MM/YYYY HH:mm')}</small>
                                                                     <button type="button" onClick={()=>{this.handleDelete(obj.time)}} value={obj.time} className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
@@ -433,7 +435,7 @@ class Notifications extends React.Component {
                                                             <div className="card panel-unread">
                                                                 <div className="toast-header">
                                                                     <Link to={{pathname:"/home/DetailedInfo", state:{coin_name:obj.content.split(" ")[0], coin_symbol:"btc", coin_id:"bitcoin"}}} onClick={()=>{this.handleView(obj.time)}}>
-                                                                        <span className= "text-blueGray-700 mr-auto uppercase font-bold">{obj.content.split(" ")[0]}</span>
+                                                                        <span className= "text-blueGray-700 mr-auto uppercase font-bold">{obj.content.split(" ")[0]}&nbsp;</span>
                                                                     </Link>
                                                                     <small>{moment(obj.time).format('DD/MM/YYYY HH:mm')}</small>
                                                                     <button type="button" onClick={()=>{this.handleDelete(obj.time)}} value={obj.time} className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">

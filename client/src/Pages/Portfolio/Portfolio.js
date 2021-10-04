@@ -108,9 +108,12 @@ const Portfolio = () => {
 
 
 
-                                                            <Button  href={"/Portfolios"} data-dismiss="modal" aria-hidden="true" data-target="#quoteForm" data-toggle="modal" color={"transparent"}>
+                                                            <Link to={{
+                                                                pathname: "/portfolios",coin_symbol: myCrypto.symbol, coin_name: myCrypto.id
+
+                                                            }} data-dismiss="modal" aria-hidden="true" data-target="#quoteForm" data-toggle="modal" color={"transparent"}>
                                                                 <KeyboardArrowRightIcon />
-                                                            </Button>
+                                                            </Link>
 
 
                                                         </div>

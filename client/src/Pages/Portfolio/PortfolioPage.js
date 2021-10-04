@@ -37,7 +37,9 @@ class Testing extends React.Component {
             elem:[],
             deleted:"",
             change: '',
-            response:{}
+            response:{},
+            change_id: props.location.coin_symbol ||  '',
+            change_symbol: props.location.coin_id || ""
         }
         this.state = {
             box: {
@@ -266,10 +268,7 @@ class Testing extends React.Component {
                 <div className="modal fade" id="tableForm" tabIndex="-1" role="dialog" aria-labelledby="quoteForm" aria-hidden="true">
                     <div className="modal-dialog modal-lg modal-dialog-centered" role="document">
                         <div className="modal-content p-md-3">
-                            <div className="modal-header">
-                                <h4 className="modal-title">List of <span className="text-primary">CryptoCurrencies</span></h4>
-                                <button className="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                            </div>
+
                             <div className="modal-body">
                                <Portfolio/>
                             </div>
@@ -290,14 +289,14 @@ class Testing extends React.Component {
 
                                                     <InputGroup>
 
-                                                        <TextField required label={"ID"} id="inlineFormInputName" value={this.state.id} onChange={e => this.setState({ id: e.target.value })} placeholder="Enter cryto ID">
+                                                        <TextField required label={ 'this is the data'+ this.state.change_id} id="inlineFormInputName" value={this.state.id} onChange={e => this.setState({ id: e.target.value })} placeholder={this.state.coin_name}>
 
                                                         </TextField>
                                                     </InputGroup>
                                                 </Col>
                                                 <Col sm={4} className="my-1">
                                                     <InputGroup>
-                                                        <TextField required label={"Symbol"} id="inlineFormInputGroupUsername" value={this.state.symbol} onChange={e => this.setState({ symbol: e.target.value })} placeholder="Enter the symbol">
+                                                        <TextField required label={ 'this is the data'+ this.state.change_symbol} id="inlineFormInputGroupUsername" value={this.state.symbol} onChange={e => this.setState({ symbol: e.target.value })} placeholder={this.state.coin_symbol}>
                                                         </TextField>
                                                     </InputGroup>
                                                 </Col>

@@ -109,7 +109,7 @@ class Testing extends React.Component {
                                     <td>{value.Buy}</td>
                                     <td>R{last_response.data.current_price}</td>
                                     {last_response.data.predicted_price === 0 ? (
-                                        <td>Not/Available at the Moment</td>
+                                        <td style={{color: 'red'}}>Not/Available at the Moment</td>
                                     ) : (
                                         <td>R{last_response.data.predicted_price}</td>
                                     )}

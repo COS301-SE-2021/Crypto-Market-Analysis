@@ -38,8 +38,8 @@ class Testing extends React.Component {
             deleted:"",
             change: '',
             response:{},
-            change_id: props.location.coin_symbol ||  '',
-            change_symbol: props.location.coin_id || ""
+            change_id: '',
+            change_symbol:  ""
         }
         this.state = {
             box: {
@@ -58,6 +58,12 @@ class Testing extends React.Component {
         }
         this.handleAddInvestment = this.handleAddInvestment.bind(this);
         this. generateInvestment= this. generateInvestment.bind(this);
+        this.handleToUpdate = this.handleToUpdate.bind(this);
+
+    }
+    handleToUpdate(id,symbol){
+        this.setState({change_id:id,change_symbol:symbol});
+
     }
     generateInvestment= (response) => {
 
@@ -123,9 +129,6 @@ class Testing extends React.Component {
 
                                     }
 
-                                    <td>
-                                        2%
-                                    </td>
 
                                         {last_response.data.crypto_data[0].price_change_percentage_24h < 0 ? (
                                         <td className='coin-percent red'> {last_response.data.crypto_data[0].price_change_percentage_24h.toFixed(2)}% </td>
@@ -163,10 +166,11 @@ class Testing extends React.Component {
     }
     handleAddInvestment= (e) =>{
         e.preventDefault()
+        console.log(this.state.change_id)
         let  portfolio_Req = {
             email: localStorage.getItem("emailSession"),
-            coin_id: this.state.id,
-            symbol:this.state.symbol,
+            coin_id: this.state.change_id,
+            symbol:this.state.change_symbol,
             purchase:this.state.buy,
             sentiment:this.state.sentiment || 'i have to see more of it'
         }
@@ -197,10 +201,14 @@ class Testing extends React.Component {
 
                      this.generateInvestment(response);
             })
+        console.log('i am in component')
+        if (typeof this.props.location.coin_symbol != 'undefined') {
+            console.log(this.props.location.coin_symbol)
+        }
     }
 
     render() {
-
+        const handleToUpdate = this.handleToUpdate;
         return (
 
             <React.Fragment>
@@ -259,8 +267,10 @@ class Testing extends React.Component {
                                 alignItems:"flex-start",
                                 paddingTop:50,
                                 paddingBottom: 5,
+                                backgroundColor: "#ADD8E6",
+                                color:"#FFFFF0",
                                 paddingLeft: 20}}>
-                                   <h2>Your Assets</h2>
+                                   <h2>Assets</h2>
                             </Box>
                         </div>
 
@@ -270,7 +280,7 @@ class Testing extends React.Component {
                         <div className="modal-content p-md-3">
 
                             <div className="modal-body">
-                               <Portfolio/>
+                               <Portfolio handleToUpdate = {handleToUpdate.bind(this)}/>
                             </div>
                         </div>
                     </div>
@@ -289,14 +299,14 @@ class Testing extends React.Component {
 
                                                     <InputGroup>
 
-                                                        <TextField disabled={true} required label={ 'this is the data '+ this.props.location.coin_name} id="inlineFormInputName" value={this.state.id} onChange={e => this.setState({ id: e.target.value })} placeholder={this.state.coin_name}>
+                                                        <TextField disabled={true} required label={'Crypto id'} id="inlineFormInputName" value={this.state.change_id} onChange={e => this.setState({ id: this.state.change_id})} placeholder={this.state.coin_name}>
 
                                                         </TextField>
                                                     </InputGroup>
                                                 </Col>
                                                 <Col sm={4} className="my-1">
                                                     <InputGroup>
-                                                        <TextField disabled={true} required label={ 'this is the data '+ this.props.location.coin_symbol} id="inlineFormInputGroupUsername" value={this.state.symbol} onChange={e => this.setState({ symbol: e.target.value })} placeholder={this.state.coin_symbol}>
+                                                        <TextField disabled={true} required label={'Crypto symbol'} id="inlineFormInputGroupUsername" value={this.state.change_symbol} onChange={e => this.setState({ symbol: this.state.change_symbol })} placeholder={this.state.coin_symbol}>
                                                         </TextField>
                                                     </InputGroup>
                                                 </Col>
@@ -344,7 +354,7 @@ class Testing extends React.Component {
                                             <th scope="col">Current Value</th>
                                             <th scope="col">Predicted Value</th>
                                             <th scope="col">Sentiment </th>
-                                            <th scope="col">Gain/Loss </th>
+
                                             <th scope="col"> 24H </th>
                                             <th scope="col">Actions</th>
                                         </tr>

@@ -17,7 +17,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import TextField from "@material-ui/core/TextField";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import {IconButton, Link} from "@material-ui/core";
-
+import Input from "./inputPortfolio"
 const useStyles = makeStyles((theme) => ({
     box: {
         height: 80,
@@ -35,7 +35,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const Portfolio = () => {
+const Portfolio = (props) => {
+    const handleToUpdate = props.handleToUpdate;
     const classes = useStyles();
     let [coinData, setCoinData] = useState([])
     const [openModal, setOpenModal] = useState(false);
@@ -60,15 +61,6 @@ const Portfolio = () => {
 
     },[]);
 
-    /*
-      Get a list of coins from Coingecko. For each crypto, check if it matches crypto a user
-      follows and mark it as selected
-  */
-    function getCoins(coinsList){
-
-    }
-    getCoins();
-    //sets search to whats typed in the search input field
     const searchCoin = (event) => { setSearchCrypto(event.target.value) }
 
 
@@ -108,12 +100,13 @@ const Portfolio = () => {
 
 
 
-                                                            <Link to={{
+                                                            <button onClick={() => handleToUpdate(myCrypto.id,myCrypto.symbol)} to={{
                                                                 pathname: "/portfolios",coin_symbol: myCrypto.symbol, coin_name: myCrypto.id
 
                                                             }} data-dismiss="modal" aria-hidden="true" data-target="#quoteForm" data-toggle="modal" color={"transparent"}>
+
                                                                 <KeyboardArrowRightIcon />
-                                                            </Link>
+                                                            </button>
 
 
                                                         </div>

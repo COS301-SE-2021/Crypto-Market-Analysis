@@ -289,25 +289,25 @@ class Testing extends React.Component {
 
                                                     <InputGroup>
 
-                                                        <TextField required label={ 'this is the data'+ this.state.change_id} id="inlineFormInputName" value={this.state.id} onChange={e => this.setState({ id: e.target.value })} placeholder={this.state.coin_name}>
+                                                        <TextField disabled={true} required label={ 'this is the data '+ this.props.location.coin_name} id="inlineFormInputName" value={this.state.id} onChange={e => this.setState({ id: e.target.value })} placeholder={this.state.coin_name}>
 
                                                         </TextField>
                                                     </InputGroup>
                                                 </Col>
                                                 <Col sm={4} className="my-1">
                                                     <InputGroup>
-                                                        <TextField required label={ 'this is the data'+ this.state.change_symbol} id="inlineFormInputGroupUsername" value={this.state.symbol} onChange={e => this.setState({ symbol: e.target.value })} placeholder={this.state.coin_symbol}>
+                                                        <TextField disabled={true} required label={ 'this is the data '+ this.props.location.coin_symbol} id="inlineFormInputGroupUsername" value={this.state.symbol} onChange={e => this.setState({ symbol: e.target.value })} placeholder={this.state.coin_symbol}>
                                                         </TextField>
                                                     </InputGroup>
                                                 </Col>
                                                 <Col sm={3} className="my-1">
                                                     <InputGroup>
-                                                        <TextField required label={"Buy"} id="inlineFormInputGroupUsername" value={this.state.buy} onChange={e => this.setState({ buy: e.target.value })} placeholder="Enter Investment Amount">
+                                                        <TextField required label={"Quantity"} id="inlineFormInputGroupUsername " value={this.state.buy} onChange={e => this.setState({ buy: e.target.value })} placeholder="Enter Quantity Amount">
                                                         </TextField>
                                                     </InputGroup>
                                                 </Col>
                                                 <Col lg="auto" className="my-1">
-                                                    <TextField multiline rows={"2"} margin={"normal"} label={"Sentiment"} className="form-control" id="exampleFormControlTextarea1" value={this.state.sentiment} onChange={e => this.setState({ sentiment: e.target.value })} >
+                                                    <TextField multiline cols={"12"} rows={"3"} margin={"normal"} label={"Sentiment"} className="form-control" id="exampleFormControlTextarea1" value={this.state.sentiment} onChange={e => this.setState({ sentiment: e.target.value })}  placeholder="Enter Your feelings/Opinion">
 
                                                     </TextField>
                                                 </Col>

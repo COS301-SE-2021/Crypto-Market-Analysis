@@ -237,8 +237,8 @@ function Posts() {
                     </div>
 
                     <div className="w-full uppercase text-xs font-bold px-0 mt-4 text-center" style={{color:"#58667e"}}>
-                    <p>Click on a the arrow in the card to view more information</p>
-                    <p>Click on a the green tags to filter cards</p>
+                    <p>Click on the arrow in the card to view more information</p>
+                    <p>Click on the tags inside the cards to filter cards</p>
                 </div>
                 </Container>
                 

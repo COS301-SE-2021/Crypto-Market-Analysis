@@ -166,7 +166,7 @@ class Testing extends React.Component {
     }
     handleAddInvestment= (e) =>{
         e.preventDefault()
-        console.log(this.state.change_id)
+
         let  portfolio_Req = {
             email: localStorage.getItem("emailSession"),
             coin_id: this.state.change_id,
@@ -179,14 +179,15 @@ class Testing extends React.Component {
             .then((data) => {
                 portfolio_Req = {
                     email: localStorage.getItem("emailSession"),
-                    coin_id: this.state.id
+                    coin_id: this.state.change_id
                 }
-            })
                 axios.post('http://localhost:8080/user/getportfolio',portfolio_Req)
-                    .then((responseobj) => {
-                        //this.setState({response: responseobj});
-                         this.generateInvestment(responseobj);
+                    .then((response) => {
+                        this.generateInvestment(response);
+                    })
+                window.location.reload(true);
             })
+
 
     }
     componentDidMount(){
@@ -201,10 +202,6 @@ class Testing extends React.Component {
 
                      this.generateInvestment(response);
             })
-        console.log('i am in component')
-        if (typeof this.props.location.coin_symbol != 'undefined') {
-            console.log(this.props.location.coin_symbol)
-        }
     }
 
     render() {

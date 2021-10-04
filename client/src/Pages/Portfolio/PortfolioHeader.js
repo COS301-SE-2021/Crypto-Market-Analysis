@@ -7,6 +7,7 @@ import HomeIcon from '@material-ui/icons/Home'
 import {Link} from "react-router-dom";
 import React, {useEffect, useState} from 'react';
 import PortfolioModal from "./PortfolioModal";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
     root:{

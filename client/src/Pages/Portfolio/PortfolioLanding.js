@@ -10,6 +10,7 @@ import Button from "@material-ui/core/Button"
 import PortfolioHeader from "./PortfolioHeader";
 import PortfolioFeatures from "./PortfolioFeatures";
 import PortfolioModal from "./PortfolioModal";
+import Sidebar from "../../components/Sidebar/Sidebar";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -28,6 +29,7 @@ export default function PortfolioLanding() {
     return(
         <div className={classes.root}>
             <CssBaseline />
+            <Sidebar />
             <PortfolioHeader />
             <PortfolioFeatures />
 

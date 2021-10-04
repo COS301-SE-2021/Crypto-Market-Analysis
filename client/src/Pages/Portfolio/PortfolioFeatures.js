@@ -11,18 +11,19 @@ const useStyles = makeStyles((theme) => ({
     roots: {
         minHeight: '100vh',
         display:'flex',
-        justifyContent:'center',
-        alignItems:'center',
+        justifyContent:'flex-end',
+        alignItems:'space-evenly',
         [theme.breakpoints.down("md")]:{
             flexDirection:'column',
-        }
+        },
+        textAlign:"center"
     },
     root:{
         minHeight: '100vh',
         display:'flex',
-        justifyContent:'center',
-        alignItems:'center',
-
+        justifyContent:'flex-end',
+        alignItems:'flex-end',
+        textAlign:"center"
     }
 }));
 export default function PortfolioFeatures() {

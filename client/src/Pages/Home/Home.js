@@ -22,12 +22,8 @@ function Home(){
         Triggers headerstats component to refresh crypto cards
     */
     const alertObserver = ()=>{
-        if(favObserver){
-            setFavObserver(false)
-        }
-        else{
-            setFavObserver(true)
-        }
+        
+        setFavObserver(!favObserver)
     }
     return (
         <React.Fragment>

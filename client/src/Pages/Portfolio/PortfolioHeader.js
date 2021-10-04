@@ -7,20 +7,19 @@ import HomeIcon from '@material-ui/icons/Home'
 import {Link} from "react-router-dom";
 import React, {useEffect, useState} from 'react';
 import PortfolioModal from "./PortfolioModal";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
     root:{
         display:'flex',
-        justifyContent:'flex-end',
-        alignItems:'flex-end',
+        justifyContent:'center',
+        alignItems:'center',
         height:'100vh',
-        fontFamily:'Nunito',
-        textAlign:"center"
+        fontFamily:'Nunito'
     },
     appbar:{
         background:"black",
         fontFamily: 'Nunito',
-        width:"81.25%"
     },
     appbarTitle:{
         flexGrow: '1',
@@ -37,18 +36,15 @@ const useStyles = makeStyles((theme) => ({
         color: 'black'
     },
     container:{
-        textAlign:'center',
-        width:"81.25%"
+        textAlign:'center'
     },
     title:{
         color:'black',
-        fontSize: '4.5rem',
-        textAlign:"center"
+        fontSize: '4.5rem'
     },
     goDown:{
         color:'green',
         fontSize:'3em',
-        position:"inherit"
     }
 }));
 export default function PortfolioHeader() {
@@ -89,17 +85,11 @@ export default function PortfolioHeader() {
                         borderRadius: "5px",
                         outline: "5px",
                         width: "40%",
-                        top:"0px"
-                    }} href={"/portfolio"} className={'btn-modal'}>
+                    }} href={"/portfolios"}>
                         Create portfolio
                     </Button>
 
-                    <Scroll to={"to-place-to-visit"} smooth={true}>
-                        <IconButton style={{position:"absolute",display:"block", top:"100%", right:"33%"}}>
-                            <ExpandMoreIcon className={classes.goDown}>
-                            </ExpandMoreIcon>
-                        </IconButton>
-                    </Scroll>
+
 
                 </div>
             </Collapse>

@@ -4,8 +4,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import axios from "axios";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import Portfolio from "./Portfolio"
 import {Link} from "react-router-dom";
-import {AppBar, TextField, Toolbar} from "@material-ui/core";
+import {AppBar, Button, TextField, Toolbar} from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import AddIcon from "@material-ui/icons/Add";
 import Buttons from "@material-ui/core/Button";
@@ -36,7 +37,9 @@ class Testing extends React.Component {
             elem:[],
             deleted:"",
             change: '',
-            response:{}
+            response:{},
+            change_id: '',
+            change_symbol:  ""
         }
         this.state = {
             box: {
@@ -55,6 +58,12 @@ class Testing extends React.Component {
         }
         this.handleAddInvestment = this.handleAddInvestment.bind(this);
         this. generateInvestment= this. generateInvestment.bind(this);
+        this.handleToUpdate = this.handleToUpdate.bind(this);
+
+    }
+    handleToUpdate(id,symbol){
+        this.setState({change_id:id,change_symbol:symbol});
+
     }
     generateInvestment= (response) => {
 
@@ -98,8 +107,12 @@ class Testing extends React.Component {
                                         </Link>
                                     </td>
                                     <td>{value.Buy}</td>
-                                    <td>R{Math.round(last_response.data.current_price)}</td>
-                                    <td>R{Math.round(last_response.data.predicted_price)}</td>
+                                    <td>R{last_response.data.current_price}</td>
+                                    {last_response.data.predicted_price === 0 ? (
+                                        <td style={{color: 'red'}}>Not/Available at the Moment</td>
+                                    ) : (
+                                        <td>R{last_response.data.predicted_price}</td>
+                                    )}
                                     {response.data === 'positive' ? (
                                         <td>
                                             <span style={{color: 'green'}} className="text-green-500"><i
@@ -120,9 +133,6 @@ class Testing extends React.Component {
 
                                     }
 
-                                    <td>
-                                        2%
-                                    </td>
 
                                         {last_response.data.crypto_data[0].price_change_percentage_24h < 0 ? (
                                         <td className='coin-percent red'> {last_response.data.crypto_data[0].price_change_percentage_24h.toFixed(2)}% </td>
@@ -160,10 +170,11 @@ class Testing extends React.Component {
     }
     handleAddInvestment= (e) =>{
         e.preventDefault()
+
         let  portfolio_Req = {
             email: localStorage.getItem("emailSession"),
-            coin_id: this.state.id,
-            symbol:this.state.symbol,
+            coin_id: this.state.change_id,
+            symbol:this.state.change_symbol,
             purchase:this.state.buy,
             sentiment:this.state.sentiment || 'i have to see more of it'
         }
@@ -172,14 +183,15 @@ class Testing extends React.Component {
             .then((data) => {
                 portfolio_Req = {
                     email: localStorage.getItem("emailSession"),
-                    coin_id: this.state.id
+                    coin_id: this.state.change_id
                 }
-            })
                 axios.post('http://localhost:8080/user/getportfolio',portfolio_Req)
-                    .then((responseobj) => {
-                        //this.setState({response: responseobj});
-                         this.generateInvestment(responseobj);
+                    .then((response) => {
+                        this.generateInvestment(response);
+                    })
+                window.location.reload(true);
             })
+
 
     }
     componentDidMount(){
@@ -197,7 +209,7 @@ class Testing extends React.Component {
     }
 
     render() {
-
+        const handleToUpdate = this.handleToUpdate;
         return (
 
             <React.Fragment>
@@ -206,16 +218,16 @@ class Testing extends React.Component {
 
                 <div className="md:ml-64" style={{fontFamily:"Nunito"}}>
                     <div className="container" >
-                        <AppBar style={{ background:"transparent",
-                            fontFamily: 'Nunito', width:"81.25%", textAlign:"center", position:"fixed", color:"black"}} elevation={1}>
-                            <Toolbar style={{ width:'50%',
-                                margin:'0 auto'} }>
-                                <Typography variant={"h4"} style={{textAlign:"center"}}>
-                                   Your Portfolio
-                                </Typography>
+                        {/*<AppBar style={{ background:"transparent",*/}
+                        {/*    fontFamily: 'Nunito', width:"81.25%", textAlign:"center", position:"fixed", color:"black"}} elevation={1}>*/}
+                        {/*    <Toolbar style={{ width:'50%',*/}
+                        {/*        margin:'0 auto'} }>*/}
+                        {/*        <Typography variant={"h4"} style={{textAlign:"center"}}>*/}
+                        {/*           Your Portfolio*/}
+                        {/*        </Typography>*/}
 
-                            </Toolbar>
-                        </AppBar>
+                        {/*    </Toolbar>*/}
+                        {/*</AppBar>*/}
                         <div>
                             <Box component={"span"} style={{display: "flex",
                                 justifyContent:'flex-end',
@@ -224,17 +236,28 @@ class Testing extends React.Component {
                                 paddingBottom: 5,
                                 paddingRight: 20}}>
 
-                                <Buttons startIcon= {<AddIcon />} color={"primary"} variant={'contained'} style={{
+                                {/*<Buttons startIcon= {<AddIcon />} color={"primary"} variant={'contained'} style={{*/}
+                                {/*    textAlign: "center",*/}
+                                {/*    color:"#FFFFF0",*/}
+                                {/*    padding: "5px 5px",*/}
+                                {/*    borderRadius: "8px",*/}
+                                {/*    outline: "1px",*/}
+                                {/*    width: "20%",*/}
+                                {/*    fontSize:10,*/}
+                                {/*}} data-target="#quoteForm" data-toggle="modal" >*/}
+                                {/*    Add transaction*/}
+                                {/*</Buttons>*/}
+                                <Button variant={'contained'} style={{
                                     textAlign: "center",
+                                    backgroundColor: "blue",
                                     color:"#FFFFF0",
-                                    padding: "5px 5px",
-                                    borderRadius: "8px",
-                                    outline: "1px",
+                                    padding: "5px 15px",
+                                    borderRadius: "5px",
+                                    outline: "5px",
                                     width: "20%",
-                                    fontSize:10,
-                                }} data-target="#quoteForm" data-toggle="modal" >
+                                }} data-target="#tableForm" data-toggle="modal" >
                                     Add transaction
-                                </Buttons>
+                                </Button>
 
                             </Box>
                         </div>
@@ -245,69 +268,81 @@ class Testing extends React.Component {
                                 alignItems:"flex-start",
                                 paddingTop:50,
                                 paddingBottom: 5,
+                                backgroundColor: "#ADD8E6",
+                                color:"#FFFFF0",
                                 paddingLeft: 20}}>
-                                   <h2>Your Assets</h2>
+                                   <h2>Assets</h2>
                             </Box>
                         </div>
 
                 {/* GET a QUOTE MODAL */}
-                <div className="modal fade" id="quoteForm" tabIndex="-1" role="dialog" aria-labelledby="quoteForm" aria-hidden="true">
+                <div className="modal fade" id="tableForm" tabIndex="-1" role="dialog" aria-labelledby="quoteForm" aria-hidden="true">
                     <div className="modal-dialog modal-lg modal-dialog-centered" role="document">
                         <div className="modal-content p-md-3">
-                            <div className="modal-header">
-                                <h4 className="modal-title">Track cryptocurrency <span className="text-primary">investment</span></h4>
-                                <button className="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                            </div>
+
                             <div className="modal-body">
-                                <Form>
-                                    <Row className="align-items-center">
-                                        <Col sm={4} className="my-1">
-
-                                            <InputGroup>
-
-                                                <TextField required label={"ID"} id="inlineFormInputName" value={this.state.id} onChange={e => this.setState({ id: e.target.value })} placeholder="Enter cryto ID">
-
-                                                </TextField>
-                                            </InputGroup>
-                                        </Col>
-                                        <Col sm={4} className="my-1">
-                                            <InputGroup>
-                                                 <TextField required label={"Symbol"} id="inlineFormInputGroupUsername" value={this.state.symbol} onChange={e => this.setState({ symbol: e.target.value })} placeholder="Enter the symbol">
-                                                </TextField>
-                                            </InputGroup>
-                                        </Col>
-                                        <Col sm={3} className="my-1">
-                                            <InputGroup>
-                                               <TextField required label={"Buy"} id="inlineFormInputGroupUsername" value={this.state.buy} onChange={e => this.setState({ buy: e.target.value })} placeholder="Enter Investment Amount">
-                                                </TextField>
-                                            </InputGroup>
-                                        </Col>
-                                        <Col lg="auto" className="my-1">
-                                            <TextField multiline rows={"2"} margin={"normal"} label={"Sentiment"} className="form-control" id="exampleFormControlTextarea1" value={this.state.sentiment} onChange={e => this.setState({ sentiment: e.target.value })} >
-
-                                            </TextField>
-                                        </Col>
-                                        <Col xs="auto" className="my-1">
-                                            <Container>
-                                                <Box component={"span"} style={{
-                                                    display: "inline-flex",
-                                                    justifyContent:'center',
-                                                    alignItems:"center",
-                                                    paddingTop:50,
-                                                    paddingBottom: 5,
-                                                }}>
-                                                <Buttons startIcon= {<SendIcon />} endIcon={<KeyboardArrowRightIcon />} color={"primary"} variant={'contained'} style={{
-                                                    textAlign: "center",
-                                                }} type="submit" onClick={this.handleAddInvestment} data-dismiss="modal" aria-hidden="true" >Submit</Buttons>
-                                                </Box>
-                                                </Container>
-                                        </Col>
-                                    </Row>
-                                </Form>
+                               <Portfolio handleToUpdate = {handleToUpdate.bind(this)}/>
                             </div>
                         </div>
                     </div>
                 </div>
+                        <div className="modal fade" id="quoteForm" tabIndex="-1" role="dialog" aria-labelledby="quoteForm" aria-hidden="true">
+                            <div className="modal-dialog modal-lg modal-dialog-centered" role="document">
+                                <div className="modal-content p-md-3">
+                                    <div className="modal-header">
+                                        <h4 className="modal-title">Track cryptocurrency <span className="text-primary">investment</span></h4>
+                                        <button className="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                    </div>
+                                    <div className="modal-body">
+                                        <Form>
+                                            <Row className="align-items-center">
+                                                <Col sm={4} className="my-1">
+
+                                                    <InputGroup>
+
+                                                        <TextField disabled={true} required label={'Crypto id'} id="inlineFormInputName" value={this.state.change_id} onChange={e => this.setState({ id: this.state.change_id})} placeholder={this.state.coin_name}>
+
+                                                        </TextField>
+                                                    </InputGroup>
+                                                </Col>
+                                                <Col sm={4} className="my-1">
+                                                    <InputGroup>
+                                                        <TextField disabled={true} required label={'Crypto symbol'} id="inlineFormInputGroupUsername" value={this.state.change_symbol} onChange={e => this.setState({ symbol: this.state.change_symbol })} placeholder={this.state.coin_symbol}>
+                                                        </TextField>
+                                                    </InputGroup>
+                                                </Col>
+                                                <Col sm={3} className="my-1">
+                                                    <InputGroup>
+                                                        <TextField required label={"Quantity"} id="inlineFormInputGroupUsername " value={this.state.buy} onChange={e => this.setState({ buy: e.target.value })} placeholder="Enter Quantity Amount">
+                                                        </TextField>
+                                                    </InputGroup>
+                                                </Col>
+                                                <Col lg="auto" className="my-1">
+                                                    <TextField multiline cols={"12"} rows={"3"} margin={"normal"} label={"Sentiment"} className="form-control" id="exampleFormControlTextarea1" value={this.state.sentiment} onChange={e => this.setState({ sentiment: e.target.value })}  placeholder="Enter Your feelings/Opinion">
+
+                                                    </TextField>
+                                                </Col>
+                                                <Col xs="auto" className="my-1">
+                                                    <Container>
+                                                        <Box component={"span"} style={{
+                                                            display: "inline-flex",
+                                                            justifyContent:'center',
+                                                            alignItems:"center",
+                                                            paddingTop:50,
+                                                            paddingBottom: 5,
+                                                        }}>
+                                                            <Buttons startIcon= {<SendIcon />} endIcon={<KeyboardArrowRightIcon />} color={"primary"} variant={'contained'} style={{
+                                                                textAlign: "center",
+                                                            }} type="submit" onClick={this.handleAddInvestment} data-dismiss="modal" aria-hidden="true" >Submit</Buttons>
+                                                        </Box>
+                                                    </Container>
+                                                </Col>
+                                            </Row>
+                                        </Form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     <SafeAreaView style={{flex: 1, backgroundColor:"white"}}>
                         <ScrollView style={{flex:1}}>
                             <div className="table-responsive" style={{overflowX:"auto"}}>
@@ -320,7 +355,7 @@ class Testing extends React.Component {
                                             <th scope="col">Current Value</th>
                                             <th scope="col">Predicted Value</th>
                                             <th scope="col">Sentiment </th>
-                                            <th scope="col">Gain/Loss </th>
+
                                             <th scope="col"> 24H </th>
                                             <th scope="col">Actions</th>
                                         </tr>

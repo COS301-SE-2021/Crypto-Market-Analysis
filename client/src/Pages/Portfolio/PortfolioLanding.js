@@ -28,11 +28,11 @@ export default function PortfolioLanding() {
     const classes = useStyles();
     return(
         <div className={classes.root}>
+
             <CssBaseline />
             <Sidebar />
             <PortfolioHeader />
             <PortfolioFeatures />
-
 
         </div>
     )

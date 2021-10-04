@@ -23,8 +23,6 @@ export default function PortfolioModal (props) {
     let [cryptos, setCryptos] = useState([]);
     let [show, setShow] = useState(props.show);
 
-
-
     useEffect( () => {
         axios.get('https://api.coingecko.com/api/v3/coins/')
             .then( response => {

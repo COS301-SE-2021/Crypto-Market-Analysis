@@ -72,6 +72,7 @@ export default function PortfolioHeader() {
 
             <Collapse in={checked} {...(checked ? {timeout: 1000} : {})} collapsedHeight={50}>
                 <div className={classes.container}>
+
                     <h1 className={classes.title}>
                         Cryptosis <br/> <span className={classes.colorText}>Portfolio Tracker</span>
                     </h1>

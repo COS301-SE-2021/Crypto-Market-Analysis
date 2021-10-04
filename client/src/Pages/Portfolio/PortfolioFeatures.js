@@ -41,7 +41,6 @@ export default function PortfolioFeatures() {
             </div>
         </div>
 
-
     )
 
 }

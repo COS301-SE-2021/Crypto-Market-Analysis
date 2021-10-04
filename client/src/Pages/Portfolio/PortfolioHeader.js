@@ -83,7 +83,7 @@ export default function PortfolioHeader() {
                         borderRadius: "5px",
                         outline: "5px",
                         width: "40%",
-                    }} href={"/portfolio"} className={'btn-modal'}>
+                    }} href={"/portfolios"}>
                         Create portfolio
                     </Button>
 

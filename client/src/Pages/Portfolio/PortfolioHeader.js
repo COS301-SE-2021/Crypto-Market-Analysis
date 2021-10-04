@@ -12,14 +12,16 @@ import axios from "axios";
 const useStyles = makeStyles((theme) => ({
     root:{
         display:'flex',
-        justifyContent:'center',
+        justifyContent:'flex-end',
         alignItems:'center',
         height:'100vh',
-        fontFamily:'Nunito'
+        fontFamily:'Nunito',
+        textAlign:"center"
     },
     appbar:{
         background:"black",
         fontFamily: 'Nunito',
+        width:"81.25%"
     },
     appbarTitle:{
         flexGrow: '1',
@@ -33,7 +35,8 @@ const useStyles = makeStyles((theme) => ({
         fontSize:"2rem",
     },
     colorText:{
-        color: 'black'
+        color: 'black',
+        width:"81.25%"
     },
     container:{
         textAlign:'center'

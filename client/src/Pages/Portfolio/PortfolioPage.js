@@ -39,7 +39,8 @@ class Testing extends React.Component {
             change: '',
             response:{},
             change_id: '',
-            change_symbol:  ""
+            change_symbol:  "",
+            total: 0
         }
         this.state = {
             box: {
@@ -59,12 +60,12 @@ class Testing extends React.Component {
         this.handleAddInvestment = this.handleAddInvestment.bind(this);
         this. generateInvestment= this. generateInvestment.bind(this);
         this.handleToUpdate = this.handleToUpdate.bind(this);
-
     }
     handleToUpdate(id,symbol){
         this.setState({change_id:id,change_symbol:symbol});
 
     }
+
     generateInvestment= (response) => {
 
         const arrOfElements = [];
@@ -77,6 +78,8 @@ class Testing extends React.Component {
             axios.post('https://analysis-services-api.herokuapp.com/ArticleAnalytics', analyseReq)
                 .then((response) => {
                     analytics = 'no sentiment for this cryptoCurrency';
+
+                    console.log(Object.entries(response.data))
                     let portfoliofetch = {
                         email: localStorage.getItem("emailSession"),
                         coin_id: key,
@@ -147,6 +150,7 @@ class Testing extends React.Component {
                             )
                             this.setState({elem: arrOfElements});
 
+
                         })
                 })
             console.log(Object.entries(response.data).length)
@@ -181,6 +185,7 @@ class Testing extends React.Component {
 
         axios.post('http://localhost:8080/user/portfolioSave',portfolio_Req)
             .then((data) => {
+
                 portfolio_Req = {
                     email: localStorage.getItem("emailSession"),
                     coin_id: this.state.change_id
@@ -188,6 +193,7 @@ class Testing extends React.Component {
                 axios.post('http://localhost:8080/user/getportfolio',portfolio_Req)
                     .then((response) => {
                         this.generateInvestment(response);
+
                     })
                 window.location.reload(true);
             })
@@ -203,7 +209,6 @@ class Testing extends React.Component {
 
         axios.post('http://localhost:8080/user/getportfolio',portfolio_Req)
             .then((response) => {
-
                      this.generateInvestment(response);
             })
     }
@@ -228,26 +233,16 @@ class Testing extends React.Component {
 
                         {/*    </Toolbar>*/}
                         {/*</AppBar>*/}
+
                         <div>
                             <Box component={"span"} style={{display: "flex",
                                 justifyContent:'flex-end',
                                 alignItems:"flex-end",
-                                paddingTop:150,
+                                paddingTop:5,
                                 paddingBottom: 5,
                                 paddingRight: 20}}>
 
-                                {/*<Buttons startIcon= {<AddIcon />} color={"primary"} variant={'contained'} style={{*/}
-                                {/*    textAlign: "center",*/}
-                                {/*    color:"#FFFFF0",*/}
-                                {/*    padding: "5px 5px",*/}
-                                {/*    borderRadius: "8px",*/}
-                                {/*    outline: "1px",*/}
-                                {/*    width: "20%",*/}
-                                {/*    fontSize:10,*/}
-                                {/*}} data-target="#quoteForm" data-toggle="modal" >*/}
-                                {/*    Add transaction*/}
-                                {/*</Buttons>*/}
-                                <Button variant={'contained'} style={{
+                                <Button startIcon= {<AddIcon />} variant={'contained'} style={{
                                     textAlign: "center",
                                     backgroundColor: "blue",
                                     color:"#FFFFF0",

@@ -181,7 +181,7 @@ export default function AllCryptos(props)
             })]
             setCryptos(cryptos)
         }
-
+       
         let func = props.alert
         func() //alert observer in parent component to trigger change in headerstat
     }

@@ -22,7 +22,7 @@ function Home(){
         Triggers headerstats component to refresh crypto cards
     */
     const alertObserver = ()=>{
-        
+       
         setFavObserver(!favObserver)
     }
     return (

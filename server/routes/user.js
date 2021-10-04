@@ -378,7 +378,7 @@ router.post("/getportfolio", async (request,response, next)=>{
        response.status(200).json(obj);
    }
   catch (err){
-      response.status(400).json("error while fetching portfolio");
+      response.status(200).json({});
   }
 
 });

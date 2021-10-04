@@ -167,6 +167,7 @@ class Testing extends React.Component {
             .then((response) => {
                 this.generateInvestment(response);
             })
+        window.location.reload(true);
     }
     handleAddInvestment= (e) =>{
         e.preventDefault()

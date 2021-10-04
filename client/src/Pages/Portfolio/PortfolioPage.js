@@ -218,16 +218,16 @@ class Testing extends React.Component {
 
                 <div className="md:ml-64" style={{fontFamily:"Nunito"}}>
                     <div className="container" >
-                        <AppBar style={{ background:"transparent",
-                            fontFamily: 'Nunito', width:"81.25%", textAlign:"center", position:"fixed", color:"black"}} elevation={1}>
-                            <Toolbar style={{ width:'50%',
-                                margin:'0 auto'} }>
-                                <Typography variant={"h4"} style={{textAlign:"center"}}>
-                                   Your Portfolio
-                                </Typography>
+                        {/*<AppBar style={{ background:"transparent",*/}
+                        {/*    fontFamily: 'Nunito', width:"81.25%", textAlign:"center", position:"fixed", color:"black"}} elevation={1}>*/}
+                        {/*    <Toolbar style={{ width:'50%',*/}
+                        {/*        margin:'0 auto'} }>*/}
+                        {/*        <Typography variant={"h4"} style={{textAlign:"center"}}>*/}
+                        {/*           Your Portfolio*/}
+                        {/*        </Typography>*/}
 
-                            </Toolbar>
-                        </AppBar>
+                        {/*    </Toolbar>*/}
+                        {/*</AppBar>*/}
                         <div>
                             <Box component={"span"} style={{display: "flex",
                                 justifyContent:'flex-end',

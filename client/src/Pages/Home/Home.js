@@ -22,8 +22,7 @@ function Home(){
         Triggers headerstats component to refresh crypto cards
     */
     const alertObserver = ()=>{
-        console.log("favObserver before")
-        console.log(favObserver)
+       
         setFavObserver(!favObserver)
     }
     return (

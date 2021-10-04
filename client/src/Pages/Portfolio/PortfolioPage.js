@@ -107,8 +107,12 @@ class Testing extends React.Component {
                                         </Link>
                                     </td>
                                     <td>{value.Buy}</td>
-                                    <td>R{Math.round(last_response.data.current_price)}</td>
-                                    <td>R{Math.round(last_response.data.predicted_price)}</td>
+                                    <td>R{last_response.data.current_price}</td>
+                                    {last_response.data.predicted_price === 0 ? (
+                                        <td>Not/Available at the Moment</td>
+                                    ) : (
+                                        <td>R{last_response.data.predicted_price}</td>
+                                    )}
                                     {response.data === 'positive' ? (
                                         <td>
                                             <span style={{color: 'green'}} className="text-green-500"><i

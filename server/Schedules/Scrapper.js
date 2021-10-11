@@ -45,7 +45,7 @@ const scrape=async ()=>{
         });
     })
     let chans = new chan()
-    chans.crawlCatalogue().then(response => {
+    await chans.crawlCatalogue().then(response => {
         let cryptos = ['bitcoin','ethereum','tether','binance','cardano','dogecoin','xrp','polkadot','litecoin','vechain','monero','btc','eth','usdt','bnb','ada','doge','ripple','chainlink','link','vet','xmr','shib'];
         let fin = []
         for(let i=0;i<response.length;i++)
@@ -74,5 +74,5 @@ const scrape=async ()=>{
 }
 
 scrape().then(data=>{
-        process.exit(0);
+      //  process.exit(0);
 })

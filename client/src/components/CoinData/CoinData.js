@@ -60,7 +60,7 @@ const CoinData = ({ data }) => {
     })
 
     return (
-        <div>
+        <div style={{fontFamily: 'Nunito'}}>
 
             <div width={500}>
 
@@ -68,7 +68,7 @@ const CoinData = ({ data }) => {
 
             </div>
 
-            <div className="chart-button mt-1">
+            <div className="chart-button mt-1" style={{fontFamily: 'Nunito'}}>
                 <ButtonGroup variant={"contained"} size={"large"} color={"default"} >
                     <Button onClick={() => setTimeFormat("24h")} style={{
                         textAlign: "center",

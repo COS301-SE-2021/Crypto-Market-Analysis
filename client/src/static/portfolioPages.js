@@ -1,4 +1,3 @@
-import link from '../components/ImageCard/CryptoForum.png'
 
 const places = [
     {

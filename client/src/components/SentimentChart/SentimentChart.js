@@ -101,7 +101,7 @@ const SentimentChart = ({data}) => {
 
 
     return (
-        <div>
+        <div style={{fontFamily: 'Nunito'}}>
 
             <div>
 
@@ -122,8 +122,6 @@ const SentimentChart = ({data}) => {
             </div>
 
         </div>
-
-
 
     )
 }

@@ -1,4 +1,3 @@
-import link from '../components/ImageCard/CryptoForum.png'
 
 const places = [
     {
@@ -23,4 +22,5 @@ const places = [
         time: 1500,
     },
 ];
+
 export default places;

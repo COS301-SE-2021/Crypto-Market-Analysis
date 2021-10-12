@@ -333,7 +333,7 @@ router.post("/sendMail", async (req, res, next) => {
  * */
 router.post("/portfolioSave", async (request,response, next)=>{
         try{
-            const data = userFunctions.portfolioSave(request.body.email, request.body.purchase, request.body.symbol, request.body.coin_id);
+            const data = userFunctions.portfolioSave(request.body.email, request.body.purchase, request.body.symbol, request.body.coin_id,request.body.sentiment);
             response.status(200).json("successfully saved to database");
         }
         catch (err){
@@ -352,21 +352,53 @@ router.post("/portfolioSave", async (request,response, next)=>{
 }
  * */
 router.post("/portfolio", async (request,response, next)=>{
-    const url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=ZAR&ids="+ request.body.coin_id+"&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=1h";
-    const obj = await  userFunctions.getPrices(url);
-    const data = await userFunctions.predictedObject(request.body.email, request.body.symbol)
-    const currentValue = obj.map(a => a.current_price) * request.body.purchase;
-    const predictedValue = data.map(a => a.close) * request.body.purchase;
-    response.status(200).json({crypto_data :obj , current_price: currentValue , predicted_price: predictedValue});
+   try {
+       const url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=ZAR&ids=" + request.body.coin_id + "&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=1h";
+       const obj = await userFunctions.getPrices(url);
+       const data = await userFunctions.predictedObject(request.body.email, request.body.symbol)
+       const currentValue = obj.map(a => a.current_price) * request.body.purchase;
+       const predictedValue = data.map(a => a.close) * request.body.purchase;
+       response.status(200).json({crypto_data: obj, current_price: currentValue, predicted_price: predictedValue});
+   }
+   catch(err){
+       response.status(400).json("error while creating portfolio");
+   }
 });
+/** This function only takes an email and returns portfolio and empty coin id
+ *  *@param request object example
+ eg {
+    "email":"mojohnnylerato@gmail.com",
+    "coin_id": "" //keep the id empty for get portfolio
+
+}
+ * */
 router.post("/getportfolio", async (request,response, next)=>{
    try{
        const obj= await userFunctions.getPortforlio(request.body.email, request.body.coin_id);
        response.status(200).json(obj);
    }
   catch (err){
-      response.status(400).json("error while fetching portfolio");
+      response.status(200).json({});
   }
+
+});
+/** This function deletes portfolio of purchased crypto and returns new object
+ *  *@param request object example
+ eg {
+    "email":"mojohnnylerato@gmail.com",
+    "coin_id": "bitcoin"
+
+}
+ * */
+router.post("/deleteportfolio", async (request,response, next)=>{
+    try{
+        const obj= await userFunctions.portfolioDelete(request.body.email, request.body.coin_id);
+        response.status(200).json(obj);
+
+    }
+    catch (err){
+        response.status(400).json("error while fetching portfolio");
+    }
 
 });
 module.exports = router

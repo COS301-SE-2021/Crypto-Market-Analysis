@@ -16,12 +16,13 @@ import Chat from "./Pages/Chatroom/chatroom"
 import Comments from "./Pages/Comments/Comments"
 import Posts from "./Pages/Posts/Posts"
 import Subreddits from "./Pages/Subreddits/Subreddits"
+import Tag from "./Pages/Tag/Tag"
 //import Predictions from "./Pages/Predictions/Predictions"
 import {BrowserRouter as Router , Switch} from "react-router-dom";
 import { AuthProvider } from "./Auth/Auth"
 import LandingPage from "./Pages/LandingPage/LandingPage"
 import Portfolio from "./Pages/Portfolio/Portfolio"
-
+import Testing from "./Pages/Portfolio/PortfolioPage"
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import React,{ useEffect } from 'react';
 import Predictions from "./Pages/Predictions/Predictions";
@@ -69,10 +70,13 @@ function App() {
                     <Route exact path="/Subreddits" component={Subreddits}/>
                     <Route exact path="/Predictions" component={Predictions}/>
                     <Route exact path="/Chat" component={Chat}/>
+                    <Route exact path="/Tag" component={Tag}/>
                     <Route exact path="/Posts" component={Posts}/>
                     <Route exact path="/Comments" component={Comments}/>
-                    <Route exact path="/Portfolio" component={Portfolio}/>
+                    <Route exact path="/Portfolios" component={Testing}/>
+                    <Route exact path="/testing" component={Testing}/>
                     <Route exact path="/PortfolioLanding" component={PortfolioLanding}/>
+                    <Route exact path="/portfolio" component={Portfolio}/>
                 </section>
             </Switch>
         </AuthProvider>

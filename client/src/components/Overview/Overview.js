@@ -107,17 +107,6 @@ export default function Overview({coin_name,coin_id}) {
                 }),
             ]);
 
-            //const {week} = await Promise.all([]);
-
-            //const {fourteenDays} = await Promise.all([]);
-
-            //const {month} = await Promise.all([]);
-
-            //const {threeMonths} = await Promise.all([]);
-
-            //const {year} = await Promise.all([]);
-
-            //const [detail] = await Promise.all([]);
 
             detail.data.forEach(data => {
                 if (coin_name.toLowerCase() === data.id) {
@@ -170,9 +159,9 @@ export default function Overview({coin_name,coin_id}) {
     return (
         <React.Fragment>
             {loading ?
-                <div className="mx-auto mt-16 text-center"><ClipLoader loading={loading} size={150}/></div> : <React.Fragment></React.Fragment>}
+                <div className="mx-auto mt-16 text-center" style={{fontFamily: 'Nunito'}}><ClipLoader loading={loading} size={150}/></div> : <React.Fragment></React.Fragment>}
             {coin.id ? <React.Fragment>
-                <div className="container mt-16 mb-12">
+                <div className="container mt-16 mb-12" style={{fontFamily: 'Nunito'}}>
                     <div className="row">
                         <div className="col-12">
                             <img alt={"image"} src={coin.image.large} style={{margin: "auto"}}/>
@@ -183,7 +172,7 @@ export default function Overview({coin_name,coin_id}) {
                     </div>
                 </div>
 
-                <div className="container mb-3" style={{margin: "auto"}}>
+                <div className="container mb-3" style={{margin: "auto", fontFamily: 'Nunito'}}>
                     <div className="row">
                         <div className="col-12">
                             <div className="d-inline"><span className="badge badge-primary rounded-circle p-4"><i
@@ -195,7 +184,7 @@ export default function Overview({coin_name,coin_id}) {
                         </div>
                     </div>
                 </div>
-                <div className="container" style={{margin: "auto"}}>
+                <div className="container" style={{margin: "auto" ,fontFamily: 'Nunito'}}>
                     <div className="row" style={{textAlign: "center"}}>
 
                         <div className="col-4">
@@ -218,7 +207,7 @@ export default function Overview({coin_name,coin_id}) {
                 </div>
 
 
-                <div className="container mt-16">
+                <div className="container mt-16" style={{fontFamily: 'Nunito'}}>
                     <div className="row">
                         <div className="col-8">
                             <div>
@@ -315,7 +304,7 @@ export default function Overview({coin_name,coin_id}) {
                         </div>
                     </div>
                 </div>
-                <div className="container">
+                <div className="container" style={{fontFamily: 'Nunito'}}>
                     <div className=" text-sm p-2 px-0">
                         <span
                             className="uppercase font-bold">Last updated at : </span> {new Date(coin.market_data.last_updated).toString()}

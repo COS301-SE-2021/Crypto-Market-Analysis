@@ -2,24 +2,61 @@ const Database = require('../database/Database');
 const firestore_db = new Database().getInstance();
 const sentiment = require('wink-sentiment');
 const keyword_extractor = require("keyword-extractor");
+const fetch = require('crypto-symbol');
 
 function keywords(sentence) {
-    res = keyword_extractor.extract(sentence,{
-        language:"english",
+    let words = sentence.split(' ');
+    let allNames = fetch.getNames();
+    let allSymbols = fetch.getSymbols();
+
+    let res = keyword_extractor.extract(sentence, {
+        language: "english",
         remove_digits: true,
-        return_changed_case:true,
+        return_changed_case: true,
         remove_duplicates: false
     });
-   console.log(res)
-    return res;
-    // return keyword_extractor.extract(sentence,{
-    //     language:"english",
-    //     remove_digits: true,
-    //     return_changed_case:true,
-    //     remove_duplicates: false
-    // });
+    for(let x = 0; x < words.length; x++) {
+        for(let i = 0; i < allNames.length; i++)
+        {
+            if(words[x].toLowerCase() === allNames[i].toLowerCase())
+            {
+                res.unshift(allNames[i].toLowerCase());
+            }
 
+        }
+    }
+    let unique = res.filter((v, i, a) => a.indexOf(v) === i);
+    return unique;
 }
+
+// function keywords(sentence) {
+//
+//     let allNames = fetch.getNames();
+//     let allSymbols = fetch.getSymbols();
+//
+//     let res = keyword_extractor.extract(sentence, {
+//         language: "english",
+//         remove_digits: true,
+//         return_changed_case: true,
+//         remove_duplicates: false
+//     });
+//
+//     for(let i = 0; i < allNames.length; i++)
+//     {
+//         if(sentence.toLowerCase().includes(allNames[i]).toLowerCase())
+//         {
+//             res.unshift(allNames[i]);
+//         }
+//         if(sentence.toLowerCase().includes(allSymbols[i]).toLowerCase())
+//         {
+//             res.unshift(allSymbols[i]);
+//         }
+//     }
+//     let unique = res.filter((v, i, a) => a.indexOf(v) === i);
+//     console.log(unique);
+//     return unique;
+//
+// }
 
 const returnPost = async (email, postId)=>{
     let replies = await firestore_db.fetch("Altcoins", postId,`replies`);
@@ -239,7 +276,7 @@ const getAllTags = async (email)=>{
 
         tags = flatten(tags);
 
-        return {status: `Ok`, alltags: tags};
+        return {status: `Ok`, posts_array: tags};
     }
     catch(err){
         return Promise.reject(new Error(err));
@@ -263,7 +300,7 @@ const returnTagPost = async (email, tag)=>{
         }
         alltagposts = flatten(alltagposts);
 
-        return {status: `Ok`, alltagposts: alltagposts};
+        return {status: `Ok`, posts_array: alltagposts};
     }
     catch(err){
         return Promise.reject(new Error(err));
@@ -271,7 +308,25 @@ const returnTagPost = async (email, tag)=>{
 }
 
 const getPostsInfo = async email => {
-    
+    let posts = [];
+    try{
+        const snapshots = await firestore_db.fetch(`Altcoins`);
+        const docs = snapshots.docs;
+        for(const doc of docs){
+            let post = {};
+            if(doc.data().owner === email){
+                post.body = doc.data().body;
+                post.room = doc.data().room;
+                post.time = doc.data().time;
+                post.title = doc.data().title;
+                posts.push(post);
+            }
+        }
+        return posts;
+    }
+    catch(error){
+        return Promise.reject(error);
+    }
 }
 
 module.exports = { getAllTags,returnTagPost,deletePost, postMessage, getAllChats, postReact, totalPosts, postReply,returnPost, getPost, getUserDislikedPosts,  getUserLikedPosts, getPostsInfo}

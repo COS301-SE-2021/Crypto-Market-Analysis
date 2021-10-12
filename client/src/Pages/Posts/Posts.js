@@ -64,7 +64,7 @@ function Posts() {
             time: time
         };
 
-        axios.post('https://cryptosis-server.herokuapp.com/chat/postMessage/', request)
+        axios.post('http://localhost:8080/chat/postMessage/', request)
             .then(() => {
                 setShow(false)
                 setRefresh(!refresh)
@@ -90,28 +90,30 @@ function Posts() {
         let  ReqObj = {
             email: localStorage.getItem("emailSession")
         }
-        axios.post('https://cryptosis-server.herokuapp.com/chat/getUserLikedPosts/',ReqObj)
+        axios.post('http://localhost:8080/chat/getUserLikedPosts/',ReqObj)
         .then(response => {
             liked = response.data.likedposts_array
             setLikedPosts(response.data.likedposts_array)
            
         })
-        axios.post('https://cryptosis-server.herokuapp.com/chat/getUserDislikedPosts/',ReqObj)
+        axios.post('http://localhost:8080/chat/getUserDislikedPosts/',ReqObj)
         .then(response => {
                 disliked = response.data.dislikedposts_array
                 setDislikedPosts(response.data.dislikedposts_array)
         })
         
-        axios.post('https://cryptosis-server.herokuapp.com/chat/getAllChats/',Req)
+        axios.post('http://localhost:8080/chat/getAllChats/',Req)
             .then(response => {
 
-
+               
                 let posts_ = [];
                 for(let j = 0; j<response.data.posts_array.length; j++)
-                {
-                        posts_.push(response.data.posts_array[j])
+                {               
+                    if(response.data.posts_array[j].tags && response.data.posts_array[j].tags.length > 6){
+                        response.data.posts_array[j].tags = response.data.posts_array[j].tags.slice(0,6)
+                    }
+                    posts_.push(response.data.posts_array[j])
                 }
-               
                 posts_.forEach(element => {
                     liked.forEach(likedPost=>{
                         if(likedPost === element.postId){
@@ -157,7 +159,7 @@ function Posts() {
                 room : "Altcoins"
             }
         }
-        axios.post('https://cryptosis-server.herokuapp.com/chat/postReact/',reqObj)
+        axios.post('http://localhost:8080/chat/postReact/',reqObj)
             .then(() => {
                 setRefresh(!refresh)
             })
@@ -171,7 +173,7 @@ function Posts() {
             email: user,
             postId : postid
         }
-        axios.post('https://cryptosis-server.herokuapp.com/chat/deletePost/',reqObj)
+        axios.post('http://localhost:8080/chat/deletePost/',reqObj)
             .then(() => {
                 setRefresh(!refresh)
             })
@@ -185,7 +187,7 @@ function Posts() {
         <React.Fragment>
 
 
-        <Modal show={show} >
+        <Modal show={show} style={{fontFamily: 'Nunito'}}>
             <Modal.Header>
                 <span className="uppercase font-bold">New Post</span>
                 <i className="fas fa-times cursor-pointer text-blueGray-700" onClick={()=>{setShow(false)}}></i>
@@ -223,7 +225,7 @@ function Posts() {
             </Modal.Body>
         </Modal>
         <Sidebar />
-            <div className="md:ml-64">
+            <div className="md:ml-64" style={{fontFamily: 'Nunito'}}>
                 <Container fluid>
                     <Card.Header style={{backgroundColor:"rgba(0,0,0,0)"}}>
                     <div className="forum-title">
@@ -233,6 +235,11 @@ function Posts() {
                     <div className="mx-auto text-center">
                         <i className="fas fa-plus-circle fa-5x mx-auto mt-3 cursor-pointer" style={{color:"#03989e"}} onClick={()=>{setShow(true)}}></i>
                     </div>
+
+                    <div className="w-full uppercase text-xs font-bold px-0 mt-4 text-center" style={{color:"#58667e"}}>
+                    <p>Click on the arrow in the card to view more information</p>
+                    <p>Click on the tags inside the cards to filter cards</p>
+                </div>
                 </Container>
                 
                 
@@ -261,6 +268,30 @@ function Posts() {
 
                                                         <p>{post.body.length > 25 ? post.body.substring(0,24) + "..." : post.body }</p>
                                                         <hr/>
+
+                                                        <div className="mb-3">
+                                                            <div className="row">
+                                                            {   post.tags &&
+                                                                post.tags.map(tag=>{
+                                                                    return(
+                                                                        <div className="col-4 px-2 mb-2">
+                                                                            <div className="text-center tag-container">
+                                                                                <Link
+                                                                                    to={{
+                                                                                        pathname: "/Tag",
+                                                                                        state: { postId: {tag}}
+                                                                                    }}
+                                                                                    
+                                                                                    className="inline-block text-md font-bold" 
+                                                                                    style={{color:"#fafafa"}}
+                                                                                > {tag}</Link>
+                                                                            </div>
+                                                                        </div>
+                                                                    )
+                                                                })
+                                                            }
+                                                            </div>
+                                                        </div>
 
                                                         <ul className="list-inline d-sm-flex my-0">
                                                             <li className="list-inline-item g-mr-20 mr-3">
@@ -297,8 +328,17 @@ function Posts() {
                                                                 > <i className="fa fa-chevron-right fa-lg" aria-hidden="true"></i></Link>
                                                             </li>
 
+                                                            {/*//tags field name: tags */}
+                                                            {/*posts.tags((post,index) =>{*/}
+                                                            {/*return(*/}
+                                                                    
+                                                            
+                                                            {/*map the tags in this link tag above*/}
+
+
                                                         </ul>
                                                     </div>
+                                                    
                                             </div>
 
                                         {/* </div> */}

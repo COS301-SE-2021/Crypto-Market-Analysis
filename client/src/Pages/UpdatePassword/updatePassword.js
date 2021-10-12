@@ -20,7 +20,7 @@ export default function UpdatePassword() {
             setLoading(true)
             await resetPassword(emailRef.current.value)
             setMessage('Reset Message delivered to Email')
-            //history.push("/login")
+
         } catch(err) {
             setError("Failed to reset password enter valid details!")
         }
@@ -29,44 +29,44 @@ export default function UpdatePassword() {
     }
 
     return (
-        <div className="content-cover">
+        <div className="content-cover" style={{fontFamily: 'Nunito'}}>
 
-        <div className="row">
-            <div className="col-md-4 mx-auto p-0 mt-5">
-                <div className="card shadow-lg">
-                    <div className="card-header text-center">Reset Password</div>
-                    <div className="card-body">
-                        {error && <Alert variant="danger">{error}</Alert>}
-                        {message && <Alert variant="success">{message}</Alert>}
-                        <Form onSubmit={handleSubmit}>
+            <div className="row">
+                <div className="col-md-4 mx-auto p-0 mt-5">
+                    <div className="card shadow-lg">
+                        <div className="card-header text-center">Reset Password</div>
+                        <div className="card-body">
+                            {error && <Alert variant="danger">{error}</Alert>}
+                            {message && <Alert variant="success">{message}</Alert>}
+                            <Form onSubmit={handleSubmit}>
 
-                            <Form.Group id="email">
-                                <div style={{width:"70%",margin:"auto"}}>
-                                    <Form.Label className="label">Email</Form.Label>
-                                </div>
-                                <Form.Control type="email" ref={emailRef} style={{width:"70%",margin:"auto"}} required />
-                            </Form.Group>
+                                <Form.Group id="email">
+                                    <div style={{width:"70%",margin:"auto"}}>
+                                        <Form.Label className="label">Email</Form.Label>
+                                    </div>
+                                    <Form.Control type="email" ref={emailRef} style={{width:"70%",margin:"auto"}} required />
+                                </Form.Group>
 
-                            <Form.Group className="text-center">
-                                <Button disabled={loading} style={{width:"70%",margin:"auto"}} type="submit">
-                                Reset Password
+                                <Form.Group className="text-center">
+                                    <Button disabled={loading} style={{width:"70%",margin:"auto"}} type="submit">
+                                    Reset Password
+                                    </Button>
+
+                                </Form.Group>
+
+                            </Form>
+
+                            <div className="w-100 text-center mt-2">
+                                <Button href={"/login"} disabled={loading} style={{width:"70%", position:"relative"}}>
+                                    Go back to the Login page
                                 </Button>
+                            </div>
 
-                            </Form.Group>
-
-                        </Form>
-
-                        <div className="w-100 text-center mt-2">
-                            <Button href={"/login"} disabled={loading} style={{width:"70%", position:"relative"}}>
-                                Go back to the Login page
-                            </Button>
                         </div>
-
                     </div>
-                </div>
 
+                </div>
             </div>
-        </div>
 
         </div>
     )

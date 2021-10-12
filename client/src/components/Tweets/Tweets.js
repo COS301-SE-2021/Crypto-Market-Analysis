@@ -39,9 +39,11 @@ export default function Tweets({coin_name}){
         {errorResponse ? <React.Fragment>
           <div className="container mt-16" >
             <div className="alert alert-warning alert-dismissible fade show m-auto text-center" style={{width:"70%"}}>
-              {errorResponse.includes("The user is not following people on twitter")? <span>Oops, looks like you don't follow anyone on Twitter :(</span>
-              :errorResponse.includes("No tweets to display")? <span>Oops, looks like we don't have any tweets to display :(</span>
-              :errorResponse.includes("screen_names is not iterable")?<span>Oops, looks like you don't follow anyone on Twitter :(</span>
+              { errorResponse && errorResponse.includes("The user is not following people on twitter")? <span>Oops, looks like you don't follow anyone on Twitter :(</span>
+              :errorResponse && errorResponse.includes("No tweets to display")? <span>Oops, looks like we don't have any tweets to display :(</span>
+              :errorResponse && errorResponse.includes("screen_names is not iterable")?<span>Oops, looks like you don't follow anyone on Twitter :(</span>
+              :errorResponse && errorResponse.includes("Email is invalid")?<span>Something went wrong, please try again later :(</span>
+              :errorResponse && errorResponse.includes("Parameters are not defined")?<span>Something went wrong, please try again later :(</span>
               :<span>Oops, looks like you don't follow the selected coin :(, choose a coin you follow to see what people are saying about it on twitter</span>}
             </div>
           </div>
@@ -55,12 +57,27 @@ export default function Tweets({coin_name}){
                   tweets.map((tweet,index) => {
                     return (
                       <Carousel.Item key={index} >
+
                         <div className="tweets" />
                       </Carousel.Item>
                     )
                  })
               }
             </Carousel>
+
+            {/* <div className="row">
+              {
+                    tweets.map((tweet,index) => {
+                      return (
+                        <div key={index} className="col-4" >
+                          <div className="img-responsive " style={{maxHeight:"100%"}}>
+                            <div className="tweets"/>
+                          </div>
+                        </div>
+                      )
+                  })
+                }
+            </div> */}
         </div>}
         </React.Fragment>
     )

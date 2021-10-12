@@ -1,24 +1,20 @@
 import { makeStyles } from '@material-ui/core/styles'
-import {AppBar, Button, Collapse, CssBaseline, IconButton, Toolbar} from "@material-ui/core";
-import SortIcon from '@material-ui/icons/Sort'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import {Link as Scroll} from 'react-scroll'
-import HomeIcon from '@material-ui/icons/Home'
-import {Link} from "react-router-dom";
+import {AppBar, Button, Collapse,Toolbar} from "@material-ui/core";
 import React, {useEffect, useState} from 'react';
-import PortfolioModal from "./PortfolioModal";
 
 const useStyles = makeStyles((theme) => ({
     root:{
         display:'flex',
-        justifyContent:'center',
+        justifyContent:'flex-end',
         alignItems:'center',
         height:'100vh',
-        fontFamily:'Nunito'
+        fontFamily:'Nunito',
+        textAlign:"center"
     },
     appbar:{
         background:"black",
         fontFamily: 'Nunito',
+        width:"81.25%"
     },
     appbarTitle:{
         flexGrow: '1',
@@ -32,7 +28,8 @@ const useStyles = makeStyles((theme) => ({
         fontSize:"2rem",
     },
     colorText:{
-        color: 'black'
+        color: 'black',
+        width:"81.25%"
     },
     container:{
         textAlign:'center'
@@ -67,6 +64,7 @@ export default function PortfolioHeader() {
 
             <Collapse in={checked} {...(checked ? {timeout: 1000} : {})} collapsedHeight={50}>
                 <div className={classes.container}>
+
                     <h1 className={classes.title}>
                         Cryptosis <br/> <span className={classes.colorText}>Portfolio Tracker</span>
                     </h1>
@@ -75,7 +73,17 @@ export default function PortfolioHeader() {
                         Keep track of the market price changes, your losses, your gains and portfolio valuation here.
                     </h5>
 
-                    <PortfolioModal />
+                    <Button variant={'contained'} style={{
+                        textAlign: "center",
+                        backgroundColor: "blue",
+                        color:"#FFFFF0",
+                        padding: "5px 15px",
+                        borderRadius: "5px",
+                        outline: "5px",
+                        width: "40%",
+                    }} href={"/portfolios"}>
+                        Create portfolio
+                    </Button>
 
                 </div>
             </Collapse>

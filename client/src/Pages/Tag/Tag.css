@@ -46,7 +46,6 @@ body{
 .media-comment {
     margin-top:20px
 }
-
 .tag-container{
     background-color: #03989e;
     border-radius: 0.4em;
@@ -54,4 +53,10 @@ body{
 .tag-container:hover
 {
     background-color: #00c2cb;
+}
+.back-icon{
+    color:#3b3b3b
+}
+.back-icon:hover{
+    color:#767676
 }

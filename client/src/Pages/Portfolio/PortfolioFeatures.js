@@ -1,8 +1,5 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles'
-import {CssBaseline} from "@material-ui/core";
-import Headers from "../../components/Headers/Headers";
-import image from "../../images/background.jpg"
 import ImageCard from "../../components/ImageCard/ImageCard";
 import places from "../../static/portfolioPages"
 import useWindowPosition from "../../hook/useWindowPosition";
@@ -11,18 +8,19 @@ const useStyles = makeStyles((theme) => ({
     roots: {
         minHeight: '100vh',
         display:'flex',
-        justifyContent:'center',
-        alignItems:'center',
+        justifyContent:'flex-end',
+        alignItems:'space-evenly',
         [theme.breakpoints.down("md")]:{
             flexDirection:'column',
-        }
+        },
+        textAlign:"center"
     },
     root:{
         minHeight: '100vh',
         display:'flex',
-        justifyContent:'center',
-        alignItems:'center',
-
+        justifyContent:'flex-end',
+        alignItems:'flex-end',
+        textAlign:"center"
     }
 }));
 export default function PortfolioFeatures() {
@@ -39,7 +37,6 @@ export default function PortfolioFeatures() {
                 <ImageCard place={places[1]} checked={checked}/>
             </div>
         </div>
-
 
     )
 

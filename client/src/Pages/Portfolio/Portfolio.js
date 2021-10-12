@@ -11,135 +11,121 @@ import Button from "@material-ui/core/Button";
 import {makeStyles} from "@material-ui/core/styles";
 import image from "../../images/background.jpg";
 import Box from "@material-ui/core/Box"
-
+import AddIcon from "@material-ui/icons/Add";
+import PortfolioModal from "./PortfolioModal"
+import ClipLoader from "react-spinners/ClipLoader";
+import TextField from "@material-ui/core/TextField";
+import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
+import {IconButton, Link} from "@material-ui/core";
+import Input from "./inputPortfolio"
 const useStyles = makeStyles((theme) => ({
     box: {
-        height: 150,
-        display: "flex",
-        padding:8,
+        height: 80,
+        display: "inline-flex",
+        padding:1,
     },
     centerBox:{
+        display: "inline-flex",
         justifyContent:'flex-end',
-        alignItems:"flex-end"
+        alignItems:"flex-end",
+        paddingTop:100,
+        paddingBottom: 0,
+        paddingRight: 20
     },
 }));
 
 
-const Portfolio = () => {
+const Portfolio = (props) => {
+    const handleToUpdate = props.handleToUpdate;
     const classes = useStyles();
     let [coinData, setCoinData] = useState([])
+    const [openModal, setOpenModal] = useState(false);
+    let [loading, setLoading] = useState(true);
+    const [searchCrypto, setSearchCrypto] = useState("");
+    let [cryptos, setCryptos] = useState([]);
+    const [showModal, setShowModal] = useState(false)
+    const [show, setShow] = useState(false)
     useEffect( () => {
-        axios.get('https://api.coingecko.com/api/v3/coins/')
-            .then( response => {
-                setCoinData(response.data);
-                console.log("data is ", response.data);
+        axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=10&page=1&sparkline=false')
+            .then(async (response_data) => {
+
+                setCryptos(response_data.data)
+                setLoading(false)
+
             })
-            .catch( error => {
-                console.log(error);
+            .catch(err => {
+                console.error(err)
+                setLoading(false)
+
             })
+
     },[]);
+
+    const searchCoin = (event) => { setSearchCrypto(event.target.value) }
+
+
+    //filter list based on the search input
+    const searchedCryptos = cryptos.filter((crypto)=>{
+
+        return crypto.name.toLowerCase().includes(searchCrypto.toLowerCase()) ||  crypto.symbol.toLowerCase().includes(searchCrypto.toLowerCase())
+    })
+
+
     return(
 
-        <SafeAreaView style={{flex: 1, backgroundColor:"white"}}>
-            <Box component={"span"} className={`${classes.centerBox} ${classes.box}`}>
-                <Button variant={'contained'} style={{
-                    textAlign: "center",
-                    backgroundColor: "blue",
-                    color:"#FFFFF0",
-                    padding: "5px 15px",
-                    borderRadius: "5px",
-                    outline: "5px",
-                    width: "40%",
-                }} className={'btn-modal'}>
-                    Add transaction
-                </Button>
-            </Box>
-            <ScrollView style={{flex:1}}>
-                <View style={{paddingTop:50,paddingHorizontal: 20, marginBottom:40}}>
-                    <Text style={{color: "#5d616f", fontSize:14, fontWeight: "500"}}>
-                       Your Current Portfolio Balance
-                    </Text>
-                    <Text
-                        style={{
-                            color: "#090C0D",
-                            fontSize:29,
-                            fontWeight:"bold",
-                        paddingTop:5
-                        }}
-                    >
-                        R0.00
-                    </Text>
+        <div>
 
-                    {coinData.map((coin) =>(
+            <div className="crypto-search">
+                <input type="search" className="form-control rounded" placeholder="Search..."
+                       onChange={searchCoin} />
+            </div>
 
-                      <View key={coin.id}>
-                          <View style={{paddingTop:25, flexDirection:"row", justifyContent:"space-between",alignItems:"center"}}>
-                            <View>
-                                <Image
-                                    source={{uri:coin.image.large}}
-                                style={{width:50, height:50, borderRadius: 25,borderWidth:0.5, borderColor: "#ddd"}}/>
-                            </View>
+            <div className="container">
 
-                              <View style={{flex: 1,paddingLeft:15}}>
-                                  <Text style={{fontSize:17,fontWeight:400}}>
-                                      {coin.name}
-                                  </Text>
-                              </View>
+                <div className="row">
+                    <div className=" overflow-auto block crypto-wrapper" style={{height:"600px",margin:"auto"}}>
+                        {loading ? <ClipLoader loading={loading} size={150} />:
+                            searchedCryptos.length < 1 ? <div id="response-alert"><p className="text-center">Oops :( <br/>We don't have that coin</p></div>
+                                :<React.Fragment>
+                                    {searchedCryptos.map((myCrypto,index) =>{
 
-                              <View style={{flex:1.5,paddingLeft:10}}>
-                                  <Text style={{fontSize:16,fontWeight:"bold" }}>
-                                      Price
-                                  </Text>
-                                  <Text style={{fontSize:14,fontWeight:300, color:"#5d616d"}}>
-                                      R{coin.market_data.current_price.zar}
-                                  </Text>
-                              </View>
-
-                              <View style={{flex:1.5,paddingLeft:10}}>
-                                  <Text style={{fontSize:16,fontWeight:"bold"}}>
-                                      24H
-                                  </Text>
-                                  <Text style={{fontSize:14,fontWeight:300, color:"#5d616d"}}>
-
-                                      {coin.market_data.price_change_percentage_24h < 0 ? (
-                                          <p className='coin-percent red'>{coin.market_data.price_change_percentage_24h.toFixed(2)}%</p>
-                                      ) : (
-                                          <p className='coin-percent green'>{coin.market_data.price_change_percentage_24h.toFixed(2)}%</p>
-                                      )}
-
-                                  </Text>
-                              </View>
-
-                              <View style={{flex:1.5,paddingLeft:10}}>
-                                  <Text style={{fontSize:16,fontWeight:"bold"}}>
-                                      Gain/Loss
-                                  </Text>
-                                  <Text style={{fontSize:14,fontWeight:300, color:"#5d616d"}}>
-
-                                     R0.00
-
-                                  </Text>
-                              </View>
-
-                              <View style={{paddingLeft:15}}>
-                                  <Text style={{fontSize:16,fontWeight:300}}>
-                                      R0.00
-                                  </Text>
-                                  <Text style={{fontSize:14,fontWeight:300, color:"#5d616d"}}>
-                                      0 {coin.symbol}
-                                  </Text>
-                              </View>
+                                        return(
+                                            <React.Fragment>
+                                                <div style={{flexDirection:"row", justifyContent:"space-between",alignItems:"center"}} key={index} className="body">
+                                                    <div className='coin-row'>
+                                                        <div className='coin'>
+                                                            <img src={myCrypto.image} alt='crypto' />
+                                                            <h1>{myCrypto.name}</h1>
+                                                            <h1 className='coin-symbol'>{myCrypto.symbol}</h1>
 
 
 
-                          </View>
+                                                            <button onClick={() => handleToUpdate(myCrypto.id,myCrypto.symbol)} to={{
+                                                                pathname: "/portfolios",coin_symbol: myCrypto.symbol, coin_name: myCrypto.id
 
-                      </View>
-                    ))}
+                                                            }} data-dismiss="modal" aria-hidden="true" data-target="#quoteForm" data-toggle="modal" color={"transparent"}>
 
-                </View>
-            </ScrollView>
-        </SafeAreaView>
+                                                                <KeyboardArrowRightIcon />
+                                                            </button>
+
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </React.Fragment>
+                                        )}
+                                    )
+                                    }
+                                </React.Fragment>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     )
 }
 export default Portfolio;

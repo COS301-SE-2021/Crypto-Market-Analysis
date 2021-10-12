@@ -50,6 +50,11 @@ class User_Hash_Table {
                 this.#users[key][`screen_name`] = [];
                 this.#users[key][`social_media_sites`] = [];
                 this.#users[key][`coin_id`] = [];
+                await this.insertCrypto(key, `btc`, `Bitcoin`, `bitcoin`);
+                await this.insertSocialMediaSite(key, `Twitter`);
+                await this.insertScreenName(key, `CryptoCompare`);
+                await this.insertSocialMediaSite(key, `Reddit`);
+                await this.insertSocialMediaSite(key, `4chan`);
                 return true;
             }
             else

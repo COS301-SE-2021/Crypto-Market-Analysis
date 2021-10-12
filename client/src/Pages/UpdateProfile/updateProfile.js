@@ -43,7 +43,7 @@ export default function UpdateProfile() {
 
     return (
         <React.Fragment>
-            <div className="content-cover">
+            <div className="content-cover" style={{fontFamily: 'Nunito'}}>
                 <div className="row">
                     <div className="col-md-4 mx-auto p-0 mt-5">
                         <div className="card shadow-lg">

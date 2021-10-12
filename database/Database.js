@@ -149,6 +149,22 @@ class Database {
             return Promise.reject(`Parameters are undefined`);
 
     }
+    async deltePortfolio(email,object){
+        if(email && object) {
+            const portfolio_object ={
+                portfolio:object
+            }
+            try{
+                await this.#db.collection('Users').doc(email).update(portfolio_object);
+            }
+            catch (err){
+                return Promise.reject(err);
+            }
+        }
+        else
+            return Promise.reject(`Parameters are undefined`);
+
+    }
 
 
     async setPushNotification(email,object){

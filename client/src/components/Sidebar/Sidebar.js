@@ -19,6 +19,7 @@ export default function Sidebar(props) {
   const [collapseShow, setCollapseShow] = React.useState("hidden")
   const [show, setShow] = useState(false)
   const [status, setStatus] = useState(0)
+    const [response, setResponse] = useState({});
   const  user = localStorage.getItem("emailSession")
   let  cryptoReq = {
     email: localStorage.getItem("emailSession")
@@ -47,7 +48,18 @@ export default function Sidebar(props) {
 
         })
         .catch(err => {console.error(err);})
+      let  portfolio_Req = {
+          email: localStorage.getItem("emailSession"),
+          coin_id: ""
+      }
 
+      axios.post('http://localhost:8080/user/getportfolio',portfolio_Req)
+          .then((responseObj) => {
+
+              console.log('this is the response')
+              setResponse(responseObj.data);
+              console.log(responseObj.data)
+          })
 
   },[])
 
@@ -91,7 +103,7 @@ export default function Sidebar(props) {
       <ModalComp show={show} cancel={onCancel} continue={OnContinue} />
       <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"
       >
-        <div className="md:flex-col md:items-stretch md:min-h-full md:flex-wrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
+        <div className="md:flex-col md:items-stretch md:min-h-full md:flex-wrap px-0 flex flex-wrap items-center justify-between w-full mx-auto" style={{fontFamily: 'Nunito'}}>
           {/* Toggler */}
 
           <div>
@@ -206,26 +218,51 @@ export default function Sidebar(props) {
                 </li>
 
                   <li className="items-center">
+                      {Object.keys(response).length ===  0 ? (
                       <Link
                           className={
                               "text-xs uppercase py-3 font-bold block " +
-                              (window.location.href.indexOf("/home") !== -1
+                              (window.location.href.indexOf("/PortfolioLanding") !== -1
                                   ? "text-lightBlue-500 hover:text-lightBlue-600"
                                   : "text-blueGray-700 hover:text-blueGray-500")
                           }
-                          to="/Portfolio"
+                          to="/PortfolioLanding"
                           onClick={changeLocation}
                       >
                           <i
                               className={
-                                  "fas fa-tv mr-2 text-sm " +
-                                  (window.location.href.indexOf("/Portfolio") !== -1
+                                  "fas fa-briefcase mr-2 text-sm " +
+                                  (window.location.href.indexOf("/PortfolioLanding") !== -1
                                       ? "opacity-75"
                                       : "text-blueGray-300")
                               }
                           />{" "}
                           Portfolio
-                      </Link>
+                      </Link>):(
+                          <Link
+                              className={
+                                  "text-xs uppercase py-3 font-bold block " +
+                                  (window.location.href.indexOf("/Portfolios") !== -1
+                                      ? "text-lightBlue-500 hover:text-lightBlue-600"
+                                      : "text-blueGray-700 hover:text-blueGray-500")
+                              }
+                              to="/Portfolios"
+                              onClick={changeLocation}
+                          >
+                              <i
+                                  className={
+                                      "fas fa-briefcase mr-2 text-sm " +
+                                      (window.location.href.indexOf("/Portfolios") !== -1
+                                          ? "opacity-75"
+                                          : "text-blueGray-300")
+                                  }
+                              />{" "}
+                              Portfolio
+                          </Link>
+
+                      )
+
+                      }
                   </li>
 
                 <li className="items-center">

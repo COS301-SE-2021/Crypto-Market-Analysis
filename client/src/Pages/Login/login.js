@@ -30,7 +30,7 @@ export default function Signup() {
 
     return (
         <React.Fragment>
-        <div className="content-cover">
+        <div className="content-cover" style={{fontFamily:"Nunito"}}>
             <div className="row" >
                 <div className="col-md-12 mx-auto p-0" >
                     <img src={"/cryptosis2-t.png"} alt="cryptosis logo" style={{margin:"auto"}} />
@@ -63,7 +63,7 @@ export default function Signup() {
                                     </Button>
                                 </Form.Group>
                                 <div className="mt-2 new" style={{width:"70%",margin:"auto"}}>
-                                    New to Cryptosis? <Link to="/register" className="label">Register here</Link>
+                                    New to Cryptosis? <Link to="/register" className="label"><strong>Register here</strong></Link>
                                 </div>
                             </Form>
                         

@@ -1,19 +1,29 @@
 const keyword_extractor = require("keyword-extractor");
+const fetch = require('crypto-symbol');
 
-//  Opening sentence to NY Times Article at
-/*
-http://www.nytimes.com/2013/09/10/world/middleeast/
-surprise-russian-proposal-catches-obama-between-putin-and-house-republicans.html
-*/
-const sentence =
-    "Ptapresidency."
+function keywords(sentence) {
+    let words = sentence.split(' ');
+    let allNames = fetch.getNames();
+    let allSymbols = fetch.getSymbols();
 
-//  Extract the keywords
-const extraction_result =
-    keyword_extractor.extract(sentence,{
-        language:"english",
+    let res = keyword_extractor.extract(sentence, {
+        language: "english",
         remove_digits: true,
-        return_changed_case:true,
+        return_changed_case: true,
         remove_duplicates: false
-
     });
+    for(let x = 0; x < words.length; x++) {
+        for(let i = 0; i < allNames.length; i++)
+        {
+            if(words[x].toLowerCase() === allNames[i].toLowerCase())
+            {
+                res.unshift(allNames[i].toLowerCase());
+            }
+
+        }
+    }
+    let unique = res.filter((v, i, a) => a.indexOf(v) === i);
+  return unique;
+}
+
+console.log(keywords("i hate nagacoin because of the government regulations but uei is good"));

@@ -55,10 +55,7 @@ export default function Sidebar(props) {
 
       axios.post('http://localhost:8080/user/getportfolio',portfolio_Req)
           .then((responseObj) => {
-
-              console.log('this is the response')
               setResponse(responseObj.data);
-              console.log(responseObj.data)
           })
 
   },[])

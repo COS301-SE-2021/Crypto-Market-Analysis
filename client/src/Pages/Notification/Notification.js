@@ -250,7 +250,6 @@ class Notifications extends React.Component {
         
     }
     handleView= async (e)=> {
-        console.log(e)
         let viewObject = this.state.notificationObject;
         if(viewObject[e].Read!=='undefined'){
             viewObject[e].Read =true;
@@ -410,7 +409,6 @@ class Notifications extends React.Component {
                                         <div className="row grid-15-gutter">
                                             {
                                                 this.state.list.map((obj,index)=>{
-                                                    console.log(obj)
                                                     return(
                                                         <div className="col-md-6" key={index}>
                                                             {obj.read ?

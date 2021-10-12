@@ -77,7 +77,6 @@ class Testing extends React.Component {
                 .then((response) => {
                     analytics = 'no sentiment for this cryptoCurrency';
 
-                    console.log(Object.entries(response.data))
                     let portfoliofetch = {
                         email: localStorage.getItem("emailSession"),
                         coin_id: key,
@@ -151,13 +150,7 @@ class Testing extends React.Component {
 
                         })
                 })
-            console.log(Object.entries(response.data).length)
-            console.log(index)
             index = index + 1;
-            if (index === Object.entries(response.data).length) {
-
-            }
-
         }
     }
     handleDelete= (e) =>{

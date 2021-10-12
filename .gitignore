@@ -8,4 +8,6 @@
 /AnalysisService/node_modules
 /AnalysisService/coverage
 /AnalysisService/.env
+.env
+node_modules
 

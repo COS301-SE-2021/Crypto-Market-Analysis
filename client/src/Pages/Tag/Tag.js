@@ -24,10 +24,6 @@ function Tag() {
     let data = useLocation();
     const tag = data.state.postId.tag;
 
-    console.log("tag")
-    console.log(tag.tag)
-    console.log("tag")
-
     const user = localStorage.getItem("emailSession");
 
     // let sentiment;
@@ -93,10 +89,6 @@ function Tag() {
 
         axios.post('http://localhost:8080/chat/returnTagPost',Req)
             .then(response => {
-                console.log("post with tag post")
-                console.log(response.data)
-                console.log("post with tag post")
-
                 let posts_ = [];
                 for(let j = 0; j<response.data.posts_array.length; j++)
                 {

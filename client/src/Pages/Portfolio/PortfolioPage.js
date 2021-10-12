@@ -6,7 +6,7 @@ import axios from "axios";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Portfolio from "./Portfolio"
 import {Link} from "react-router-dom";
-import {AppBar, Button, TextField, Toolbar} from "@material-ui/core";
+import {Button, TextField} from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import AddIcon from "@material-ui/icons/Add";
 import Buttons from "@material-ui/core/Button";
@@ -20,13 +20,11 @@ import {
     ScrollView,
 } from "react-native";
 import Container from "@material-ui/core/Container";
-import Typography from "@material-ui/core/Typography";
+
 
 class Testing extends React.Component {
 
     constructor(props) {
-
-
         super(props)
         this.state = {
             id: "",
@@ -224,16 +222,6 @@ class Testing extends React.Component {
 
                 <div className="md:ml-64" style={{fontFamily:"Nunito"}}>
                     <div className="container" >
-                        {/*<AppBar style={{ background:"transparent",*/}
-                        {/*    fontFamily: 'Nunito', width:"81.25%", textAlign:"center", position:"fixed", color:"black"}} elevation={1}>*/}
-                        {/*    <Toolbar style={{ width:'50%',*/}
-                        {/*        margin:'0 auto'} }>*/}
-                        {/*        <Typography variant={"h4"} style={{textAlign:"center"}}>*/}
-                        {/*           Your Portfolio*/}
-                        {/*        </Typography>*/}
-
-                        {/*    </Toolbar>*/}
-                        {/*</AppBar>*/}
 
                         <div>
                             <Box component={"span"} style={{display: "flex",
@@ -369,5 +357,4 @@ class Testing extends React.Component {
         )
     };
 }
-
 export default Testing;

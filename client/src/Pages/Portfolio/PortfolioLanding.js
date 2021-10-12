@@ -1,19 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles'
-import {CssBaseline, IconButton, Link} from "@material-ui/core";
-import Headers from "../../components/Headers/Headers";
+import {CssBaseline} from "@material-ui/core";
 import image from "../../images/background.jpg"
-import Features from "../../components/Features/Features";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import HomeIcon from "@material-ui/icons/Home";
-import Button from "@material-ui/core/Button"
-
 import PortfolioHeader from "./PortfolioHeader";
-import PortfolioFeatures from "./PortfolioFeatures";
-import PortfolioModal from "./PortfolioModal";
-
 import Sidebar from "../../components/Sidebar/Sidebar";
 import axios from "axios";
+
 const useStyles = makeStyles((theme) => ({
     root: {
         backgroundSize: 'cover',
@@ -47,19 +39,11 @@ export default function PortfolioLanding() {
     },[])
     return(
         <div >
-            {/*{Object.keys(response).length ===  0 ? (*/}
                     <div className={classes.root}>
                         <CssBaseline />
                         <Sidebar />
                         <PortfolioHeader />
                     </div>
-            // ) : (
-            //     history.push("/Portfolios")
-            // )}
-
-            {/*<PortfolioFeatures />*/}
-
         </div>
     )
-
 }

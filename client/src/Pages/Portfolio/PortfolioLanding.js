@@ -5,6 +5,7 @@ import image from "../../images/background.jpg"
 import PortfolioHeader from "./PortfolioHeader";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import axios from "axios";
+import {useHistory} from "react-router";
 
 const useStyles = makeStyles((theme) => ({
     root: {

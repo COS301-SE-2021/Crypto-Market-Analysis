@@ -44,8 +44,8 @@ is and inform the user if it is about to change.
 ## Collaborators
 | Team Member | Profile | 
 | ----------- | ------- |
-| **Zeeshaan Alekar** 
-*Team Leader*
+| *Team Leader* 
+**Zeeshaan Alekar**
 <img src="https://media-exp1.licdn.com/dms/image/C4D03AQFjJBK2bJ7ouQ/profile-displayphoto-shrink_200_200/0/1618577870324?e=1634774400&v=beta&t=MBFHpKBiDdokBysuUFkSR_RezlizDbYzeUwdnpl103I" width="250" height="250"> | [Github](https://github.com/Zee864/Zee864) [Linkedin](https://www.linkedin.com/in/zeeshaan-alekar-bb5107210/) | 
 |  **Melusi Mkhonta** 
 <img src="https://media-exp1.licdn.com/dms/image/C4D03AQHmAT8DMMsJxQ/profile-displayphoto-shrink_200_200/0/1556401991717?e=1634774400&v=beta&t=2UHj_Mdv1dsQbIRKVmlpVfvqGx7lfkSWce1LtiH7TdE" width="250" height="250"> | [Github](https://github.com/MelussiMkhonta) [Linkedin](https://www.linkedin.com/in/dinho-mkhonta-997b85185/) | 

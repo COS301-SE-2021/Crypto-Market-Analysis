@@ -1,8 +1,5 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles'
-import {CssBaseline} from "@material-ui/core";
-import Headers from "../../components/Headers/Headers";
-import image from "../../images/background.jpg"
 import ImageCard from "../../components/ImageCard/ImageCard";
 import places from "../../static/portfolioPages"
 import useWindowPosition from "../../hook/useWindowPosition";

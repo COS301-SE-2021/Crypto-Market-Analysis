@@ -43,9 +43,7 @@ const Profile = props =>
     {
         setSelectedTab(newValue);
     }
-
     let[crypts, setCrypt] = useState([]);
-    let[subs, setSubs] = useState([]);
     let  userReq = {
         email: localStorage.getItem("emailSession")
     }
@@ -121,7 +119,7 @@ const Profile = props =>
 
         let user = {email: localStorage.getItem("emailSession"), screen_name: searchRef.current.value }
         axios.post('https://cryptosis-server.herokuapp.com/twitter/follow/',user)
-            .then(response=>{
+            .then(response =>{
 
                 swal("User added to your watchlist", {
                     icon: "success",
@@ -265,13 +263,12 @@ const Profile = props =>
                 if(accDelete)
                 {
                     history.push("/login")
-                    // localStorage.clear()
+                    localStorage.clear()
                 }
-
 
             }}/>
             <Sidebar />
-            <script sync src="https://platform.twitter.com/widgets.js%22%3E"></script>
+            <script sync src="https://platform.twitter.com/widgets.js%22%3E"/>
             <div className="md:ml-64" style={{fontFamily: 'Nunito'}}>
                 <div className="container" >
 
@@ -348,7 +345,6 @@ const Profile = props =>
                                             outline: "5px",
                                             width: "150%",
                                         }} onClick={() => {deleteAccount(userReq)}} startIcon={<DeleteIcon />}>
-
                                             Delete Account
                                         </Button>
                                     </div>
@@ -365,8 +361,6 @@ const Profile = props =>
                             <Tab style={{color:"black"}} label="Social Media Platforms Followed"/>
                             <Tab style={{color:"black"}} label="Follow users"/>
                             <Tab style={{color:"black"}} label="Add social media platforms"/>
-                            {/*<Tab label="Subreddits"/>*/}
-                            {/*<Tab label="Subreddits Followed"/>*/}
                         </Tabs>
                     </AppBar>
 
@@ -406,14 +400,12 @@ const Profile = props =>
                     {
                         selectedTab === 2 &&
                         <div id="searchContainer" className="container"  style={{backgroundColor:"transparent", borderRadius:"8px"}}>
-                            <script sync src="https://platform.twitter.com/widgets.js%22%3E"></script>
+                            <script sync src="https://platform.twitter.com/widgets.js%22%3E"/>
                             <div className="row searchFilter " >
 
                                 <div className="col-sm-12" >
                                     <div className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold pt-4 pb-4 px-0">Search for a twitter user you want us to check out for you</div>
                                     <div className="input-group" >
-
-
 
                                         <div className={"py-2 fa fa-at d-flex flex-row text-primary "} >
                                         </div>
@@ -467,24 +459,6 @@ const Profile = props =>
                         </div>
                     </div>
                     }
-                    {/*{*/}
-                    {/*    selectedTab === 4 &&*/}
-                    {/*    <Subreddits />*/}
-                    {/*}*/}
-                    {/*{*/}
-                    {/*    selectedTab === 5 &&*/}
-                    {/*    <ul className="list-group list-group-flush">*/}
-                    {/*        {*/}
-                    {/*            subs.map((Sub, index) =>{*/}
-                    {/*                return(*/}
-                    {/*                    <div>*/}
-                    {/*                        <li className="list-group-item" key={index}>{Sub.subredditName}</li>*/}
-                    {/*                    </div>*/}
-                    {/*                )*/}
-                    {/*            })*/}
-                    {/*        }*/}
-                    {/*    </ul>*/}
-                    {/*}*/}
                 </div>
             </div>
         </React.Fragment>

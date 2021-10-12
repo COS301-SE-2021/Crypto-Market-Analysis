@@ -1,13 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles'
-import {AppBar, Button, Collapse, CssBaseline, IconButton, Toolbar} from "@material-ui/core";
-import SortIcon from '@material-ui/icons/Sort'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import {Link as Scroll} from 'react-scroll'
-import HomeIcon from '@material-ui/icons/Home'
-import {Link} from "react-router-dom";
+import {AppBar, Button, Collapse,Toolbar} from "@material-ui/core";
 import React, {useEffect, useState} from 'react';
-import PortfolioModal from "./PortfolioModal";
-import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
     root:{
@@ -91,8 +84,6 @@ export default function PortfolioHeader() {
                     }} href={"/portfolios"}>
                         Create portfolio
                     </Button>
-
-
 
                 </div>
             </Collapse>

@@ -1,8 +1,5 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles'
-import {CssBaseline} from "@material-ui/core";
-import Headers from "../../components/Headers/Headers";
-import image from "../../images/background.jpg"
 import ImageCard from "../ImageCard/ImageCard";
 import place from "../../static/pages"
 import useWindowPosition from "../../hook/useWindowPosition";
@@ -41,8 +38,5 @@ export default function Features() {
                 <Link to={{pathname:"/home"}}> <ImageCard place={place[1]} checked={checked}/> </Link>
             </div>
         </div>
-
-
     )
-
 }

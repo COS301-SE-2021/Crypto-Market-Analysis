@@ -29,9 +29,7 @@ const SentimentChart = ({data}) => {
                             });
 
                         let l = [60000000, 120000000, 240000000, 480000000, 760000000];
-                        //for(let i =0; i < averagesList[0].AVG.data.length; i++)
-                        //{
-
+                       
                                 if (chartRef && chartRef.current) {
 
                                     let chartInstance = new Chartjs(chartRef.current, {
@@ -86,7 +84,6 @@ const SentimentChart = ({data}) => {
                                         },
                                     });
                                 }
-                        //}
 
                     }).catch(err => {
                     console.error(err);

@@ -34,17 +34,10 @@ export default function Reddits(){
 
     //sets search to whats typed in the search input field
     const searchPost = (event) => {setSearchReddit(event.target.value)}
-    
+
     return(
         <React.Fragment>
-            {/*<div>*/}
-            {/*    <form>*/}
-            {/*        <input type="search" className="form-control rounded" placeholder="Search..."*/}
-            {/*               onChange={searchPost}*/}
-            {/*        />*/}
-            {/*    </form>*/}
-            {/*</div>*/}
-            {/*<div style={{marginTop:"3%"}} >*/}
+           
 
             {/*        <div className="container card-wrapper" >*/}
 

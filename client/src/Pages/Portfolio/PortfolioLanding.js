@@ -5,9 +5,9 @@ import image from "../../images/background.jpg"
 import PortfolioHeader from "./PortfolioHeader";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import axios from "axios";
-import {useHistory} from "react-router";
 
-const useStyles = makeStyles((theme) => ({
+
+const useStyles = makeStyles(() => ({
     root: {
         backgroundSize: 'cover',
         minHeight: '100vh',
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 export default function PortfolioLanding() {
     const classes = useStyles();
     const [response, setResponse] = useState({});
-    const history = useHistory();
+
     useEffect(() =>{
         let  portfolio_Req = {
             email: localStorage.getItem("emailSession"),

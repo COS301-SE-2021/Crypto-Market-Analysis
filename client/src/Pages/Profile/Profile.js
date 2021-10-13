@@ -293,7 +293,6 @@ const Profile = props =>
                                     <h4>{userReq.email}</h4>
                                 </div>
 
-
                                 <div style={{display:"flex",justifyContent:"space-between", width: "108%"}}>
                                     <h6>Follows {socs.length} cryptocurrencies</h6>
                                     <h6>Follows {crypts.length} social media platforms</h6>
@@ -330,7 +329,6 @@ const Profile = props =>
                                             outline: "5px",
                                             width: "100%"
                                         }} startIcon={<EditIcon fontSize={'large'} />}>
-
                                             Update Profile Details
                                         </Button>
 
@@ -378,9 +376,7 @@ const Profile = props =>
                                 })
                             }
                         </ul>
-
                     }
-
                     {
                         selectedTab === 1 &&
                         <ul className="list-group list-group-flush">

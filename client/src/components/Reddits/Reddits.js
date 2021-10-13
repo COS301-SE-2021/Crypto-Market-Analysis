@@ -37,13 +37,13 @@ export default function Reddits(){
 
     return(
         <React.Fragment>
-            
+
                 {
                     reddits.map((post) =>{
 
                         return(
                             <div className="card mb-3">
-                                <img className="card-img-top" src={post.posts.link} alt="Post doesnt contain image"></img>
+                                <img className="card-img-top" src={post.posts.link} alt="Post doesnt contain image"/>
                                 <div className="card-body">
                                     <h5 className="card-title">Post Reddit Score: {post.posts.score}</h5>
                                     <p className="card-text">{post.posts.text}</p>

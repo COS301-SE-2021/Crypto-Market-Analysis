@@ -159,7 +159,7 @@ export default function Overview({coin_name,coin_id}) {
     return (
         <React.Fragment>
             {loading ?
-                <div className="mx-auto mt-16 text-center" style={{fontFamily: 'Nunito'}}><ClipLoader loading={loading} size={150}/></div> : <React.Fragment></React.Fragment>}
+                <div className="mx-auto mt-16 text-center" style={{fontFamily: 'Nunito'}}><ClipLoader loading={loading} size={150}/></div> : <React.Fragment/>}
             {coin.id ? <React.Fragment>
                 <div className="container mt-16 mb-12" style={{fontFamily: 'Nunito'}}>
                     <div className="row">
@@ -310,7 +310,7 @@ export default function Overview({coin_name,coin_id}) {
                             className="uppercase font-bold">Last updated at : </span> {new Date(coin.market_data.last_updated).toString()}
                     </div>
                 </div>
-            </React.Fragment> : <React.Fragment></React.Fragment>}
+            </React.Fragment> : <React.Fragment/>}
         </React.Fragment>
     )
 }

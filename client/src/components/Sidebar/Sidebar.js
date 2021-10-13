@@ -400,7 +400,7 @@ export default function Sidebar(props) {
                                   ? "opacity-75"
                                   : "text-blueGray-300")
                             }
-                        ></i>{" "}
+                        />{" "}
                         Logout
                       </Link>}
                 </li>

@@ -32,7 +32,7 @@ const CoinData = ({ data }) => {
     Chartjs.defaults.global.events = ['click'];
 
     useEffect(() => {
-        
+
         if(chartRefs && chartRefs.current && detail)
         {
             chartInstance = new Chartjs(chartRefs.current, {

@@ -13,7 +13,6 @@ const HistoryChart = ({data}) => {
     const {year} = data;
     const {detail} = data;
     const [timeFormat, setTimeFormat] = useState("24h");
-    let options;
 
     const determineTimeFormat = () => {
         try{
@@ -130,8 +129,6 @@ const HistoryChart = ({data}) => {
 
     return (
         <div style={{fontFamily: 'Nunito'}}>
-
-
 
             <div>
 

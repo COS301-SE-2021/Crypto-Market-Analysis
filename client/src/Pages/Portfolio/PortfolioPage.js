@@ -284,7 +284,7 @@ class Testing extends React.Component {
                                                 </Col>
                                                 <Col sm={4} className="my-1">
                                                     <InputGroup>
-                                                        <TextField disabled={true} required label={'Crypto symbol'} id="inlineFormInputGroupUsername" value={this.state.change_symbol} onChange={e => this.setState({ symbol: this.state.change_symbol })} placeholder={this.state.coin_symbol}>
+                                                        <TextField disabled={true} required label={'Crypto symbol'} id="inlineFormInputGroupUsername" value={this.state.change_symbol} onChange={() => this.setState({ symbol: this.state.change_symbol })} placeholder={this.state.coin_symbol}>
                                                         </TextField>
                                                     </InputGroup>
                                                 </Col>

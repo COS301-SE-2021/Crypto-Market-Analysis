@@ -37,11 +37,7 @@ export default function Reddits(){
 
     return(
         <React.Fragment>
-           
-
-            {/*        <div className="container card-wrapper" >*/}
-
-
+            
                 {
                     reddits.map((post) =>{
 

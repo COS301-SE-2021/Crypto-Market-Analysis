@@ -159,7 +159,7 @@ export default function HeaderStats(props) {
             <div className="container" style={{width:'90%',margin:'auto'}}>
               <div className="row">
                 <div id="cards-col" className="col-12">
-                {loading ? <div className="mx-auto mt-8 text-center"><ClipLoader  loading={loading} size={150} /></div>:<React.Fragment></React.Fragment>}
+                {loading ? <div className="mx-auto mt-8 text-center"><ClipLoader  loading={loading} size={150} /></div>:<React.Fragment/>}
                 {cryptos && cryptos.length > 0 ? <Carousel cols={3} rows={2} gap={8} >
                    {cryptos.map((coin) => {
                       return (
@@ -181,7 +181,7 @@ export default function HeaderStats(props) {
                       )
                   })
                 }
-                </Carousel>:<React.Fragment></React.Fragment>
+                </Carousel>:<React.Fragment/>
                 }
                 </div>
               </div>

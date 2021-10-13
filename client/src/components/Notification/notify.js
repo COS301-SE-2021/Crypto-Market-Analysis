@@ -69,7 +69,7 @@ class Notifications extends React.Component {
                                    }
                                    to="/Profile"
                             >
-                                <i className="far fa-bell"></i>
+                                <i className="far fa-bell"/>
                                 <span>
                                         <p className="text-warning"><h3>Cryptocurrency Notification </h3></p><p>{key}</p>
 

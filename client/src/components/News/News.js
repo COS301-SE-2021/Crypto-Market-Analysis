@@ -178,12 +178,12 @@ export default function News(props) {
                         }
                         article_card.className += ` col-5 card mr-5 mt-5`;
                         article_card.innerHTML = `<a href=${article.url}>
-                                                <div style="max-width: 28em;"><img src=${article.image.thumbnail} class="card-img-top my-3" style="text-decoration: none; color: black; height: 15em;"></div>
-                                                <div class="card-body">
+                                                <div style="max-width: 28em;"><img src=${article.image.thumbnail} class="card-img-top my-3" style="text-decoration: none; color: black; height: 15em;" alt={"No image"}></div>
+                                                <div className="card-body">
                                                     ${icon_element}
-                                                    <p class="h6 card-subtitle mb-2 text-muted">${article.provider.name.toUpperCase()}</p> 
-                                                    <p class="h6 card-subtitle mb-2 text-muted">${published_date.toLocaleString()}</p>
-                                                    <p class="h4 card-title mt-3">${article.title}</p>
+                                                    <p className="h6 card-subtitle mb-2 text-muted">${article.provider.name.toUpperCase()}</p> 
+                                                    <p className="h6 card-subtitle mb-2 text-muted">${published_date.toLocaleString()}</p>
+                                                    <p className="h4 card-title mt-3">${article.title}</p>
                                                 </div>
                                               </a>`;
                         newRow++;

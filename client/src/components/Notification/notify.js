@@ -76,7 +76,7 @@ class Notifications extends React.Component {
                                     {value.Email}
                                     <br/>
 
-                                                 <button  onClick={this.handleDelete} value={key} type="button" className="btn btn-outline-warning"><i className="fas fa-trash-alt"></i>Delete</button>
+                                                 <button  onClick={this.handleDelete} value={key} type="button" className="btn btn-outline-warning"><i className="fas fa-trash-alt"/>Delete</button>
                     </span>
                             </Link>
                         </Alert>)

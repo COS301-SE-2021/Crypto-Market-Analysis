@@ -1,35 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import {makeStyles} from "@material-ui/core/styles";
 import ClipLoader from "react-spinners/ClipLoader";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
-const useStyles = makeStyles((theme) => ({
-    box: {
-        height: 80,
-        display: "inline-flex",
-        padding:1,
-    },
-    centerBox:{
-        display: "inline-flex",
-        justifyContent:'flex-end',
-        alignItems:"flex-end",
-        paddingTop:100,
-        paddingBottom: 0,
-        paddingRight: 20
-    },
-}));
-
 
 const Portfolio = (props) => {
     const handleToUpdate = props.handleToUpdate;
-    const classes = useStyles();
-    let [coinData, setCoinData] = useState([])
-    const [openModal, setOpenModal] = useState(false);
     let [loading, setLoading] = useState(true);
     const [searchCrypto, setSearchCrypto] = useState("");
     let [cryptos, setCryptos] = useState([]);
-    const [showModal, setShowModal] = useState(false)
-    const [show, setShow] = useState(false)
+
     useEffect( () => {
         axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=10&page=1&sparkline=false')
             .then(async (response_data) => {

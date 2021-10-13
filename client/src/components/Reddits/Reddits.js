@@ -55,12 +55,6 @@ export default function Reddits(){
                         )
                     })
                 }
-
-                
-
-                {/*    </div>*/}
-                {/*</div>*/}
-
         </React.Fragment>
     )
         }

@@ -24,7 +24,7 @@ tag e.g., Bitcoin to the moon. This will allow the application to understand wha
 is and inform the user if it is about to change.
 
 ## Documentation
-- [User Manual](https://drive.google.com/file/d/1GpqVFPmwLarBonLwjkJ1Q7X5yyx_Hu2H/view?usp=sharing)
+- [User Manual](https://drive.google.com/file/d/1M9c1D-Swpp6latLl5N3Q8GrO15dLWdOA/view?usp=sharing)
 - [SRS Document Version 1](https://drive.google.com/file/d/1pY_mQmYjqIm7jmzyNq_VxGB_UZh5Rlom/view?usp=sharing)
 - [SRS Document Version 2](https://drive.google.com/file/d/17TvDLoYiGK0mdSYBkV_ICNdrCxuS7wZz/view?usp=sharing)
 - [SRS Document Version 3](https://drive.google.com/file/d/1rv-3MnSJHkgcU5abny-xSlFOZaqpNnc4/view?usp=sharing)

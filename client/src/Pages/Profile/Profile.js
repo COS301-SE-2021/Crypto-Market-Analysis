@@ -206,7 +206,7 @@ const Profile = props =>
                 else{
 
                     axios.post('https://cryptosis-server.herokuapp.com/user/unfollowSocialMedia/',platformObj)
-                        .then(response =>{
+                        .then(() =>{
                             swal("Social media removed", {
                                 icon: "success",
                                 buttons: false,
@@ -232,7 +232,7 @@ const Profile = props =>
         email = {email: localStorage.getItem("emailSession")}
         if (email !=='undefined') {
             axios.post('https://cryptosis-server.herokuapp.com/user/deleteUserAccount/', email)
-                .then(response => {
+                .then(() => {
                 })
                 .catch(err => {
                     console.error(err);

@@ -28,6 +28,7 @@ is and inform the user if it is about to change.
 - [SRS Document Version 1](https://drive.google.com/file/d/1pY_mQmYjqIm7jmzyNq_VxGB_UZh5Rlom/view?usp=sharing)
 - [SRS Document Version 2](https://drive.google.com/file/d/17TvDLoYiGK0mdSYBkV_ICNdrCxuS7wZz/view?usp=sharing)
 - [SRS Document Version 3](https://drive.google.com/file/d/1rv-3MnSJHkgcU5abny-xSlFOZaqpNnc4/view?usp=sharing)
+- [SRS Document Version 4](https://drive.google.com/file/d/1SM3r2w03tTt-ijuo69S6sixRY9ZXtvzm/view?usp=sharing)
 - [Architecture Document](https://drive.google.com/file/d/1G4JMxFtHQXFOVpyDLLiS2qN9oRh5VzBz/view?usp=sharing)
 - [Coding Standard](https://drive.google.com/file/d/1hhakp7iTLAtutc2fM7ygObbTxdInYFAt/view?usp=sharing)
 - [Technical Installation Guide](https://drive.google.com/file/d/1ZxoTLOlXS5Wg35bwQpnEBOG5eHfzUZ9i/view?usp=sharing)
@@ -36,7 +37,7 @@ is and inform the user if it is about to change.
 - [Demo 1](https://drive.google.com/file/d/10VWnXqI9cWJKdfY-M69qh-IMqVguGrGT/view?usp=sharing)
 - [Demo 2](https://drive.google.com/file/d/1fskbcnS5MpdyLPBwvptz5oRf9zCwOB7f/view?usp=sharing)
 - [Demo 3](https://drive.google.com/file/d/1H6lmlbA4ENauxB_NuLxEtWVfEb8_gvpb/view?usp=sharing)
-- [Demo 4]()
+- [Demo 4](https://drive.google.com/file/d/1ki2mU7nqlGUnOnbBivR7hsoXQHJo82T3/view)
 ## Project Management
 - [Github Project Board](https://github.com/COS301-SE-2021/Crypto-Market-Analysis/projects/1)
 - [Discord](https://discord.gg/aPnHcSXA)

@@ -73,7 +73,7 @@ export default function Sidebar(props) {
     setShow(true);
   }
 
-  const onCancel =(e)=>{
+  const onCancel =()=>{
     setShow(false);
 
   }

@@ -2,10 +2,6 @@ import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import Button from "@material-ui/core/Button";
 import {makeStyles} from "@material-ui/core/styles";
-import image from "../../images/background.jpg";
-import Box from "@material-ui/core/Box"
-import AddIcon from "@material-ui/icons/Add";
-import PortfolioModal from "./PortfolioModal"
 import ClipLoader from "react-spinners/ClipLoader";
 import TextField from "@material-ui/core/TextField";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";

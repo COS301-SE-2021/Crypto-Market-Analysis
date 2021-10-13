@@ -244,7 +244,7 @@ const Profile = props =>
         setShow(true)
     }
 
-    const onCancel =(e)=>{
+    const onCancel =()=>{
         setShow(false);
     }
     const OnContinue =()=>{

@@ -176,7 +176,7 @@ class Testing extends React.Component {
         }
 
         axios.post('http://localhost:8080/user/portfolioSave',portfolio_Req)
-            .then((data) => {
+            .then(() => {
 
                 portfolio_Req = {
                     email: localStorage.getItem("emailSession"),
@@ -277,7 +277,7 @@ class Testing extends React.Component {
 
                                                     <InputGroup>
 
-                                                        <TextField disabled={true} required label={'Crypto id'} id="inlineFormInputName" value={this.state.change_id} onChange={e => this.setState({ id: this.state.change_id})} placeholder={this.state.coin_name}>
+                                                        <TextField disabled={true} required label={'Crypto id'} id="inlineFormInputName" value={this.state.change_id} onChange={() => this.setState({ id: this.state.change_id})} placeholder={this.state.coin_name}>
 
                                                         </TextField>
                                                     </InputGroup>

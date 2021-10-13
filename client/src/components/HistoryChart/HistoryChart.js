@@ -107,7 +107,7 @@ const HistoryChart = ({data}) => {
                         ],
                         yAxes: [{
                             ticks: {
-                                callback: function (value, index, values)
+                                callback: function (value)
                                 {
                                     return 'R' + value.toLocaleString();
                                 }

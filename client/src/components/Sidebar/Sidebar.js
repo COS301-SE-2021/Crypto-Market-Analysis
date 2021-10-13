@@ -4,7 +4,6 @@ import { Link, useHistory } from "react-router-dom";
 import swal from 'sweetalert';
 import ModalComp from "../Modal/Modal"
 import "./Sidebar.css"
-import db from "../../firebase";
 import axios from "axios";
 
 export default function Sidebar(props) {

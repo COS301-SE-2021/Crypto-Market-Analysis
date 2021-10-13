@@ -268,7 +268,7 @@ export default function Sidebar(props) {
                       <i className={"fas fa-bell mr-2 text-sm "+ (window.location.href.indexOf("/Notification") !== -1
                               ? "opacity-75"
                               : "text-blueGray-300")
-                        }></i>
+                        }/>
                     
                     Notification
                     <a href="" className="notification">

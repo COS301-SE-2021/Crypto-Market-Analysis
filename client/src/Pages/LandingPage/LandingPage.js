@@ -5,8 +5,7 @@ import Headers from "../../components/Headers/Headers";
 import image from "../../images/background.jpg"
 import Features from "../../components/Features/Features";
 
-
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     root: {
         backgroundSize: 'cover',
         minHeight: '100vh',

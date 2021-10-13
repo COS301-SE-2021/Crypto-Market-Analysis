@@ -50,52 +50,48 @@ export default function Signup() {
     return (
         
         <div className="content-cover" style={{fontFamily:"Nunito"}}>
-        <div className="row">
-            <div className="col-md-4 offset-md-1 p-0 mt-5" >
-                <img src={"/cryptosis-t.png"} alt="cryptosis logo" style={{float:"right"}} />
-            </div>
-            <div className="col-md-4 mx-auto p-0 mt-5">
-                <div className="card shadow-lg">
-                    <div className="card-header text-center">Sign Up</div>
-                    <div className="card-body">
-                        {error && <Alert variant="danger">{error}</Alert>}
-                        <Form onSubmit={handleSubmit}>
-                        
-                            <Form.Group id="email">
-                                <div style={{width:"70%",margin:"auto"}}>
-                                    <Form.Label className="label">Email</Form.Label>
+            <div className="row">
+                <div className="col-md-4 offset-md-1 p-0 mt-5" >
+                    <img src={"/cryptosis-t.png"} alt="cryptosis logo" style={{float:"right"}} />
+                </div>
+                <div className="col-md-4 mx-auto p-0 mt-5">
+                    <div className="card shadow-lg">
+                        <div className="card-header text-center">Sign Up</div>
+                        <div className="card-body">
+                            {error && <Alert variant="danger">{error}</Alert>}
+                            <Form onSubmit={handleSubmit}>
+
+                                <Form.Group id="email">
+                                    <div style={{width:"70%",margin:"auto"}}>
+                                        <Form.Label className="label">Email</Form.Label>
+                                    </div>
+                                    <Form.Control type="email" ref={emailRef} style={{width:"70%",margin:"auto"}} required />
+                                </Form.Group>
+                                <Form.Group id="password">
+                                    <div style={{width:"70%",margin:"auto"}}>
+                                        <Form.Label className="label">Password</Form.Label>
+                                    </div>
+                                    <Form.Control type="password" ref={passwordRef} style={{width:"70%",margin:"auto"}} required />
+                                </Form.Group>
+                                <Form.Group id="password-confirm">
+                                    <div style={{width:"70%",margin:"auto"}}>
+                                        <Form.Label className="label">Password Confirmation</Form.Label>
+                                    </div>
+                                    <Form.Control type="password" ref={passwordConfirmRef} style={{width:"70%",margin:"auto"}} required />
+                                </Form.Group>
+                                <Form.Group className="text-center">
+                                    <Button disabled={loading} style={{width:"70%",margin:"auto"}} type="submit">
+                                        Register
+                                    </Button>
+                                </Form.Group>
+                                <div className="mt-2 new" style={{width:"70%",margin:"auto"}}>
+                                    Already have an Account? <Link to="/login" className="label">Log In</Link>
                                 </div>
-                                <Form.Control type="email" ref={emailRef} style={{width:"70%",margin:"auto"}} required />
-                            </Form.Group>
-                            <Form.Group id="password">
-                                <div style={{width:"70%",margin:"auto"}}>
-                                    <Form.Label className="label">Password</Form.Label>
-                                </div>
-                                <Form.Control type="password" ref={passwordRef} style={{width:"70%",margin:"auto"}} required />
-                            </Form.Group>
-                            <Form.Group id="password-confirm">
-                                <div style={{width:"70%",margin:"auto"}}>
-                                    <Form.Label className="label">Password Confirmation</Form.Label>
-                                </div>
-                                <Form.Control type="password" ref={passwordConfirmRef} style={{width:"70%",margin:"auto"}} required />
-                            </Form.Group>
-                            <Form.Group className="text-center">
-                                <Button disabled={loading} style={{width:"70%",margin:"auto"}} type="submit">
-                                    Register
-                                </Button>
-                            </Form.Group>
-                            <div className="mt-2 new" style={{width:"70%",margin:"auto"}}>
-                                Already have an Account? <Link to="/login" className="label">Log In</Link>
-                            </div>
-                        </Form>
-                       
+                            </Form>
+                        </div>
                     </div>
                 </div>
-                
             </div>
-        </div>
-            
-            
         </div>
     )
 }

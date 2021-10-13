@@ -1,7 +1,6 @@
 /*eslint-disable*/
 import React, { useState, useRef, useEffect}  from "react";
 import { Link, useHistory } from "react-router-dom";
-import { Modal, Button } from "react-bootstrap";
 import swal from 'sweetalert';
 import ModalComp from "../Modal/Modal"
 import "./Sidebar.css"

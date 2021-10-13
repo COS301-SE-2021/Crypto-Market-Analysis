@@ -107,7 +107,7 @@ export default function AllCryptos(props)
     }
   }
 
-    const onCancel =(e)=>{
+    const onCancel =()=>{
         setShow(false);
     }
     const OnContinue =()=>{

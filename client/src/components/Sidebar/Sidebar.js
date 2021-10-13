@@ -124,12 +124,11 @@ export default function Sidebar(props) {
                 // className="md:block text-left text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold  px-0"
                 to="/home"
             >
-              <img className="mt-3" src="/cryptosis2-t.png"/>
+              <img className="mt-3" src="/cryptosis2-t.png" alt={"No image loaded"}/>
             </Link>
             {/* User */}
             <ul className="md:hidden items-center flex flex-wrap list-none">
               <li className="inline-block relative">
-                {/* <NotificationDropdown /> */}
               </li>
               <li className="inline-block relative">
                 {/* <UserDropdown /> */}

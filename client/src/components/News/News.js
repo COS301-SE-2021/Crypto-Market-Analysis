@@ -178,7 +178,7 @@ export default function News(props) {
                         }
                         article_card.className += ` col-5 card mr-5 mt-5`;
                         article_card.innerHTML = `<a href=${article.url}>
-                                                <div style="max-width: 28em;"><img src=${article.image.thumbnail} class="card-img-top my-3" style="text-decoration: none; color: black; height: 15em;" alt={"No image"}></div>
+                                                <div style="max-width: 28em;"><img src=${article.image.thumbnail} className="card-img-top my-3" style="text-decoration: none; color: black; height: 15em;" alt={"No image"}></div>
                                                 <div className="card-body">
                                                     ${icon_element}
                                                     <p className="h6 card-subtitle mb-2 text-muted">${article.provider.name.toUpperCase()}</p> 
@@ -198,7 +198,7 @@ export default function News(props) {
             }
             else{
                 news_parent_element.innerHTML = "";
-                news_parent_element.innerHTML = `<div class={'text-blueGray-600 inline-block text-sm uppercase font-bold'}>There's no news to display at the moment. Check again later</div>`;
+                news_parent_element.innerHTML = `<div className={'text-blueGray-600 inline-block text-sm uppercase font-bold'}>There's no news to display at the moment. Check again later</div>`;
                 news_parent_element.style.cssText = `margin:auto; margin-top:1em; width:50% ;`
             }
             
@@ -206,7 +206,7 @@ export default function News(props) {
         }).catch(error => {
             console.error(`An error occurred while trying to retrieve the news articles: ${error}`);
             news_parent_element.innerHTML = "";
-            news_parent_element.innerHTML = `<div class={'text-blueGray-600 inline-block text-sm uppercase font-bold'}>Cannot get news articles at this moment. Please try again later</div>`;
+            news_parent_element.innerHTML = `<div className={'text-blueGray-600 inline-block text-sm uppercase font-bold'}>Cannot get news articles at this moment. Please try again later</div>`;
             news_parent_element.style.cssText = `margin:auto; margin-top:1em; width:50% ;`
         });
         setTimeout(()=>{

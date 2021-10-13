@@ -1,11 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {
-    View,
-    Text,
-    SafeAreaView,
-    Image,
-    ScrollView,
-} from "react-native";
 import axios from "axios";
 import Button from "@material-ui/core/Button";
 import {makeStyles} from "@material-ui/core/styles";

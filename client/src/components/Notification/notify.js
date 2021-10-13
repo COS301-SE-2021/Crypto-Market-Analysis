@@ -1,5 +1,6 @@
 import React from "react";
-
+import {Link} from "react-router-dom";
+import axios from "axios";
 import {
     Alert,
     Card,
@@ -7,9 +8,8 @@ import {
     Row,
     Col,
 } from "react-bootstrap";
-import db from "../../firebase";
-import {Link} from "react-router-dom";
-import axios from "axios";
+
+
 class Notifications extends React.Component {
 
     constructor(props) {

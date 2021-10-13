@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import {AppBar, Button, Collapse,Toolbar} from "@material-ui/core";
 import React, {useEffect, useState} from 'react';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     root:{
         display:'flex',
         justifyContent:'flex-end',

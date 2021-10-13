@@ -7,7 +7,7 @@ import HomeIcon from '@material-ui/icons/Home'
 import {Link} from "react-router-dom";
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     root:{
         display:'flex',
         justifyContent:'center',

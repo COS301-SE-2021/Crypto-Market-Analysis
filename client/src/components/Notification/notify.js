@@ -74,7 +74,7 @@ class Notifications extends React.Component {
                                         <p className="text-warning"><h3>Cryptocurrency Notification </h3></p><p>{key}</p>
 
                                     {value.Email}
-                                    <br></br>
+                                    <br/>
 
                                                  <button  onClick={this.handleDelete} value={key} type="button" className="btn btn-outline-warning"><i className="fas fa-trash-alt"></i>Delete</button>
                     </span>

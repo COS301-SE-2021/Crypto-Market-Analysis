@@ -7,10 +7,6 @@ import "./Sidebar.css"
 import db from "../../firebase";
 import axios from "axios";
 
-// import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
-// import UserDropdown from "components/Dropdowns/UserDropdown.js";
-
-
 export default function Sidebar(props) {
 
   const unblockHandle = useRef()

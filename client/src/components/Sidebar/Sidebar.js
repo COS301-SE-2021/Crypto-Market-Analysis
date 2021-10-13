@@ -121,7 +121,6 @@ export default function Sidebar(props) {
             </button>
             {/* Brand */}
             <Link
-                // className="md:block text-left text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold  px-0"
                 to="/home"
             >
               <img className="mt-3" src="/cryptosis2-t.png" alt={"No image loaded"}/>
